@@ -1,0 +1,11 @@
+/*
+*= require webjars/openlayers/3.8.2/ol.css
+*= require_self
+*/
+
+#map {
+	width: 1024px;
+	height: 512px;
+    border: solid thin #255b17;
+    margin: auto;
+}

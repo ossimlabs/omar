@@ -1,0 +1,327 @@
+---
+grails:
+    profile: web
+    codegen:
+        defaultPackage: omar.app
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+spring:
+    groovy:
+        template:
+            check-template-location: false
+
+---
+grails:
+    mime:
+        disable:
+            accept:
+                header:
+                    userAgents:
+                        - Gecko
+                        - WebKit
+                        - Presto
+                        - Trident
+        types:
+            all: '*/*'
+            atom: application/atom+xml
+            css: text/css
+            csv: text/csv
+            form: application/x-www-form-urlencoded
+            html:
+              - text/html
+              - application/xhtml+xml
+            js: text/javascript
+            json:
+              - application/json
+              - text/json
+            multipartForm: multipart/form-data
+            pdf: application/pdf
+            rss: application/rss+xml
+            text: text/plain
+            hal:
+              - application/hal+json
+              - application/hal+xml
+            xml:
+              - text/xml
+              - application/xml
+    urlmapping:
+        cache:
+            maxsize: 1000
+    controllers:
+        defaultScope: singleton
+    converters:
+        encoding: UTF-8
+    views:
+        default:
+            codec: html
+        gsp:
+            encoding: UTF-8
+            htmlcodec: xml
+            codecs:
+                expression: html
+                scriptlets: html
+                taglib: none
+                staticparts: none
+---
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: true
+        use_query_cache: false
+        region.factory_class: 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
+
+endpoints:
+    jmx:
+        unique-names: true
+
+dataSource:
+    pooled: true
+    jmxExport: true
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+environments:
+    development:
+        dataSource:
+            dbCreate: create-drop
+            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    test:
+        dataSource:
+            dbCreate: update
+            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    production:
+        dataSource:
+            dbCreate: update
+            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            properties:
+                jmxEnabled: true
+                initialSize: 5
+                maxActive: 50
+                minIdle: 5
+                maxIdle: 25
+                maxWait: 10000
+                maxAge: 600000
+                timeBetweenEvictionRunsMillis: 5000
+                minEvictableIdleTimeMillis: 60000
+                validationQuery: SELECT 1
+                validationQueryTimeout: 3
+                validationInterval: 15000
+                testOnBorrow: true
+                testWhileIdle: true
+                testOnReturn: false
+                jdbcInterceptors: ConnectionState
+                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+
+wfs:
+  geoserverHome: /Applications/GeoServer.app/Contents/Java
+
+  featureTypeNamespaces:
+      - prefix: it.geosolutions
+        uri: http://www.geo-solutions.it
+      - prefix: cite
+        uri: http://www.opengeospatial.net/cite
+      - prefix: omar
+        uri: http://omar.ossim.org
+      - prefix: tiger
+        uri: http://www.census.gov
+      - prefix: sde
+        uri: http://geoserver.sf.net
+      - prefix: topp
+        uri: http://www.openplans.org/topp
+      - prefix: sf
+        uri: http://www.openplans.org/spearfish
+      - prefix: nurc
+        uri: http://www.nurc.nato.int
+
+  datastores:
+      - namespaceId: tiger
+        datastoreId: tiger
+        datastoreParams:
+          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/nyc
+          namespace: http://www.census.gov
+
+      - namespaceId: sf
+        datastoreId: sf
+        datastoreParams:
+          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/sf
+          namespace: http://www.openplans.org/spearfish
+
+      - namespaceId: topp
+        datastoreId: states_shapefile
+        datastoreParams:
+          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/shapefiles
+          namespace: http://www.openplans.org/topp
+
+      - namespaceId: topp
+        datastoreId: taz_shapes
+        datastoreParams:
+          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/taz_shapes
+          namespace: http://www.openplans.org/topp
+
+      - namespaceId: omar
+        datastoreId: omar-1.8.19-prod
+        datastoreParams:
+          dbtype: postgis
+          host: localhost
+          port: '5432'
+          database: omardb-1.8.19-prod
+          user: postgres
+          passwd: postgres
+          'Expose primary keys': 'true'
+          namespace: http://omar.ossim.org
+
+  featureTypes:
+      - name: poly_landmarks
+        title: Manhattan (NY) landmarks
+        description: Manhattan landmarks, identifies water, lakes, parks, interesting buildings
+        keywords:
+          - landmarks
+          - DS_poly_landmarks
+          - manhattan
+          - poly_landmarks
+        datastoreId: tiger
+      - name: poi
+        title: Manhattan (NY) points of interest
+        description: Points of interest in New York, New York (on Manhattan). One of the attributes contains the name of a file with a picture of the point of interest.
+        keywords:
+          - poi
+          - Manhattan
+          - DS_poi
+          - points_of_interest,
+        datastoreId: tiger
+
+      - name: tiger_roads
+        title: Manhattan (NY) roads
+        description: Highly simplified road layout of Manhattan in New York..
+        keywords:
+          - DS_tiger_roads
+          - tiger_roads
+          - roads
+        datastoreId: tiger
+
+      - name: archsites
+        title: Spearfish archeological sites
+        description: Sample data from GRASS, archeological sites location, Spearfish, South Dakota, USA
+        keywords:
+          - archsites
+          - spearfish
+          - sfArchsites
+          - archeology
+        datastoreId: sf
+
+      - name: bugsites
+        title: Spearfish bug locations
+        description: Sample data from GRASS, bug sites location, Spearfish, South Dakota, USA
+        keywords:
+          - spearfish
+          - sfBugsites
+          - insects
+          - bugsites
+          - tiger_beetles
+        datastoreId: sf
+
+      - name: restricted
+        title: Spearfish restricted areas
+        description: Sample data from GRASS, restricted areas, Spearfish, South Dakota, USA
+        keywords:
+          - spearfish
+          - restricted
+          - areas
+          - sfRestricted
+        datastoreId: sf
+
+      - name: roads
+        title: Spearfish roads
+        description: Sample data from GRASS, road layout, Spearfish, South Dakota, USA
+        keywords:
+          - sfRoads
+          - spearfish
+          - roads
+        datastoreId: sf
+
+      - name: streams
+        title: Spearfish streams
+        description: Sample data from GRASS, streams, Spearfish, South Dakota, USA
+        keywords:
+          - spearfish
+          - sfStreams
+          - streams
+        datastoreId: sf
+
+      - name: tasmania_cities
+        title: Tasmania cities
+        description: Cities in Tasmania (actually, just the capital
+        keywords:
+          - cities
+          - Tasmania
+        datastoreId: taz_shapes
+
+      - name: tasmania_roads
+        title: Tasmania roads
+        description: Main Tasmania roads
+        keywords:
+          - Roads
+          - Tasmania
+        datastoreId: taz_shapes
+
+      - name: tasmania_state_boundaries
+        title: Tasmania state boundaries
+        description: Tasmania state boundaries
+        keywords:
+          - boundaries
+          - tasmania_state_boundaries
+          - Tasmania
+        datastoreId: taz_shapes
+
+      - name: tasmania_water_bodies
+        title: Tasmania water bodies
+        description: Tasmania water bodies
+        keywords:
+          - Lakes
+          - Bodies
+          - Australia
+          - Water
+          - Tasmania
+        datastoreId: taz_shapes
+
+      - name: states
+        title: USA Population
+        description: This is some census data on the states.
+        keywords:
+          - census
+          - united
+          - boundaries
+          - state
+          - states
+        datastoreId: states_shapefile
+
+      - name: giant_polygon
+        title: World rectangle
+        description: A simple rectangular polygon covering most of the world, it's only used for the purpose of providing a background (WMS bgcolor could be used instead)
+        keywords:
+          - DS_giant_polygon
+          - giant_polygon
+        datastoreId: tiger
+
+      - name: raster_entry
+        title: raster_entry
+        description: ''
+        keywords:
+          - raster_entry
+          - features
+        datastoreId: omar-1.8.19-prod
+
+      - name: video_data_set
+        title: video_data_set
+        description: ''
+        keywords:
+          - video_data_set
+          - features
+        datastoreId: omar-1.8.19-prod
+
+grails.serverURL: http://10.0.10.183:9999
