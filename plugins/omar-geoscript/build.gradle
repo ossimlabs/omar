@@ -8,6 +8,8 @@ buildscript {
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+    classpath "org.grails.plugins:hibernate:4.3.10.5"
+
   }
 }
 
@@ -58,6 +60,13 @@ dependencyManagement {
 
 dependencies {
   compile project(':omar-core')
+
+
+  compile "org.grails.plugins:hibernate"
+  compile "org.grails.plugins:cache"
+  compile "org.hibernate:hibernate-ehcache"
+  compile "org.grails.plugins:scaffolding"
+
 
   compile 'net.sf.opencsv:opencsv:2.3'
   compile 'org.postgresql:postgresql:9.4-1203-jdbc42'
