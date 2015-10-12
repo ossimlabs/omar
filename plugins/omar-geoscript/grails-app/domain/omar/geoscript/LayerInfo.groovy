@@ -1,5 +1,8 @@
 package omar.geoscript
 
+import groovy.transform.ToString
+
+@ToString(includeNames = true)
 class LayerInfo
 {
   String name
