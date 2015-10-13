@@ -17,7 +17,8 @@ import omar.geoscript.LayerInfo
 import omar.geoscript.NamespaceInfo
 import omar.geoscript.WorkspaceInfo
 
-
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
 
 class WebFeatureService
 {
@@ -620,6 +621,112 @@ class WebFeatureService
 
   def getFeature(GetFeatureRequest wfsParams)
   {
+    def results
+    def contentType
+
+    switch ( wfsParams?.outputFormat?.toUpperCase() )
+    {
+    case 'GML3':
+      results = getFeatureGML3( wfsParams )
+      contentType = 'text/xml'
+      break
+    case 'JSON':
+    case 'GEOJSON':
+      contentType = 'application/json'
+      results = getFeatureJSON( wfsParams )
+      break
+    default:
+      results = getFeatureGML3( wfsParams )
+      contentType = 'text/xml'
+      break
+    }
+
+    return [contentType: contentType, buffer: results]
+  }
+
+  private def getFeatureJSON(GetFeatureRequest wfsParams)
+  {
+    def (prefix, layerName) = wfsParams.typeName.split( ':' )
+
+    def layerInfo = LayerInfo.where {
+      name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
+    }.get()
+
+    def results
+
+
+    def wfsParamNames = [
+        'maxFeatures', 'startIndex', 'propertyName', 'sortBy', 'filter'
+    ]
+
+    def options = wfsParamNames.inject( [:] ) { options, wfsParamName ->
+      if ( wfsParams[wfsParamName] )
+      {
+        switch ( wfsParamName )
+        {
+        case 'maxFeatures':
+          options['max'] = wfsParams[wfsParamName]
+          break
+        case 'startIndex':
+          options['start'] = wfsParams[wfsParamName]
+          break
+        case 'propertyName':
+          options['fields'] = wfsParams[wfsParamName]?.split( ',' ) as List<String>
+          break
+        case 'sortBy':
+          options['sort'] = wfsParams[wfsParamName].split( ',' )?.collect {
+            def props = it.split( ' ' ) as List
+            if ( props.size() == 2 )
+            {
+              props[1] = ( props[1].equalsIgnoreCase( 'D' ) ) ? 'DESC' : 'ASC'
+            }
+            props
+          }
+          break
+        default:
+          options[wfsParamName] = wfsParams[wfsParamName]
+        }
+      }
+      options
+    }
+
+    Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
+      def layer = workspace[layerName]
+      def count = layer.count( wfsParams.filter )
+
+      def features = layer.collectFromFeature( options ) { feature ->
+        switch ( wfsParams?.outputFormat?.toUpperCase() )
+        {
+        case 'GML3':
+          return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
+          break
+        case 'GEOJSON':
+        case 'JSON':
+          return new JsonSlurper().parseText( feature.geoJSON )
+          break
+        default:
+          return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
+        }
+      }
+
+      results = [
+          crs: [
+              properties: [
+                  name: "urn:ogc:def:crs:${layer.proj.id}"
+              ],
+              type: "name"
+          ],
+          totalFeatures: count,
+          features: features,
+          type: "FeatureCollection"
+      ]
+    }
+
+    return JsonOutput.toJson( results )
+  }
+
+  private def getFeatureGML3(GetFeatureRequest wfsParams)
+  {
     LayerInfo layerInfo = findLayerInfo( wfsParams )
     def xml
 
@@ -677,9 +784,6 @@ class WebFeatureService
           grailsLinkGenerator.link( absolute: true, uri: '/schemas/wfs/1.1.0/wfs.xsd' )
       ]
 
-
-
-
       def features = layer.getFeatures( options )
 
       def x = {
@@ -708,6 +812,6 @@ class WebFeatureService
       xml = new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x )
     }
 
-    [contentType: 'text/xml', buffer: xml]
+    return xml
   }
 }
