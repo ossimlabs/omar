@@ -40,13 +40,14 @@
                                 <option>http://localhost:8080/omar/wfs</option>
                                 <option>http://localhost:8080/wfs</option>
                                 <option>http://10.0.10.183/geoserver/wfs</option>
+                                <option>http://10.0.10.183:9999/wfs</option>
                             </select>
 						</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">	
 							<label for="version">Version</label>
-							<select id="version" class="form-control">
+							<select id="version" class="form-control" ng-model="version">
 								<option>1.1.0</option>
 								<option>1.0.0</option>
 								<option>2.0.0</option>
@@ -73,10 +74,34 @@
 						<p>Use the select box to choose a feature type, and view the associated feature name and types.</p>
 					</div>
 				</div>
+                <div class="row" ng-show="showFeatureTypeSelect">
+                    <div class="col-md-6">
+                        <label for="featureType">CQL Filter</label>
+                        <input id="filter" type="text" class="form-control" ng-model="filter">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="maxFeatures">Max Features</label>
+                        <!--<input id="maxFeatures" type="text" class="form-control" ng-model="maxFeatures">-->
+                        <select id="maxFeatures" class="form-control" ng-model="maxFeatures">
+                            <option>5</option>
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                            <option>100</option>
+                            <option>200</option>
+                            <option>500</option>
+                            <option>1000</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <br>
+                        <button type="button" class="btn btn-primary" ng-click="getFeature()">Refresh</button>
+                    </div>
+                </div>
+                <br>
 				<div class="row" ng-show="showFeatureTypeSelect">
 					<div class="col-md-6">
 						<label for="featureType">Feature Types</label>
-
 <!-- 						<select id="featureType" ng-change="describeFeature()" ng-model="selectedCapability" class="form-control">
 							<option ng-repeat="capability in capabilities | orderBy:'name'" value="{{capability.name}}">{{capability.name}}</option>
 						</select> -->
@@ -141,7 +166,6 @@
 		</div>
 	</div>
 
-	
 	<!-- Vendors -->
 	<script src= "../node_modules/angular/angular.js"></script>
 	<script src= "../node_modules/angular-smart-table/dist/smart-table.js"></script>

@@ -1,10 +1,10 @@
 'use strict';
 omarApp.controller('wfsCtrl', ['$scope', '$http', '$filter', '$log', '$q', 'usSpinnerService', function ($scope, $http, $filter, $log, $q, usSpinnerService) {
 
-    //OpenLayers.ProxyHost = "/ogc/wfsParser/proxyWFS?url="
+    OpenLayers.ProxyHost = "/proxy/index?url="
 
     $scope.source = [];
-	$scope.endPoint = 'http://demo.boundlessgeo.com/geoserver/wfs';
+	//$scope.endPoint = 'http://demo.boundlessgeo.com/geoserver/wfs';
     //$scope.endPoint = 'http://omar.ossim.org/omar/wfs';
     //$scope.endPoint = 'http://localhost:8080/geoserver/wfs';
     //$scope.endPoint = 'http://demo.opengeo.org/geoserver/wfs';
@@ -12,8 +12,13 @@ omarApp.controller('wfsCtrl', ['$scope', '$http', '$filter', '$log', '$q', 'usSp
     //$scope.endPoint = 'http://clc.developpement-durable.gouv.fr/geoserver/wfs';
     //$scope.endPoint = 'http://localhost:8080/omar/wfs'
     //$scope.endPoint = 'http://localhost:8080/wfs';
+    $scope.endPoint = 'http://10.0.10.183:9999/wfs';
     //$scope.endPoint = 'http://10.0.10.183/geoserver/wfs';
+
+    $scope.version = '1.1.0';
     $scope.outputFormat = 'JSON';
+    $scope.maxFeatures = '50';
+    $scope.filter = "file_type='nitf'"
 
     $scope.showFeatureTypeSelect = false;
     $scope.showFeatureTypeTable = false;
@@ -79,27 +84,32 @@ omarApp.controller('wfsCtrl', ['$scope', '$http', '$filter', '$log', '$q', 'usSp
 
 		var deferred = $q.defer();
 
-		wfsClient.getFeature(
-			$scope.selectedCapability.name,
-			$scope.selectedCapability.featureNS,
-			$scope.outputFormat,
-			undefined,
-            //"STATE_ABBR='IN'",
-			function(data) {	
 
+        var wfsRequest = {
+            typeName: $scope.selectedCapability.name,
+            namespace: $scope.selectedCapability.featureNS,
+            version: $scope.version,
+            maxFeatures: $scope.maxFeatures,
+            outputFormat: $scope.outputFormat
+        };
+
+        if($scope.filter && $scope.filter.trim() !== ''){
+            wfsRequest.cql = $scope.filter;
+        }
+
+		wfsClient.getFeature(wfsRequest, function(data) {
 				deferred.resolve(data);
+        });
 
-        	});
+        var promise = deferred.promise;
+        promise.then(function(data){
 
-			var promise = deferred.promise;
-			promise.then(function(data){
+            $scope.features = data;
+            $log.warn('$scope.features', $scope.features);
+            $scope.showGetFeatureTable = true;
+            usSpinnerService.stop('spinner');
 
-				$scope.features = data;
-				$log.warn('$scope.features', $scope.features);
-				$scope.showGetFeatureTable = true;
-                usSpinnerService.stop('spinner');
-
-			});
+        });
 
 	}
 }]);

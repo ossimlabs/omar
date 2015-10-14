@@ -11,8 +11,29 @@ var OGC = OGC || {WFS: {}};
 OGC.WFS.Client = OpenLayers.Class({
     initialize: function ( wfsServer ){
         this.wfsServer = wfsServer;
-        //this.wfsFeatureTypes = this.getFeatureTypes();
-        this.wfsFeatureTypeSchemas = null; // = this.getFeatureTypeSchema();
+        function getName( node, obj )
+        {
+            var name = this.getChildValue( node );
+            if ( name )
+            {
+                var parts = name.split( ":" );
+                obj.name = name; // parts.pop();
+                if ( parts.length > 0 )
+                {
+                    obj.featureNS = this.lookupNamespaceURI( node, parts[0] );
+                }
+            }
+        }
+
+        var wfsVersions = ['v1', 'v1_0_0', 'v1_1_0', 'v2_0_0'];
+
+        for ( var i = 0; i < wfsVersions.length; i++ )
+        {
+            OpenLayers.Util.extend( OpenLayers.Format.WFSCapabilities[wfsVersions[i]].prototype.readers.wfs, {
+                Name: getName
+            } );
+        }
+
     },
     getFeatureTypes: function (cb){
         var localFeatureTypes = [];
@@ -198,9 +219,9 @@ OGC.WFS.Client = OpenLayers.Class({
 
         return results;
     },
-    getFeature: function (featureTypeName, namespace, outputFormat, filter, callback){
-        
-        var parts = featureTypeName.split( ":" );
+    getFeature: function (wfsParams, callback){
+
+        var parts = wfsParams.typeName.split( ":" );
         var typeName = parts.pop();
         var prefix,
             isAsync,
@@ -217,19 +238,27 @@ OGC.WFS.Client = OpenLayers.Class({
 
         // WFS getFeature request parameters
         var params = {
-            service: 'WFS', // static
-            version: '1.1.0', // static
+            service: 'WFS',
+            version: wfsParams.version || '1.1.0',
             request: 'GetFeature', // static
-            maxFeatures: '50', // variable?
+            maxFeatures: wfsParams.maxFeatures || '50',
             typeName: prefix + ':' + typeName,
-            namespace: 'xmlns(' + prefix + '=' + namespace + ')',
-            outputFormat: '', // variable
-            filter: filter || undefined // variable
+            outputFormat: wfsParams.outputFormat || 'GML3'
         };
 
-        params.outputFormat = outputFormat;
+        if (wfsParams.cql){
+            params.filter = this.convertCqlToXml(wfsParams.cql);
+        } else if (wfsParams.filter) {
+            params.filter = wfsParams.filter;
+        }
+
+        if(wfsParams.namespace){
+            params.namespace = 'xmlns(' + prefix + '=' + wfsParams.namespace + ')';
+        }
+
         console.log('params', params);
 
+        //TODO: Convert to utility function
         switch(params.outputFormat){
             case 'GML3':
                 console.log('Requesting GML3');
@@ -273,7 +302,6 @@ OGC.WFS.Client = OpenLayers.Class({
             }
         } );
     },
-
     convertCqlToXml: function (filterCql){
         var cql = new OpenLayers.Format.CQL();
         var xml = new OpenLayers.Format.XML();
@@ -281,88 +309,6 @@ OGC.WFS.Client = OpenLayers.Class({
 
         return filterXml;
     },
-
-
     CLASS_NAME: "OGC.WFS.Client"
 } );
 
-var WFSClient = (function ()
-{
-    function getName( node, obj )
-    {
-        var name = this.getChildValue( node );
-        if ( name )
-        {
-            var parts = name.split( ":" );
-            obj.name = name; // parts.pop();
-            if ( parts.length > 0 )
-            {
-                obj.featureNS = this.lookupNamespaceURI( node, parts[0] );
-            }
-        }
-    }
-
-    var wfsVersions = ['v1', 'v1_0_0', 'v1_1_0', 'v2_0_0'];
-
-    for ( var i = 0; i < wfsVersions.length; i++ )
-    {
-        OpenLayers.Util.extend( OpenLayers.Format.WFSCapabilities[wfsVersions[i]].prototype.readers.wfs, {
-            Name: getName
-        } );
-    }
-
-
-    function init( params )
-    {
-        if ( params.wfsProxy ) {
-            console.log(params.wfsProxy);
-            OpenLayers.ProxyHost = params.wfsProxy;
-        }
-
-
-        var wfsClient = new OGC.WFS.Client( params.wfsServer );
-
-        console.log( 'getFeatureTypes', wfsClient.getFeatureTypes() );
-
-        /*
-        console.log( 'getFeatureTypeSchema for topp:states',
-            wfsClient.getFeatureTypeSchema( 'states', 'http://www.openplans.org/topp' ) );
-
-        wfsClient.getFeature(
-            'states',
-            'http://www.openplans.org/topp',
-            "STATE_ABBR='IN'",
-            function ( it )
-            {
-                console.log( "getFeature for topp:states where STATE_ABBR='IN'", it );
-            }
-        );
-        */
-
-        //wfsClient.getFeature('raster_entry', 'http://omar.ossim.org', "file_type='nitf'", function(it) {
-        //    console.log('getFeature', it);
-        //} );
-
-        //
-        //wfsClient.getFeatureTypes( function ( w )
-        //{
-        //    console.log( '2', w.name );
-        //} );
-        //
-        //console.log( '3', wfsClient.getFeatureTypes().map( function ( it )
-        //{
-        //    return it.name;
-        //} ) );
-        //
-        //var featureTypeName = 'topp:states';
-        //wfsClient.getFeatureTypeSchema( featureTypeName );
-        //wfsClient.getFeature( featureTypeName, "STATE_ABBR='IN'" );
-        //
-        //var getFeatureURL = "http://localhost:8080/geoserver/wfs";
-//        var getFeatureURL = "http://clc.developpement-durable.gouv.fr/geoserver/wfs";
-    }
-
-    return {
-        init: init
-    }
-})();
