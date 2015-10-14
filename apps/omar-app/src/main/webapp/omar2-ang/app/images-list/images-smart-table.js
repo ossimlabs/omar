@@ -13,6 +13,7 @@ omarApp.controller('wfsCtrl', ['$scope', '$http', '$filter', '$log', '$q', 'usSp
     //$scope.endPoint = 'http://localhost:8080/omar/wfs'
     //$scope.endPoint = 'http://localhost:8080/wfs';
     //$scope.endPoint = 'http://10.0.10.183/geoserver/wfs';
+    $scope.outputFormat = 'JSON';
 
     $scope.showFeatureTypeSelect = false;
     $scope.showFeatureTypeTable = false;

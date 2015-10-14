@@ -29,7 +29,18 @@
 					<div class="col-md-6">
 						<div class="form-group">	
 							<label for="endPoint">WFS URL</label>
-							<input id="endPoint" type="text" class="form-control" ng-model="endPoint">
+							<!--<input id="endPoint" type="text" class="form-control" ng-model="endPoint">-->
+                            <select id="endPoint" class="form-control" ng-model="endPoint">
+                                <option>http://demo.boundlessgeo.com/geoserver/wfs</option>
+                                <option>http://omar.ossim.org/omar/wfs</option>
+                                <option>http://localhost:8080/geoserver/wfs</option>
+                                <option>http://demo.opengeo.org/geoserver/wfs</option>
+                                <option>http://giswebservices.massgis.state.ma.us/geoserver/wfs</option>
+                                <option>http://clc.developpement-durable.gouv.fr/geoserver/wfs</option>
+                                <option>http://localhost:8080/omar/wfs</option>
+                                <option>http://localhost:8080/wfs</option>
+                                <option>http://10.0.10.183/geoserver/wfs</option>
+                            </select>
 						</div>
 					</div>
 					<div class="col-md-2">
@@ -44,7 +55,7 @@
 					</div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="version">Output</label>
+                            <label for="outputFormat">Output</label>
                             <select id="outputFormat" class="form-control" ng-model="outputFormat">
                                 <option>JSON</option>
                                 <option>GML3</option>
