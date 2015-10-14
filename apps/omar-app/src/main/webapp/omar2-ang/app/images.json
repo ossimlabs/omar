@@ -1,0 +1,11 @@
+[
+	{"id": 1,"imageID": "20150929-123","sensor_id": "Buckeye"},
+	{"id": 2, "imageID": "20150929-486", "sensor_id": "Hoosier"},
+	{"id": 3, "imageID": "20150929-789", "sensor_id": "Illini"},
+	{"id": 4, "imageID": "20150929-789", "sensor_id": "Gopher"},
+	{"id": 5, "imageID": "20150929-778", "sensor_id": "Spartan"},
+	{"id": 6, "imageID": "20150929-799", "sensor_id": "Boilermaker"},
+	{"id": 7, "imageID": "20150929-799", "sensor_id": "Wolverine"},
+	{"id": 9, "imageID": "20150930-729", "sensor_id": "Hawkeye"},
+	{"id": 10, "imageID": "20150930-729", "sensor_id": "Badger"}
+]
