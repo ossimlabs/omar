@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>DT Test</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-superhero.css">
+    <link rel="stylesheet" type="text/css" href="../../node_modules/datatables/media/css/jquery.dataTables.css">
+
+</head>
+<body>
+    <h1>Data Table</h1>
+
+    <div ng-controller="WithOptionsCtrl as showCase">
+        <table datatable="pitrfl" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Foo</td>
+                <td>Bar</td>
+            </tr>
+            <tr>
+                <td>123</td>
+                <td>Someone</td>
+                <td>Youknow</td>
+            </tr>
+            <tr>
+                <td>987</td>
+                <td>Iamout</td>
+                <td>Ofinspiration</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+<!-- Vendors -->
+<script src= "../../node_modules/jquery/dist/jquery.js"></script>
+<script src= "../../node_modules/datatables/media/js/jquery.dataTables.js"></script>
+<script src= "../../node_modules/angular/angular.js"></script>
+<script src= "../../node_modules/angular-datatables/dist/angular-datatables.js"></script>
+
+<!-- Common -->
+<script src= "dt.js"></script>
+
+</body>
+</html>

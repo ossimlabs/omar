@@ -3,9 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>WFS Service Info</title>
-	
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-superhero.css">
+
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap-superhero.css">
 	<style>
+
 		.the-table {
 		    white-space: nowrap;
 		    max-width: none;
@@ -23,7 +24,7 @@
 	<div ng-controller="wfsCtrl" class="container">
 		<div class="row">
 			<h1 class="alert alert-success">WFS Service Info</h1>
-			<p>Use the following input to query a WFS end point.  &nbsp;A successful query will return a list of Feature Types.  &nbsp;Toggle through the feature types list to view sample data from the Feature Type.  &nbsp;Note: the sample data is limited to 50 items at this time.</p>
+			<p>Use the following input to query a WFS end point.  &nbsp;A successful query will return a list of Feature Types.  &nbsp;Toggle through the feature types list to view sample data from the Feature Type.  Note: the sample data is limited to 50 items at this time.</p>
 			<form>
 				<div class="row">
 					<div class="col-md-6">
@@ -69,15 +70,33 @@
 						<button type="button" class="btn btn-primary" ng-click="getCapabilities()">Get Info</button>
 					</div>
 				</div>
-				<div class="row" ng-show="showFeatureTypeSelect">
-					<div class="col-md-6">
-						<p>Use the select box to choose a feature type, and view the associated feature name and types.</p>
-					</div>
-				</div>
+                <br>
                 <div class="row" ng-show="showFeatureTypeSelect">
                     <div class="col-md-6">
+                        <p>Use the select box to choose a feature type, and view the associated feature name and types.</p>
+                    </div>
+                </div>
+				<div class="row" ng-show="showFeatureTypeSelect">
+					<div class="col-md-6">
+						<label for="featureType">Feature Types</label>
+<!-- 						<select id="featureType" ng-change="describeFeature()" ng-model="selectedCapability" class="form-control">
+							<option ng-repeat="capability in capabilities | orderBy:'name'" value="{{capability.name}}">{{capability.name}}</option>
+						</select> -->
+						<select id="featureType" ng-change="describeFeature()" ng-options="capability.name group by capability.featureNS for capability in capabilities" ng-model="selectedCapability" class="form-control">
+						</select>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">	
+							<label for="featureNamespace">Namespace</label>
+							<input id="featureNamespace" type="text" class="form-control" ng-model="selectedCapability.featureNS" disabled>
+						</div>
+					</div>
+				</div>
+                <div class="row" ng-show="showFeatureTypeTable">
+                    <div class="col-md-6">
                         <label for="featureType">CQL Filter</label>
-                        <input id="filter" type="text" class="form-control" ng-model="filter">
+                        <input id="filter" type="text" class="form-control" ng-model="filter"
+                               placeholder="STATE_NAME='Indiana'">
                     </div>
                     <div class="col-md-4">
                         <label for="maxFeatures">Max Features</label>
@@ -98,24 +117,6 @@
                         <button type="button" class="btn btn-primary" ng-click="getFeature()">Refresh</button>
                     </div>
                 </div>
-                <br>
-				<div class="row" ng-show="showFeatureTypeSelect">
-					<div class="col-md-6">
-						<label for="featureType">Feature Types</label>
-<!-- 						<select id="featureType" ng-change="describeFeature()" ng-model="selectedCapability" class="form-control">
-							<option ng-repeat="capability in capabilities | orderBy:'name'" value="{{capability.name}}">{{capability.name}}</option>
-						</select> -->
-						
-						<select id="featureType" ng-change="describeFeature()" ng-options="capability.name group by capability.featureNS for capability in capabilities" ng-model="selectedCapability" class="form-control">
-						</select>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">	
-							<label for="featureNamespace">Namespace</label>
-							<input id="featureNamespace" type="text" class="form-control" ng-model="selectedCapability.featureNS" disabled>
-						</div>
-					</div>
-				</div>
 			</form>	
 		</div>
 		<br>
@@ -160,26 +161,27 @@
 								<td ng-repeat="column in columns">{{feature.properties[column.name]}}</td>
 							</tr>
 						</tbody>
-					</table>					
+					</table>
+                    <br>
+                    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- Vendors -->
-	<script src= "../node_modules/angular/angular.js"></script>
-	<script src= "../node_modules/angular-smart-table/dist/smart-table.js"></script>
-	<script src= "../node_modules/spin.js/spin.js"></script>
-	<script src= "../node_modules/angular-spinner/angular-spinner.min.js"></script>
+    <script src= "../../node_modules/jquery/dist/jquery.js"></script>
+    <script src= "../../node_modules/angular/angular.js"></script>
+	<script src= "../../node_modules/spin.js/spin.js"></script>
+	<script src= "../../node_modules/angular-spinner/angular-spinner.min.js"></script>
 	
 	<!-- Common -->
-	<script src= "main/app.js"></script>
+	<script src= "../app.module.js"></script>
 	<script src= "OpenLayersLite-formats.js"></script>
 	<script src= "WFSClient.js"></script>
 	
 	<!-- Controllers -->
-	<script src= "images-list/images-smart-table.js"></script>
-
+	<script src= "wfs.js"></script>
 
 
 </body>

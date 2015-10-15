@@ -1,5 +1,5 @@
 'use strict';
-omarApp.controller('wfsCtrl', ['$scope', '$http', '$filter', '$log', '$q', 'usSpinnerService', function ($scope, $http, $filter, $log, $q, usSpinnerService) {
+omarApp.controller('wfsCtrl', ['$scope', '$http', '$filter', '$log', '$q', 'usSpinnerService', function ($scope, $http, $filter, $log, $q, usSpinnerService, DTOptionsBuilder, DTColumnBuilder) {
 
     OpenLayers.ProxyHost = "/proxy/index?url="
 
@@ -11,14 +11,14 @@ omarApp.controller('wfsCtrl', ['$scope', '$http', '$filter', '$log', '$q', 'usSp
     //$scope.endPoint = 'http://giswebservices.massgis.state.ma.us/geoserver/wfs';
     //$scope.endPoint = 'http://clc.developpement-durable.gouv.fr/geoserver/wfs';
     //$scope.endPoint = 'http://localhost:8080/omar/wfs'
-    //$scope.endPoint = 'http://localhost:8080/wfs';
-    $scope.endPoint = 'http://10.0.10.183:9999/wfs';
+    $scope.endPoint = 'http://localhost:8080/wfs';
+    //$scope.endPoint = 'http://10.0.10.183:9999/wfs';
     //$scope.endPoint = 'http://10.0.10.183/geoserver/wfs';
 
     $scope.version = '1.1.0';
     $scope.outputFormat = 'JSON';
     $scope.maxFeatures = '50';
-    $scope.filter = "file_type='nitf'"
+    //$scope.filter = "file_type='nitf'"
 
     $scope.showFeatureTypeSelect = false;
     $scope.showFeatureTypeTable = false;
@@ -110,6 +110,5 @@ omarApp.controller('wfsCtrl', ['$scope', '$http', '$filter', '$log', '$q', 'usSp
             usSpinnerService.stop('spinner');
 
         });
-
 	}
 }]);
