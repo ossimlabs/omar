@@ -4,14 +4,19 @@
 'use strict';
 angular
     .module('omarApp')
-    .service('wfsService', wfsService)
+    .service('wfsService', wfsService);
 
     function wfsService ($q) {
 
         var wfsClient;
-        wfsClient = new OGC.WFS.Client('http://localhost:8080/wfs');
+        wfsClient = new OGC.WFS.Client('http://localhost:9999/wfs');
 
-        OpenLayers.ProxyHost = "/proxy/index?url="
+        console.log(wfsClient.convertCqlToXml(
+//            "BBOX(ground_geom, -180.0,-90.0,180.0,90.0)"
+            "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
+        ));
+
+        OpenLayers.ProxyHost = "/proxy/index?url=";
 
         var deferred = $q.defer();
 
@@ -21,7 +26,9 @@ angular
             version: '1.1.0',
             maxFeatures: 200,
             outputFormat: 'JSON',
-            //cql: "BBOX(ground_geom, -180.0,0.0,0.0,90.0)"
+//            cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
+//            cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
+              cql: "INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
         };
 
         //if($scope.filter && $scope.filter.trim() !== ''){
