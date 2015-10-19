@@ -8,17 +8,18 @@
 <body>
 
     <div class="container" ng-controller="ListController as list">
-        <h1>{{list.title}}</h1>
-        <p>The List</p>
-        <div class="well" ng-repeat="obj in list.wfsData">
-            <div>File Name: {{obj.properties.filename}}</div>
+        <h1>WFS: {{list.title}}</h1>
+
+        <p>A list of images from OMAR</p>
+        <p>Total Images:&nbsp;&nbsp;<span class="badge">{{list.wfsData.length}}</span></p>
+        <div ng-repeat="image in list.wfsData">
+            <div image-list image="image"></div>
         </div>
     </div>
 
     <script src="../../node_modules/jquery/dist/jquery.js"></script>
     <script src="../../node_modules/angular/angular.js"></script>
     <script src="../../node_modules/angular-ui-router/build/angular-ui-router.js"></script>
-
 
     <!-- Common -->
     <script src= "../app2.module.js"></script>
@@ -30,6 +31,7 @@
 
     <!-- List -->
     <script src="list-controller.js"></script>
+    <script src="list-directive.js"></script>
 
 
 </body>

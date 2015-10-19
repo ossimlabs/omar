@@ -19,9 +19,14 @@ angular
             typeName: 'omar:raster_entry',
             namespace: 'http://omar.ossim.org',
             version: '1.1.0',
-            maxFeatures: 50,
-            outputFormat: 'JSON'
+            maxFeatures: 200,
+            outputFormat: 'JSON',
+            //cql: "BBOX(ground_geom, -180.0,0.0,0.0,90.0)"
         };
+
+        //if($scope.filter && $scope.filter.trim() !== ''){
+        //    wfsRequest.cql = $scope.filter;
+        //}
 
         wfsClient.getFeature(wfsRequest, function(data) {
             deferred.resolve(data);

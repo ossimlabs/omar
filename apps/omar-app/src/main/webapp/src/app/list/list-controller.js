@@ -17,6 +17,7 @@ angular
         promise.then(function(data){
             vm.wfsData = data;
             $log.warn('wfsData', vm.wfsData);
+            $log.warn('wfsData.length', vm.wfsData.length);
         });
 
     }
