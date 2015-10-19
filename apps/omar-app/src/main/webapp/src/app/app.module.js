@@ -1,2 +1,2 @@
-var omarApp = angular.module('omarApp',['angularSpinner']);
+var omarApp = angular.module('omarApp',['angularSpinner', 'ui.router']);
 

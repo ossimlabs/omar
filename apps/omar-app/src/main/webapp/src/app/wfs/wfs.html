@@ -147,7 +147,7 @@
 			<div class="col-md-8">
 				<div class="the-container" ng-show="showGetFeatureTable">
 					<span us-spinner spinner-key="spinner"></span>
-					<table st-table="displayedCollection" class="table table-striped the-table" st-safe-src="rowCollection">
+					<table class="table table-striped the-table">
 						<thead>
 							<tr>
 								<th ng-repeat="column in columns" >{{column.name}}</th>
@@ -163,7 +163,6 @@
 						</tbody>
 					</table>
                     <br>
-                    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
 				</div>
 			</div>
 		</div>
@@ -172,6 +171,7 @@
 	<!-- Vendors -->
     <script src= "../../node_modules/jquery/dist/jquery.js"></script>
     <script src= "../../node_modules/angular/angular.js"></script>
+    <script src= "../../node_modules/angular-ui-router/build/angular-ui-router.js"></script>
 	<script src= "../../node_modules/spin.js/spin.js"></script>
 	<script src= "../../node_modules/angular-spinner/angular-spinner.min.js"></script>
 	

@@ -1,5 +1,5 @@
 'use strict';
-omarApp.controller('wfsCtrl', ['$scope', '$http', '$filter', '$log', '$q', 'usSpinnerService', function ($scope, $http, $filter, $log, $q, usSpinnerService, DTOptionsBuilder, DTColumnBuilder) {
+omarApp.controller('wfsCtrl', ['$scope', '$log', '$q', 'usSpinnerService', function ($scope, $log, $q, usSpinnerService) {
 
     OpenLayers.ProxyHost = "/proxy/index?url="
 
