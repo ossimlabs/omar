@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ ! -d "$HOME/.sdkman" ]; then
    curl -s get.sdkman.io | bash
 fi
