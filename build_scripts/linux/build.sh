@@ -6,6 +6,9 @@ export OMAR_DEV_HOME=$PWD
 export OMAR_HOME=$OMAR_DEV_HOME/apps/omar
 popd >/dev/null
 source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk use groovy $GROOVY_VERSION
+sdk use groovy $GRAILS_VERSION
+sdk use gradle $GRADLE_VERSION
 
 pushd $OMAR_HOME >/dev/null
 
