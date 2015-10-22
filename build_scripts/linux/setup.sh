@@ -17,7 +17,7 @@ fi
 
 if [ ! -z "$GRAILS_VERSION" ]; then
    if [ ! -d "$HOME/.sdkman/groovy/$GRAILS_VERSION" ]; then
-      sdk install groovy $GRAILS_VERSION
+      sdk install grails $GRAILS_VERSION
    fi
 else
    echo "******OMAR SETUP ERROR: Environment variable GRAILS_VERSION must be set"
@@ -26,7 +26,7 @@ fi
 
 if [ ! -z "$GRADLE_VERSION" ]; then
    if [ ! -d "$HOME/.sdkman/groovy/$GRADLE_VERSION" ]; then
-      sdk install groovy $GRADLE_VERSION
+      sdk install gradle $GRADLE_VERSION
    fi
 else
    echo "******OMAR SETUP ERROR: Environment variable GRADLE_VERSION must be set"
