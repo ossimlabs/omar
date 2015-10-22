@@ -11,7 +11,8 @@ sdk use grails $GRAILS_VERSION
 sdk use gradle $GRADLE_VERSION
 
 pushd $OMAR_HOME >/dev/null
-gradle build
+#gradle build
+grails package
 
 #
 popd >/dev/null
