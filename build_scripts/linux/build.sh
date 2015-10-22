@@ -13,17 +13,18 @@ sdk use gradle $GRADLE_VERSION
 pushd $OMAR_HOME >/dev/null
 #gradle build
 grails package
-grailsReturnCode=$?
+RETURN_CODE=$?
+if [ $RETURN_CODE -ne 0 ];then
+    echo "BUILD ERROR: grails failed build..."
+else
+    RETURN_CODE=0;
+fi
 
 #
 popd >/dev/null
 
-if [ $grailsReturnCode -ne 0 ];then
-    echo "BUILD ERROR: grails failed build..."
-    exit 1;
-else
-    exit 0;
-fi
+
+exit $RETURN_CODE
 
 
 
