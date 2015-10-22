@@ -9,9 +9,12 @@ buildscript {
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
     classpath "org.grails.plugins:hibernate:4.3.10.5"
+    classpath 'de.undercouch:gradle-download-task:2.0.0'
 
   }
 }
+
+import de.undercouch.gradle.tasks.download.Download
 
 plugins {
   id "io.spring.dependency-management" version "0.5.2.RELEASE"
@@ -21,6 +24,7 @@ plugins {
 version "0.1-SNAPSHOT"
 group "org.grails.plugins"
 
+apply plugin: 'de.undercouch.download'
 apply plugin: 'maven-publish'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -44,7 +48,6 @@ repositories {
   mavenCentral()
   maven { url "https://repo.grails.org/grails/core" }
 
-  maven { url "https://repo.grails.org/grails/core" }
   maven { url "http://repo.boundlessgeo.com/main" }
   maven { url "http://download.osgeo.org/webdav/geotools/" }
   maven { url "http://maven.geo-solutions.it/" }
@@ -59,7 +62,7 @@ dependencyManagement {
 }
 
 dependencies {
-  compile project(':omar-core')
+  compile project( ':omar-core' )
 
 
   compile "org.grails.plugins:hibernate"
@@ -105,3 +108,22 @@ dependencies {
 task wrapper( type: Wrapper ) {
   gradleVersion = gradleWrapperVersion
 }
+
+task downloadJavaVectorTiles( type: Download ) {
+  src 'https://github.com/ElectronicChartCentre/ecc-mvn-repo/raw/master/releases/no/ecc/vectortile/java-vector-tile/1.0.5/java-vector-tile-1.0.5.jar'
+  dest '3rdPartyJars/java-vector-tile-1.0.5.jar'
+}
+
+task installJavaVectorTiles( type: Exec, dependsOn: 'downloadJavaVectorTiles' ) {
+  commandLine 'mvn',
+      'install:install-file',
+      '-Dfile=3rdPartyJars/java-vector-tile-1.0.5.jar',
+      '-DgroupId=no.ecc.vectortile',
+      '-DartifactId=java-vector-tile',
+      '-Dversion=1.0.5',
+      '-Dpackaging=jar'
+
+}
+
+
+compileGroovy.dependsOn 'installJavaVectorTiles'
