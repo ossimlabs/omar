@@ -16,7 +16,7 @@ else
 fi
 
 if [ ! -z "$GRAILS_VERSION" ]; then
-   if [ ! -d "$HOME/.sdkman/groovy/$GRAILS_VERSION" ]; then
+   if [ ! -d "$HOME/.sdkman/grails/$GRAILS_VERSION" ]; then
       sdk install grails $GRAILS_VERSION
    fi
 else
@@ -25,7 +25,7 @@ else
 fi
 
 if [ ! -z "$GRADLE_VERSION" ]; then
-   if [ ! -d "$HOME/.sdkman/groovy/$GRADLE_VERSION" ]; then
+   if [ ! -d "$HOME/.sdkman/gradle/$GRADLE_VERSION" ]; then
       sdk install gradle $GRADLE_VERSION
    fi
 else
