@@ -10,7 +10,7 @@ angular
 
         /* jshint validthis: true */
         var vm = this;
-        vm.title = "ListController"
+        vm.title = "ListController";
 
         var promise = wfsService.getWfs();
 

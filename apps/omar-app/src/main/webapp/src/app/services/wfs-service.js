@@ -9,7 +9,7 @@ angular
     function wfsService ($q) {
 
         var wfsClient;
-        wfsClient = new OGC.WFS.Client('http://localhost:9999/wfs');
+        wfsClient = new OGC.WFS.Client('http://localhost:7272/wfs');
 
         console.log(wfsClient.convertCqlToXml(
 //            "BBOX(ground_geom, -180.0,-90.0,180.0,90.0)"
@@ -28,7 +28,7 @@ angular
             outputFormat: 'JSON',
 //            cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
 //            cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
-              cql: "INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
+              //cql: "INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
         };
 
         //if($scope.filter && $scope.filter.trim() !== ''){

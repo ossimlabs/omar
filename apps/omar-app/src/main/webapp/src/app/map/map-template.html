@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="omarApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Map</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-superhero.css">
+    <link rel="stylesheet" type="text/css" href="../../node_modules/openlayers/dist/ol.css">
+
+    <style>
+        .map {
+            height: 200px;
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container-fluid" ng-controller="MapController as map">
+    <h1>Map: {{map.title}}</h1>
+
+    <p>An Openlayers 3 Map</p>
+    <div id="map_ol3" class="map" map></div>
+    <!--<map id="map_ol3a" class="map"></map>-->
+
+</div>
+
+<script src="../../node_modules/jquery/dist/jquery.js"></script>
+<script src="../../node_modules/openlayers/dist/ol-debug.js"></script>
+<script src="../../node_modules/angular/angular.js"></script>
+<script src="../../node_modules/angular-ui-router/build/angular-ui-router.js"></script>
+
+
+<!-- Common -->
+<script src= "../app2.module.js"></script>
+
+<!-- Map -->
+<script src="map-controller.js"></script>
+<script src="map-directive.js"></script>
+
+
+</body>
+</html>

@@ -4,12 +4,12 @@
 'use strict';
 angular
     .module('omarApp')
-    .directive('imageList', imageList)
+    .directive('imageList', imageList);
 
     function imageList() {
        return {
 
-        restrict: 'A', // use both attribute and element
+        restrict: 'A',
         scope: {
             image: '=' // = provides two-way data binding
         },
@@ -17,4 +17,4 @@ angular
         templateUrl: 'image-template.html'
 
        };
-    };
+    }

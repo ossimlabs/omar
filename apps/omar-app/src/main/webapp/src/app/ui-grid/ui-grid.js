@@ -3,15 +3,15 @@ var app = angular.module('app', ['ui.grid', 'ui.grid.resizeColumns']);
 app.controller('MainCtrl', ['$scope', '$log', '$q', function ($scope, $log, $q) {
 
     var wfsClient;
-    wfsClient = new OGC.WFS.Client('http://localhost:8080/wfs');
+    wfsClient = new OGC.WFS.Client('http://localhost:7272/wfs');
 
     OpenLayers.ProxyHost = "/proxy/index?url="
 
     var deferred = $q.defer();
 
     var wfsRequest = {
-        typeName: 'topp:states',
-        namespace: 'http://www.openplans.org/topp',
+        typeName: 'omar:raster_entry',
+        namespace: 'http://omar.ossim.org',
         version: '1.1.0',
         maxFeatures: 50,
         outputFormat: 'JSON'
