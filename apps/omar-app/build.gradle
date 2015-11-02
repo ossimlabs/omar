@@ -1,22 +1,23 @@
 buildscript {
-    ext {
-        grailsVersion = project.grailsVersion
-    }
-    repositories {
-        mavenLocal()
-        maven { url "https://repo.grails.org/grails/core" }
-    }
-    dependencies {        
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
-        classpath "org.grails.plugins:hibernate:4.3.10.5"
-    }
+  ext {
+    grailsVersion = project.grailsVersion
+  }
+  repositories {
+    mavenLocal()
+    maven { url "https://repo.grails.org/grails/core" }
+  }
+  dependencies {
+    classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+    classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
+    classpath "org.grails.plugins:hibernate:4.3.10.5"
+  }
 }
 
 plugins {
-    id "io.spring.dependency-management" version "0.5.2.RELEASE"
+  id "io.spring.dependency-management" version "0.5.2.RELEASE"
 }
 
+evaluationDependsOnChildren()
 version "0.1"
 group "omar.app"
 
@@ -29,78 +30,77 @@ apply plugin: "org.grails.grails-web"
 apply plugin: "org.grails.grails-gsp"
 
 ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
+  grailsVersion = project.grailsVersion
+  gradleWrapperVersion = project.gradleWrapperVersion
 }
 
 assets {
-    minifyJs = true
-    minifyCss = true
-    excludes = ['**/*-debug.js','**/*-deps.js'] // OL3
+  minifyJs = true
+  minifyCss = true
+  excludes = ['**/*-debug.js', '**/*-deps.js'] // OL3
 }
 
 repositories {
-    mavenLocal()
-    maven { url "https://repo.grails.org/grails/core" }
+  mavenLocal()
+  maven { url "https://repo.grails.org/grails/core" }
 
-   maven { url "http://repo.boundlessgeo.com/main" }
-   maven { url "http://download.osgeo.org/webdav/geotools/" }
-   maven { url "http://maven.geo-solutions.it/" }
-   maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
+//   maven { url "http://repo.boundlessgeo.com/main" }
+//   maven { url "http://download.osgeo.org/webdav/geotools/" }
+//   maven { url "http://maven.geo-solutions.it/" }
+//   maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
 
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "org.grails:grails-bom:$grailsVersion"
-    }
-    applyMavenExclusions false
+  imports {
+    mavenBom "org.grails:grails-bom:$grailsVersion"
+  }
+  applyMavenExclusions false
 }
 
 dependencies {
-    compile project(':omar-openlayers')
-    compile project(':omar-wfs')
-    compile project(':omar-wms')
+  compile project( ':omar-openlayers' )
+  compile project( ':omar-wfs' )
+  compile project( ':omar-wms' )
 
+//  compile( "org.geoscript:geoscript-groovy:1.5.0" ) {
+//    exclude module: "slf4j-log4j12"
+//    exclude module: 'ehcache'
+//    exclude module: "jai_core"
+//    exclude module: "jai_codec"
+//    exclude module: "jai_imageio"
+//    exclude module: "postgresql"
+//    exclude module: "opencsv"
+//    exclude module: "xml-apis"
+//    exclude module: "groovy-all"
+//  }    
 
-  compile( "org.geoscript:geoscript-groovy:1.5.0" ) {
-    exclude module: "slf4j-log4j12"
-    exclude module: 'ehcache'
-    exclude module: "jai_core"
-    exclude module: "jai_codec"
-    exclude module: "jai_imageio"
-    exclude module: "postgresql"
-    exclude module: "opencsv"
-    exclude module: "xml-apis"
-    exclude module: "groovy-all"
-  }    
+  compile "org.springframework.boot:spring-boot-starter-logging"
+  compile "org.springframework.boot:spring-boot-starter-actuator"
+  compile "org.springframework.boot:spring-boot-autoconfigure"
+  compile "org.springframework.boot:spring-boot-starter-tomcat"
+  compile "org.grails:grails-dependencies"
+  compile "org.grails:grails-web-boot"
 
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies"
-    compile "org.grails:grails-web-boot"
+  compile "org.grails.plugins:hibernate"
+  compile "org.grails.plugins:cache"
+  compile "org.hibernate:hibernate-ehcache"
+  compile "org.grails.plugins:scaffolding"
 
-    compile "org.grails.plugins:hibernate"
-    compile "org.grails.plugins:cache"
-    compile "org.hibernate:hibernate-ehcache"
-    compile "org.grails.plugins:scaffolding"
+  runtime "org.grails.plugins:asset-pipeline"
 
-    runtime "org.grails.plugins:asset-pipeline"
+  testCompile "org.grails:grails-plugin-testing"
+  testCompile "org.grails.plugins:geb"
 
-    testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails.plugins:geb"
+  // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
+  testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
 
-    // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
-    testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
+  console "org.grails:grails-console"
 
-    console "org.grails:grails-console"
-
-    compile "org.grails.plugins:grails3-cors-interceptor:0.1.1"
+  compile "org.grails.plugins:grails3-cors-interceptor:0.1.1"
 
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = gradleWrapperVersion
+task wrapper( type: Wrapper ) {
+  gradleVersion = gradleWrapperVersion
 }
