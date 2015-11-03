@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="omarApp" ng-strict-di>
+<html lang="en" ng-app="omarApp">
 <head>
     <meta charset="UTF-8">
     <title>OMAR2</title>
@@ -15,17 +15,23 @@
         <!--- NAVIGATION --->
         <nav class="navbar navbar-inverse" role="navigation">
             <div class="navbar-header">
-                <a ui-sref="#" class="navbar-brand">OMAR2</a>
+                <a class="navbar-brand" ui-sref="#">OMAR2</a>
             </div>
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="home">Home</a></li>
+                <li><a ui-sref="about">About</a></li>
+            </ul>
         </nav>
-
 
         <!--- MAIN CONTENT --->
         <div class="container">
             <div class="row">
                 <h1 class="header">Home</h1>
             </div>
+
+            <!-- THIS IS WHERE ALL CONTENT IS INJECTED --->
             <div ui-view></div>
+
         </div>
 
         <!-- Common -->
@@ -36,12 +42,12 @@
         <script src= "../node_modules/angular-spinner/angular-spinner.min.js"></script>
 
         <!-- Core -->
-        <script src= "app.module.js"></script>
+        <script src= "app2.module.js"></script>
 
         <!-- WFS Components -->
-        <script src= "wfs/OpenLayersLite-formats.js"></script>
-        <script src= "wfs/WFSClient.js"></script>
-        <script src= "wfs/wfs.js"></script>
+        <!--<script src= "wfs/OpenLayersLite-formats.js"></script>-->
+        <!--<script src= "wfs/WFSClient.js"></script>-->
+        <!--<script src= "wfs/wfs.js"></script>-->
 
     </body>
 </html>
