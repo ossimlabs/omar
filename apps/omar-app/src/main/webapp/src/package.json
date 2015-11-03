@@ -17,6 +17,7 @@
     "angular-ui-grid": "^3.0.7",
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
+    "bootswatch": "^3.3.5",
     "jquery": "^2.1.4",
     "ng-resource": "^1.3.2",
     "openlayers": "^3.10.1",

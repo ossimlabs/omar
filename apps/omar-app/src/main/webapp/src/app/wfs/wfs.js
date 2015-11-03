@@ -1,7 +1,7 @@
 'use strict';
 omarApp.controller('wfsCtrl', ['$scope', '$log', '$q', 'usSpinnerService', function ($scope, $log, $q, usSpinnerService) {
 
-    OpenLayers.ProxyHost = "/proxy/index?url="
+    OpenLayers.ProxyHost = "/proxy/index?url=";
 
     $scope.source = [];
 	//$scope.endPoint = 'http://demo.boundlessgeo.com/geoserver/wfs';

@@ -10,7 +10,7 @@
 
         /* jshint validthis: true */
         var vm = this;
-        vm.title = "MapController";
+        vm.title = "Map";
 
     }
 })();

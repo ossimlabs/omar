@@ -8,13 +8,13 @@ angular
             // HOME STATES AND NESTED VIEWS ========================================
             .state('home', {
                 url: '/home',
-                templateUrl: 'home/partial-home.html'
+                templateUrl: 'home/home.partial.html'
             })
 
             // nested list with custom controller
             .state('home.list', {
                 url: '/list',
-                templateUrl: 'home/partial-home-list.html',
+                templateUrl: 'home/home-list.partial.html',
                 controller: function($scope) {
                     $scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
                 }
@@ -33,7 +33,7 @@ angular
                 views: {
 
                     // the main template will be place here (realtively named)
-                    '': { templateUrl: 'about/partial-about.html'},
+                    '': { templateUrl: 'about/about.partial.html'},
 
                     // the child view will be definied here (absolutely named)
                     'columnOne@about': { template: 'Look I am a column!'},
@@ -44,6 +44,13 @@ angular
                         controller: 'scotchController'
                     }
                 }
+
+            })
+
+            .state('map', {
+
+                url: '/map',
+                templateUrl: 'map/map.partial.html'
 
             });
     }) // closes $routerApp.config()
