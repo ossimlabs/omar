@@ -1,0 +1,29 @@
+/* http://stackoverflow.com/a/22710638/4437795"" */
+@font-face {
+    font-family: 'Glyphicons Halflings';
+
+    src: url('../../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot');
+    src: url('../../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+    url('../../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff') format('woff'),
+    url('../../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+    url('../../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.map {
+    height: 600px;
+}
+
+#searchForm .input-group-btn {
+    z-index: 9997;
+}
+
+#searchForm input {
+    z-index: 9998;
+}
+
+.autocomplete-suggestions { border: 1px solid #999; background: #2b3e50; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #4e5d6c; }
+.autocomplete-suggestions strong { font-weight: normal; color: #5bc0de; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }

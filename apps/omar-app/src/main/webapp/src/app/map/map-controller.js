@@ -11,6 +11,7 @@
         /* jshint validthis: true */
         var vm = this;
         vm.title = "Map";
+        vm.listTitle = "List";
 
     }
 })();

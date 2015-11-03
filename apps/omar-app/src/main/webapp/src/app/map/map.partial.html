@@ -1,7 +1,17 @@
-<h1>{{map.title}}</h1>
+<div ng-controller="MapController as map" class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <h1>{{map.title}}</h1>
 
-<div id="map_ol3" class="map" map></div>
+            <div id="map_ol3" class="map" map></div>
 
-<p>An Openlayers 3 Map</p>
+            <p>An Openlayers 3 Map</p>
+        </div>
+        <div class="col-md-3">
+            <h1>{{map.listTitle}}</h1>
+            <div style="background-color: #4e5d6c; height: 600px"></div>
+        </div>
+    </div>
+</div>
 
 

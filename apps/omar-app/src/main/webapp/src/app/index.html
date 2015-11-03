@@ -4,38 +4,10 @@
     <meta charset="UTF-8">
     <title>OMAR2</title>
 
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
-    <!--<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">-->
     <link rel="stylesheet" href="../node_modules/bootswatch/superhero/bootstrap.css">
     <link rel="stylesheet" href="../node_modules/openlayers/dist/ol.css">
-
-    <style>
-
-        @font-face {
-            font-family: 'Glyphicons Halflings';
-
-            src: url('../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot');
-            src: url('../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-            url('../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff') format('woff'),
-            url('../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
-            url('../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-        }
-
-        #searchForm .input-group-btn {
-            z-index: 9997;
-        }
-
-        #searchForm input {
-            z-index: 9998;
-        }
-
-        .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
-        .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
-        .autocomplete-selected { background: #F0F0F0; }
-        .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
-        .autocomplete-group { padding: 2px 5px; }
-        .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
-    </style>
+    <link rel="stylesheet" href="../node_modules/bootstrap-select/dist/css/bootstrap-select.css">
+    <link rel="stylesheet" href="css/styles.css">
 
 </head>
 <body>
@@ -53,20 +25,23 @@
     </nav>
 
     <!--- MAIN CONTENT --->
-    <div class="container">
-        <div ui-view></div>
-    </div>
+
+    <div ui-view></div>
 
     <!-- Common -->
     <script src= "../node_modules/jquery/dist/jquery.js"></script>
     <script src= "../node_modules/openlayers/dist/ol-debug.js"></script>
+    <script src= "../node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src= "../node_modules/angular/angular.js"></script>
     <script src= "../node_modules/angular-ui-router/build/angular-ui-router.js"></script>
-    <script src= "../node_modules/spin.js/spin.js"></script>
-    <script src= "../node_modules/angular-spinner/angular-spinner.min.js"></script>
+    <script src= "../node_modules/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <script src= "../node_modules/devbridge-autocomplete/dist/jquery.autocomplete.js"></script>
 
     <!-- Core -->
     <script src="app2.module.js"></script>
+
+    <!-- Home -->
+    <script src="home/home.controller.js"></script>
 
     <!-- Map -->
     <script src="map/map-controller.js"></script>

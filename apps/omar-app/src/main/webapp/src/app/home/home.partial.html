@@ -1,34 +1,39 @@
 <!-- partial-home.html -->
 
-<div class="jumbotron text-center">
-    <br>
-    <br>
-    <h1>Search for imagery</h1>
-    <p>Find by place name or coordinates</p>
+<div ng-controller="HomeController as home">
+    <div class="jumbotron text-center">
+        <br>
+        <br>
+        <h1>{{home.title}}</h1>
+        <p>{{home.titleMessage}}</p>
 
-    <form id="searchForm" role="search">
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <select id="searchSelect" class="form-control selectpicker"  data-style="btn-primary">
-                        <option data-icon="glyphicon-map-marker" value="place">&nbsp;&nbsp;Place&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                        <option data-icon="glyphicon glyphicon-screenshot" value="coordinate">&nbsp;&nbsp;Coordinate&nbsp;&nbsp;</option>
-                    </select>
-                </div>
-                <input id="searchInput" class="form-control" type="text" placeholder="" value="">
-                <div class="input-group-btn">
-                    <button id="searchButton" class="btn btn-primary" type="button"><span
-                            class="glyphicon glyphicon-search"></span></button>
-                    <button id="clearSearchButton" class="btn btn-primary" type="button"><span
-                            class="glyphicon glyphicon-remove"></span></button>
-                </div>
-            </div> <!-- /.input-group -->
-        </div><!-- /.form-group -->
-    </form>
-
-    <!--<a ui-sref=".list" class="btn btn-primary">List</a>-->
-    <!--<a ui-sref=".paragraph" class="btn btn-danger">Paragraph</a>-->
-
+        <div class="col-md-6 col-md-offset-3">
+            <form id="searchForm" role="search">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <select id="searchSelect" class="form-control selectpicker"  data-style="btn-primary">
+                                <option data-icon="glyphicon-map-marker" value="place">&nbsp;&nbsp;Place&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                <option data-icon="glyphicon glyphicon-screenshot" value="coordinate">&nbsp;&nbsp;Coordinate&nbsp;&nbsp;</option>
+                            </select>
+                        </div>
+                        <input id="searchInput" class="form-control" type="text" placeholder="" value="">
+                        <div class="input-group-btn">
+                            <button id="searchButton" class="btn btn-primary" type="button"><span
+                                    class="glyphicon glyphicon-search"></span></button>
+                            <button id="clearSearchButton" class="btn btn-primary" type="button"><span
+                                    class="glyphicon glyphicon-remove"></span></button>
+                            <button id="filterSearchButton" class="btn btn-info" type="button"><span
+                                    class="glyphicon glyphicon-filter"></span></button>
+                        </div>
+                    </div> <!-- /.input-group -->
+                </div><!-- /.form-group -->
+            </form>
+        </div>
+        <!--<a ui-sref=".list" class="btn btn-primary">List</a>-->
+        <!--<a ui-sref=".paragraph" class="btn btn-danger">Paragraph</a>-->
+        <br>
+        <br>
+    </div>
 </div>
-
 <div ui-view></div>
