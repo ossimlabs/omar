@@ -44,10 +44,10 @@ repositories {
   mavenLocal()
   maven { url "https://repo.grails.org/grails/core" }
 
-//   maven { url "http://repo.boundlessgeo.com/main" }
-//   maven { url "http://download.osgeo.org/webdav/geotools/" }
-//   maven { url "http://maven.geo-solutions.it/" }
-//   maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
+   maven { url "http://repo.boundlessgeo.com/main" }
+   maven { url "http://download.osgeo.org/webdav/geotools/" }
+   maven { url "http://maven.geo-solutions.it/" }
+   maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
 
 }
 
@@ -63,17 +63,17 @@ dependencies {
   compile project( ':omar-wfs' )
   compile project( ':omar-wms' )
 
-//  compile( "org.geoscript:geoscript-groovy:1.5.0" ) {
-//    exclude module: "slf4j-log4j12"
-//    exclude module: 'ehcache'
-//    exclude module: "jai_core"
-//    exclude module: "jai_codec"
-//    exclude module: "jai_imageio"
-//    exclude module: "postgresql"
-//    exclude module: "opencsv"
-//    exclude module: "xml-apis"
-//    exclude module: "groovy-all"
-//  }    
+  compile( "org.geoscript:geoscript-groovy:1.5.0" ) {
+    exclude module: "slf4j-log4j12"
+    exclude module: 'ehcache'
+    exclude module: "jai_core"
+    exclude module: "jai_codec"
+    exclude module: "jai_imageio"
+    exclude module: "postgresql"
+    exclude module: "opencsv"
+    exclude module: "xml-apis"
+    exclude module: "groovy-all"
+  }    
 
   compile "org.springframework.boot:spring-boot-starter-logging"
   compile "org.springframework.boot:spring-boot-starter-actuator"
