@@ -48,7 +48,7 @@ angular
 
             .state('map', {
 
-                url: '/map/?mapParams&maxFeatures&cql&suggestion',
+                url: '/map/?mapParams&maxFeatures&cql',
                 templateUrl: 'map/map.partial.html'
 
             });

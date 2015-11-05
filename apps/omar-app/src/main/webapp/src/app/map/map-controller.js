@@ -12,8 +12,8 @@
         var vm = this;
         vm.title = "Map";
         vm.listTitle = "List";
-
-        console.log($stateParams);
+        // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
+        vm.mapParams = JSON.parse($stateParams.mapParams);
 
     }
 })();
