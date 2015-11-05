@@ -4,7 +4,7 @@
 'use strict';
 angular
     .module('omarApp')
-    .directive('imageList', imageList);
+    .directive('listImage', imageList);
 
     function imageList() {
        return {
@@ -14,7 +14,7 @@ angular
             image: '=' // = provides two-way data binding
         },
         replace: true,
-        templateUrl: 'image-template.html'
+        templateUrl: 'list/list-partial.html'
 
        };
     }

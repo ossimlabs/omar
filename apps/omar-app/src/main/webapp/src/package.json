@@ -1,7 +1,7 @@
 {
   "name": "omar-angular",
   "version": "1.0.0",
-  "description": "Angular OMAR2 test",
+  "description": "Angular OMAR2",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,10 +9,7 @@
   "author": "Aaron Drake",
   "license": "ISC",
   "dependencies": {
-    "ag-grid": "^2.3.2",
     "angular": "^1.4.7",
-    "angular-datatables": "^0.4.3",
-    "angular-smart-table": "^2.1.3",
     "angular-spinner": "^0.7.0",
     "angular-ui-grid": "^3.0.7",
     "angular-ui-router": "^0.2.15",

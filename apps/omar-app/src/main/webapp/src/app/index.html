@@ -20,7 +20,7 @@
         <ul class="nav navbar-nav">
             <li><a ui-sref="home">Home</a></li>
             <li><a ui-sref="map">Map</a></li>
-            <li><a ui-sref="about">About</a></li>
+            <!--<li><a ui-sref="about">About</a></li>-->
         </ul>
     </nav>
 
@@ -39,6 +39,11 @@
 
     <!-- Core -->
     <script src="app2.module.js"></script>
+    <script src= "core/OpenLayersLite-formats.js"></script>
+    <script src= "core/wfs-client.js"></script>
+
+    <!-- Services -->
+    <script src="services/wfs-service.js"></script>
 
     <!-- Home -->
     <script src="home/home.controller.js"></script>
@@ -46,6 +51,10 @@
     <!-- Map -->
     <script src="map/map-controller.js"></script>
     <script src="map/map-directive.js"></script>
+
+    <!-- List -->
+    <script src="list/list-controller.js"></script>
+    <script src="list/list-directive.js"></script>
 
 </body>
 </html>

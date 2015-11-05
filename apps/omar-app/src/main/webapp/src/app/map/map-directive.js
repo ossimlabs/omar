@@ -5,11 +5,18 @@ angular
 
     function map() {
         return {
-            restrict: 'AE',
+            restrict: 'A',
+            scope: {
+                params: '=' // = provides two-way data binding
+            },
             link: function(scope, element, attrs){
-                //console.log(scope);
-                //console.log(element);
-                //console.log(attrs.id);
+
+                scope.$watch('map', function(value){
+                    console.log('value', value);
+                });
+                console.log(scope);
+                console.log(element);
+                console.log(attrs.id);
 
                 var map = new ol.Map({
                     target: attrs.id,

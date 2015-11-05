@@ -6,12 +6,14 @@
         .module('omarApp')
         .controller('MapController', MapController);
 
-    function MapController($log){
+    function MapController($log, $stateParams){
 
         /* jshint validthis: true */
         var vm = this;
         vm.title = "Map";
         vm.listTitle = "List";
+
+        console.log($stateParams);
 
     }
 })();

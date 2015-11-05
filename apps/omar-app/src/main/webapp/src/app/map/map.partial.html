@@ -1,15 +1,27 @@
 <div ng-controller="MapController as map" class="container-fluid">
     <div class="row">
-        <div class="col-md-9">
-            <h1>{{map.title}}</h1>
-
-            <div id="map_ol3" class="map" map></div>
-
-            <p>An Openlayers 3 Map</p>
+        <div class="col-md-12" style="background-color: #4e5d6c;">
+            <p>Filter</p>
         </div>
-        <div class="col-md-3">
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{map.title}}</h1>
+            <div id="map_ol3" class="map" map></div>
+        </div>
+        <div class="col-md-4">
             <h1>{{map.listTitle}}</h1>
-            <div style="background-color: #4e5d6c; height: 600px"></div>
+            <div style="background-color: #4e5d6c">
+
+                <div ng-controller="ListController as list">
+                    <br>
+                    <p>&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span class="label label-warning">{{list.wfsData.length}}</span></p>
+                    <div ng-repeat="image in list.wfsData">
+                        <div list-image image="image"></div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

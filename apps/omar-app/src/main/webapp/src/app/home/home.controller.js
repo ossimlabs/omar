@@ -3,7 +3,7 @@
         .module('omarApp')
         .controller('HomeController', HomeController);
 
-        function HomeController(){
+        function HomeController($state){
 
             /* jshint validthis: true */
             var vm = this;
@@ -107,15 +107,17 @@
                         };
                     },
                     onSelect: function (suggestion) {
-                        console.log('You selected: ' + suggestion.value + ', \n' + suggestion.lat + ', \n' + suggestion.lng);
-                        console.log('suggestion', suggestion);
+                        //console.log('You selected: ' + suggestion.value + ', \n' + suggestion.lat + ', \n' + suggestion.lng);
+                        //console.log('suggestion', suggestion);
 
                         if (suggestion.bounds === undefined){
                             console.log('bounds is undefined!');
                             //Map.zoomTo(suggestion.lat, suggestion.lng);
+                            $state.go('map', {mapParams: suggestion});
                         }
                         else {
                             //Map.zoomToExt(suggestion);
+                            $state.go('map', {mapParams: suggestion});
                         }
 
                     }

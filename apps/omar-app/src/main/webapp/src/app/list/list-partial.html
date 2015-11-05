@@ -1,0 +1,25 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">ID:&nbsp;&nbsp;&nbsp; <strong>{{image.properties.id}}</strong></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2">
+                <!--<img ng-src="http://placehold.it/100x100/?text={{image.properties.id}}" alt="">-->
+                <img
+                        style="height: 100px; width: 100px;"
+                        ng-src="http://localhost:8888/omar/thumbnail/show/{{image.properties.id}}" alt="">
+            </div>
+            <div class="col-md-8 col-md-offset-2" style="font-size: 10px;">
+                <p>File Type:&nbsp;&nbsp;&nbsp; <strong>{{image.properties.file_type}}</strong></p>
+                <p>Sensor Type:&nbsp;&nbsp;&nbsp; <strong>{{image.properties
+                    .sensor_id}}</strong></p>
+                <p>Mission Type:&nbsp;&nbsp;&nbsp; <strong>{{image.properties
+                .mission_id}}</strong></p>
+                <p>Acquisition Date:&nbsp;&nbsp;&nbsp;
+                    <strong>&nbsp;&nbsp;&nbsp;{{image.properties.acquisition_date}}</strong></p>
+                <p>Ingest Date:&nbsp;&nbsp;&nbsp; <strong>&nbsp;&nbsp;&nbsp;{{image.properties
+                    .ingest_date}}</strong></p>
+                <!--<span>File Name:&nbsp;&nbsp;&nbsp; <strong>&nbsp;&nbsp;&nbsp;{{image.properties.filename}}</strong></span>-->
+            </div>
+        </div>
+    </div>
+</div>

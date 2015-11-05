@@ -9,12 +9,12 @@ angular
     function wfsService ($q) {
 
         var wfsClient;
-        wfsClient = new OGC.WFS.Client('http://localhost:7272/wfs');
+        wfsClient = new OGC.WFS.Client('http://localhost/wfs');
 
-        console.log(wfsClient.convertCqlToXml(
-//            "BBOX(ground_geom, -180.0,-90.0,180.0,90.0)"
-            "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
-        ));
+        //console.log(wfsClient.convertCqlToXml(
+        //    "BBOX(ground_geom, -180.0,-90.0,180.0,90.0)"
+        //    "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
+        //));
 
         OpenLayers.ProxyHost = "/proxy/index?url=";
 
@@ -26,22 +26,31 @@ angular
             version: '1.1.0',
             maxFeatures: 200,
             outputFormat: 'JSON',
-//            cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
-//            cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
-              //cql: "INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
+            //cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
+            //cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
+            //cql: "INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
         };
 
         //if($scope.filter && $scope.filter.trim() !== ''){
         //    wfsRequest.cql = $scope.filter;
         //}
 
-        wfsClient.getFeature(wfsRequest, function(data) {
-            deferred.resolve(data);
-        });
+        //wfsClient.getFeature(wfsRequest, function(data) {
+        //    deferred.resolve(data);
+        //});
 
-        this.getWfs = function () {
+        this.executeWfsQuery = function(paramObj) {
+            //console.log('paramObj', paramObj);
+            wfsRequest.maxFeatures = paramObj.maxFeatures;
+            wfsRequest.cql = paramObj.cql; //"INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
+
+            wfsClient.getFeature(wfsRequest, function (data) {
+                deferred.resolve(data);
+            });
+        };
+
+        this.getWfsResults = function () {
             return deferred.promise;
-        }
-
+        };
 
     }
