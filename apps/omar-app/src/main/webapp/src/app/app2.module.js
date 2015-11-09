@@ -4,7 +4,6 @@ angular
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
-
             // HOME STATES AND NESTED VIEWS ========================================
             .state('home', {
                 url: '/home',

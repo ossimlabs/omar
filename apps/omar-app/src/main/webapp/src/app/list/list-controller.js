@@ -6,29 +6,42 @@ angular
     .module('omarApp')
     .controller('ListController', ListController);
 
-    function ListController(wfsService, $log, $stateParams){
+    function ListController(appConfigService, wfsService, $stateParams, $log){
 
         /* jshint validthis: true */
         var vm = this;
+        var config;
         vm.title = "ListController";
+
+        var configPromise = appConfigService.getConfig();
+        configPromise.then(function(data){
+            config = data;
+            console.log(config);
+            wfsRequest();
+        });
+        //console.log('config', configPromise);
 
         //vm.test = $stateParams.test;
         //$log.warn('stateParams', vm.test);
 
-        var wfsRequestObj = {};
+        function wfsRequest(){
 
-        wfsRequestObj.maxFeatures = $stateParams.maxFeatures;
-        wfsRequestObj.cql = $stateParams.cql;
+            console.log('config in wfsRequest', config);
+            var wfsRequestObj = {};
 
-        wfsService.executeWfsQuery(wfsRequestObj);
+            wfsRequestObj.maxFeatures = $stateParams.maxFeatures;
+            wfsRequestObj.cql = $stateParams.cql;
 
-        var promise = wfsService.getWfsResults();
+            wfsService.executeWfsQuery(wfsRequestObj);
 
-        promise.then(function(data){
-            vm.wfsData = data;
-            //$log.warn('wfsData', vm.wfsData);
-            //$log.warn('wfsData.length', vm.wfsData.length);
-        });
+            var promise = wfsService.getWfsResults();
+
+            promise.then(function(data){
+                vm.wfsData = data;
+                //$log.warn('wfsData', vm.wfsData);
+                //$log.warn('wfsData.length', vm.wfsData.length);
+            });
+        }
 
     }
 })();

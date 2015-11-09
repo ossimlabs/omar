@@ -1,0 +1,25 @@
+{
+  "services": {
+    "omar": {
+      "url": "http://localhost/",
+      "port": "8888",
+      "wfsUrl": "wfs",
+      "wmsUrl": "wms",
+      "thumbnailsUrl": "/omar/thumbnail/show/",
+      "proxy":{
+        "url": "",
+        "port": "/proxy/index?url="
+      }
+    },
+    "twofish": {
+      "url": "http://localhost/twofish/?",
+      "port": ""
+    },
+    "basemaps": {
+      "osm": {
+        "url": "http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?",
+        "layers": "osm-group"
+      }
+    }
+  }
+}
