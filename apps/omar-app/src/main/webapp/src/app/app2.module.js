@@ -48,8 +48,15 @@ angular
 
             .state('map', {
 
-                url: '/map/?mapParams&maxFeatures&cql',
-                templateUrl: 'map/map.partial.html'
+                url: '/map/?&cql',
+                templateUrl: 'map/map.partial.html',
+                params: {
+                    //param1: "defaultValue"
+                    mapParams: {
+                        value: 'mapParamsDefaultValue',
+                        squash: true
+                    }
+                }
 
             });
     }); // closes $routerApp.config()

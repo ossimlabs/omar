@@ -6,14 +6,20 @@
         .module('omarApp')
         .controller('MapController', MapController);
 
-    function MapController($log, $stateParams){
+    function MapController(mapService, $log, $stateParams, $scope){
 
         /* jshint validthis: true */
         var vm = this;
-        vm.title = "Map";
-        vm.listTitle = "List";
+        vm.mapTitle = "Map";
+        vm.listTitle = "Images";
+
         // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
         vm.mapParams = JSON.parse($stateParams.mapParams);
+        console.log(vm.mapParams);
+
+        //-----------------------
+
+         //mapService.mapServiceTest();
 
     }
 })();

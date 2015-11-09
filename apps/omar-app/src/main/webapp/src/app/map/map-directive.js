@@ -3,21 +3,17 @@ angular
     .module('omarApp')
     .directive('map', map);
 
-    function map() {
+    function map(mapService) {
         return {
             restrict: 'A',
             scope: {
-                jedi: '='
+                params: '=',
             },
             link: function(scope, element, attrs) {
 
-                console.log('scope.jedi', scope.jedi.value);
-                console.log('jedi.lat', scope.jedi.lat);
-                console.log('jedi.lon', scope.jedi.lng);
+                mapService.mapServiceTest();
 
-                //console.log('scope', scope);
-                //console.log('element', element);
-                //console.log('attrs.id', attrs.id);
+                mapService.mapInit(attrs.id, scope.params.lng, scope.params.lat);
 
                 //var map = new ol.Map({
                 //    target: attrs.id,
@@ -249,29 +245,30 @@ angular
 
                 }
 
-                mapView = new ol.View({
-                    center: [scope.jedi.lng, scope.jedi.lat],
-                    projection: 'EPSG:4326',
-                    zoom: 16
-                });
-                map = new ol.Map({
-                    layers: [
-                        new ol.layer.Tile({
-                            source: new ol.source.TileWMS({
-                                url: 'http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?',
-                                params: {'LAYERS': 'osm-group', 'TILED': true},
-                                serverType: 'geoserver'
-                            })
-                        })
-                    ],
-                    controls: ol.control.defaults({
-                        attributionOptions: ({
-                            collapsible: false
-                        })
-                    }),
-                    target: attrs.id,
-                    view: mapView
-                });
+                //mapView = new ol.View({
+                //    center: [scope.params.lng, scope.params.lat],
+                //    //center: [0, 0],
+                //    projection: 'EPSG:4326',
+                //    zoom: 16
+                //});
+                //map = new ol.Map({
+                //    layers: [
+                //        new ol.layer.Tile({
+                //            source: new ol.source.TileWMS({
+                //                url: 'http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?',
+                //                params: {'LAYERS': 'osm-group', 'TILED': true},
+                //                serverType: 'geoserver'
+                //            })
+                //        })
+                //    ],
+                //    controls: ol.control.defaults({
+                //        attributionOptions: ({
+                //            collapsible: false
+                //        })
+                //    }),
+                //    target: attrs.id,
+                //    view: mapView
+                //});
 
                 //map.addLayer(searchLayerVector);
 
