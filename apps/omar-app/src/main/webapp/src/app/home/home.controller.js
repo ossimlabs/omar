@@ -7,8 +7,11 @@
 
             /* jshint validthis: true */
             var vm = this;
-            vm.twofishUrl = APP_CONFIG.services.twofish.url;
-            vm.twofishPort = APP_CONFIG.services.twofish.port;
+
+            var appProxyUrl = APP_CONFIG.services.proxy;
+            console.log(appProxyUrl);
+            var twofishUrl = APP_CONFIG.services.twofishes.url;
+            var twofishPort = APP_CONFIG.services.twofishes.port;
 
             vm.title = 'Search for imagery';
             vm.titleMessage = 'Find by place name or coordinates';
@@ -80,15 +83,25 @@
              * @memberof Search
              */
             function searchByPlace(){
-
+                // http://localhost/proxy/index?url=http%3A%2F%2Flocalhost%2Ftwofish%2F%3FresponseIncludes%3DWKT_GEOMETRY_SIMPLIFIED%26autocomplete%3Dtrue%26maxInterpretations%3D10%26autocompleteBias%3DBALANCED%26query%3Dmani
+                // http://localhost/proxy/index?url=http%3A%2F%2Flocalhost%2Ftwofish%2F%3FresponseIncludes%3DWKT_GEOMETRY_SIMPLIFIED%26autocomplete%3Dtrue%26maxInterpretations%3D10%26autocompleteBias%3DBALANCED&query=mani
                 $searchInput.val('');
                 $searchInput.attr("placeholder", "Search by place");
                 $searchInput.autocomplete('enable');
                 //$searchButton.off('click', ZoomTo.cycleRegExs);
                 //console.log('place selected');
-                url = vm.twofishUrl + vm.twofishPort + '/?responseIncludes=WKT_GEOMETRY_SIMPLIFIED&autocomplete=true&maxInterpretations=10&autocompleteBias=BALANCED';
+                url =  twofishUrl + twofishPort + '/?responseIncludes=WKT_GEOMETRY_SIMPLIFIED&autocomplete=true&maxInterpretations=10&autocompleteBias=BALANCED';
+                //var url2 = encodeURI(url);
+                console.log(encodeURIComponent(url));
                 $searchInput.autocomplete({
-                    serviceUrl: url,
+                    //serviceUrl: appProxyUrl + encodeURIComponent(url),
+                    serviceUrl: function(query){
+                        //console.log('el', el);
+                        console.log('query', query);
+                        //return encodeURIComponent(url) + encodeURIComponent(query);
+                        return url;
+                    },
+                    minChars: 3,
                     dataType: 'json',
                     type: 'GET',
                     transformResult: function(response) {
