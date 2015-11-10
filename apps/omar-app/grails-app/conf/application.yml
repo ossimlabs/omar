@@ -324,4 +324,7 @@ wfs:
           - features
         datastoreId: omar-1.8.19-prod
 
-grails.serverURL: http://10.0.10.183:9999
+#grails.serverURL: http://localhost/
+
+#twoFishesServer: http://10.0.10.186:8081/twofish
+twoFishesServer: http://localhost:8081/twofish
