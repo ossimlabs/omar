@@ -3,10 +3,13 @@
         .module('omarApp')
         .controller('HomeController', HomeController);
 
-        function HomeController($state){
+        function HomeController(APP_CONFIG, $state){
 
             /* jshint validthis: true */
             var vm = this;
+            vm.twofishUrl = APP_CONFIG.services.twofish.url;
+            vm.twofishPort = APP_CONFIG.services.twofish.port;
+
             vm.title = 'Search for imagery';
             vm.titleMessage = 'Find by place name or coordinates';
 
@@ -83,7 +86,7 @@
                 $searchInput.autocomplete('enable');
                 //$searchButton.off('click', ZoomTo.cycleRegExs);
                 //console.log('place selected');
-                url = 'http://localhost/twofish/?responseIncludes=WKT_GEOMETRY_SIMPLIFIED&autocomplete=true&maxInterpretations=10&autocompleteBias=BALANCED';
+                url = vm.twofishUrl + vm.twofishPort + '/?responseIncludes=WKT_GEOMETRY_SIMPLIFIED&autocomplete=true&maxInterpretations=10&autocompleteBias=BALANCED';
                 $searchInput.autocomplete({
                     serviceUrl: url,
                     dataType: 'json',

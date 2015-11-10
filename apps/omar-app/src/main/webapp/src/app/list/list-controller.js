@@ -6,42 +6,36 @@ angular
     .module('omarApp')
     .controller('ListController', ListController);
 
-    function ListController(appConfigService, wfsService, $stateParams, $log){
+    function ListController(APP_CONFIG, wfsService, $stateParams, $log){
 
         /* jshint validthis: true */
         var vm = this;
         var config;
         vm.title = "ListController";
 
-        var configPromise = appConfigService.getConfig();
-        configPromise.then(function(data){
-            config = data;
-            console.log(config);
-            wfsRequest();
-        });
-        //console.log('config', configPromise);
+        console.log('APP_CONFIG in ListController', APP_CONFIG);
+        vm.omarUrl = APP_CONFIG.services.omar.url;
+        vm.omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
+        //console.log('vm.omar', vm.omarUrl);
+        //console.log('vm.omarThumbnail', vm.omarThumbnails);
 
         //vm.test = $stateParams.test;
         //$log.warn('stateParams', vm.test);
 
-        function wfsRequest(){
+        var wfsRequestObj = {};
 
-            console.log('config in wfsRequest', config);
-            var wfsRequestObj = {};
+        wfsRequestObj.maxFeatures = $stateParams.maxFeatures;
+        wfsRequestObj.cql = $stateParams.cql;
 
-            wfsRequestObj.maxFeatures = $stateParams.maxFeatures;
-            wfsRequestObj.cql = $stateParams.cql;
+        wfsService.executeWfsQuery(wfsRequestObj);
 
-            wfsService.executeWfsQuery(wfsRequestObj);
+        var promise = wfsService.getWfsResults();
 
-            var promise = wfsService.getWfsResults();
-
-            promise.then(function(data){
-                vm.wfsData = data;
-                //$log.warn('wfsData', vm.wfsData);
-                //$log.warn('wfsData.length', vm.wfsData.length);
-            });
-        }
+        promise.then(function(data){
+            vm.wfsData = data;
+            //$log.warn('wfsData', vm.wfsData);
+            //$log.warn('wfsData.length', vm.wfsData.length);
+        });
 
     }
 })();

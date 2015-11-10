@@ -10,8 +10,10 @@ angular
        return {
 
         restrict: 'A',
+        transclude: true,
         scope: {
-            image: '=' // = provides two-way data binding
+            image: '=',
+            omar: '@'
         },
         replace: true,
         templateUrl: 'list/list-partial.html'
