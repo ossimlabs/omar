@@ -10,7 +10,8 @@
     },
     "twofishes": {
       "url": "http://localhost/twofish",
-      "port": ""
+      "port": "",
+      "proxy": "/twoFishesProxy/?"
     },
     "basemaps": {
       "osm": {

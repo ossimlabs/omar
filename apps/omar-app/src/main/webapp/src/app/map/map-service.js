@@ -3,7 +3,14 @@ angular
     .module('omarApp')
     .service('mapService', mapService);
 
-function mapService ($q) {
+function mapService (APP_CONFIG, $q) {
+
+    var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
+    var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
+
+    console.log('osmBaseMapUrl', osmBaseMapUrl);
+    console.log('osmBaseMapLayers', osmBaseMapLayers);
+
     var zoomToLevel = 14;
     var map,
         mapView,
@@ -23,8 +30,8 @@ function mapService ($q) {
             layers: [
                 new ol.layer.Tile({
                     source: new ol.source.TileWMS({
-                        url: 'http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?',
-                        params: {'LAYERS': 'osm-group', 'TILED': true},
+                        url: osmBaseMapUrl,
+                        params: {'LAYERS': osmBaseMapLayers, 'TILED': true},
                         serverType: 'geoserver'
                     })
                 })
