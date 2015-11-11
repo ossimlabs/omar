@@ -80,7 +80,7 @@ angular
                 //    })
                 //});
 
-                var zoomToLevel = 14;
+                var zoomToLevel = 10;
                 var map,
                     mapView,
                     searchLayerVector, // Used for visualizing the search items map markers polygon boundaries
@@ -181,14 +181,14 @@ angular
                  * @param {number} lat - Latitude
                  * @param {number} lon - Longitude
                  */
-                function zoomTo(lat, lon) {
-
-                    zoomAnimate();
-                    map.getView().setCenter(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'));
-                    map.getView().setZoom(zoomToLevel);
-                    addMarker(parseFloat(lat),parseFloat(lon), searchLayerVector);
-
-                }
+                //function zoomTo(lat, lon) {
+                //
+                //    zoomAnimate();
+                //    map.getView().setCenter(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'));
+                //    map.getView().setZoom(zoomToLevel);
+                //    addMarker(parseFloat(lat),parseFloat(lon), searchLayerVector);
+                //
+                //}
 
                 /**
                  * Move and zoom the map to a

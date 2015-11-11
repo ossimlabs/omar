@@ -10,12 +10,12 @@ angular
 
         /* jshint validthis: true */
         var vm = this;
-        var config;
-        vm.title = "ListController";
 
-        console.log('APP_CONFIG in ListController', APP_CONFIG);
         vm.omarUrl = APP_CONFIG.services.omar.url;
         vm.omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
+
+        vm.title = "ListController";
+
         //console.log('vm.omar', vm.omarUrl);
         //console.log('vm.omarThumbnail', vm.omarThumbnails);
 

@@ -5,16 +5,34 @@ angular
 
 function mapService (APP_CONFIG, $q) {
 
+    // Add the basemap parameters from the applicaiton config
+    // file.
     var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
     var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
-
-    console.log('osmBaseMapUrl', osmBaseMapUrl);
-    console.log('osmBaseMapLayers', osmBaseMapLayers);
+    // Add the path to OMAR and the footprints URL
+    var omarUrl = APP_CONFIG.services.omar.url;
+    var omarPort = APP_CONFIG.services.omar.port;
+    var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
+    console.log('footprints', omarUrl + omarPort + omarFootprintsUrl);
 
     var zoomToLevel = 14;
     var map,
         mapView,
-        searchLayerVector // Used for visualizing the search items map markers polygon boundaries
+        searchLayerVector, // Used for visualizing the search items map markers polygon boundaries
+        wktFormat,
+        searchFeatureWkt,
+        iconStyle,
+        wktStyle;
+
+    iconStyle = new ol.style.Style({
+        image: new ol.style.Icon(({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            opacity: 0.75,
+            src: 'assets/search_marker_green.png'
+        }))
+    });
 
     this.mapServiceTest = function(){
         console.log('mapServiceTest firing!');
@@ -22,9 +40,10 @@ function mapService (APP_CONFIG, $q) {
 
     this.mapInit = function(target, lng, lat){
         mapView = new ol.View({
-            center: [lng, lat],
-            projection: 'EPSG:4326',
-            zoom: 4
+            //center: [lng, lat],
+            center: ol.proj.fromLonLat([-80.7253178, 28.1174627]),
+            //projection: 'EPSG:4326',
+            zoom: 14
         });
         map = new ol.Map({
             layers: [
@@ -34,6 +53,20 @@ function mapService (APP_CONFIG, $q) {
                         params: {'LAYERS': osmBaseMapLayers, 'TILED': true},
                         serverType: 'geoserver'
                     })
+                }),
+                new ol.layer.Tile({
+                    source: new ol.source.TileWMS( {
+                        //url: 'http://localhost:8888/omar/wms/footprints?',
+                        //url: 'http://localhost:8888/omar/wms/footprints?',
+                        url: omarUrl + omarPort + omarFootprintsUrl,
+                        params: {
+                            VERSION: '1.1.1',
+                            SRS: 'EPSG:3857',
+                            LAYERS: 'Imagery',
+                            FORMAT: 'image/png',
+                            STYLES: 'byFileType'
+                        }
+                    } )
                 })
             ],
             controls: ol.control.defaults({
@@ -44,8 +77,26 @@ function mapService (APP_CONFIG, $q) {
             target: target,
             view: mapView
         });
-        //mapZoomTo(lat, lng);
+        mapZoomTo(lat, lng);
     };
+
+    /**
+     * Move and zoom the map to a
+     * certain location via a latitude
+     * and longitude
+     * @function zoomTo
+     * @memberof Map
+     * @param {number} lat - Latitude
+     * @param {number} lon - Longitude
+     */
+    function zoomTo(lat, lon) {
+
+        zoomAnimate();
+        map.getView().setCenter(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'));
+        map.getView().setZoom(zoomToLevel);
+        addMarker(parseFloat(lat),parseFloat(lon), searchLayerVector);
+
+    }
 
     searchLayerVector = new ol.layer.Vector({
         source: new ol.source.Vector()
