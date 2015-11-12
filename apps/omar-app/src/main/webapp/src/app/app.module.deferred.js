@@ -7,7 +7,8 @@
         module: 'omarApp',
         resolve: {
             APP_CONFIG: ['$http', function ($http) {
-                return $http.get('../config.json');
+                //return $http.get('../config.json');
+                return $http.get('/webAppConfig');
             }]
         }
     });

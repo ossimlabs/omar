@@ -328,3 +328,25 @@ wfs:
 
 #twoFishesServer: http://10.0.10.186:8081/twofish
 twoFishesServer: http://localhost:8081/twofish
+
+#web app configuration settings
+webconfig:
+  services:
+    proxy: /proxy/index?url=
+    omar:
+      url: http://localhost
+      port: :8888
+      wfsUrl: wfs
+      wmsUrl: wms
+      thumbnailsUrl: /omar/thumbnail/show/
+      footprintsUrl: /omar/wms/footprints?
+    twofishes:
+      url: http://localhost/twofish
+      port:
+      proxy: /twoFishesProxy/?
+    basemaps:
+      osm:
+        url: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
+        layers: osm-group
+
+
