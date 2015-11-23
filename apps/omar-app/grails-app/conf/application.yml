@@ -336,8 +336,8 @@ webconfig:
     omar:
       url: http://localhost
       port: :8888
-      wfsUrl: wfs
-      wmsUrl: wms
+      wfsUrl: /wfs
+      wmsUrl: /wms
       thumbnailsUrl: /omar/thumbnail/show/
       footprintsUrl: /omar/wms/footprints?
     twofishes:

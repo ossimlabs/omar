@@ -6,10 +6,12 @@ angular
     .module('omarApp')
     .service('wfsService', wfsService);
 
-    function wfsService ($q) {
-
+    function wfsService (APP_CONFIG, $q) {
+        console.log('wfsClientUrl', APP_CONFIG.services.omar.wfsUrl);
         var wfsClient;
-        wfsClient = new OGC.WFS.Client('http://localhost/wfs');
+        //wfsClient = new OGC.WFS.Client('/wfs');
+        //console.log('wfsClientUrl', APP_CONFIG.services.omar.wfsUrl);
+        wfsClient = new OGC.WFS.Client(APP_CONFIG.services.omar.wfsUrl); // /wfs
 
         //console.log(wfsClient.convertCqlToXml(
         //    "BBOX(ground_geom, -180.0,-90.0,180.0,90.0)"

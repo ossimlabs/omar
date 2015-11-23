@@ -13,7 +13,7 @@ function mapService (APP_CONFIG, $q) {
     var omarUrl = APP_CONFIG.services.omar.url;
     var omarPort = APP_CONFIG.services.omar.port;
     var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
-    console.log('footprints', omarUrl + omarPort + omarFootprintsUrl);
+    //console.log('footprints', omarUrl + omarPort + omarFootprintsUrl);
 
     var zoomToLevel = 14;
     var map,

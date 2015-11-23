@@ -38,7 +38,13 @@
                         }
                     }
 
+                })
+
+                .state('multiple', {
+                    url: '/multiple',
+                    templateUrl: 'multiple/multiple.partial.html'
                 });
+
         }); // closes $routerApp.config()
 
 

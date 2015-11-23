@@ -3,7 +3,7 @@
     "proxy": "/proxy/index?url=",
     "omar": {
       "url": "http://localhost",
-      "port": ":8888",
+      "port": ":9999",
       "wfsUrl": "wfs",
       "wmsUrl": "wms",
       "thumbnailsUrl": "/omar/thumbnail/show/",

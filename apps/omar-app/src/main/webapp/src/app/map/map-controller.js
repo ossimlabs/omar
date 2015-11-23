@@ -6,7 +6,7 @@
         .module('omarApp')
         .controller('MapController', MapController);
 
-    function MapController(mapService, $log, $stateParams, $scope){
+    function MapController(mapService, $log, $stateParams){
 
         /* jshint validthis: true */
         var vm = this;
