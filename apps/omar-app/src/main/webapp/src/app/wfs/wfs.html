@@ -21,6 +21,18 @@
 	
 </head>
 <body>
+	<!--- NAVIGATION --->
+	<nav class="navbar navbar-inverse" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" ui-sref="#">OMAR2</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a ui-sref="home">Home</a></li>
+			<li><a ui-sref="map">Map</a></li>
+			<li><a href="wfs/wfs.html">WFS</a></li>
+			<!--<li><a ui-sref="about">About</a></li>-->
+		</ul>
+	</nav>
 	<div ng-controller="wfsCtrl" class="container">
 		<div class="row">
 			<h1 class="alert alert-success">WFS Service Info</h1>
