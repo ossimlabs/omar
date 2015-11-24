@@ -52,9 +52,6 @@ function mapService (APP_CONFIG, $q) {
 
         console.log('mapParams', mapParams);
 
-
-
-
         mapView = new ol.View({
             //center: [lng, lat],
             //center: [-80.7253178, 28.1174627],
@@ -99,12 +96,12 @@ function mapService (APP_CONFIG, $q) {
 
         if (mapParams === undefined) {
 
-            zoomTo(0,0);
+            zoomTo(0,0,2);
 
         }
         else if (mapParams !== undefined && mapParams.bounds === undefined) {
 
-            zoomTo(mapParams.lat, mapParams.lng);
+            zoomTo(mapParams.lat, mapParams.lng, zoomToLevel, true);
 
         }
         else {
@@ -124,12 +121,16 @@ function mapService (APP_CONFIG, $q) {
      * @param {number} lat - Latitude
      * @param {number} lon - Longitude
      */
-    function zoomTo(lat, lon) {
-        console.log('zoomTo firing!')
+    function zoomTo(lat, lon, zoomLevel, marker) {
+        console.log('zoomTo firing!');
         zoomAnimate();
         map.getView().setCenter([parseFloat(lon), parseFloat(lat)]);
-        map.getView().setZoom(zoomToLevel);
-        addMarker(parseFloat(lat),parseFloat(lon), searchLayerVector);
+        map.getView().setZoom(zoomLevel);
+        if (marker) {
+            addMarker(parseFloat(lat),parseFloat(lon), searchLayerVector);
+        }
+
+
 
     }
 
