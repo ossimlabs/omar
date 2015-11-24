@@ -34,6 +34,16 @@ function mapService (APP_CONFIG, $q) {
         }))
     });
 
+    wktStyle = new ol.style.Style({
+        fill: new ol.style.Fill({
+            color: 'rgba(255, 100, 50, 0.2)'
+        }),
+        stroke: new ol.style.Stroke({
+            width: 1.5,
+            color: 'rgba(255, 100, 50, 0.6)'
+        })
+    });
+
     searchLayerVector = new ol.layer.Vector({
         source: new ol.source.Vector()
     });
@@ -165,7 +175,7 @@ function mapService (APP_CONFIG, $q) {
             // WKT string is in 4326 so we need to reproject it for the current map
             searchFeatureWkt = wktFormat.readFeature(inputExtent.wkt, {
                 dataProjection: 'EPSG:4326',
-                featureProjection: 'EPSG:3857'
+                featureProjection: 'EPSG:4326'
             });
 
             searchFeatureWkt.setStyle(wktStyle);
