@@ -15,7 +15,7 @@ function mapService (APP_CONFIG, $q) {
     var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
     //console.log('footprints', omarUrl + omarPort + omarFootprintsUrl);
 
-    var zoomToLevel = 14;
+    var zoomToLevel = 16;
     var map,
         mapView,
         searchLayerVector, // Used for visualizing the search items map markers polygon boundaries
@@ -30,20 +30,27 @@ function mapService (APP_CONFIG, $q) {
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
             opacity: 0.75,
-            src: 'assets/search_marker_green.png'
+            src: 'images/search_marker_green.png'
         }))
     });
 
-    this.mapServiceTest = function(){
-        console.log('mapServiceTest firing!');
-    };
+    searchLayerVector = new ol.layer.Vector({
+        source: new ol.source.Vector()
+    });
 
-    this.mapInit = function(target, lng, lat){
+    this.mapInit = function(mapParams){
+
+        console.log('mapParams', mapParams);
+
+
+
+
         mapView = new ol.View({
             //center: [lng, lat],
-            center: ol.proj.fromLonLat([-80.7253178, 28.1174627]),
-            //projection: 'EPSG:4326',
-            zoom: 14
+            //center: [-80.7253178, 28.1174627],
+            center: [0, 0],
+            projection: 'EPSG:4326',
+            zoom: 12
         });
         map = new ol.Map({
             layers: [
@@ -74,10 +81,28 @@ function mapService (APP_CONFIG, $q) {
                     collapsible: false
                 })
             }),
-            target: target,
+            target: 'map',
             view: mapView
         });
-        mapZoomTo(lat, lng);
+
+        map.addLayer(searchLayerVector);
+
+        if (mapParams === undefined) {
+
+            zoomTo(0,0);
+
+        }
+        else if (mapParams !== undefined && mapParams.bounds === undefined) {
+
+            zoomTo(mapParams.lat, mapParams.lng);
+
+        }
+        else {
+
+            zoomToExt(mapParams);
+
+        }
+
     };
 
     /**
@@ -90,50 +115,69 @@ function mapService (APP_CONFIG, $q) {
      * @param {number} lon - Longitude
      */
     function zoomTo(lat, lon) {
-
+        console.log('zoomTo firing!')
         zoomAnimate();
-        map.getView().setCenter(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'));
+        map.getView().setCenter([parseFloat(lon), parseFloat(lat)]);
         map.getView().setZoom(zoomToLevel);
         addMarker(parseFloat(lat),parseFloat(lon), searchLayerVector);
-
-    }
-
-    searchLayerVector = new ol.layer.Vector({
-        source: new ol.source.Vector()
-    });
-
-    /**
-     * Clear a layer's source, and
-     * remove all features
-     * @function clearLayerSource
-     * @memberof Map
-     * @param {layer} layer - layer
-     */
-    function clearLayerSource(layer){
-
-        if (layer.getSource().getFeatures().length >=1 ){
-            layer.getSource().clear();
-        }
 
     }
 
     /**
      * Move and zoom the map to a
-     * certain location via a latitude
-     * and longitude
-     * @function zoomTo
+     * certain location via an extent
+     * @function zoomToExt
      * @memberof Map
-     * @param {number} lat - Latitude
-     * @param {number} lon - Longitude
+     * @param {obj} inputExtent - inputExtent
      */
-    var mapZoomTo = function (lat, lon) {
+    function zoomToExt(inputExtent) {
 
-        zoomAnimate();
-        map.getView().setCenter(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'));
-        map.getView().setZoom(zoomToLevel);
-        addMarker(parseFloat(lat),parseFloat(lon), searchLayerVector);
+        clearLayerSource(searchLayerVector);
 
-    };
+        var neFeature = new ol.Feature({
+            //geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.ne.lng, inputExtent.bounds.ne.lat],
+            // 'EPSG:4326', 'EPSG:3857'))
+            geometry: new ol.geom.Point([inputExtent.bounds.ne.lng, inputExtent.bounds.ne.lat])
+        });
+        //console.log('neFeature', inputExtent.bounds.ne.lng + ' ' + inputExtent.bounds.ne.lat);
+        var swFeature = new ol.Feature({
+            //geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.sw.lng, inputExtent.bounds.sw.lat],
+            // 'EPSG:4326', 'EPSG:3857'))
+            geometry: new ol.geom.Point([inputExtent.bounds.sw.lng, inputExtent.bounds.sw.lat])
+        });
+        //console.log('swFeature', inputExtent.bounds.sw.lng + ' ' + inputExtent.bounds.sw.lat);
+        searchLayerVector.getSource().addFeatures([neFeature, swFeature]);
+
+        var searchItemExtent = searchLayerVector.getSource().getExtent();
+
+        //zoomAnimate();
+
+        // Moves the map to the extent of the search item
+        map.getView().fit(searchItemExtent, map.getSize());
+
+        // Clean up the searchLayer extent for the next query
+        searchLayerVector.getSource().clear();
+
+        // Add the WKT to the map to illustrate the boundary of the search item
+        if (inputExtent.wkt !== undefined){
+
+            wktFormat = new ol.format.WKT();
+            // WKT string is in 4326 so we need to reproject it for the current map
+            searchFeatureWkt = wktFormat.readFeature(inputExtent.wkt, {
+                dataProjection: 'EPSG:4326',
+                featureProjection: 'EPSG:3857'
+            });
+
+            searchFeatureWkt.setStyle(wktStyle);
+            searchLayerVector.getSource().addFeatures([searchFeatureWkt]);
+
+        }
+        else {
+            // Add a marker to the map if there isn't a wkt
+            // present with the search item
+            addMarker(inputExtent.lat, inputExtent.lng, searchLayerVector);
+        }
+    }
 
     function zoomAnimate(){
 
@@ -152,6 +196,21 @@ function mapService (APP_CONFIG, $q) {
     }
 
     /**
+     * Clear a layer's source, and
+     * remove all features
+     * @function clearLayerSource
+     * @memberof Map
+     * @param {layer} layer - layer
+     */
+    function clearLayerSource(layer){
+
+        if (layer.getSource().getFeatures().length >=1 ){
+            layer.getSource().clear();
+        }
+
+    }
+
+    /**
      * Add a marker to the map
      * at a specified point.  Clears
      * previous instance of a maker
@@ -167,7 +226,7 @@ function mapService (APP_CONFIG, $q) {
 
         clearLayerSource(layer);
         var centerFeature = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'))
+            geometry: new ol.geom.Point([parseFloat(lon), parseFloat(lat)])
         });
         centerFeature.setStyle(iconStyle);
         layer.getSource().addFeatures([centerFeature]);

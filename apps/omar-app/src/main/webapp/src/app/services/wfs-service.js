@@ -7,7 +7,7 @@ angular
     .service('wfsService', wfsService);
 
     function wfsService (APP_CONFIG, $q) {
-        console.log('wfsClientUrl', APP_CONFIG.services.omar.wfsUrl);
+        //console.log('wfsClientUrl', APP_CONFIG.services.omar.wfsUrl);
         var wfsClient;
         //wfsClient = new OGC.WFS.Client('/wfs');
         //console.log('wfsClientUrl', APP_CONFIG.services.omar.wfsUrl);

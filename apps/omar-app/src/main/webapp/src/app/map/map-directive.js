@@ -11,9 +11,9 @@ angular
             },
             link: function(scope, element, attrs) {
 
-                mapService.mapServiceTest();
+                //mapService.mapServiceTest();
 
-                mapService.mapInit(attrs.id, scope.params.lng, scope.params.lat);
+                //mapService.mapInit(attrs.id, scope.params.lng, scope.params.lat);
 
                 //var map = new ol.Map({
                 //    target: attrs.id,
@@ -89,29 +89,29 @@ angular
                     iconStyle,
                     wktStyle;
 
-                iconStyle = new ol.style.Style({
-                    image: new ol.style.Icon(({
-                        anchor: [0.5, 46],
-                        anchorXUnits: 'fraction',
-                        anchorYUnits: 'pixels',
-                        opacity: 0.75,
-                        src: 'assets/search_marker_green.png'
-                    }))
-                });
+                //iconStyle = new ol.style.Style({
+                //    image: new ol.style.Icon(({
+                //        anchor: [0.5, 46],
+                //        anchorXUnits: 'fraction',
+                //        anchorYUnits: 'pixels',
+                //        opacity: 0.75,
+                //        src: 'assets/search_marker_green.png'
+                //    }))
+                //});
 
-                wktStyle = new ol.style.Style({
-                    fill: new ol.style.Fill({
-                        color: 'rgba(255, 100, 50, 0.2)'
-                    }),
-                    stroke: new ol.style.Stroke({
-                        width: 1.5,
-                        color: 'rgba(255, 100, 50, 0.6)'
-                    })
-                });
+                //wktStyle = new ol.style.Style({
+                //    fill: new ol.style.Fill({
+                //        color: 'rgba(255, 100, 50, 0.2)'
+                //    }),
+                //    stroke: new ol.style.Stroke({
+                //        width: 1.5,
+                //        color: 'rgba(255, 100, 50, 0.6)'
+                //    })
+                //});
 
-                searchLayerVector = new ol.layer.Vector({
-                    source: new ol.source.Vector()
-                });
+                //searchLayerVector = new ol.layer.Vector({
+                //    source: new ol.source.Vector()
+                //});
 
                 /**
                  * Clear a layer's source, and
@@ -120,13 +120,13 @@ angular
                  * @memberof Map
                  * @param {layer} layer - layer
                  */
-                function clearLayerSource(layer){
-
-                    if (layer.getSource().getFeatures().length >=1 ){
-                        layer.getSource().clear();
-                    }
-
-                }
+                //function clearLayerSource(layer){
+                //
+                //    if (layer.getSource().getFeatures().length >=1 ){
+                //        layer.getSource().clear();
+                //    }
+                //
+                //}
 
                 /**
                  * Add a marker to the map
@@ -140,15 +140,15 @@ angular
                  * @param {number} lon - Longitude
                  * @param {layer} layer - layer
                  */
-                function addMarker(lat, lon, layer){
-
-                    clearLayerSource(layer);
-                    var centerFeature = new ol.Feature({
-                        geometry: new ol.geom.Point(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'))
-                    });
-                    centerFeature.setStyle(iconStyle);
-                    layer.getSource().addFeatures([centerFeature]);
-                }
+                //function addMarker(lat, lon, layer){
+                //
+                //    clearLayerSource(layer);
+                //    var centerFeature = new ol.Feature({
+                //        geometry: new ol.geom.Point(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'))
+                //    });
+                //    centerFeature.setStyle(iconStyle);
+                //    layer.getSource().addFeatures([centerFeature]);
+                //}
 
                 /**
                  * Animates the pan and zoom for
@@ -156,21 +156,21 @@ angular
                  * @function zoomAnimate
                  * @memberof Map
                  */
-                function zoomAnimate(){
-
-                    var start = +new Date();
-                    var pan = ol.animation.pan({
-                        duration: 750,
-                        source: (map.getView().getCenter()),
-                        start: start
-                    });
-                    var zoom = ol.animation.zoom({
-                        duration: 1000,
-                        resolution: map.getView().getResolution()
-                    });
-
-                    map.beforeRender(zoom, pan);
-                }
+                //function zoomAnimate(){
+                //
+                //    var start = +new Date();
+                //    var pan = ol.animation.pan({
+                //        duration: 750,
+                //        source: (map.getView().getCenter()),
+                //        start: start
+                //    });
+                //    var zoom = ol.animation.zoom({
+                //        duration: 1000,
+                //        resolution: map.getView().getResolution()
+                //    });
+                //
+                //    map.beforeRender(zoom, pan);
+                //}
 
                 /**
                  * Move and zoom the map to a
@@ -198,52 +198,52 @@ angular
                  * @memberof Map
                  * @param {obj} inputExtent - inputExtent
                  */
-                function zoomToExt(inputExtent) {
-
-                    clearLayerSource(searchLayerVector);
-
-                    var neFeature = new ol.Feature({
-                        geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.ne.lng, inputExtent.bounds.ne.lat], 'EPSG:4326', 'EPSG:3857'))
-                    });
-
-                    var swFeature = new ol.Feature({
-                        geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.sw.lng, inputExtent.bounds.sw.lat], 'EPSG:4326', 'EPSG:3857'))
-                    });
-
-                    searchLayerVector.getSource().addFeatures([neFeature, swFeature]);
-
-                    var searchItemExtent = searchLayerVector.getSource().getExtent();
-
-                    zoomAnimate();
-
-                    // Moves the map to the extent of the search item
-                    map.getView().fit(searchItemExtent, map.getSize());
-
-                    // Clean up the searchLayer extent for the next query
-                    searchLayerVector.getSource().clear();
-
-                    // Add the WKT to the map to illustrate the boundary of the search item
-                    if (inputExtent.wkt !== undefined){
-
-                        wktFormat = new ol.format.WKT();
-                        // WKT string is in 4326 so we need to reproject it for the current map
-                        searchFeatureWkt = wktFormat.readFeature(inputExtent.wkt, {
-                            dataProjection: 'EPSG:4326',
-                            featureProjection: 'EPSG:3857'
-                        });
-
-                        searchFeatureWkt.setStyle(wktStyle);
-                        searchLayerVector.getSource().addFeatures([searchFeatureWkt]);
-
-                    }
-                    else {
-                        // Add a marker to the map if there isn't a wkt
-                        // present with the search item
-                        zoomTo(inputExtent.lat, inputExtent.lng);
-                    }
-
-
-                }
+                //function zoomToExt(inputExtent) {
+                //
+                //    clearLayerSource(searchLayerVector);
+                //
+                //    var neFeature = new ol.Feature({
+                //        geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.ne.lng, inputExtent.bounds.ne.lat], 'EPSG:4326', 'EPSG:3857'))
+                //    });
+                //
+                //    var swFeature = new ol.Feature({
+                //        geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.sw.lng, inputExtent.bounds.sw.lat], 'EPSG:4326', 'EPSG:3857'))
+                //    });
+                //
+                //    searchLayerVector.getSource().addFeatures([neFeature, swFeature]);
+                //
+                //    var searchItemExtent = searchLayerVector.getSource().getExtent();
+                //
+                //    zoomAnimate();
+                //
+                //    // Moves the map to the extent of the search item
+                //    map.getView().fit(searchItemExtent, map.getSize());
+                //
+                //    // Clean up the searchLayer extent for the next query
+                //    searchLayerVector.getSource().clear();
+                //
+                //    // Add the WKT to the map to illustrate the boundary of the search item
+                //    if (inputExtent.wkt !== undefined){
+                //
+                //        wktFormat = new ol.format.WKT();
+                //        // WKT string is in 4326 so we need to reproject it for the current map
+                //        searchFeatureWkt = wktFormat.readFeature(inputExtent.wkt, {
+                //            dataProjection: 'EPSG:4326',
+                //            featureProjection: 'EPSG:3857'
+                //        });
+                //
+                //        searchFeatureWkt.setStyle(wktStyle);
+                //        searchLayerVector.getSource().addFeatures([searchFeatureWkt]);
+                //
+                //    }
+                //    else {
+                //        // Add a marker to the map if there isn't a wkt
+                //        // present with the search item
+                //        zoomTo(inputExtent.lat, inputExtent.lng);
+                //    }
+                //
+                //
+                //}
 
                 //mapView = new ol.View({
                 //    center: [scope.params.lng, scope.params.lat],

@@ -33,7 +33,7 @@
                     params: {
                         //param1: "defaultValue"
                         mapParams: {
-                            value: 'mapParamsDefaultValue',
+                            value: 'mapParamsDefaultMap',
                             squash: true
                         }
                     }

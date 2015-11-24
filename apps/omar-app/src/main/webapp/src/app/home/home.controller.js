@@ -101,7 +101,7 @@
                             suggestions: $.map(response.interpretations, function(dataItem){
                                 //console.log(dataItem);
                                 //console.log('value: ' + dataItem.feature.displayName + ' data: ' +
-                                // dataItem.feature.displayName);
+                                //dataItem.feature.displayName);
                                 return {
                                     value: dataItem.feature.displayName,
                                     data: dataItem.feature.displayName,
@@ -116,18 +116,20 @@
                     onSelect: function (suggestion) {
                         //console.log('You selected: ' + suggestion.value + ', \n' + suggestion.lat + ', \n' + suggestion.lng);
                         //console.log('suggestion', suggestion);
-
+                        var sug;
                         if (suggestion.bounds === undefined){
                             console.log('bounds is undefined!');
                             //Map.zoomTo(suggestion.lat, suggestion.lng);
                             // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
-                            var sug =JSON.stringify(suggestion);
+                            sug = JSON.stringify(suggestion);
+                            //console.log('sug', sug);
                             $state.go('map', {mapParams: sug, maxFeatures: '10'});
                         }
                         else {
                             //Map.zoomToExt(suggestion);
                             // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
-                            var sug =JSON.stringify(suggestion);
+                            sug = JSON.stringify(suggestion);
+                            //console.log('sug', sug);
                             $state.go('map', {mapParams: sug, maxFeatures: '10'});
                         }
 
