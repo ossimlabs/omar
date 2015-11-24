@@ -9,7 +9,7 @@
             var vm = this;
 
             var twofishUrl = APP_CONFIG.services.twofishes.url;
-            var twofishPort = APP_CONFIG.services.twofishes.port;
+            //var twofishPort = APP_CONFIG.services.twofishes.port;
             var twofishProxy = APP_CONFIG.services.twofishes.proxy;
 
             vm.title = 'Search for imagery';
@@ -88,7 +88,7 @@
                 $searchInput.autocomplete('enable');
                 //$searchButton.off('click', ZoomTo.cycleRegExs);
                 //console.log('place selected');
-                url = twofishProxy + twofishUrl + twofishPort + '/?responseIncludes=WKT_GEOMETRY_SIMPLIFIED&autocomplete=true&maxInterpretations=10&autocompleteBias=BALANCED';
+                url = twofishProxy /*+ twofishUrl + twofishPort*/ + '/?responseIncludes=WKT_GEOMETRY_SIMPLIFIED&autocomplete=true&maxInterpretations=10&autocompleteBias=BALANCED';
 
                 $searchInput.autocomplete({
                     serviceUrl: url,

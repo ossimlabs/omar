@@ -7,6 +7,10 @@ class TwoFishesProxyController
     def twoFishesServer = grailsApplication.config.twoFishesServer
     def twoFishesURL = grailsLinkGenerator.link( base: twoFishesServer, params: params ).toURL()
 
-    render contentType: 'application/json', file: twoFishesURL.bytes
+    byte[] data = twoFishesURL.bytes
+
+    println new String( data )
+
+    render contentType: 'application/json', file: data
   }
 }

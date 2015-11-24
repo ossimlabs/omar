@@ -341,9 +341,8 @@ webconfig:
       thumbnailsUrl: /omar/thumbnail/show/
       footprintsUrl: /omar/wms/footprints?
     twofishes:
-      url: http://localhost/twofish
-      port:
-      proxy: /twoFishesProxy/?
+      url: http://localhost:8081/twofish
+      proxy: /twoFishesProxy
     basemaps:
       osm:
         url: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
