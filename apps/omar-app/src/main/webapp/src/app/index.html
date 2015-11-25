@@ -2,7 +2,9 @@
 <!--<html lang="en" ng-app="omarApp">-->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OMAR2</title>
 
     <link rel="stylesheet" href="../node_modules/bootswatch/superhero/bootstrap.css">
@@ -12,22 +14,34 @@
 
 </head>
 <body>
+    <div class="container-fluid">
 
-    <!--- NAVIGATION --->
-    <nav class="navbar navbar-inverse" role="navigation">
-        <div class="navbar-header">
-            <a class="navbar-brand" ui-sref="#">OMAR2</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a ui-sref="home">Home</a></li>
-            <li><a ui-sref="map">Map</a></li>
-            <li><a href="wfs/wfs.html">WFS</a></li>
-        </ul>
-    </nav>
+        <!--- NAVIGATION --->
+        <nav class="navbar navbar-inverse" role="navigation">
 
-    <!--- MAIN CONTENT --->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#main-navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="#">OMAR2</a>
+            </div>
+            <div class="collapse navbar-collapse" id="main-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="home">Home</a></li>
+                    <li><a ui-sref="map">Map</a></li>
+                    <li><a href="wfs/wfs.html">WFS</a></li>
+                </ul>
+            </div>
+        </nav>
 
-    <div ui-view></div>
+        <!--- MAIN CONTENT --->
+
+        <div ui-view></div>
+    </div>
 
     <!-- Common -->
     <script src= "../node_modules/jquery/dist/jquery.js"></script>

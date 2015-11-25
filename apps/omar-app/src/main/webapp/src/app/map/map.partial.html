@@ -117,7 +117,6 @@
         <div class="col-md-4">
             <div >
                 <div ng-controller="ListController as list">
-                    <br>
                     <p>&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span class="label label-warning">{{list.wfsData.length}}</span></p>
                     <nav class="navbar navbar-inverse">
                         <div class="container-fluid">
@@ -134,8 +133,7 @@
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse" id="sortNav">
                                 <ul class="nav navbar-nav">
-                                    <li class="active"><a href="#">New Acquires
-                                        <span class="sr-only">(current)</span></a></li>
+                                    <li><a href="#">New Acquires</a></li>
                                     <li><a href="#">New Ingests</a></li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -144,12 +142,21 @@
                                         <ul class="dropdown-menu">
                                             <li><a href="#">Acquired (High to Low)</a></li>
                                             <li><a href="#">Acquired (Low to High)</a></li>
+                                            <li role="separator" class="divider"></li>
                                             <li><a href="#">Ingested (High to Low)</a></li>
                                             <li><a href="#">Ingested (Low to High)</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">Separated link</a></li>
+                                            <li><a href="#">Image ID (High to Low)</a></li>
+                                            <li><a href="#">Image ID (Low to High)</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">One more separated link</a></li>
+                                            <li><a href="#">Image Type (High to Low)</a></li>
+                                            <li><a href="#">Image Type (Low to High)</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#">Sensor (High to Low)</a></li>
+                                            <li><a href="#">Sensor (Low to High)</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#">Misson (High to Low)</a></li>
+                                            <li><a href="#">Misson (Low to High)</a></li>
                                         </ul>
                                     </li>
                                 </ul>
