@@ -96,7 +96,7 @@ function mapService (APP_CONFIG, $q) {
 
         if (mapParams === undefined) {
 
-            zoomTo(0,0,2);
+            zoomTo(0,0,4);
 
         }
         else if (mapParams !== undefined && mapParams.bounds === undefined) {
@@ -109,6 +109,8 @@ function mapService (APP_CONFIG, $q) {
             zoomToExt(mapParams);
 
         }
+
+        resizeMapRow();
 
     };
 
@@ -206,6 +208,8 @@ function mapService (APP_CONFIG, $q) {
         map.beforeRender(zoom, pan);
     }
 
+
+
     /**
      * Clear a layer's source, and
      * remove all features
@@ -242,6 +246,18 @@ function mapService (APP_CONFIG, $q) {
         centerFeature.setStyle(iconStyle);
         layer.getSource().addFeatures([centerFeature]);
     }
+
+    function resizeMapRow(){
+        console.log('resizing');
+        $('#map').animate({height:$(window).height()- 124}, 100, function(){
+            map.updateSize();
+        });
+
+    }
+
+    $(window).resize(function(){
+        resizeMapRow();
+    });
 
 }
 

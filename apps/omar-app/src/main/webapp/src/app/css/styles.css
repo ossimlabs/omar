@@ -28,9 +28,9 @@
     background: rgba(0, 0, 0, 0.5);
 }
 
-.map {
-    height: 600px;
-}
+/*.map {*/
+    /*height: 600px;*/
+/*}*/
 
 #searchForm .input-group-btn {
     z-index: 9997;
