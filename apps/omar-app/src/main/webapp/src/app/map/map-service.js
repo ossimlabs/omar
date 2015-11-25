@@ -5,15 +5,15 @@ angular
 
 function mapService (APP_CONFIG, $q) {
 
-    // Add the basemap parameters from the applicaiton config
-    // file.
+    // Add the basemap parameters from the applicaiton config file.
     var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
     var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
+
     // Add the path to OMAR and the footprints URL
     var omarUrl = APP_CONFIG.services.omar.url;
     var omarPort = APP_CONFIG.services.omar.port;
     var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
-    //console.log('footprints', omarUrl + omarPort + omarFootprintsUrl);
+
 
     var zoomToLevel = 16;
     var map,
