@@ -112,7 +112,7 @@ function mapService (APP_CONFIG, $q) {
 
     };
 
-    this.resize = function (element, height){
+    this.resizeElement = function (element, height){
         console.log('resizing');
         $(element).animate({height:$(window).height()- height}, 10, function(){
             map.updateSize();
