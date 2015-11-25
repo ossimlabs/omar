@@ -32,6 +32,10 @@
     /*height: 600px;*/
 /*}*/
 
+.fa-home-page .fa {
+    color: red;
+}
+
 #searchForm .input-group-btn {
     z-index: 9997;
 }
