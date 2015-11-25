@@ -249,7 +249,10 @@ function mapService (APP_CONFIG, $q) {
 
     function resizeMapRow(){
         console.log('resizing');
-        $('#map').animate({height:$(window).height()- 124}, 100, function(){
+        $('#map').animate({height:$(window).height()- 154}, 100, function(){
+            map.updateSize();
+        });
+        $('#list').animate({height:$(window).height()- 250}, 100, function(){
             map.updateSize();
         });
 
