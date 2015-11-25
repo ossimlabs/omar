@@ -110,7 +110,13 @@ function mapService (APP_CONFIG, $q) {
 
         }
 
-        resizeMapRow();
+    };
+
+    this.resize = function (element, height){
+        console.log('resizing');
+        $(element).animate({height:$(window).height()- height}, 10, function(){
+            map.updateSize();
+        });
 
     };
 
@@ -131,8 +137,6 @@ function mapService (APP_CONFIG, $q) {
         if (marker) {
             addMarker(parseFloat(lat),parseFloat(lon), searchLayerVector);
         }
-
-
 
     }
 
@@ -208,8 +212,6 @@ function mapService (APP_CONFIG, $q) {
         map.beforeRender(zoom, pan);
     }
 
-
-
     /**
      * Clear a layer's source, and
      * remove all features
@@ -247,20 +249,7 @@ function mapService (APP_CONFIG, $q) {
         layer.getSource().addFeatures([centerFeature]);
     }
 
-    function resizeMapRow(){
-        console.log('resizing');
-        $('#map').animate({height:$(window).height()- 154}, 100, function(){
-            map.updateSize();
-        });
-        $('#list').animate({height:$(window).height()- 250}, 100, function(){
-            map.updateSize();
-        });
 
-    }
-
-    $(window).resize(function(){
-        resizeMapRow();
-    });
 
 }
 
