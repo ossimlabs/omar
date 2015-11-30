@@ -14,7 +14,7 @@
     });
 
     angular
-        .module('omarApp',['ui.router'])
+        .module('omarApp',['ui.router', 'ui.bootstrap'])
         .config(function($stateProvider, $urlRouterProvider)  {
 
             $urlRouterProvider.otherwise('/home');

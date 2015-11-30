@@ -9,6 +9,8 @@
     url('../../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 .jumbotron {
     position: relative;
     background: #000 url("../images/aerial_rs.jpg") center center;
@@ -46,3 +48,29 @@
 .autocomplete-suggestions strong { font-weight: normal; color: #5bc0de; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+/*!
+ * Yamm!3 - Yet another megamenu for Bootstrap 3
+ * http://geedmo.github.com/yamm3
+ *
+ * @geedmo - Licensed under the MIT license
+ */
+.yamm .nav,
+.yamm .collapse,
+.yamm .dropup,
+.yamm .dropdown {
+    position: static;
+}
+.yamm .container {
+    position: relative;
+}
+.yamm .dropdown-menu {
+    left: auto;
+}
+.yamm .yamm-content {
+    padding: 20px 30px;
+}
+.yamm .dropdown.yamm-fw .dropdown-menu {
+    left: 0;
+    right: 0;
+}

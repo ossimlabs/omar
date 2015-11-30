@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar yamm navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -36,13 +36,31 @@
                        aria-expanded="false"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                         &nbsp;&nbsp;Temporal<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li>
+                            <div class="yamm-content">
+                                <form class="form">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4>Date Acquired</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label label-info" for="startDateAcq">Start Date</label>
+                                                <input class="form-control" id="startDateAcq" placeholder="Starting date">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label label-info" for="endDateAcq">End Date</label>
+                                                <input class="form-control" id="endDateAcq" placeholder="Ending date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -50,13 +68,244 @@
                        aria-expanded="false"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
                         &nbsp;&nbsp;Mission<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li>
+                            <div class="yamm-content">
+                                <ul class="col-sm-2 list-unstyled">
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                <strong class="text-warning">Type1</strong>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item1
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item2
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item3
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item4
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item5
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item6
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item7
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="col-sm-2 list-unstyled">
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                <strong class="text-warning">Type2</strong>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item1
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item2
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item3
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item4
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="col-sm-2 list-unstyled">
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                <strong class="text-warning">Type3</strong>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item1
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item2
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item3
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="col-sm-2 list-unstyled">
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                <strong class="text-warning">Type4</strong>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item1
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item2
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item3
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item4
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item5
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Item6
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="col-sm-2 list-unstyled">
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                <strong class="text-warning">Commercial</strong>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                QB02
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                WV01
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                WV02
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -149,16 +398,80 @@
 <!-- Modal -->
 <div class="modal fade" id="filterModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content modal-lg">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Additional Filter</h4>
+                <h4 class="modal-title" id="myModalLabel">Additional Filters</h4>
             </div>
             <div class="modal-body">
-                <form>
+                <form class="form-inline">
                     <div class="row">
-                        <div class="col-md-6">
-                            
+                        <div class="col-md-12">
+                            <h4>Common Constraints</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-3 col-md-offset-3">
+                            <label class="label label-primary">Minimum</label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="label label-primary">Maximum</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="checkbox" id="predNiirsCheck">
+                                <label class="label label-info">
+                                    <input type="checkbox">  Predicted NIIRS
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" id="niirsMin" placeholder="0.0">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" id="niirsMax" placeholder="9.0">
+                        </div>
+                        <div class="col-md-3">
+                            <p>0.0-9.0</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="checkbox" id="azimuthCheck">
+                                <label class="label label-info">
+                                    <input type="checkbox">  Azimuth
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" id="azimuthMin" placeholder="0.0">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" id="azimuthMax" placeholder="0.0">
+                        </div>
+                        <div class="col-md-3">
+                            <p>0-360 Degrees</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="checkbox" id="grazeElevCheck">
+                                <label class="label label-info">
+                                    <input type="checkbox">  Graze/Elevation
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" id="grazeElevMin" placeholder="0.0">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" id="grazeElevMax" placeholder="90.0">
+                        </div>
+                        <div class="col-md-3">
+                            <p>0-90 Degrees</p>
                         </div>
                     </div>
 
@@ -183,7 +496,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-success">Submit</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
