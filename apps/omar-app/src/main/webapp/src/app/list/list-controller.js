@@ -37,5 +37,23 @@ angular
             //$log.warn('wfsData.length', vm.wfsData.length);
         });
 
+        vm.rate = 7;
+        vm.max = 10;
+        vm.isReadonly = false;
+
+        vm.hoveringOver = function(value) {
+            console.log('hoverOver!');
+            vm.overStar = value;
+            vm.percent = 100 * (value / vm.max);
+        };
+
+        vm.ratingStates = [
+            {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+            {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+            {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+            {stateOn: 'glyphicon-heart'},
+            {stateOff: 'glyphicon-off'}
+        ];
+
     }
 })();

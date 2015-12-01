@@ -1,338 +1,541 @@
 <nav class="navbar yamm navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#filter-navbar-collapse" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand visible-xs-block">Filter</a>
-        </div>
-        <div class="collapse navbar-collapse" id="filter-navbar-collapse">
-            <form id="searchForm" class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <select id="searchSelect" class="form-control selectpicker"  data-style="btn-primary">
-                                <option data-icon="glyphicon-map-marker" value="place">&nbsp;&nbsp;Place&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                                <option data-icon="glyphicon glyphicon-screenshot" value="coordinate">&nbsp;&nbsp;Coordinate&nbsp;&nbsp;</option>
-                            </select>
-                        </div>
-                        <input id="searchInput" class="form-control" type="text" placeholder="" value="">
-                        <div class="input-group-btn">
-                            <button id="searchButton" class="btn btn-primary" type="button"><span
-                                    class="glyphicon glyphicon-search"></span></button>
-                            <button id="clearSearchButton" class="btn btn-primary" type="button"><span
-                                    class="glyphicon glyphicon-remove"></span></button>
-                        </div>
-                    </div> <!-- /.input-group -->
-                </div><!-- /.form-group -->
-            </form>
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                        &nbsp;&nbsp;Temporal<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="yamm-content">
-                                <form class="form">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h4>Date Acquired</h4>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#filter-navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand visible-xs-block">Filter</a>
+    </div>
+    <div class="collapse navbar-collapse" id="filter-navbar-collapse">
+        <form id="searchForm" class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <select id="searchSelect" class="form-control selectpicker"  data-style="btn-primary">
+                            <option data-icon="glyphicon-map-marker" value="place">&nbsp;&nbsp;Place&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                            <option data-icon="glyphicon glyphicon-screenshot" value="coordinate">&nbsp;&nbsp;Coordinate&nbsp;&nbsp;</option>
+                        </select>
+                    </div>
+                    <input id="searchInput" class="form-control" type="text" placeholder="" value="">
+                    <div class="input-group-btn">
+                        <button id="searchButton" class="btn btn-primary" type="button"><span
+                                class="glyphicon glyphicon-search"></span></button>
+                        <button id="clearSearchButton" class="btn btn-primary" type="button"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div> <!-- /.input-group -->
+            </div><!-- /.form-group -->
+        </form>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                    &nbsp;&nbsp;Temporal<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div class="yamm-content">
+                            <form class="form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>Date Acquired</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label label-info" for="startDateAcq">Start Date</label>
+                                            <input class="form-control" id="startDateAcq" placeholder="Starting date">
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="label label-info" for="startDateAcq">Start Date</label>
-                                                <input class="form-control" id="startDateAcq" placeholder="Starting date">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="label label-info" for="endDateAcq">End Date</label>
-                                                <input class="form-control" id="endDateAcq" placeholder="Ending date">
-                                            </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="label label-info" for="endDateAcq">End Date</label>
+                                            <input class="form-control" id="endDateAcq" placeholder="Ending date">
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
-                        &nbsp;&nbsp;Mission<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="yamm-content">
-                                <ul class="col-sm-2 list-unstyled">
-                                    <li>
-                                        <div class="checkbox">
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                    &nbsp;&nbsp;Mission<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div class="yamm-content">
+                            <ul class="col-sm-2 list-unstyled">
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <strong class="text-warning">Mission1</strong>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type1
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type2
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type3
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type4
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type5
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type6
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type7
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="col-sm-2 list-unstyled">
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <strong class="text-warning">Mission2</strong>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type1
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type2
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type3
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type4
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="col-sm-2 list-unstyled">
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <strong class="text-warning">Mission3</strong>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type1
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type2
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type3
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="col-sm-2 list-unstyled">
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <strong class="text-warning">Mission4</strong>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type1
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type2
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type3
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type4
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type5
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            Type6
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="col-sm-2 list-unstyled">
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <strong class="text-warning">CommercialMission</strong>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            QB02
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            WV01
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            WV02
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+                    &nbsp;&nbsp;More Filters
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li class="yamm-content">
+                        <div >
+                            <form class="">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <h4>Common Constraints</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 col-md-offset-3">
+                                        <label class="label label-primary">Minimum</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="label label-primary">Maximum</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="predNiirsCheck">
                                             <label>
-                                                <input type="checkbox" value="">
-                                                <strong class="text-warning">Type1</strong>
+                                                <input type="checkbox">&nbsp;&nbsp;Predicted NIIRS
                                             </label>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="niirsMin" placeholder="0.0">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="niirsMax" placeholder="9.0">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="help-block">0.0-9.0</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="azimuthCheck">
                                             <label>
-                                                <input type="checkbox" value="">
-                                                Item1
+                                                <input type="checkbox">&nbsp;&nbsp;Azimuth
                                             </label>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item2
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="azimuthMin" placeholder="0.0">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="azimuthMax" placeholder="0.0">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="help-block">0-360 Degrees</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="grazeElevCheck">
+                                            <label >
+                                                <input type="checkbox">&nbsp;&nbsp;Graze/Elevation
                                             </label>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="grazeElevMin" placeholder="0.0">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="grazeElevMax" placeholder="90.0">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="help-block">0-90 Degrees</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <h4>EO/IR Constraints</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 col-md-offset-3">
+                                        <label class="label label-primary">Minimum</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="label label-primary">Maximum</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="sunAzimuthCheck">
                                             <label>
-                                                <input type="checkbox" value="">
-                                                Item3
+                                                <input type="checkbox">&nbsp;&nbsp;Sun Azimuth
                                             </label>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="sunAzimuthMin" placeholder="0.0">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="sunAzimuthMax" placeholder="9.0">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="help-block">0-360</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="sunElevationCheck">
                                             <label>
-                                                <input type="checkbox" value="">
-                                                Item4
+                                                <input type="checkbox">&nbsp;&nbsp;Sun Elevation
                                             </label>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item5
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="sunElevationMin" placeholder="0.0">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="sunElevationMax" placeholder="90.0">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="help-block">-90-90 Degrees</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="cloudCoverCheck">
+                                            <label >
+                                                <input type="checkbox">&nbsp;&nbsp;Cloud Cover
                                             </label>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <!--<input class="form-control" id="grazeElevMin" placeholder="0.0">-->
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="cloudCover" placeholder="80.0">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="help-block">%</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="slantRangeCheck">
                                             <label>
-                                                <input type="checkbox" value="">
-                                                Item6
+                                                <input type="checkbox">&nbsp;&nbsp;Slant Range
                                             </label>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="slantRangeMin" placeholder="0.0">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="slantRangeMax" placeholder="1000.0">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="help-block">Kilometers</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="aggrModeCheck">
                                             <label>
-                                                <input type="checkbox" value="">
-                                                Item7
+                                                <input type="checkbox">&nbsp;&nbsp;Slant Range
                                             </label>
                                         </div>
-                                    </li>
-                                </ul>
-                                <ul class="col-sm-2 list-unstyled">
-                                    <li>
-                                        <div class="checkbox">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-control" id="aggrModeSelect">
+                                            <option>1x1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="targetTypeCheck">
                                             <label>
-                                                <input type="checkbox" value="">
-                                                <strong class="text-warning">Type2</strong>
+                                                <input type="checkbox">&nbsp;&nbsp;Slant Range
                                             </label>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-control" id="targetTypeSelect">
+                                            <option>Point</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox" id="stereoCheck">
                                             <label>
-                                                <input type="checkbox" value="">
-                                                Item1
+                                                <input type="checkbox">&nbsp;&nbsp;Stereo
                                             </label>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item2
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item3
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item4
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <ul class="col-sm-2 list-unstyled">
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                <strong class="text-warning">Type3</strong>
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item1
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item2
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item3
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <ul class="col-sm-2 list-unstyled">
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                <strong class="text-warning">Type4</strong>
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item1
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item2
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item3
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item4
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item5
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                Item6
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <ul class="col-sm-2 list-unstyled">
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                <strong class="text-warning">Commercial</strong>
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                QB02
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                WV01
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                WV02
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-                        &nbsp;&nbsp;Sensor
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-                <li><a href="#" data-toggle="modal" data-target="#filterModal"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>&nbsp;&nbsp;More
-                    Filters</a></li>
-            </ul>
-            <form class="navbar-form navbar-right">
-                <button type="button" class="btn btn-info disabled"><span class="glyphicon glyphicon-th-list"
-                                                                  aria-hidden="true"></span>&nbsp;&nbsp;List
-                    View</button>
-            </form>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <hr>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+            </li>
+            <!--<li><a href="#" data-toggle="modal" data-target="#filterModal"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>&nbsp;&nbsp;More-->
+                <!--Filters</a></li>-->
+        </ul>
+        <form class="navbar-form navbar-right">
+            <button type="button" class="btn btn-info disabled"><span class="glyphicon glyphicon-th-list"
+                                                                      aria-hidden="true"></span>&nbsp;&nbsp;List
+                View</button>
+            <button class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"
+                                                  aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)</button>
+        </form>
+    </div><!-- /.navbar-collapse -->
 </nav>
 
 <div class="row">
@@ -340,9 +543,23 @@
         <div id="map" class="map" params="map.mapParams" map></div>
     </div>
     <div class="col-md-4" ng-controller="ListController as list">
+
         <div class="visible-xs-block visible-sm-block">
-            <hr></div>
-        <p>&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span class="label label-warning">{{list.wfsData.length}}</span></p>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p>&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span class="label label-warning">{{list.wfsData.length}}</span></p>
+            </div>
+            <div class="col-md-6 text-right">
+                <uib-rating ng-model="list.rate" max="list.max" readonly="list.isReadonly"
+                            on-hover="list.hoveringOver(value)"
+                            on-leave="list.overStar = null" titles="['one','two','three']"
+                            aria-labelledby="default-rating"></uib-rating>
+                <!--<span class="label" -->
+                      <!--ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="list.overStar && !list.isReadonly">{{percent}}%</span>-->
+            </div>
+        </div>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -394,114 +611,5 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="filterModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content modal-lg">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Additional Filters</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-inline">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>Common Constraints</h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 col-md-3 col-md-offset-3">
-                            <label class="label label-primary">Minimum</label>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="label label-primary">Maximum</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="checkbox" id="predNiirsCheck">
-                                <label class="label label-info">
-                                    <input type="checkbox">  Predicted NIIRS
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <input class="form-control" id="niirsMin" placeholder="0.0">
-                        </div>
-                        <div class="col-md-3">
-                            <input class="form-control" id="niirsMax" placeholder="9.0">
-                        </div>
-                        <div class="col-md-3">
-                            <p>0.0-9.0</p>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="checkbox" id="azimuthCheck">
-                                <label class="label label-info">
-                                    <input type="checkbox">  Azimuth
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <input class="form-control" id="azimuthMin" placeholder="0.0">
-                        </div>
-                        <div class="col-md-3">
-                            <input class="form-control" id="azimuthMax" placeholder="0.0">
-                        </div>
-                        <div class="col-md-3">
-                            <p>0-360 Degrees</p>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="checkbox" id="grazeElevCheck">
-                                <label class="label label-info">
-                                    <input type="checkbox">  Graze/Elevation
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <input class="form-control" id="grazeElevMin" placeholder="0.0">
-                        </div>
-                        <div class="col-md-3">
-                            <input class="form-control" id="grazeElevMax" placeholder="90.0">
-                        </div>
-                        <div class="col-md-3">
-                            <p>0-90 Degrees</p>
-                        </div>
-                    </div>
-
-
-
-
-                </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success">Submit</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 
