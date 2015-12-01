@@ -14,20 +14,23 @@
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <select id="searchSelect" class="form-control selectpicker"  data-style="btn-primary">
+                        <select id="searchSelect" class="form-control selectpicker" data-style="btn-primary">
                             <option data-icon="glyphicon-map-marker" value="place">&nbsp;&nbsp;Place&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
                             <option data-icon="glyphicon glyphicon-screenshot" value="coordinate">&nbsp;&nbsp;Coordinate&nbsp;&nbsp;</option>
                         </select>
                     </div>
                     <input id="searchInput" class="form-control" type="text" placeholder="" value="">
+
                     <div class="input-group-btn">
                         <button id="searchButton" class="btn btn-primary" type="button"><span
                                 class="glyphicon glyphicon-search"></span></button>
                         <button id="clearSearchButton" class="btn btn-primary" type="button"><span
                                 class="glyphicon glyphicon-remove"></span></button>
                     </div>
-                </div> <!-- /.input-group -->
-            </div><!-- /.form-group -->
+                </div>
+                <!-- /.input-group -->
+            </div>
+            <!-- /.form-group -->
         </form>
         <ul class="nav navbar-nav">
             <li class="dropdown">
@@ -314,7 +317,7 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li class="yamm-content">
-                        <div >
+                        <div>
                             <form class="">
                                 <div class="row">
                                     <div class="col-md-12 text-center">
@@ -348,6 +351,7 @@
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="azimuthCheck">
@@ -367,10 +371,11 @@
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="grazeElevCheck">
-                                            <label >
+                                            <label>
                                                 <input type="checkbox">&nbsp;&nbsp;Graze/Elevation
                                             </label>
                                         </div>
@@ -420,6 +425,7 @@
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="sunElevationCheck">
@@ -439,10 +445,11 @@
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="cloudCoverCheck">
-                                            <label >
+                                            <label>
                                                 <input type="checkbox">&nbsp;&nbsp;Cloud Cover
                                             </label>
                                         </div>
@@ -458,6 +465,7 @@
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="slantRangeCheck">
@@ -477,6 +485,7 @@
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="aggrModeCheck">
@@ -492,6 +501,7 @@
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="targetTypeCheck">
@@ -507,6 +517,7 @@
                                     </div>
                                 </div>
                                 <br>
+
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="stereoCheck">
@@ -526,16 +537,20 @@
                 </ul>
             </li>
             <!--<li><a href="#" data-toggle="modal" data-target="#filterModal"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>&nbsp;&nbsp;More-->
-                <!--Filters</a></li>-->
+            <!--Filters</a></li>-->
         </ul>
         <form class="navbar-form navbar-right">
-            <button type="button" class="btn btn-info disabled"><span class="glyphicon glyphicon-th-list"
-                                                                      aria-hidden="true"></span>&nbsp;&nbsp;List
-                View</button>
-            <button class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"
-                                                  aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)</button>
+            <button type="button" class="btn btn-success disabled"><span class="glyphicon glyphicon-th-list"
+                                                                         aria-hidden="true"></span>&nbsp;&nbsp;List
+                View
+            </button>
+            <button type="button" class="btn btn-success disabled"><span class="glyphicon glyphicon-floppy-disk"
+                                                                         aria-hidden="true"></span>&nbsp;&nbsp;Save
+                Workspace
+            </button>
         </form>
-    </div><!-- /.navbar-collapse -->
+    </div>
+    <!-- /.navbar-collapse -->
 </nav>
 
 <div class="row">
@@ -549,15 +564,16 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <p>&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span class="label label-warning">{{list.wfsData.length}}</span></p>
+                <p>&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span class="label label-warning">{{list.wfsData.length}}</span>
+                </p>
             </div>
             <div class="col-md-6 text-right">
-                <uib-rating ng-model="list.rate" max="list.max" readonly="list.isReadonly"
-                            on-hover="list.hoveringOver(value)"
-                            on-leave="list.overStar = null" titles="['one','two','three']"
-                            aria-labelledby="default-rating"></uib-rating>
+                <!--<uib-rating ng-model="list.rate" max="list.max" readonly="list.isReadonly"-->
+                <!--on-hover="list.hoveringOver(value)"-->
+                <!--on-leave="list.overStar = null" titles="['one','two','three']"-->
+                <!--aria-labelledby="default-rating"></uib-rating>-->
                 <!--<span class="label" -->
-                      <!--ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="list.overStar && !list.isReadonly">{{percent}}%</span>-->
+                <!--ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="list.overStar && !list.isReadonly">{{percent}}%</span>-->
             </div>
         </div>
         <nav class="navbar navbar-inverse">
@@ -601,8 +617,15 @@
                             </ul>
                         </li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+                    <form class="navbar-form navbar-right">
+                        <button class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"
+                                                           aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)
+                        </button>
+                    </form>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
         </nav>
         <div id="list">
             <div ng-repeat="image in list.wfsData">

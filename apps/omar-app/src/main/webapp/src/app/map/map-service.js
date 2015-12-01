@@ -57,7 +57,9 @@ function mapService (APP_CONFIG, $q) {
             //center: [-80.7253178, 28.1174627],
             center: [0, 0],
             projection: 'EPSG:4326',
-            zoom: 12
+            zoom: 12,
+            minZoom: 3,
+            maxZoom: 18
         });
         map = new ol.Map({
             layers: [
