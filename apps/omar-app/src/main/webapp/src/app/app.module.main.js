@@ -13,8 +13,8 @@
     });
 
     angular
-        .module('omarApp',['ui.router', 'ui.bootstrap','angularSpinner'])
-        .config(function($stateProvider, $urlRouterProvider)  {
+        .module('omarApp', ['ui.router', 'ui.bootstrap', 'angularSpinner'])
+        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider)  {
 
             $urlRouterProvider.otherwise('/home');
 
@@ -41,7 +41,7 @@
 
                 .state('wfs', {
                     url: '/wfs',
-                    templateUrl: 'wfs/wfs-partial.html'
+                    templateUrl: 'wfs/wfs.partial.html'
                 })
 
                 .state('multiple', {
@@ -49,6 +49,6 @@
                     templateUrl: 'multiple/multiple.partial.html'
                 });
 
-        }); // closes $routerApp.config()
+        }]); // closes $routerApp.config()
 
 })();

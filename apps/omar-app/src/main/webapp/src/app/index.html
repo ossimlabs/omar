@@ -18,7 +18,7 @@
 <body>
     <div class="container-fluid">
 
-        <!--- NAVIGATION --->
+        <!--- Navigation --->
         <nav class="navbar navbar-inverse" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -33,15 +33,16 @@
             <div class="collapse navbar-collapse" id="main-navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a ui-sref="home">&nbsp;Home</a></li>
-                    <li><a ui-sref="map">&nbsp;Search</a></a></li>
+                    <li><a ui-sref="map">&nbsp;Map</a></a></li>
                     <li><a ui-sref="wfs">&nbsp;WFS</a></li>
+                    <li><a ui-sref="multiple">&nbsp;Multi</a></li>
                 </ul>
             </div>
         </nav>
 
-        <!--- MAIN CONTENT --->
-
+        <!--- Main Content --->
         <div ui-view></div>
+
     </div>
 
     <!-- Common -->
@@ -58,31 +59,31 @@
     <script src= "../node_modules/angular-spinner/angular-spinner.min.js"></script>
 
     <!-- Core -->
+    <script src="core/OpenLayersLite-formats.js"></script>
+    <script src="core/wfs-client.js"></script>
     <script src="app.module.main.js"></script>
-    <script src= "core/OpenLayersLite-formats.js"></script>
-    <script src= "core/wfs-client.js"></script>
 
     <!-- Services -->
-    <script src="services/wfs-service.js"></script>
-    <script src="services/map-service.js"></script>
+    <script src="services/wfs.service.js"></script>
+    <script src="services/map.service.js"></script>
+    <script src="services/multiple.service.js"></script>
 
     <!-- Home -->
     <script src="home/home.controller.js"></script>
 
     <!-- Map -->
-    <script src="map/map-controller.js"></script>
-    <!--<script src="map/map-directive.js"></script>-->
+    <script src="map/map.controller.js"></script>
+    <!--<script src="map/map.directive.js"></script>-->
 
     <!-- List -->
-    <script src="list/list-controller.js"></script>
-    <script src="list/list-directive.js"></script>
+    <script src="list/list.controller.js"></script>
+    <!--<script src="list/list.directive.js"></script>-->
 
     <!-- WFS -->
     <script src="wfs/wfs.controller.js"></script>
 
     <!-- Multiple (test) -->
-    <script src="multiple/multiple-controller.js"></script>
-    <script src="multiple/multiple-service.js"></script>
+    <script src="multiple/multiple.controller.js"></script>
 
 </body>
 </html>

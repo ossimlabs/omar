@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('mapService', mapService);
+        .service('mapService', ['APP_CONFIG', mapService]);
 
-        function mapService (APP_CONFIG, $q) {
+        function mapService (APP_CONFIG) {
 
             // Add the basemap parameters from the applicaiton config file.
             var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;

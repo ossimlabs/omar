@@ -2,7 +2,7 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('wfsService', wfsService);
+        .service('wfsService', ['APP_CONFIG', '$q', wfsService]);
 
         function wfsService (APP_CONFIG, $q) {
             //console.log('wfsClientUrl', APP_CONFIG.services.omar.wfsUrl);

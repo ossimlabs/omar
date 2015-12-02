@@ -1,7 +1,8 @@
 (function(){
+    'use strict';
     angular
         .module('omarApp')
-        .controller('HomeController', HomeController);
+        .controller('HomeController', ['APP_CONFIG', '$state', HomeController]);
 
         function HomeController(APP_CONFIG, $state){
 
@@ -146,4 +147,5 @@
             }
 
         }
+
 })();
