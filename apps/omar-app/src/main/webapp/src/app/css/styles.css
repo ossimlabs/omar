@@ -72,6 +72,7 @@
 }
 .yamm .yamm-content {
     padding: 20px 30px;
+    overflow: scroll;
 }
 .yamm .dropdown.yamm-fw .dropdown-menu {
     left: 0;
