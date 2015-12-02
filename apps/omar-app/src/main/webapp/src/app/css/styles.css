@@ -41,6 +41,19 @@
 #list {
     overflow: scroll;
 }
+/*!
+ * Styles for wfs-partial
+ */
+.the-table {
+    white-space: nowrap;
+    max-width: none;
+    min-width: 100%
+    width: auto;
+}
+.the-container {
+    overflow: auto;
+    height: 250px;
+}
 
 /*!
  * Styles the autocomplete dropdown

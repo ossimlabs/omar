@@ -1,5 +1,4 @@
 (function(){
-
     'use strict';
     // https://github.com/philippd/angular-deferred-bootstrap
     deferredBootstrapper.bootstrap({
@@ -14,7 +13,7 @@
     });
 
     angular
-        .module('omarApp',['ui.router', 'ui.bootstrap'])
+        .module('omarApp',['ui.router', 'ui.bootstrap','angularSpinner'])
         .config(function($stateProvider, $urlRouterProvider)  {
 
             $urlRouterProvider.otherwise('/home');
@@ -40,12 +39,16 @@
 
                 })
 
+                .state('wfs', {
+                    url: '/wfs',
+                    templateUrl: 'wfs/wfs-partial.html'
+                })
+
                 .state('multiple', {
                     url: '/multiple',
                     templateUrl: 'multiple/multiple.partial.html'
                 });
 
         }); // closes $routerApp.config()
-
 
 })();

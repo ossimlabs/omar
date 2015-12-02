@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OMAR2</title>
 
-    <link rel="stylesheet" href="../node_modules/bootswatch/slate/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootswatch/darkly/bootstrap.css">
     <link rel="stylesheet" href="../node_modules/angular-ui-bootstrap/ui-bootstrap-csp.css">
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="../node_modules/openlayers/dist/ol.css">
@@ -34,7 +34,7 @@
                 <ul class="nav navbar-nav">
                     <li><a ui-sref="home">&nbsp;Home</a></li>
                     <li><a ui-sref="map">&nbsp;Search</a></a></li>
-                    <li><a href="wfs/wfs.html">WFS</a></li>
+                    <li><a ui-sref="wfs">&nbsp;WFS</a></li>
                 </ul>
             </div>
         </nav>
@@ -54,9 +54,11 @@
     <script src= "../node_modules/angular-deferred-bootstrap/angular-deferred-bootstrap.js"></script>
     <script src= "../node_modules/bootstrap-select/dist/js/bootstrap-select.js"></script>
     <script src= "../node_modules/devbridge-autocomplete/dist/jquery.autocomplete.js"></script>
+    <script src= "../node_modules/spin.js/spin.js"></script>
+    <script src= "../node_modules/angular-spinner/angular-spinner.min.js"></script>
 
     <!-- Core -->
-    <script src="app.module.deferred.js"></script>
+    <script src="app.module.main.js"></script>
     <script src= "core/OpenLayersLite-formats.js"></script>
     <script src= "core/wfs-client.js"></script>
 
@@ -74,6 +76,9 @@
     <!-- List -->
     <script src="list/list-controller.js"></script>
     <script src="list/list-directive.js"></script>
+
+    <!-- WFS -->
+    <script src="wfs/wfs.controller.js"></script>
 
     <!-- Multiple (test) -->
     <script src="multiple/multiple-controller.js"></script>
