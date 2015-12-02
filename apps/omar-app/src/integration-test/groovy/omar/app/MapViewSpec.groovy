@@ -23,7 +23,7 @@ class MapViewSpec extends GebSpec {
              dbtype: 'postgis',
              host: 'localhost',
              port: 5432,
-             database: 'omardb-1.8.19-prod',
+             database: 'omardb-1.8.20-prod',
              user: 'postgres',
              passwd: 'postgres',
              'Expose primary keys': true,

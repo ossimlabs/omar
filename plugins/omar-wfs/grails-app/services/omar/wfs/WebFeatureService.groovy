@@ -345,6 +345,7 @@ class WebFeatureService
     def xml = new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x )
     def contentType = 'application/xml'
 
+
     return [contentType: contentType, buffer: xml.toString()]
   }
 

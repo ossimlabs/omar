@@ -127,4 +127,4 @@ task installJavaVectorTiles( type: Exec, dependsOn: 'downloadJavaVectorTiles' ) 
 }
 
 
-compileGroovy.dependsOn 'installJavaVectorTiles'
+//compileGroovy.dependsOn 'installJavaVectorTiles'
