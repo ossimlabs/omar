@@ -98,7 +98,8 @@ function mapService (APP_CONFIG, $q) {
 
         if (mapParams === undefined) {
 
-            zoomTo(0,0,4);
+            //zoomTo(0,0,4);
+            zoomTo(33.3116664,44.2858655,4)
 
         }
         else if (mapParams !== undefined && mapParams.bounds === undefined) {
