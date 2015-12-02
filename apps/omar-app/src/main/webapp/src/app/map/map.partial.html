@@ -562,20 +562,7 @@
         <div class="visible-xs-block visible-sm-block">
             <hr>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <p>&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span class="label label-warning">{{list.wfsData.length}}</span>
-                </p>
-            </div>
-            <div class="col-md-6 text-right">
-                <!--<uib-rating ng-model="list.rate" max="list.max" readonly="list.isReadonly"-->
-                <!--on-hover="list.hoveringOver(value)"-->
-                <!--on-leave="list.overStar = null" titles="['one','two','three']"-->
-                <!--aria-labelledby="default-rating"></uib-rating>-->
-                <!--<span class="label" -->
-                <!--ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="list.overStar && !list.isReadonly">{{percent}}%</span>-->
-            </div>
-        </div>
+
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -617,19 +604,105 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <button class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"
-                                                           aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)
-                        </button>
-                    </form>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
             <!-- /.container-fluid -->
         </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span class="label label-warning">{{list.wfsData.length}}</span>
+                    </p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <!--<uib-rating ng-model="list.rate" max="list.max" readonly="list.isReadonly"-->
+                    <!--on-hover="list.hoveringOver(value)"-->
+                    <!--on-leave="list.overStar = null" titles="['one','two','three']"-->
+                    <!--aria-labelledby="default-rating"></uib-rating>-->
+                    <!--<span class="label" -->
+                    <!--ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="list.overStar && !list.isReadonly">{{percent}}%</span>-->
+                    <button class="btn btn-info" ><span
+                            class="glyphicon glyphicon-shopping-cart"
+                                                       aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)
+                    </button>
+                </div>
+            </div>
+            <hr>
+        </div>
         <div id="list">
             <div ng-repeat="image in list.wfsData">
-                <div list-image image="image" omar="{{list.omarUrl}}"></div>
+
+                <!--<div list-image image="image" omar="{{list.omarUrl}}"></div>-->
+
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object"
+                                     ng-src="{{list.omarThumbnailsUrl}}{{image.properties.id}}"
+                                     alt=""
+                                     style="width: 100px; height: 100px">&nbsp;
+                                <uib-rating ng-model="list.rate"
+                                            max="list.max"
+                                            readonly="list.isReadonly"
+                                            on-hover="list.hoveringOver(value)"
+                                            on-leave="list.overStar = null"
+                                            titles="['one','two','three']"
+                                            aria-labelledby="default-rating">
+
+                                </uib-rating>
+                            </div>
+                            <div class="media-body">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <h5 class="media-heading">Image ID:&nbsp;&nbsp;<span
+                                                class="text-info">20151202-000{{image.properties.id}}</span></h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        File Type:&nbsp;&nbsp;<span
+                                            class="text-info"><t>{{image.properties.file_type}}</t></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        Sensor Type:&nbsp;&nbsp;<span
+                                            class="text-info"><t>12345678901{{image.properties
+                                        .sensor_id}}</t></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        Mission Type:&nbsp;&nbsp;<span
+                                            class="text-info"><t>Impossible{{image.properties
+                                        .mission_id}}</t></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        Acquisition Date:&nbsp;&nbsp;<span
+                                            class="text-info"><t>Apr 6, 2015 1:08:16
+                                        AM{{image.properties.acquisition_date | date:'medium'}}</t></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        Ingest Date:&nbsp;&nbsp;<span
+                                            class="text-info"><t>{{image.properties.ingest_date| date:'medium'}}</t></span>
+                                    </div>
+                                </div>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
