@@ -636,24 +636,14 @@
                 <!--<div list-image image="image" omar="{{list.omarUrl}}"></div>-->
 
                 <div class="panel panel-primary">
-                    <!--<div class="panel-heading"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;ID:&nbsp;&nbsp;&nbsp;-->
-                        <!--<strong>-->
-                            <!--{{image.properties.id}}-->
-                        <!--</strong>-->
-                    <!--</div>-->
                     <div class="panel-body">
                         <div class="media">
-                            <!--<div class="col-md-1">-->
-                                <!--<br>-->
-                                <!--<br>-->
-
-                            <!--</div>-->
                             <div class="media-left">
                                 <img class="media-object"
-                                     ng-src="http://localhost:8888/omar/thumbnail/show/{{image.properties.id}}"
+                                     ng-src="{{list.omarThumbnailsUrl}}{{image.properties.id}}"
                                      alt=""
-                                     style="width: 100px; height: 100px">
-                                &nbsp;<uib-rating ng-model="list.rate"
+                                     style="width: 100px; height: 100px">&nbsp;
+                                <uib-rating ng-model="list.rate"
                                             max="list.max"
                                             readonly="list.isReadonly"
                                             on-hover="list.hoveringOver(value)"
@@ -667,8 +657,7 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <h5 class="media-heading">Image ID:&nbsp;&nbsp;<span
-                                                class="text-info">20151201-000{{image.properties
-                                            .id}}</span></h5>
+                                                class="text-info">20151202-000{{image.properties.id}}</span></h5>
                                     </div>
                                     <div class="col-md-2">
                                         <i class="fa fa-plus-circle"></i>
@@ -697,14 +686,14 @@
                                 <div class="row">
                                     <div class="col-md-12" style="font-size: 13px;">
                                         Acquisition Date:&nbsp;&nbsp;<span
-                                            class="text-info"><t>2015-04-08T19:27:27.085+0000{{image.properties
-                                        .acquisition_date}}</t></span>
+                                            class="text-info"><t>Apr 6, 2015 1:08:16
+                                        AM{{image.properties.acquisition_date | date:'medium'}}</t></span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12" style="font-size: 13px;">
                                         Ingest Date:&nbsp;&nbsp;<span
-                                            class="text-info"><t>{{image.properties.ingest_date}}</t></span>
+                                            class="text-info"><t>{{image.properties.ingest_date| date:'medium'}}</t></span>
                                     </div>
                                 </div>
                                 <p></p>

@@ -11,13 +11,12 @@ angular
         /* jshint validthis: true */
         var vm = this;
 
-        vm.omarUrl = APP_CONFIG.services.omar.url;
-        vm.omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
+        var omarUrl = APP_CONFIG.services.omar.url;
+        var omarPort = APP_CONFIG.services.omar.port;
+        var omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
 
-        vm.title = "ListController";
-
-        //console.log('vm.omar', vm.omarUrl);
-        //console.log('vm.omarThumbnail', vm.omarThumbnails);
+        vm.omarThumbnailsUrl = omarUrl + omarPort + omarThumbnails;
+        console.log('vm.omarThumbnailsUrl', vm.omarThumbnailsUrl);
 
         //vm.test = $stateParams.test;
         //$log.warn('stateParams', vm.test);
