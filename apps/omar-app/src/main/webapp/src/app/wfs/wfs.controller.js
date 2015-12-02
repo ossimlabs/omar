@@ -13,9 +13,10 @@
             //$scope.endPoint = 'http://giswebservices.massgis.state.ma.us/geoserver/wfs';
             //$scope.endPoint = 'http://clc.developpement-durable.gouv.fr/geoserver/wfs';
             //$scope.endPoint = 'http://localhost:8080/omar/wfs'
-            $scope.endPoint = 'http://localhost:7272/wfs';
+            //$scope.endPoint = 'http://localhost:7272/wfs';
             //$scope.endPoint = 'http://10.0.10.183:9999/wfs';
             //$scope.endPoint = 'http://10.0.10.183/geoserver/wfs';
+            $scope.endPoint = '';
 
             $scope.version = '1.1.0';
             $scope.outputFormat = 'JSON';

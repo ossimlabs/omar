@@ -1,25 +1,28 @@
 <div ng-controller="wfsCtrl" class="container">
 	<div class="row">
 		<h1 class="alert alert-success">WFS Service Info</h1>
-		<p>Use the following input to query a WFS end point.  &nbsp;A successful query will return a list of Feature Types.  &nbsp;Toggle through the feature types list to view sample data from the Feature Type.  Note: the sample data is limited to 50 items at this time.</p>
+		<p>Use the following input to query a WFS end point.  &nbsp;A successful query will return a list of Feature
+			Types.  &nbsp;Toggle through the feature types list to view sample data from the Feature Type.  Note: the
+			sample data is limited to 50 items at this time.</p> <p>Example WFS URL endpoint: <code>http://demo.boundlessgeo.com/geoserver/wfs</code></p>
 		<form>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="endPoint">WFS URL</label>
-						<!--<input id="endPoint" type="text" class="form-control" ng-model="endPoint">-->
-						<select id="endPoint" class="form-control" ng-model="endPoint">
-							<option>http://demo.boundlessgeo.com/geoserver/wfs</option>
-							<option>http://omar.ossim.org/omar/wfs</option>
-							<option>http://localhost:8080/geoserver/wfs</option>
-							<option>http://demo.opengeo.org/geoserver/wfs</option>
-							<option>http://giswebservices.massgis.state.ma.us/geoserver/wfs</option>
-							<option>http://clc.developpement-durable.gouv.fr/geoserver/wfs</option>
-							<option>http://localhost:8080/omar/wfs</option>
-							<option>http://localhost:7272/wfs</option>
-							<option>http://10.0.10.183/geoserver/wfs</option>
-							<option>http://10.0.10.183:9999/wfs</option>
-						</select>
+						<input id="endPoint" type="text" class="form-control" ng-model="endPoint"
+							   placeholder="Enter a valid WFS URL endpoint">
+						<!--<select id="endPoint" class="form-control" ng-model="endPoint">-->
+							<!--<option>http://demo.boundlessgeo.com/geoserver/wfs</option>-->
+							<!--<option>http://omar.ossim.org/omar/wfs</option>-->
+							<!--<option>http://localhost:8080/geoserver/wfs</option>-->
+							<!--<option>http://demo.opengeo.org/geoserver/wfs</option>-->
+							<!--<option>http://giswebservices.massgis.state.ma.us/geoserver/wfs</option>-->
+							<!--<option>http://clc.developpement-durable.gouv.fr/geoserver/wfs</option>-->
+							<!--<option>http://localhost:8080/omar/wfs</option>-->
+							<!--<option>http://localhost:7272/wfs</option>-->
+							<!--<option>http://10.0.10.183/geoserver/wfs</option>-->
+							<!--<option>http://10.0.10.183:9999/wfs</option>-->
+						<!--</select>-->
 					</div>
 				</div>
 				<div class="col-md-2">
