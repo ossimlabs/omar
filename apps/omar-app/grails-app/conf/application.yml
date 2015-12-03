@@ -192,7 +192,7 @@ wfs:
           - poi
           - Manhattan
           - DS_poi
-          - points_of_interest,
+          - points_of_interest
         datastoreId: tiger
 
       - name: tiger_roads
@@ -255,7 +255,7 @@ wfs:
 
       - name: tasmania_cities
         title: Tasmania cities
-        description: Cities in Tasmania (actually, just the capital
+        description: Cities in Tasmania (actually, just the capital)
         keywords:
           - cities
           - Tasmania
@@ -335,7 +335,7 @@ webconfig:
     proxy: /proxy/index?url=
     omar:
       url: http://localhost
-      port: :8888
+      port: 8888
       wfsUrl: /wfs
       wmsUrl: /wms
       thumbnailsUrl: /omar/thumbnail/show/

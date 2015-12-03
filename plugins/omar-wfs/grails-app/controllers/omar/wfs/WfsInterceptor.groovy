@@ -28,7 +28,7 @@ class WfsInterceptor
       break
     }
 
-    println params
+    //println params
 
     true
   }
