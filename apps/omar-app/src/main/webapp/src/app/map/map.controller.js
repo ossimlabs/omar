@@ -4,7 +4,7 @@
         .module('omarApp')
         .controller('MapController', ['mapService', '$stateParams', MapController]);
 
-        function MapController(mapService, $stateParams){
+        function MapController(mapService, $stateParams) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -13,7 +13,7 @@
 
             // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
             console.log('$stateParams', $stateParams);
-            if ($stateParams.mapParams === 'mapParamsDefaultMap'){
+            if ($stateParams.mapParams === 'mapParamsDefaultMap') {
 
                 console.log('DEFAULT!!!');
 
@@ -32,11 +32,11 @@
             mapService.resizeElement('#list', 250);
 
             // Adjust the height of map and list elements if browser window changes
-            $(window).resize(function(){
+            $(window).resize(function () {
                 mapService.resizeElement('#map', 154);
                 mapService.resizeElement('#list', 250);
             });
 
-        }
 
+        }
 })();

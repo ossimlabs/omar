@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['APP_CONFIG', 'wfsService', '$stateParams', '$log', ListController]);
+        .controller('ListController', ['APP_CONFIG', 'wfsService', '$stateParams', '$aside', '$log', ListController]);
 
-        function ListController(APP_CONFIG, wfsService, $stateParams, $log){
+        function ListController(APP_CONFIG, wfsService, $stateParams, $aside, $log){
 
             /* jshint validthis: true */
             var vm = this;
@@ -53,6 +53,37 @@
                     {stateOff: 'glyphicon-off'}
                 ];
             });
+
+            vm.asideState = {
+                open: false
+            };
+
+            vm.openAside = function (position, backdrop) {
+                vm.asideState = {
+                    open: true,
+                    position: position
+                };
+
+                function postClose() {
+                    vm.asideState.open = false;
+                }
+
+                $aside.open({
+                    templateUrl: 'list/list.image.partial.html',
+                    placement: 'right',
+                    size: 'lg',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.ok = function (e) {
+                            $uibModalInstance.close();
+                            e.stopPropagation();
+                        };
+                        $scope.cancel = function (e) {
+                            $uibModalInstance.dismiss();
+                            e.stopPropagation();
+                        };
+                    }
+                }).result.then(postClose, postClose);
+            };
         }
 
 })();

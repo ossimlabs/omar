@@ -623,8 +623,7 @@
                     <!--<span class="label" -->
                     <!--ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="list.overStar && !list.isReadonly">{{percent}}%</span>-->
                     <button class="btn btn-info" ><span
-                            class="glyphicon glyphicon-shopping-cart"
-                                                       aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)
+                            class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)
                     </button>
                 </div>
             </div>
@@ -642,7 +641,8 @@
                                 <img class="media-object"
                                      ng-src="{{list.omarThumbnailsUrl}}{{image.properties.id}}"
                                      alt=""
-                                     style="width: 100px; height: 100px">&nbsp;
+                                     style="width: 100px; height: 100px; cursor: pointer;"
+                                     ng-click="list.openAside('right', false)">&nbsp;
                                 <uib-rating ng-model="list.rate"
                                             max="list.max"
                                             readonly="list.isReadonly"
@@ -657,7 +657,8 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <h5 class="media-heading">Image ID:&nbsp;&nbsp;<span
-                                                class="text-info">20151202-000{{image.properties.id}}</span></h5>
+                                                class="text-success image-id-link"
+                                                ng-click="list.openAside('right', false)">20151203-000{{image.properties.id}}</span></h5>
                                     </div>
                                     <div class="col-md-2">
                                         <i class="fa fa-plus-circle"></i>

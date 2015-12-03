@@ -117,7 +117,7 @@
             };
 
             this.resizeElement = function (element, height){
-                console.log('resizing');
+                //console.log('resizing');
                 $(element).animate({height:$(window).height()- height}, 10, function(){
                     map.updateSize();
                 });
