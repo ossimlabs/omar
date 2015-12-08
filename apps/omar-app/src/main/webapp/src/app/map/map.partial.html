@@ -554,15 +554,13 @@
 </nav>
 
 <div class="row">
-    <div class="col-md-8" ng-controller="MapController as map">
+    <div class="col-md-9" ng-controller="MapController as map">
         <div id="map" class="map" params="map.mapParams" map></div>
     </div>
-    <div class="col-md-4" ng-controller="ListController as list">
-
+    <div class="col-md-3" ng-controller="ListController as list">
         <div class="visible-xs-block visible-sm-block">
             <hr>
         </div>
-
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -578,7 +576,7 @@
                 <div class="collapse navbar-collapse" id="sort-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="#">New Acquires</a></li>
-                        <li><a href="#">New Ingests</a></li>
+                        <!--<li><a href="#">New Ingests</a></li>-->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">More
@@ -650,46 +648,29 @@
                                     <div class="col-md-10">
                                         <h5 class="media-heading">Image ID:&nbsp;&nbsp;<span
                                                 class="text-success image-id-link"
-                                                ng-click="list.showImageModal(image)">20151203-000{{image.properties
-                                            .id}}</span></h5>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <i class="fa fa-plus-circle"></i>
-                                    </div>
-                                </div>
-                                <!--<div class="row">-->
-                                    <!--<div class="col-md-12" style="font-size: 13px;">-->
-                                        <!--Sensor Type:&nbsp;&nbsp;<span-->
-                                            <!--class="text-info"><t>12345678901{{image.properties-->
-                                        <!--.sensor_id}}</t></span>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="row">-->
-                                    <!--<div class="col-md-12" style="font-size: 13px;">-->
-                                        <!--Mission Type:&nbsp;&nbsp;<span-->
-                                            <!--class="text-info"><t>Impossible{{image.properties-->
-                                        <!--.mission_id}}</t></span>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <div class="row">
-                                    <div class="col-md-12" style="font-size: 13px;">
-                                        Acquisition Date:&nbsp;&nbsp;<span
-                                            class="text-info"><t><span ng-show="!image.properties.acquisition_date">Unknown
-                </span>{{image.properties.acquisition_date | date:'medium'}}</t></span>
+                                                ng-click="list.showImageModal(image)">20151208-000{{image.properties.id}}</span>
+                                        </h5>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12" style="font-size: 13px;">
-                                        Image Rating:&nbsp;&nbsp;
-                                        <uib-rating ng-model="list.rate"
-                                                    max="list.max"
-                                                    readonly="list.isReadonly"
-                                                    on-hover="list.hoveringOver(value)"
-                                                    on-leave="list.overStar = null"
-                                                    titles="['one','two','three']"
-                                                    aria-labelledby="default-rating">
-
-                                        </uib-rating>
+                                        Acquisition Date:&nbsp;&nbsp;
+                                        <span class="text-success">
+                                            <span ng-show="!image.properties.acquisition_date">Unknown</span>
+                                            {{image.properties.acquisition_date | date:'medium'}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <i class="fa fa-thumbs-o-up"
+                                           style="cursor: pointer;"
+                                           tooltip-placement="right"
+                                           uib-tooltip="Like this image"></i>&nbsp;&nbsp;
+                                        <!--<i class="fa fa-thumbs-o-down"></i>&nbsp;&nbsp;-->
+                                        <i class="fa fa-plus-circle"
+                                           style="cursor: pointer;"
+                                           tooltip-placement="right"
+                                           uib-tooltip="Add this image to the Images Cart"></i>
                                     </div>
                                 </div>
                             </div>

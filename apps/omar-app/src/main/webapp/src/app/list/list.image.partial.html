@@ -4,33 +4,31 @@
             <h2>ID:&nbsp;&nbsp;<span class="text-success">20151207-000{{vm.selectedImage.properties.id}}</span></h2>
         </div>
         <div class="col-md-6 text-right">
-            <i class="fa fa-share-alt fa-2x"></i>&nbsp;&nbsp;
-            <i class="fa fa-plus-circle fa-2x"></i>&nbsp;&nbsp;
-            <i class="fa fa-close fa-2x" ng-click="$close()" style="cursor: pointer;"></i>
+            <i class="fa fa-envelope fa-2x"
+               style="cursor: pointer;"
+               tooltip-placement="bottom"
+               uib-tooltip="Share this image via e-mail"></i>&nbsp;&nbsp;
+            <i class="fa fa-plus-circle fa-2x"
+               style="cursor: pointer;"
+               tooltip-placement="bottom"
+               uib-tooltip="Add this image to the Images Cart"></i>&nbsp;&nbsp;
+            <i class="fa fa-close fa-2x"
+               ng-click="$close()"
+               style="cursor: pointer;"
+               tooltip-placement="bottom"
+               uib-tooltip="Close image view"></i>
         </div>
     </div>
 </div>
 
 <div class="modal-body">
-
     <div class="container-fluid">
-
         <!-- Image Space Map -->
         <div class="row">
             <div class="col-md-12" style="height: 400px; width: 100%; background-color: #ccc">
                 <h2 class="text-center">Image Space Map</h2>
             </div>
         </div>
-        <!--<div class="row">-->
-            <!--<div class="col-md-3">-->
-                <!--<p>Height: {{vm.selectedImage.properties-->
-                    <!--.height}}</p>-->
-            <!--</div>-->
-            <!--<div class="col-md-3">-->
-                <!--<p>Width: {{vm.selectedImage.properties-->
-                    <!--.width}}</p>-->
-            <!--</div>-->
-        <!--</div>-->
         <!-- Image metadata -->
         <div class="row">
             <div class="col-md-6">
@@ -38,6 +36,15 @@
                         class="text-success"><span ng-show="!vm.selectedImage.properties.acquisition_date">Unknown
                 </span>{{vm.selectedImage.properties.acquisition_date |
                     date:'medium'}}</span></h4>
+                <!--<uib-rating ng-model="list.rate"-->
+                            <!--max="list.max"-->
+                            <!--readonly="list.isReadonly"-->
+                            <!--on-hover="list.hoveringOver(value)"-->
+                            <!--on-leave="list.overStar = null"-->
+                            <!--titles="['one','two','three']"-->
+                            <!--aria-labelledby="default-rating">-->
+
+                <!--</uib-rating>-->
             </div>
             <div class="col-md-6">
                 <h4>Ingest Date:&nbsp;&nbsp;<span class="text-success"><span
@@ -48,7 +55,7 @@
         </div>
         <div class="row">
             <hr>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <h4>Source</h4>
                 <div class="panel panel-primary">
                     <ul>
@@ -78,20 +85,21 @@
                             Image Category:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
                     .image_representation}}</span>
                         </li>
+                    </ul>
+                </div>
+                <h4>File</h4>
+                <div class="panel panel-primary">
+                    <ul>
                         <li>
-                            File Type:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
+                            Type:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
                         .file_type}}</span>
                         </li>
-                        <li>
-                            File Name:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
+                        <li class="dont-break-out">
+                            Name:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
                         .filename}}</span>
                         </li>
                     </ul>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
                 <h4>General</h4>
                 <div class="panel panel-primary">
                     <ul>
@@ -99,7 +107,7 @@
                             Description:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
                         .description}}</span>
                         </li>
-                        <li>
+                        <li class="dont-break-out">
                             Title:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
                         .title}}</span>
                         </li>
@@ -109,37 +117,50 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+            <div class="col-md-6">
                 <h4>Metrics</h4>
                 <div class="panel panel-primary">
                     <ul>
                         <li>
                             Azimuth Angle:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
-                        .azimuth_angle}}</span>
+                            .azimuth_angle}}</span>
                         </li>
                         <li>
                             Grazing Angle:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
-                        .grazing_angle}}</span>
+                            .grazing_angle}}</span>
                         </li>
                         <li>
                             Cloud Cover:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
-                        .cloud_cover}}</span>
+                            .cloud_cover}}</span>
                         </li>
                         <li>
                             Number of Bands:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
-                        .number_of_bands}}</span>
+                            .number_of_bands}}</span>
                         </li>
                         <li>
                             Number of Resolution Levels:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
-                        .number_of_res_levels}}</span>
+                            .number_of_res_levels}}</span>
                         </li>
                         <li>
                             Bit Depth:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
-                        .bit_depth}}</span>
+                            .bit_depth}}</span>
                         </li>
                     </ul>
                 </div>
-            </div>
-            <div class="col-md-6">
+                <h4>Dimensions</h4>
+                <div class="panel panel-primary">
+                    <ul>
+                        <li>
+                            Image Height:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
+                        .height}}</span>
+                        </li>
+                        <li>
+                            Image Width:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
+                        .width}}</span>
+                        </li>
+                    </ul>
+                </div>
                 <h4>Geometry</h4>
                 <div class="panel panel-primary">
                     <ul>
@@ -157,26 +178,10 @@
                         </li>
                     </ul>
                 </div>
-                <h4>Dimensions</h4>
-                <div class="panel panel-primary">
-                    <ul>
-                        <li>
-                            Image Height:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
-                        .height}}</span>
-                        </li>
-                        <li>
-                            Image Width:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties
-                        .width}}</span>
-                        </li>
-                    </ul>
             </div>
         </div>
     </div>
-
 </div>
-
-
-
 <div class="modal-footer">
     <!--<button class="btn btn-primary" ng-click="vm.fireTest();">Fire</button>-->
     <button class="btn btn-warning" ng-click="$close()">Close</button>
