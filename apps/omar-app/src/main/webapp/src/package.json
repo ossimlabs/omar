@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.4.7",
-    "angular-aside": "^1.3.2",
     "angular-deferred-bootstrap": "^0.1.7",
     "angular-spinner": "^0.7.0",
     "angular-ui-bootstrap": "^0.14.3",

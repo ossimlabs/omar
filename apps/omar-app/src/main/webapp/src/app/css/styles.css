@@ -36,11 +36,11 @@ h5 > .image-id-link:hover {
 }
 
 #searchForm .input-group-btn {
-    z-index: 9997;
+    z-index: 1047;
 }
 
 #searchForm input {
-    z-index: 9998;
+    z-index: 1048;
 }
 
 #list {

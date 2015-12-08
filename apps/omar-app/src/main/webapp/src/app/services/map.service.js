@@ -51,7 +51,7 @@
 
             this.mapInit = function(mapParams){
 
-                console.log('mapParams', mapParams);
+                //console.log('mapParams', mapParams);
 
                 mapView = new ol.View({
                     //center: [lng, lat],
@@ -134,7 +134,7 @@
              * @param {number} lon - Longitude
              */
             function zoomTo(lat, lon, zoomLevel, marker) {
-                console.log('zoomTo firing!');
+                //console.log('zoomTo firing!');
                 zoomAnimate();
                 map.getView().setCenter([parseFloat(lon), parseFloat(lat)]);
                 map.getView().setZoom(zoomLevel);

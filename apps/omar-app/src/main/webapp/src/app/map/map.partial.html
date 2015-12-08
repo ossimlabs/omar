@@ -466,25 +466,25 @@
                                 </div>
                                 <br>
 
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="checkbox" id="slantRangeCheck">
-                                            <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Slant Range
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input class="form-control" id="slantRangeMin" placeholder="0.0">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input class="form-control" id="slantRangeMax" placeholder="1000.0">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p class="help-block">Kilometers</p>
-                                    </div>
-                                </div>
-                                <br>
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-3">-->
+                                        <!--<div class="checkbox" id="slantRangeCheck">-->
+                                            <!--<label>-->
+                                                <!--<input type="checkbox">&nbsp;&nbsp;Slant Range-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-2">-->
+                                        <!--<input class="form-control" id="slantRangeMin" placeholder="0.0">-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-2">-->
+                                        <!--<input class="form-control" id="slantRangeMax" placeholder="1000.0">-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-3">-->
+                                        <!--<p class="help-block">Kilometers</p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<br>-->
 
                                 <div class="row">
                                     <div class="col-md-3">
@@ -630,7 +630,8 @@
             <hr>
         </div>
         <div id="list">
-            <div ng-repeat="image in list.wfsData">
+            {{list.cardData.id}}
+            <div ng-repeat="image in list.wfsData" ng-model="image">
 
                 <!--<div list-image image="image" omar="{{list.omarUrl}}"></div>-->
 
@@ -641,49 +642,35 @@
                                 <img class="media-object"
                                      ng-src="{{list.omarThumbnailsUrl}}{{image.properties.id}}"
                                      alt=""
-                                     style="width: 100px; height: 100px; cursor: pointer;"
-                                     ng-click="list.openAside('right', false)">&nbsp;
-                                <uib-rating ng-model="list.rate"
-                                            max="list.max"
-                                            readonly="list.isReadonly"
-                                            on-hover="list.hoveringOver(value)"
-                                            on-leave="list.overStar = null"
-                                            titles="['one','two','three']"
-                                            aria-labelledby="default-rating">
-
-                                </uib-rating>
+                                     style="width: 60px; height: 60px; cursor: pointer;"
+                                     >&nbsp;
                             </div>
                             <div class="media-body">
                                 <div class="row">
                                     <div class="col-md-10">
                                         <h5 class="media-heading">Image ID:&nbsp;&nbsp;<span
                                                 class="text-success image-id-link"
-                                                ng-click="list.openAside('right', false)">20151203-000{{image.properties.id}}</span></h5>
+                                                ng-click="list.showImageModal(image)">20151203-000{{image.properties
+                                            .id}}</span></h5>
                                     </div>
                                     <div class="col-md-2">
                                         <i class="fa fa-plus-circle"></i>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="font-size: 13px;">
-                                        File Type:&nbsp;&nbsp;<span
-                                            class="text-info"><t>{{image.properties.file_type}}</t></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="font-size: 13px;">
-                                        Sensor Type:&nbsp;&nbsp;<span
-                                            class="text-info"><t>12345678901{{image.properties
-                                        .sensor_id}}</t></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="font-size: 13px;">
-                                        Mission Type:&nbsp;&nbsp;<span
-                                            class="text-info"><t>Impossible{{image.properties
-                                        .mission_id}}</t></span>
-                                    </div>
-                                </div>
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-12" style="font-size: 13px;">-->
+                                        <!--Sensor Type:&nbsp;&nbsp;<span-->
+                                            <!--class="text-info"><t>12345678901{{image.properties-->
+                                        <!--.sensor_id}}</t></span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-12" style="font-size: 13px;">-->
+                                        <!--Mission Type:&nbsp;&nbsp;<span-->
+                                            <!--class="text-info"><t>Impossible{{image.properties-->
+                                        <!--.mission_id}}</t></span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <div class="row">
                                     <div class="col-md-12" style="font-size: 13px;">
                                         Acquisition Date:&nbsp;&nbsp;<span
@@ -693,17 +680,22 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12" style="font-size: 13px;">
-                                        Ingest Date:&nbsp;&nbsp;<span
-                                            class="text-info"><t>{{image.properties.ingest_date| date:'medium'}}</t></span>
+                                        Image Rating:&nbsp;&nbsp;
+                                        <uib-rating ng-model="list.rate"
+                                                    max="list.max"
+                                                    readonly="list.isReadonly"
+                                                    on-hover="list.hoveringOver(value)"
+                                                    on-leave="list.overStar = null"
+                                                    titles="['one','two','three']"
+                                                    aria-labelledby="default-rating">
+
+                                        </uib-rating>
                                     </div>
                                 </div>
-                                <p></p>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

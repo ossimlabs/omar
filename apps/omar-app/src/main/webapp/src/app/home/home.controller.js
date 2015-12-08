@@ -100,7 +100,7 @@
                         //console.log('response', response);
                         return {
                             suggestions: $.map(response.interpretations, function(dataItem){
-                                console.log(dataItem);
+                                //console.log(dataItem);
                                 //console.log('value: ' + dataItem.feature.displayName + ' data: ' +
                                 //dataItem.feature.displayName);
                                 return {

@@ -12,10 +12,10 @@
             vm.listTitle = "Images";
 
             // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
-            console.log('$stateParams', $stateParams);
+            //console.log('$stateParams', $stateParams);
             if ($stateParams.mapParams === 'mapParamsDefaultMap') {
 
-                console.log('DEFAULT!!!');
+                //console.log('DEFAULT!!!');
 
             }
             else {
