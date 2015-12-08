@@ -674,8 +674,8 @@
                                 <div class="row">
                                     <div class="col-md-12" style="font-size: 13px;">
                                         Acquisition Date:&nbsp;&nbsp;<span
-                                            class="text-info"><t>Apr 6, 2015 1:08:16
-                                        AM{{image.properties.acquisition_date | date:'medium'}}</t></span>
+                                            class="text-info"><t><span ng-show="!image.properties.acquisition_date">Unknown
+                </span>{{image.properties.acquisition_date | date:'medium'}}</t></span>
                                     </div>
                                 </div>
                                 <div class="row">

@@ -46,6 +46,15 @@ h5 > .image-id-link:hover {
 #list {
     overflow: scroll;
 }
+
+#list .media {
+    margin-bottom: -30px;
+    margin-top: -5px;
+}
+
+#list .panel{
+    margin-bottom: 5px;
+}
 /*!
  * Styles for wfs-partial
  */
