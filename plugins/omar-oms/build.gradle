@@ -5,10 +5,10 @@ buildscript {
     repositories {
         mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
-    }
-    // for JAI download
-    maven {
-       url 'http://download.osgeo.org/webdav/geotools'
+        // for JAI download
+        maven {
+           url 'http://download.osgeo.org/webdav/geotools'
+        }
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
