@@ -51,7 +51,7 @@ dependencyManagement {
 }
 
 dependencies {
-    compile 'org.webjars:openlayers:3.8.2'
+    compile 'org.webjars:openlayers:3.11.1'
 
     provided 'org.springframework.boot:spring-boot-starter-logging'
     provided "org.springframework.boot:spring-boot-starter-actuator"
