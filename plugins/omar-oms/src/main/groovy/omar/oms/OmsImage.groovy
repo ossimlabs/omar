@@ -20,7 +20,6 @@ import joms.oms.Keywordlist
  */
 class OmsImage
 {
-
   def getTile(GetTileCommand cmd)
   {
     def imageInfo = readImageInfo( cmd.filename as File )
@@ -30,7 +29,7 @@ class OmsImage
         'image0.file': cmd.filename,
         'image0.entry': cmd.entry as String,
         operation: 'chip',
-        rrds: "${findIndexOffset( imageInfo ) - ( cmd.z )}".toString(),
+        rrds: "${findIndexOffset( imageInfo.images[cmd.entry] ) - ( cmd.z )}".toString(),
         scale_2_8_bit: 'true',
         'hist_op': 'auto-minmax',
         three_band_out: "true"
@@ -44,7 +43,7 @@ class OmsImage
         ostream: new ByteArrayOutputStream()
     ]
 
-    println opts
+    //println opts
     runChipper( opts, hints )
 
     [contentType: "image/${hints.type}", buffer: hints.ostream.toByteArray()]
@@ -99,13 +98,13 @@ class OmsImage
   }
 
 
-  def findIndexOffset(def imageInfo, def tileSize = 256)
+  def findIndexOffset(def image, def tileSize = 256)
   {
     def index
 
-    for ( def i = 0; i < imageInfo.rLevels; i++ )
+    for ( def i = 0; i < image.numResLevels; i++ )
     {
-      def levelInfo = imageInfo["level${i}"]
+      def levelInfo = image.resLevels[i]
 
       if ( levelInfo.width <= tileSize && levelInfo.height <= tileSize )
       {
@@ -117,31 +116,44 @@ class OmsImage
     return index
   }
 
-  def readImageInfo(def filename, def entry = 0)
+  def readImageInfo(File file)
   {
-    def info = getImageInfoAsMap( filename as File )
-    def numEntries = info['number_entries']
+    def info = getImageInfoAsMap( file )
+    def data = [numImages: info.number_entries as int]
 
-    def foo = [
-        width: 'number_samples',
-        height: 'number_lines',
-        rLevels: 'number_decimation_levels'
-    ]
+    def images = []
 
-    def bar = [:]
+    for ( def i in ( 0..<data.numImages ) )
+    {
+      def image = info["image${i}"]
 
-    foo.each { bar[it.key] = ( info["image${entry}"][it.value] ).toInteger() }
-
-    ( 0..<bar.rLevels ).each { z ->
-      bar["level${z}"] = [
-          width: Math.ceil( bar.width / ( 2**z ) ) as int,
-          height: Math.ceil( bar.height / ( 2**z ) ) as int,
+      def entry = [
+          entry: image.entry as int,
+          numResLevels: image.number_decimation_levels as int,
+          height: image.number_lines as int,
+          width: image.number_samples as int,
       ]
+
+      def resLevels = []
+
+      for ( def l in ( 0..<entry.numResLevels ) )
+      {
+        resLevels << [
+            resLevel: l,
+            width: Math.ceil( entry.width / 2**l ) as int,
+            height: Math.ceil( entry.height / 2**l ) as int
+        ]
+      }
+      entry.resLevels = resLevels
+      images << entry
     }
 
-    return bar
+    data['images'] = images
+
+    return data
   }
 
+/*
   def getImageInfoAsMap(File file)
   {
     def kwl = new Keywordlist()
@@ -175,6 +187,38 @@ class OmsImage
     }
 
     return data
+  }
+*/
+
+  def getImageInfoAsMap(File file)
+  {
+    def cmd = "ossim-info -d -i -p ${file.absolutePath}"
+    def info = cmd.execute().text
+    def data = [:]
+
+    info.eachLine {
+      if ( it )
+      {
+        def (key, value) = it.split( ':' )
+        def names = key.split( '\\.' )
+        def prev = data
+        def cur = data
+
+        for ( def name in names[0..<-1] )
+        {
+          if ( !prev.containsKey( name ) )
+          {
+            prev[name] = [:]
+          }
+
+          cur = prev[name]
+          prev = cur
+        }
+
+        cur[names[-1]] = value.trim()
+      }
+    }
+    data
   }
 
 //  def getTile(GetTileCommand cmd)

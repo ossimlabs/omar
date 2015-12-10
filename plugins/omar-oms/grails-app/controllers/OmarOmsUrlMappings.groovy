@@ -3,6 +3,7 @@ class OmarOmsUrlMappings
 
   static mappings = {
 
+    "/imageSpace/getTile"( controller: 'imageSpace', action: 'index' )
     "/imageSpace/getTile"( controller: 'imageSpace', action: 'getTile' )
     "/imageSpace/getTileOverlay"( controller: 'imageSpace', action: 'getTileOverlay' )
 

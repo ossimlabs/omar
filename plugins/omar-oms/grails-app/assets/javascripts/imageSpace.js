@@ -12,6 +12,7 @@ var ImageSpace = (function ()
     function initialize( imageModel )
     {
         var filename = imageModel.filename;
+        var entry = imageModel.entry;
         var imageWidth = imageModel.imageWidth;
         var imageHeight = imageModel.imageHeight;
         var start = imageModel.start, stop = imageModel.stop;
@@ -55,7 +56,7 @@ var ImageSpace = (function ()
                             var z = tileCoord[0];
                             var x = tileCoord[1];
                             var y = -tileCoord[2] - 1;
-                            return '/imageSpace/getTile?filename=' + filename + '&z=' + z + '&x=' + x + '&y=' + y + '&format=gif';
+                            return '/imageSpace/getTile?filename=' + filename + '&entry=' + entry + '&z=' + z + '&x=' + x + '&y=' + y + '&format=jpeg';
                         },
                         projection: projection,
                         tileGrid: new ol.tilegrid.TileGrid( {
@@ -65,25 +66,25 @@ var ImageSpace = (function ()
                         } )
                     } ),
                     extent: projectionExtent
-                } ),
-                new ol.layer.Tile( {
-                    source: new ol.source.TileImage( {
-                        tileUrlFunction: function ( tileCoord, pixelRatio, projection )
-                        {
-                            var z = tileCoord[0];
-                            var x = tileCoord[1];
-                            var y = -tileCoord[2] - 1;
-                            return '/imageSpace/getTileOverlay?z=' + z + '&x=' + x + '&y=' + y + '&format=png';
-                        },
-                        projection: projection,
-                        tileGrid: new ol.tilegrid.TileGrid( {
-                            origin: ol.extent.getTopLeft( projectionExtent ),
-                            resolutions: resolutions,
-                            tileSize: tileSize
-                        } )
-                    } ),
-                    extent: projectionExtent
-                } )
+                } )//,
+                //new ol.layer.Tile( {
+                //    source: new ol.source.TileImage( {
+                //        tileUrlFunction: function ( tileCoord, pixelRatio, projection )
+                //        {
+                //            var z = tileCoord[0];
+                //            var x = tileCoord[1];
+                //            var y = -tileCoord[2] - 1;
+                //            return '/imageSpace/getTileOverlay?z=' + z + '&x=' + x + '&y=' + y + '&format=png';
+                //        },
+                //        projection: projection,
+                //        tileGrid: new ol.tilegrid.TileGrid( {
+                //            origin: ol.extent.getTopLeft( projectionExtent ),
+                //            resolutions: resolutions,
+                //            tileSize: tileSize
+                //        } )
+                //    } ),
+                //    extent: projectionExtent
+                //} )
             ],
             view: new ol.View( {
                 projection: projection,

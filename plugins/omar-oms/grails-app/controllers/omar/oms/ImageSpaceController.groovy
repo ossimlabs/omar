@@ -1,44 +1,51 @@
 package omar.oms
 
-class ImageSpaceController {
-    def imageSpaceService
+import groovy.json.JsonBuilder
 
-    def index()
-    {
-        def omsImage = new OmsImage()
+class ImageSpaceController
+{
+  def imageSpaceService
 
-        def filename = params.filename ?: '/data/bmng/world.200406.A1.tif'
-        def imageInfo = omsImage.readImageInfo( filename as File )
+  def index(GetTileCommand cmd)
+  {
 
-        println imageInfo
+    def filename = cmd.filename ?: '/data/bmng/world.200406.A1.tif'
+    def entry = cmd.entry ?: 0
 
-        def imageModel = [
-            filename: filename,
-            imageWidth: imageInfo.width,
-            imageHeight: imageInfo.height,
-            start: 0,
-            stop: omsImage.findIndexOffset( imageInfo )
-        ]
+    def imageInfo = imageSpaceService.readImageInfo( filename as File )
 
-        [imageModel: imageModel]
-    }
+//    println new JsonBuilder( imageInfo ).toString()
+//    println imageInfo.images[entry]
 
-    def getTileOverlay(GetTileCommand cmd)
-    {
-        //println params
-//    println cmd
+    def imageModel = [
+        filename: filename,
+        entry: entry,
+        imageWidth: imageInfo.images[entry].resLevels[0].width,
+        imageHeight: imageInfo.images[entry].resLevels[0].height,
+        start: 0,
+        stop: imageSpaceService.findIndexOffset( imageInfo.images[0] )
+    ]
 
-        def results = imageSpaceService.getTileOverlay( cmd )
+    [imageModel: imageModel]
+  }
 
-        render contentType: results.contentType, file: results.buffer
-    }
+  def getTileOverlay(GetTileCommand cmd)
+  {
+    // println params
+    // println cmd
 
-    def getTile(GetTileCommand cmd)
-    {
-        //println params
-        println cmd
+    def results = imageSpaceService.getTileOverlay( cmd )
 
-        def results = imageSpaceService.getTile( cmd )
+    render contentType: results.contentType, file: results.buffer
+  }
 
-        render contentType: results.contentType, file: results.buffer
-    }}
+  def getTile(GetTileCommand cmd)
+  {
+    //println params
+    println cmd
+
+    def results = imageSpaceService.getTile( cmd )
+
+    render contentType: results.contentType, file: results.buffer
+  }
+}
