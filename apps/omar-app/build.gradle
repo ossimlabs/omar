@@ -101,6 +101,30 @@ dependencies {
 
   compile "org.grails.plugins:grails3-cors-interceptor:0.1.1"
 
+  // UI Webjar core dependencies
+  compile 'org.webjars:jquery:2.1.4'
+  compile 'org.webjars:openlayers:3.11.1'
+  compile 'org.webjars:bootstrap:3.3.5'
+  compile 'org.webjars.bower:angularjs:1.4.8'
+  compile 'org.webjars:angular-ui-router:0.2.15'
+  compile 'org.webjars.npm:angular-ui-bootstrap:0.14.3'
+  compile 'org.webjars:angular-deferred-bootstrap:0.1.5'
+  compile 'org.webjars.bower:bootstrap-select:1.7.5'
+  compile 'org.webjars.bower:devbridge-autocomplete:1.2.21'
+  compile 'org.webjars:spin-js:2.1.0'
+  compile 'org.webjars.npm:angular-spinner:0.7.0'
+
+  // Font stuff
+  compile 'org.webjars:font-awesome:4.5.0'
+  // Dark .css themes
+  compile 'org.webjars:bootswatch-darkly:3.3.5+4'
+  compile 'org.webjars:bootswatch-slate:3.3.5+4'
+  compile 'org.webjars:bootswatch-superhero:3.3.5+4'
+  // Light .css themes
+  compile 'org.webjars:bootswatch-spacelab:3.3.5+4'
+  compile 'org.webjars:bootswatch-cosmo:3.3.5+4'
+  compile 'org.webjars:bootswatch-flatly:3.3.5+4'
+
 }
 
 task wrapper( type: Wrapper ) {
