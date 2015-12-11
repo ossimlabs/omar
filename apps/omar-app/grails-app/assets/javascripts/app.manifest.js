@@ -21,6 +21,7 @@
 //= require omar/services/wfs.service.js
 //= require omar/services/map.service.js
 //= require omar/services/multiple.service.js
+//= require omar/services/image-space.service.js
 
 // <--Home-->
 //= require omar/home/home.controller.js

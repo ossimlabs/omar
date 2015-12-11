@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['APP_CONFIG', 'wfsService', '$stateParams', '$uibModal', ListController]);
+        .controller('ListController', ['APP_CONFIG', 'wfsService', '$stateParams', '$uibModal', 'imageSpaceService', ListController]);
 
-        function ListController(APP_CONFIG, wfsService, $stateParams, $uibModal) {
+        function ListController(APP_CONFIG, wfsService, $stateParams, $uibModal, imageSpaceService) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -13,9 +13,7 @@
             var omarPort = APP_CONFIG.services.omar.port || '80';
             var omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
 
-            //TODO: Always
-
-
+            imageSpaceService.testImageSpace();
 
             vm.omarThumbnailsUrl = omarUrl + ':' + omarPort + omarThumbnails;
             //console.log('vm.omarThumbnailsUrl', vm.omarThumbnailsUrl);
@@ -58,43 +56,6 @@
                 ];
             });
 
-            //vm.setImageCardData = function(selected) {
-            //    vm.cardData = selected;
-            //    console.log('Setting vm.cardData', vm.cardData);
-            //};
-
-            //vm.asideState = {
-            //    open: false
-            //};
-
-            //vm.openAside = function (position, backdrop) {
-            //    vm.asideState = {
-            //        open: true,
-            //        position: position
-            //    };
-
-                //function postClose() {
-                //    vm.asideState.open = false;
-                //}
-
-//                $aside.open({
-//                    templateUrl: 'list.image.partial.html',
-//                    placement: 'right',
-//                    size: 'lg',
-//                    controller: function ($scope, $uibModalInstance) {
-//                        //vm.getImageCardData();
-//;                        $scope.ok = function (e) {
-//                            $uibModalInstance.close();
-//                            e.stopPropagation();
-//                        };
-//                        $scope.cancel = function (e) {
-//                            $uibModalInstance.dismiss();
-//                            e.stopPropagation();
-//                        };
-//                    }
-//                }).result.then(postClose, postClose);
-//            };
-
             vm.showImageModal = showImageModal;
 
             function showImageModal(imageObj) {
@@ -102,23 +63,28 @@
                 $uibModal.open({
                     size: 'lg',
                     templateUrl: '../src/app/list/list.image.partial.html',
-                    controller: ['$uibModalInstance', 'imageObj', ImageModalController],
+                    controller: ['$uibModalInstance', 'imageSpaceService', 'imageObj', ImageModalController],
                     controllerAs: 'vm',
                     resolve: {
-                        imageObj: function() { return imageObj; }
+                        imageObj: function() { return imageObj; },
                     }
                 });
             }
         }
 
         // Handles the selected image modal obj
-        function ImageModalController($uibModalInstance, imageObj){
+        function ImageModalController($uibModalInstance, imageSpaceService, imageObj){
 
-            //console.log('ImageModalController imageObj', imageObj);
             var vm = this;
 
             vm.selectedImage = imageObj;
             console.log(vm.selectedImage);
+
+            imageSpaceService.testImageSpace();
+
+            
+
+
 
          }
 
