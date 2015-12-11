@@ -10,10 +10,14 @@
             var vm = this;
 
             var omarUrl = APP_CONFIG.services.omar.url;
-            var omarPort = APP_CONFIG.services.omar.port;
+            var omarPort = APP_CONFIG.services.omar.port || '80';
             var omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
 
-            vm.omarThumbnailsUrl = omarUrl + omarPort + omarThumbnails;
+            //TODO: Always
+
+
+
+            vm.omarThumbnailsUrl = omarUrl + ':' + omarPort + omarThumbnails;
             //console.log('vm.omarThumbnailsUrl', vm.omarThumbnailsUrl);
 
             //vm.test = $stateParams.test;
