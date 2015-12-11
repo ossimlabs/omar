@@ -153,7 +153,6 @@ class OmsImage
     return data
   }
 
-/*
   def getImageInfoAsMap(File file)
   {
     def kwl = new Keywordlist()
@@ -186,10 +185,13 @@ class OmsImage
       i.next()
     }
 
+    kwl.delete()
+    info.delete()
+
     return data
   }
-*/
 
+  /*
   def getImageInfoAsMap(File file)
   {
     def cmd = "ossim-info -d -i -p ${file.absolutePath}"
@@ -220,6 +222,7 @@ class OmsImage
     }
     data
   }
+  */
 
 //  def getTile(GetTileCommand cmd)
 //  {
