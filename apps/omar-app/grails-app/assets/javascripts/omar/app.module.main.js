@@ -24,13 +24,13 @@
                 //http://localhost:7272/omar/index#/home
                 .state('home', {
                     url: '/home',
-                    templateUrl: 'src/app/home/home.partial.html'
+                    templateUrl: '../src/app/home/home.partial.html'
                 })
 
                 .state('map', {
 
                     url: '/map/?&cql',
-                    templateUrl: 'src/app/map/map.partial.html',
+                    templateUrl: '../src/app/map/map.partial.html',
                     params: {
                         //param1: "defaultValue"
                         mapParams: {
@@ -43,12 +43,12 @@
 
                 .state('wfs', {
                     url: '/wfs',
-                    templateUrl: 'src/app/wfs/wfs.partial.html'
+                    templateUrl: '../src/app/wfs/wfs.partial.html'
                 })
 
                 .state('multiple', {
                     url: '/multiple',
-                    templateUrl: 'src/app/multiple/multiple.partial.html'
+                    templateUrl: '../src/app/multiple/multiple.partial.html'
                 });
 
         }]); // closes $routerApp.config()
