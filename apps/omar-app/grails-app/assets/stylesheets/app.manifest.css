@@ -2,7 +2,7 @@
 *= require webjars/bootswatch-darkly/3.3.5+4/css/bootstrap.css
 *= require webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap-csp.css
 *= require webjars/openlayers/3.11.1/ol.css
-*= require webjars/font-awesome/4.5.0/css/font-awesome.css
+*= require webjars/font-awesome/4.4.0/css/font-awesome.css
 *= require webjars/bootstrap-select/1.7.5/dist/css/bootstrap-select.css
 *= require styles.css
 *= require_self

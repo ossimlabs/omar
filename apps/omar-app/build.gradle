@@ -38,6 +38,7 @@ ext {
 assets {
   minifyJs = true
   minifyCss = true
+  includes = ["fonts/*"]
   excludes = ['**/*-debug.js', '**/*-deps.js'] // OL3
 }
 
@@ -115,7 +116,7 @@ dependencies {
   compile 'org.webjars.npm:angular-spinner:0.7.0'
 
   // Font stuff
-  compile 'org.webjars:font-awesome:4.5.0'
+  compile 'org.webjars:font-awesome:4.4.0'
   // Dark .css themes
   compile 'org.webjars:bootswatch-darkly:3.3.5+4'
   compile 'org.webjars:bootswatch-slate:3.3.5+4'
