@@ -16,7 +16,7 @@
         .module('omarApp', ['ui.router', 'ui.bootstrap', 'angularSpinner'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-            //$urlRouterProvider.otherwise('/home');
+            $urlRouterProvider.otherwise('/home');
 
             $stateProvider
                 // HOME STATES AND NESTED VIEWS ========================================

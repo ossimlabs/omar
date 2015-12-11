@@ -12,7 +12,7 @@
 
             // Add the path to OMAR and the footprints URL
             var omarUrl = APP_CONFIG.services.omar.url;
-            var omarPort = APP_CONFIG.services.omar.port;
+            var omarPort = APP_CONFIG.services.omar.port || '80';
             var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
 
 
@@ -75,7 +75,7 @@
                             source: new ol.source.TileWMS( {
                                 //url: 'http://localhost:8888/omar/wms/footprints?',
                                 //url: 'http://localhost:8888/omar/wms/footprints?',
-                                url: omarUrl + omarPort + omarFootprintsUrl,
+                                url: omarUrl + ':' + omarPort + omarFootprintsUrl,
                                 params: {
                                     VERSION: '1.1.1',
                                     SRS: 'EPSG:3857',
