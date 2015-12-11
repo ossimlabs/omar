@@ -21,7 +21,6 @@
             $stateProvider
                 // HOME STATES AND NESTED VIEWS ========================================
 
-                //http://localhost:7272/omar/index#/home
                 .state('home', {
                     url: '/home',
                     templateUrl: '../src/app/home/home.partial.html'

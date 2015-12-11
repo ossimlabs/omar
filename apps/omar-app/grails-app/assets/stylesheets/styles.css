@@ -15,7 +15,7 @@
     position: relative;
     background: #000 url("aerial_rs.jpg") center center;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
     background-size: contain;
     overflow: hidden;
 }
