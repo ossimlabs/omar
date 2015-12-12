@@ -13,8 +13,6 @@
             var omarPort = APP_CONFIG.services.omar.port || '80';
             var omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
 
-            imageSpaceService.testImageSpace();
-
             vm.omarThumbnailsUrl = omarUrl + ':' + omarPort + omarThumbnails;
             //console.log('vm.omarThumbnailsUrl', vm.omarThumbnailsUrl);
 
@@ -59,7 +57,7 @@
             vm.showImageModal = showImageModal;
 
             function showImageModal(imageObj) {
-                console.log('imageObj', imageObj);
+                //console.log('imageObj', imageObj);
                 $uibModal.open({
                     size: 'lg',
                     templateUrl: '../src/app/list/list.image.partial.html',
@@ -78,13 +76,32 @@
             var vm = this;
 
             vm.selectedImage = imageObj;
-            console.log(vm.selectedImage);
+            //console.log(vm.selectedImage);
 
-            imageSpaceService.testImageSpace();
+            var modal = this;
+            modal.rendered = false;
 
-            
+            var imageSpaceObj = {
+                filename: imageObj.properties.filename,
+                entry: imageObj.properties.entry_id,
+                imgWidth: imageObj.properties.width,
+                imgHeight: imageObj.properties.height
+            };
+
+            //console.log('ImageModalController --> imageSpaceObj', imageSpaceObj);
+
+            //imageSpaceService.setImageSpaceObj(imageSpaceObj);
+            //console.log('get', imageSpaceService.getImageSpaceObj());
 
 
+
+            $uibModalInstance.opened.then(function(){
+                setTimeout(function(){
+                    //alert("Hello");
+                    imageSpaceService.initImageSpaceMap(imageSpaceObj);
+                }, 100);
+                //imageSpaceService.initImageSpaceMap(imageSpaceObj);
+            });
 
          }
 

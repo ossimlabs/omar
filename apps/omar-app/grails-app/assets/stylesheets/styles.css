@@ -67,6 +67,11 @@ h5 > .image-id-link:hover {
     margin-bottom: 5px;
 }
 
+#imageMap{
+    height: 300px;
+    width: 100%;
+}
+
 .dont-break-out {
 
     /* These are technically the same, but use both */

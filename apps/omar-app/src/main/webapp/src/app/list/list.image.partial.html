@@ -25,8 +25,8 @@
     <div class="container-fluid">
         <!-- Image Space Map -->
         <div class="row">
-            <div class="col-md-12" style="height: 400px; width: 100%; background-color: #ccc">
-                <h2 class="text-center">Image Space Map</h2>
+            <div class="col-md-12">
+                <div class="map" id="imageMap"></div>
             </div>
         </div>
         <!-- Image metadata -->
@@ -99,6 +99,12 @@
                             Name:&nbsp;&nbsp;<span class="text-success"><span
                                 ng-show="!vm.selectedImage.properties.filename">Unknown</span>{{vm.selectedImage.properties
                         .filename}}</span>
+                        </li>
+                        <li class="dont-break-out">
+                            Entry ID:&nbsp;&nbsp;<span class="text-success"><span
+                                ng-show="!vm.selectedImage.properties.entry_id">Unknown
+                        </span>{{vm.selectedImage.properties
+                        .entry_id}}</span>
                         </li>
                     </ul>
                 </div>
