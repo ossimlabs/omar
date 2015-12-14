@@ -15,6 +15,7 @@ import java.awt.image.Raster
 import javax.imageio.ImageIO
 
 import joms.oms.Chipper
+import joms.oms.ImageModel
 import joms.oms.Info
 import joms.oms.Keywordlist
 
@@ -221,6 +222,36 @@ class ImageSpaceService
     }
 
     return index
+  }
+
+  def computeUpIsUp(String filename, Integer entryId)
+  {
+    Double upIsUp = 0.0
+
+    def imageSpaceModel = new ImageModel()
+    if ( imageSpaceModel.setModelFromFile( filename, entryId as Integer ) )
+    {
+      upIsUp = imageSpaceModel.upIsUpRotation();
+      imageSpaceModel.destroy()
+      imageSpaceModel.delete()
+    }
+
+    return upIsUp
+  }
+
+  def computeNorthIsUp(String filename, Integer entryId)
+  {
+    Double northIsUp = 0.0
+
+    def imageSpaceModel = new ImageModel()
+    if ( imageSpaceModel.setModelFromFile( filename, entryId as Integer ) )
+    {
+      northIsUp = imageSpaceModel.northIsUpRotation();
+      imageSpaceModel.destroy()
+      imageSpaceModel.delete()
+    }
+
+    return northIsUp
   }
 
 }

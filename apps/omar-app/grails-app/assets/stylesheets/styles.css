@@ -145,3 +145,19 @@ h5 > .image-id-link:hover {
     right: 0;
 }
 
+
+.rotate-north {
+    top: 65px;
+    left: .5em;
+}
+.ol-touch .rotate-north {
+    top: 80px;
+}
+
+.rotate-up {
+    top: 95px;
+    left: .5em;
+}
+.ol-touch .rotate-up {
+    top: 80px;
+}

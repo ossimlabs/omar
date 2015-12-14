@@ -17,13 +17,8 @@
 <asset:javascript src="imageSpace.js"/>
 <asset:script>
     $(document).ready(function() {
-        var params = ${raw( [
-        filename: filename,
-        entry: entry,
-        imgWidth: imgWidth,
-        imgHeight: imgHeight
-]?.encodeAsJSON()?.toString() )};
-        ImageSpace.init(params);
+        var initParams = ${raw( initParams?.encodeAsJSON()?.toString() )};
+        ImageSpace.init(initParams);
 });
 </asset:script>
 <asset:deferredScripts/>
