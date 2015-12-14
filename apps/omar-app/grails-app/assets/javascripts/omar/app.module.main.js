@@ -23,13 +23,14 @@
 
                 .state('home', {
                     url: '/home',
-                    templateUrl: '../src/app/home/home.partial.html'
+                   // templateUrl: '../src/app/home/home.partial.html'
+                    templateUrl: '/home/home.partial.html'
                 })
 
                 .state('map', {
 
                     url: '/map/?&cql',
-                    templateUrl: '../src/app/map/map.partial.html',
+                    templateUrl: '/map/map.partial.html',
                     params: {
                         //param1: "defaultValue"
                         mapParams: {
@@ -42,12 +43,12 @@
 
                 .state('wfs', {
                     url: '/wfs',
-                    templateUrl: '../src/app/wfs/wfs.partial.html'
+                    templateUrl: '/wfs/wfs.partial.html'
                 })
 
                 .state('multiple', {
                     url: '/multiple',
-                    templateUrl: '../src/app/multiple/multiple.partial.html'
+                    templateUrl: '/multiple/multiple.partial.html'
                 });
 
         }]); // closes $routerApp.config()

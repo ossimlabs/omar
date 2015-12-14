@@ -1,0 +1,30 @@
+<div class="panel panel-info">
+    <div class="panel-heading">ID:&nbsp;&nbsp;&nbsp; <strong>{{image.properties.id}}</strong></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-1">
+                <br>
+                <br>
+                <i class="fa fa-plus-circle fa-2x"></i>
+            </div>
+            <div class="col-md-2">
+                <img style="height: 100px; width: 100px;" ng-src="http://localhost:8888/omar/thumbnail/show/{{image.properties.id}}" alt="">
+            </div>
+            <div class="col-md-8 col-md-offset-1" style="font-size: 10px;">
+                <p>File Type:&nbsp;&nbsp;&nbsp; <strong>{{image.properties.file_type}}</strong></p>
+                <p>Sensor Type:&nbsp;&nbsp;&nbsp; <strong>{{image.properties
+                    .sensor_id}}</strong></p>
+                <p>Mission Type:&nbsp;&nbsp;&nbsp; <strong>{{image.properties
+                .mission_id}}</strong></p>
+                <p>Acquisition Date:&nbsp;&nbsp;&nbsp;
+                    <strong>&nbsp;&nbsp;&nbsp;{{image.properties.acquisition_date}}</strong></p>
+                <p>Ingest Date:&nbsp;&nbsp;&nbsp; <strong>&nbsp;&nbsp;&nbsp;{{image.properties
+                    .ingest_date}}</strong></p>
+                <uib-rating ng-model="list.rate" max="list.max" readonly="list.isReadonly"
+                            on-hover="list.hoveringOver(value)"
+                            on-leave="list.overStar = null" titles="['one','two','three']"
+                            aria-labelledby="default-rating"></uib-rating>
+            </div>
+        </div>
+    </div>
+</div>
