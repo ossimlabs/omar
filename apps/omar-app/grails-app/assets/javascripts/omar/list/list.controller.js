@@ -60,7 +60,7 @@
                 //console.log('imageObj', imageObj);
                 $uibModal.open({
                     size: 'lg',
-                    templateUrl: '../src/app/list/list.image.partial.html',
+                    templateUrl: '/list/list.image.partial.html',
                     controller: ['$uibModalInstance', 'imageSpaceService', 'imageObj', ImageModalController],
                     controllerAs: 'vm',
                     resolve: {
