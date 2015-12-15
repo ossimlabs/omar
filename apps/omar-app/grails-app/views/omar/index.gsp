@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OMAR2</title>
+    <title>O2</title>
 
     <asset:stylesheet src="app.manifest.css"/>
 
@@ -30,7 +30,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" ui-sref="#">OMAR2</a>
+                    <a class="navbar-brand" ui-sref="#">O2</a>
                 </div>
                 <div class="collapse navbar-collapse" id="main-navbar-collapse">
                     <ul class="nav navbar-nav">
