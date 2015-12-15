@@ -24,13 +24,14 @@
                 typeName: 'omar:raster_entry',
                 namespace: 'http://omar.ossim.org',
                 version: '1.1.0',
-                maxFeatures: 200,
+                maxFeatures: '200',
                 outputFormat: 'JSON',
                 //cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
                 //cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
                 //cql: "INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
             };
 
+            console.log('wfsRequest', wfsRequest);
             //if($scope.filter && $scope.filter.trim() !== ''){
             //    wfsRequest.cql = $scope.filter;
             //}
@@ -41,7 +42,7 @@
 
             this.executeWfsQuery = function(paramObj) {
                 //console.log('paramObj', paramObj);
-                wfsRequest.maxFeatures = paramObj.maxFeatures;
+                //wfsRequest.maxFeatures = paramObj.maxFeatures;
                 wfsRequest.cql = paramObj.cql; //"INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
 
                 wfsClient.getFeature(wfsRequest, function (data) {

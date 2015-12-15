@@ -236,12 +236,14 @@ OGC.WFS.Client = OpenLayers.Class({
 
         isAsync = (callback instanceof Function);
 
+        console.log('######### wfsParams ##############', wfsParams);
+
         // WFS getFeature request parameters
         var params = {
             service: 'WFS',
             version: wfsParams.version || '1.1.0',
             request: 'GetFeature', // static
-            maxFeatures: wfsParams.maxFeatures || '50',
+            maxFeatures: wfsParams.maxFeatures || '500',
             typeName: prefix + ':' + typeName,
             outputFormat: wfsParams.outputFormat || 'GML3'
         };

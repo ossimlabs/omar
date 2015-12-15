@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Glyphicons Halflings';
+
+    src: url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.eot');
+    src: url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+    url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.woff') format('woff'),
+    url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+    url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 .jumbotron {

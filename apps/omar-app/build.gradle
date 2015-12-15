@@ -115,6 +115,7 @@ dependencies {
   compile 'org.webjars.bower:devbridge-autocomplete:1.2.21'
   compile 'org.webjars:spin-js:2.1.0'
   compile 'org.webjars.npm:angular-spinner:0.7.0'
+  compile 'org.webjars.bower:angular-toastr:1.6.0'
 
   // Font stuff
   compile 'org.webjars:font-awesome:4.4.0'

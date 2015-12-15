@@ -2,14 +2,22 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('HomeController', ['APP_CONFIG', '$state', HomeController]);
+        .controller('HomeController', ['APP_CONFIG', '$state', 'toastr', HomeController]);
 
-        function HomeController(APP_CONFIG, $state){
+        function HomeController(APP_CONFIG, $state, toastr){
+
+            toastr.info('This pre-alpha release has limitied functionality.  Some items' +
+                ' are disabled at this time. More capabilities will be added on a continous' +
+                ' basis.', 'Note:',{
+                closeButton: true,
+                timeOut: 10000,
+                extendedTimeOut: 5000
+            });
 
             /* jshint validthis: true */
             var vm = this;
 
-            var twofishUrl = APP_CONFIG.services.twofishes.url;
+            //var twofishUrl = APP_CONFIG.services.twofishes.url;
             //var twofishPort = APP_CONFIG.services.twofishes.port;
             var twofishProxy = APP_CONFIG.services.twofishes.proxy;
 

@@ -11,6 +11,7 @@
 //= require webjars/devbridge-autocomplete/1.2.21/dist/jquery.autocomplete.js
 //= require webjars/spin-js/2.1.0/spin.js
 //= require webjars/angular-spinner/0.7.0/angular-spinner.js
+//= require webjars/angular-toastr/1.6.0/dist/angular-toastr.tpls.js
 
 // <--Core-->
 //= require omar/core/OpenLayersLite-formats.js
