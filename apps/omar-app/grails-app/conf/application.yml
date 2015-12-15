@@ -326,9 +326,6 @@ wfs:
 
 #grails.serverURL: http://localhost/
 
-#twoFishesServer: http://10.0.10.186:8081/twofish
-twoFishesServer: http://localhost:8081/twofish
-
 #web app configuration settings
 webconfig:
   services:
