@@ -32,7 +32,7 @@ var ImageSpace = (function ()
         var imageWidth = size[0];
         var imageHeight = size[1];
         var tierSizeInTiles = [];
-        var tileSize = ol.DEFAULT_TILE_SIZE;
+        var tileSize = ol.DEFAULT_TILE_SIZE || 256;
 
         switch ( tierSizeCalculation )
         {
