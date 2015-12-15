@@ -10,6 +10,79 @@ var ImageSpace = (function ()
 {
     'use strict';
 
+    var filename;
+    var entry;
+    var imgWidth;
+    var imgHeight;
+    var upAngle;
+    var northAngle;
+
+
+    var RotateNorthControl = function ( opt_options )
+    {
+
+        var options = opt_options || {};
+        var button = document.createElement( 'button' );
+
+        button.innerHTML = 'N';
+
+        var this_ = this;
+
+        var handleRotateNorth = function ( e )
+        {
+            this_.getMap().getView().setRotation( northAngle );
+            console.log( 'handleRotateNorth', northAngle );
+        };
+
+        button.addEventListener( 'click', handleRotateNorth, false );
+        button.addEventListener( 'touchstart', handleRotateNorth, false );
+
+        var element = document.createElement( 'div' );
+
+        element.className = 'rotate-north ol-unselectable ol-control';
+        element.appendChild( button );
+
+        ol.control.Control.call( this, {
+            element: element,
+            target: options.target
+        } );
+
+    };
+    ol.inherits( RotateNorthControl, ol.control.Control );
+
+    var RotateUpControl = function ( opt_options )
+    {
+
+        var options = opt_options || {};
+        var button = document.createElement( 'button' );
+
+        button.innerHTML = 'U';
+
+        var this_ = this;
+
+        var handleRotateUp = function ( e )
+        {
+            console.log( 'handleRotateUp', upAngle );
+            this_.getMap().getView().setRotation( upAngle );
+        };
+
+        button.addEventListener( 'click', handleRotateUp, false );
+        button.addEventListener( 'touchstart', handleRotateUp, false );
+
+        var element = document.createElement( 'div' );
+
+        element.className = 'rotate-up ol-unselectable ol-control';
+        element.appendChild( button );
+
+        ol.control.Control.call( this, {
+            element: element,
+            target: options.target
+        } );
+
+    };
+    ol.inherits( RotateUpControl, ol.control.Control );
+
+
     var ImageSpaceTierSizeCalculation = {
         DEFAULT: 'default',
         TRUNCATED: 'truncated'
@@ -135,7 +208,7 @@ var ImageSpace = (function ()
 
     ol.inherits( ImageSpace, ol.source.TileImage );
 
-    function init( params )
+    function init( initParams )
     {
         // This server does not support CORS, and so is incompatible with WebGL.
         //var imgWidth = 8001;
@@ -143,10 +216,12 @@ var ImageSpace = (function ()
         //var url = 'http://mapy.mzk.cz/AA22/0103/';
         //var crossOrigin = undefined;
 
-        var filename = params.filename;
-        var entry = params.entry;
-        var imgWidth = params.imgWidth;
-        var imgHeight = params.imgHeight;
+        filename = initParams.filename;
+        entry = initParams.entry;
+        imgWidth = initParams.imgWidth;
+        imgHeight = initParams.imgHeight;
+        upAngle = initParams.upAngle;
+        northAngle = initParams.northAngle;
 
         var crossOrigin = 'anonymous';
         var imgCenter = [imgWidth / 2, -imgHeight / 2];
@@ -179,6 +254,10 @@ var ImageSpace = (function ()
         } );
 
         var map = new ol.Map( {
+            controls: ol.control.defaults().extend( [
+                new RotateNorthControl(),
+                new RotateUpControl()
+            ] ),
             layers: [
                 new ol.layer.Tile( {
                     source: source
