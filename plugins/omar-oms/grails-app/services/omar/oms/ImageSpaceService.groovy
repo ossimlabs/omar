@@ -180,7 +180,8 @@ class ImageSpaceService
     {
       println 'initialize: bad'
     }
-
+    chipper?.delete()
+    
     def dataBuffer = new DataBufferByte( buffer, buffer.size() )
 
     def sampleModel = new PixelInterleavedSampleModel(
