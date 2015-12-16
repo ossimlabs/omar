@@ -25,6 +25,7 @@
 
 </head>
     <body>
+        <div class="corner-ribbon top-left sticky red shadow">Alpha</div>
         <div class="container-fluid">
 
             <!--- Navigation --->
@@ -38,7 +39,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     %{--<a class="navbar-brand" ui-sref="#">O2</a>--}%
-                    <a class="navbar-brand" >
+                    <a class="navbar-brand top-logo" >
                         <asset:image src="o2-logo.png" style="width: 32px; height: 32px;"/>
                     </a>
                 </div>

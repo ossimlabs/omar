@@ -6,7 +6,7 @@
 
         function mapService (APP_CONFIG) {
 
-            console.log('APP_CONFIG greenMarker', APP_CONFIG.misc.icons.greenMarker);
+            //console.log('APP_CONFIG greenMarker', APP_CONFIG.misc.icons.greenMarker);
 
             // Add the basemap parameters from the applicaiton config file.
             var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;

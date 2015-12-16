@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-md-9">
             <h5>ID:&nbsp;&nbsp;<span class="text-success"><span
-                    ng-show="!vm.selectedImage.properties.title">{{vm.selectedImage.properties.filename}}</span>{{vm.selectedImage.properties
+                    ng-show="!vm.selectedImage.properties.title">{{vm.selectedImage.properties.filename | fileNameTrim
+                }}</span>{{vm.selectedImage.properties
                 .title}}</span></h5>
         </div>
         <div class="col-md-3 text-right">

@@ -150,3 +150,48 @@ h5 > .image-id-link:hover {
 .ol-touch .rotate-up {
     top: 80px;
 }
+
+.top-logo {
+    margin-left: 70px;
+}
+
+.corner-ribbon{
+    width: 175px;
+    position: absolute;
+    top: 25px;
+    left: -50px;
+    text-align: center;
+    line-height: 40px;
+    letter-spacing: 1px;
+    font-weight: bolder;
+    color: #3B5957;
+    background-color: #f8901b;
+    text-shadow: 0px 1px 0px rgba(245, 251, 247, 0.5);
+    font-size: 24px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+}
+
+.corner-ribbon.sticky{
+    position: fixed;
+}
+
+.corner-ribbon.shadow{
+    /*box-shadow: 0 0 3px rgba(0,0,0,.3);*/
+}
+
+.corner-ribbon.top-left{
+    top: 20px;
+    left: -80px;
+    margin-left: 32px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    z-index: 99999;
+}
+
+.shadow {
+    -webkit-box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
+    -moz-box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
+    box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
+}
