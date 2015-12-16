@@ -1,9 +1,11 @@
 <div class="modal-header">
     <div class="row">
-        <div class="col-md-6">
-            <h2>ID:&nbsp;&nbsp;<span class="text-success">20151207-000{{vm.selectedImage.properties.id}}</span></h2>
+        <div class="col-md-9">
+            <h5>ID:&nbsp;&nbsp;<span class="text-success"><span
+                    ng-show="!vm.selectedImage.properties.title">{{vm.selectedImage.properties.filename}}</span>{{vm.selectedImage.properties
+                .title}}</span></h5>
         </div>
-        <div class="col-md-6 text-right">
+        <div class="col-md-3 text-right">
             <i class="fa fa-envelope fa-2x"
                style="cursor: pointer;"
                tooltip-placement="bottom"
@@ -120,8 +122,7 @@
                         </li>
                         <li class="dont-break-out">
                             Title:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.description"></span>{{vm.selectedImage.properties
-                        .properties}}</span>
+                                ng-show="!vm.selectedImage.properties.title">Unknown</span>{{vm.selectedImage.properties.title}}</span>
                         </li>
                         <li>
                             Security Classification:&nbsp;&nbsp;<span class="text-success"><span

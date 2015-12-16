@@ -14,6 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>O2</title>
 
+    <!-- Hide this line for IE (needed for Firefox and others) -->
+    <![if !IE]>
+        <asset:link rel="icon" href="favicon.png" type="image/x-icon"/>
+    <![endif]>
+    <!-- This is needed for IE -->
+    <asset:link rel="icon" href="favicon.ico?v=2" type="image/icon"/>
+
     <asset:stylesheet src="app.manifest.css"/>
 
 </head>
@@ -30,7 +37,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" ui-sref="#">O2</a>
+                    %{--<a class="navbar-brand" ui-sref="#">O2</a>--}%
+                    <a class="navbar-brand" >
+                        <asset:image src="o2-logo.png" style="width: 32px; height: 32px;"/>
+                    </a>
                 </div>
                 <div class="collapse navbar-collapse" id="main-navbar-collapse">
                     <ul class="nav navbar-nav">
