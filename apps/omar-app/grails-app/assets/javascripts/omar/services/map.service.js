@@ -6,6 +6,8 @@
 
         function mapService (APP_CONFIG) {
 
+            console.log('APP_CONFIG greenMarker', APP_CONFIG.misc.icons.greenMarker);
+
             // Add the basemap parameters from the applicaiton config file.
             var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
             var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
@@ -31,7 +33,7 @@
                     anchorXUnits: 'fraction',
                     anchorYUnits: 'pixels',
                     opacity: 0.75,
-                    src: 'images/search_marker_green.png'
+                    src: APP_CONFIG.misc.icons.greenMarker
                 }))
             });
 
