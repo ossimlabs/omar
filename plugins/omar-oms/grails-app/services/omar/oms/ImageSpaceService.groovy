@@ -181,7 +181,7 @@ class ImageSpaceService
       println 'initialize: bad'
     }
     chipper?.delete()
-    
+
     def dataBuffer = new DataBufferByte( buffer, buffer.size() )
 
     def sampleModel = new PixelInterleavedSampleModel(
@@ -255,4 +255,34 @@ class ImageSpaceService
     return northIsUp
   }
 
+  def getThumbnail(GetThumbnailCommand cmd)
+  {
+    def imageInfo = readImageInfo( cmd.filename as File )
+
+    def opts = [
+        cut_bbox_xywh: [0, 0, cmd.size, cmd.size].join( ',' ),
+        'image0.file': cmd.filename,
+        'image0.entry': cmd.entry as String,
+        operation: 'chip',
+        rrds: findIndexOffset( imageInfo.images[cmd.entry], cmd.size ).toString(),
+        scale_2_8_bit: 'true',
+        'hist_op': 'auto-minmax',
+        three_band_out: "true"
+    ]
+
+    def hints = [
+        transparent: cmd.format == 'png',
+        width: cmd.size,
+        height: cmd.size,
+        type: cmd.format,
+        ostream: new ByteArrayOutputStream()
+    ]
+
+    //println opts
+    runChipper( opts, hints )
+
+    [contentType: "image/${hints.type}", buffer: hints.ostream.toByteArray()]
+
+
+  }
 }

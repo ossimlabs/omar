@@ -60,4 +60,11 @@ class ImageSpaceController
 
     render contentType: 'application/json', text: results as JSON
   }
+
+  def getThumbnail(GetThumbnailCommand cmd)
+  {
+    def results = imageSpaceService.getThumbnail( cmd )
+
+    render contentType: results.contentType, file: results.buffer
+  }
 }
