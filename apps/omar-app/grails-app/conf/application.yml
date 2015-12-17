@@ -312,6 +312,7 @@ wfs:
         title: raster_entry
         description: ''
         keywords:
+          - omar
           - raster_entry
           - features
         datastoreId: omardb-1.8.20-prod
@@ -320,6 +321,7 @@ wfs:
         title: video_data_set
         description: ''
         keywords:
+          - omar
           - video_data_set
           - features
         datastoreId: omardb-1.8.20-prod
