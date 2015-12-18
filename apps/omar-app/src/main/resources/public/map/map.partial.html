@@ -10,28 +10,28 @@
         <a class="navbar-brand visible-xs-block">Filter</a>
     </div>
     <div class="collapse navbar-collapse" id="filter-navbar-collapse">
-        <form id="searchForm" class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <select id="searchSelect" class="form-control selectpicker" data-style="btn-primary">
-                            <option data-icon="glyphicon-map-marker" value="place">&nbsp;&nbsp;Place&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                            <option data-icon="glyphicon glyphicon-screenshot" value="coordinate">&nbsp;&nbsp;Coordinate&nbsp;&nbsp;</option>
-                        </select>
-                    </div>
-                    <input id="searchInput" class="form-control" type="text" placeholder="" value="">
+        <!--<form id="searchForm" class="navbar-form navbar-left" role="search">-->
+            <!--<div class="form-group">-->
+                <!--<div class="input-group">-->
+                    <!--<div class="input-group-btn">-->
+                        <!--<select id="searchSelect" class="form-control selectpicker" data-style="btn-primary">-->
+                            <!--<option data-icon="glyphicon-map-marker" value="place">&nbsp;&nbsp;Place&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>-->
+                            <!--<option data-icon="glyphicon glyphicon-screenshot" value="coordinate">&nbsp;&nbsp;Coordinate&nbsp;&nbsp;</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <!--<input id="searchInput" class="form-control" type="text" placeholder="" value="">-->
 
-                    <div class="input-group-btn">
-                        <button id="searchButton" class="btn btn-primary" type="button"><span
-                                class="glyphicon glyphicon-search"></span></button>
-                        <button id="clearSearchButton" class="btn btn-primary" type="button"><span
-                                class="glyphicon glyphicon-remove"></span></button>
-                    </div>
-                </div>
-                <!-- /.input-group -->
-            </div>
-            <!-- /.form-group -->
-        </form>
+                    <!--<div class="input-group-btn">-->
+                        <!--<button id="searchButton" class="btn btn-primary" type="button"><span-->
+                                <!--class="glyphicon glyphicon-search"></span></button>-->
+                        <!--<button id="clearSearchButton" class="btn btn-primary" type="button"><span-->
+                                <!--class="glyphicon glyphicon-remove"></span></button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; /.input-group &ndash;&gt;-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.form-group &ndash;&gt;-->
+        <!--</form>-->
         <ul class="nav navbar-nav">
             <li class="dropdown">
                 <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -486,20 +486,20 @@
                                 <!--</div>-->
                                 <!--<br>-->
 
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="checkbox" id="aggrModeCheck">
-                                            <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Slant Range
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <select class="form-control" id="aggrModeSelect">
-                                            <option>1x1</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-3">-->
+                                        <!--<div class="checkbox" id="aggrModeCheck">-->
+                                            <!--<label>-->
+                                                <!--<input type="checkbox">&nbsp;&nbsp;Slant Range-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-2">-->
+                                        <!--<select class="form-control" id="aggrModeSelect">-->
+                                            <!--<option>1x1</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <br>
 
                                 <div class="row">
@@ -571,16 +571,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand">Sort</a>
+                    <!--<a class="navbar-brand">Sort</a>-->
                 </div>
                 <div class="collapse navbar-collapse" id="sort-navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a >New Acquires</a></li>
+                        <!--<li><a >New Acquires</a></li>-->
                         <!--<li><a >New Ingests</a></li>-->
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">More
-                                <span class="caret"></span></a>
+                               aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-sort"
+                                                                                aria-hidden="true"></span>
+                                &nbsp;&nbsp;Sort<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a>Acquired (High to Low)</a></li>
                                 <li><a>Acquired (Low to High)</a></li>
@@ -639,16 +640,17 @@
                                 <img class="media-object"
                                      ng-click="list.showImageModal(image)"
                                      ng-src="{{list.omarThumbnailsUrl}}{{image.properties.id}}"
-                                     alt=""
-                                     style="width: 60px; height: 60px; cursor: pointer;"
+                                     alt="Image thumbnail"
+                                     style="width: 64px; height: 64px; cursor: pointer;"
                                      >&nbsp;
                             </div>
                             <div class="media-body">
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <h5 class="media-heading">Image ID:&nbsp;&nbsp;<span
+                                        <h5 class="media-heading">ID:&nbsp;&nbsp;<span
                                                 class="text-success image-id-link"
-                                                ng-click="list.showImageModal(image)">20151208-000{{image.properties.id}}</span>
+                                                ng-click="list.showImageModal(image)">20151218-000{{image.properties
+                                            .id}}</span>
                                         </h5>
                                     </div>
                                 </div>

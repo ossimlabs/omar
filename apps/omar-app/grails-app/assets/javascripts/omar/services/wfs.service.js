@@ -2,19 +2,14 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('wfsService', ['APP_CONFIG', '$q', wfsService]);
+        .service('wfsService', ['APP_CONFIG', '$q', '$rootScope', wfsService]);
 
-        function wfsService (APP_CONFIG, $q) {
-            //console.log('wfsClientUrl', APP_CONFIG.services.omar.wfsUrl);
+        function wfsService (APP_CONFIG, $q, $rootScope) {
+
+            //var self = this;
+
             var wfsClient;
-            //wfsClient = new OGC.WFS.Client('/wfs');
-            //console.log('wfsClientUrl', APP_CONFIG.services.omar.wfsUrl);
-            wfsClient = new OGC.WFS.Client(APP_CONFIG.services.omar.wfsUrl); // /wfs
-
-            //console.log(wfsClient.convertCqlToXml(
-            //    "BBOX(ground_geom, -180.0,-90.0,180.0,90.0)"
-            //    "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
-            //));
+            wfsClient = new OGC.WFS.Client(APP_CONFIG.services.omar.wfsUrl);
 
             OpenLayers.ProxyHost = "/proxy/index?url=";
 
@@ -26,33 +21,40 @@
                 version: '1.1.0',
                 maxFeatures: '200',
                 outputFormat: 'JSON',
-                //cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
-                //cql: "INTERSECTS(ground_geom, POLYGON ((-180 -90, -180 90, 180 90, 180 -90, -180 -90)))"
-                //cql: "INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
+                cql: ''
             };
 
-            console.log('wfsRequest', wfsRequest);
-            //if($scope.filter && $scope.filter.trim() !== ''){
-            //    wfsRequest.cql = $scope.filter;
-            //}
+            //console.log('wfsRequest', wfsRequest);
 
-            //wfsClient.getFeature(wfsRequest, function(data) {
-            //    deferred.resolve(data);
-            //});
+            // private variable
+            //var _wfsDataObj = {};
+            //this.wfsDataObj = _wfsDataObj;
 
             this.executeWfsQuery = function(paramObj) {
+
                 //console.log('paramObj', paramObj);
-                //wfsRequest.maxFeatures = paramObj.maxFeatures;
-                wfsRequest.cql = paramObj.cql; //"INTERSECTS(ground_geom, POLYGON ((-180 0, -180 90, 0 90, 0 0, -180 0)))"
+
+                // This is from mapService, the first time through this is not used
+                wfsRequest.cql = paramObj.cql;
 
                 wfsClient.getFeature(wfsRequest, function (data) {
+
+                    console.log('getFeature data', data);
+
                     deferred.resolve(data);
+                    $rootScope.$broadcast('wfs: updated', data);
+
                 });
+
             };
 
             this.getWfsResults = function () {
+
+                console.log('gettingWfsResults');
                 return deferred.promise;
+
             };
+
         }
 
 }());

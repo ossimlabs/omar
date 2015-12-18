@@ -223,7 +223,7 @@
             //var url = 'http://mapy.mzk.cz/AA22/0103/';
             //var crossOrigin = undefined;
 
-            console.log( 'params', params );
+            //console.log( 'params', params );
 
             filename = params.filename;
             entry = params.entry;
@@ -238,12 +238,12 @@
                 params: {filename: filename, entry: entry}
             } ).then( function successCallback( response )
             {
-                console.log( response );
+                //console.log( response );
                 // this callback will be called asynchronously
                 // when the response is available
                 upAngle = response.data.upAngle;
                 northAngle = response.data.northAngle;
-                console.log( upAngle, northAngle );
+                //console.log( upAngle, northAngle );
 
             }, function errorCallback( response )
             {
@@ -304,7 +304,7 @@
                     extent: [0, -imgHeight, imgWidth, 0]
                 } )
             } );
-            console.log( map );
+            //console.log( map );
             map.render( 'imageMap' );
         };
     }

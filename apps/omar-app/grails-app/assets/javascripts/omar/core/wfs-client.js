@@ -236,7 +236,7 @@ OGC.WFS.Client = OpenLayers.Class({
 
         isAsync = (callback instanceof Function);
 
-        console.log('######### wfsParams ##############', wfsParams);
+        //console.log('######### wfsParams ##############', wfsParams);
 
         // WFS getFeature request parameters
         var params = {

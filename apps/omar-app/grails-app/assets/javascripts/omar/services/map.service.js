@@ -2,11 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('mapService', ['APP_CONFIG', mapService]);
+        .service('mapService', ['APP_CONFIG', 'wfsService', mapService]);
 
-        function mapService (APP_CONFIG) {
-
-            //console.log('APP_CONFIG greenMarker', APP_CONFIG.misc.icons.greenMarker);
+        function mapService (APP_CONFIG, wfsService) {
 
             // Add the basemap parameters from the applicaiton config file.
             var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
@@ -16,7 +14,6 @@
             var omarUrl = APP_CONFIG.services.omar.url;
             var omarPort = APP_CONFIG.services.omar.port || '80';
             var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
-
 
             var zoomToLevel = 16;
             var map,
@@ -99,6 +96,18 @@
 
                 map.addLayer(searchLayerVector);
 
+                var mapObj = {};
+
+                map.on('moveend', function(){
+
+                    mapObj.cql = "INTERSECTS(ground_geom," + convertToWktPolygon() + ")";
+
+                    wfsService.executeWfsQuery(mapObj);
+                    //wfsService.getWfsDataObj();
+                    //console.log('wfsService.wfsDataObj', wfsService.wfsDataObj);
+
+                });
+
                 if (mapParams === undefined) {
 
                     //zoomTo(0,0,4);
@@ -123,6 +132,28 @@
                 $(element).animate({height:$(window).height()- height}, 10, function(){
                     map.updateSize();
                 });
+
+            };
+
+            function getMapBbox () {
+                //console.log('Map extent --> ', map.getView().calculateExtent(map.getSize()));
+                return map.getView().calculateExtent(map.getSize());
+                //console.log(map.getView());
+            };
+
+            function convertToWktPolygon(){
+                var extent = getMapBbox();
+                var minX = extent[0];
+                var minY = extent[1];
+                var maxX = extent[2];
+                var maxY = extent[3];
+
+                var wkt = "POLYGON((" + minX + " " + minY + ", " + minX + " " + maxY + ", " + maxX + " " + maxY + ", "
+                    + maxX + " " + minY + ", " + minX + " " + minY + "))";
+
+                //console.log('wkt', wkt);
+
+                return wkt;
 
             };
 

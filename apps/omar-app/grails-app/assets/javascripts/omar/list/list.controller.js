@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['APP_CONFIG', 'wfsService', '$stateParams', '$uibModal', 'imageSpaceService', ListController]);
+        .controller('ListController', ['APP_CONFIG', 'wfsService', '$stateParams', '$uibModal', 'imageSpaceService', '$scope', ListController]);
 
-        function ListController(APP_CONFIG, wfsService, $stateParams, $uibModal, imageSpaceService) {
+        function ListController(APP_CONFIG, wfsService, $stateParams, $uibModal, imageSpaceService, $scope) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -14,21 +14,29 @@
             var omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
 
             vm.omarThumbnailsUrl = omarUrl + ':' + omarPort + omarThumbnails;
-            //console.log('vm.omarThumbnailsUrl', vm.omarThumbnailsUrl);
 
-            var wfsRequestObj = {};
+            vm.wfsService = wfsService;
+            //console.log('vm.wfsService', vm.wfsService);
 
-            wfsRequestObj.maxFeatures = $stateParams.maxFeatures;
-            wfsRequestObj.cql = $stateParams.cql;
+            //var wfsRequestObj = {};
 
-            wfsService.executeWfsQuery(wfsRequestObj);
+            //wfsRequestObj.maxFeatures = $stateParams.maxFeatures;
+            //wfsRequestObj.cql = $stateParams.cql;
 
-            var promise = wfsService.getWfsResults();
+            //wfsService.executeWfsQuery(wfsRequestObj);
 
-            promise.then(function(data){
-                vm.wfsData = data;
-                //$log.warn('wfsData', vm.wfsData);
-                //$log.warn('wfsData.length', vm.wfsData.length);
+            //var promise = wfsService.getWfsResults();
+
+            //promise.then(function(data){
+            //
+            //    //vm.wfsData = data;
+            //    //console.log('wfsService.wfsDataObj in promise...', wfsService.wfsDataObj);
+            //
+            //});
+
+            $scope.$on('wfs: updated', function(event, data) {
+
+                $scope.$apply(vm.wfsData = data);
 
             });
 

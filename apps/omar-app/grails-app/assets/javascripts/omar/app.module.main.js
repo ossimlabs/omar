@@ -56,7 +56,7 @@
             return function(name) {
                 if (name !== undefined) {
                     var filename = name.replace(/^.*[\\\/]/, '');
-                    console.log('filename', filename);
+                    //console.log('filename', filename);
                     return filename;
                 }
             };
