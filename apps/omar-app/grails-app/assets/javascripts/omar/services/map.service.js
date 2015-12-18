@@ -11,8 +11,8 @@
             var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
 
             // Add the path to OMAR and the footprints URL
-            var omarUrl = APP_CONFIG.services.omar.url;
-            var omarPort = APP_CONFIG.services.omar.port || '80';
+            //var omarUrl = APP_CONFIG.services.omar.url;
+            //var omarPort = APP_CONFIG.services.omar.port || '80';
             var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
 
             var zoomToLevel = 16;
@@ -74,7 +74,8 @@
                             source: new ol.source.TileWMS( {
                                 //url: 'http://localhost:8888/omar/wms/footprints?',
                                 //url: 'http://localhost:8888/omar/wms/footprints?',
-                                url: omarUrl + ':' + omarPort + omarFootprintsUrl,
+                                //url: omarUrl + ':' + omarPort + omarFootprintsUrl,
+                                url: omarFootprintsUrl,
                                 params: {
                                     VERSION: '1.1.1',
                                     SRS: 'EPSG:3857',

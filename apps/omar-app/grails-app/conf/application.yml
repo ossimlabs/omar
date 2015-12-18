@@ -336,12 +336,12 @@ webconfig:
   services:
     proxy: /proxy/index?url=
     omar:
-      url: http://localhost
-      port: 8888
-      wfsUrl: /wfs
-      wmsUrl: /wms
-      thumbnailsUrl: /omar/thumbnail/show/
-      footprintsUrl: /omar/wms/footprints?
+#      url: http://localhost
+#      port: 8888
+      wfsUrl: http://localhost:7272/wfs
+      wmsUrl: http://localhost:8888/wms
+      thumbnailsUrl: http://localhost:8888/omar/thumbnail/show/
+      footprintsUrl: http://localhost:8888/omar/wms/footprints?
     twofishes:
       url: http://localhost:8081/twofish
       proxy: /twoFishesProxy

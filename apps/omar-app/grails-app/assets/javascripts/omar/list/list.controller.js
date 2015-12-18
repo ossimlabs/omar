@@ -9,11 +9,11 @@
             /* jshint validthis: true */
             var vm = this;
 
-            var omarUrl = APP_CONFIG.services.omar.url;
-            var omarPort = APP_CONFIG.services.omar.port || '80';
+//            var omarUrl = APP_CONFIG.services.omar.url;
+//            var omarPort = APP_CONFIG.services.omar.port || '80';
             var omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
 
-            vm.omarThumbnailsUrl = omarUrl + ':' + omarPort + omarThumbnails;
+            vm.omarThumbnailsUrl = omarThumbnails;
 
             vm.wfsService = wfsService;
             //console.log('vm.wfsService', vm.wfsService);
