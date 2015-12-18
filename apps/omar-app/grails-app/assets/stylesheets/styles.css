@@ -8,6 +8,8 @@
     url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
+body { padding-top: 70px; }
+
 .navbar-brand {padding-top: 15px}
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

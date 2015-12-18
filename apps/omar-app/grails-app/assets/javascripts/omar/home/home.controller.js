@@ -6,7 +6,7 @@
 
         function HomeController(APP_CONFIG, $state, toastr){
 
-            toastr.info('This pre-alpha release has limitied functionality.  Some items' +
+            toastr.info('This pre-alpha release has limited functionality.  Some items' +
                 ' are disabled at this time. More capabilities will be added on a continous' +
                 ' basis.', 'Note:',{
                 closeButton: true,

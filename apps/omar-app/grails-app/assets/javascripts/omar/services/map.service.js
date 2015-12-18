@@ -103,9 +103,8 @@
 
                     mapObj.cql = "INTERSECTS(ground_geom," + convertToWktPolygon() + ")";
 
+                    // Update the image cards in the list
                     wfsService.executeWfsQuery(mapObj);
-                    //wfsService.getWfsDataObj();
-                    //console.log('wfsService.wfsDataObj', wfsService.wfsDataObj);
 
                 });
 
