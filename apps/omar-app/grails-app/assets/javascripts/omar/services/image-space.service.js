@@ -284,8 +284,12 @@
             map = new ol.Map( {
                 controls: ol.control.defaults().extend( [
                     new RotateNorthControl(),
-                    new RotateUpControl()
+                    new RotateUpControl(),
+                    //new ol.control.FullScreen()
                 ] ),
+                interactions: ol.interaction.defaults().extend([
+                    new ol.interaction.DragRotateAndZoom()
+                ]),
                 layers: [
                     new ol.layer.Tile( {
                         source: source
