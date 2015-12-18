@@ -630,18 +630,15 @@
         </div>
         <div id="list">
             <div ng-repeat="image in list.wfsData" ng-model="image">
-
-                <!--<div list-image image="image" omar="{{list.omarUrl}}"></div>-->
-
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div class="media">
                             <div class="media-left">
                                 <img class="media-object"
                                      ng-click="list.showImageModal(image)"
-                                     ng-src="{{list.omarThumbnailsUrl}}{{image.properties.id}}"
+                                     ng-src="{{list.thumbPath}}{{list.thumbFilename}}{{image.properties.filename}}{{list.thumbEntry}}{{image.properties.entry_id}}{{list.thumbSize}}{{list.thumbFormat}}"
                                      alt="Image thumbnail"
-                                     style="width: 64px; height: 64px; cursor: pointer;"
+                                     style="cursor: pointer;"
                                      >&nbsp;
                             </div>
                             <div class="media-body">

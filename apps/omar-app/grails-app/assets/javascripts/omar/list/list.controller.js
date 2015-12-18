@@ -9,30 +9,11 @@
             /* jshint validthis: true */
             var vm = this;
 
-//            var omarUrl = APP_CONFIG.services.omar.url;
-//            var omarPort = APP_CONFIG.services.omar.port || '80';
-            var omarThumbnails = APP_CONFIG.services.omar.thumbnailsUrl;
-
-            vm.omarThumbnailsUrl = omarThumbnails;
-
-            vm.wfsService = wfsService;
-            //console.log('vm.wfsService', vm.wfsService);
-
-            //var wfsRequestObj = {};
-
-            //wfsRequestObj.maxFeatures = $stateParams.maxFeatures;
-            //wfsRequestObj.cql = $stateParams.cql;
-
-            //wfsService.executeWfsQuery(wfsRequestObj);
-
-            //var promise = wfsService.getWfsResults();
-
-            //promise.then(function(data){
-            //
-            //    //vm.wfsData = data;
-            //    //console.log('wfsService.wfsDataObj in promise...', wfsService.wfsDataObj);
-            //
-            //});
+            vm.thumbPath = '/imageSpace/getThumbnail?';
+            vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
+            vm.thumbEntry = '&entry=';  // parameter provided by image.properties.entry_id
+            vm.thumbSize = '&size=64';
+            vm.thumbFormat = '&format=jpeg';
 
             $scope.$on('wfs: updated', function(event, data) {
 
@@ -43,6 +24,7 @@
             vm.showImageModal = showImageModal;
 
             function showImageModal(imageObj) {
+
                 //console.log('imageObj', imageObj);
                 $uibModal.open({
                     size: 'lg',
@@ -53,6 +35,7 @@
                         imageObj: function() { return imageObj; },
                     }
                 });
+
             }
         }
 
