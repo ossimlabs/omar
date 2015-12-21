@@ -255,34 +255,71 @@ class ImageSpaceService
     return northIsUp
   }
 
+//  def getThumbnail(GetThumbnailCommand cmd)
+//  {
+//    def imageInfo = readImageInfo( cmd.filename as File )
+//
+//    def opts = [
+//        cut_bbox_xywh: [0, 0, cmd.size, cmd.size].join( ',' ),
+//        'image0.file': cmd.filename,
+//        'image0.entry': cmd.entry as String,
+//        operation: 'chip',
+//        rrds: findIndexOffset( imageInfo.images[cmd.entry], cmd.size ).toString(),
+//        scale_2_8_bit: 'true',
+//        'hist_op': 'auto-minmax',
+//        three_band_out: "true"
+//    ]
+//
+//    def hints = [
+//        transparent: cmd.format == 'png',
+//        width: cmd.size,
+//        height: cmd.size,
+//        type: cmd.format,
+//        ostream: new ByteArrayOutputStream()
+//    ]
+//
+//    //println opts
+//    runChipper( opts, hints )
+//
+//    [contentType: "image/${hints.type}", buffer: hints.ostream.toByteArray()]
+//
+//
+//  }
+
   def getThumbnail(GetThumbnailCommand cmd)
   {
-    def imageInfo = readImageInfo( cmd.filename as File )
+    def output = File.createTempFile( 'chipper', ".${cmd.format}", '/tmp' as File )
 
-    def opts = [
-        cut_bbox_xywh: [0, 0, cmd.size, cmd.size].join( ',' ),
-        'image0.file': cmd.filename,
-        'image0.entry': cmd.entry as String,
-        operation: 'chip',
-        rrds: findIndexOffset( imageInfo.images[cmd.entry], cmd.size ).toString(),
-        scale_2_8_bit: 'true',
-        'hist_op': 'auto-minmax',
-        three_band_out: "true"
+    def exe = [
+        "ossim-chipper",
+        "--op",
+        "chip",
+        "--thumbnail",
+        cmd.size,
+        "--entry",
+        cmd.entry,
+        "--pad-thumbnail",
+        "true",
+        "--histogram-op",
+        "auto-minmax",
+        "--output-radiometry",
+        "U8",
+        cmd.filename,
+        output
     ]
 
-    def hints = [
-        transparent: cmd.format == 'png',
-        width: cmd.size,
-        height: cmd.size,
-        type: cmd.format,
-        ostream: new ByteArrayOutputStream()
-    ]
+    println exe.join( ' ' )
 
-    //println opts
-    runChipper( opts, hints )
+    def proc = exe.execute()
 
-    [contentType: "image/${hints.type}", buffer: hints.ostream.toByteArray()]
+//      proc.consumeProcessOutput(System.out, System.err)
+    proc.consumeProcessOutput()
+    proc.waitFor()
 
+    def buffer = output.bytes
 
+    output.delete()
+
+    [contentType: "image/${cmd.format}", buffer: buffer]
   }
 }
