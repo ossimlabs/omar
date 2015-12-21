@@ -26,9 +26,10 @@
             function showImageModal(imageObj) {
 
                 //console.log('imageObj', imageObj);
+
                 $uibModal.open({
                     size: 'lg',
-                    templateUrl: '/list/list.image.partial.html',
+                    templateUrl: '/list/list.image-card.partial.html',
                     controller: ['$uibModalInstance', 'imageSpaceService', 'imageObj', ImageModalController],
                     controllerAs: 'vm',
                     resolve: {
@@ -59,10 +60,8 @@
 
             $uibModalInstance.opened.then(function(){
                 setTimeout(function(){
-                    //alert("Hello");
                     imageSpaceService.initImageSpaceMap(imageSpaceObj);
                 }, 100);
-                //imageSpaceService.initImageSpaceMap(imageSpaceObj);
             });
 
          }
