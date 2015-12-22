@@ -45,7 +45,7 @@ class ImageSpaceController
 
   def getAngles()
   {
-    println params
+    //println params
 
     String filename = params.filename
     Integer entry = params.int( 'entry' )

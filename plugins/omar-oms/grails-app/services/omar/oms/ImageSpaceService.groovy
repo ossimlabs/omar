@@ -25,7 +25,7 @@ class ImageSpaceService
 
   def getTileOverlay(GetTileCommand cmd)
   {
-    println cmd
+    //println cmd
 
     def text = "${cmd.z}/${cmd.x}/${cmd.y}"
 
