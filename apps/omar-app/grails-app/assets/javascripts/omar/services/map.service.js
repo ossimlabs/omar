@@ -136,9 +136,9 @@
             };
 
             function getMapBbox () {
-                //console.log('Map extent --> ', map.getView().calculateExtent(map.getSize()));
+
                 return map.getView().calculateExtent(map.getSize());
-                //console.log(map.getView());
+
             };
 
             function convertToWktPolygon(){

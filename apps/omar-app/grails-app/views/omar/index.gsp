@@ -48,7 +48,7 @@
                         <li><a ui-sref="home">&nbsp;Home</a></li>
                         <li><a ui-sref="map">&nbsp;Map</a></li>
                         <li><a ui-sref="wfs">&nbsp;WFS</a></li>
-                        <li><a ui-sref="multiple">&nbsp;Multi</a></li>
+                        %{--<li><a ui-sref="multiple">&nbsp;Multi</a></li>--}%
                     </ul>
                 </div>
             </nav>

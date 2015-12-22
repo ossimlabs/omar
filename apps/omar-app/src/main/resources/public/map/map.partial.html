@@ -9,7 +9,7 @@
         </button>
         <a class="navbar-brand visible-xs-block">Filter</a>
     </div>
-    <div class="collapse navbar-collapse" id="filter-navbar-collapse">
+    <div class="collapse navbar-collapse" id="filter-navbar-collapse" ng-controller="FilterController as filter">
         <!--<form id="searchForm" class="navbar-form navbar-left" role="search">-->
             <!--<div class="form-group">-->
                 <!--<div class="input-group">-->
@@ -325,6 +325,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <button type="button" class="btn btn-primary" ng-click="filter.filterWfs();">Apply
+                                    </button>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-2 col-md-offset-3">
                                         <label class="label label-primary">Minimum</label>
                                     </div>
@@ -334,17 +338,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <div class="checkbox" id="predNiirsCheck">
+                                        <div class="checkbox" id="filter.predNiirsCheck">
                                             <label>
                                                 <input type="checkbox">&nbsp;&nbsp;Predicted NIIRS
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="niirsMin" placeholder="0.0">
+                                        <input ng-model="filter.predNiirsMin" class="form-control" id="niirsMin"
+                                               placeholder="0.0" value="{{filter.predNiirsMin}}">
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="niirsMax" placeholder="9.0">
+                                        <input ng-model="filter.predNiirsMax" class="form-control" id="niirsMax"
+                                               placeholder="9.0" value="{{filter.predNiirsMax}}">
                                     </div>
                                     <div class="col-md-3">
                                         <p class="help-block">0.0-9.0</p>
@@ -463,72 +469,6 @@
                                     <div class="col-md-3">
                                         <p class="help-block">%</p>
                                     </div>
-                                </div>
-                                <br>
-
-                                <!--<div class="row">-->
-                                    <!--<div class="col-md-3">-->
-                                        <!--<div class="checkbox" id="slantRangeCheck">-->
-                                            <!--<label>-->
-                                                <!--<input type="checkbox">&nbsp;&nbsp;Slant Range-->
-                                            <!--</label>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-md-2">-->
-                                        <!--<input class="form-control" id="slantRangeMin" placeholder="0.0">-->
-                                    <!--</div>-->
-                                    <!--<div class="col-md-2">-->
-                                        <!--<input class="form-control" id="slantRangeMax" placeholder="1000.0">-->
-                                    <!--</div>-->
-                                    <!--<div class="col-md-3">-->
-                                        <!--<p class="help-block">Kilometers</p>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<br>-->
-
-                                <!--<div class="row">-->
-                                    <!--<div class="col-md-3">-->
-                                        <!--<div class="checkbox" id="aggrModeCheck">-->
-                                            <!--<label>-->
-                                                <!--<input type="checkbox">&nbsp;&nbsp;Slant Range-->
-                                            <!--</label>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-md-2">-->
-                                        <!--<select class="form-control" id="aggrModeSelect">-->
-                                            <!--<option>1x1</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <br>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="checkbox" id="targetTypeCheck">
-                                            <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Slant Range
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <select class="form-control" id="targetTypeSelect">
-                                            <option>Point</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <br>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="checkbox" id="stereoCheck">
-                                            <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Stereo
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <hr>
                                 </div>
                             </form>
                         </div>

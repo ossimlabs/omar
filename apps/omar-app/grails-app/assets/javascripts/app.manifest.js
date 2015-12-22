@@ -36,6 +36,9 @@
 //= <--WFS-->
 //= require omar/wfs/wfs.controller.js
 
+//= <--Filter-->
+//= require omar/filter/filter.controller.js
+
 // <--Multiple (test)-->
 //= require omar/multiple/multiple.controller.js
 
