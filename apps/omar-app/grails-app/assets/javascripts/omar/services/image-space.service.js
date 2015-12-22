@@ -32,6 +32,7 @@
             var options = opt_options || {};
             var button = document.createElement( 'button' );
 
+            button.title = 'North is Up';
             button.innerHTML = 'N';
 
             var this_ = this;
@@ -65,6 +66,7 @@
             var button = document.createElement( 'button' );
 
             button.innerHTML = 'U';
+            button.title = 'Up is Up';
 
             var this_ = this;
 
