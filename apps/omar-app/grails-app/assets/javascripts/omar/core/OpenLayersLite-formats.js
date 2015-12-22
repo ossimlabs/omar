@@ -2,14 +2,14 @@
 
   OpenLayers.js -- OpenLayers Map Viewer Library
 
-  Copyright (c) 2006-2013 by OpenLayers Contributors
+  Copyright (c) 2006-2015 by OpenLayers Contributors
   Published under the 2-clause BSD license.
-  See http://openlayers.org/dev/license.txt for the full text of the license, and http://openlayers.org/dev/authors.txt for full list of contributors.
+  See https://raw.githubusercontent.com/openlayers/ol2/master/license.txt for the full text of the license, and https://raw.githubusercontent.com/openlayers/ol2/master/authors.txt for full list of contributors.
 
   Includes compressed code under the following licenses:
 
   (For uncompressed versions of the code used, please see the
-  OpenLayers Github repository: <https://github.com/openlayers/openlayers>)
+  OpenLayers Github repository: <https://github.com/openlayers/ol2>)
 
 */
 
@@ -27,22 +27,22 @@
  * OpenLayers.Util.pagePosition is based on Yahoo's getXY method, which is
  * Copyright (c) 2006, Yahoo! Inc.
  * All rights reserved.
- * 
+ *
  * Redistribution and use of this software in source and binary forms, with or
  * without modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  * * Redistributions of source code must retain the above copyright notice,
  *   this list of conditions and the following disclaimer.
- * 
+ *
  * * Redistributions in binary form must reproduce the above copyright notice,
  *   this list of conditions and the following disclaimer in the documentation
  *   and/or other materials provided with the distribution.
- * 
+ *
  * * Neither the name of Yahoo! Inc. nor the names of its contributors may be
  *   used to endorse or promote products derived from this software without
  *   specific prior written permission of Yahoo! Inc.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -52,14 +52,14 @@
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
 /* ======================================================================
     OpenLayers/SingleFile.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -141,7 +141,7 @@ var OpenLayers = {
     OpenLayers/BaseTypes/Class.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -266,7 +266,7 @@ OpenLayers.Util.extend = function(destination, source) {
     OpenLayers/BaseTypes.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -733,7 +733,7 @@ OpenLayers.Array = {
     OpenLayers/BaseTypes/Bounds.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -1574,7 +1574,7 @@ OpenLayers.Bounds.oppositeQuadrant = function(quadrant) {
     OpenLayers/BaseTypes/Element.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -1767,7 +1767,7 @@ OpenLayers.Element = {
     OpenLayers/BaseTypes/LonLat.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -1986,7 +1986,7 @@ OpenLayers.LonLat.fromArray = function(arr) {
     OpenLayers/BaseTypes/Pixel.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -2133,7 +2133,7 @@ OpenLayers.Pixel = OpenLayers.Class({
     OpenLayers/BaseTypes/Size.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -2226,7 +2226,7 @@ OpenLayers.Size = OpenLayers.Class({
     OpenLayers/Console.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -2480,7 +2480,7 @@ OpenLayers.Console = {
     OpenLayers/Lang.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -2618,7 +2618,7 @@ OpenLayers.i18n = OpenLayers.Lang.translate;
     OpenLayers/Util.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -4418,137 +4418,10 @@ OpenLayers.Util.getConstructor = function(className) {
     return Constructor;
 };
 /* ======================================================================
-    OpenLayers/Format.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/BaseTypes/Class.js
- * @requires OpenLayers/Util.js
- */
-
-/**
- * Class: OpenLayers.Format
- * Base class for format reading/writing a variety of formats.  Subclasses
- *     of OpenLayers.Format are expected to have read and write methods.
- */
-OpenLayers.Format = OpenLayers.Class({
-    
-    /**
-     * Property: options
-     * {Object} A reference to options passed to the constructor.
-     */
-    options: null,
-    
-    /**
-     * APIProperty: externalProjection
-     * {<OpenLayers.Projection>} When passed a externalProjection and
-     *     internalProjection, the format will reproject the geometries it
-     *     reads or writes. The externalProjection is the projection used by
-     *     the content which is passed into read or which comes out of write.
-     *     In order to reproject, a projection transformation function for the
-     *     specified projections must be available. This support may be 
-     *     provided via proj4js or via a custom transformation function. See
-     *     {<OpenLayers.Projection.addTransform>} for more information on
-     *     custom transformations.
-     */
-    externalProjection: null,
-
-    /**
-     * APIProperty: internalProjection
-     * {<OpenLayers.Projection>} When passed a externalProjection and
-     *     internalProjection, the format will reproject the geometries it
-     *     reads or writes. The internalProjection is the projection used by
-     *     the geometries which are returned by read or which are passed into
-     *     write.  In order to reproject, a projection transformation function
-     *     for the specified projections must be available. This support may be
-     *     provided via proj4js or via a custom transformation function. See
-     *     {<OpenLayers.Projection.addTransform>} for more information on
-     *     custom transformations.
-     */
-    internalProjection: null,
-
-    /**
-     * APIProperty: data
-     * {Object} When <keepData> is true, this is the parsed string sent to
-     *     <read>.
-     */
-    data: null,
-
-    /**
-     * APIProperty: keepData
-     * {Object} Maintain a reference (<data>) to the most recently read data.
-     *     Default is false.
-     */
-    keepData: false,
-
-    /**
-     * Constructor: OpenLayers.Format
-     * Instances of this class are not useful.  See one of the subclasses.
-     *
-     * Parameters:
-     * options - {Object} An optional object with properties to set on the
-     *           format
-     *
-     * Valid options:
-     * keepData - {Boolean} If true, upon <read>, the data property will be
-     *     set to the parsed object (e.g. the json or xml object).
-     *
-     * Returns:
-     * An instance of OpenLayers.Format
-     */
-    initialize: function(options) {
-        OpenLayers.Util.extend(this, options);
-        this.options = options;
-    },
-    
-    /**
-     * APIMethod: destroy
-     * Clean up.
-     */
-    destroy: function() {
-    },
-
-    /**
-     * Method: read
-     * Read data from a string, and return an object whose type depends on the
-     * subclass. 
-     * 
-     * Parameters:
-     * data - {string} Data to read/parse.
-     *
-     * Returns:
-     * Depends on the subclass
-     */
-    read: function(data) {
-        throw new Error('Read not implemented.');
-    },
-    
-    /**
-     * Method: write
-     * Accept an object, and return a string. 
-     *
-     * Parameters:
-     * object - {Object} Object to be serialized
-     *
-     * Returns:
-     * {String} A string representation of the object.
-     */
-    write: function(object) {
-        throw new Error('Write not implemented.');
-    },
-
-    CLASS_NAME: "OpenLayers.Format"
-});     
-/* ======================================================================
     OpenLayers/Feature.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -4777,7 +4650,7 @@ OpenLayers.Feature = OpenLayers.Class({
     OpenLayers/Feature/Vector.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -5288,10 +5161,589 @@ OpenLayers.Feature.Vector.style = {
     }
 };    
 /* ======================================================================
+    OpenLayers/Style.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+
+/**
+ * @requires OpenLayers/BaseTypes/Class.js
+ * @requires OpenLayers/Util.js
+ * @requires OpenLayers/Feature/Vector.js
+ */
+
+/**
+ * Class: OpenLayers.Style
+ * This class represents a UserStyle obtained
+ *     from a SLD, containing styling rules.
+ */
+OpenLayers.Style = OpenLayers.Class({
+
+    /**
+     * Property: id
+     * {String} A unique id for this session.
+     */
+    id: null,
+    
+    /**
+     * APIProperty: name
+     * {String}
+     */
+    name: null,
+    
+    /**
+     * Property: title
+     * {String} Title of this style (set if included in SLD)
+     */
+    title: null,
+    
+    /**
+     * Property: description
+     * {String} Description of this style (set if abstract is included in SLD)
+     */
+    description: null,
+
+    /**
+     * APIProperty: layerName
+     * {<String>} name of the layer that this style belongs to, usually
+     * according to the NamedLayer attribute of an SLD document.
+     */
+    layerName: null,
+    
+    /**
+     * APIProperty: isDefault
+     * {Boolean}
+     */
+    isDefault: false,
+     
+    /** 
+     * Property: rules 
+     * {Array(<OpenLayers.Rule>)}
+     */
+    rules: null,
+    
+    /**
+     * APIProperty: context
+     * {Object} An optional object with properties that symbolizers' property
+     * values should be evaluated against. If no context is specified,
+     * feature.attributes will be used
+     */
+    context: null,
+
+    /**
+     * Property: defaultStyle
+     * {Object} hash of style properties to use as default for merging
+     * rule-based style symbolizers onto. If no rules are defined,
+     * createSymbolizer will return this style. If <defaultsPerSymbolizer> is set to
+     * true, the defaultStyle will only be taken into account if there are
+     * rules defined.
+     */
+    defaultStyle: null,
+    
+    /**
+     * Property: defaultsPerSymbolizer
+     * {Boolean} If set to true, the <defaultStyle> will extend the symbolizer
+     * of every rule. Properties of the <defaultStyle> will also be used to set
+     * missing symbolizer properties if the symbolizer has stroke, fill or
+     * graphic set to true. Default is false.
+     */
+    defaultsPerSymbolizer: false,
+    
+    /**
+     * Property: propertyStyles
+     * {Hash of Boolean} cache of style properties that need to be parsed for
+     * propertyNames. Property names are keys, values won't be used.
+     */
+    propertyStyles: null,
+    
+
+    /** 
+     * Constructor: OpenLayers.Style
+     * Creates a UserStyle.
+     *
+     * Parameters:
+     * style        - {Object} Optional hash of style properties that will be
+     *                used as default style for this style object. This style
+     *                applies if no rules are specified. Symbolizers defined in
+     *                rules will extend this default style.
+     * options - {Object} An optional object with properties to set on the
+     *     style.
+     *
+     * Valid options:
+     * rules - {Array(<OpenLayers.Rule>)} List of rules to be added to the
+     *     style.
+     * 
+     * Returns:
+     * {<OpenLayers.Style>}
+     */
+    initialize: function(style, options) {
+
+        OpenLayers.Util.extend(this, options);
+        this.rules = [];
+        if(options && options.rules) {
+            this.addRules(options.rules);
+        }
+
+        // use the default style from OpenLayers.Feature.Vector if no style
+        // was given in the constructor
+        this.setDefaultStyle(style ||
+                             OpenLayers.Feature.Vector.style["default"]);
+
+        this.id = OpenLayers.Util.createUniqueID(this.CLASS_NAME + "_");
+    },
+
+    /** 
+     * APIMethod: destroy
+     * nullify references to prevent circular references and memory leaks
+     */
+    destroy: function() {
+        for (var i=0, len=this.rules.length; i<len; i++) {
+            this.rules[i].destroy();
+            this.rules[i] = null;
+        }
+        this.rules = null;
+        this.defaultStyle = null;
+    },
+    
+    /**
+     * Method: createSymbolizer
+     * creates a style by applying all feature-dependent rules to the base
+     * style.
+     * 
+     * Parameters:
+     * feature - {<OpenLayers.Feature>} feature to evaluate rules for
+     * 
+     * Returns:
+     * {Object} symbolizer hash
+     */
+    createSymbolizer: function(feature) {
+        var style = this.defaultsPerSymbolizer ? {} : this.createLiterals(
+            OpenLayers.Util.extend({}, this.defaultStyle), feature);
+        
+        var rules = this.rules;
+
+        var rule, context;
+        var elseRules = [];
+        var appliedRules = false;
+        for(var i=0, len=rules.length; i<len; i++) {
+            rule = rules[i];
+            // does the rule apply?
+            var applies = rule.evaluate(feature);
+            
+            if(applies) {
+                if(rule instanceof OpenLayers.Rule && rule.elseFilter) {
+                    elseRules.push(rule);
+                } else {
+                    appliedRules = true;
+                    this.applySymbolizer(rule, style, feature);
+                }
+            }
+        }
+        
+        // if no other rules apply, apply the rules with else filters
+        if(appliedRules == false && elseRules.length > 0) {
+            appliedRules = true;
+            for(var i=0, len=elseRules.length; i<len; i++) {
+                this.applySymbolizer(elseRules[i], style, feature);
+            }
+        }
+
+        // don't display if there were rules but none applied
+        if(rules.length > 0 && appliedRules == false) {
+            style.display = "none";
+        }
+        
+        if (style.label != null && typeof style.label !== "string") {
+            style.label = String(style.label);
+        }
+        
+        return style;
+    },
+    
+    /**
+     * Method: applySymbolizer
+     *
+     * Parameters:
+     * rule - {<OpenLayers.Rule>}
+     * style - {Object}
+     * feature - {<OpenLayer.Feature.Vector>}
+     *
+     * Returns:
+     * {Object} A style with new symbolizer applied.
+     */
+    applySymbolizer: function(rule, style, feature) {
+        var symbolizerPrefix = feature.geometry ?
+                this.getSymbolizerPrefix(feature.geometry) :
+                OpenLayers.Style.SYMBOLIZER_PREFIXES[0];
+
+        var symbolizer = rule.symbolizer[symbolizerPrefix] || rule.symbolizer;
+        
+        if(this.defaultsPerSymbolizer === true) {
+            var defaults = this.defaultStyle;
+            OpenLayers.Util.applyDefaults(symbolizer, {
+                pointRadius: defaults.pointRadius
+            });
+            if(symbolizer.stroke === true || symbolizer.graphic === true) {
+                OpenLayers.Util.applyDefaults(symbolizer, {
+                    strokeWidth: defaults.strokeWidth,
+                    strokeColor: defaults.strokeColor,
+                    strokeOpacity: defaults.strokeOpacity,
+                    strokeDashstyle: defaults.strokeDashstyle,
+                    strokeLinecap: defaults.strokeLinecap
+                });
+            }
+            if(symbolizer.fill === true || symbolizer.graphic === true) {
+                OpenLayers.Util.applyDefaults(symbolizer, {
+                    fillColor: defaults.fillColor,
+                    fillOpacity: defaults.fillOpacity
+                });
+            }
+            if(symbolizer.graphic === true) {
+                OpenLayers.Util.applyDefaults(symbolizer, {
+                    pointRadius: this.defaultStyle.pointRadius,
+                    externalGraphic: this.defaultStyle.externalGraphic,
+                    graphicName: this.defaultStyle.graphicName,
+                    graphicOpacity: this.defaultStyle.graphicOpacity,
+                    graphicWidth: this.defaultStyle.graphicWidth,
+                    graphicHeight: this.defaultStyle.graphicHeight,
+                    graphicXOffset: this.defaultStyle.graphicXOffset,
+                    graphicYOffset: this.defaultStyle.graphicYOffset
+                });
+            }
+        }
+
+        // merge the style with the current style
+        return this.createLiterals(
+                OpenLayers.Util.extend(style, symbolizer), feature);
+    },
+    
+    /**
+     * Method: createLiterals
+     * creates literals for all style properties that have an entry in
+     * <this.propertyStyles>.
+     * 
+     * Parameters:
+     * style   - {Object} style to create literals for. Will be modified
+     *           inline.
+     * feature - {Object}
+     * 
+     * Returns:
+     * {Object} the modified style
+     */
+    createLiterals: function(style, feature) {
+        var context = OpenLayers.Util.extend({}, feature.attributes || feature.data);
+        OpenLayers.Util.extend(context, this.context);
+        
+        for (var i in this.propertyStyles) {
+            style[i] = OpenLayers.Style.createLiteral(style[i], context, feature, i);
+        }
+        return style;
+    },
+    
+    /**
+     * Method: findPropertyStyles
+     * Looks into all rules for this style and the defaultStyle to collect
+     * all the style hash property names containing ${...} strings that have
+     * to be replaced using the createLiteral method before returning them.
+     * 
+     * Returns:
+     * {Object} hash of property names that need createLiteral parsing. The
+     * name of the property is the key, and the value is true;
+     */
+    findPropertyStyles: function() {
+        var propertyStyles = {};
+
+        // check the default style
+        var style = this.defaultStyle;
+        this.addPropertyStyles(propertyStyles, style);
+
+        // walk through all rules to check for properties in their symbolizer
+        var rules = this.rules;
+        var symbolizer, value;
+        for (var i=0, len=rules.length; i<len; i++) {
+            symbolizer = rules[i].symbolizer;
+            for (var key in symbolizer) {
+                value = symbolizer[key];
+                if (typeof value == "object") {
+                    // symbolizer key is "Point", "Line" or "Polygon"
+                    this.addPropertyStyles(propertyStyles, value);
+                } else {
+                    // symbolizer is a hash of style properties
+                    this.addPropertyStyles(propertyStyles, symbolizer);
+                    break;
+                }
+            }
+        }
+        return propertyStyles;
+    },
+    
+    /**
+     * Method: addPropertyStyles
+     * 
+     * Parameters:
+     * propertyStyles - {Object} hash to add new property styles to. Will be
+     *                  modified inline
+     * symbolizer     - {Object} search this symbolizer for property styles
+     * 
+     * Returns:
+     * {Object} propertyStyles hash
+     */
+    addPropertyStyles: function(propertyStyles, symbolizer) {
+        var property;
+        for (var key in symbolizer) {
+            property = symbolizer[key];
+            if (typeof property == "string" &&
+                    property.match(/\$\{\w+\}/)) {
+                propertyStyles[key] = true;
+            }
+        }
+        return propertyStyles;
+    },
+    
+    /**
+     * APIMethod: addRules
+     * Adds rules to this style.
+     * 
+     * Parameters:
+     * rules - {Array(<OpenLayers.Rule>)}
+     */
+    addRules: function(rules) {
+        Array.prototype.push.apply(this.rules, rules);
+        this.propertyStyles = this.findPropertyStyles();
+    },
+    
+    /**
+     * APIMethod: setDefaultStyle
+     * Sets the default style for this style object.
+     * 
+     * Parameters:
+     * style - {Object} Hash of style properties
+     */
+    setDefaultStyle: function(style) {
+        this.defaultStyle = style; 
+        this.propertyStyles = this.findPropertyStyles();
+    },
+        
+    /**
+     * Method: getSymbolizerPrefix
+     * Returns the correct symbolizer prefix according to the
+     * geometry type of the passed geometry
+     * 
+     * Parameters:
+     * geometry - {<OpenLayers.Geometry>}
+     * 
+     * Returns:
+     * {String} key of the according symbolizer
+     */
+    getSymbolizerPrefix: function(geometry) {
+        var prefixes = OpenLayers.Style.SYMBOLIZER_PREFIXES;
+        for (var i=0, len=prefixes.length; i<len; i++) {
+            if (geometry.CLASS_NAME.indexOf(prefixes[i]) != -1) {
+                return prefixes[i];
+            }
+        }
+    },
+    
+    /**
+     * APIMethod: clone
+     * Clones this style.
+     * 
+     * Returns:
+     * {<OpenLayers.Style>} Clone of this style.
+     */
+    clone: function() {
+        var options = OpenLayers.Util.extend({}, this);
+        // clone rules
+        if(this.rules) {
+            options.rules = [];
+            for(var i=0, len=this.rules.length; i<len; ++i) {
+                options.rules.push(this.rules[i].clone());
+            }
+        }
+        // clone context
+        options.context = this.context && OpenLayers.Util.extend({}, this.context);
+        //clone default style
+        var defaultStyle = OpenLayers.Util.extend({}, this.defaultStyle);
+        return new OpenLayers.Style(defaultStyle, options);
+    },
+    
+    CLASS_NAME: "OpenLayers.Style"
+});
+
+
+/**
+ * Function: createLiteral
+ * converts a style value holding a combination of PropertyName and Literal
+ * into a Literal, taking the property values from the passed features.
+ * 
+ * Parameters:
+ * value - {String} value to parse. If this string contains a construct like
+ *         "foo ${bar}", then "foo " will be taken as literal, and "${bar}"
+ *         will be replaced by the value of the "bar" attribute of the passed
+ *         feature.
+ * context - {Object} context to take attribute values from
+ * feature - {<OpenLayers.Feature.Vector>} optional feature to pass to
+ *           <OpenLayers.String.format> for evaluating functions in the
+ *           context.
+ * property - {String} optional, name of the property for which the literal is
+ *            being created for evaluating functions in the context.
+ * 
+ * Returns:
+ * {String} the parsed value. In the example of the value parameter above, the
+ * result would be "foo valueOfBar", assuming that the passed feature has an
+ * attribute named "bar" with the value "valueOfBar".
+ */
+OpenLayers.Style.createLiteral = function(value, context, feature, property) {
+    if (typeof value == "string" && value.indexOf("${") != -1) {
+        value = OpenLayers.String.format(value, context, [feature, property]);
+        value = (isNaN(value) || !value) ? value : parseFloat(value);
+    }
+    return value;
+};
+    
+/**
+ * Constant: OpenLayers.Style.SYMBOLIZER_PREFIXES
+ * {Array} prefixes of the sld symbolizers. These are the
+ * same as the main geometry types
+ */
+OpenLayers.Style.SYMBOLIZER_PREFIXES = ['Point', 'Line', 'Polygon', 'Text',
+    'Raster'];
+/* ======================================================================
+    OpenLayers/Format.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/BaseTypes/Class.js
+ * @requires OpenLayers/Util.js
+ */
+
+/**
+ * Class: OpenLayers.Format
+ * Base class for format reading/writing a variety of formats.  Subclasses
+ *     of OpenLayers.Format are expected to have read and write methods.
+ */
+OpenLayers.Format = OpenLayers.Class({
+    
+    /**
+     * Property: options
+     * {Object} A reference to options passed to the constructor.
+     */
+    options: null,
+    
+    /**
+     * APIProperty: externalProjection
+     * {<OpenLayers.Projection>} When passed a externalProjection and
+     *     internalProjection, the format will reproject the geometries it
+     *     reads or writes. The externalProjection is the projection used by
+     *     the content which is passed into read or which comes out of write.
+     *     In order to reproject, a projection transformation function for the
+     *     specified projections must be available. This support may be 
+     *     provided via proj4js or via a custom transformation function. See
+     *     {<OpenLayers.Projection.addTransform>} for more information on
+     *     custom transformations.
+     */
+    externalProjection: null,
+
+    /**
+     * APIProperty: internalProjection
+     * {<OpenLayers.Projection>} When passed a externalProjection and
+     *     internalProjection, the format will reproject the geometries it
+     *     reads or writes. The internalProjection is the projection used by
+     *     the geometries which are returned by read or which are passed into
+     *     write.  In order to reproject, a projection transformation function
+     *     for the specified projections must be available. This support may be
+     *     provided via proj4js or via a custom transformation function. See
+     *     {<OpenLayers.Projection.addTransform>} for more information on
+     *     custom transformations.
+     */
+    internalProjection: null,
+
+    /**
+     * APIProperty: data
+     * {Object} When <keepData> is true, this is the parsed string sent to
+     *     <read>.
+     */
+    data: null,
+
+    /**
+     * APIProperty: keepData
+     * {Object} Maintain a reference (<data>) to the most recently read data.
+     *     Default is false.
+     */
+    keepData: false,
+
+    /**
+     * Constructor: OpenLayers.Format
+     * Instances of this class are not useful.  See one of the subclasses.
+     *
+     * Parameters:
+     * options - {Object} An optional object with properties to set on the
+     *           format
+     *
+     * Valid options:
+     * keepData - {Boolean} If true, upon <read>, the data property will be
+     *     set to the parsed object (e.g. the json or xml object).
+     *
+     * Returns:
+     * An instance of OpenLayers.Format
+     */
+    initialize: function(options) {
+        OpenLayers.Util.extend(this, options);
+        this.options = options;
+    },
+    
+    /**
+     * APIMethod: destroy
+     * Clean up.
+     */
+    destroy: function() {
+    },
+
+    /**
+     * Method: read
+     * Read data from a string, and return an object whose type depends on the
+     * subclass. 
+     * 
+     * Parameters:
+     * data - {string} Data to read/parse.
+     *
+     * Returns:
+     * Depends on the subclass
+     */
+    read: function(data) {
+        throw new Error('Read not implemented.');
+    },
+    
+    /**
+     * Method: write
+     * Accept an object, and return a string. 
+     *
+     * Parameters:
+     * object - {Object} Object to be serialized
+     *
+     * Returns:
+     * {String} A string representation of the object.
+     */
+    write: function(object) {
+        throw new Error('Write not implemented.');
+    },
+
+    CLASS_NAME: "OpenLayers.Format"
+});     
+/* ======================================================================
     OpenLayers/Geometry.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -5795,7 +6247,7 @@ OpenLayers.Geometry.distanceSquaredToSegment = function(point, segment) {
     OpenLayers/Geometry/Point.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -6082,7 +6534,7 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
     OpenLayers/Geometry/Collection.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -6650,7 +7102,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
     OpenLayers/Geometry/MultiPoint.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -6720,7 +7172,7 @@ OpenLayers.Geometry.MultiPoint = OpenLayers.Class(
     OpenLayers/Geometry/Curve.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -6813,7 +7265,7 @@ OpenLayers.Geometry.Curve = OpenLayers.Class(OpenLayers.Geometry.MultiPoint, {
     OpenLayers/Geometry/LineString.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -7595,7 +8047,7 @@ OpenLayers.Geometry.LineString.geodesicParallel =
     OpenLayers/Geometry/MultiLineString.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -7857,7 +8309,7 @@ OpenLayers.Geometry.MultiLineString = OpenLayers.Class(
     OpenLayers/Geometry/LinearRing.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -8294,7 +8746,7 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
     OpenLayers/Geometry/Polygon.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -8553,7 +9005,7 @@ OpenLayers.Geometry.Polygon.createRegularPolygon = function(origin, radius, side
     OpenLayers/Geometry/MultiPolygon.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -8599,7 +9051,7 @@ OpenLayers.Geometry.MultiPolygon = OpenLayers.Class(
     OpenLayers/Format/WKT.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -8992,462 +9444,10 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
     CLASS_NAME: "OpenLayers.Format.WKT" 
 });     
 /* ======================================================================
-    OpenLayers/Style.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-
-/**
- * @requires OpenLayers/BaseTypes/Class.js
- * @requires OpenLayers/Util.js
- * @requires OpenLayers/Feature/Vector.js
- */
-
-/**
- * Class: OpenLayers.Style
- * This class represents a UserStyle obtained
- *     from a SLD, containing styling rules.
- */
-OpenLayers.Style = OpenLayers.Class({
-
-    /**
-     * Property: id
-     * {String} A unique id for this session.
-     */
-    id: null,
-    
-    /**
-     * APIProperty: name
-     * {String}
-     */
-    name: null,
-    
-    /**
-     * Property: title
-     * {String} Title of this style (set if included in SLD)
-     */
-    title: null,
-    
-    /**
-     * Property: description
-     * {String} Description of this style (set if abstract is included in SLD)
-     */
-    description: null,
-
-    /**
-     * APIProperty: layerName
-     * {<String>} name of the layer that this style belongs to, usually
-     * according to the NamedLayer attribute of an SLD document.
-     */
-    layerName: null,
-    
-    /**
-     * APIProperty: isDefault
-     * {Boolean}
-     */
-    isDefault: false,
-     
-    /** 
-     * Property: rules 
-     * {Array(<OpenLayers.Rule>)}
-     */
-    rules: null,
-    
-    /**
-     * APIProperty: context
-     * {Object} An optional object with properties that symbolizers' property
-     * values should be evaluated against. If no context is specified,
-     * feature.attributes will be used
-     */
-    context: null,
-
-    /**
-     * Property: defaultStyle
-     * {Object} hash of style properties to use as default for merging
-     * rule-based style symbolizers onto. If no rules are defined,
-     * createSymbolizer will return this style. If <defaultsPerSymbolizer> is set to
-     * true, the defaultStyle will only be taken into account if there are
-     * rules defined.
-     */
-    defaultStyle: null,
-    
-    /**
-     * Property: defaultsPerSymbolizer
-     * {Boolean} If set to true, the <defaultStyle> will extend the symbolizer
-     * of every rule. Properties of the <defaultStyle> will also be used to set
-     * missing symbolizer properties if the symbolizer has stroke, fill or
-     * graphic set to true. Default is false.
-     */
-    defaultsPerSymbolizer: false,
-    
-    /**
-     * Property: propertyStyles
-     * {Hash of Boolean} cache of style properties that need to be parsed for
-     * propertyNames. Property names are keys, values won't be used.
-     */
-    propertyStyles: null,
-    
-
-    /** 
-     * Constructor: OpenLayers.Style
-     * Creates a UserStyle.
-     *
-     * Parameters:
-     * style        - {Object} Optional hash of style properties that will be
-     *                used as default style for this style object. This style
-     *                applies if no rules are specified. Symbolizers defined in
-     *                rules will extend this default style.
-     * options - {Object} An optional object with properties to set on the
-     *     style.
-     *
-     * Valid options:
-     * rules - {Array(<OpenLayers.Rule>)} List of rules to be added to the
-     *     style.
-     * 
-     * Returns:
-     * {<OpenLayers.Style>}
-     */
-    initialize: function(style, options) {
-
-        OpenLayers.Util.extend(this, options);
-        this.rules = [];
-        if(options && options.rules) {
-            this.addRules(options.rules);
-        }
-
-        // use the default style from OpenLayers.Feature.Vector if no style
-        // was given in the constructor
-        this.setDefaultStyle(style ||
-                             OpenLayers.Feature.Vector.style["default"]);
-
-        this.id = OpenLayers.Util.createUniqueID(this.CLASS_NAME + "_");
-    },
-
-    /** 
-     * APIMethod: destroy
-     * nullify references to prevent circular references and memory leaks
-     */
-    destroy: function() {
-        for (var i=0, len=this.rules.length; i<len; i++) {
-            this.rules[i].destroy();
-            this.rules[i] = null;
-        }
-        this.rules = null;
-        this.defaultStyle = null;
-    },
-    
-    /**
-     * Method: createSymbolizer
-     * creates a style by applying all feature-dependent rules to the base
-     * style.
-     * 
-     * Parameters:
-     * feature - {<OpenLayers.Feature>} feature to evaluate rules for
-     * 
-     * Returns:
-     * {Object} symbolizer hash
-     */
-    createSymbolizer: function(feature) {
-        var style = this.defaultsPerSymbolizer ? {} : this.createLiterals(
-            OpenLayers.Util.extend({}, this.defaultStyle), feature);
-        
-        var rules = this.rules;
-
-        var rule, context;
-        var elseRules = [];
-        var appliedRules = false;
-        for(var i=0, len=rules.length; i<len; i++) {
-            rule = rules[i];
-            // does the rule apply?
-            var applies = rule.evaluate(feature);
-            
-            if(applies) {
-                if(rule instanceof OpenLayers.Rule && rule.elseFilter) {
-                    elseRules.push(rule);
-                } else {
-                    appliedRules = true;
-                    this.applySymbolizer(rule, style, feature);
-                }
-            }
-        }
-        
-        // if no other rules apply, apply the rules with else filters
-        if(appliedRules == false && elseRules.length > 0) {
-            appliedRules = true;
-            for(var i=0, len=elseRules.length; i<len; i++) {
-                this.applySymbolizer(elseRules[i], style, feature);
-            }
-        }
-
-        // don't display if there were rules but none applied
-        if(rules.length > 0 && appliedRules == false) {
-            style.display = "none";
-        }
-        
-        if (style.label != null && typeof style.label !== "string") {
-            style.label = String(style.label);
-        }
-        
-        return style;
-    },
-    
-    /**
-     * Method: applySymbolizer
-     *
-     * Parameters:
-     * rule - {<OpenLayers.Rule>}
-     * style - {Object}
-     * feature - {<OpenLayer.Feature.Vector>}
-     *
-     * Returns:
-     * {Object} A style with new symbolizer applied.
-     */
-    applySymbolizer: function(rule, style, feature) {
-        var symbolizerPrefix = feature.geometry ?
-                this.getSymbolizerPrefix(feature.geometry) :
-                OpenLayers.Style.SYMBOLIZER_PREFIXES[0];
-
-        var symbolizer = rule.symbolizer[symbolizerPrefix] || rule.symbolizer;
-        
-        if(this.defaultsPerSymbolizer === true) {
-            var defaults = this.defaultStyle;
-            OpenLayers.Util.applyDefaults(symbolizer, {
-                pointRadius: defaults.pointRadius
-            });
-            if(symbolizer.stroke === true || symbolizer.graphic === true) {
-                OpenLayers.Util.applyDefaults(symbolizer, {
-                    strokeWidth: defaults.strokeWidth,
-                    strokeColor: defaults.strokeColor,
-                    strokeOpacity: defaults.strokeOpacity,
-                    strokeDashstyle: defaults.strokeDashstyle,
-                    strokeLinecap: defaults.strokeLinecap
-                });
-            }
-            if(symbolizer.fill === true || symbolizer.graphic === true) {
-                OpenLayers.Util.applyDefaults(symbolizer, {
-                    fillColor: defaults.fillColor,
-                    fillOpacity: defaults.fillOpacity
-                });
-            }
-            if(symbolizer.graphic === true) {
-                OpenLayers.Util.applyDefaults(symbolizer, {
-                    pointRadius: this.defaultStyle.pointRadius,
-                    externalGraphic: this.defaultStyle.externalGraphic,
-                    graphicName: this.defaultStyle.graphicName,
-                    graphicOpacity: this.defaultStyle.graphicOpacity,
-                    graphicWidth: this.defaultStyle.graphicWidth,
-                    graphicHeight: this.defaultStyle.graphicHeight,
-                    graphicXOffset: this.defaultStyle.graphicXOffset,
-                    graphicYOffset: this.defaultStyle.graphicYOffset
-                });
-            }
-        }
-
-        // merge the style with the current style
-        return this.createLiterals(
-                OpenLayers.Util.extend(style, symbolizer), feature);
-    },
-    
-    /**
-     * Method: createLiterals
-     * creates literals for all style properties that have an entry in
-     * <this.propertyStyles>.
-     * 
-     * Parameters:
-     * style   - {Object} style to create literals for. Will be modified
-     *           inline.
-     * feature - {Object}
-     * 
-     * Returns:
-     * {Object} the modified style
-     */
-    createLiterals: function(style, feature) {
-        var context = OpenLayers.Util.extend({}, feature.attributes || feature.data);
-        OpenLayers.Util.extend(context, this.context);
-        
-        for (var i in this.propertyStyles) {
-            style[i] = OpenLayers.Style.createLiteral(style[i], context, feature, i);
-        }
-        return style;
-    },
-    
-    /**
-     * Method: findPropertyStyles
-     * Looks into all rules for this style and the defaultStyle to collect
-     * all the style hash property names containing ${...} strings that have
-     * to be replaced using the createLiteral method before returning them.
-     * 
-     * Returns:
-     * {Object} hash of property names that need createLiteral parsing. The
-     * name of the property is the key, and the value is true;
-     */
-    findPropertyStyles: function() {
-        var propertyStyles = {};
-
-        // check the default style
-        var style = this.defaultStyle;
-        this.addPropertyStyles(propertyStyles, style);
-
-        // walk through all rules to check for properties in their symbolizer
-        var rules = this.rules;
-        var symbolizer, value;
-        for (var i=0, len=rules.length; i<len; i++) {
-            symbolizer = rules[i].symbolizer;
-            for (var key in symbolizer) {
-                value = symbolizer[key];
-                if (typeof value == "object") {
-                    // symbolizer key is "Point", "Line" or "Polygon"
-                    this.addPropertyStyles(propertyStyles, value);
-                } else {
-                    // symbolizer is a hash of style properties
-                    this.addPropertyStyles(propertyStyles, symbolizer);
-                    break;
-                }
-            }
-        }
-        return propertyStyles;
-    },
-    
-    /**
-     * Method: addPropertyStyles
-     * 
-     * Parameters:
-     * propertyStyles - {Object} hash to add new property styles to. Will be
-     *                  modified inline
-     * symbolizer     - {Object} search this symbolizer for property styles
-     * 
-     * Returns:
-     * {Object} propertyStyles hash
-     */
-    addPropertyStyles: function(propertyStyles, symbolizer) {
-        var property;
-        for (var key in symbolizer) {
-            property = symbolizer[key];
-            if (typeof property == "string" &&
-                    property.match(/\$\{\w+\}/)) {
-                propertyStyles[key] = true;
-            }
-        }
-        return propertyStyles;
-    },
-    
-    /**
-     * APIMethod: addRules
-     * Adds rules to this style.
-     * 
-     * Parameters:
-     * rules - {Array(<OpenLayers.Rule>)}
-     */
-    addRules: function(rules) {
-        Array.prototype.push.apply(this.rules, rules);
-        this.propertyStyles = this.findPropertyStyles();
-    },
-    
-    /**
-     * APIMethod: setDefaultStyle
-     * Sets the default style for this style object.
-     * 
-     * Parameters:
-     * style - {Object} Hash of style properties
-     */
-    setDefaultStyle: function(style) {
-        this.defaultStyle = style; 
-        this.propertyStyles = this.findPropertyStyles();
-    },
-        
-    /**
-     * Method: getSymbolizerPrefix
-     * Returns the correct symbolizer prefix according to the
-     * geometry type of the passed geometry
-     * 
-     * Parameters:
-     * geometry - {<OpenLayers.Geometry>}
-     * 
-     * Returns:
-     * {String} key of the according symbolizer
-     */
-    getSymbolizerPrefix: function(geometry) {
-        var prefixes = OpenLayers.Style.SYMBOLIZER_PREFIXES;
-        for (var i=0, len=prefixes.length; i<len; i++) {
-            if (geometry.CLASS_NAME.indexOf(prefixes[i]) != -1) {
-                return prefixes[i];
-            }
-        }
-    },
-    
-    /**
-     * APIMethod: clone
-     * Clones this style.
-     * 
-     * Returns:
-     * {<OpenLayers.Style>} Clone of this style.
-     */
-    clone: function() {
-        var options = OpenLayers.Util.extend({}, this);
-        // clone rules
-        if(this.rules) {
-            options.rules = [];
-            for(var i=0, len=this.rules.length; i<len; ++i) {
-                options.rules.push(this.rules[i].clone());
-            }
-        }
-        // clone context
-        options.context = this.context && OpenLayers.Util.extend({}, this.context);
-        //clone default style
-        var defaultStyle = OpenLayers.Util.extend({}, this.defaultStyle);
-        return new OpenLayers.Style(defaultStyle, options);
-    },
-    
-    CLASS_NAME: "OpenLayers.Style"
-});
-
-
-/**
- * Function: createLiteral
- * converts a style value holding a combination of PropertyName and Literal
- * into a Literal, taking the property values from the passed features.
- * 
- * Parameters:
- * value - {String} value to parse. If this string contains a construct like
- *         "foo ${bar}", then "foo " will be taken as literal, and "${bar}"
- *         will be replaced by the value of the "bar" attribute of the passed
- *         feature.
- * context - {Object} context to take attribute values from
- * feature - {<OpenLayers.Feature.Vector>} optional feature to pass to
- *           <OpenLayers.String.format> for evaluating functions in the
- *           context.
- * property - {String} optional, name of the property for which the literal is
- *            being created for evaluating functions in the context.
- * 
- * Returns:
- * {String} the parsed value. In the example of the value parameter above, the
- * result would be "foo valueOfBar", assuming that the passed feature has an
- * attribute named "bar" with the value "valueOfBar".
- */
-OpenLayers.Style.createLiteral = function(value, context, feature, property) {
-    if (typeof value == "string" && value.indexOf("${") != -1) {
-        value = OpenLayers.String.format(value, context, [feature, property]);
-        value = (isNaN(value) || !value) ? value : parseFloat(value);
-    }
-    return value;
-};
-    
-/**
- * Constant: OpenLayers.Style.SYMBOLIZER_PREFIXES
- * {Array} prefixes of the sld symbolizers. These are the
- * same as the main geometry types
- */
-OpenLayers.Style.SYMBOLIZER_PREFIXES = ['Point', 'Line', 'Polygon', 'Text',
-    'Raster'];
-/* ======================================================================
     OpenLayers/Filter.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -9538,7 +9538,7 @@ OpenLayers.Filter = OpenLayers.Class({
     OpenLayers/Filter/Comparison.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -9812,7 +9812,7 @@ OpenLayers.Filter.Comparison.IS_NULL                  = "NULL";
     OpenLayers/Filter/Logical.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -9937,7 +9937,7 @@ OpenLayers.Filter.Logical.NOT = "!";
     OpenLayers/Filter/Spatial.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -10063,7 +10063,7 @@ OpenLayers.Filter.Spatial.CONTAINS = "CONTAINS";
     OpenLayers/Format/CQL.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -10077,15 +10077,15 @@ OpenLayers.Filter.Spatial.CONTAINS = "CONTAINS";
 
 /**
  * Class: OpenLayers.Format.CQL
- * Read CQL strings to get <OpenLayers.Filter> objects.  Write 
- *     <OpenLayers.Filter> objects to get CQL strings. Create a new parser with 
+ * Read CQL strings to get <OpenLayers.Filter> objects.  Write
+ *     <OpenLayers.Filter> objects to get CQL strings. Create a new parser with
  *     the <OpenLayers.Format.CQL> constructor.
  *
  * Inherits from:
  *  - <OpenLayers.Format>
  */
 OpenLayers.Format.CQL = (function() {
-    
+
     var tokens = [
         "PROPERTY", "COMPARISON", "VALUE", "LOGICAL"
     ],
@@ -10096,7 +10096,7 @@ OpenLayers.Format.CQL = (function() {
         IS_NULL: /^IS NULL/i,
         COMMA: /^,/,
         LOGICAL: /^(AND|OR)/i,
-        VALUE: /^('([^']|'')*'|^-?\d*(\.\d+)?)/,
+        VALUE: /^('([^']|'')*'|-?\d+(\.\d*)?|\.\d+)/,
         LPAREN: /^\(/,
         RPAREN: /^\)/,
         SPATIAL: /^(BBOX|INTERSECTS|DWITHIN|WITHIN|CONTAINS)/i,
@@ -10420,7 +10420,7 @@ OpenLayers.Format.CQL = (function() {
          * Returns:
          * {<OpenLayers.Filter>} A filter based on the CQL text.
          */
-        read: function(text) { 
+        read: function(text) {
             var result = buildAst(tokenize(text));
             if (this.keepData) {
                 this.data = result;
@@ -10472,7 +10472,7 @@ OpenLayers.Format.CQL = (function() {
                     }
                 case "OpenLayers.Filter.Logical":
                     if (filter.type == OpenLayers.Filter.Logical.NOT) {
-                        // TODO: deal with precedence of logical operators to 
+                        // TODO: deal with precedence of logical operators to
                         // avoid extra parentheses (not urgent)
                         return "NOT (" + this.write(filter.filters[0]) + ")";
                     } else {
@@ -10490,12 +10490,12 @@ OpenLayers.Format.CQL = (function() {
                     }
                 case "OpenLayers.Filter.Comparison":
                     if (filter.type == OpenLayers.Filter.Comparison.BETWEEN) {
-                        return filter.property + " BETWEEN " + 
-                            this.write(filter.lowerBoundary) + " AND " + 
+                        return filter.property + " BETWEEN " +
+                            this.write(filter.lowerBoundary) + " AND " +
                             this.write(filter.upperBoundary);
                     } else {
                         return (filter.value !== null) ? filter.property +
-                            " " + operatorReverse[filter.type] + " " + 
+                            " " + operatorReverse[filter.type] + " " +
                             this.write(filter.value) : filter.property +
                             " " + operatorReverse[filter.type];
                     }
@@ -10514,12 +10514,11 @@ OpenLayers.Format.CQL = (function() {
 
     });
 })();
-
 /* ======================================================================
     OpenLayers/Format/XML.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -11451,7 +11450,7 @@ OpenLayers.Format.XML.supportActiveX = (function () {
     OpenLayers/Format/OGCExceptionReport.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -11563,7 +11562,7 @@ OpenLayers.Format.OGCExceptionReport = OpenLayers.Class(OpenLayers.Format.XML, {
     OpenLayers/Format/XML/VersionedOGC.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -11780,7 +11779,7 @@ OpenLayers.Format.XML.VersionedOGC = OpenLayers.Class(OpenLayers.Format.XML, {
     OpenLayers/Format/OWSCommon.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -11862,7 +11861,7 @@ OpenLayers.Format.OWSCommon = OpenLayers.Class(OpenLayers.Format.XML.VersionedOG
     OpenLayers/Format/OWSCommon/v1.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -12187,7 +12186,7 @@ OpenLayers.Format.OWSCommon.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
     OpenLayers/Format/OWSCommon/v1_1_0.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -12307,7 +12306,7 @@ OpenLayers.Format.OWSCommon.v1_1_0 = OpenLayers.Class(OpenLayers.Format.OWSCommo
     OpenLayers/Filter/Function.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -12360,7 +12359,7 @@ OpenLayers.Filter.Function = OpenLayers.Class(OpenLayers.Filter, {
     OpenLayers/Format/WFSCapabilities.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -12411,7 +12410,7 @@ OpenLayers.Format.WFSCapabilities = OpenLayers.Class(OpenLayers.Format.XML.Versi
     OpenLayers/Format/WFSCapabilities/v2_0_0.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -12562,7 +12561,7 @@ OpenLayers.Format.WFSCapabilities.v2_0_0 = OpenLayers.Class(
     OpenLayers/Format/JSON.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -12961,210 +12960,10 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
 
 });     
 /* ======================================================================
-    OpenLayers/Format/WFSCapabilities/v1.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/Format/WFSCapabilities.js
- */
-
-/**
- * Class: OpenLayers.Format.WFSCapabilities.v1
- * Abstract class not to be instantiated directly.
- * 
- * Inherits from:
- *  - <OpenLayers.Format.XML>
- */
-OpenLayers.Format.WFSCapabilities.v1 = OpenLayers.Class(
-    OpenLayers.Format.XML, {
-
-    /**
-     * Property: namespaces
-     * {Object} Mapping of namespace aliases to namespace URIs.
-     */
-    namespaces: {
-        wfs: "http://www.opengis.net/wfs",
-        xlink: "http://www.w3.org/1999/xlink",
-        xsi: "http://www.w3.org/2001/XMLSchema-instance",
-        ows: "http://www.opengis.net/ows"
-    },
-
-
-    /**
-     * APIProperty: errorProperty
-     * {String} Which property of the returned object to check for in order to
-     * determine whether or not parsing has failed. In the case that the
-     * errorProperty is undefined on the returned object, the document will be
-     * run through an OGCExceptionReport parser.
-     */
-    errorProperty: "featureTypeList",
-
-    /**
-     * Property: defaultPrefix
-     */
-    defaultPrefix: "wfs",
-    
-    /**
-     * Constructor: OpenLayers.Format.WFSCapabilities.v1_1
-     * Create an instance of one of the subclasses.
-     *
-     * Parameters:
-     * options - {Object} An optional object whose properties will be set on
-     *     this instance.
-     */
-
-    /**
-     * APIMethod: read
-     * Read capabilities data from a string, and return a list of layers. 
-     * 
-     * Parameters: 
-     * data - {String} or {DOMElement} data to read/parse.
-     *
-     * Returns:
-     * {Array} List of named layers.
-     */
-    read: function(data) {
-        if(typeof data == "string") {
-            data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
-        }
-        var raw = data;
-        if(data && data.nodeType == 9) {
-            data = data.documentElement;
-        }
-        var capabilities = {};
-        this.readNode(data, capabilities);
-        return capabilities;
-    },
-
-    /**
-     * Property: readers
-     * Contains public functions, grouped by namespace prefix, that will
-     *     be applied when a namespaced node is found matching the function
-     *     name.  The function will be applied in the scope of this parser
-     *     with two arguments: the node being read and a context object passed
-     *     from the parent.
-     */
-    readers: {
-        "wfs": {
-            "WFS_Capabilities": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "FeatureTypeList": function(node, request) {
-                request.featureTypeList = {
-                    featureTypes: []
-                };
-                this.readChildNodes(node, request.featureTypeList);
-            },
-            "FeatureType": function(node, featureTypeList) {
-                var featureType = {};
-                this.readChildNodes(node, featureType);
-                featureTypeList.featureTypes.push(featureType);
-            },
-            "Name": function(node, obj) {
-                var name = this.getChildValue(node);
-                if(name) {
-                    var parts = name.split(":");
-                    obj.name = parts.pop();
-                    if(parts.length > 0) {
-                        obj.featureNS = this.lookupNamespaceURI(node, parts[0]);
-                    }
-                }
-            },
-            "Title": function(node, obj) {
-                var title = this.getChildValue(node);
-                if(title) {
-                    obj.title = title;
-                }
-            },
-            "Abstract": function(node, obj) {
-                var abst = this.getChildValue(node);
-                if(abst) {
-                    obj["abstract"] = abst;
-                }
-            }
-        }
-    },
-
-    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1" 
-
-});
-/* ======================================================================
-    OpenLayers/Format/WFSCapabilities/v1_1_0.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/Format/WFSCapabilities/v1.js
- * @requires OpenLayers/Format/OWSCommon/v1.js
- */
-
-/**
- * Class: OpenLayers.Format.WFSCapabilities/v1_1_0
- * Read WFS Capabilities version 1.1.0.
- * 
- * Inherits from:
- *  - <OpenLayers.Format.WFSCapabilities>
- */
-OpenLayers.Format.WFSCapabilities.v1_1_0 = OpenLayers.Class(
-    OpenLayers.Format.WFSCapabilities.v1, {
-
-    /**
-     * Property: regExes
-     * Compiled regular expressions for manipulating strings.
-     */
-    regExes: {
-        trimSpace: (/^\s*|\s*$/g),
-        removeSpace: (/\s*/g),
-        splitSpace: (/\s+/),
-        trimComma: (/\s*,\s*/g)
-    },
-    
-    /**
-     * Constructor: OpenLayers.Format.WFSCapabilities.v1_1_0
-     * Create a new parser for WFS capabilities version 1.1.0.
-     *
-     * Parameters:
-     * options - {Object} An optional object whose properties will be set on
-     *     this instance.
-     */
-
-    /**
-     * Property: readers
-     * Contains public functions, grouped by namespace prefix, that will
-     *     be applied when a namespaced node is found matching the function
-     *     name.  The function will be applied in the scope of this parser
-     *     with two arguments: the node being read and a context object passed
-     *     from the parent.
-     */
-    readers: {
-        "wfs": OpenLayers.Util.applyDefaults({
-            "DefaultSRS": function(node, obj) {
-                var defaultSRS = this.getChildValue(node);
-                if (defaultSRS) {
-                    obj.srs = defaultSRS;
-                }
-            }
-        }, OpenLayers.Format.WFSCapabilities.v1.prototype.readers["wfs"]),
-        "ows": OpenLayers.Format.OWSCommon.v1.prototype.readers.ows
-    },
-
-    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1_1_0" 
-
-});
-/* ======================================================================
     OpenLayers/Format/Text.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -13319,7 +13118,7 @@ OpenLayers.Format.Text = OpenLayers.Class(OpenLayers.Format, {
     OpenLayers/Format/GML.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -14248,7 +14047,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
     OpenLayers/Format/GML/Base.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -14274,7 +14073,7 @@ if(!OpenLayers.Format.GML) {
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.
@@ -14285,7 +14084,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
         xsi: "http://www.w3.org/2001/XMLSchema-instance",
         wfs: "http://www.opengis.net/wfs" // this is a convenience for reading wfs:FeatureCollection
     },
-    
+
     /**
      * Property: defaultPrefix
      */
@@ -14296,13 +14095,13 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
      * {String} Schema location for a particular minor version.
      */
     schemaLocation: null,
-    
+
     /**
      * APIProperty: featureType
      * {Array(String) or String} The local (without prefix) feature typeName(s).
      */
     featureType: null,
-    
+
     /**
      * APIProperty: featureNS
      * {String} The feature namespace.  Must be set in the options at
@@ -14329,7 +14128,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
      * {Boolean} Extract attributes from GML.  Default is true.
      */
     extractAttributes: true,
-    
+
     /**
      * APIProperty: srsName
      * {String} URI for spatial reference system.  This is optional for
@@ -14343,7 +14142,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
      * APIProperty: xy
      * {Boolean} Order of the GML coordinate true:(x,y) or false:(y,x)
      * Changing is not recommended, a new Format should be instantiated.
-     */ 
+     */
     xy: true,
 
     /**
@@ -14359,7 +14158,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
      *     of featuretypes.
      */
     singleFeatureType: null,
-    
+
     /**
      * Property: autoConfig
      * {Boolean} Indicates if the format was configured without a <featureNS>,
@@ -14395,7 +14194,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
      *     this instance.
      *
      * Valid options properties:
-     * featureType - {Array(String) or String} Local (without prefix) feature 
+     * featureType - {Array(String) or String} Local (without prefix) feature
      *     typeName(s) (required for write).
      * featureNS - {String} Feature namespace (required for write).
      * geometryName - {String} Geometry element name (required for write).
@@ -14408,7 +14207,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         this.singleFeatureType = !options || (typeof options.featureType === "string");
     },
-    
+
     /**
      * Method: read
      *
@@ -14420,7 +14219,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
      * {Array(<OpenLayers.Feature.Vector>)} An array of features.
      */
     read: function(data) {
-        if(typeof data == "string") { 
+        if(typeof data == "string") {
             data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
         }
         if(data && data.nodeType == 9) {
@@ -14450,7 +14249,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return features;
     },
-    
+
     /**
      * Method: readNode
      * Shorthand for applying one of the named readers given the node
@@ -14487,7 +14286,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return OpenLayers.Format.XML.prototype.readNode.apply(this, [node, obj]);
     },
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -14505,7 +14304,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
                 this.readChildNodes(node, obj);
             },
             "featureMembers": function(node, obj) {
-                this.readChildNodes(node, obj);                
+                this.readChildNodes(node, obj);
             },
             "name": function(node, obj) {
                 obj.name = this.getChildValue(node);
@@ -14725,7 +14524,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
             }
         }
     },
-    
+
     /**
      * Method: write
      *
@@ -14753,7 +14552,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
 
         return OpenLayers.Format.XML.prototype.write.apply(this, [root]);
     },
-    
+
     /**
      * Property: writers
      * As a compliment to the readers property, this structure contains public
@@ -14846,7 +14645,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
                     geometry = geometry.clone().transform(
                         this.internalProjection, this.externalProjection
                     );
-                }    
+                }
                 var node = this.createElementNSPlus(
                     this.featurePrefix + ":" + this.geometryName
                 );
@@ -14880,7 +14679,7 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
             }
         }
     },
-    
+
     /**
      * Method: setGeometryTypes
      * Sets the <geometryTypes> mapping.
@@ -14897,14 +14696,147 @@ OpenLayers.Format.GML.Base = OpenLayers.Class(OpenLayers.Format.XML, {
         };
     },
 
-    CLASS_NAME: "OpenLayers.Format.GML.Base" 
+    CLASS_NAME: "OpenLayers.Format.GML.Base"
+
+});
+/* ======================================================================
+    OpenLayers/Format/WFSCapabilities/v1.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Format/WFSCapabilities.js
+ */
+
+/**
+ * Class: OpenLayers.Format.WFSCapabilities.v1
+ * Abstract class not to be instantiated directly.
+ * 
+ * Inherits from:
+ *  - <OpenLayers.Format.XML>
+ */
+OpenLayers.Format.WFSCapabilities.v1 = OpenLayers.Class(
+    OpenLayers.Format.XML, {
+
+    /**
+     * Property: namespaces
+     * {Object} Mapping of namespace aliases to namespace URIs.
+     */
+    namespaces: {
+        wfs: "http://www.opengis.net/wfs",
+        xlink: "http://www.w3.org/1999/xlink",
+        xsi: "http://www.w3.org/2001/XMLSchema-instance",
+        ows: "http://www.opengis.net/ows"
+    },
+
+
+    /**
+     * APIProperty: errorProperty
+     * {String} Which property of the returned object to check for in order to
+     * determine whether or not parsing has failed. In the case that the
+     * errorProperty is undefined on the returned object, the document will be
+     * run through an OGCExceptionReport parser.
+     */
+    errorProperty: "featureTypeList",
+
+    /**
+     * Property: defaultPrefix
+     */
+    defaultPrefix: "wfs",
+    
+    /**
+     * Constructor: OpenLayers.Format.WFSCapabilities.v1_1
+     * Create an instance of one of the subclasses.
+     *
+     * Parameters:
+     * options - {Object} An optional object whose properties will be set on
+     *     this instance.
+     */
+
+    /**
+     * APIMethod: read
+     * Read capabilities data from a string, and return a list of layers. 
+     * 
+     * Parameters: 
+     * data - {String} or {DOMElement} data to read/parse.
+     *
+     * Returns:
+     * {Array} List of named layers.
+     */
+    read: function(data) {
+        if(typeof data == "string") {
+            data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
+        }
+        var raw = data;
+        if(data && data.nodeType == 9) {
+            data = data.documentElement;
+        }
+        var capabilities = {};
+        this.readNode(data, capabilities);
+        return capabilities;
+    },
+
+    /**
+     * Property: readers
+     * Contains public functions, grouped by namespace prefix, that will
+     *     be applied when a namespaced node is found matching the function
+     *     name.  The function will be applied in the scope of this parser
+     *     with two arguments: the node being read and a context object passed
+     *     from the parent.
+     */
+    readers: {
+        "wfs": {
+            "WFS_Capabilities": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "FeatureTypeList": function(node, request) {
+                request.featureTypeList = {
+                    featureTypes: []
+                };
+                this.readChildNodes(node, request.featureTypeList);
+            },
+            "FeatureType": function(node, featureTypeList) {
+                var featureType = {};
+                this.readChildNodes(node, featureType);
+                featureTypeList.featureTypes.push(featureType);
+            },
+            "Name": function(node, obj) {
+                var name = this.getChildValue(node);
+                if(name) {
+                    var parts = name.split(":");
+                    obj.name = parts.pop();
+                    if(parts.length > 0) {
+                        obj.featureNS = this.lookupNamespaceURI(node, parts[0]);
+                    }
+                }
+            },
+            "Title": function(node, obj) {
+                var title = this.getChildValue(node);
+                if(title) {
+                    obj.title = title;
+                }
+            },
+            "Abstract": function(node, obj) {
+                var abst = this.getChildValue(node);
+                if(abst) {
+                    obj["abstract"] = abst;
+                }
+            }
+        }
+    },
+
+    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1" 
 
 });
 /* ======================================================================
     OpenLayers/Format/WFSDescribeFeatureType.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -15139,10 +15071,1663 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
 
 });
 /* ======================================================================
+    OpenLayers/Format/GML/v3.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Format/GML/Base.js
+ */
+
+/**
+ * Class: OpenLayers.Format.GML.v3
+ * Parses GML version 3.
+ *
+ * Inherits from:
+ *  - <OpenLayers.Format.GML.Base>
+ */
+OpenLayers.Format.GML.v3 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
+    
+    /**
+     * Property: schemaLocation
+     * {String} Schema location for a particular minor version.  The writers
+     *     conform with the Simple Features Profile for GML.
+     */
+    schemaLocation: "http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd",
+
+    /**
+     * Property: curve
+     * {Boolean} Write gml:Curve instead of gml:LineString elements.  This also
+     *     affects the elements in multi-part geometries.  Default is false.
+     *     To write gml:Curve elements instead of gml:LineString, set curve
+     *     to true in the options to the contstructor (cannot be changed after
+     *     instantiation).
+     */
+    curve: false,
+    
+    /**
+     * Property: multiCurve
+     * {Boolean} Write gml:MultiCurve instead of gml:MultiLineString.  Since
+     *     the latter is deprecated in GML 3, the default is true.  To write
+     *     gml:MultiLineString instead of gml:MultiCurve, set multiCurve to
+     *     false in the options to the constructor (cannot be changed after
+     *     instantiation).
+     */
+    multiCurve: true,
+    
+    /**
+     * Property: surface
+     * {Boolean} Write gml:Surface instead of gml:Polygon elements.  This also
+     *     affects the elements in multi-part geometries.  Default is false.
+     *     To write gml:Surface elements instead of gml:Polygon, set surface
+     *     to true in the options to the contstructor (cannot be changed after
+     *     instantiation).
+     */
+    surface: false,
+
+    /**
+     * Property: multiSurface
+     * {Boolean} Write gml:multiSurface instead of gml:MultiPolygon.  Since
+     *     the latter is deprecated in GML 3, the default is true.  To write
+     *     gml:MultiPolygon instead of gml:multiSurface, set multiSurface to
+     *     false in the options to the constructor (cannot be changed after
+     *     instantiation).
+     */
+    multiSurface: true,
+
+    /**
+     * Constructor: OpenLayers.Format.GML.v3
+     * Create a parser for GML v3.
+     *
+     * Parameters:
+     * options - {Object} An optional object whose properties will be set on
+     *     this instance.
+     *
+     * Valid options properties:
+     * featureType - {String} Local (without prefix) feature typeName (required).
+     * featureNS - {String} Feature namespace (required).
+     * geometryName - {String} Geometry element name.
+     */
+    initialize: function(options) {
+        OpenLayers.Format.GML.Base.prototype.initialize.apply(this, [options]);
+    },
+
+    /**
+     * Property: readers
+     * Contains public functions, grouped by namespace prefix, that will
+     *     be applied when a namespaced node is found matching the function
+     *     name.  The function will be applied in the scope of this parser
+     *     with two arguments: the node being read and a context object passed
+     *     from the parent.
+     */
+    readers: {
+        "gml": OpenLayers.Util.applyDefaults({
+            "_inherit": function(node, obj, container) {
+                // SRSReferenceGroup attributes
+                var dim = parseInt(node.getAttribute("srsDimension"), 10) ||
+                    (container && container.srsDimension);
+                if (dim) {
+                    obj.srsDimension = dim;
+                }
+            },
+            "featureMembers": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "Curve": function(node, container) {
+                var obj = {points: []};
+                this.readers.gml._inherit.apply(this, [node, obj, container]);
+                this.readChildNodes(node, obj);
+                if(!container.components) {
+                    container.components = [];
+                }
+                container.components.push(
+                    new OpenLayers.Geometry.LineString(obj.points)
+                );
+            },
+            "segments": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "LineStringSegment": function(node, container) {
+                var obj = {};
+                this.readChildNodes(node, obj);
+                if(obj.points) {
+                    Array.prototype.push.apply(container.points, obj.points);
+                }
+            },
+            "pos": function(node, obj) {
+                var str = this.getChildValue(node).replace(
+                    this.regExes.trimSpace, ""
+                );
+                var coords = str.split(this.regExes.splitSpace);
+                var point;
+                if(this.xy) {
+                    point = new OpenLayers.Geometry.Point(
+                        coords[0], coords[1], coords[2]
+                    );
+                } else {
+                    point = new OpenLayers.Geometry.Point(
+                        coords[1], coords[0], coords[2]
+                    );
+                }
+                if(!!!obj.points) {
+                    obj.points = [];
+                }
+                obj.points.push(point);
+            },
+            "posList": function(node, obj) {
+                var str = this.getChildValue(node).replace(
+                    this.regExes.trimSpace, ""
+                );
+                var coords = str.split(this.regExes.splitSpace);
+                // The "dimension" attribute is from the GML 3.0.1 spec.
+                var dim = obj.srsDimension ||
+                    parseInt(node.getAttribute("srsDimension") || node.getAttribute("dimension"), 10) || 2;
+                var j, x, y, z;
+                var numPoints = coords.length / dim;
+                var points = new Array(numPoints);
+                for(var i=0, len=coords.length; i<len; i += dim) {
+                    x = coords[i];
+                    y = coords[i+1];
+                    z = (dim == 2) ? undefined : coords[i+2];
+                    if (this.xy) {
+                        points[i/dim] = new OpenLayers.Geometry.Point(x, y, z);
+                    } else {
+                        points[i/dim] = new OpenLayers.Geometry.Point(y, x, z);
+                    }
+                }
+                obj.points = points;
+            },
+            "Surface": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "patches": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "PolygonPatch": function(node, obj) {
+                this.readers.gml.Polygon.apply(this, [node, obj]);
+            },
+            "exterior": function(node, container) {
+                var obj = {};
+                this.readChildNodes(node, obj);
+                container.outer = obj.components[0];
+            },
+            "interior": function(node, container) {
+                var obj = {};
+                this.readChildNodes(node, obj);
+                container.inner.push(obj.components[0]);
+            },
+            "MultiCurve": function(node, container) {
+                var obj = {components: []};
+                this.readers.gml._inherit.apply(this, [node, obj, container]);
+                this.readChildNodes(node, obj);
+                if(obj.components.length > 0) {
+                    container.components = [
+                        new OpenLayers.Geometry.MultiLineString(obj.components)
+                    ];
+                }
+            },
+            "curveMember": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "MultiSurface": function(node, container) {
+                var obj = {components: []};
+                this.readers.gml._inherit.apply(this, [node, obj, container]);
+                this.readChildNodes(node, obj);
+                if(obj.components.length > 0) {
+                    container.components = [
+                        new OpenLayers.Geometry.MultiPolygon(obj.components)
+                    ];
+                }
+            },
+            "surfaceMember": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "surfaceMembers": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "pointMembers": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "lineStringMembers": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "polygonMembers": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "geometryMembers": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "Envelope": function(node, container) {
+                var obj = {points: new Array(2)};
+                this.readChildNodes(node, obj);
+                if(!container.components) {
+                    container.components = [];
+                }
+
+                var min = obj.points[0];
+                var max = obj.points[1];
+                container.components.push(
+                    new OpenLayers.Bounds(min.x, min.y, max.x, max.y)
+                );
+            },
+            "lowerCorner": function(node, container) {
+                var obj = {};
+                this.readers.gml.pos.apply(this, [node, obj]);
+                container.points[0] = obj.points[0];
+            },
+            "upperCorner": function(node, container) {
+                var obj = {};
+                this.readers.gml.pos.apply(this, [node, obj]);
+                container.points[1] = obj.points[0];
+            }
+        }, OpenLayers.Format.GML.Base.prototype.readers["gml"]),            
+        "feature": OpenLayers.Format.GML.Base.prototype.readers["feature"],
+        "wfs": OpenLayers.Format.GML.Base.prototype.readers["wfs"]
+    },
+    
+    /**
+     * Method: write
+     *
+     * Parameters:
+     * features - {Array(<OpenLayers.Feature.Vector>) | OpenLayers.Feature.Vector}
+     *     An array of features or a single feature.
+     *
+     * Returns:
+     * {String} Given an array of features, a doc with a gml:featureMembers
+     *     element will be returned.  Given a single feature, a doc with a
+     *     gml:featureMember element will be returned.
+     */
+    write: function(features) {
+        var name;
+        if(OpenLayers.Util.isArray(features)) {
+            name = "featureMembers";
+        } else {
+            name = "featureMember";
+        }
+        var root = this.writeNode("gml:" + name, features);
+        this.setAttributeNS(
+            root, this.namespaces["xsi"],
+            "xsi:schemaLocation", this.schemaLocation
+        );
+
+        return OpenLayers.Format.XML.prototype.write.apply(this, [root]);
+    },
+
+    /**
+     * Property: writers
+     * As a compliment to the readers property, this structure contains public
+     *     writing functions grouped by namespace alias and named like the
+     *     node names they produce.
+     */
+    writers: {
+        "gml": OpenLayers.Util.applyDefaults({
+            "featureMembers": function(features) {
+                var node = this.createElementNSPlus("gml:featureMembers");
+                for(var i=0, len=features.length; i<len; ++i) {
+                    this.writeNode("feature:_typeName", features[i], node);
+                }
+                return node;
+            },
+            "Point": function(geometry) {
+                var node = this.createElementNSPlus("gml:Point");
+                this.writeNode("pos", geometry, node);
+                return node;
+            },
+            "pos": function(point) {
+                // only 2d for simple features profile
+                var pos = (this.xy) ?
+                    (point.x + " " + point.y) : (point.y + " " + point.x);
+                return this.createElementNSPlus("gml:pos", {
+                    value: pos
+                });
+            },
+            "LineString": function(geometry) {
+                var node = this.createElementNSPlus("gml:LineString");
+                this.writeNode("posList", geometry.components, node);
+                return node;
+            },
+            "Curve": function(geometry) {
+                var node = this.createElementNSPlus("gml:Curve");
+                this.writeNode("segments", geometry, node);
+                return node;
+            },
+            "segments": function(geometry) {
+                var node = this.createElementNSPlus("gml:segments");
+                this.writeNode("LineStringSegment", geometry, node);
+                return node;
+            },
+            "LineStringSegment": function(geometry) {
+                var node = this.createElementNSPlus("gml:LineStringSegment");
+                this.writeNode("posList", geometry.components, node);
+                return node;
+            },
+            "posList": function(points) {
+                // only 2d for simple features profile
+                var len = points.length;
+                var parts = new Array(len);
+                var point;
+                for(var i=0; i<len; ++i) {
+                    point = points[i];
+                    if(this.xy) {
+                        parts[i] = point.x + " " + point.y;
+                    } else {
+                        parts[i] = point.y + " " + point.x;
+                    }
+                }
+                return this.createElementNSPlus("gml:posList", {
+                    value: parts.join(" ")
+                }); 
+            },
+            "Surface": function(geometry) {
+                var node = this.createElementNSPlus("gml:Surface");
+                this.writeNode("patches", geometry, node);
+                return node;
+            },
+            "patches": function(geometry) {
+                var node = this.createElementNSPlus("gml:patches");
+                this.writeNode("PolygonPatch", geometry, node);
+                return node;
+            },
+            "PolygonPatch": function(geometry) {
+                var node = this.createElementNSPlus("gml:PolygonPatch", {
+                    attributes: {interpolation: "planar"}
+                });
+                this.writeNode("exterior", geometry.components[0], node);
+                for(var i=1, len=geometry.components.length; i<len; ++i) {
+                    this.writeNode(
+                        "interior", geometry.components[i], node
+                    );
+                }
+                return node;
+            },
+            "Polygon": function(geometry) {
+                var node = this.createElementNSPlus("gml:Polygon");
+                this.writeNode("exterior", geometry.components[0], node);
+                for(var i=1, len=geometry.components.length; i<len; ++i) {
+                    this.writeNode(
+                        "interior", geometry.components[i], node
+                    );
+                }
+                return node;
+            },
+            "exterior": function(ring) {
+                var node = this.createElementNSPlus("gml:exterior");
+                this.writeNode("LinearRing", ring, node);
+                return node;
+            },
+            "interior": function(ring) {
+                var node = this.createElementNSPlus("gml:interior");
+                this.writeNode("LinearRing", ring, node);
+                return node;
+            },
+            "LinearRing": function(ring) {
+                var node = this.createElementNSPlus("gml:LinearRing");
+                this.writeNode("posList", ring.components, node);
+                return node;
+            },
+            "MultiCurve": function(geometry) {
+                var node = this.createElementNSPlus("gml:MultiCurve");
+                var components = geometry.components || [geometry];
+                for(var i=0, len=components.length; i<len; ++i) {
+                    this.writeNode("curveMember", components[i], node);
+                }
+                return node;
+            },
+            "curveMember": function(geometry) {
+                var node = this.createElementNSPlus("gml:curveMember");
+                if(this.curve) {
+                    this.writeNode("Curve", geometry, node);
+                } else {
+                    this.writeNode("LineString", geometry, node);
+                }
+                return node;
+            },
+            "MultiSurface": function(geometry) {
+                var node = this.createElementNSPlus("gml:MultiSurface");
+                var components = geometry.components || [geometry];
+                for(var i=0, len=components.length; i<len; ++i) {
+                    this.writeNode("surfaceMember", components[i], node);
+                }
+                return node;
+            },
+            "surfaceMember": function(polygon) {
+                var node = this.createElementNSPlus("gml:surfaceMember");
+                if(this.surface) {
+                    this.writeNode("Surface", polygon, node);
+                } else {
+                    this.writeNode("Polygon", polygon, node);
+                }
+                return node;
+            },
+            "Envelope": function(bounds) {
+                var node = this.createElementNSPlus("gml:Envelope");
+                this.writeNode("lowerCorner", bounds, node);
+                this.writeNode("upperCorner", bounds, node);
+                // srsName attribute is required for gml:Envelope
+                if(this.srsName) {
+                    node.setAttribute("srsName", this.srsName);
+                }
+                return node;
+            },
+            "lowerCorner": function(bounds) {
+                // only 2d for simple features profile
+                var pos = (this.xy) ?
+                    (bounds.left + " " + bounds.bottom) :
+                    (bounds.bottom + " " + bounds.left);
+                return this.createElementNSPlus("gml:lowerCorner", {
+                    value: pos
+                });
+            },
+            "upperCorner": function(bounds) {
+                // only 2d for simple features profile
+                var pos = (this.xy) ?
+                    (bounds.right + " " + bounds.top) :
+                    (bounds.top + " " + bounds.right);
+                return this.createElementNSPlus("gml:upperCorner", {
+                    value: pos
+                });
+            }
+        }, OpenLayers.Format.GML.Base.prototype.writers["gml"]),
+        "feature": OpenLayers.Format.GML.Base.prototype.writers["feature"],
+        "wfs": OpenLayers.Format.GML.Base.prototype.writers["wfs"]
+    },
+
+    /**
+     * Method: setGeometryTypes
+     * Sets the <geometryTypes> mapping.
+     */
+    setGeometryTypes: function() {
+        this.geometryTypes = {
+            "OpenLayers.Geometry.Point": "Point",
+            "OpenLayers.Geometry.MultiPoint": "MultiPoint",
+            "OpenLayers.Geometry.LineString": (this.curve === true) ? "Curve": "LineString",
+            "OpenLayers.Geometry.MultiLineString": (this.multiCurve === false) ? "MultiLineString" : "MultiCurve",
+            "OpenLayers.Geometry.Polygon": (this.surface === true) ? "Surface" : "Polygon",
+            "OpenLayers.Geometry.MultiPolygon": (this.multiSurface === false) ? "MultiPolygon" : "MultiSurface",
+            "OpenLayers.Geometry.Collection": "GeometryCollection"
+        };
+    },
+    
+    CLASS_NAME: "OpenLayers.Format.GML.v3" 
+
+});
+/* ======================================================================
+    OpenLayers/Filter/FeatureId.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+
+/**
+ * @requires OpenLayers/Filter.js
+ */
+
+/**
+ * Class: OpenLayers.Filter.FeatureId
+ * This class represents a ogc:FeatureId Filter, as being used for rule-based SLD
+ * styling
+ * 
+ * Inherits from:
+ * - <OpenLayers.Filter>
+ */
+OpenLayers.Filter.FeatureId = OpenLayers.Class(OpenLayers.Filter, {
+
+    /** 
+     * APIProperty: fids
+     * {Array(String)} Feature Ids to evaluate this rule against. 
+     *     To be passed inside the params object.
+     */
+    fids: null,
+    
+    /** 
+     * Property: type
+     * {String} Type to identify this filter.
+     */
+    type: "FID",
+    
+    /** 
+     * Constructor: OpenLayers.Filter.FeatureId
+     * Creates an ogc:FeatureId rule.
+     *
+     * Parameters:
+     * options - {Object} An optional object with properties to set on the
+     *           rule
+     * 
+     * Returns:
+     * {<OpenLayers.Filter.FeatureId>}
+     */
+    initialize: function(options) {
+        this.fids = [];
+        OpenLayers.Filter.prototype.initialize.apply(this, [options]);
+    },
+
+    /**
+     * APIMethod: evaluate
+     * evaluates this rule for a specific feature
+     * 
+     * Parameters:
+     * feature - {<OpenLayers.Feature>} feature to apply the rule to.
+     *           For vector features, the check is run against the fid,
+     *           for plain features against the id.
+     * 
+     * Returns:
+     * {Boolean} true if the rule applies, false if it does not
+     */
+    evaluate: function(feature) {
+        for (var i=0, len=this.fids.length; i<len; i++) {
+            var fid = feature.fid || feature.id;
+            if (fid == this.fids[i]) {
+                return true;
+            }
+        }
+        return false;
+    },
+    
+    /**
+     * APIMethod: clone
+     * Clones this filter.
+     * 
+     * Returns:
+     * {<OpenLayers.Filter.FeatureId>} Clone of this filter.
+     */
+    clone: function() {
+        var filter = new OpenLayers.Filter.FeatureId();
+        OpenLayers.Util.extend(filter, this);
+        filter.fids = this.fids.slice();
+        return filter;
+    },
+    
+    CLASS_NAME: "OpenLayers.Filter.FeatureId"
+});
+/* ======================================================================
+    OpenLayers/Format/Filter.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Format/XML/VersionedOGC.js
+ * @requires OpenLayers/Filter/FeatureId.js
+ * @requires OpenLayers/Filter/Logical.js
+ * @requires OpenLayers/Filter/Comparison.js
+ */
+
+/**
+ * Class: OpenLayers.Format.Filter
+ * Read/Write ogc:Filter. Create a new instance with the <OpenLayers.Format.Filter>
+ *     constructor.
+ * 
+ * Inherits from:
+ *  - <OpenLayers.Format.XML.VersionedOGC>
+ */
+OpenLayers.Format.Filter = OpenLayers.Class(OpenLayers.Format.XML.VersionedOGC, {
+    
+    /**
+     * APIProperty: defaultVersion
+     * {String} Version number to assume if none found.  Default is "1.0.0".
+     */
+    defaultVersion: "1.0.0",
+    
+    /**
+     * APIMethod: write
+     * Write an ogc:Filter given a filter object.
+     *
+     * Parameters:
+     * filter - {<OpenLayers.Filter>} An filter.
+     * options - {Object} Optional configuration object.
+     *
+     * Returns:
+     * {Elment} An ogc:Filter element node.
+     */
+    
+    /**
+     * APIMethod: read
+     * Read and Filter doc and return an object representing the Filter.
+     *
+     * Parameters:
+     * data - {String | DOMElement} Data to read.
+     *
+     * Returns:
+     * {<OpenLayers.Filter>} A filter object.
+     */
+
+    CLASS_NAME: "OpenLayers.Format.Filter" 
+});
+/* ======================================================================
+    OpenLayers/BaseTypes/Date.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/SingleFile.js
+ */
+
+/**
+ * Namespace: OpenLayers.Date
+ * Contains implementations of Date.parse and date.toISOString that match the
+ *     ECMAScript 5 specification for parsing RFC 3339 dates.
+ *     http://tools.ietf.org/html/rfc3339
+ */
+OpenLayers.Date = {
+
+    /** 
+     * APIProperty: dateRegEx
+     * The regex to be used for validating dates. You can provide your own
+     * regex for instance for adding support for years before BC. Default
+     * value is: /^(?:(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?)?(?:(?:T(\d{1,2}):(\d{2}):(\d{2}(?:\.\d+)?)(Z|(?:[+-]\d{1,2}(?::(\d{2}))?)))|Z)?$/
+     */
+    dateRegEx: /^(?:(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?)?(?:(?:T(\d{1,2}):(\d{2}):(\d{2}(?:\.\d+)?)(Z|(?:[+-]\d{1,2}(?::(\d{2}))?)))|Z)?$/,
+
+    /**
+     * APIMethod: toISOString
+     * Generates a string representing a date.  The format of the string follows
+     *     the profile of ISO 8601 for date and time on the Internet (see
+     *     http://tools.ietf.org/html/rfc3339).  If the toISOString method is
+     *     available on the Date prototype, that is used.  The toISOString
+     *     method for Date instances is defined in ECMA-262.
+     *
+     * Parameters:
+     * date - {Date} A date object.
+     *
+     * Returns:
+     * {String} A string representing the date (e.g.
+     *     "2010-08-07T16:58:23.123Z").  If the date does not have a valid time
+     *     (i.e. isNaN(date.getTime())) this method returns the string "Invalid
+     *     Date".  The ECMA standard says the toISOString method should throw
+     *     RangeError in this case, but Firefox returns a string instead.  For
+     *     best results, use isNaN(date.getTime()) to determine date validity
+     *     before generating date strings.
+     */
+    toISOString: (function() {
+        if ("toISOString" in Date.prototype) {
+            return function(date) {
+                return date.toISOString();
+            };
+        } else {
+            return function(date) {
+                var str;
+                if (isNaN(date.getTime())) {
+                    // ECMA-262 says throw RangeError, Firefox returns
+                    // "Invalid Date"
+                    str = "Invalid Date";
+                } else {
+                    str =
+                        date.getUTCFullYear() + "-" +
+                        OpenLayers.Number.zeroPad(date.getUTCMonth() + 1, 2) + "-" +
+                        OpenLayers.Number.zeroPad(date.getUTCDate(), 2) + "T" +
+                        OpenLayers.Number.zeroPad(date.getUTCHours(), 2) + ":" +
+                        OpenLayers.Number.zeroPad(date.getUTCMinutes(), 2) + ":" +
+                        OpenLayers.Number.zeroPad(date.getUTCSeconds(), 2) + "." +
+                        OpenLayers.Number.zeroPad(date.getUTCMilliseconds(), 3) + "Z";
+                }
+                return str;
+            };
+        }
+
+    })(),
+
+    /**
+     * APIMethod: parse
+     * Generate a date object from a string.  The format for the string follows
+     *     the profile of ISO 8601 for date and time on the Internet (see
+     *     http://tools.ietf.org/html/rfc3339).  We don't call the native
+     *     Date.parse because of inconsistency between implmentations.  In
+     *     Chrome, calling Date.parse with a string that doesn't contain any
+     *     indication of the timezone (e.g. "2011"), the date is interpreted
+     *     in local time.  On Firefox, the assumption is UTC.
+     *
+     * Parameters:
+     * str - {String} A string representing the date (e.g.
+     *     "2010", "2010-08", "2010-08-07", "2010-08-07T16:58:23.123Z",
+     *     "2010-08-07T11:58:23.123-06").
+     *
+     * Returns:
+     * {Date} A date object.  If the string could not be parsed, an invalid
+     *     date is returned (i.e. isNaN(date.getTime())).
+     */
+    parse: function(str) {
+        var date;
+        var match = str.match(this.dateRegEx);
+        if (match && (match[1] || match[7])) { // must have at least year or time
+            var year = parseInt(match[1], 10) || 0;
+            var month = (parseInt(match[2], 10) - 1) || 0;
+            var day = parseInt(match[3], 10) || 1;
+            date = new Date(Date.UTC(year, month, day));
+            // optional time
+            var type = match[7];
+            if (type) {
+                var hours = parseInt(match[4], 10);
+                var minutes = parseInt(match[5], 10);
+                var secFrac = parseFloat(match[6]);
+                var seconds = secFrac | 0;
+                var milliseconds = Math.round(1000 * (secFrac - seconds));
+                date.setUTCHours(hours, minutes, seconds, milliseconds);
+                // check offset
+                if (type !== "Z") {
+                    var hoursOffset = parseInt(type, 10);
+                    var minutesOffset = parseInt(match[8], 10) || 0;
+                    var offset = -1000 * (60 * (hoursOffset * 60) + minutesOffset * 60);
+                    date = new Date(date.getTime() + offset);
+                }
+            }
+        } else {
+            date = new Date("invalid");
+        }
+        return date;
+    }
+};
+/* ======================================================================
+    OpenLayers/Format/Filter/v1.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+/**
+ * @requires OpenLayers/Format/Filter.js
+ * @requires OpenLayers/Format/XML.js
+ * @requires OpenLayers/Filter/Function.js
+ * @requires OpenLayers/BaseTypes/Date.js
+ */
+
+/**
+ * Class: OpenLayers.Format.Filter.v1
+ * Superclass for Filter version 1 parsers.
+ *
+ * Inherits from:
+ *  - <OpenLayers.Format.XML>
+ */
+OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
+    
+    /**
+     * Property: namespaces
+     * {Object} Mapping of namespace aliases to namespace URIs.
+     */
+    namespaces: {
+        ogc: "http://www.opengis.net/ogc",
+        gml: "http://www.opengis.net/gml",
+        xlink: "http://www.w3.org/1999/xlink",
+        xsi: "http://www.w3.org/2001/XMLSchema-instance"
+    },
+
+    /**
+     * Property: defaultPrefix
+     */
+    defaultPrefix: "ogc",
+
+    /**
+     * Property: schemaLocation
+     * {String} Schema location for a particular minor version.
+     */
+    schemaLocation: null,
+    
+    /**
+     * Constructor: OpenLayers.Format.Filter.v1
+     * Instances of this class are not created directly.  Use the
+     *     <OpenLayers.Format.Filter> constructor instead.
+     *
+     * Parameters:
+     * options - {Object} An optional object whose properties will be set on
+     *     this instance.
+     */
+    initialize: function(options) {
+        OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
+    },
+    
+    /**
+     * Method: read
+     *
+     * Parameters:
+     * data - {DOMElement} A Filter document element.
+     *
+     * Returns:
+     * {<OpenLayers.Filter>} A filter object.
+     */
+    read: function(data) {
+        var obj = {};
+        this.readers.ogc["Filter"].apply(this, [data, obj]);
+        return obj.filter;
+    },
+    
+    /**
+     * Property: readers
+     * Contains public functions, grouped by namespace prefix, that will
+     *     be applied when a namespaced node is found matching the function
+     *     name.  The function will be applied in the scope of this parser
+     *     with two arguments: the node being read and a context object passed
+     *     from the parent.
+     */
+    readers: {
+        "ogc": {
+            "_expression": function(node) {
+                // only the simplest of ogc:expression handled
+                // "some text and an <PropertyName>attribute</PropertyName>"}
+                var obj, value = "";
+                for(var child=node.firstChild; child; child=child.nextSibling) {
+                    switch(child.nodeType) {
+                        case 1:
+                            obj = this.readNode(child);
+                            if (obj.property) {
+                                value += "${" + obj.property + "}";
+                            } else if (obj.value !== undefined) {
+                                value += obj.value;
+                            }
+                            break;
+                        case 3: // text node
+                        case 4: // cdata section
+                            value += child.nodeValue;
+                    }
+                }
+                return value;
+            },
+            "Filter": function(node, parent) {
+                // Filters correspond to subclasses of OpenLayers.Filter.
+                // Since they contain information we don't persist, we
+                // create a temporary object and then pass on the filter
+                // (ogc:Filter) to the parent obj.
+                var obj = {
+                    fids: [],
+                    filters: []
+                };
+                this.readChildNodes(node, obj);
+                if(obj.fids.length > 0) {
+                    parent.filter = new OpenLayers.Filter.FeatureId({
+                        fids: obj.fids
+                    });
+                } else if(obj.filters.length > 0) {
+                    parent.filter = obj.filters[0];
+                }
+            },
+            "FeatureId": function(node, obj) {
+                var fid = node.getAttribute("fid");
+                if(fid) {
+                    obj.fids.push(fid);
+                }
+            },
+            "And": function(node, obj) {
+                var filter = new OpenLayers.Filter.Logical({
+                    type: OpenLayers.Filter.Logical.AND
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "Or": function(node, obj) {
+                var filter = new OpenLayers.Filter.Logical({
+                    type: OpenLayers.Filter.Logical.OR
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "Not": function(node, obj) {
+                var filter = new OpenLayers.Filter.Logical({
+                    type: OpenLayers.Filter.Logical.NOT
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsLessThan": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LESS_THAN
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsGreaterThan": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.GREATER_THAN
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsLessThanOrEqualTo": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsGreaterThanOrEqualTo": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsBetween": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.BETWEEN
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "Literal": function(node, obj) {
+                obj.value = OpenLayers.String.numericIf(
+                    this.getChildValue(node), true);
+            },
+            "PropertyName": function(node, filter) {
+                filter.property = this.getChildValue(node);
+            },
+            "LowerBoundary": function(node, filter) {
+                filter.lowerBoundary = OpenLayers.String.numericIf(
+                    this.readers.ogc._expression.call(this, node), true);
+            },
+            "UpperBoundary": function(node, filter) {
+                filter.upperBoundary = OpenLayers.String.numericIf(
+                    this.readers.ogc._expression.call(this, node), true);
+            },
+            "Intersects": function(node, obj) {
+                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.INTERSECTS);
+            },
+            "Within": function(node, obj) {
+                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.WITHIN);
+            },
+            "Contains": function(node, obj) {
+                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.CONTAINS);
+            },
+            "DWithin": function(node, obj) {
+                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.DWITHIN);
+            },
+            "Distance": function(node, obj) {
+                obj.distance = parseInt(this.getChildValue(node));
+                obj.distanceUnits = node.getAttribute("units");
+            },
+            "Function": function(node, obj) {
+                //TODO write decoder for it
+                return;
+            },
+            "PropertyIsNull": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.IS_NULL
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            }
+        }
+    },
+    
+    /**
+     * Method: readSpatial
+     *
+     * Read a {<OpenLayers.Filter.Spatial>} filter.
+     * 
+     * Parameters:
+     * node - {DOMElement} A DOM element that contains an ogc:expression.
+     * obj - {Object} The target object.
+     * type - {String} One of the OpenLayers.Filter.Spatial.* constants.
+     *
+     * Returns:
+     * {<OpenLayers.Filter.Spatial>} The created filter.
+     */
+    readSpatial: function(node, obj, type) {
+        var filter = new OpenLayers.Filter.Spatial({
+            type: type
+        });
+        this.readChildNodes(node, filter);
+        filter.value = filter.components[0];
+        delete filter.components;
+        obj.filters.push(filter);
+    },
+
+    /**
+     * APIMethod: encodeLiteral
+     * Generates the string representation of a value for use in <Literal> 
+     *     elements.  The default encoder writes Date values as ISO 8601 
+     *     strings.
+     *
+     * Parameters:
+     * value - {Object} Literal value to encode
+     *
+     * Returns:
+     * {String} String representation of the provided value.
+     */
+    encodeLiteral: function(value) {
+        if (value instanceof Date) {
+            value = OpenLayers.Date.toISOString(value);
+        }
+        return value;
+    },
+
+    /**
+     * Method: writeOgcExpression
+     * Limited support for writing OGC expressions. Currently it supports
+     * (<OpenLayers.Filter.Function> || String || Number)
+     *
+     * Parameters:
+     * value - (<OpenLayers.Filter.Function> || String || Number)
+     * node - {DOMElement} A parent DOM element 
+     *
+     * Returns:
+     * {DOMElement} Updated node element.
+     */
+    writeOgcExpression: function(value, node) {
+        if (value instanceof OpenLayers.Filter.Function){
+            this.writeNode("Function", value, node);
+        } else {
+            this.writeNode("Literal", value, node);
+        }
+        return node;
+    },    
+    
+    /**
+     * Method: write
+     *
+     * Parameters:
+     * filter - {<OpenLayers.Filter>} A filter object.
+     *
+     * Returns:
+     * {DOMElement} An ogc:Filter element.
+     */
+    write: function(filter) {
+        return this.writers.ogc["Filter"].apply(this, [filter]);
+    },
+    
+    /**
+     * Property: writers
+     * As a compliment to the readers property, this structure contains public
+     *     writing functions grouped by namespace alias and named like the
+     *     node names they produce.
+     */
+    writers: {
+        "ogc": {
+            "Filter": function(filter) {
+                var node = this.createElementNSPlus("ogc:Filter");
+                this.writeNode(this.getFilterType(filter), filter, node);
+                return node;
+            },
+            "_featureIds": function(filter) {
+                var node = this.createDocumentFragment();
+                for (var i=0, ii=filter.fids.length; i<ii; ++i) {
+                    this.writeNode("ogc:FeatureId", filter.fids[i], node);
+                }
+                return node;
+            },
+            "FeatureId": function(fid) {
+                return this.createElementNSPlus("ogc:FeatureId", {
+                    attributes: {fid: fid}
+                });
+            },
+            "And": function(filter) {
+                var node = this.createElementNSPlus("ogc:And");
+                var childFilter;
+                for (var i=0, ii=filter.filters.length; i<ii; ++i) {
+                    childFilter = filter.filters[i];
+                    this.writeNode(
+                        this.getFilterType(childFilter), childFilter, node
+                    );
+                }
+                return node;
+            },
+            "Or": function(filter) {
+                var node = this.createElementNSPlus("ogc:Or");
+                var childFilter;
+                for (var i=0, ii=filter.filters.length; i<ii; ++i) {
+                    childFilter = filter.filters[i];
+                    this.writeNode(
+                        this.getFilterType(childFilter), childFilter, node
+                    );
+                }
+                return node;
+            },
+            "Not": function(filter) {
+                var node = this.createElementNSPlus("ogc:Not");
+                var childFilter = filter.filters[0];
+                this.writeNode(
+                    this.getFilterType(childFilter), childFilter, node
+                );
+                return node;
+            },
+            "PropertyIsLessThan": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsLessThan");
+                // no ogc:expression handling for PropertyName for now
+                this.writeNode("PropertyName", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsGreaterThan": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsGreaterThan");
+                // no ogc:expression handling for PropertyName for now
+                this.writeNode("PropertyName", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsLessThanOrEqualTo": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsLessThanOrEqualTo");
+                // no ogc:expression handling for PropertyName for now
+                this.writeNode("PropertyName", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsGreaterThanOrEqualTo": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsGreaterThanOrEqualTo");
+                // no ogc:expression handling for PropertyName for now
+                this.writeNode("PropertyName", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsBetween": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsBetween");
+                // no ogc:expression handling for PropertyName for now
+                this.writeNode("PropertyName", filter, node);
+                this.writeNode("LowerBoundary", filter, node);
+                this.writeNode("UpperBoundary", filter, node);
+                return node;
+            },
+            "PropertyName": function(filter) {
+                // no ogc:expression handling for now
+                return this.createElementNSPlus("ogc:PropertyName", {
+                    value: filter.property
+                });
+            },
+            "Literal": function(value) {
+                var encode = this.encodeLiteral ||
+                    OpenLayers.Format.Filter.v1.prototype.encodeLiteral;
+                return this.createElementNSPlus("ogc:Literal", {
+                    value: encode(value)
+                });
+            },
+            "LowerBoundary": function(filter) {
+                // handle Literals or Functions for now
+                var node = this.createElementNSPlus("ogc:LowerBoundary");
+                this.writeOgcExpression(filter.lowerBoundary, node);
+                return node;
+            },
+            "UpperBoundary": function(filter) {
+                // handle Literals or Functions for now
+                var node = this.createElementNSPlus("ogc:UpperBoundary");
+                this.writeNode("Literal", filter.upperBoundary, node);
+                return node;
+            },
+            "INTERSECTS": function(filter) {
+                return this.writeSpatial(filter, "Intersects");
+            },
+            "WITHIN": function(filter) {
+                return this.writeSpatial(filter, "Within");
+            },
+            "CONTAINS": function(filter) {
+                return this.writeSpatial(filter, "Contains");
+            },
+            "DWITHIN": function(filter) {
+                var node = this.writeSpatial(filter, "DWithin");
+                this.writeNode("Distance", filter, node);
+                return node;
+            },
+            "Distance": function(filter) {
+                return this.createElementNSPlus("ogc:Distance", {
+                    attributes: {
+                        units: filter.distanceUnits
+                    },
+                    value: filter.distance
+                });
+            },
+            "Function": function(filter) {
+                var node = this.createElementNSPlus("ogc:Function", {
+                    attributes: {
+                        name: filter.name
+                    }
+                });
+                var params = filter.params;
+                for(var i=0, len=params.length; i<len; i++){
+                    this.writeOgcExpression(params[i], node);
+                }
+                return node;
+            },
+            "PropertyIsNull": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsNull");
+                this.writeNode("PropertyName", filter, node);
+                return node;
+            }
+        }
+    },
+
+    /**
+     * Method: getFilterType
+     */
+    getFilterType: function(filter) {
+        var filterType = this.filterMap[filter.type];
+        if(!filterType) {
+            throw "Filter writing not supported for rule type: " + filter.type;
+        }
+        return filterType;
+    },
+    
+    /**
+     * Property: filterMap
+     * {Object} Contains a member for each filter type.  Values are node names
+     *     for corresponding OGC Filter child elements.
+     */
+    filterMap: {
+        "&&": "And",
+        "||": "Or",
+        "!": "Not",
+        "==": "PropertyIsEqualTo",
+        "!=": "PropertyIsNotEqualTo",
+        "<": "PropertyIsLessThan",
+        ">": "PropertyIsGreaterThan",
+        "<=": "PropertyIsLessThanOrEqualTo",
+        ">=": "PropertyIsGreaterThanOrEqualTo",
+        "..": "PropertyIsBetween",
+        "~": "PropertyIsLike",
+        "NULL": "PropertyIsNull",
+        "BBOX": "BBOX",
+        "DWITHIN": "DWITHIN",
+        "WITHIN": "WITHIN",
+        "CONTAINS": "CONTAINS",
+        "INTERSECTS": "INTERSECTS",
+        "FID": "_featureIds"
+    },
+
+    CLASS_NAME: "OpenLayers.Format.Filter.v1" 
+
+});
+/* ======================================================================
+    OpenLayers/Format/GML/v2.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Format/GML/Base.js
+ */
+
+/**
+ * Class: OpenLayers.Format.GML.v2
+ * Parses GML version 2.
+ *
+ * Inherits from:
+ *  - <OpenLayers.Format.GML.Base>
+ */
+OpenLayers.Format.GML.v2 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
+    
+    /**
+     * Property: schemaLocation
+     * {String} Schema location for a particular minor version.
+     */
+    schemaLocation: "http://www.opengis.net/gml http://schemas.opengis.net/gml/2.1.2/feature.xsd",
+
+    /**
+     * Constructor: OpenLayers.Format.GML.v2
+     * Create a parser for GML v2.
+     *
+     * Parameters:
+     * options - {Object} An optional object whose properties will be set on
+     *     this instance.
+     *
+     * Valid options properties:
+     * featureType - {String} Local (without prefix) feature typeName (required).
+     * featureNS - {String} Feature namespace (required).
+     * geometryName - {String} Geometry element name.
+     */
+    initialize: function(options) {
+        OpenLayers.Format.GML.Base.prototype.initialize.apply(this, [options]);
+    },
+
+    /**
+     * Property: readers
+     * Contains public functions, grouped by namespace prefix, that will
+     *     be applied when a namespaced node is found matching the function
+     *     name.  The function will be applied in the scope of this parser
+     *     with two arguments: the node being read and a context object passed
+     *     from the parent.
+     */
+    readers: {
+        "gml": OpenLayers.Util.applyDefaults({
+            "outerBoundaryIs": function(node, container) {
+                var obj = {};
+                this.readChildNodes(node, obj);
+                container.outer = obj.components[0];
+            },
+            "innerBoundaryIs": function(node, container) {
+                var obj = {};
+                this.readChildNodes(node, obj);
+                container.inner.push(obj.components[0]);
+            },
+            "Box": function(node, container) {
+                var obj = {};
+                this.readChildNodes(node, obj);
+                if(!container.components) {
+                    container.components = [];
+                }
+                var min = obj.points[0];
+                var max = obj.points[1];
+                container.components.push(
+                    new OpenLayers.Bounds(min.x, min.y, max.x, max.y)
+                );
+            }
+        }, OpenLayers.Format.GML.Base.prototype.readers["gml"]),
+        "feature": OpenLayers.Format.GML.Base.prototype.readers["feature"],
+        "wfs": OpenLayers.Format.GML.Base.prototype.readers["wfs"]
+    },
+
+    /**
+     * Method: write
+     *
+     * Parameters:
+     * features - {Array(<OpenLayers.Feature.Vector>) | OpenLayers.Feature.Vector}
+     *     An array of features or a single feature.
+     *
+     * Returns:
+     * {String} Given an array of features, a doc with a gml:featureMembers
+     *     element will be returned.  Given a single feature, a doc with a
+     *     gml:featureMember element will be returned.
+     */
+    write: function(features) {
+        var name;
+        if(OpenLayers.Util.isArray(features)) {
+            // GML2 only has abstract feature collections
+            // wfs provides a feature collection from a well-known schema
+            name = "wfs:FeatureCollection";
+        } else {
+            name = "gml:featureMember";
+        }
+        var root = this.writeNode(name, features);
+        this.setAttributeNS(
+            root, this.namespaces["xsi"],
+            "xsi:schemaLocation", this.schemaLocation
+        );
+
+        return OpenLayers.Format.XML.prototype.write.apply(this, [root]);
+    },
+
+    /**
+     * Property: writers
+     * As a compliment to the readers property, this structure contains public
+     *     writing functions grouped by namespace alias and named like the
+     *     node names they produce.
+     */
+    writers: {
+        "gml": OpenLayers.Util.applyDefaults({
+            "Point": function(geometry) {
+                var node = this.createElementNSPlus("gml:Point");
+                this.writeNode("coordinates", [geometry], node);
+                return node;
+            },
+            "coordinates": function(points) {
+                var numPoints = points.length;
+                var parts = new Array(numPoints);
+                var point;
+                for(var i=0; i<numPoints; ++i) {
+                    point = points[i];
+                    if(this.xy) {
+                        parts[i] = point.x + "," + point.y;
+                    } else {
+                        parts[i] = point.y + "," + point.x;
+                    }
+                    if(point.z != undefined) { // allow null or undefined
+                        parts[i] += "," + point.z;
+                    }
+                }
+                return this.createElementNSPlus("gml:coordinates", {
+                    attributes: {
+                        decimal: ".", cs: ",", ts: " "
+                    },
+                    value: (numPoints == 1) ? parts[0] : parts.join(" ")
+                });
+            },
+            "LineString": function(geometry) {
+                var node = this.createElementNSPlus("gml:LineString");
+                this.writeNode("coordinates", geometry.components, node);
+                return node;
+            },
+            "Polygon": function(geometry) {
+                var node = this.createElementNSPlus("gml:Polygon");
+                this.writeNode("outerBoundaryIs", geometry.components[0], node);
+                for(var i=1; i<geometry.components.length; ++i) {
+                    this.writeNode(
+                        "innerBoundaryIs", geometry.components[i], node
+                    );
+                }
+                return node;
+            },
+            "outerBoundaryIs": function(ring) {
+                var node = this.createElementNSPlus("gml:outerBoundaryIs");
+                this.writeNode("LinearRing", ring, node);
+                return node;
+            },
+            "innerBoundaryIs": function(ring) {
+                var node = this.createElementNSPlus("gml:innerBoundaryIs");
+                this.writeNode("LinearRing", ring, node);
+                return node;
+            },
+            "LinearRing": function(ring) {
+                var node = this.createElementNSPlus("gml:LinearRing");
+                this.writeNode("coordinates", ring.components, node);
+                return node;
+            },
+            "Box": function(bounds) {
+                var node = this.createElementNSPlus("gml:Box");
+                this.writeNode("coordinates", [
+                    {x: bounds.left, y: bounds.bottom},
+                    {x: bounds.right, y: bounds.top}
+                ], node);
+                // srsName attribute is optional for gml:Box
+                if(this.srsName) {
+                    node.setAttribute("srsName", this.srsName);
+                }
+                return node;
+            }
+        }, OpenLayers.Format.GML.Base.prototype.writers["gml"]),
+        "feature": OpenLayers.Format.GML.Base.prototype.writers["feature"],
+        "wfs": OpenLayers.Format.GML.Base.prototype.writers["wfs"]
+    },
+    
+    CLASS_NAME: "OpenLayers.Format.GML.v2" 
+
+});
+/* ======================================================================
+    OpenLayers/Format/Filter/v1_0_0.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Format/GML/v2.js
+ * @requires OpenLayers/Format/Filter/v1.js
+ */
+
+/**
+ * Class: OpenLayers.Format.Filter.v1_0_0
+ * Write ogc:Filter version 1.0.0.
+ * 
+ * Inherits from:
+ *  - <OpenLayers.Format.GML.v2>
+ *  - <OpenLayers.Format.Filter.v1>
+ */
+OpenLayers.Format.Filter.v1_0_0 = OpenLayers.Class(
+    OpenLayers.Format.GML.v2, OpenLayers.Format.Filter.v1, {
+    
+    /**
+     * Constant: VERSION
+     * {String} 1.0.0
+     */
+    VERSION: "1.0.0",
+    
+    /**
+     * Property: schemaLocation
+     * {String} http://www.opengis.net/ogc/filter/1.0.0/filter.xsd
+     */
+    schemaLocation: "http://www.opengis.net/ogc/filter/1.0.0/filter.xsd",
+
+    /**
+     * Constructor: OpenLayers.Format.Filter.v1_0_0
+     * Instances of this class are not created directly.  Use the
+     *     <OpenLayers.Format.Filter> constructor instead.
+     *
+     * Parameters:
+     * options - {Object} An optional object whose properties will be set on
+     *     this instance.
+     */
+    initialize: function(options) {
+        OpenLayers.Format.GML.v2.prototype.initialize.apply(
+            this, [options]
+        );
+    },
+
+    /**
+     * Property: readers
+     * Contains public functions, grouped by namespace prefix, that will
+     *     be applied when a namespaced node is found matching the function
+     *     name.  The function will be applied in the scope of this parser
+     *     with two arguments: the node being read and a context object passed
+     *     from the parent.
+     */
+    readers: {
+        "ogc": OpenLayers.Util.applyDefaults({
+            "PropertyIsEqualTo": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.EQUAL_TO
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsNotEqualTo": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.NOT_EQUAL_TO
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsLike": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LIKE
+                });
+                this.readChildNodes(node, filter);
+                var wildCard = node.getAttribute("wildCard");
+                var singleChar = node.getAttribute("singleChar");
+                var esc = node.getAttribute("escape");
+                filter.value2regex(wildCard, singleChar, esc);
+                obj.filters.push(filter);
+            }
+        }, OpenLayers.Format.Filter.v1.prototype.readers["ogc"]),
+        "gml": OpenLayers.Format.GML.v2.prototype.readers["gml"],
+        "feature": OpenLayers.Format.GML.v2.prototype.readers["feature"]        
+    },
+
+    /**
+     * Property: writers
+     * As a compliment to the readers property, this structure contains public
+     *     writing functions grouped by namespace alias and named like the
+     *     node names they produce.
+     */
+    writers: {
+        "ogc": OpenLayers.Util.applyDefaults({
+            "PropertyIsEqualTo": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsEqualTo");
+                // no ogc:expression handling for PropertyName for now
+                this.writeNode("PropertyName", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsNotEqualTo": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsNotEqualTo");
+                // no ogc:expression handling for PropertyName for now
+                this.writeNode("PropertyName", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsLike": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsLike", {
+                    attributes: {
+                        wildCard: "*", singleChar: ".", escape: "!"
+                    }
+                });
+                // no ogc:expression handling for now
+                this.writeNode("PropertyName", filter, node);
+                // convert regex string to ogc string
+                this.writeNode("Literal", filter.regex2value(), node);
+                return node;
+            },
+            "BBOX": function(filter) {
+                var node = this.createElementNSPlus("ogc:BBOX");
+                // PropertyName is mandatory in 1.0.0, but e.g. GeoServer also
+                // accepts filters without it. When this is used with
+                // OpenLayers.Protocol.WFS, OpenLayers.Format.WFST will set a
+                // missing filter.property to the geometryName that is
+                // configured with the protocol, which defaults to "the_geom".
+                // So the only way to omit this mandatory property is to not
+                // set the property on the filter and to set the geometryName
+                // on the WFS protocol to null. The latter also happens when
+                // the protocol is configured without a geometryName and a
+                // featureNS.
+                filter.property && this.writeNode("PropertyName", filter, node);
+                var box = this.writeNode("gml:Box", filter.value, node);
+                if(filter.projection) {
+                    box.setAttribute("srsName", filter.projection);
+                }
+                return node;
+            }
+        }, OpenLayers.Format.Filter.v1.prototype.writers["ogc"]),
+        "gml": OpenLayers.Format.GML.v2.prototype.writers["gml"],
+        "feature": OpenLayers.Format.GML.v2.prototype.writers["feature"]
+    },
+
+    /**
+     * Method: writeSpatial
+     *
+     * Read a {<OpenLayers.Filter.Spatial>} filter and converts it into XML.
+     *
+     * Parameters:
+     * filter - {<OpenLayers.Filter.Spatial>} The filter.
+     * name - {String} Name of the generated XML element.
+     *
+     * Returns:
+     * {DOMElement} The created XML element.
+     */
+    writeSpatial: function(filter, name) {
+        var node = this.createElementNSPlus("ogc:"+name);
+        this.writeNode("PropertyName", filter, node);
+        if(filter.value instanceof OpenLayers.Filter.Function) {
+            this.writeNode("Function", filter.value, node);
+        } else {
+        var child;
+        if(filter.value instanceof OpenLayers.Geometry) {
+            child = this.writeNode("feature:_geometry", filter.value).firstChild;
+        } else {
+            child = this.writeNode("gml:Box", filter.value);
+        }
+        if(filter.projection) {
+            child.setAttribute("srsName", filter.projection);
+        }
+        node.appendChild(child);
+        }
+        return node;
+    },
+
+
+    CLASS_NAME: "OpenLayers.Format.Filter.v1_0_0" 
+
+});
+/* ======================================================================
     OpenLayers/Format/GeoJSON.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -15859,832 +17444,48 @@ OpenLayers.Format.GeoJSON = OpenLayers.Class(OpenLayers.Format.JSON, {
 
 });     
 /* ======================================================================
-    OpenLayers/Filter/FeatureId.js
+    OpenLayers/Format/WFSCapabilities/v1_1_0.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
 
-
 /**
- * @requires OpenLayers/Filter.js
+ * @requires OpenLayers/Format/WFSCapabilities/v1.js
+ * @requires OpenLayers/Format/OWSCommon/v1.js
  */
 
 /**
- * Class: OpenLayers.Filter.FeatureId
- * This class represents a ogc:FeatureId Filter, as being used for rule-based SLD
- * styling
+ * Class: OpenLayers.Format.WFSCapabilities/v1_1_0
+ * Read WFS Capabilities version 1.1.0.
  * 
  * Inherits from:
- * - <OpenLayers.Filter>
+ *  - <OpenLayers.Format.WFSCapabilities>
  */
-OpenLayers.Filter.FeatureId = OpenLayers.Class(OpenLayers.Filter, {
-
-    /** 
-     * APIProperty: fids
-     * {Array(String)} Feature Ids to evaluate this rule against. 
-     *     To be passed inside the params object.
-     */
-    fids: null,
-    
-    /** 
-     * Property: type
-     * {String} Type to identify this filter.
-     */
-    type: "FID",
-    
-    /** 
-     * Constructor: OpenLayers.Filter.FeatureId
-     * Creates an ogc:FeatureId rule.
-     *
-     * Parameters:
-     * options - {Object} An optional object with properties to set on the
-     *           rule
-     * 
-     * Returns:
-     * {<OpenLayers.Filter.FeatureId>}
-     */
-    initialize: function(options) {
-        this.fids = [];
-        OpenLayers.Filter.prototype.initialize.apply(this, [options]);
-    },
+OpenLayers.Format.WFSCapabilities.v1_1_0 = OpenLayers.Class(
+    OpenLayers.Format.WFSCapabilities.v1, {
 
     /**
-     * APIMethod: evaluate
-     * evaluates this rule for a specific feature
-     * 
-     * Parameters:
-     * feature - {<OpenLayers.Feature>} feature to apply the rule to.
-     *           For vector features, the check is run against the fid,
-     *           for plain features against the id.
-     * 
-     * Returns:
-     * {Boolean} true if the rule applies, false if it does not
+     * Property: regExes
+     * Compiled regular expressions for manipulating strings.
      */
-    evaluate: function(feature) {
-        for (var i=0, len=this.fids.length; i<len; i++) {
-            var fid = feature.fid || feature.id;
-            if (fid == this.fids[i]) {
-                return true;
-            }
-        }
-        return false;
+    regExes: {
+        trimSpace: (/^\s*|\s*$/g),
+        removeSpace: (/\s*/g),
+        splitSpace: (/\s+/),
+        trimComma: (/\s*,\s*/g)
     },
     
     /**
-     * APIMethod: clone
-     * Clones this filter.
-     * 
-     * Returns:
-     * {<OpenLayers.Filter.FeatureId>} Clone of this filter.
-     */
-    clone: function() {
-        var filter = new OpenLayers.Filter.FeatureId();
-        OpenLayers.Util.extend(filter, this);
-        filter.fids = this.fids.slice();
-        return filter;
-    },
-    
-    CLASS_NAME: "OpenLayers.Filter.FeatureId"
-});
-/* ======================================================================
-    OpenLayers/Format/Filter.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/Format/XML/VersionedOGC.js
- * @requires OpenLayers/Filter/FeatureId.js
- * @requires OpenLayers/Filter/Logical.js
- * @requires OpenLayers/Filter/Comparison.js
- */
-
-/**
- * Class: OpenLayers.Format.Filter
- * Read/Write ogc:Filter. Create a new instance with the <OpenLayers.Format.Filter>
- *     constructor.
- * 
- * Inherits from:
- *  - <OpenLayers.Format.XML.VersionedOGC>
- */
-OpenLayers.Format.Filter = OpenLayers.Class(OpenLayers.Format.XML.VersionedOGC, {
-    
-    /**
-     * APIProperty: defaultVersion
-     * {String} Version number to assume if none found.  Default is "1.0.0".
-     */
-    defaultVersion: "1.0.0",
-    
-    /**
-     * APIMethod: write
-     * Write an ogc:Filter given a filter object.
-     *
-     * Parameters:
-     * filter - {<OpenLayers.Filter>} An filter.
-     * options - {Object} Optional configuration object.
-     *
-     * Returns:
-     * {Elment} An ogc:Filter element node.
-     */
-    
-    /**
-     * APIMethod: read
-     * Read and Filter doc and return an object representing the Filter.
-     *
-     * Parameters:
-     * data - {String | DOMElement} Data to read.
-     *
-     * Returns:
-     * {<OpenLayers.Filter>} A filter object.
-     */
-
-    CLASS_NAME: "OpenLayers.Format.Filter" 
-});
-/* ======================================================================
-    OpenLayers/BaseTypes/Date.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/SingleFile.js
- */
-
-/**
- * Namespace: OpenLayers.Date
- * Contains implementations of Date.parse and date.toISOString that match the
- *     ECMAScript 5 specification for parsing RFC 3339 dates.
- *     http://tools.ietf.org/html/rfc3339
- */
-OpenLayers.Date = {
-
-    /** 
-     * APIProperty: dateRegEx
-     * The regex to be used for validating dates. You can provide your own
-     * regex for instance for adding support for years before BC. Default
-     * value is: /^(?:(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?)?(?:(?:T(\d{1,2}):(\d{2}):(\d{2}(?:\.\d+)?)(Z|(?:[+-]\d{1,2}(?::(\d{2}))?)))|Z)?$/
-     */
-    dateRegEx: /^(?:(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?)?(?:(?:T(\d{1,2}):(\d{2}):(\d{2}(?:\.\d+)?)(Z|(?:[+-]\d{1,2}(?::(\d{2}))?)))|Z)?$/,
-
-    /**
-     * APIMethod: toISOString
-     * Generates a string representing a date.  The format of the string follows
-     *     the profile of ISO 8601 for date and time on the Internet (see
-     *     http://tools.ietf.org/html/rfc3339).  If the toISOString method is
-     *     available on the Date prototype, that is used.  The toISOString
-     *     method for Date instances is defined in ECMA-262.
-     *
-     * Parameters:
-     * date - {Date} A date object.
-     *
-     * Returns:
-     * {String} A string representing the date (e.g.
-     *     "2010-08-07T16:58:23.123Z").  If the date does not have a valid time
-     *     (i.e. isNaN(date.getTime())) this method returns the string "Invalid
-     *     Date".  The ECMA standard says the toISOString method should throw
-     *     RangeError in this case, but Firefox returns a string instead.  For
-     *     best results, use isNaN(date.getTime()) to determine date validity
-     *     before generating date strings.
-     */
-    toISOString: (function() {
-        if ("toISOString" in Date.prototype) {
-            return function(date) {
-                return date.toISOString();
-            };
-        } else {
-            return function(date) {
-                var str;
-                if (isNaN(date.getTime())) {
-                    // ECMA-262 says throw RangeError, Firefox returns
-                    // "Invalid Date"
-                    str = "Invalid Date";
-                } else {
-                    str =
-                        date.getUTCFullYear() + "-" +
-                        OpenLayers.Number.zeroPad(date.getUTCMonth() + 1, 2) + "-" +
-                        OpenLayers.Number.zeroPad(date.getUTCDate(), 2) + "T" +
-                        OpenLayers.Number.zeroPad(date.getUTCHours(), 2) + ":" +
-                        OpenLayers.Number.zeroPad(date.getUTCMinutes(), 2) + ":" +
-                        OpenLayers.Number.zeroPad(date.getUTCSeconds(), 2) + "." +
-                        OpenLayers.Number.zeroPad(date.getUTCMilliseconds(), 3) + "Z";
-                }
-                return str;
-            };
-        }
-
-    })(),
-
-    /**
-     * APIMethod: parse
-     * Generate a date object from a string.  The format for the string follows
-     *     the profile of ISO 8601 for date and time on the Internet (see
-     *     http://tools.ietf.org/html/rfc3339).  We don't call the native
-     *     Date.parse because of inconsistency between implmentations.  In
-     *     Chrome, calling Date.parse with a string that doesn't contain any
-     *     indication of the timezone (e.g. "2011"), the date is interpreted
-     *     in local time.  On Firefox, the assumption is UTC.
-     *
-     * Parameters:
-     * str - {String} A string representing the date (e.g.
-     *     "2010", "2010-08", "2010-08-07", "2010-08-07T16:58:23.123Z",
-     *     "2010-08-07T11:58:23.123-06").
-     *
-     * Returns:
-     * {Date} A date object.  If the string could not be parsed, an invalid
-     *     date is returned (i.e. isNaN(date.getTime())).
-     */
-    parse: function(str) {
-        var date;
-        var match = str.match(this.dateRegEx);
-        if (match && (match[1] || match[7])) { // must have at least year or time
-            var year = parseInt(match[1], 10) || 0;
-            var month = (parseInt(match[2], 10) - 1) || 0;
-            var day = parseInt(match[3], 10) || 1;
-            date = new Date(Date.UTC(year, month, day));
-            // optional time
-            var type = match[7];
-            if (type) {
-                var hours = parseInt(match[4], 10);
-                var minutes = parseInt(match[5], 10);
-                var secFrac = parseFloat(match[6]);
-                var seconds = secFrac | 0;
-                var milliseconds = Math.round(1000 * (secFrac - seconds));
-                date.setUTCHours(hours, minutes, seconds, milliseconds);
-                // check offset
-                if (type !== "Z") {
-                    var hoursOffset = parseInt(type, 10);
-                    var minutesOffset = parseInt(match[8], 10) || 0;
-                    var offset = -1000 * (60 * (hoursOffset * 60) + minutesOffset * 60);
-                    date = new Date(date.getTime() + offset);
-                }
-            }
-        } else {
-            date = new Date("invalid");
-        }
-        return date;
-    }
-};
-/* ======================================================================
-    OpenLayers/Format/Filter/v1.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-/**
- * @requires OpenLayers/Format/Filter.js
- * @requires OpenLayers/Format/XML.js
- * @requires OpenLayers/Filter/Function.js
- * @requires OpenLayers/BaseTypes/Date.js
- */
-
-/**
- * Class: OpenLayers.Format.Filter.v1
- * Superclass for Filter version 1 parsers.
- *
- * Inherits from:
- *  - <OpenLayers.Format.XML>
- */
-OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
-    
-    /**
-     * Property: namespaces
-     * {Object} Mapping of namespace aliases to namespace URIs.
-     */
-    namespaces: {
-        ogc: "http://www.opengis.net/ogc",
-        gml: "http://www.opengis.net/gml",
-        xlink: "http://www.w3.org/1999/xlink",
-        xsi: "http://www.w3.org/2001/XMLSchema-instance"
-    },
-
-    /**
-     * Property: defaultPrefix
-     */
-    defaultPrefix: "ogc",
-
-    /**
-     * Property: schemaLocation
-     * {String} Schema location for a particular minor version.
-     */
-    schemaLocation: null,
-    
-    /**
-     * Constructor: OpenLayers.Format.Filter.v1
-     * Instances of this class are not created directly.  Use the
-     *     <OpenLayers.Format.Filter> constructor instead.
+     * Constructor: OpenLayers.Format.WFSCapabilities.v1_1_0
+     * Create a new parser for WFS capabilities version 1.1.0.
      *
      * Parameters:
      * options - {Object} An optional object whose properties will be set on
      *     this instance.
      */
-    initialize: function(options) {
-        OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
-    },
-    
-    /**
-     * Method: read
-     *
-     * Parameters:
-     * data - {DOMElement} A Filter document element.
-     *
-     * Returns:
-     * {<OpenLayers.Filter>} A filter object.
-     */
-    read: function(data) {
-        var obj = {};
-        this.readers.ogc["Filter"].apply(this, [data, obj]);
-        return obj.filter;
-    },
-    
-    /**
-     * Property: readers
-     * Contains public functions, grouped by namespace prefix, that will
-     *     be applied when a namespaced node is found matching the function
-     *     name.  The function will be applied in the scope of this parser
-     *     with two arguments: the node being read and a context object passed
-     *     from the parent.
-     */
-    readers: {
-        "ogc": {
-            "_expression": function(node) {
-                // only the simplest of ogc:expression handled
-                // "some text and an <PropertyName>attribute</PropertyName>"}
-                var obj, value = "";
-                for(var child=node.firstChild; child; child=child.nextSibling) {
-                    switch(child.nodeType) {
-                        case 1:
-                            obj = this.readNode(child);
-                            if (obj.property) {
-                                value += "${" + obj.property + "}";
-                            } else if (obj.value !== undefined) {
-                                value += obj.value;
-                            }
-                            break;
-                        case 3: // text node
-                        case 4: // cdata section
-                            value += child.nodeValue;
-                    }
-                }
-                return value;
-            },
-            "Filter": function(node, parent) {
-                // Filters correspond to subclasses of OpenLayers.Filter.
-                // Since they contain information we don't persist, we
-                // create a temporary object and then pass on the filter
-                // (ogc:Filter) to the parent obj.
-                var obj = {
-                    fids: [],
-                    filters: []
-                };
-                this.readChildNodes(node, obj);
-                if(obj.fids.length > 0) {
-                    parent.filter = new OpenLayers.Filter.FeatureId({
-                        fids: obj.fids
-                    });
-                } else if(obj.filters.length > 0) {
-                    parent.filter = obj.filters[0];
-                }
-            },
-            "FeatureId": function(node, obj) {
-                var fid = node.getAttribute("fid");
-                if(fid) {
-                    obj.fids.push(fid);
-                }
-            },
-            "And": function(node, obj) {
-                var filter = new OpenLayers.Filter.Logical({
-                    type: OpenLayers.Filter.Logical.AND
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "Or": function(node, obj) {
-                var filter = new OpenLayers.Filter.Logical({
-                    type: OpenLayers.Filter.Logical.OR
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "Not": function(node, obj) {
-                var filter = new OpenLayers.Filter.Logical({
-                    type: OpenLayers.Filter.Logical.NOT
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsLessThan": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.LESS_THAN
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsGreaterThan": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.GREATER_THAN
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsLessThanOrEqualTo": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsGreaterThanOrEqualTo": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsBetween": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.BETWEEN
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "Literal": function(node, obj) {
-                obj.value = OpenLayers.String.numericIf(
-                    this.getChildValue(node), true);
-            },
-            "PropertyName": function(node, filter) {
-                filter.property = this.getChildValue(node);
-            },
-            "LowerBoundary": function(node, filter) {
-                filter.lowerBoundary = OpenLayers.String.numericIf(
-                    this.readers.ogc._expression.call(this, node), true);
-            },
-            "UpperBoundary": function(node, filter) {
-                filter.upperBoundary = OpenLayers.String.numericIf(
-                    this.readers.ogc._expression.call(this, node), true);
-            },
-            "Intersects": function(node, obj) {
-                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.INTERSECTS);
-            },
-            "Within": function(node, obj) {
-                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.WITHIN);
-            },
-            "Contains": function(node, obj) {
-                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.CONTAINS);
-            },
-            "DWithin": function(node, obj) {
-                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.DWITHIN);
-            },
-            "Distance": function(node, obj) {
-                obj.distance = parseInt(this.getChildValue(node));
-                obj.distanceUnits = node.getAttribute("units");
-            },
-            "Function": function(node, obj) {
-                //TODO write decoder for it
-                return;
-            },
-            "PropertyIsNull": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.IS_NULL
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            }
-        }
-    },
-    
-    /**
-     * Method: readSpatial
-     *
-     * Read a {<OpenLayers.Filter.Spatial>} filter.
-     * 
-     * Parameters:
-     * node - {DOMElement} A DOM element that contains an ogc:expression.
-     * obj - {Object} The target object.
-     * type - {String} One of the OpenLayers.Filter.Spatial.* constants.
-     *
-     * Returns:
-     * {<OpenLayers.Filter.Spatial>} The created filter.
-     */
-    readSpatial: function(node, obj, type) {
-        var filter = new OpenLayers.Filter.Spatial({
-            type: type
-        });
-        this.readChildNodes(node, filter);
-        filter.value = filter.components[0];
-        delete filter.components;
-        obj.filters.push(filter);
-    },
-
-    /**
-     * APIMethod: encodeLiteral
-     * Generates the string representation of a value for use in <Literal> 
-     *     elements.  The default encoder writes Date values as ISO 8601 
-     *     strings.
-     *
-     * Parameters:
-     * value - {Object} Literal value to encode
-     *
-     * Returns:
-     * {String} String representation of the provided value.
-     */
-    encodeLiteral: function(value) {
-        if (value instanceof Date) {
-            value = OpenLayers.Date.toISOString(value);
-        }
-        return value;
-    },
-
-    /**
-     * Method: writeOgcExpression
-     * Limited support for writing OGC expressions. Currently it supports
-     * (<OpenLayers.Filter.Function> || String || Number)
-     *
-     * Parameters:
-     * value - (<OpenLayers.Filter.Function> || String || Number)
-     * node - {DOMElement} A parent DOM element 
-     *
-     * Returns:
-     * {DOMElement} Updated node element.
-     */
-    writeOgcExpression: function(value, node) {
-        if (value instanceof OpenLayers.Filter.Function){
-            this.writeNode("Function", value, node);
-        } else {
-            this.writeNode("Literal", value, node);
-        }
-        return node;
-    },    
-    
-    /**
-     * Method: write
-     *
-     * Parameters:
-     * filter - {<OpenLayers.Filter>} A filter object.
-     *
-     * Returns:
-     * {DOMElement} An ogc:Filter element.
-     */
-    write: function(filter) {
-        return this.writers.ogc["Filter"].apply(this, [filter]);
-    },
-    
-    /**
-     * Property: writers
-     * As a compliment to the readers property, this structure contains public
-     *     writing functions grouped by namespace alias and named like the
-     *     node names they produce.
-     */
-    writers: {
-        "ogc": {
-            "Filter": function(filter) {
-                var node = this.createElementNSPlus("ogc:Filter");
-                this.writeNode(this.getFilterType(filter), filter, node);
-                return node;
-            },
-            "_featureIds": function(filter) {
-                var node = this.createDocumentFragment();
-                for (var i=0, ii=filter.fids.length; i<ii; ++i) {
-                    this.writeNode("ogc:FeatureId", filter.fids[i], node);
-                }
-                return node;
-            },
-            "FeatureId": function(fid) {
-                return this.createElementNSPlus("ogc:FeatureId", {
-                    attributes: {fid: fid}
-                });
-            },
-            "And": function(filter) {
-                var node = this.createElementNSPlus("ogc:And");
-                var childFilter;
-                for (var i=0, ii=filter.filters.length; i<ii; ++i) {
-                    childFilter = filter.filters[i];
-                    this.writeNode(
-                        this.getFilterType(childFilter), childFilter, node
-                    );
-                }
-                return node;
-            },
-            "Or": function(filter) {
-                var node = this.createElementNSPlus("ogc:Or");
-                var childFilter;
-                for (var i=0, ii=filter.filters.length; i<ii; ++i) {
-                    childFilter = filter.filters[i];
-                    this.writeNode(
-                        this.getFilterType(childFilter), childFilter, node
-                    );
-                }
-                return node;
-            },
-            "Not": function(filter) {
-                var node = this.createElementNSPlus("ogc:Not");
-                var childFilter = filter.filters[0];
-                this.writeNode(
-                    this.getFilterType(childFilter), childFilter, node
-                );
-                return node;
-            },
-            "PropertyIsLessThan": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsLessThan");
-                // no ogc:expression handling for PropertyName for now
-                this.writeNode("PropertyName", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsGreaterThan": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsGreaterThan");
-                // no ogc:expression handling for PropertyName for now
-                this.writeNode("PropertyName", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsLessThanOrEqualTo": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsLessThanOrEqualTo");
-                // no ogc:expression handling for PropertyName for now
-                this.writeNode("PropertyName", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsGreaterThanOrEqualTo": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsGreaterThanOrEqualTo");
-                // no ogc:expression handling for PropertyName for now
-                this.writeNode("PropertyName", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsBetween": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsBetween");
-                // no ogc:expression handling for PropertyName for now
-                this.writeNode("PropertyName", filter, node);
-                this.writeNode("LowerBoundary", filter, node);
-                this.writeNode("UpperBoundary", filter, node);
-                return node;
-            },
-            "PropertyName": function(filter) {
-                // no ogc:expression handling for now
-                return this.createElementNSPlus("ogc:PropertyName", {
-                    value: filter.property
-                });
-            },
-            "Literal": function(value) {
-                var encode = this.encodeLiteral ||
-                    OpenLayers.Format.Filter.v1.prototype.encodeLiteral;
-                return this.createElementNSPlus("ogc:Literal", {
-                    value: encode(value)
-                });
-            },
-            "LowerBoundary": function(filter) {
-                // handle Literals or Functions for now
-                var node = this.createElementNSPlus("ogc:LowerBoundary");
-                this.writeOgcExpression(filter.lowerBoundary, node);
-                return node;
-            },
-            "UpperBoundary": function(filter) {
-                // handle Literals or Functions for now
-                var node = this.createElementNSPlus("ogc:UpperBoundary");
-                this.writeNode("Literal", filter.upperBoundary, node);
-                return node;
-            },
-            "INTERSECTS": function(filter) {
-                return this.writeSpatial(filter, "Intersects");
-            },
-            "WITHIN": function(filter) {
-                return this.writeSpatial(filter, "Within");
-            },
-            "CONTAINS": function(filter) {
-                return this.writeSpatial(filter, "Contains");
-            },
-            "DWITHIN": function(filter) {
-                var node = this.writeSpatial(filter, "DWithin");
-                this.writeNode("Distance", filter, node);
-                return node;
-            },
-            "Distance": function(filter) {
-                return this.createElementNSPlus("ogc:Distance", {
-                    attributes: {
-                        units: filter.distanceUnits
-                    },
-                    value: filter.distance
-                });
-            },
-            "Function": function(filter) {
-                var node = this.createElementNSPlus("ogc:Function", {
-                    attributes: {
-                        name: filter.name
-                    }
-                });
-                var params = filter.params;
-                for(var i=0, len=params.length; i<len; i++){
-                    this.writeOgcExpression(params[i], node);
-                }
-                return node;
-            },
-            "PropertyIsNull": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsNull");
-                this.writeNode("PropertyName", filter, node);
-                return node;
-            }
-        }
-    },
-
-    /**
-     * Method: getFilterType
-     */
-    getFilterType: function(filter) {
-        var filterType = this.filterMap[filter.type];
-        if(!filterType) {
-            throw "Filter writing not supported for rule type: " + filter.type;
-        }
-        return filterType;
-    },
-    
-    /**
-     * Property: filterMap
-     * {Object} Contains a member for each filter type.  Values are node names
-     *     for corresponding OGC Filter child elements.
-     */
-    filterMap: {
-        "&&": "And",
-        "||": "Or",
-        "!": "Not",
-        "==": "PropertyIsEqualTo",
-        "!=": "PropertyIsNotEqualTo",
-        "<": "PropertyIsLessThan",
-        ">": "PropertyIsGreaterThan",
-        "<=": "PropertyIsLessThanOrEqualTo",
-        ">=": "PropertyIsGreaterThanOrEqualTo",
-        "..": "PropertyIsBetween",
-        "~": "PropertyIsLike",
-        "NULL": "PropertyIsNull",
-        "BBOX": "BBOX",
-        "DWITHIN": "DWITHIN",
-        "WITHIN": "WITHIN",
-        "CONTAINS": "CONTAINS",
-        "INTERSECTS": "INTERSECTS",
-        "FID": "_featureIds"
-    },
-
-    CLASS_NAME: "OpenLayers.Format.Filter.v1" 
-
-});
-/* ======================================================================
-    OpenLayers/Format/GML/v2.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/Format/GML/Base.js
- */
-
-/**
- * Class: OpenLayers.Format.GML.v2
- * Parses GML version 2.
- *
- * Inherits from:
- *  - <OpenLayers.Format.GML.Base>
- */
-OpenLayers.Format.GML.v2 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
-    
-    /**
-     * Property: schemaLocation
-     * {String} Schema location for a particular minor version.
-     */
-    schemaLocation: "http://www.opengis.net/gml http://schemas.opengis.net/gml/2.1.2/feature.xsd",
-
-    /**
-     * Constructor: OpenLayers.Format.GML.v2
-     * Create a parser for GML v2.
-     *
-     * Parameters:
-     * options - {Object} An optional object whose properties will be set on
-     *     this instance.
-     *
-     * Valid options properties:
-     * featureType - {String} Local (without prefix) feature typeName (required).
-     * featureNS - {String} Feature namespace (required).
-     * geometryName - {String} Geometry element name.
-     */
-    initialize: function(options) {
-        OpenLayers.Format.GML.Base.prototype.initialize.apply(this, [options]);
-    },
 
     /**
      * Property: readers
@@ -16695,1563 +17496,25 @@ OpenLayers.Format.GML.v2 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
      *     from the parent.
      */
     readers: {
-        "gml": OpenLayers.Util.applyDefaults({
-            "outerBoundaryIs": function(node, container) {
-                var obj = {};
-                this.readChildNodes(node, obj);
-                container.outer = obj.components[0];
-            },
-            "innerBoundaryIs": function(node, container) {
-                var obj = {};
-                this.readChildNodes(node, obj);
-                container.inner.push(obj.components[0]);
-            },
-            "Box": function(node, container) {
-                var obj = {};
-                this.readChildNodes(node, obj);
-                if(!container.components) {
-                    container.components = [];
+        "wfs": OpenLayers.Util.applyDefaults({
+            "DefaultSRS": function(node, obj) {
+                var defaultSRS = this.getChildValue(node);
+                if (defaultSRS) {
+                    obj.srs = defaultSRS;
                 }
-                var min = obj.points[0];
-                var max = obj.points[1];
-                container.components.push(
-                    new OpenLayers.Bounds(min.x, min.y, max.x, max.y)
-                );
             }
-        }, OpenLayers.Format.GML.Base.prototype.readers["gml"]),
-        "feature": OpenLayers.Format.GML.Base.prototype.readers["feature"],
-        "wfs": OpenLayers.Format.GML.Base.prototype.readers["wfs"]
+        }, OpenLayers.Format.WFSCapabilities.v1.prototype.readers["wfs"]),
+        "ows": OpenLayers.Format.OWSCommon.v1.prototype.readers.ows
     },
 
-    /**
-     * Method: write
-     *
-     * Parameters:
-     * features - {Array(<OpenLayers.Feature.Vector>) | OpenLayers.Feature.Vector}
-     *     An array of features or a single feature.
-     *
-     * Returns:
-     * {String} Given an array of features, a doc with a gml:featureMembers
-     *     element will be returned.  Given a single feature, a doc with a
-     *     gml:featureMember element will be returned.
-     */
-    write: function(features) {
-        var name;
-        if(OpenLayers.Util.isArray(features)) {
-            // GML2 only has abstract feature collections
-            // wfs provides a feature collection from a well-known schema
-            name = "wfs:FeatureCollection";
-        } else {
-            name = "gml:featureMember";
-        }
-        var root = this.writeNode(name, features);
-        this.setAttributeNS(
-            root, this.namespaces["xsi"],
-            "xsi:schemaLocation", this.schemaLocation
-        );
-
-        return OpenLayers.Format.XML.prototype.write.apply(this, [root]);
-    },
-
-    /**
-     * Property: writers
-     * As a compliment to the readers property, this structure contains public
-     *     writing functions grouped by namespace alias and named like the
-     *     node names they produce.
-     */
-    writers: {
-        "gml": OpenLayers.Util.applyDefaults({
-            "Point": function(geometry) {
-                var node = this.createElementNSPlus("gml:Point");
-                this.writeNode("coordinates", [geometry], node);
-                return node;
-            },
-            "coordinates": function(points) {
-                var numPoints = points.length;
-                var parts = new Array(numPoints);
-                var point;
-                for(var i=0; i<numPoints; ++i) {
-                    point = points[i];
-                    if(this.xy) {
-                        parts[i] = point.x + "," + point.y;
-                    } else {
-                        parts[i] = point.y + "," + point.x;
-                    }
-                    if(point.z != undefined) { // allow null or undefined
-                        parts[i] += "," + point.z;
-                    }
-                }
-                return this.createElementNSPlus("gml:coordinates", {
-                    attributes: {
-                        decimal: ".", cs: ",", ts: " "
-                    },
-                    value: (numPoints == 1) ? parts[0] : parts.join(" ")
-                });
-            },
-            "LineString": function(geometry) {
-                var node = this.createElementNSPlus("gml:LineString");
-                this.writeNode("coordinates", geometry.components, node);
-                return node;
-            },
-            "Polygon": function(geometry) {
-                var node = this.createElementNSPlus("gml:Polygon");
-                this.writeNode("outerBoundaryIs", geometry.components[0], node);
-                for(var i=1; i<geometry.components.length; ++i) {
-                    this.writeNode(
-                        "innerBoundaryIs", geometry.components[i], node
-                    );
-                }
-                return node;
-            },
-            "outerBoundaryIs": function(ring) {
-                var node = this.createElementNSPlus("gml:outerBoundaryIs");
-                this.writeNode("LinearRing", ring, node);
-                return node;
-            },
-            "innerBoundaryIs": function(ring) {
-                var node = this.createElementNSPlus("gml:innerBoundaryIs");
-                this.writeNode("LinearRing", ring, node);
-                return node;
-            },
-            "LinearRing": function(ring) {
-                var node = this.createElementNSPlus("gml:LinearRing");
-                this.writeNode("coordinates", ring.components, node);
-                return node;
-            },
-            "Box": function(bounds) {
-                var node = this.createElementNSPlus("gml:Box");
-                this.writeNode("coordinates", [
-                    {x: bounds.left, y: bounds.bottom},
-                    {x: bounds.right, y: bounds.top}
-                ], node);
-                // srsName attribute is optional for gml:Box
-                if(this.srsName) {
-                    node.setAttribute("srsName", this.srsName);
-                }
-                return node;
-            }
-        }, OpenLayers.Format.GML.Base.prototype.writers["gml"]),
-        "feature": OpenLayers.Format.GML.Base.prototype.writers["feature"],
-        "wfs": OpenLayers.Format.GML.Base.prototype.writers["wfs"]
-    },
-    
-    CLASS_NAME: "OpenLayers.Format.GML.v2" 
-
-});
-/* ======================================================================
-    OpenLayers/Format/Filter/v1_0_0.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/Format/GML/v2.js
- * @requires OpenLayers/Format/Filter/v1.js
- */
-
-/**
- * Class: OpenLayers.Format.Filter.v1_0_0
- * Write ogc:Filter version 1.0.0.
- * 
- * Inherits from:
- *  - <OpenLayers.Format.GML.v2>
- *  - <OpenLayers.Format.Filter.v1>
- */
-OpenLayers.Format.Filter.v1_0_0 = OpenLayers.Class(
-    OpenLayers.Format.GML.v2, OpenLayers.Format.Filter.v1, {
-    
-    /**
-     * Constant: VERSION
-     * {String} 1.0.0
-     */
-    VERSION: "1.0.0",
-    
-    /**
-     * Property: schemaLocation
-     * {String} http://www.opengis.net/ogc/filter/1.0.0/filter.xsd
-     */
-    schemaLocation: "http://www.opengis.net/ogc/filter/1.0.0/filter.xsd",
-
-    /**
-     * Constructor: OpenLayers.Format.Filter.v1_0_0
-     * Instances of this class are not created directly.  Use the
-     *     <OpenLayers.Format.Filter> constructor instead.
-     *
-     * Parameters:
-     * options - {Object} An optional object whose properties will be set on
-     *     this instance.
-     */
-    initialize: function(options) {
-        OpenLayers.Format.GML.v2.prototype.initialize.apply(
-            this, [options]
-        );
-    },
-
-    /**
-     * Property: readers
-     * Contains public functions, grouped by namespace prefix, that will
-     *     be applied when a namespaced node is found matching the function
-     *     name.  The function will be applied in the scope of this parser
-     *     with two arguments: the node being read and a context object passed
-     *     from the parent.
-     */
-    readers: {
-        "ogc": OpenLayers.Util.applyDefaults({
-            "PropertyIsEqualTo": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.EQUAL_TO
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsNotEqualTo": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.NOT_EQUAL_TO
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsLike": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.LIKE
-                });
-                this.readChildNodes(node, filter);
-                var wildCard = node.getAttribute("wildCard");
-                var singleChar = node.getAttribute("singleChar");
-                var esc = node.getAttribute("escape");
-                filter.value2regex(wildCard, singleChar, esc);
-                obj.filters.push(filter);
-            }
-        }, OpenLayers.Format.Filter.v1.prototype.readers["ogc"]),
-        "gml": OpenLayers.Format.GML.v2.prototype.readers["gml"],
-        "feature": OpenLayers.Format.GML.v2.prototype.readers["feature"]        
-    },
-
-    /**
-     * Property: writers
-     * As a compliment to the readers property, this structure contains public
-     *     writing functions grouped by namespace alias and named like the
-     *     node names they produce.
-     */
-    writers: {
-        "ogc": OpenLayers.Util.applyDefaults({
-            "PropertyIsEqualTo": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsEqualTo");
-                // no ogc:expression handling for PropertyName for now
-                this.writeNode("PropertyName", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsNotEqualTo": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsNotEqualTo");
-                // no ogc:expression handling for PropertyName for now
-                this.writeNode("PropertyName", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsLike": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsLike", {
-                    attributes: {
-                        wildCard: "*", singleChar: ".", escape: "!"
-                    }
-                });
-                // no ogc:expression handling for now
-                this.writeNode("PropertyName", filter, node);
-                // convert regex string to ogc string
-                this.writeNode("Literal", filter.regex2value(), node);
-                return node;
-            },
-            "BBOX": function(filter) {
-                var node = this.createElementNSPlus("ogc:BBOX");
-                // PropertyName is mandatory in 1.0.0, but e.g. GeoServer also
-                // accepts filters without it. When this is used with
-                // OpenLayers.Protocol.WFS, OpenLayers.Format.WFST will set a
-                // missing filter.property to the geometryName that is
-                // configured with the protocol, which defaults to "the_geom".
-                // So the only way to omit this mandatory property is to not
-                // set the property on the filter and to set the geometryName
-                // on the WFS protocol to null. The latter also happens when
-                // the protocol is configured without a geometryName and a
-                // featureNS.
-                filter.property && this.writeNode("PropertyName", filter, node);
-                var box = this.writeNode("gml:Box", filter.value, node);
-                if(filter.projection) {
-                    box.setAttribute("srsName", filter.projection);
-                }
-                return node;
-            }
-        }, OpenLayers.Format.Filter.v1.prototype.writers["ogc"]),
-        "gml": OpenLayers.Format.GML.v2.prototype.writers["gml"],
-        "feature": OpenLayers.Format.GML.v2.prototype.writers["feature"]
-    },
-
-    /**
-     * Method: writeSpatial
-     *
-     * Read a {<OpenLayers.Filter.Spatial>} filter and converts it into XML.
-     *
-     * Parameters:
-     * filter - {<OpenLayers.Filter.Spatial>} The filter.
-     * name - {String} Name of the generated XML element.
-     *
-     * Returns:
-     * {DOMElement} The created XML element.
-     */
-    writeSpatial: function(filter, name) {
-        var node = this.createElementNSPlus("ogc:"+name);
-        this.writeNode("PropertyName", filter, node);
-        if(filter.value instanceof OpenLayers.Filter.Function) {
-            this.writeNode("Function", filter.value, node);
-        } else {
-        var child;
-        if(filter.value instanceof OpenLayers.Geometry) {
-            child = this.writeNode("feature:_geometry", filter.value).firstChild;
-        } else {
-            child = this.writeNode("gml:Box", filter.value);
-        }
-        if(filter.projection) {
-            child.setAttribute("srsName", filter.projection);
-        }
-        node.appendChild(child);
-        }
-        return node;
-    },
-
-
-    CLASS_NAME: "OpenLayers.Format.Filter.v1_0_0" 
-
-});
-/* ======================================================================
-    OpenLayers/Format/GML/v3.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/Format/GML/Base.js
- */
-
-/**
- * Class: OpenLayers.Format.GML.v3
- * Parses GML version 3.
- *
- * Inherits from:
- *  - <OpenLayers.Format.GML.Base>
- */
-OpenLayers.Format.GML.v3 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
-    
-    /**
-     * Property: schemaLocation
-     * {String} Schema location for a particular minor version.  The writers
-     *     conform with the Simple Features Profile for GML.
-     */
-    schemaLocation: "http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd",
-
-    /**
-     * Property: curve
-     * {Boolean} Write gml:Curve instead of gml:LineString elements.  This also
-     *     affects the elements in multi-part geometries.  Default is false.
-     *     To write gml:Curve elements instead of gml:LineString, set curve
-     *     to true in the options to the contstructor (cannot be changed after
-     *     instantiation).
-     */
-    curve: false,
-    
-    /**
-     * Property: multiCurve
-     * {Boolean} Write gml:MultiCurve instead of gml:MultiLineString.  Since
-     *     the latter is deprecated in GML 3, the default is true.  To write
-     *     gml:MultiLineString instead of gml:MultiCurve, set multiCurve to
-     *     false in the options to the constructor (cannot be changed after
-     *     instantiation).
-     */
-    multiCurve: true,
-    
-    /**
-     * Property: surface
-     * {Boolean} Write gml:Surface instead of gml:Polygon elements.  This also
-     *     affects the elements in multi-part geometries.  Default is false.
-     *     To write gml:Surface elements instead of gml:Polygon, set surface
-     *     to true in the options to the contstructor (cannot be changed after
-     *     instantiation).
-     */
-    surface: false,
-
-    /**
-     * Property: multiSurface
-     * {Boolean} Write gml:multiSurface instead of gml:MultiPolygon.  Since
-     *     the latter is deprecated in GML 3, the default is true.  To write
-     *     gml:MultiPolygon instead of gml:multiSurface, set multiSurface to
-     *     false in the options to the constructor (cannot be changed after
-     *     instantiation).
-     */
-    multiSurface: true,
-
-    /**
-     * Constructor: OpenLayers.Format.GML.v3
-     * Create a parser for GML v3.
-     *
-     * Parameters:
-     * options - {Object} An optional object whose properties will be set on
-     *     this instance.
-     *
-     * Valid options properties:
-     * featureType - {String} Local (without prefix) feature typeName (required).
-     * featureNS - {String} Feature namespace (required).
-     * geometryName - {String} Geometry element name.
-     */
-    initialize: function(options) {
-        OpenLayers.Format.GML.Base.prototype.initialize.apply(this, [options]);
-    },
-
-    /**
-     * Property: readers
-     * Contains public functions, grouped by namespace prefix, that will
-     *     be applied when a namespaced node is found matching the function
-     *     name.  The function will be applied in the scope of this parser
-     *     with two arguments: the node being read and a context object passed
-     *     from the parent.
-     */
-    readers: {
-        "gml": OpenLayers.Util.applyDefaults({
-            "_inherit": function(node, obj, container) {
-                // SRSReferenceGroup attributes
-                var dim = parseInt(node.getAttribute("srsDimension"), 10) ||
-                    (container && container.srsDimension);
-                if (dim) {
-                    obj.srsDimension = dim;
-                }
-            },
-            "featureMembers": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "Curve": function(node, container) {
-                var obj = {points: []};
-                this.readers.gml._inherit.apply(this, [node, obj, container]);
-                this.readChildNodes(node, obj);
-                if(!container.components) {
-                    container.components = [];
-                }
-                container.components.push(
-                    new OpenLayers.Geometry.LineString(obj.points)
-                );
-            },
-            "segments": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "LineStringSegment": function(node, container) {
-                var obj = {};
-                this.readChildNodes(node, obj);
-                if(obj.points) {
-                    Array.prototype.push.apply(container.points, obj.points);
-                }
-            },
-            "pos": function(node, obj) {
-                var str = this.getChildValue(node).replace(
-                    this.regExes.trimSpace, ""
-                );
-                var coords = str.split(this.regExes.splitSpace);
-                var point;
-                if(this.xy) {
-                    point = new OpenLayers.Geometry.Point(
-                        coords[0], coords[1], coords[2]
-                    );
-                } else {
-                    point = new OpenLayers.Geometry.Point(
-                        coords[1], coords[0], coords[2]
-                    );
-                }
-                if(!!!obj.points) {
-                    obj.points = [];
-                }
-                obj.points.push(point);
-            },
-            "posList": function(node, obj) {
-                var str = this.getChildValue(node).replace(
-                    this.regExes.trimSpace, ""
-                );
-                var coords = str.split(this.regExes.splitSpace);
-                // The "dimension" attribute is from the GML 3.0.1 spec.
-                var dim = obj.srsDimension ||
-                    parseInt(node.getAttribute("srsDimension") || node.getAttribute("dimension"), 10) || 2;
-                var j, x, y, z;
-                var numPoints = coords.length / dim;
-                var points = new Array(numPoints);
-                for(var i=0, len=coords.length; i<len; i += dim) {
-                    x = coords[i];
-                    y = coords[i+1];
-                    z = (dim == 2) ? undefined : coords[i+2];
-                    if (this.xy) {
-                        points[i/dim] = new OpenLayers.Geometry.Point(x, y, z);
-                    } else {
-                        points[i/dim] = new OpenLayers.Geometry.Point(y, x, z);
-                    }
-                }
-                obj.points = points;
-            },
-            "Surface": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "patches": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "PolygonPatch": function(node, obj) {
-                this.readers.gml.Polygon.apply(this, [node, obj]);
-            },
-            "exterior": function(node, container) {
-                var obj = {};
-                this.readChildNodes(node, obj);
-                container.outer = obj.components[0];
-            },
-            "interior": function(node, container) {
-                var obj = {};
-                this.readChildNodes(node, obj);
-                container.inner.push(obj.components[0]);
-            },
-            "MultiCurve": function(node, container) {
-                var obj = {components: []};
-                this.readers.gml._inherit.apply(this, [node, obj, container]);
-                this.readChildNodes(node, obj);
-                if(obj.components.length > 0) {
-                    container.components = [
-                        new OpenLayers.Geometry.MultiLineString(obj.components)
-                    ];
-                }
-            },
-            "curveMember": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "MultiSurface": function(node, container) {
-                var obj = {components: []};
-                this.readers.gml._inherit.apply(this, [node, obj, container]);
-                this.readChildNodes(node, obj);
-                if(obj.components.length > 0) {
-                    container.components = [
-                        new OpenLayers.Geometry.MultiPolygon(obj.components)
-                    ];
-                }
-            },
-            "surfaceMember": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "surfaceMembers": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "pointMembers": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "lineStringMembers": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "polygonMembers": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "geometryMembers": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "Envelope": function(node, container) {
-                var obj = {points: new Array(2)};
-                this.readChildNodes(node, obj);
-                if(!container.components) {
-                    container.components = [];
-                }
-
-                var min = obj.points[0];
-                var max = obj.points[1];
-                container.components.push(
-                    new OpenLayers.Bounds(min.x, min.y, max.x, max.y)
-                );
-            },
-            "lowerCorner": function(node, container) {
-                var obj = {};
-                this.readers.gml.pos.apply(this, [node, obj]);
-                container.points[0] = obj.points[0];
-            },
-            "upperCorner": function(node, container) {
-                var obj = {};
-                this.readers.gml.pos.apply(this, [node, obj]);
-                container.points[1] = obj.points[0];
-            }
-        }, OpenLayers.Format.GML.Base.prototype.readers["gml"]),            
-        "feature": OpenLayers.Format.GML.Base.prototype.readers["feature"],
-        "wfs": OpenLayers.Format.GML.Base.prototype.readers["wfs"]
-    },
-    
-    /**
-     * Method: write
-     *
-     * Parameters:
-     * features - {Array(<OpenLayers.Feature.Vector>) | OpenLayers.Feature.Vector}
-     *     An array of features or a single feature.
-     *
-     * Returns:
-     * {String} Given an array of features, a doc with a gml:featureMembers
-     *     element will be returned.  Given a single feature, a doc with a
-     *     gml:featureMember element will be returned.
-     */
-    write: function(features) {
-        var name;
-        if(OpenLayers.Util.isArray(features)) {
-            name = "featureMembers";
-        } else {
-            name = "featureMember";
-        }
-        var root = this.writeNode("gml:" + name, features);
-        this.setAttributeNS(
-            root, this.namespaces["xsi"],
-            "xsi:schemaLocation", this.schemaLocation
-        );
-
-        return OpenLayers.Format.XML.prototype.write.apply(this, [root]);
-    },
-
-    /**
-     * Property: writers
-     * As a compliment to the readers property, this structure contains public
-     *     writing functions grouped by namespace alias and named like the
-     *     node names they produce.
-     */
-    writers: {
-        "gml": OpenLayers.Util.applyDefaults({
-            "featureMembers": function(features) {
-                var node = this.createElementNSPlus("gml:featureMembers");
-                for(var i=0, len=features.length; i<len; ++i) {
-                    this.writeNode("feature:_typeName", features[i], node);
-                }
-                return node;
-            },
-            "Point": function(geometry) {
-                var node = this.createElementNSPlus("gml:Point");
-                this.writeNode("pos", geometry, node);
-                return node;
-            },
-            "pos": function(point) {
-                // only 2d for simple features profile
-                var pos = (this.xy) ?
-                    (point.x + " " + point.y) : (point.y + " " + point.x);
-                return this.createElementNSPlus("gml:pos", {
-                    value: pos
-                });
-            },
-            "LineString": function(geometry) {
-                var node = this.createElementNSPlus("gml:LineString");
-                this.writeNode("posList", geometry.components, node);
-                return node;
-            },
-            "Curve": function(geometry) {
-                var node = this.createElementNSPlus("gml:Curve");
-                this.writeNode("segments", geometry, node);
-                return node;
-            },
-            "segments": function(geometry) {
-                var node = this.createElementNSPlus("gml:segments");
-                this.writeNode("LineStringSegment", geometry, node);
-                return node;
-            },
-            "LineStringSegment": function(geometry) {
-                var node = this.createElementNSPlus("gml:LineStringSegment");
-                this.writeNode("posList", geometry.components, node);
-                return node;
-            },
-            "posList": function(points) {
-                // only 2d for simple features profile
-                var len = points.length;
-                var parts = new Array(len);
-                var point;
-                for(var i=0; i<len; ++i) {
-                    point = points[i];
-                    if(this.xy) {
-                        parts[i] = point.x + " " + point.y;
-                    } else {
-                        parts[i] = point.y + " " + point.x;
-                    }
-                }
-                return this.createElementNSPlus("gml:posList", {
-                    value: parts.join(" ")
-                }); 
-            },
-            "Surface": function(geometry) {
-                var node = this.createElementNSPlus("gml:Surface");
-                this.writeNode("patches", geometry, node);
-                return node;
-            },
-            "patches": function(geometry) {
-                var node = this.createElementNSPlus("gml:patches");
-                this.writeNode("PolygonPatch", geometry, node);
-                return node;
-            },
-            "PolygonPatch": function(geometry) {
-                var node = this.createElementNSPlus("gml:PolygonPatch", {
-                    attributes: {interpolation: "planar"}
-                });
-                this.writeNode("exterior", geometry.components[0], node);
-                for(var i=1, len=geometry.components.length; i<len; ++i) {
-                    this.writeNode(
-                        "interior", geometry.components[i], node
-                    );
-                }
-                return node;
-            },
-            "Polygon": function(geometry) {
-                var node = this.createElementNSPlus("gml:Polygon");
-                this.writeNode("exterior", geometry.components[0], node);
-                for(var i=1, len=geometry.components.length; i<len; ++i) {
-                    this.writeNode(
-                        "interior", geometry.components[i], node
-                    );
-                }
-                return node;
-            },
-            "exterior": function(ring) {
-                var node = this.createElementNSPlus("gml:exterior");
-                this.writeNode("LinearRing", ring, node);
-                return node;
-            },
-            "interior": function(ring) {
-                var node = this.createElementNSPlus("gml:interior");
-                this.writeNode("LinearRing", ring, node);
-                return node;
-            },
-            "LinearRing": function(ring) {
-                var node = this.createElementNSPlus("gml:LinearRing");
-                this.writeNode("posList", ring.components, node);
-                return node;
-            },
-            "MultiCurve": function(geometry) {
-                var node = this.createElementNSPlus("gml:MultiCurve");
-                var components = geometry.components || [geometry];
-                for(var i=0, len=components.length; i<len; ++i) {
-                    this.writeNode("curveMember", components[i], node);
-                }
-                return node;
-            },
-            "curveMember": function(geometry) {
-                var node = this.createElementNSPlus("gml:curveMember");
-                if(this.curve) {
-                    this.writeNode("Curve", geometry, node);
-                } else {
-                    this.writeNode("LineString", geometry, node);
-                }
-                return node;
-            },
-            "MultiSurface": function(geometry) {
-                var node = this.createElementNSPlus("gml:MultiSurface");
-                var components = geometry.components || [geometry];
-                for(var i=0, len=components.length; i<len; ++i) {
-                    this.writeNode("surfaceMember", components[i], node);
-                }
-                return node;
-            },
-            "surfaceMember": function(polygon) {
-                var node = this.createElementNSPlus("gml:surfaceMember");
-                if(this.surface) {
-                    this.writeNode("Surface", polygon, node);
-                } else {
-                    this.writeNode("Polygon", polygon, node);
-                }
-                return node;
-            },
-            "Envelope": function(bounds) {
-                var node = this.createElementNSPlus("gml:Envelope");
-                this.writeNode("lowerCorner", bounds, node);
-                this.writeNode("upperCorner", bounds, node);
-                // srsName attribute is required for gml:Envelope
-                if(this.srsName) {
-                    node.setAttribute("srsName", this.srsName);
-                }
-                return node;
-            },
-            "lowerCorner": function(bounds) {
-                // only 2d for simple features profile
-                var pos = (this.xy) ?
-                    (bounds.left + " " + bounds.bottom) :
-                    (bounds.bottom + " " + bounds.left);
-                return this.createElementNSPlus("gml:lowerCorner", {
-                    value: pos
-                });
-            },
-            "upperCorner": function(bounds) {
-                // only 2d for simple features profile
-                var pos = (this.xy) ?
-                    (bounds.right + " " + bounds.top) :
-                    (bounds.top + " " + bounds.right);
-                return this.createElementNSPlus("gml:upperCorner", {
-                    value: pos
-                });
-            }
-        }, OpenLayers.Format.GML.Base.prototype.writers["gml"]),
-        "feature": OpenLayers.Format.GML.Base.prototype.writers["feature"],
-        "wfs": OpenLayers.Format.GML.Base.prototype.writers["wfs"]
-    },
-
-    /**
-     * Method: setGeometryTypes
-     * Sets the <geometryTypes> mapping.
-     */
-    setGeometryTypes: function() {
-        this.geometryTypes = {
-            "OpenLayers.Geometry.Point": "Point",
-            "OpenLayers.Geometry.MultiPoint": "MultiPoint",
-            "OpenLayers.Geometry.LineString": (this.curve === true) ? "Curve": "LineString",
-            "OpenLayers.Geometry.MultiLineString": (this.multiCurve === false) ? "MultiLineString" : "MultiCurve",
-            "OpenLayers.Geometry.Polygon": (this.surface === true) ? "Surface" : "Polygon",
-            "OpenLayers.Geometry.MultiPolygon": (this.multiSurface === false) ? "MultiPolygon" : "MultiSurface",
-            "OpenLayers.Geometry.Collection": "GeometryCollection"
-        };
-    },
-    
-    CLASS_NAME: "OpenLayers.Format.GML.v3" 
-
-});
-/* ======================================================================
-    OpenLayers/Format/Filter/v2.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-/**
- * @requires OpenLayers/Format/Filter.js
- * @requires OpenLayers/Format/XML.js
- * @requires OpenLayers/Filter/Function.js
- * @requires OpenLayers/BaseTypes/Date.js
- */
-
-/**
- * Class: OpenLayers.Format.Filter.v2
- * Superclass for Filter version 2 parsers.
- *
- * Inherits from:
- *  - <OpenLayers.Format.XML>
- */
-OpenLayers.Format.Filter.v2 = OpenLayers.Class(OpenLayers.Format.XML, {
-    
-    /**
-     * Property: namespaces
-     * {Object} Mapping of namespace aliases to namespace URIs.
-     */
-    namespaces: {
-        fes: "http://www.opengis.net/fes/2.0",
-        gml: "http://www.opengis.net/gml/3.2",
-        xlink: "http://www.w3.org/1999/xlink",
-        xsi: "http://www.w3.org/2001/XMLSchema-instance"
-    },
-
-    /**
-     * Property: defaultPrefix
-     */
-    defaultPrefix: "fes",
-
-    /**
-     * Property: schemaLocation
-     * {String} Schema location for a particular minor version.
-     */
-    schemaLocation: null,
-    
-    /**
-     * Constructor: OpenLayers.Format.Filter.v1
-     * Instances of this class are not created directly.  Use the
-     *     <OpenLayers.Format.Filter> constructor instead.
-     *
-     * Parameters:
-     * options - {Object} An optional object whose properties will be set on
-     *     this instance.
-     */
-    initialize: function(options) {
-        OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
-    },
-    
-    /**
-     * Method: read
-     *
-     * Parameters:
-     * data - {DOMElement} A Filter document element.
-     *
-     * Returns:
-     * {<OpenLayers.Filter>} A filter object.
-     */
-    read: function(data) {
-        var obj = {};
-        this.readers.fes["Filter"].apply(this, [data, obj]);
-        return obj.filter;
-    },
-    
-    /**
-     * Property: readers
-     * Contains public functions, grouped by namespace prefix, that will
-     *     be applied when a namespaced node is found matching the function
-     *     name.  The function will be applied in the scope of this parser
-     *     with two arguments: the node being read and a context object passed
-     *     from the parent.
-     */
-    readers: {
-        "fes": {
-            "_expression": function(node) {
-                // only the simplest of fes:expression handled
-                // "some text and an <ValueReference>attribute</ValueReference>"}
-                var obj, value = "";
-                for(var child=node.firstChild; child; child=child.nextSibling) {
-                    switch(child.nodeType) {
-                        case 1:
-                            obj = this.readNode(child);
-                            if (obj.property) {
-                                value += "${" + obj.property + "}";
-                            } else if (obj.value !== undefined) {
-                                value += obj.value;
-                            }
-                            break;
-                        case 3: // text node
-                        case 4: // cdata section
-                            value += child.nodeValue;
-                    }
-                }
-                return value;
-            },
-            "Filter": function(node, parent) {
-                // Filters correspond to subclasses of OpenLayers.Filter.
-                // Since they contain information we don't persist, we
-                // create a temporary object and then pass on the filter
-                // (fes:Filter) to the parent obj.
-                var obj = {
-                    fids: [],
-                    filters: []
-                };
-                this.readChildNodes(node, obj);
-                if(obj.fids.length > 0) {
-                    parent.filter = new OpenLayers.Filter.FeatureId({
-                        fids: obj.fids
-                    });
-                } else if(obj.filters.length > 0) {
-                    parent.filter = obj.filters[0];
-                }
-            },
-            "ResourceId": function(node, obj) {
-                var fid = node.getAttribute("rid");
-                if(fid) {
-                    obj.fids.push(fid);
-                }
-            },
-
-            "And": function(node, obj) {
-                var filter = new OpenLayers.Filter.Logical({
-                    type: OpenLayers.Filter.Logical.AND
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "Or": function(node, obj) {
-                var filter = new OpenLayers.Filter.Logical({
-                    type: OpenLayers.Filter.Logical.OR
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "Not": function(node, obj) {
-                var filter = new OpenLayers.Filter.Logical({
-                    type: OpenLayers.Filter.Logical.NOT
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsLessThan": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.LESS_THAN
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsGreaterThan": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.GREATER_THAN
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsLessThanOrEqualTo": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsGreaterThanOrEqualTo": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsBetween": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.BETWEEN
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "Literal": function(node, obj) {
-                obj.value = OpenLayers.String.numericIf(
-                    this.getChildValue(node), true);
-            },
-            "ValueReference": function(node, filter) {
-                filter.property = this.getChildValue(node);
-            },
-            "LowerBoundary": function(node, filter) {
-                filter.lowerBoundary = OpenLayers.String.numericIf(
-                    this.readers.fes._expression.call(this, node), true);
-            },
-            "UpperBoundary": function(node, filter) {
-                filter.upperBoundary = OpenLayers.String.numericIf(
-                    this.readers.fes._expression.call(this, node), true);
-            },
-            "Intersects": function(node, obj) {
-                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.INTERSECTS);
-            },
-            "Within": function(node, obj) {
-                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.WITHIN);
-            },
-            "Contains": function(node, obj) {
-                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.CONTAINS);
-            },
-            "DWithin": function(node, obj) {
-                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.DWITHIN);
-            },
-            "Distance": function(node, obj) {
-                obj.distance = parseInt(this.getChildValue(node));
-                obj.distanceUnits = node.getAttribute("units");
-            },
-            "Function": function(node, obj) {
-                //TODO write decoder for it
-                return;
-            },
-            "PropertyIsNull": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.IS_NULL
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            }
-        }
-    },
-    
-    /**
-     * Method: readSpatial
-     *
-     * Read a {<OpenLayers.Filter.Spatial>} filter.
-     * 
-     * Parameters:
-     * node - {DOMElement} A DOM element that contains an fes:expression.
-     * obj - {Object} The target object.
-     * type - {String} One of the OpenLayers.Filter.Spatial.* constants.
-     *
-     * Returns:
-     * {<OpenLayers.Filter.Spatial>} The created filter.
-     */
-    readSpatial: function(node, obj, type) {
-        var filter = new OpenLayers.Filter.Spatial({
-            type: type
-        });
-        this.readChildNodes(node, filter);
-        filter.value = filter.components[0];
-        delete filter.components;
-        obj.filters.push(filter);
-    },
-
-    /**
-     * APIMethod: encodeLiteral
-     * Generates the string representation of a value for use in <Literal> 
-     *     elements.  The default encoder writes Date values as ISO 8601 
-     *     strings.
-     *
-     * Parameters:
-     * value - {Object} Literal value to encode
-     *
-     * Returns:
-     * {String} String representation of the provided value.
-     */
-    encodeLiteral: function(value) {
-        if (value instanceof Date) {
-            value = OpenLayers.Date.toISOString(value);
-        }
-        return value;
-    },
-
-    /**
-     * Method: writeOgcExpression
-     * Limited support for writing OGC expressions. Currently it supports
-     * (<OpenLayers.Filter.Function> || String || Number)
-     *
-     * Parameters:
-     * value - (<OpenLayers.Filter.Function> || String || Number)
-     * node - {DOMElement} A parent DOM element 
-     *
-     * Returns:
-     * {DOMElement} Updated node element.
-     */
-    writeOgcExpression: function(value, node) {
-        if (value instanceof OpenLayers.Filter.Function){
-            this.writeNode("Function", value, node);
-        } else {
-            this.writeNode("Literal", value, node);
-        }
-        return node;
-    },    
-    
-    /**
-     * Method: write
-     *
-     * Parameters:
-     * filter - {<OpenLayers.Filter>} A filter object.
-     *
-     * Returns:
-     * {DOMElement} An fes:Filter element.
-     */
-    write: function(filter) {
-        return this.writers.fes["Filter"].apply(this, [filter]);
-    },
-    
-    /**
-     * Property: writers
-     * As a compliment to the readers property, this structure contains public
-     *     writing functions grouped by namespace alias and named like the
-     *     node names they produce.
-     */
-    writers: {
-        "fes": {
-            "Filter": function(filter) {
-                var node = this.createElementNSPlus("fes:Filter");
-                this.writeNode(this.getFilterType(filter), filter, node);
-                return node;
-            },
-            "_featureIds": function(filter) {
-                var node = this.createDocumentFragment();
-                for (var i=0, ii=filter.fids.length; i<ii; ++i) {
-                    this.writeNode("fes:ResourceId", filter.fids[i], node);
-                }
-                return node;
-            },
-            "ResourceId": function(fid) {
-                return this.createElementNSPlus("fes:ResourceId", {
-                    attributes: {rid: fid}
-                });
-            },
-
-            "And": function(filter) {
-                var node = this.createElementNSPlus("fes:And");
-                var childFilter;
-                for (var i=0, ii=filter.filters.length; i<ii; ++i) {
-                    childFilter = filter.filters[i];
-                    this.writeNode(
-                        this.getFilterType(childFilter), childFilter, node
-                    );
-                }
-                return node;
-            },
-            "Or": function(filter) {
-                var node = this.createElementNSPlus("fes:Or");
-                var childFilter;
-                for (var i=0, ii=filter.filters.length; i<ii; ++i) {
-                    childFilter = filter.filters[i];
-                    this.writeNode(
-                        this.getFilterType(childFilter), childFilter, node
-                    );
-                }
-                return node;
-            },
-            "Not": function(filter) {
-                var node = this.createElementNSPlus("fes:Not");
-                var childFilter = filter.filters[0];
-                this.writeNode(
-                    this.getFilterType(childFilter), childFilter, node
-                );
-                return node;
-            },
-            "PropertyIsLessThan": function(filter) {
-                var node = this.createElementNSPlus("fes:PropertyIsLessThan");
-                // no fes:expression handling for ValueReference for now
-                this.writeNode("ValueReference", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsGreaterThan": function(filter) {
-                var node = this.createElementNSPlus("fes:PropertyIsGreaterThan");
-                // no fes:expression handling for ValueReference for now
-                this.writeNode("ValueReference", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsLessThanOrEqualTo": function(filter) {
-                var node = this.createElementNSPlus("fes:PropertyIsLessThanOrEqualTo");
-                // no fes:expression handling for ValueReference for now
-                this.writeNode("ValueReference", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsGreaterThanOrEqualTo": function(filter) {
-                var node = this.createElementNSPlus("fes:PropertyIsGreaterThanOrEqualTo");
-                // no fes:expression handling for ValueReference for now
-                this.writeNode("ValueReference", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsBetween": function(filter) {
-                var node = this.createElementNSPlus("fes:PropertyIsBetween");
-                // no fes:expression handling for ValueReference for now
-                this.writeNode("ValueReference", filter, node);
-                this.writeNode("LowerBoundary", filter, node);
-                this.writeNode("UpperBoundary", filter, node);
-                return node;
-            },
-            "ValueReference": function(filter) {
-                // no fes:expression handling for now
-                return this.createElementNSPlus("fes:ValueReference", {
-                    value: filter.property
-                });
-            },
-            "Literal": function(value) {
-                var encode = this.encodeLiteral ||
-                    OpenLayers.Format.Filter.v1.prototype.encodeLiteral;
-                return this.createElementNSPlus("fes:Literal", {
-                    value: encode(value)
-                });
-            },
-            "LowerBoundary": function(filter) {
-                // handle Literals or Functions for now
-                var node = this.createElementNSPlus("fes:LowerBoundary");
-                this.writeOgcExpression(filter.lowerBoundary, node);
-                return node;
-            },
-            "UpperBoundary": function(filter) {
-                // handle Literals or Functions for now
-                var node = this.createElementNSPlus("fes:UpperBoundary");
-                this.writeNode("Literal", filter.upperBoundary, node);
-                return node;
-            },
-            "INTERSECTS": function(filter) {
-                return this.writeSpatial(filter, "Intersects");
-            },
-            "WITHIN": function(filter) {
-                return this.writeSpatial(filter, "Within");
-            },
-            "CONTAINS": function(filter) {
-                return this.writeSpatial(filter, "Contains");
-            },
-            "DWITHIN": function(filter) {
-                var node = this.writeSpatial(filter, "DWithin");
-                this.writeNode("Distance", filter, node);
-                return node;
-            },
-            "Distance": function(filter) {
-                return this.createElementNSPlus("fes:Distance", {
-                    attributes: {
-                        units: filter.distanceUnits
-                    },
-                    value: filter.distance
-                });
-            },
-            "Function": function(filter) {
-                var node = this.createElementNSPlus("fes:Function", {
-                    attributes: {
-                        name: filter.name
-                    }
-                });
-                var params = filter.params;
-                for(var i=0, len=params.length; i<len; i++){
-                    this.writeOgcExpression(params[i], node);
-                }
-                return node;
-            },
-            "PropertyIsNull": function(filter) {
-                var node = this.createElementNSPlus("fes:PropertyIsNull");
-                this.writeNode("ValueReference", filter, node);
-                return node;
-            }
-        }
-    },
-
-    /**
-     * Method: getFilterType
-     */
-    getFilterType: function(filter) {
-        var filterType = this.filterMap[filter.type];
-        if(!filterType) {
-            throw "Filter writing not supported for rule type: " + filter.type;
-        }
-        return filterType;
-    },
-    
-    /**
-     * Property: filterMap
-     * {Object} Contains a member for each filter type.  Values are node names
-     *     for corresponding OGC Filter child elements.
-     */
-    filterMap: {
-        "&&": "And",
-        "||": "Or",
-        "!": "Not",
-        "==": "PropertyIsEqualTo",
-        "!=": "PropertyIsNotEqualTo",
-        "<": "PropertyIsLessThan",
-        ">": "PropertyIsGreaterThan",
-        "<=": "PropertyIsLessThanOrEqualTo",
-        ">=": "PropertyIsGreaterThanOrEqualTo",
-        "..": "PropertyIsBetween",
-        "~": "PropertyIsLike",
-        "NULL": "PropertyIsNull",
-        "BBOX": "BBOX",
-        "DWITHIN": "DWITHIN",
-        "WITHIN": "WITHIN",
-        "CONTAINS": "CONTAINS",
-        "INTERSECTS": "INTERSECTS",
-        "FID": "_featureIds"
-    },
-
-    CLASS_NAME: "OpenLayers.Format.Filter.v2" 
-
-});
-/* ======================================================================
-    OpenLayers/Format/Filter/v2_0_0.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/Format/Filter/v2.js
- * @requires OpenLayers/Format/GML/v3.js
- */
-
-/**
- * Class: OpenLayers.Format.Filter.v2_0_0
- * Writes fes:Filter version 2.0.0.
- *
- * Differences from the v1.0.0 parser:
- *  - uses GML v3 instead of GML v2
- *  - reads matchCase attribute on fes:PropertyIsEqual and
- *        fes:PropertyIsNotEqual elements.
- *  - writes matchCase attribute from comparison filters of type EQUAL_TO,
- *        NOT_EQUAL_TO and LIKE.
- * 
- * Inherits from: 
- *  - <OpenLayers.Format.GML.v3>
- *  - <OpenLayers.Format.Filter.v1>
- */
-OpenLayers.Format.Filter.v2_0_0 = OpenLayers.Class(
-    OpenLayers.Format.GML.v3, OpenLayers.Format.Filter.v2, {
-    
-    /**
-     * Constant: VERSION
-     * {String} 2.0.0
-     */
-    VERSION: "2.0.0",
-    
-    /**
-     * Property: schemaLocation
-     * {String} http://schemas.opengis.net/filter/2.0/filterAll.xsd
-     */
-    schemaLocation: "http://schemas.opengis.net/filter/2.0/filterAll.xsd",
-
-    /**
-     * Constructor: OpenLayers.Format.Filter.v1_1_0
-     * Instances of this class are not created directly.  Use the
-     *     <OpenLayers.Format.Filter> constructor instead.
-     *
-     * Parameters:
-     * options - {Object} An optional object whose properties will be set on
-     *     this instance.
-     */
-    initialize: function(options) {
-        OpenLayers.Format.GML.v3.prototype.initialize.apply(
-            this, [options]
-        );
-    },
-
-    /**
-     * Property: readers
-     * Contains public functions, grouped by namespace prefix, that will
-     *     be applied when a namespaced node is found matching the function
-     *     name.  The function will be applied in the scope of this parser
-     *     with two arguments: the node being read and a context object passed
-     *     from the parent.
-     */
-    readers: {
-        "fes": OpenLayers.Util.applyDefaults({
-            "PropertyIsEqualTo": function(node, obj) {
-                var matchCase = node.getAttribute("matchCase");
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.EQUAL_TO,
-                    matchCase: !(matchCase === "false" || matchCase === "0")
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsNotEqualTo": function(node, obj) {
-                var matchCase = node.getAttribute("matchCase");
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.NOT_EQUAL_TO,
-                    matchCase: !(matchCase === "false" || matchCase === "0")
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsLike": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.LIKE
-                });
-                this.readChildNodes(node, filter);
-                var wildCard = node.getAttribute("wildCard");
-                var singleChar = node.getAttribute("singleChar");
-                var esc = node.getAttribute("escapeChar");
-                filter.value2regex(wildCard, singleChar, esc);
-                obj.filters.push(filter);
-            }
-        }, OpenLayers.Format.Filter.v2.prototype.readers["fes"]),
-        "gml": OpenLayers.Format.GML.v3.prototype.readers["gml"],
-        "feature": OpenLayers.Format.GML.v3.prototype.readers["feature"]
-    },
-
-    /**
-     * Property: writers
-     * As a compliment to the readers property, this structure contains public
-     *     writing functions grouped by namespace alias and named like the
-     *     node names they produce.
-     */
-    writers: {
-        "fes": OpenLayers.Util.applyDefaults({
-            "PropertyIsEqualTo": function(filter) {
-                var node = this.createElementNSPlus("fes:PropertyIsEqualTo", {
-                    attributes: {matchCase: filter.matchCase}
-                });
-                // no fes:expression handling for ValueReference for now
-                this.writeNode("ValueReference", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsNotEqualTo": function(filter) {
-                var node = this.createElementNSPlus("fes:PropertyIsNotEqualTo", {
-                    attributes: {matchCase: filter.matchCase}
-                });
-                // no fes:expression handling for ValueReference for now
-                this.writeNode("ValueReference", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsLike": function(filter) {
-                var node = this.createElementNSPlus("fes:PropertyIsLike", {
-                    attributes: {
-                        matchCase: filter.matchCase,
-                        wildCard: "*", singleChar: ".", escapeChar: "!"
-                    }
-                });
-                // no fes:expression handling for now
-                this.writeNode("ValueReference", filter, node);
-                // convert regex string to ogc string
-                this.writeNode("Literal", filter.regex2value(), node);
-                return node;
-            },
-            "BBOX": function(filter) {
-                var node = this.createElementNSPlus("fes:BBOX");
-                // ValueReference is optional in 1.1.0
-                filter.property && this.writeNode("ValueReference", filter, node);
-                var box = this.writeNode("gml:Envelope", filter.value);
-                if(filter.projection) {
-                    box.setAttribute("srsName", filter.projection);
-                }
-                node.appendChild(box); 
-                return node;
-            },
-            "SortBy": function(sortProperties) {
-                var node = this.createElementNSPlus("fes:SortBy");
-                for (var i=0,l=sortProperties.length;i<l;i++) {
-                    this.writeNode(
-                        "fes:SortProperty",
-                        sortProperties[i],
-                        node
-                    );
-                }
-                return node;
-            }, 
-            "SortProperty": function(sortProperty) {
-                var node = this.createElementNSPlus("fes:SortProperty");
-                this.writeNode(
-                    "fes:ValueReference",
-                    sortProperty,
-                    node
-                );
-                this.writeNode(
-                    "fes:SortOrder",
-                    (sortProperty.order == 'DESC') ? 'DESC' : 'ASC',
-                    node
-                );
-                return node;
-            },
-            "SortOrder": function(value) {
-                var node = this.createElementNSPlus("fes:SortOrder", {
-                    value: value
-                });
-                return node;
-            }
-        }, OpenLayers.Format.Filter.v2.prototype.writers["fes"]),
-        "gml": OpenLayers.Format.GML.v3.prototype.writers["gml"],
-        "feature": OpenLayers.Format.GML.v3.prototype.writers["feature"]
-    },
-
-    /**
-     * Method: writeSpatial
-     *
-     * Read a {<OpenLayers.Filter.Spatial>} filter and converts it into XML.
-     *
-     * Parameters:
-     * filter - {<OpenLayers.Filter.Spatial>} The filter.
-     * name - {String} Name of the generated XML element.
-     *
-     * Returns:
-     * {DOMElement} The created XML element.
-     */
-    writeSpatial: function(filter, name) {
-        var node = this.createElementNSPlus("fes:"+name);
-        this.writeNode("ValueReference", filter, node);
-        if(filter.value instanceof OpenLayers.Filter.Function) {
-            this.writeNode("Function", filter.value, node);
-        } else {
-        var child;
-        if(filter.value instanceof OpenLayers.Geometry) {
-            child = this.writeNode("feature:_geometry", filter.value).firstChild;
-        } else {
-            child = this.writeNode("gml:Envelope", filter.value);
-        }
-        if(filter.projection) {
-            child.setAttribute("srsName", filter.projection);
-        }
-        node.appendChild(child);
-        }
-        return node;
-    },
-
-    CLASS_NAME: "OpenLayers.Format.Filter.v2_0_0" 
+    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1_1_0" 
 
 });
 /* ======================================================================
     OpenLayers/Events.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -19512,10 +18775,873 @@ OpenLayers.Events = OpenLayers.Class({
     CLASS_NAME: "OpenLayers.Events"
 });
 /* ======================================================================
+    OpenLayers/Format/Filter/v2.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+/**
+ * @requires OpenLayers/Format/Filter.js
+ * @requires OpenLayers/Format/XML.js
+ * @requires OpenLayers/Filter/Function.js
+ * @requires OpenLayers/BaseTypes/Date.js
+ */
+
+/**
+ * Class: OpenLayers.Format.Filter.v2
+ * Superclass for Filter version 2 parsers.
+ *
+ * Inherits from:
+ *  - <OpenLayers.Format.XML>
+ */
+OpenLayers.Format.Filter.v2 = OpenLayers.Class(OpenLayers.Format.XML, {
+    
+    /**
+     * Property: namespaces
+     * {Object} Mapping of namespace aliases to namespace URIs.
+     */
+    namespaces: {
+        fes: "http://www.opengis.net/fes/2.0",
+        gml: "http://www.opengis.net/gml/3.2",
+        xlink: "http://www.w3.org/1999/xlink",
+        xsi: "http://www.w3.org/2001/XMLSchema-instance"
+    },
+
+    /**
+     * Property: defaultPrefix
+     */
+    defaultPrefix: "fes",
+
+    /**
+     * Property: schemaLocation
+     * {String} Schema location for a particular minor version.
+     */
+    schemaLocation: null,
+    
+    /**
+     * Constructor: OpenLayers.Format.Filter.v1
+     * Instances of this class are not created directly.  Use the
+     *     <OpenLayers.Format.Filter> constructor instead.
+     *
+     * Parameters:
+     * options - {Object} An optional object whose properties will be set on
+     *     this instance.
+     */
+    initialize: function(options) {
+        OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
+    },
+    
+    /**
+     * Method: read
+     *
+     * Parameters:
+     * data - {DOMElement} A Filter document element.
+     *
+     * Returns:
+     * {<OpenLayers.Filter>} A filter object.
+     */
+    read: function(data) {
+        var obj = {};
+        this.readers.fes["Filter"].apply(this, [data, obj]);
+        return obj.filter;
+    },
+    
+    /**
+     * Property: readers
+     * Contains public functions, grouped by namespace prefix, that will
+     *     be applied when a namespaced node is found matching the function
+     *     name.  The function will be applied in the scope of this parser
+     *     with two arguments: the node being read and a context object passed
+     *     from the parent.
+     */
+    readers: {
+        "fes": {
+            "_expression": function(node) {
+                // only the simplest of fes:expression handled
+                // "some text and an <ValueReference>attribute</ValueReference>"}
+                var obj, value = "";
+                for(var child=node.firstChild; child; child=child.nextSibling) {
+                    switch(child.nodeType) {
+                        case 1:
+                            obj = this.readNode(child);
+                            if (obj.property) {
+                                value += "${" + obj.property + "}";
+                            } else if (obj.value !== undefined) {
+                                value += obj.value;
+                            }
+                            break;
+                        case 3: // text node
+                        case 4: // cdata section
+                            value += child.nodeValue;
+                    }
+                }
+                return value;
+            },
+            "Filter": function(node, parent) {
+                // Filters correspond to subclasses of OpenLayers.Filter.
+                // Since they contain information we don't persist, we
+                // create a temporary object and then pass on the filter
+                // (fes:Filter) to the parent obj.
+                var obj = {
+                    fids: [],
+                    filters: []
+                };
+                this.readChildNodes(node, obj);
+                if(obj.fids.length > 0) {
+                    parent.filter = new OpenLayers.Filter.FeatureId({
+                        fids: obj.fids
+                    });
+                } else if(obj.filters.length > 0) {
+                    parent.filter = obj.filters[0];
+                }
+            },
+            "ResourceId": function(node, obj) {
+                var fid = node.getAttribute("rid");
+                if(fid) {
+                    obj.fids.push(fid);
+                }
+            },
+
+            "And": function(node, obj) {
+                var filter = new OpenLayers.Filter.Logical({
+                    type: OpenLayers.Filter.Logical.AND
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "Or": function(node, obj) {
+                var filter = new OpenLayers.Filter.Logical({
+                    type: OpenLayers.Filter.Logical.OR
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "Not": function(node, obj) {
+                var filter = new OpenLayers.Filter.Logical({
+                    type: OpenLayers.Filter.Logical.NOT
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsLessThan": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LESS_THAN
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsGreaterThan": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.GREATER_THAN
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsLessThanOrEqualTo": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsGreaterThanOrEqualTo": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsBetween": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.BETWEEN
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "Literal": function(node, obj) {
+                obj.value = OpenLayers.String.numericIf(
+                    this.getChildValue(node), true);
+            },
+            "ValueReference": function(node, filter) {
+                filter.property = this.getChildValue(node);
+            },
+            "LowerBoundary": function(node, filter) {
+                filter.lowerBoundary = OpenLayers.String.numericIf(
+                    this.readers.fes._expression.call(this, node), true);
+            },
+            "UpperBoundary": function(node, filter) {
+                filter.upperBoundary = OpenLayers.String.numericIf(
+                    this.readers.fes._expression.call(this, node), true);
+            },
+            "Intersects": function(node, obj) {
+                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.INTERSECTS);
+            },
+            "Within": function(node, obj) {
+                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.WITHIN);
+            },
+            "Contains": function(node, obj) {
+                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.CONTAINS);
+            },
+            "DWithin": function(node, obj) {
+                this.readSpatial(node, obj, OpenLayers.Filter.Spatial.DWITHIN);
+            },
+            "Distance": function(node, obj) {
+                obj.distance = parseInt(this.getChildValue(node));
+                obj.distanceUnits = node.getAttribute("units");
+            },
+            "Function": function(node, obj) {
+                //TODO write decoder for it
+                return;
+            },
+            "PropertyIsNull": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.IS_NULL
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            }
+        }
+    },
+    
+    /**
+     * Method: readSpatial
+     *
+     * Read a {<OpenLayers.Filter.Spatial>} filter.
+     * 
+     * Parameters:
+     * node - {DOMElement} A DOM element that contains an fes:expression.
+     * obj - {Object} The target object.
+     * type - {String} One of the OpenLayers.Filter.Spatial.* constants.
+     *
+     * Returns:
+     * {<OpenLayers.Filter.Spatial>} The created filter.
+     */
+    readSpatial: function(node, obj, type) {
+        var filter = new OpenLayers.Filter.Spatial({
+            type: type
+        });
+        this.readChildNodes(node, filter);
+        filter.value = filter.components[0];
+        delete filter.components;
+        obj.filters.push(filter);
+    },
+
+    /**
+     * APIMethod: encodeLiteral
+     * Generates the string representation of a value for use in <Literal> 
+     *     elements.  The default encoder writes Date values as ISO 8601 
+     *     strings.
+     *
+     * Parameters:
+     * value - {Object} Literal value to encode
+     *
+     * Returns:
+     * {String} String representation of the provided value.
+     */
+    encodeLiteral: function(value) {
+        if (value instanceof Date) {
+            value = OpenLayers.Date.toISOString(value);
+        }
+        return value;
+    },
+
+    /**
+     * Method: writeOgcExpression
+     * Limited support for writing OGC expressions. Currently it supports
+     * (<OpenLayers.Filter.Function> || String || Number)
+     *
+     * Parameters:
+     * value - (<OpenLayers.Filter.Function> || String || Number)
+     * node - {DOMElement} A parent DOM element 
+     *
+     * Returns:
+     * {DOMElement} Updated node element.
+     */
+    writeOgcExpression: function(value, node) {
+        if (value instanceof OpenLayers.Filter.Function){
+            this.writeNode("Function", value, node);
+        } else {
+            this.writeNode("Literal", value, node);
+        }
+        return node;
+    },    
+    
+    /**
+     * Method: write
+     *
+     * Parameters:
+     * filter - {<OpenLayers.Filter>} A filter object.
+     *
+     * Returns:
+     * {DOMElement} An fes:Filter element.
+     */
+    write: function(filter) {
+        return this.writers.fes["Filter"].apply(this, [filter]);
+    },
+    
+    /**
+     * Property: writers
+     * As a compliment to the readers property, this structure contains public
+     *     writing functions grouped by namespace alias and named like the
+     *     node names they produce.
+     */
+    writers: {
+        "fes": {
+            "Filter": function(filter) {
+                var node = this.createElementNSPlus("fes:Filter");
+                this.writeNode(this.getFilterType(filter), filter, node);
+                return node;
+            },
+            "_featureIds": function(filter) {
+                var node = this.createDocumentFragment();
+                for (var i=0, ii=filter.fids.length; i<ii; ++i) {
+                    this.writeNode("fes:ResourceId", filter.fids[i], node);
+                }
+                return node;
+            },
+            "ResourceId": function(fid) {
+                return this.createElementNSPlus("fes:ResourceId", {
+                    attributes: {rid: fid}
+                });
+            },
+
+            "And": function(filter) {
+                var node = this.createElementNSPlus("fes:And");
+                var childFilter;
+                for (var i=0, ii=filter.filters.length; i<ii; ++i) {
+                    childFilter = filter.filters[i];
+                    this.writeNode(
+                        this.getFilterType(childFilter), childFilter, node
+                    );
+                }
+                return node;
+            },
+            "Or": function(filter) {
+                var node = this.createElementNSPlus("fes:Or");
+                var childFilter;
+                for (var i=0, ii=filter.filters.length; i<ii; ++i) {
+                    childFilter = filter.filters[i];
+                    this.writeNode(
+                        this.getFilterType(childFilter), childFilter, node
+                    );
+                }
+                return node;
+            },
+            "Not": function(filter) {
+                var node = this.createElementNSPlus("fes:Not");
+                var childFilter = filter.filters[0];
+                this.writeNode(
+                    this.getFilterType(childFilter), childFilter, node
+                );
+                return node;
+            },
+            "PropertyIsLessThan": function(filter) {
+                var node = this.createElementNSPlus("fes:PropertyIsLessThan");
+                // no fes:expression handling for ValueReference for now
+                this.writeNode("ValueReference", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsGreaterThan": function(filter) {
+                var node = this.createElementNSPlus("fes:PropertyIsGreaterThan");
+                // no fes:expression handling for ValueReference for now
+                this.writeNode("ValueReference", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsLessThanOrEqualTo": function(filter) {
+                var node = this.createElementNSPlus("fes:PropertyIsLessThanOrEqualTo");
+                // no fes:expression handling for ValueReference for now
+                this.writeNode("ValueReference", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsGreaterThanOrEqualTo": function(filter) {
+                var node = this.createElementNSPlus("fes:PropertyIsGreaterThanOrEqualTo");
+                // no fes:expression handling for ValueReference for now
+                this.writeNode("ValueReference", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsBetween": function(filter) {
+                var node = this.createElementNSPlus("fes:PropertyIsBetween");
+                // no fes:expression handling for ValueReference for now
+                this.writeNode("ValueReference", filter, node);
+                this.writeNode("LowerBoundary", filter, node);
+                this.writeNode("UpperBoundary", filter, node);
+                return node;
+            },
+            "ValueReference": function(filter) {
+                // no fes:expression handling for now
+                return this.createElementNSPlus("fes:ValueReference", {
+                    value: filter.property
+                });
+            },
+            "Literal": function(value) {
+                var encode = this.encodeLiteral ||
+                    OpenLayers.Format.Filter.v1.prototype.encodeLiteral;
+                return this.createElementNSPlus("fes:Literal", {
+                    value: encode(value)
+                });
+            },
+            "LowerBoundary": function(filter) {
+                // handle Literals or Functions for now
+                var node = this.createElementNSPlus("fes:LowerBoundary");
+                this.writeOgcExpression(filter.lowerBoundary, node);
+                return node;
+            },
+            "UpperBoundary": function(filter) {
+                // handle Literals or Functions for now
+                var node = this.createElementNSPlus("fes:UpperBoundary");
+                this.writeNode("Literal", filter.upperBoundary, node);
+                return node;
+            },
+            "INTERSECTS": function(filter) {
+                return this.writeSpatial(filter, "Intersects");
+            },
+            "WITHIN": function(filter) {
+                return this.writeSpatial(filter, "Within");
+            },
+            "CONTAINS": function(filter) {
+                return this.writeSpatial(filter, "Contains");
+            },
+            "DWITHIN": function(filter) {
+                var node = this.writeSpatial(filter, "DWithin");
+                this.writeNode("Distance", filter, node);
+                return node;
+            },
+            "Distance": function(filter) {
+                return this.createElementNSPlus("fes:Distance", {
+                    attributes: {
+                        units: filter.distanceUnits
+                    },
+                    value: filter.distance
+                });
+            },
+            "Function": function(filter) {
+                var node = this.createElementNSPlus("fes:Function", {
+                    attributes: {
+                        name: filter.name
+                    }
+                });
+                var params = filter.params;
+                for(var i=0, len=params.length; i<len; i++){
+                    this.writeOgcExpression(params[i], node);
+                }
+                return node;
+            },
+            "PropertyIsNull": function(filter) {
+                var node = this.createElementNSPlus("fes:PropertyIsNull");
+                this.writeNode("ValueReference", filter, node);
+                return node;
+            }
+        }
+    },
+
+    /**
+     * Method: getFilterType
+     */
+    getFilterType: function(filter) {
+        var filterType = this.filterMap[filter.type];
+        if(!filterType) {
+            throw "Filter writing not supported for rule type: " + filter.type;
+        }
+        return filterType;
+    },
+    
+    /**
+     * Property: filterMap
+     * {Object} Contains a member for each filter type.  Values are node names
+     *     for corresponding OGC Filter child elements.
+     */
+    filterMap: {
+        "&&": "And",
+        "||": "Or",
+        "!": "Not",
+        "==": "PropertyIsEqualTo",
+        "!=": "PropertyIsNotEqualTo",
+        "<": "PropertyIsLessThan",
+        ">": "PropertyIsGreaterThan",
+        "<=": "PropertyIsLessThanOrEqualTo",
+        ">=": "PropertyIsGreaterThanOrEqualTo",
+        "..": "PropertyIsBetween",
+        "~": "PropertyIsLike",
+        "NULL": "PropertyIsNull",
+        "BBOX": "BBOX",
+        "DWITHIN": "DWITHIN",
+        "WITHIN": "WITHIN",
+        "CONTAINS": "CONTAINS",
+        "INTERSECTS": "INTERSECTS",
+        "FID": "_featureIds"
+    },
+
+    CLASS_NAME: "OpenLayers.Format.Filter.v2" 
+
+});
+/* ======================================================================
+    OpenLayers/Format/Filter/v2_0_0.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Format/Filter/v2.js
+ * @requires OpenLayers/Format/GML/v3.js
+ */
+
+/**
+ * Class: OpenLayers.Format.Filter.v2_0_0
+ * Writes fes:Filter version 2.0.0.
+ *
+ * Differences from the v1.0.0 parser:
+ *  - uses GML v3 instead of GML v2
+ *  - reads matchCase attribute on fes:PropertyIsEqual and
+ *        fes:PropertyIsNotEqual elements.
+ *  - writes matchCase attribute from comparison filters of type EQUAL_TO,
+ *        NOT_EQUAL_TO and LIKE.
+ * 
+ * Inherits from: 
+ *  - <OpenLayers.Format.GML.v3>
+ *  - <OpenLayers.Format.Filter.v1>
+ */
+OpenLayers.Format.Filter.v2_0_0 = OpenLayers.Class(
+    OpenLayers.Format.GML.v3, OpenLayers.Format.Filter.v2, {
+    
+    /**
+     * Constant: VERSION
+     * {String} 2.0.0
+     */
+    VERSION: "2.0.0",
+    
+    /**
+     * Property: schemaLocation
+     * {String} http://schemas.opengis.net/filter/2.0/filterAll.xsd
+     */
+    schemaLocation: "http://schemas.opengis.net/filter/2.0/filterAll.xsd",
+
+    /**
+     * Constructor: OpenLayers.Format.Filter.v1_1_0
+     * Instances of this class are not created directly.  Use the
+     *     <OpenLayers.Format.Filter> constructor instead.
+     *
+     * Parameters:
+     * options - {Object} An optional object whose properties will be set on
+     *     this instance.
+     */
+    initialize: function(options) {
+        OpenLayers.Format.GML.v3.prototype.initialize.apply(
+            this, [options]
+        );
+    },
+
+    /**
+     * Property: readers
+     * Contains public functions, grouped by namespace prefix, that will
+     *     be applied when a namespaced node is found matching the function
+     *     name.  The function will be applied in the scope of this parser
+     *     with two arguments: the node being read and a context object passed
+     *     from the parent.
+     */
+    readers: {
+        "fes": OpenLayers.Util.applyDefaults({
+            "PropertyIsEqualTo": function(node, obj) {
+                var matchCase = node.getAttribute("matchCase");
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.EQUAL_TO,
+                    matchCase: !(matchCase === "false" || matchCase === "0")
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsNotEqualTo": function(node, obj) {
+                var matchCase = node.getAttribute("matchCase");
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.NOT_EQUAL_TO,
+                    matchCase: !(matchCase === "false" || matchCase === "0")
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
+            },
+            "PropertyIsLike": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LIKE
+                });
+                this.readChildNodes(node, filter);
+                var wildCard = node.getAttribute("wildCard");
+                var singleChar = node.getAttribute("singleChar");
+                var esc = node.getAttribute("escapeChar");
+                filter.value2regex(wildCard, singleChar, esc);
+                obj.filters.push(filter);
+            }
+        }, OpenLayers.Format.Filter.v2.prototype.readers["fes"]),
+        "gml": OpenLayers.Format.GML.v3.prototype.readers["gml"],
+        "feature": OpenLayers.Format.GML.v3.prototype.readers["feature"]
+    },
+
+    /**
+     * Property: writers
+     * As a compliment to the readers property, this structure contains public
+     *     writing functions grouped by namespace alias and named like the
+     *     node names they produce.
+     */
+    writers: {
+        "fes": OpenLayers.Util.applyDefaults({
+            "PropertyIsEqualTo": function(filter) {
+                var node = this.createElementNSPlus("fes:PropertyIsEqualTo", {
+                    attributes: {matchCase: filter.matchCase}
+                });
+                // no fes:expression handling for ValueReference for now
+                this.writeNode("ValueReference", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsNotEqualTo": function(filter) {
+                var node = this.createElementNSPlus("fes:PropertyIsNotEqualTo", {
+                    attributes: {matchCase: filter.matchCase}
+                });
+                // no fes:expression handling for ValueReference for now
+                this.writeNode("ValueReference", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsLike": function(filter) {
+                var node = this.createElementNSPlus("fes:PropertyIsLike", {
+                    attributes: {
+                        matchCase: filter.matchCase,
+                        wildCard: "*", singleChar: ".", escapeChar: "!"
+                    }
+                });
+                // no fes:expression handling for now
+                this.writeNode("ValueReference", filter, node);
+                // convert regex string to ogc string
+                this.writeNode("Literal", filter.regex2value(), node);
+                return node;
+            },
+            "BBOX": function(filter) {
+                var node = this.createElementNSPlus("fes:BBOX");
+                // ValueReference is optional in 1.1.0
+                filter.property && this.writeNode("ValueReference", filter, node);
+                var box = this.writeNode("gml:Envelope", filter.value);
+                if(filter.projection) {
+                    box.setAttribute("srsName", filter.projection);
+                }
+                node.appendChild(box); 
+                return node;
+            },
+            "SortBy": function(sortProperties) {
+                var node = this.createElementNSPlus("fes:SortBy");
+                for (var i=0,l=sortProperties.length;i<l;i++) {
+                    this.writeNode(
+                        "fes:SortProperty",
+                        sortProperties[i],
+                        node
+                    );
+                }
+                return node;
+            }, 
+            "SortProperty": function(sortProperty) {
+                var node = this.createElementNSPlus("fes:SortProperty");
+                this.writeNode(
+                    "fes:ValueReference",
+                    sortProperty,
+                    node
+                );
+                this.writeNode(
+                    "fes:SortOrder",
+                    (sortProperty.order == 'DESC') ? 'DESC' : 'ASC',
+                    node
+                );
+                return node;
+            },
+            "SortOrder": function(value) {
+                var node = this.createElementNSPlus("fes:SortOrder", {
+                    value: value
+                });
+                return node;
+            }
+        }, OpenLayers.Format.Filter.v2.prototype.writers["fes"]),
+        "gml": OpenLayers.Format.GML.v3.prototype.writers["gml"],
+        "feature": OpenLayers.Format.GML.v3.prototype.writers["feature"]
+    },
+
+    /**
+     * Method: writeSpatial
+     *
+     * Read a {<OpenLayers.Filter.Spatial>} filter and converts it into XML.
+     *
+     * Parameters:
+     * filter - {<OpenLayers.Filter.Spatial>} The filter.
+     * name - {String} Name of the generated XML element.
+     *
+     * Returns:
+     * {DOMElement} The created XML element.
+     */
+    writeSpatial: function(filter, name) {
+        var node = this.createElementNSPlus("fes:"+name);
+        this.writeNode("ValueReference", filter, node);
+        if(filter.value instanceof OpenLayers.Filter.Function) {
+            this.writeNode("Function", filter.value, node);
+        } else {
+        var child;
+        if(filter.value instanceof OpenLayers.Geometry) {
+            child = this.writeNode("feature:_geometry", filter.value).firstChild;
+        } else {
+            child = this.writeNode("gml:Envelope", filter.value);
+        }
+        if(filter.projection) {
+            child.setAttribute("srsName", filter.projection);
+        }
+        node.appendChild(child);
+        }
+        return node;
+    },
+
+    CLASS_NAME: "OpenLayers.Format.Filter.v2_0_0" 
+
+});
+/* ======================================================================
+    OpenLayers/Format/WFSCapabilities/v1_0_0.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the 2-clause BSD license.
+ * See license.txt in the OpenLayers distribution or repository for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Format/WFSCapabilities/v1.js
+ */
+
+/**
+ * Class: OpenLayers.Format.WFSCapabilities/v1_0_0
+ * Read WFS Capabilities version 1.0.0.
+ * 
+ * Inherits from:
+ *  - <OpenLayers.Format.WFSCapabilities.v1>
+ */
+OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
+    OpenLayers.Format.WFSCapabilities.v1, {
+    
+    /**
+     * Constructor: OpenLayers.Format.WFSCapabilities.v1_0_0
+     * Create a new parser for WFS capabilities version 1.0.0.
+     *
+     * Parameters:
+     * options - {Object} An optional object whose properties will be set on
+     *     this instance.
+     */
+
+    /**
+     * Property: readers
+     * Contains public functions, grouped by namespace prefix, that will
+     *     be applied when a namespaced node is found matching the function
+     *     name.  The function will be applied in the scope of this parser
+     *     with two arguments: the node being read and a context object passed
+     *     from the parent.
+     */
+    readers: {
+        "wfs": OpenLayers.Util.applyDefaults({
+            "Service": function(node, capabilities) {
+                capabilities.service = {};
+                this.readChildNodes(node, capabilities.service);
+            },
+            "Fees": function(node, service) {
+                var fees = this.getChildValue(node);
+                if (fees && fees.toLowerCase() != "none") {
+                    service.fees = fees;
+                }
+            },
+            "AccessConstraints": function(node, service) {
+                var constraints = this.getChildValue(node);
+                if (constraints && constraints.toLowerCase() != "none") {
+                    service.accessConstraints = constraints;
+                }
+            },
+            "OnlineResource": function(node, service) {
+                var onlineResource = this.getChildValue(node);
+                if (onlineResource && onlineResource.toLowerCase() != "none") {
+                    service.onlineResource = onlineResource;
+                }
+            },
+            "Keywords": function(node, service) {
+                var keywords = this.getChildValue(node);
+                if (keywords && keywords.toLowerCase() != "none") {
+                    service.keywords = keywords.split(', ');
+                }
+            },
+            "Capability": function(node, capabilities) {
+                capabilities.capability = {};
+                this.readChildNodes(node, capabilities.capability);
+            },
+            "Request": function(node, obj) {
+                obj.request = {};
+                this.readChildNodes(node, obj.request);
+            },
+            "GetFeature": function(node, request) {
+                request.getfeature = {
+                    href: {}, // DCPType
+                    formats: [] // ResultFormat
+                };
+                this.readChildNodes(node, request.getfeature);
+            },
+            "ResultFormat": function(node, obj) {
+                var children = node.childNodes;
+                var childNode;
+                for(var i=0; i<children.length; i++) {
+                    childNode = children[i];
+                    if(childNode.nodeType == 1) {
+                        obj.formats.push(childNode.nodeName);
+                    }
+                }
+            },
+            "DCPType": function(node, obj) {
+                this.readChildNodes(node, obj);
+            },
+            "HTTP": function(node, obj) {
+                this.readChildNodes(node, obj.href);
+            },
+            "Get": function(node, obj) {
+                obj.get = node.getAttribute("onlineResource");
+            },
+            "Post": function(node, obj) {
+                obj.post = node.getAttribute("onlineResource");
+            },
+            "SRS": function(node, obj) {
+                var srs = this.getChildValue(node);
+                if (srs) {
+                    obj.srs = srs;
+                }
+            },
+            "LatLongBoundingBox": function(node, obj) {
+                obj.latLongBoundingBox = [
+                    parseFloat(node.getAttribute("minx")),
+                    parseFloat(node.getAttribute("miny")),
+                    parseFloat(node.getAttribute("maxx")),
+                    parseFloat(node.getAttribute("maxy"))
+                ];
+            }
+        }, OpenLayers.Format.WFSCapabilities.v1.prototype.readers["wfs"])
+    },
+    
+    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1_0_0" 
+
+});
+/* ======================================================================
     OpenLayers/Request.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -20407,36 +20533,63 @@ OpenLayers.Util.extend(OpenLayers.Request, {
     OpenLayers.Request.XMLHttpRequest = cXMLHttpRequest;
 })();
 /* ======================================================================
-    OpenLayers/Format/WFSCapabilities/v1_0_0.js
+    OpenLayers/Format/Filter/v1_1_0.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
 
 /**
- * @requires OpenLayers/Format/WFSCapabilities/v1.js
+ * @requires OpenLayers/Format/Filter/v1.js
+ * @requires OpenLayers/Format/GML/v3.js
  */
 
 /**
- * Class: OpenLayers.Format.WFSCapabilities/v1_0_0
- * Read WFS Capabilities version 1.0.0.
+ * Class: OpenLayers.Format.Filter.v1_1_0
+ * Write ogc:Filter version 1.1.0.
+ *
+ * Differences from the v1.0.0 parser:
+ *  - uses GML v3 instead of GML v2
+ *  - reads matchCase attribute on ogc:PropertyIsEqual and
+ *        ogc:PropertyIsNotEqual elements.
+ *  - writes matchCase attribute from comparison filters of type EQUAL_TO,
+ *        NOT_EQUAL_TO and LIKE.
  * 
- * Inherits from:
- *  - <OpenLayers.Format.WFSCapabilities.v1>
+ * Inherits from: 
+ *  - <OpenLayers.Format.GML.v3>
+ *  - <OpenLayers.Format.Filter.v1>
  */
-OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
-    OpenLayers.Format.WFSCapabilities.v1, {
+OpenLayers.Format.Filter.v1_1_0 = OpenLayers.Class(
+    OpenLayers.Format.GML.v3, OpenLayers.Format.Filter.v1, {
     
     /**
-     * Constructor: OpenLayers.Format.WFSCapabilities.v1_0_0
-     * Create a new parser for WFS capabilities version 1.0.0.
+     * Constant: VERSION
+     * {String} 1.1.0
+     */
+    VERSION: "1.1.0",
+    
+    /**
+     * Property: schemaLocation
+     * {String} http://www.opengis.net/ogc/filter/1.1.0/filter.xsd
+     */
+    schemaLocation: "http://www.opengis.net/ogc/filter/1.1.0/filter.xsd",
+
+    /**
+     * Constructor: OpenLayers.Format.Filter.v1_1_0
+     * Instances of this class are not created directly.  Use the
+     *     <OpenLayers.Format.Filter> constructor instead.
      *
      * Parameters:
      * options - {Object} An optional object whose properties will be set on
      *     this instance.
      */
+    initialize: function(options) {
+        OpenLayers.Format.GML.v3.prototype.initialize.apply(
+            this, [options]
+        );
+    },
 
     /**
      * Property: readers
@@ -20447,97 +20600,169 @@ OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
      *     from the parent.
      */
     readers: {
-        "wfs": OpenLayers.Util.applyDefaults({
-            "Service": function(node, capabilities) {
-                capabilities.service = {};
-                this.readChildNodes(node, capabilities.service);
+        "ogc": OpenLayers.Util.applyDefaults({
+            "PropertyIsEqualTo": function(node, obj) {
+                var matchCase = node.getAttribute("matchCase");
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.EQUAL_TO,
+                    matchCase: !(matchCase === "false" || matchCase === "0")
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
             },
-            "Fees": function(node, service) {
-                var fees = this.getChildValue(node);
-                if (fees && fees.toLowerCase() != "none") {
-                    service.fees = fees;
-                }
+            "PropertyIsNotEqualTo": function(node, obj) {
+                var matchCase = node.getAttribute("matchCase");
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.NOT_EQUAL_TO,
+                    matchCase: !(matchCase === "false" || matchCase === "0")
+                });
+                this.readChildNodes(node, filter);
+                obj.filters.push(filter);
             },
-            "AccessConstraints": function(node, service) {
-                var constraints = this.getChildValue(node);
-                if (constraints && constraints.toLowerCase() != "none") {
-                    service.accessConstraints = constraints;
-                }
-            },
-            "OnlineResource": function(node, service) {
-                var onlineResource = this.getChildValue(node);
-                if (onlineResource && onlineResource.toLowerCase() != "none") {
-                    service.onlineResource = onlineResource;
-                }
-            },
-            "Keywords": function(node, service) {
-                var keywords = this.getChildValue(node);
-                if (keywords && keywords.toLowerCase() != "none") {
-                    service.keywords = keywords.split(', ');
-                }
-            },
-            "Capability": function(node, capabilities) {
-                capabilities.capability = {};
-                this.readChildNodes(node, capabilities.capability);
-            },
-            "Request": function(node, obj) {
-                obj.request = {};
-                this.readChildNodes(node, obj.request);
-            },
-            "GetFeature": function(node, request) {
-                request.getfeature = {
-                    href: {}, // DCPType
-                    formats: [] // ResultFormat
-                };
-                this.readChildNodes(node, request.getfeature);
-            },
-            "ResultFormat": function(node, obj) {
-                var children = node.childNodes;
-                var childNode;
-                for(var i=0; i<children.length; i++) {
-                    childNode = children[i];
-                    if(childNode.nodeType == 1) {
-                        obj.formats.push(childNode.nodeName);
-                    }
-                }
-            },
-            "DCPType": function(node, obj) {
-                this.readChildNodes(node, obj);
-            },
-            "HTTP": function(node, obj) {
-                this.readChildNodes(node, obj.href);
-            },
-            "Get": function(node, obj) {
-                obj.get = node.getAttribute("onlineResource");
-            },
-            "Post": function(node, obj) {
-                obj.post = node.getAttribute("onlineResource");
-            },
-            "SRS": function(node, obj) {
-                var srs = this.getChildValue(node);
-                if (srs) {
-                    obj.srs = srs;
-                }
-            },
-            "LatLongBoundingBox": function(node, obj) {
-                obj.latLongBoundingBox = [
-                    parseFloat(node.getAttribute("minx")),
-                    parseFloat(node.getAttribute("miny")),
-                    parseFloat(node.getAttribute("maxx")),
-                    parseFloat(node.getAttribute("maxy"))
-                ];
+            "PropertyIsLike": function(node, obj) {
+                var filter = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LIKE
+                });
+                this.readChildNodes(node, filter);
+                var wildCard = node.getAttribute("wildCard");
+                var singleChar = node.getAttribute("singleChar");
+                var esc = node.getAttribute("escapeChar");
+                filter.value2regex(wildCard, singleChar, esc);
+                obj.filters.push(filter);
             }
-        }, OpenLayers.Format.WFSCapabilities.v1.prototype.readers["wfs"])
+        }, OpenLayers.Format.Filter.v1.prototype.readers["ogc"]),
+        "gml": OpenLayers.Format.GML.v3.prototype.readers["gml"],
+        "feature": OpenLayers.Format.GML.v3.prototype.readers["feature"]        
     },
-    
-    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1_0_0" 
+
+    /**
+     * Property: writers
+     * As a compliment to the readers property, this structure contains public
+     *     writing functions grouped by namespace alias and named like the
+     *     node names they produce.
+     */
+    writers: {
+        "ogc": OpenLayers.Util.applyDefaults({
+            "PropertyIsEqualTo": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsEqualTo", {
+                    attributes: {matchCase: filter.matchCase}
+                });
+                // no ogc:expression handling for PropertyName for now
+                this.writeNode("PropertyName", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsNotEqualTo": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsNotEqualTo", {
+                    attributes: {matchCase: filter.matchCase}
+                });
+                // no ogc:expression handling for PropertyName for now
+                this.writeNode("PropertyName", filter, node);
+                // handle Literals or Functions for now
+                this.writeOgcExpression(filter.value, node);
+                return node;
+            },
+            "PropertyIsLike": function(filter) {
+                var node = this.createElementNSPlus("ogc:PropertyIsLike", {
+                    attributes: {
+                        matchCase: filter.matchCase,
+                        wildCard: "*", singleChar: ".", escapeChar: "!"
+                    }
+                });
+                // no ogc:expression handling for now
+                this.writeNode("PropertyName", filter, node);
+                // convert regex string to ogc string
+                this.writeNode("Literal", filter.regex2value(), node);
+                return node;
+            },
+            "BBOX": function(filter) {
+                var node = this.createElementNSPlus("ogc:BBOX");
+                // PropertyName is optional in 1.1.0
+                filter.property && this.writeNode("PropertyName", filter, node);
+                var box = this.writeNode("gml:Envelope", filter.value);
+                if(filter.projection) {
+                    box.setAttribute("srsName", filter.projection);
+                }
+                node.appendChild(box); 
+                return node;
+            },
+            "SortBy": function(sortProperties) {
+                var node = this.createElementNSPlus("ogc:SortBy");
+                for (var i=0,l=sortProperties.length;i<l;i++) {
+                    this.writeNode(
+                        "ogc:SortProperty",
+                        sortProperties[i],
+                        node
+                    );
+                }
+                return node;
+            }, 
+            "SortProperty": function(sortProperty) {
+                var node = this.createElementNSPlus("ogc:SortProperty");
+                this.writeNode(
+                    "ogc:PropertyName",
+                    sortProperty,
+                    node
+                );
+                this.writeNode(
+                    "ogc:SortOrder",
+                    (sortProperty.order == 'DESC') ? 'DESC' : 'ASC',
+                    node
+                );
+                return node;
+            },
+            "SortOrder": function(value) {
+                var node = this.createElementNSPlus("ogc:SortOrder", {
+                    value: value
+                });
+                return node;
+            }
+        }, OpenLayers.Format.Filter.v1.prototype.writers["ogc"]),
+        "gml": OpenLayers.Format.GML.v3.prototype.writers["gml"],
+        "feature": OpenLayers.Format.GML.v3.prototype.writers["feature"]
+    },
+
+    /**
+     * Method: writeSpatial
+     *
+     * Read a {<OpenLayers.Filter.Spatial>} filter and converts it into XML.
+     *
+     * Parameters:
+     * filter - {<OpenLayers.Filter.Spatial>} The filter.
+     * name - {String} Name of the generated XML element.
+     *
+     * Returns:
+     * {DOMElement} The created XML element.
+     */
+    writeSpatial: function(filter, name) {
+        var node = this.createElementNSPlus("ogc:"+name);
+        this.writeNode("PropertyName", filter, node);
+        if(filter.value instanceof OpenLayers.Filter.Function) {
+            this.writeNode("Function", filter.value, node);
+        } else {
+        var child;
+        if(filter.value instanceof OpenLayers.Geometry) {
+            child = this.writeNode("feature:_geometry", filter.value).firstChild;
+        } else {
+            child = this.writeNode("gml:Envelope", filter.value);
+        }
+        if(filter.projection) {
+            child.setAttribute("srsName", filter.projection);
+        }
+        node.appendChild(child);
+        }
+        return node;
+    },
+
+    CLASS_NAME: "OpenLayers.Format.Filter.v1_1_0" 
 
 });
 /* ======================================================================
     OpenLayers/Projection.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -20867,7 +21092,7 @@ OpenLayers.Projection.nullTransform = function(point) {
     OpenLayers/Format/KML.js
    ====================================================================== */
 
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2015 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -22383,230 +22608,4 @@ OpenLayers.Format.KML = OpenLayers.Class(OpenLayers.Format.XML, {
     },
     
     CLASS_NAME: "OpenLayers.Format.KML" 
-});
-/* ======================================================================
-    OpenLayers/Format/Filter/v1_1_0.js
-   ====================================================================== */
-
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the 2-clause BSD license.
- * See license.txt in the OpenLayers distribution or repository for the
- * full text of the license. */
-
-/**
- * @requires OpenLayers/Format/Filter/v1.js
- * @requires OpenLayers/Format/GML/v3.js
- */
-
-/**
- * Class: OpenLayers.Format.Filter.v1_1_0
- * Write ogc:Filter version 1.1.0.
- *
- * Differences from the v1.0.0 parser:
- *  - uses GML v3 instead of GML v2
- *  - reads matchCase attribute on ogc:PropertyIsEqual and
- *        ogc:PropertyIsNotEqual elements.
- *  - writes matchCase attribute from comparison filters of type EQUAL_TO,
- *        NOT_EQUAL_TO and LIKE.
- * 
- * Inherits from: 
- *  - <OpenLayers.Format.GML.v3>
- *  - <OpenLayers.Format.Filter.v1>
- */
-OpenLayers.Format.Filter.v1_1_0 = OpenLayers.Class(
-    OpenLayers.Format.GML.v3, OpenLayers.Format.Filter.v1, {
-    
-    /**
-     * Constant: VERSION
-     * {String} 1.1.0
-     */
-    VERSION: "1.1.0",
-    
-    /**
-     * Property: schemaLocation
-     * {String} http://www.opengis.net/ogc/filter/1.1.0/filter.xsd
-     */
-    schemaLocation: "http://www.opengis.net/ogc/filter/1.1.0/filter.xsd",
-
-    /**
-     * Constructor: OpenLayers.Format.Filter.v1_1_0
-     * Instances of this class are not created directly.  Use the
-     *     <OpenLayers.Format.Filter> constructor instead.
-     *
-     * Parameters:
-     * options - {Object} An optional object whose properties will be set on
-     *     this instance.
-     */
-    initialize: function(options) {
-        OpenLayers.Format.GML.v3.prototype.initialize.apply(
-            this, [options]
-        );
-    },
-
-    /**
-     * Property: readers
-     * Contains public functions, grouped by namespace prefix, that will
-     *     be applied when a namespaced node is found matching the function
-     *     name.  The function will be applied in the scope of this parser
-     *     with two arguments: the node being read and a context object passed
-     *     from the parent.
-     */
-    readers: {
-        "ogc": OpenLayers.Util.applyDefaults({
-            "PropertyIsEqualTo": function(node, obj) {
-                var matchCase = node.getAttribute("matchCase");
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.EQUAL_TO,
-                    matchCase: !(matchCase === "false" || matchCase === "0")
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsNotEqualTo": function(node, obj) {
-                var matchCase = node.getAttribute("matchCase");
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.NOT_EQUAL_TO,
-                    matchCase: !(matchCase === "false" || matchCase === "0")
-                });
-                this.readChildNodes(node, filter);
-                obj.filters.push(filter);
-            },
-            "PropertyIsLike": function(node, obj) {
-                var filter = new OpenLayers.Filter.Comparison({
-                    type: OpenLayers.Filter.Comparison.LIKE
-                });
-                this.readChildNodes(node, filter);
-                var wildCard = node.getAttribute("wildCard");
-                var singleChar = node.getAttribute("singleChar");
-                var esc = node.getAttribute("escapeChar");
-                filter.value2regex(wildCard, singleChar, esc);
-                obj.filters.push(filter);
-            }
-        }, OpenLayers.Format.Filter.v1.prototype.readers["ogc"]),
-        "gml": OpenLayers.Format.GML.v3.prototype.readers["gml"],
-        "feature": OpenLayers.Format.GML.v3.prototype.readers["feature"]        
-    },
-
-    /**
-     * Property: writers
-     * As a compliment to the readers property, this structure contains public
-     *     writing functions grouped by namespace alias and named like the
-     *     node names they produce.
-     */
-    writers: {
-        "ogc": OpenLayers.Util.applyDefaults({
-            "PropertyIsEqualTo": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsEqualTo", {
-                    attributes: {matchCase: filter.matchCase}
-                });
-                // no ogc:expression handling for PropertyName for now
-                this.writeNode("PropertyName", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsNotEqualTo": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsNotEqualTo", {
-                    attributes: {matchCase: filter.matchCase}
-                });
-                // no ogc:expression handling for PropertyName for now
-                this.writeNode("PropertyName", filter, node);
-                // handle Literals or Functions for now
-                this.writeOgcExpression(filter.value, node);
-                return node;
-            },
-            "PropertyIsLike": function(filter) {
-                var node = this.createElementNSPlus("ogc:PropertyIsLike", {
-                    attributes: {
-                        matchCase: filter.matchCase,
-                        wildCard: "*", singleChar: ".", escapeChar: "!"
-                    }
-                });
-                // no ogc:expression handling for now
-                this.writeNode("PropertyName", filter, node);
-                // convert regex string to ogc string
-                this.writeNode("Literal", filter.regex2value(), node);
-                return node;
-            },
-            "BBOX": function(filter) {
-                var node = this.createElementNSPlus("ogc:BBOX");
-                // PropertyName is optional in 1.1.0
-                filter.property && this.writeNode("PropertyName", filter, node);
-                var box = this.writeNode("gml:Envelope", filter.value);
-                if(filter.projection) {
-                    box.setAttribute("srsName", filter.projection);
-                }
-                node.appendChild(box); 
-                return node;
-            },
-            "SortBy": function(sortProperties) {
-                var node = this.createElementNSPlus("ogc:SortBy");
-                for (var i=0,l=sortProperties.length;i<l;i++) {
-                    this.writeNode(
-                        "ogc:SortProperty",
-                        sortProperties[i],
-                        node
-                    );
-                }
-                return node;
-            }, 
-            "SortProperty": function(sortProperty) {
-                var node = this.createElementNSPlus("ogc:SortProperty");
-                this.writeNode(
-                    "ogc:PropertyName",
-                    sortProperty,
-                    node
-                );
-                this.writeNode(
-                    "ogc:SortOrder",
-                    (sortProperty.order == 'DESC') ? 'DESC' : 'ASC',
-                    node
-                );
-                return node;
-            },
-            "SortOrder": function(value) {
-                var node = this.createElementNSPlus("ogc:SortOrder", {
-                    value: value
-                });
-                return node;
-            }
-        }, OpenLayers.Format.Filter.v1.prototype.writers["ogc"]),
-        "gml": OpenLayers.Format.GML.v3.prototype.writers["gml"],
-        "feature": OpenLayers.Format.GML.v3.prototype.writers["feature"]
-    },
-
-    /**
-     * Method: writeSpatial
-     *
-     * Read a {<OpenLayers.Filter.Spatial>} filter and converts it into XML.
-     *
-     * Parameters:
-     * filter - {<OpenLayers.Filter.Spatial>} The filter.
-     * name - {String} Name of the generated XML element.
-     *
-     * Returns:
-     * {DOMElement} The created XML element.
-     */
-    writeSpatial: function(filter, name) {
-        var node = this.createElementNSPlus("ogc:"+name);
-        this.writeNode("PropertyName", filter, node);
-        if(filter.value instanceof OpenLayers.Filter.Function) {
-            this.writeNode("Function", filter.value, node);
-        } else {
-        var child;
-        if(filter.value instanceof OpenLayers.Geometry) {
-            child = this.writeNode("feature:_geometry", filter.value).firstChild;
-        } else {
-            child = this.writeNode("gml:Envelope", filter.value);
-        }
-        if(filter.projection) {
-            child.setAttribute("srsName", filter.projection);
-        }
-        node.appendChild(child);
-        }
-        return node;
-    },
-
-    CLASS_NAME: "OpenLayers.Format.Filter.v1_1_0" 
-
 });
