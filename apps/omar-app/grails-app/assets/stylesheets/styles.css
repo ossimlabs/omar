@@ -26,11 +26,13 @@ body { padding-top: 70px; }
 .jumbotron h1 {
     padding-bottom: 6px;
     background: rgba(0, 0, 0, 0.5);
+    color: #ffffff
 }
 
-.jumbotron p {
+.jumbotron h2 {
     padding: 6px;
     background: rgba(0, 0, 0, 0.5);
+    color: #ffffff
 }
 
 h5 > .image-id-link:hover {
