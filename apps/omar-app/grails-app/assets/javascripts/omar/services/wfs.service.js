@@ -11,7 +11,7 @@
             var wfsClient;
             wfsClient = new OGC.WFS.Client(APP_CONFIG.services.omar.wfsUrl);
 
-            OpenLayers.ProxyHost = "/proxy/index?url=";
+            OpenLayers.ProxyHost = "/o2/proxy/index?url=";
 
             var deferred = $q.defer();
 
@@ -19,7 +19,8 @@
                 typeName: 'omar:raster_entry',
                 namespace: 'http://omar.ossim.org',
                 version: '1.1.0',
-                maxFeatures: '200',
+//                maxFeatures: '200',
+                maxFeatures: '50',
                 outputFormat: 'JSON',
                 cql: ''
             };

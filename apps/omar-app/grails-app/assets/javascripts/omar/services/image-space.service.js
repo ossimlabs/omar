@@ -234,7 +234,7 @@
             // to get the upAngle and northAngle values
             $http( {
                 method: 'GET',
-                url: '/imageSpace/getAngles',
+                url: '/o2/imageSpace/getAngles',
                 params: {filename: filename, entry: entry}
             } ).then( function successCallback( response )
             {
@@ -264,7 +264,7 @@
             } );
 
             source = new ImageSpace( {
-                url: '/imageSpace/getTile',
+                url: '/o2/imageSpace/getTile',
                 filename: filename,
                 entry: entry,
                 format: 'jpeg',
@@ -273,7 +273,7 @@
             } );
 
             source2 = new ImageSpace( {
-                url: '/imageSpace/getTileOverlay',
+                url: '/o2/imageSpace/getTileOverlay',
                 filename: filename,
                 entry: entry,
                 format: 'png',

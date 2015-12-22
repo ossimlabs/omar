@@ -9,10 +9,11 @@
             /* jshint validthis: true */
             var vm = this;
 
-            vm.thumbPath = '/imageSpace/getThumbnail?';
+            vm.thumbPath = '/o2/imageSpace/getThumbnail?';
             vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
             vm.thumbEntry = '&entry=';  // parameter provided by image.properties.entry_id
             vm.thumbSize = '&size=64';
+            //vm.thumbSize = '&size=128';
             vm.thumbFormat = '&format=jpeg';
 
             $scope.$on('wfs: updated', function(event, data) {
@@ -29,7 +30,7 @@
 
                 $uibModal.open({
                     size: 'lg',
-                    templateUrl: '/list/list.image-card.partial.html',
+                    templateUrl: '/o2/list/list.image-card.partial.html',
                     controller: ['$uibModalInstance', 'imageSpaceService', 'imageObj', ImageModalController],
                     controllerAs: 'vm',
                     resolve: {

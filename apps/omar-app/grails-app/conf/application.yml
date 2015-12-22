@@ -334,20 +334,23 @@ webconfig:
     icons:
       green-marker: search_marker_green.png
   services:
-    proxy: /proxy/index?url=
+    proxy: /o2/proxy/index?url=
     omar:
 #      url: http://localhost
 #      port: 8888
-      wfsUrl: http://localhost:7272/wfs
+      wfsUrl: http://localhost:7272/o2/wfs
       wmsUrl: http://localhost:8888/wms
       thumbnailsUrl: http://localhost:8888/omar/thumbnail/show/
       footprintsUrl: http://localhost:8888/omar/wms/footprints?
     twofishes:
       url: http://localhost:8081/twofish
-      proxy: /twoFishesProxy
+      proxy: /o2/twoFishesProxy
     basemaps:
       osm:
         url: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
         layers: osm-group
 
 
+server:
+  contextPath: /o2
+  port: 7272

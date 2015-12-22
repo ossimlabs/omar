@@ -7,7 +7,7 @@
         resolve: {
             APP_CONFIG: ['$http', function ($http) {
                 //return $http.get('../config.json');
-                return $http.get('/webAppConfig');
+                return $http.get('/o2/webAppConfig');
             }]
         }
     });
@@ -16,21 +16,21 @@
         .module('omarApp', ['ui.router', 'ui.bootstrap', 'angularSpinner', 'toastr'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-            $urlRouterProvider.otherwise('/home');
+            $urlRouterProvider.otherwise('/o2/home');
 
             $stateProvider
                 // HOME STATES AND NESTED VIEWS ========================================
 
                 .state('home', {
-                    url: '/home',
+                    url: '/o2/home',
                    // templateUrl: '../src/app/home/home.partial.html'
-                    templateUrl: '/home/home.partial.html'
+                    templateUrl: '/o2/home/home.partial.html'
                 })
 
                 .state('map', {
 
-                    url: '/map/?&cql',
-                    templateUrl: '/map/map.partial.html',
+                    url: '/o2/map/?&cql',
+                    templateUrl: '/o2/map/map.partial.html',
                     params: {
                         //param1: "defaultValue"
                         mapParams: {
@@ -42,13 +42,13 @@
                 })
 
                 .state('wfs', {
-                    url: '/wfs',
-                    templateUrl: '/wfs/wfs.partial.html'
+                    url: '/o2/wfs',
+                    templateUrl: '/o2/wfs/wfs.partial.html'
                 })
 
                 .state('multiple', {
-                    url: '/multiple',
-                    templateUrl: '/multiple/multiple.partial.html'
+                    url: '/o2/multiple',
+                    templateUrl: '/o2/multiple/multiple.partial.html'
                 });
 
         }])
