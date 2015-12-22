@@ -255,71 +255,67 @@ class ImageSpaceService
     return northIsUp
   }
 
-//  def getThumbnail(GetThumbnailCommand cmd)
-//  {
-//    def imageInfo = readImageInfo( cmd.filename as File )
-//
-//    def opts = [
-//        cut_bbox_xywh: [0, 0, cmd.size, cmd.size].join( ',' ),
-//        'image0.file': cmd.filename,
-//        'image0.entry': cmd.entry as String,
-//        operation: 'chip',
-//        rrds: findIndexOffset( imageInfo.images[cmd.entry], cmd.size ).toString(),
-//        scale_2_8_bit: 'true',
-//        'hist_op': 'auto-minmax',
-//        three_band_out: "true"
-//    ]
-//
-//    def hints = [
-//        transparent: cmd.format == 'png',
-//        width: cmd.size,
-//        height: cmd.size,
-//        type: cmd.format,
-//        ostream: new ByteArrayOutputStream()
-//    ]
-//
-//    //println opts
-//    runChipper( opts, hints )
-//
-//    [contentType: "image/${hints.type}", buffer: hints.ostream.toByteArray()]
-//
-//
-//  }
-
   def getThumbnail(GetThumbnailCommand cmd)
   {
-    def output = File.createTempFile( 'chipper', ".${cmd.format}", '/tmp' as File )
-
-    def exe = [
-        "ossim-chipper",
-        "--op",
-        "chip",
-        "--thumbnail",
-        cmd.size,
-        "--entry",
-        cmd.entry,
-        "--pad-thumbnail",
-        "true",
-        "--histogram-op",
-        "auto-minmax",
-        "--output-radiometry",
-        "U8",
-        cmd.filename,
-        output
+    def opts = [
+        hist_op: 'auto-minmax',
+        'image0.file': cmd.filename,
+        'image0.entry': cmd.entry as String,
+        operation: 'chip',
+        output_radiometry: 'U8',
+        pad_thumbnail: 'true',
+        three_band_out: 'true',
+        thumbnail_resolution: cmd.size as String
     ]
 
-    println exe.join( ' ' )
+    def hints = [
+        transparent: cmd.format == 'png',
+        width: cmd.size,
+        height: cmd.size,
+        type: cmd.format,
+        ostream: new ByteArrayOutputStream()
+    ]
 
-    def proc = exe.execute()
+    //println opts
+    runChipper( opts, hints )
 
-//      proc.consumeProcessOutput(System.out, System.err)
-    proc.consumeProcessOutput()
-    proc.waitFor()
-
-    def buffer = output.bytes
-
-    output.delete()
-
-    [contentType: "image/${cmd.format}", buffer: buffer]
+    [contentType: "image/${hints.type}", buffer: hints.ostream.toByteArray()]
   }
+
+//  def getThumbnail(GetThumbnailCommand cmd)
+//  {
+//    def output = File.createTempFile( 'chipper', ".${cmd.format}", '/tmp' as File )
+//
+//    def exe = [
+//        "ossim-chipper",
+//        "--op",
+//        "chip",
+//        "--thumbnail",
+//        cmd.size,
+//        "--entry",
+//        cmd.entry,
+//        "--pad-thumbnail",
+//        "true",
+//        "--histogram-op",
+//        "auto-minmax",
+//        "--output-radiometry",
+//        "U8",
+//        cmd.filename,
+//        output
+//    ]
+//
+//    println exe.join( ' ' )
+//
+//    def proc = exe.execute()
+//
+////      proc.consumeProcessOutput(System.out, System.err)
+//    proc.consumeProcessOutput()
+//    proc.waitFor()
+//
+//    def buffer = output.bytes
+//
+//    output.delete()
+//
+//    [contentType: "image/${cmd.format}", buffer: buffer]
+//  }
 }
