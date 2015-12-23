@@ -322,11 +322,6 @@
                                 <button class="btn btn-primary" type="button" ng-click="filter.filterWfs();">Apply
                                 </button>
                                 <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <h4>Common Constraints</h4>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-2 col-md-offset-3">
                                         <label class="label label-primary">Minimum</label>
                                     </div>
@@ -356,7 +351,6 @@
                                     </div>
                                 </div>
                                 <br>
-
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="azimuthCheck">
@@ -379,7 +373,6 @@
                                     </div>
                                 </div>
                                 <br>
-
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="grazeElevCheck">
@@ -391,88 +384,78 @@
                                     </div>
                                     <div class="col-md-2">
                                         <input ng-model="filter.grazeElevMin" class="form-control" id="grazeElevMin"
-                                               placeholder="0.0">
+                                               placeholder="0.0" value="{{filter.grazeElevMin}}">
                                     </div>
                                     <div class="col-md-2">
                                         <input ng-model="filter.grazeElevMax" class="form-control" id="grazeElevMax"
-                                        placeholder="90.0">
+                                               placeholder="90.0" value="{{filter.grazeElevMax}}">
                                     </div>
                                     <div class="col-md-3">
                                         <p class="help-block">0-90 Degrees</p>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <hr>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <h4>EO/IR Constraints</h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2 col-md-offset-3">
-                                        <label class="label label-primary">Minimum</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="label label-primary">Maximum</label>
-                                    </div>
-                                </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="sunAzimuthCheck">
                                             <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Sun Azimuth
+                                                <input ng-model="filter.sunAzimuthCheck"
+                                                       type="checkbox">&nbsp;&nbsp;Sun Azimuth
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="sunAzimuthMin" placeholder="0.0">
+                                        <input ng-model="filter.sunAzimuthMin" class="form-control" id="sunAzimuthMin"
+                                               placeholder="0.0" value="{{filter.sunAzimuthMin}}">
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="sunAzimuthMax" placeholder="9.0">
+                                        <input ng-model="filter.sunAzimuthMax" class="form-control"
+                                               id="sunAzimuthMax" placeholder="9.0" value="{{filter.sunAzimuthMax}}">
                                     </div>
                                     <div class="col-md-3">
                                         <p class="help-block">0-360</p>
                                     </div>
                                 </div>
                                 <br>
-
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="sunElevationCheck">
                                             <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Sun Elevation
+                                                <input ng-model="filter.sunElevationCheck" type="checkbox">&nbsp;&nbsp;Sun
+                                                Elevation
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="sunElevationMin" placeholder="0.0">
+                                        <input ng-model="filter.sunElevationMin" class="form-control"
+                                               id="sunElevationMin" placeholder="0.0" value="{{filter.sunElevationMin}}">
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="sunElevationMax" placeholder="90.0">
+                                        <input ng-model="filter.sunElevationMin" class="form-control"
+                                               id="sunElevationMax" placeholder="90.0" value="{{filter.sunElevationMax}}">
                                     </div>
                                     <div class="col-md-3">
                                         <p class="help-block">-90-90 Degrees</p>
                                     </div>
                                 </div>
                                 <br>
-
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="checkbox" id="cloudCoverCheck">
                                             <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Cloud Cover
+                                                <input ng-model="filter.cloudCoverCheck"
+                                                       type="checkbox">&nbsp;&nbsp;Cloud Cover
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <!--<input class="form-control" id="grazeElevMin" placeholder="0.0">-->
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="cloudCover" placeholder="80.0">
+                                        <input ng-model="filter.cloudCover" class="form-control" id="cloudCover"
+                                               placeholder="10.0">
                                     </div>
                                     <div class="col-md-3">
-                                        <p class="help-block">%</p>
+                                        <p class="help-block">0-100%</p>
                                     </div>
                                 </div>
                             </form>

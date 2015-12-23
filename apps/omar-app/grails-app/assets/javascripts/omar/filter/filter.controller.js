@@ -9,17 +9,28 @@
             /* jshint validthis: true */
             var vm = this;
 
-            vm.predNiirsCheck = true;
+            vm.predNiirsCheck = false;
             vm.predNiirsMin = "0.0";
             vm.predNiirsMax = "9.0";
 
-            vm.azimuthCheck = true;
+            vm.azimuthCheck = false;
             vm.azimuthMin = "0";
             vm.azimuthMax = "360";
 
-            vm.grazeElevCheck = true;
+            vm.grazeElevCheck = false;
             vm.grazeElevMin = "0.0";
             vm.grazeElevMax = "90.0";
+
+            vm.sunAzimuthCheck = false;
+            vm.sunAzimuthMin = "0.0";
+            vm.sunAzimuthMax = "360";
+
+            vm.sunElevationCheck = false;
+            vm.sunElevationMin = "-90";
+            vm.sunElevationMax = "90";
+
+            vm.cloudCoverCheck = true;
+            vm.cloudCover = "20";
 
             var filterString = "";
 
@@ -29,22 +40,32 @@
 
                 if (vm.predNiirsCheck){
 
-                    console.log('vm.predNiirsCheck true...');
-                    //filterArray.push("niirs Between " + vm.predNiirsMin +  " AND " + vm.predNiirsMax);
                     filterArray.push(["niirs",  ">=", vm.predNiirsMin,   "AND", "niirs", "<=",  vm.predNiirsMax].join(" "));
+
                 }
                 if (vm.azimuthCheck){
-                    if (filterString )
-                    console.log('vm.azimuthCheck true...');
+
                     filterArray.push(["azimuth_angle",  ">=", vm.azimuthMin,   "AND", "azimuth_angle", "<=",  vm.azimuthMax].join(" "));
 
                 }
                 if (vm.grazeElevCheck){
 
-                    console.log('vm.grazeElevMin true...');
-                    //filterArray.push("grazing_angle >= " + vm.grazeElevMin +  " AND " + "azimuth_angle" +
-                    //    " =< " + vm.grazeElevMax);
                     filterArray.push(["grazing_angle",  ">=", vm.grazeElevMin,   "AND", "grazing_angle", "<=",  vm.grazeElevMax].join(" "));
+
+                }
+                if (vm.sunAzimuthCheck){
+
+                    filterArray.push(["sun_azimuth",  ">=", vm.sunAzimuthMin,   "AND", "sun_azimuth", "<=",  vm.sunAzimuthMax].join(" "));
+
+                }
+                if (vm.sunElevationCheck){
+
+                    filterArray.push(["sun_elevation",  ">=", vm.sunElevationMin,   "AND", "sun_elevation", "<=",  vm.sunElevationMax].join(" "));
+
+                }
+                if (vm.cloudCoverCheck){
+
+                    filterArray.push(["cloud_cover",  "<=" + vm.cloudCover].join(" "));
 
                 }
 
@@ -61,7 +82,7 @@
 
                 wfsService.executeWfsQuery(null, filterStringParam);
 
-                // TODO add pubsub patter here like the wfs update
+                // TODO add pubsub pattern here like the wfs update
 
             };
 

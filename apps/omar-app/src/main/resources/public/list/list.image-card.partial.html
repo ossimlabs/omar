@@ -1,4 +1,4 @@
-<div class="modal-header modal-lg">
+<div class="modal-header">
     <div class="row">
         <div class="col-md-9">
             <h5>ID:&nbsp;&nbsp;<span class="text-success"><span
@@ -23,7 +23,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal-body">
     <div class="container-fluid">
         <!-- Image Space Map -->
@@ -145,6 +144,18 @@
                             Grazing Angle:&nbsp;&nbsp;<span class="text-success"><span
                                 ng-show="!vm.selectedImage.properties.grazing_angle">Unknown</span>{{vm.selectedImage.properties
                             .grazing_angle}}</span>
+                        </li>
+                        <li>
+                            Sun Azimuth:&nbsp;&nbsp;<span class="text-success"><span
+                                ng-show="!vm.selectedImage.properties.sun_azimuth">Unknown
+                        </span>{{vm.selectedImage.properties
+                            .sun_azimuth}}</span>
+                        </li>
+                        <li>
+                            Sun Elevation:&nbsp;&nbsp;<span class="text-success"><span
+                                ng-show="!vm.selectedImage.properties.sun_elevation">Unknown
+                        </span>{{vm.selectedImage.properties
+                            .sun_elevation}}</span>
                         </li>
                         <li>
                             Cloud Cover:&nbsp;&nbsp;<span class="text-success"><span
