@@ -19,6 +19,7 @@
             var map,
                 mapView,
                 searchLayerVector, // Used for visualizing the search items map markers polygon boundaries
+                geomField,
                 wktFormat,
                 searchFeatureWkt,
                 iconStyle,
@@ -86,25 +87,26 @@
                             } )
                         })
                     ],
-                    controls: ol.control.defaults({
-                        attributionOptions: ({
-                            collapsible: false
-                        })
-                    }),
+                    controls: ol.control.defaults().extend( [
+                        new ol.control.FullScreen()
+                    ] ),
                     target: 'map',
                     view: mapView
                 });
 
                 map.addLayer(searchLayerVector);
 
+                geomField = 'ground_geom';
                 var mapObj = {};
 
                 map.on('moveend', function(){
 
-                    mapObj.cql = "INTERSECTS(ground_geom," + convertToWktPolygon() + ")";
+                    mapObj.cql = "INTERSECTS(" + geomField + "," + convertToWktPolygon() + ")";
 
                     // Update the image cards in the list
-                    wfsService.executeWfsQuery(mapObj);
+                    //wfsService.setWfsParams("file_type='tiff'"); // this needs to update the param obj in wfsService
+                    //wfsService.setWfsParams(mapObj.cql);
+                    wfsService.executeWfsQuery(mapObj.cql);
 
                 });
 

@@ -11,6 +11,8 @@
 
             OpenLayers.ProxyHost = "/o2/proxy/index?url=";
 
+            // TODO: getCapabilities and DescribeFeatureType to get the geometry column
+
             var wfsRequest = {
                 typeName: 'omar:raster_entry',
                 namespace: 'http://omar.ossim.org',
@@ -21,11 +23,31 @@
             };
 
             //console.log('wfsRequest', wfsRequest);
+            this.setWfsParams = function(params) {
+                console.log(params);
+                wfsRequest.cql = params;
+            };
 
             this.executeWfsQuery = function(spatialParam, filterParam) {
 
                 console.log('spatialParam', spatialParam);
-                wfsRequest.cql = spatialParam.cql;
+                console.log('filterParam', filterParam);
+
+                //if (filterParam === null){
+                //
+                //    console.log('filterParam null');
+                //    wfsRequest.cql = spatialParam.cql;
+                //
+                //}
+                //else {
+                //
+                //    console.log('filterParam is NOT null');
+                //    wfsRequest.cql = spatialParam.cql + " AND file_type='nitf'";
+                //
+                //}
+
+                //console.log(wfsRequest.cql = spatialParam.cql + " AND file_type='tiff'");
+                console.log('wfsRequest', wfsRequest);
 
                 wfsClient.getFeature(wfsRequest, function (data) {
 

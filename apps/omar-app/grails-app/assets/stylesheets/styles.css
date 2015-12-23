@@ -57,11 +57,11 @@ h5 > .image-id-link:hover {
     margin-top: -5px;
 }
 
-#list .panel{
+#list .panel {
     margin-bottom: 5px;
 }
 
-#imageMap{
+#imageMap {
     height: 300px;
     width: 100%;
 }
@@ -85,8 +85,6 @@ h5 > .image-id-link:hover {
     hyphens: auto;
 
 }
-
-
 
 /*!
  * Styles for wfs-partial
@@ -159,7 +157,7 @@ h5 > .image-id-link:hover {
     margin-left: 70px;
 }
 
-.corner-ribbon{
+.corner-ribbon {
     width: 175px;
     position: absolute;
     top: 25px;
@@ -177,15 +175,15 @@ h5 > .image-id-link:hover {
     -ms-transform: rotate(-45deg);
 }
 
-.corner-ribbon.sticky{
+.corner-ribbon.sticky {
     position: fixed;
 }
 
-.corner-ribbon.shadow{
+.corner-ribbon.shadow {
     /*box-shadow: 0 0 3px rgba(0,0,0,.3);*/
 }
 
-.corner-ribbon.top-left{
+.corner-ribbon.top-left {
     top: 20px;
     left: -80px;
     margin-left: 32px;
@@ -199,3 +197,19 @@ h5 > .image-id-link:hover {
     -moz-box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
     box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
 }
+
+/*.map:-moz-full-screen {*/
+    /*height: 100%;*/
+/*}*/
+/*.map:-webkit-full-screen {*/
+    /*height: 100%;*/
+/*}*/
+/*.map:-ms-fullscreen {*/
+    /*height: 100%;*/
+/*}*/
+/*.map:fullscreen {*/
+    /*height: 100%;*/
+/*}*/
+/*.ol-rotate {*/
+    /*top: 3em;*/
+/*}*/
