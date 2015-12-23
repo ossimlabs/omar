@@ -336,7 +336,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <div class="checkbox" id="filter.predNiirsCheck">
+                                        <div ng-model="filter.predNiirsCheck" class="checkbox" id="predNiirsCheck">
                                             <label>
                                                 <input type="checkbox">&nbsp;&nbsp;Predicted NIIRS
                                             </label>
@@ -358,17 +358,19 @@
 
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <div class="checkbox" id="azimuthCheck">
+                                        <div ng-model="filter.azimuthCheck" class="checkbox" id="azimuthCheck">
                                             <label>
                                                 <input type="checkbox">&nbsp;&nbsp;Azimuth
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="azimuthMin" placeholder="0.0">
+                                        <input ng-model="filter.azimuthMin" class="form-control" id="azimuthMin"
+                                               placeholder="0.0">
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="azimuthMax" placeholder="0.0">
+                                        <input ng-model="filter.azimuthMax" class="form-control" id="azimuthMax"
+                                               placeholder="0.0">
                                     </div>
                                     <div class="col-md-3">
                                         <p class="help-block">0-360 Degrees</p>
