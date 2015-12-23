@@ -13,6 +13,10 @@
             vm.predNiirsMin = "0.0";
             vm.predNiirsMax = "9.0";
 
+            vm.azimuthCheck = false;
+            vm.azimuthMin = "0.0";
+            vm.azimuthMax = "360";
+
             //console.log('vm.predNiirsMin', vm.predNiirsMin);
 
             // TODO: Set the ng-model for the filter items

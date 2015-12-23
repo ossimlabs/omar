@@ -23,10 +23,10 @@
             };
 
             //console.log('wfsRequest', wfsRequest);
-            this.setWfsParams = function(params) {
-                console.log(params);
-                wfsRequest.cql = params;
-            };
+            //this.setWfsParams = function(params) {
+            //    console.log(params);
+            //    wfsRequest.cql = params;
+            //};
 
             this.executeWfsQuery = function(spatialParam, filterParam) {
 
@@ -46,7 +46,7 @@
                 //
                 //}
 
-                //console.log(wfsRequest.cql = spatialParam.cql + " AND file_type='tiff'");
+                wfsRequest.cql = spatialParam; //+ " AND file_type='tiff'");
                 console.log('wfsRequest', wfsRequest);
 
                 wfsClient.getFeature(wfsRequest, function (data) {

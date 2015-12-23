@@ -106,7 +106,8 @@
                     // Update the image cards in the list
                     //wfsService.setWfsParams("file_type='tiff'"); // this needs to update the param obj in wfsService
                     //wfsService.setWfsParams(mapObj.cql);
-                    wfsService.executeWfsQuery(mapObj.cql);
+                    console.log('mapObj.cql', mapObj.cql);
+                    wfsService.executeWfsQuery(mapObj.cql, null);
 
                 });
 
