@@ -336,9 +336,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <div ng-model="filter.predNiirsCheck" class="checkbox" id="predNiirsCheck">
+                                        <div  class="checkbox" id="predNiirsCheck">
                                             <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Predicted NIIRS
+                                                <input ng-model="filter.predNiirsCheck"
+                                                       type="checkbox">&nbsp;&nbsp;Predicted NIIRS
                                             </label>
                                         </div>
                                     </div>
@@ -358,19 +359,20 @@
 
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <div ng-model="filter.azimuthCheck" class="checkbox" id="azimuthCheck">
+                                        <div class="checkbox" id="azimuthCheck">
                                             <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Azimuth
+                                                <input ng-model="filter.azimuthCheck"
+                                                       type="checkbox">&nbsp;&nbsp;Azimuth
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <input ng-model="filter.azimuthMin" class="form-control" id="azimuthMin"
-                                               placeholder="0.0">
+                                               placeholder="0.0" value="{{filter.azimuthMin}}">
                                     </div>
                                     <div class="col-md-2">
                                         <input ng-model="filter.azimuthMax" class="form-control" id="azimuthMax"
-                                               placeholder="0.0">
+                                               placeholder="0.0" value="{{filter.azimuthMax}}">
                                     </div>
                                     <div class="col-md-3">
                                         <p class="help-block">0-360 Degrees</p>
@@ -382,15 +384,18 @@
                                     <div class="col-md-3">
                                         <div class="checkbox" id="grazeElevCheck">
                                             <label>
-                                                <input type="checkbox">&nbsp;&nbsp;Graze/Elevation
+                                                <input ng-model="filter.grazeElevCheck"
+                                                       type="checkbox">&nbsp;&nbsp;Graze/Elevation
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="grazeElevMin" placeholder="0.0">
+                                        <input ng-model="filter.grazeElevMin" class="form-control" id="grazeElevMin"
+                                               placeholder="0.0">
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" id="grazeElevMax" placeholder="90.0">
+                                        <input ng-model="filter.grazeElevMax" class="form-control" id="grazeElevMax"
+                                        placeholder="90.0">
                                     </div>
                                     <div class="col-md-3">
                                         <p class="help-block">0-90 Degrees</p>

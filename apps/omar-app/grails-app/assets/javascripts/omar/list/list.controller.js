@@ -13,12 +13,13 @@
             vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
             vm.thumbEntry = '&entry=';  // parameter provided by image.properties.entry_id
             vm.thumbSize = '&size=64';
-            //vm.thumbSize = '&size=128';
             vm.thumbFormat = '&format=jpeg';
 
             $scope.$on('wfs: updated', function(event, data) {
 
-                $scope.$apply(vm.wfsData = data);
+                $scope.$apply(function(){
+                    vm.wfsData = data;
+                });
 
             });
 

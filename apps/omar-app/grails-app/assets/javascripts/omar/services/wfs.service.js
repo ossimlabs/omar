@@ -17,7 +17,7 @@
                 typeName: 'omar:raster_entry',
                 namespace: 'http://omar.ossim.org',
                 version: '1.1.0',
-                maxFeatures: '50',
+                maxFeatures: '200',
                 outputFormat: 'JSON',
                 cql: ''
             };
@@ -33,20 +33,20 @@
                 console.log('spatialParam', spatialParam);
                 console.log('filterParam', filterParam);
 
-                //if (filterParam === null){
-                //
-                //    console.log('filterParam null');
-                //    wfsRequest.cql = spatialParam.cql;
-                //
-                //}
-                //else {
-                //
-                //    console.log('filterParam is NOT null');
-                //    wfsRequest.cql = spatialParam.cql + " AND file_type='nitf'";
-                //
-                //}
+                if (filterParam === null){
 
-                wfsRequest.cql = spatialParam; //+ " AND file_type='tiff'");
+                    console.log('filterParam null');
+                    wfsRequest.cql = spatialParam;
+
+                }
+                else {
+
+                    console.log('filterParam is NOT null');
+                    wfsRequest.cql = filterParam; //spatialParam.cql + " AND file_type='nitf'";
+
+                }
+
+                //wfsRequest.cql = spatialParam; //+ " AND file_type='tiff'");
                 console.log('wfsRequest', wfsRequest);
 
                 wfsClient.getFeature(wfsRequest, function (data) {
