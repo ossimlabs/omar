@@ -22,36 +22,66 @@
                 cql: ''
             };
 
-            //console.log('wfsRequest', wfsRequest);
-            //this.setWfsParams = function(params) {
-            //    console.log(params);
-            //    wfsRequest.cql = params;
-            //};
+            // When these change they need to be passed to the executeWfsQuery method
+            var spatialObj = {
+                filter: ""
+            };
 
-            this.executeWfsQuery = function(spatialParam, filterParam) {
+            var attrObj = {
+                filter: ""
+            };
 
-                console.log('spatialParam', spatialParam);
-                console.log('filterParam', filterParam);
+            this.updateSpatialFilter = function(filter) {
+                spatialObj.filter = filter;
+                $rootScope.$broadcast(
+                    'spatialObj.filter.updated', filter
+                );
+                //console.log('updateSpatialFilter param', filter);
+            };
 
-                if (filterParam === null){
+            this.updateAttrFilter = function(filter) {
+                attrObj.filter = filter;
+                $rootScope.$broadcast(
+                    'attrObj.filter.updated', filter
+                );
+                //console.log('updateAttrFilter param', filter);
+            };
 
-                    console.log('filterParam null');
-                    wfsRequest.cql = spatialParam;
+            //this.executeWfsQuery = function(spatialParam, filterParam) {
+            this.executeWfsQuery = function() {
+
+                console.log('spatialObj inside of executeWfsQuery', spatialObj);
+                console.log('attrObj inside of executeWfsQuery', attrObj);
+
+                // We need to be able to pass in the spatialFilterObj and
+                // attrFilter Obj each time they are updated
+
+                //console.log('spatialParam', spatialParam);
+                //console.log('filterParam', filterParam);
+
+                //attrObj.filter = "file_type='nitf'";
+
+                if (attrObj.filter === ""){
+
+                    console.log('filterParam ==== ""');
+                    wfsRequest.cql = spatialObj.filter;
 
                 }
                 else {
 
-                    console.log('filterParam is NOT null');
-                    wfsRequest.cql = filterParam; //spatialParam.cql + " AND file_type='nitf'";
+                    console.log('filterParam != ""');
+                    wfsRequest.cql = spatialObj.filter + " AND " + attrObj.filter; //spatialParam.cql + " AND
+                    // file_type='nitf'";
+                    console.log('wfsRequest.cql', wfsRequest.cql);
 
                 }
 
                 //wfsRequest.cql = spatialParam; //+ " AND file_type='tiff'");
-                console.log('wfsRequest', wfsRequest);
+                //console.log('wfsRequest', wfsRequest);
 
-                wfsClient.getFeature(wfsRequest, function (data) {
+                wfsClient.getFeature(wfsRequest, function(data) {
 
-                    console.log('getFeature data', data);
+                    //console.log('getFeature data', data);
 
                     $rootScope.$broadcast('wfs: updated', data);
 

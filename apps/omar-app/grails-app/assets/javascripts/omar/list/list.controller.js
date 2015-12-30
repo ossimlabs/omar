@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['APP_CONFIG', 'wfsService', '$stateParams', '$uibModal', 'imageSpaceService', '$scope', ListController]);
+        .controller('ListController', ['APP_CONFIG', 'wfsService', '$stateParams', '$uibModal', 'imageSpaceService', 'mapService', '$scope', ListController]);
 
-        function ListController(APP_CONFIG, wfsService, $stateParams, $uibModal, imageSpaceService, $scope) {
+        function ListController(APP_CONFIG, wfsService, $stateParams, $uibModal, imageSpaceService, mapService, $scope) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -15,21 +15,41 @@
             vm.thumbSize = '&size=64';
             vm.thumbFormat = '&format=jpeg';
 
+            // We need an $on event here to listen for changes to the
+            // wfs.spatial and wfs.attr filters
+            $scope.$on('spatialObj.filter.updated', function(event, filter) {
+
+                //console.log('$on spatialObj filter updated', filter);
+
+                //wfsService.executeWfsQuery(filter, null);
+                wfsService.executeWfsQuery();
+
+            });
+
+            $scope.$on('attrObj.filter.updated', function(event, filter) {
+
+                //console.log('$on attrObj filter updated', filter);
+
+                //wfsService.executeWfsQuery(filter, null);
+                wfsService.executeWfsQuery();
+
+            });
+
+
             $scope.$on('wfs: updated', function(event, data) {
 
+                // Update the DOM (card list)
                 $scope.$apply(function(){
                     vm.wfsData = data;
                 });
 
             });
 
-            vm.showImageModal = showImageModal;
-
-            function showImageModal(imageObj) {
+            vm.showImageModal = function(imageObj) {
 
                 //console.log('imageObj', imageObj);
 
-                $uibModal.open({
+                var modalInstance = $uibModal.open({
                     size: 'lg',
                     templateUrl: '/o2/list/list.image-card.partial.html',
                     controller: ['$uibModalInstance', 'imageSpaceService', 'imageObj', ImageModalController],
@@ -39,7 +59,15 @@
                     }
                 });
 
-            }
+                modalInstance.result.then(function() {
+                    console.log('Modal closed at: ' + new Date());
+
+                }, function () {
+                    console.log('Modal dismissed at: ' + new Date());
+                });
+
+            };
+
         }
 
         // Handles the selected image modal obj
@@ -50,14 +78,32 @@
             vm.selectedImage = imageObj;
             //console.log(vm.selectedImage);
 
-            var modal = this;
-            modal.rendered = false;
+            //var modal = this;
+            //modal.rendered = false;
+            //console.log('modal', modal);
 
             var imageSpaceObj = {
                 filename: imageObj.properties.filename,
                 entry: imageObj.properties.entry_id,
                 imgWidth: imageObj.properties.width,
                 imgHeight: imageObj.properties.height
+            };
+
+            vm.imageMapHelpPopover = {
+                zoomHotkey: 'SHIFT',
+                rotateHotkey: 'SHIFT + ALT',
+                templateUrl: 'imageMapHelpTemplate.html',
+                title: 'Help'
+            };
+
+            vm.cancel = function(){
+                console.log('closing...');
+                $uibModalInstance.close('paramObj');
+            };
+
+            vm.dismiss = function(){
+                console.log('dismissing...');
+                $uibModalInstance.dismiss('cancel');
             };
 
             $uibModalInstance.opened.then(function(){

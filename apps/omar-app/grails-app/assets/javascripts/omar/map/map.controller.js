@@ -15,7 +15,7 @@
             //console.log('$stateParams', $stateParams);
             if ($stateParams.mapParams === 'mapParamsDefaultMap') {
 
-                //console.log('DEFAULT!!!');
+                //console.log('Default...');
 
             }
             else {
@@ -27,16 +27,15 @@
             //console.log(vm.mapParams);
             mapService.mapInit(vm.mapParams);
 
-            // Set height of map and list elements
+            // Set the initial height of map and list elements
             mapService.resizeElement('#map', 240);
-            mapService.resizeElement('#list', 410);
+            mapService.resizeElement('#list', 325);
 
-            // Adjust the height of map and list elements if browser window changes
+            //Adjust the height of map and list elements if browser window changes
             $(window).resize(function () {
                 mapService.resizeElement('#map', 154);
-                mapService.resizeElement('#list', 325);
+                mapService.resizeElement('#list', 255);
             });
-
 
         }
 })();

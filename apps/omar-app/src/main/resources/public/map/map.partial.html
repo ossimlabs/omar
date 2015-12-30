@@ -33,10 +33,11 @@
             <!--&lt;!&ndash; /.form-group &ndash;&gt;-->
         <!--</form>-->
         <ul class="nav navbar-nav">
+            <p class="navbar-text text-success">Filters</p>
             <li class="dropdown">
                 <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                    &nbsp;&nbsp;Temporal<span class="caret"></span></a>
+                   aria-expanded="false"><span class="fa fa-clock-o" aria-hidden="true"></span>
+                    &nbsp;Temporal<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>
                         <div class="yamm-content">
@@ -48,16 +49,26 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="label label-info" for="startDateAcq">Start Date</label>
-                                            <input class="form-control" id="startDateAcq" placeholder="Starting date">
-                                        </div>
+                                        <!--<div class="form-group">-->
+                                            <!--<label class="label label-info" for="startDateAcq">Start Date</label>-->
+                                            <!--<input class="form-control" id="startDateAcq" placeholder="Starting date">-->
+                                        <!--</div>-->
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                                   ng-model="dt" is-open="filter.status.opened" min-date="minDate"
+                                                   max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                              <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default"
+                                                        ng-click="filter.open($event)"><i
+                                                        class="glyphicon glyphicon-calendar"></i></button>
+                                              </span>
+                                        </p>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="label label-info" for="endDateAcq">End Date</label>
-                                            <input class="form-control" id="endDateAcq" placeholder="Ending date">
-                                        </div>
+                                        <!--<div class="form-group">-->
+                                            <!--<label class="label label-info" for="endDateAcq">End Date</label>-->
+                                            <!--<input class="form-control" id="endDateAcq" placeholder="Ending date">-->
+                                        <!--</div>-->
                                     </div>
                                 </div>
                             </form>
@@ -67,8 +78,8 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
-                    &nbsp;&nbsp;Mission<span class="caret"></span></a>
+                   aria-expanded="false"><span class="fa fa-tags" aria-hidden="true"></span>
+                    &nbsp;Missions<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>
                         <div class="yamm-content">
@@ -312,14 +323,15 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-                    &nbsp;&nbsp;More Filters
+                   aria-expanded="false"><span class="fa fa-sliders" aria-hidden="true"></span>
+                    &nbsp;Ranges
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li class="yamm-content" style="height: 400px;">
+                    <li class="yamm-content" style="height: 500px;">
                         <div>
                             <form class="">
-                                <button class="btn btn-primary" type="button" ng-click="filter.filterWfs();">Apply
+                                <button class="btn btn-primary pull-right" type="button"
+                                        ng-click="filter.filterWfs();">Apply
                                 </button>
                                 <div class="row">
                                     <div class="col-md-2 col-md-offset-3">
@@ -464,19 +476,17 @@
 
                 </ul>
             </li>
-            <!--<li><a data-toggle="modal" data-target="#filterModal"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>&nbsp;&nbsp;More-->
-            <!--Filters</a></li>-->
         </ul>
-        <form class="navbar-form navbar-right">
-            <button type="button" class="btn btn-success disabled"><span class="glyphicon glyphicon-th-list"
-                                                                         aria-hidden="true"></span>&nbsp;&nbsp;List
-                View
-            </button>
-            <button type="button" class="btn btn-success disabled"><span class="glyphicon glyphicon-floppy-disk"
-                                                                         aria-hidden="true"></span>&nbsp;&nbsp;Save
-                Workspace
-            </button>
-        </form>
+        <!--<form class="navbar-form navbar-right">-->
+            <!--<button type="button" class="btn btn-success disabled"><span class="glyphicon glyphicon-th-list"-->
+                                                                         <!--aria-hidden="true"></span>&nbsp;&nbsp;List-->
+                <!--View-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-success disabled"><span class="glyphicon glyphicon-floppy-disk"-->
+                                                                         <!--aria-hidden="true"></span>&nbsp;&nbsp;Save-->
+                <!--Workspace-->
+            <!--</button>-->
+        <!--</form>-->
     </div>
     <!-- /.navbar-collapse -->
 </nav>
@@ -505,32 +515,36 @@
                     <ul class="nav navbar-nav">
                         <!--<li><a >New Acquires</a></li>-->
                         <!--<li><a >New Ingests</a></li>-->
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-sort"
-                                                                                aria-hidden="true"></span>
-                                &nbsp;&nbsp;Sort<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a>Acquired (High to Low)</a></li>
-                                <li><a>Acquired (Low to High)</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a>Ingested (High to Low)</a></li>
-                                <li><a>Ingested (Low to High)</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a>Image ID (High to Low)</a></li>
-                                <li><a>Image ID (Low to High)</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a>Image Type (High to Low)</a></li>
-                                <li><a>Image Type (Low to High)</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a>Sensor (High to Low)</a></li>
-                                <li><a>Sensor (Low to High)</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a>Misson (High to Low)</a></li>
-                                <li><a>Misson (Low to High)</a></li>
-                            </ul>
-                        </li>
+                        <!--<li class="dropdown">-->
+                            <!--<a class="dropdown-toggle" data-toggle="dropdown" role="button"-->
+                               <!--aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-sort"-->
+                                                                                <!--aria-hidden="true"></span>-->
+                                <!--&nbsp;&nbsp;Sort<span class="caret"></span></a>-->
+                            <!--<ul class="dropdown-menu">-->
+                                <!--<li><a>Acquired (High to Low)</a></li>-->
+                                <!--<li><a>Acquired (Low to High)</a></li>-->
+                                <!--<li role="separator" class="divider"></li>-->
+                                <!--<li><a>Ingested (High to Low)</a></li>-->
+                                <!--<li><a>Ingested (Low to High)</a></li>-->
+                                <!--<li role="separator" class="divider"></li>-->
+                                <!--<li><a>Image ID (High to Low)</a></li>-->
+                                <!--<li><a>Image ID (Low to High)</a></li>-->
+                                <!--<li role="separator" class="divider"></li>-->
+                                <!--<li><a>Image Type (High to Low)</a></li>-->
+                                <!--<li><a>Image Type (Low to High)</a></li>-->
+                                <!--<li role="separator" class="divider"></li>-->
+                                <!--<li><a>Sensor (High to Low)</a></li>-->
+                                <!--<li><a>Sensor (Low to High)</a></li>-->
+                                <!--<li role="separator" class="divider"></li>-->
+                                <!--<li><a>Misson (High to Low)</a></li>-->
+                                <!--<li><a>Misson (Low to High)</a></li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
                     </ul>
+                    <p class="navbar-text pull-right">&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span
+                            class="label label-primary">{{list.wfsData
+                            .length}}</span>
+                    </p>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
@@ -539,8 +553,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <p>&nbsp;&nbsp;Total Images:&nbsp;&nbsp;<span class="label label-warning">{{list.wfsData.length}}</span>
-                    </p>
+                    <!-- TBD -->
                 </div>
                 <div class="col-md-6 text-right">
                     <!--<uib-rating ng-model="list.rate" max="list.max" readonly="list.isReadonly"-->
@@ -549,12 +562,12 @@
                     <!--aria-labelledby="default-rating"></uib-rating>-->
                     <!--<span class="label" -->
                     <!--ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="list.overStar && !list.isReadonly">{{percent}}%</span>-->
-                    <button class="btn btn-info" ><span
-                            class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)
-                    </button>
+                    <!--<button class="btn btn-info" ><span-->
+                            <!--class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)-->
+                    <!--</button>-->
                 </div>
             </div>
-            <hr>
+            <!--<hr>-->
         </div>
         <div id="list">
             <div ng-repeat="image in list.wfsData" ng-model="image">
@@ -564,6 +577,8 @@
                             <div class="media-left">
                                 <img class="media-object"
                                      ng-click="list.showImageModal(image)"
+                                     tooltip-placement="right"
+                                     uib-tooltip="Click thumbnail to view preview image and metadata"
                                      ng-src="{{list.thumbPath}}{{list.thumbFilename}}{{image.properties.filename}}{{list.thumbEntry}}{{image.properties.entry_id}}{{list.thumbSize}}{{list.thumbFormat}}"
                                      alt="Image thumbnail"
                                      style="cursor: pointer;"
@@ -574,6 +589,8 @@
                                     <div class="col-md-10">
                                         <h5 class="media-heading">ID:&nbsp;&nbsp;<span
                                                 class="text-success image-id-link"
+                                                tooltip-placement="bottom"
+                                                uib-tooltip="Click link to view preview image and metadata"
                                                 ng-click="list.showImageModal(image)">20151218-000{{image.properties
                                             .id}}</span>
                                         </h5>
@@ -589,15 +606,24 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <i class="fa fa-thumbs-o-up"
-                                           style="cursor: pointer;"
-                                           tooltip-placement="right"
-                                           uib-tooltip="Like this image"></i>&nbsp;&nbsp;
-                                        <!--<i class="fa fa-thumbs-o-down"></i>&nbsp;&nbsp;-->
-                                        <i class="fa fa-plus-circle"
-                                           style="cursor: pointer;"
-                                           tooltip-placement="right"
-                                           uib-tooltip="Add this image to the Images Cart"></i>
+                                        <p class="text-primary" style="margin-top:.2em;">
+                                            <i class="fa fa-info-circle fa-border"
+                                               style="cursor: pointer;"
+                                               tooltip-placement="right"
+                                               uib-tooltip="View image metadata"></i>&nbsp;&nbsp;
+                                            <!--<i class="fa fa-thumbs-o-up fa-2x"-->
+                                               <!--style="cursor: pointer;"-->
+                                               <!--tooltip-placement="right"-->
+                                               <!--uib-tooltip="Like this image"></i>&nbsp;&nbsp;-->
+                                            <!--<i class="fa fa-plus-circle fa-2x"-->
+                                               <!--style="cursor: pointer;"-->
+                                               <!--tooltip-placement="right"-->
+                                               <!--uib-tooltip="Add this image to the Images Cart"></i>&nbsp;&nbsp;-->
+                                            <i class="fa fa-exchange fa-border"
+                                               style="cursor: pointer;"
+                                               tooltip-placement="right"
+                                               uib-tooltip="View image in swipe viewer"></i>&nbsp;&nbsp;
+                                        </p>
                                     </div>
                                 </div>
                             </div>

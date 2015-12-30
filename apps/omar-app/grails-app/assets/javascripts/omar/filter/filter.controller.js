@@ -29,8 +29,16 @@
             vm.sunElevationMin = "-90";
             vm.sunElevationMax = "90";
 
-            vm.cloudCoverCheck = true;
+            vm.cloudCoverCheck = false;
             vm.cloudCover = "20";
+
+            //vm.open = function($event) {
+            //    vm.status.opened = true;
+            //};
+            //
+            //vm.status = {
+            //    opened: false
+            //};
 
             var filterString = "";
 
@@ -65,7 +73,7 @@
                 }
                 if (vm.cloudCoverCheck){
 
-                    filterArray.push(["cloud_cover",  "<=" + vm.cloudCover].join(" "));
+                    filterArray.push(["cloud_cover",  "<= " + vm.cloudCover].join(" "));
 
                 }
 
@@ -80,9 +88,8 @@
                 //console.log('filterWfs firing!');
                 var filterStringParam = updateFilterString();
 
-                wfsService.executeWfsQuery(null, filterStringParam);
-
-                // TODO add pubsub pattern here like the wfs update
+                //wfsService.executeWfsQuery(null, filterStringParam); // (currentSpatialFilter, filterStringParam)
+                wfsService.updateAttrFilter(filterStringParam);
 
             };
 

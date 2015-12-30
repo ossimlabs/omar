@@ -88,7 +88,8 @@
                         })
                     ],
                     controls: ol.control.defaults().extend( [
-                        new ol.control.FullScreen()
+                        //new ol.control.FullScreen(),
+                        new ol.control.ScaleLine()
                     ] ),
                     target: 'map',
                     view: mapView
@@ -103,11 +104,8 @@
 
                     mapObj.cql = "INTERSECTS(" + geomField + "," + convertToWktPolygon() + ")";
 
-                    // Update the image cards in the list
-                    //wfsService.setWfsParams("file_type='tiff'"); // this needs to update the param obj in wfsService
-                    //wfsService.setWfsParams(mapObj.cql);
-                    console.log('mapObj.cql', mapObj.cql);
-                    wfsService.executeWfsQuery(mapObj.cql, null);
+                    // Update the image cards in the list via spatial bounds
+                    wfsService.updateSpatialFilter(mapObj.cql);
 
                 });
 
@@ -131,7 +129,7 @@
             };
 
             this.resizeElement = function (element, height){
-                //console.log('resizing');
+                console.log('resizing');
                 $(element).animate({height:$(window).height()- height}, 10, function(){
                     map.updateSize();
                 });

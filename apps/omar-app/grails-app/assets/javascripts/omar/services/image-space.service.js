@@ -282,16 +282,17 @@
                 size: [imgWidth, imgHeight],
                 crossOrigin: crossOrigin
             } );
-
+            var interactions = ol.interaction.defaults({altShiftDragRotate:true});
             map = new ol.Map( {
                 controls: ol.control.defaults().extend( [
                     new RotateNorthControl(),
                     new RotateUpControl(),
-                    new ol.control.FullScreen()
+                    //new ol.control.FullScreen()
                 ] ),
-                interactions: ol.interaction.defaults().extend([
-                    new ol.interaction.DragRotateAndZoom()
-                ]),
+                //interactions: ol.interaction.defaults().extend([
+                //    new ol.interaction.DragRotateAndZoom()
+                //]),
+                interactions: interactions,
                 layers: [
                     new ol.layer.Tile( {
                         source: source
