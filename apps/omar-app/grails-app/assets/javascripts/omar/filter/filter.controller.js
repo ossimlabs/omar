@@ -2,9 +2,9 @@
    'use strict';
     angular
         .module('omarApp')
-        .controller('FilterController', ['wfsService', FilterController]);
+        .controller('FilterController', ['wfsService', 'toastr', FilterController]);
 
-        function FilterController(wfsService){
+        function FilterController(wfsService, toastr){
 
             /* jshint validthis: true */
             var vm = this;
@@ -72,11 +72,23 @@
 
                 function pushRangeToArray(dbName, formFieldMin, formFieldMax){
 
-                    filterArray.push([dbName,  ">=", formFieldMin, "AND", dbName, "<=",  formFieldMax].join(" "));
-                    console.log(dbName + 'filterArray', filterArray);
+                    var min,
+                        max;
+
+                    min = parseFloat(formFieldMin);
+                    max = parseFloat(formFieldMax);
+
+                    if(isNaN(min) || isNaN(max)){
+                        toastr.error('Please enter a valid number for the range filter.',
+                            'Error',
+                            {closeButton: true});
+                    }
+                    else {
+                        filterArray.push([dbName,  ">=", min, "AND", dbName, "<=",  max].join(" "));
+                        console.log(dbName + 'filterArray', filterArray);
+                    }
 
                 }
-
                 // Keywords
                 if(vm.missionIdCheck){
                     //filterArray.push(["mission_id Like '%", vm.missionId.trim() ,"%'"].join(""));
@@ -151,9 +163,15 @@
 
                 }
                 if (vm.cloudCoverCheck){
-
-                    filterArray.push(["cloud_cover",  "<= " + vm.cloudCover].join(" "));
-
+                    if (isNaN(vm.cloudCover)){
+                        toastr.error('Please enter a valid number for the range filter.',
+                            'Error',
+                            {closeButton: true});
+                    }
+                    else {
+                        filterArray.push(["cloud_cover",  "<= " + vm.cloudCover].join(" "));
+                    }
+                    
                 }
 
                 filterString = filterArray.join(" AND ");
