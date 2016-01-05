@@ -131,17 +131,23 @@
                 }
                 if (vm.grazeElevCheck){
 
-                    filterArray.push(["grazing_angle",  ">=", vm.grazeElevMin, "AND", "grazing_angle", "<=",  vm.grazeElevMax].join(" "));
+                    //filterArray.push(["grazing_angle",  ">=", vm.grazeElevMin, "AND", "grazing_angle", "<=",
+                    //  vm.grazeElevMax].join(" "));
+                    pushRangeToArray("grazing_angle", vm.grazeElevMin, vm.grazeElevMax);
 
                 }
                 if (vm.sunAzimuthCheck){
 
-                    filterArray.push(["sun_azimuth",  ">=", vm.sunAzimuthMin, "AND", "sun_azimuth", "<=",  vm.sunAzimuthMax].join(" "));
+                    //filterArray.push(["sun_azimuth",  ">=", vm.sunAzimuthMin, "AND", "sun_azimuth", "<=",
+                    //  vm.sunAzimuthMax].join(" "));
+                    pushRangeToArray("sun_azimuth", vm.sunAzimuthMin, vm.sunAzimuthMax);
 
                 }
                 if (vm.sunElevationCheck){
 
-                    filterArray.push(["sun_elevation",  ">=", vm.sunElevationMin, "AND", "sun_elevation", "<=",  vm.sunElevationMax].join(" "));
+                    //filterArray.push(["sun_elevation",  ">=", vm.sunElevationMin, "AND", "sun_elevation", "<=",
+                    //  vm.sunElevationMax].join(" "));
+                    pushRangeToArray("sun_elevation", vm.sunElevationMin, vm.sunElevationMax);
 
                 }
                 if (vm.cloudCoverCheck){
@@ -155,6 +161,10 @@
                 return filterString;
 
             }
+
+            // TODO: Reset for Keywords form
+
+            // TODO: Reset for Ranges form
 
             vm.filterWfs = function() {
 
