@@ -32,6 +32,12 @@
             <!--</div>-->
             <!--&lt;!&ndash; /.form-group &ndash;&gt;-->
         <!--</form>-->
+        <!--<form class="navbar-form navbar-left" role="search">-->
+            <!--<div class="form-group">-->
+                <!--<input type="text" class="form-control" placeholder="Search for Image ID">-->
+            <!--</div>-->
+            <!--<button type="button" class="btn btn-default">Search</button>-->
+        <!--</form>-->
         <ul class="nav navbar-nav">
             <p class="navbar-text text-success">Filters</p>
             <li class="dropdown">
@@ -48,35 +54,67 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <!--<div class="form-group">-->
-                                            <!--<label class="label label-info" for="startDateAcq">Start Date</label>-->
-                                            <!--<input class="form-control" id="startDateAcq" placeholder="Starting date">-->
-                                        <!--</div>-->
-                                        <p class="input-group">
-                                            <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
-                                                   ng-model="dt" is-open="filter.status.opened" min-date="minDate"
-                                                   max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                                              <span class="input-group-btn">
-                                                <button type="button" class="btn btn-default"
-                                                        ng-click="filter.open($event)"><i
-                                                        class="glyphicon glyphicon-calendar"></i></button>
-                                              </span>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!--<div class="form-group">-->
-                                            <!--<label class="label label-info" for="endDateAcq">End Date</label>-->
-                                            <!--<input class="form-control" id="endDateAcq" placeholder="Ending date">-->
-                                        <!--</div>-->
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary">Last Day</button>
+                                        <button class="btn btn-primary">Last Week</button>
+                                        <button class="btn btn-primary">Last Month</button>
+                                        <button class="btn btn-primary">Last 6 Months</button>
+                                        <button class="btn btn-primary">Last Year</button>
+                                        <button
+                                                ng-click="filter.customDateRangeVisible = !filter.customDateRangeVisible"
+                                                class="btn btn-primary">Custom
+                                        </button>
                                     </div>
                                 </div>
+                                <br>
+                                <div class="row" ng-show="filter.customDateRangeVisible">
+                                    <div class="col-md-6"><p class="text-center">Start Date</p></div>
+                                    <div class="col-md-6"><p class="text-center">End Date</p></div>
+                                </div>
+                                <div class="row" ng-show="filter.customDateRangeVisible">
+                                    <div class="col-md-6">
+                                        <div style="display:inline-block; min-height:290px;">
+                                            <uib-datepicker ng-model="filter.startDate" show-weeks="false"
+                                                            class="well well-sm"></uib-datepicker>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div style="display:inline-block; min-height:290px;">
+                                            <uib-datepicker ng-model="filter.endDate" min-date="minDate"
+                                                            show-weeks="false"
+                                                            class="well well-sm"></uib-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<label class="label label-info" for="startDateAcq">Start Date</label>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<input class="form-control" id="startDateAcq" placeholder="Starting date">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--<p class="input-group">-->
+                                            <!--<input type="text" class="form-control" uib-datepicker-popup="{{format}}"-->
+                                                   <!--ng-model="dt" is-open="filter.status.opened" min-date="minDate"-->
+                                                   <!--max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
+                                              <!--<span class="input-group-btn">-->
+                                                <!--<button type="button" class="btn btn-default"-->
+                                                        <!--ng-click="filter.open($event)"><i-->
+                                                        <!--class="glyphicon glyphicon-calendar"></i></button>-->
+                                              <!--</span>-->
+                                        <!--</p>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<label class="label label-info" for="endDateAcq">End Date</label>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<input class="form-control" id="endDateAcq" placeholder="Ending date">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
                             </form>
                         </div>
                     </li>
                 </ul>
             </li>
-
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
@@ -106,10 +144,25 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-4">
+                                        <div class="checkbox" id="imageIdCheck">
+                                            <label>
+                                                <input ng-model="filter.imageIdCheck"
+                                                       type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Image Id
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input ng-model="filter.imageId" class="form-control" id="imageIdInput"
+                                               vaule="{{filter.imageId}}">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-4">
                                         <div class="checkbox" id="missionIdCheck">
                                             <label>
                                                 <input ng-model="filter.missionIdCheck"
-                                                       type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Mission Id
+                                                       type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Mission ID
                                             </label>
                                         </div>
                                     </div>
@@ -124,7 +177,7 @@
                                         <div class="checkbox" id="sensorIdCheck">
                                             <label>
                                                 <input ng-model="filter.sensorIdCheck"
-                                                       type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Sensor Id
+                                                       type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Sensor ID
                                             </label>
                                         </div>
                                     </div>
@@ -154,7 +207,7 @@
                                         <div class="checkbox" id="targetIdCheck">
                                             <label>
                                                 <input ng-model="filter.targetIdCheck"
-                                                       type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Target Id
+                                                       type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Target ID
                                             </label>
                                         </div>
                                     </div>
@@ -193,22 +246,6 @@
                                                value="{{filter.filename}}">
                                     </div>
                                 </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="checkbox" id="imageIdCheck">
-                                            <label>
-                                                <input ng-model="filter.imageIdCheck"
-                                                       type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Image Id
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input ng-model="filter.imageId" class="form-control" id="imageIdInput"
-                                               vaule="{{filter.imageId}}">
-                                    </div>
-                                </div>
-
                             </form>
                         </div>
                     </li>

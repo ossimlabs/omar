@@ -18,7 +18,7 @@ var MapView = (function ()
                 source: new ol.source.TileWMS( {
                     url: '/o2/footprints/getFootprints',
                     params: {
-//                        FILTER: "file_type='nitf'",
+                        //FILTER: "file_type='nitf'",
                         VERSION: '1.1.1',
                         LAYERS: 'omar:raster_entry',
                         STYLES: 'byFileType'
