@@ -63,13 +63,13 @@
 
                 if (attrObj.filter === ""){
 
-                    console.log('filterParam ==== ""');
+                    //console.log('filterParam ==== ""');
                     wfsRequest.cql = spatialObj.filter;
 
                 }
                 else {
 
-                    console.log('filterParam != ""');
+                    //console.log('filterParam != ""');
                     wfsRequest.cql = spatialObj.filter + " AND " + attrObj.filter; //spatialParam.cql + " AND
                     // file_type='nitf'";
                     console.log('wfsRequest.cql', wfsRequest.cql);

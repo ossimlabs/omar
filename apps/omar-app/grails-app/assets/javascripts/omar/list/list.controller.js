@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['APP_CONFIG', 'wfsService', '$stateParams', '$uibModal', 'imageSpaceService', 'mapService', '$scope', ListController]);
+        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'imageSpaceService', '$scope', ListController]);
 
-        function ListController(APP_CONFIG, wfsService, $stateParams, $uibModal, imageSpaceService, mapService, $scope) {
+        function ListController(wfsService, $stateParams, $uibModal, imageSpaceService,  $scope) {
 
             /* jshint validthis: true */
             var vm = this;
