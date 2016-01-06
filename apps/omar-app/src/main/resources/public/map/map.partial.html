@@ -330,9 +330,15 @@
                     <li class="yamm-content" style="width: 500px;">
                         <div>
                             <form>
-                                <button class="btn btn-primary pull-right" type="button"
+                                <div class="row">
+                                    <button class="btn btn-primary" type="button"
                                         ng-click="filter.filterWfs();">Apply
-                                </button>
+                                    </button>
+                                    <button class="btn btn-warning" type="button"
+                                            ng-click="filter.initKeywords();">Reset
+                                    </button>
+                                </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-2 text-center">
                                         <label class="label label-primary">Enabled</label>
@@ -463,9 +469,15 @@
                     <li class="yamm-content">
                         <div>
                             <form class="">
-                                <button class="btn btn-primary pull-right" type="button"
-                                        ng-click="filter.filterWfs();">Apply
-                                </button>
+                                <div class="row">
+                                    <button class="btn btn-primary" type="button"
+                                            ng-click="filter.filterWfs();">Apply
+                                    </button>
+                                    <button class="btn btn-warning" type="button"
+                                            ng-click="filter.initRanges();">Reset
+                                    </button>
+                                </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-2 text-center">
                                         <label class="label label-primary">Enabled</label>

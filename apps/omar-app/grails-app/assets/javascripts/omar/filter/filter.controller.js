@@ -9,51 +9,63 @@
             /* jshint validthis: true */
             var vm = this;
 
-            // Keywords
-            vm.missionIdCheck = false;
-            vm.missionId = "";
+            vm.initKeywords = function(){
+                // Keywords
+                vm.missionIdCheck = false;
+                vm.missionId = "";
 
-            vm.sensorIdCheck = false;
-            vm.sensorId = "";
+                vm.sensorIdCheck = false;
+                vm.sensorId = "";
 
-            vm.beNumberCheck = false;
-            vm.beNumber = "";
+                vm.beNumberCheck = false;
+                vm.beNumber = "";
 
-            vm.targetIdCheck = false;
-            vm.targetId = "";
+                vm.targetIdCheck = false;
+                vm.targetId = "";
 
-            vm.wacNumberCheck = false;
-            vm.wacNumber = "";
+                vm.wacNumberCheck = false;
+                vm.wacNumber = "";
 
-            vm.filenameCheck = false;
-            vm.filename = "";
+                vm.filenameCheck = false;
+                vm.filename = "";
 
-            vm.imageIdCheck = false;
-            vm.imageId = "";
+                vm.imageIdCheck = false;
+                vm.imageId = "";
 
-            // Ranges
-            vm.predNiirsCheck = false;
-            vm.predNiirsMin = "0.0";
-            vm.predNiirsMax = "9.0";
+                // Clears out the current filter
+                vm.filterWfs();
 
-            vm.azimuthCheck = false;
-            vm.azimuthMin = "0";
-            vm.azimuthMax = "360";
+            };
 
-            vm.grazeElevCheck = false;
-            vm.grazeElevMin = "0.0";
-            vm.grazeElevMax = "90.0";
+            vm.initRanges = function(){
+                // Ranges
+                vm.predNiirsCheck = false;
+                vm.predNiirsMin = "0.0";
+                vm.predNiirsMax = "9.0";
 
-            vm.sunAzimuthCheck = false;
-            vm.sunAzimuthMin = "0.0";
-            vm.sunAzimuthMax = "360";
+                vm.azimuthCheck = false;
+                vm.azimuthMin = "0";
+                vm.azimuthMax = "360";
 
-            vm.sunElevationCheck = false;
-            vm.sunElevationMin = "-90";
-            vm.sunElevationMax = "90";
+                vm.grazeElevCheck = false;
+                vm.grazeElevMin = "0.0";
+                vm.grazeElevMax = "90.0";
 
-            vm.cloudCoverCheck = false;
-            vm.cloudCover = "20";
+                vm.sunAzimuthCheck = false;
+                vm.sunAzimuthMin = "0.0";
+                vm.sunAzimuthMax = "360";
+
+                vm.sunElevationCheck = false;
+                vm.sunElevationMin = "-90";
+                vm.sunElevationMax = "90";
+
+                vm.cloudCoverCheck = false;
+                vm.cloudCover = "20";
+
+                // Clears out the current filter
+                vm.filterWfs();
+
+            };
 
             var filterString = "";
 
@@ -65,7 +77,8 @@
 
                     // TODO: Always assume contains and case insensitive
 
-                    filterArray.push([dbName + " Like '%", formField.trim() ,"%'"].join(""));
+                    filterArray.push([dbName + " LIKE '%", formField ,"%'"].join(""));
+
                     console.log(dbName + ' filterArray', filterArray);
 
                 }
@@ -171,7 +184,7 @@
                     else {
                         filterArray.push(["cloud_cover",  "<= " + vm.cloudCover].join(" "));
                     }
-                    
+
                 }
 
                 filterString = filterArray.join(" AND ");
@@ -179,10 +192,6 @@
                 return filterString;
 
             }
-
-            // TODO: Reset for Keywords form
-
-            // TODO: Reset for Ranges form
 
             vm.filterWfs = function() {
 
@@ -194,5 +203,7 @@
 
             };
 
+            vm.initKeywords();
+            vm.initRanges();
         }
 })();
