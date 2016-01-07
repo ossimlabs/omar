@@ -57,7 +57,7 @@ class GetFeatureRequest implements Validateable
         resultType: x?.@resultType?.text(),
         filter: WfsParseUtil.getFilterAsString( x ),
         sortBy: x?.Query?.first()?.SortBy?.text(),
-        propertyName: x?.Query?.first()?.PropertyName?.text()
+        propertyName: x?.Query?.first()?.PropertyName?.collect { it?.text() }?.join( ',' )
     )
 
   }
