@@ -57,7 +57,7 @@ class DescribeFeatureTypeRequest implements Validateable
     return new DescribeFeatureTypeRequest(
         service: x?.@service?.text(),
         version: specifiedVersion,
-        request: 'GetFeature',
+        request: 'DescribeFeatureType',
         typeName: typeName,
         namespace: x?.lookupNamespace( prefix )
     )
