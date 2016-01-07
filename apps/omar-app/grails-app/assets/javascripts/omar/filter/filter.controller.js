@@ -11,6 +11,9 @@
 
             vm.initKeywords = function(){
                 // Keywords
+                vm.imageIdCheck = false;
+                vm.imageId = "";
+
                 vm.missionIdCheck = false;
                 vm.missionId = "";
 
@@ -28,9 +31,6 @@
 
                 vm.filenameCheck = false;
                 vm.filename = "";
-
-                vm.imageIdCheck = false;
-                vm.imageId = "";
 
                 // Clears out the current filter
                 vm.filterWfs();
@@ -65,6 +65,32 @@
                 // Clears out the current filter
                 vm.filterWfs();
 
+            };
+
+            vm.customDateRangeVisible = false;
+
+            vm.showCustomDateRange = function(){
+                vm.customDateRangeVisible = true;
+                console.log('vm.customDateRangeVisible', vm.customDateRangeVisible)
+            };
+
+            vm.setInitialStartDate = function() {
+                var yesterday = new Date();
+                yesterday.setDate(yesterday.getDate()-1);
+
+                vm.startDate = yesterday;
+            };
+
+            vm.setInitialEndDate = function() {
+                vm.endDate = new Date();
+            };
+
+            vm.getStartDate = function(){
+                console.log('Start: ' + vm.startDate);
+            };
+
+            vm.getEndDate = function(){
+                console.log('End: ' + vm.endDate);
             };
 
             var filterString = "";
@@ -205,5 +231,7 @@
 
             vm.initKeywords();
             vm.initRanges();
+            vm.setInitialStartDate();
+            vm.setInitialEndDate();
         }
 })();
