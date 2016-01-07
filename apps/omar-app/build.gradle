@@ -40,7 +40,8 @@ assets {
   minifyCss = true
   //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
   includes = ["fonts/*"]
-  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/.grunt/**'] // OL3
+  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
+              '.grunt/**', '**/locale/**']
 }
 
 repositories {
@@ -116,6 +117,7 @@ dependencies {
   compile 'org.webjars:spin-js:2.1.0'
   compile 'org.webjars.npm:angular-spinner:0.7.0'
   compile 'org.webjars.bower:angular-toastr:1.6.0'
+  compile 'org.webjars:momentjs:2.11.0'
 
   // Font stuff
   compile 'org.webjars:font-awesome:4.4.0'

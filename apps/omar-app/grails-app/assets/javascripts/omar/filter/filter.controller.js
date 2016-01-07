@@ -71,7 +71,7 @@
 
             vm.showCustomDateRange = function(){
                 vm.customDateRangeVisible = true;
-                console.log('vm.customDateRangeVisible', vm.customDateRangeVisible)
+                console.log('vm.customDateRangeVisible', vm.customDateRangeVisible);
             };
 
             vm.setInitialStartDate = function() {
@@ -98,6 +98,20 @@
             function updateFilterString(){
 
                 var filterArray =[];
+
+                function pushTemporalToArray(dbname, formStartDate, formStartTime, formEndDate, formEndTime){
+
+                    var startDate,
+                        endDate;
+
+                    startDate = new Date()-1;
+                    endDate = new Date();
+
+                    console.log('startDate', startDate);
+                    console.log('endDate', endDate);
+
+                }
+                pushTemporalToArray();
 
                 function pushKeywordToArray(dbName, formField){
 
@@ -128,6 +142,7 @@
                     }
 
                 }
+
                 // Keywords
                 if(vm.missionIdCheck){
                     //filterArray.push(["mission_id Like '%", vm.missionId.trim() ,"%'"].join(""));
