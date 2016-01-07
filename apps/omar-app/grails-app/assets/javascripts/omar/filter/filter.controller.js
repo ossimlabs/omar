@@ -101,17 +101,22 @@
 
                 function pushTemporalToArray(dbname, formStartDate, formStartTime, formEndDate, formEndTime){
 
-                    var startDate,
-                        endDate;
+                    var dateToday = moment().format('MM-DD-YYYY 00:00');
+                    var dateTodayEnd = moment().format('MM-DD-YYYY 23:59');
+                    var dateYesterday = moment().subtract(1, 'days').format('MM-DD-YYYY 00:00');
+                    var dateYesterdayEnd = moment().subtract(1, 'days').format('MM-DD-YYYY 23:59');
+                    var dateLast7Days = moment().subtract(7, 'days').format('MM-DD-YYYY 00:00');
+                    var dateThisMonth = moment().subtract(1, 'months').format('MM-DD-YYYY 00:00');
+                    var dateLast3Months = moment().subtract(3, 'months').format('MM-DD-YYYY 00:00');
+                    var dateLast6Months = moment().subtract(6, 'months').format('MM-DD-YYYY 00:00');
 
-                    startDate = new Date()-1;
-                    endDate = new Date();
+                    console.log(dateLast6Months);
+                    console.log(dateToday);
 
-                    console.log('startDate', startDate);
-                    console.log('endDate', endDate);
+                    filterArray.push(["ingest_date",  ">='", dateLast6Months, "'AND", "ingest_date", "<='",  dateToday + "'"].join(" "));
 
                 }
-                pushTemporalToArray();
+                //pushTemporalToArray();
 
                 function pushKeywordToArray(dbName, formField){
 
