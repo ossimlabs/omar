@@ -99,7 +99,10 @@
 
                 var filterArray =[];
 
-                function pushTemporalToArray(dbname, formStartDate, formStartTime, formEndDate, formEndTime){
+                function pushTemporalToArray(dbName){
+
+                    //if()
+
 
                     var dateToday = moment().format('MM-DD-YYYY 00:00');
                     var dateTodayEnd = moment().format('MM-DD-YYYY 23:59');
@@ -110,13 +113,16 @@
                     var dateLast3Months = moment().subtract(3, 'months').format('MM-DD-YYYY 00:00');
                     var dateLast6Months = moment().subtract(6, 'months').format('MM-DD-YYYY 00:00');
 
+
+
+
                     console.log(dateLast6Months);
                     console.log(dateToday);
 
-                    filterArray.push(["ingest_date",  ">='", dateLast6Months, "'AND", "ingest_date", "<='",  dateToday + "'"].join(" "));
+                    filterArray.push([dbName,  ">='", dateLast6Months, "'AND", dbName, "<='",  dateToday + "'"].join(" "));
 
                 }
-                //pushTemporalToArray();
+                //pushTemporalToArray("ingest_date");
 
                 function pushKeywordToArray(dbName, formField){
 
