@@ -1,6 +1,7 @@
 #!/bin/bash
 pushd `dirname $0` >/dev/null
 export SCRIPT_DIR=`pwd -P`
+popd >/dev/null
 
 . $SCRIPT_DIR/env.sh
 
@@ -16,7 +17,6 @@ else
 fi
 
 #
-popd >/dev/null
 popd >/dev/null
 
 
