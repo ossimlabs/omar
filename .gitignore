@@ -12,3 +12,4 @@ build/
 .classpath
 node_modules
 apps/omar-app/.asscache
+*.db

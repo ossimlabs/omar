@@ -7,9 +7,9 @@ class BootStrap
 {
   def grailsApplication
   def messageSource
+  def utilService
 
   def init = { servletContext ->
-
     if ( NamespaceInfo.count() == 0 )
     {
       grailsApplication.config.wfs.featureTypeNamespaces.each {

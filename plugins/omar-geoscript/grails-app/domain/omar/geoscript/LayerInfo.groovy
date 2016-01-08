@@ -2,7 +2,7 @@ package omar.geoscript
 
 import groovy.transform.ToString
 
-@ToString(includeNames = true)
+@ToString(includeNames = true, excludes = 'workspaceInfo')
 class LayerInfo
 {
   String name

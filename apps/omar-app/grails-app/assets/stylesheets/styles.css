@@ -1,0 +1,240 @@
+@font-face {
+    font-family: 'Glyphicons Halflings';
+
+    src: url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.eot');
+    src: url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+    url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.woff') format('woff'),
+    url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+    url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+body { padding-top: 70px; }
+
+.navbar-brand {padding-top: 15px}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.jumbotron {
+    position: relative;
+    background: #000 url("aerial_rs.jpg") center center;
+    width: 100%;
+    /*height: 100%;*/
+    background-size: contain;
+    overflow: hidden;
+}
+
+.jumbotron h1 {
+    padding-bottom: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff
+}
+
+.jumbotron h2 {
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff
+}
+
+h5 > .image-id-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#searchForm .input-group-btn {
+    z-index: 1047;
+}
+
+#searchForm input {
+    z-index: 1048;
+}
+
+#map {
+    /*height: 800px;*/
+}
+
+#list {
+    /*height: 750px;*/
+    overflow-y: scroll;
+}
+
+#list .media {
+    margin-bottom: -30px;
+    margin-top: -5px;
+}
+
+#list .panel {
+    margin-bottom: 5px;
+}
+
+#list .fa:hover {
+    font-size: 0.9em;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+}
+
+#imageMap {
+    height: 300px;
+    width: 100%;
+}
+
+.dont-break-out {
+
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+
+}
+
+/*!
+ * Styles for wfs-partial
+ */
+.the-table {
+    white-space: nowrap;
+    max-width: none;
+    min-width: 100%
+    width: auto;
+}
+
+.the-container {
+    overflow: auto;
+    height: 250px;
+}
+
+/*!
+ * Styles the autocomplete dropdown
+ */
+.autocomplete-suggestions { border: 1px solid #999; background: #2b3e50; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #4e5d6c; }
+.autocomplete-suggestions strong { font-weight: normal; color: #5bc0de; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+/*!
+ * Yamm!3 - Yet another megamenu for Bootstrap 3
+ * http://geedmo.github.com/yamm3
+ *
+ * @geedmo - Licensed under the MIT license
+ */
+.yamm .nav,
+.yamm .collapse,
+.yamm .dropup,
+.yamm .dropdown {
+    position: static;
+}
+.yamm .container {
+    position: relative;
+}
+.yamm .dropdown-menu {
+    left: auto;
+}
+.yamm .yamm-content {
+    padding: 20px 30px;
+    overflow: scroll;
+}
+.yamm .dropdown.yamm-fw .dropdown-menu {
+    left: 0;
+    right: 0;
+}
+
+.rotate-north {
+    top: 65px;
+    left: .5em;
+}
+.ol-touch .rotate-north {
+    top: 80px;
+}
+
+.rotate-up {
+    top: 95px;
+    left: .5em;
+}
+.ol-touch .rotate-up {
+    top: 80px;
+}
+
+.top-logo {
+    margin-left: 70px;
+}
+
+.corner-ribbon {
+    width: 175px;
+    position: absolute;
+    top: 25px;
+    left: -50px;
+    text-align: center;
+    line-height: 40px;
+    letter-spacing: 1px;
+    font-weight: bolder;
+    color: #3B5957;
+    background-color: #f8901b;
+    text-shadow: 0px 1px 0px rgba(245, 251, 247, 0.5);
+    font-size: 24px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+}
+
+.corner-ribbon.sticky {
+    position: fixed;
+}
+
+.corner-ribbon.shadow {
+    /*box-shadow: 0 0 3px rgba(0,0,0,.3);*/
+}
+
+.corner-ribbon.top-left {
+    top: 20px;
+    left: -80px;
+    margin-left: 32px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    z-index: 99999;
+}
+
+.shadow {
+    -webkit-box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
+    -moz-box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
+    box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
+}
+
+#imageMap:-moz-full-screen {
+    height: 100%;
+}
+#imageMap:-webkit-full-screen {
+    height: 100%;
+}
+#imageMap:-ms-fullscreen {
+    height: 100%;
+}
+#imageMap:fullscreen {
+    height: 100%;
+}
+.ol-rotate {
+    top: 3em;
+}
+
+/*.full button span {*/
+    /*background-color: limegreen;*/
+    /*border-radius: 32px;*/
+    /*color: black;*/
+/*}*/
+/*.partially button span {*/
+    /*background-color: orange;*/
+    /*border-radius: 32px;*/
+    /*color: black;*/
+/*}*/

@@ -1,22 +1,24 @@
 buildscript {
-    ext {
-        grailsVersion = project.grailsVersion
-    }
-    repositories {
-        mavenLocal()
-        maven { url "https://repo.grails.org/grails/core" }
-    }
-    dependencies {        
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
-        classpath "org.grails.plugins:hibernate:4.3.10.5"
-    }
+  ext {
+    grailsVersion = project.grailsVersion
+  }
+  repositories {
+    maven{ url "http://download.osgeo.org/webdav/geotools"}
+    maven { url "https://repo.grails.org/grails/core" }
+    mavenLocal()
+  }
+  dependencies {
+    classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+    classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
+    classpath "org.grails.plugins:hibernate:4.3.10.5"
+  }
 }
 
 plugins {
-    id "io.spring.dependency-management" version "0.5.2.RELEASE"
+  id "io.spring.dependency-management" version "0.5.2.RELEASE"
 }
 
+evaluationDependsOnChildren()
 version "0.1"
 group "omar.app"
 
@@ -29,39 +31,42 @@ apply plugin: "org.grails.grails-web"
 apply plugin: "org.grails.grails-gsp"
 
 ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
+  grailsVersion = project.grailsVersion
+  gradleWrapperVersion = project.gradleWrapperVersion
 }
 
 assets {
-    minifyJs = true
-    minifyCss = true
-    excludes = ['**/*-debug.js','**/*-deps.js'] // OL3
+  minifyJs = true
+  minifyCss = true
+  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
+  includes = ["fonts/*"]
+  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
+              '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
 }
 
 repositories {
-    mavenLocal()
-    maven { url "https://repo.grails.org/grails/core" }
+  mavenLocal()
+  maven { url "http://download.osgeo.org/webdav/geotools/" }
+  maven { url "https://repo.grails.org/grails/core" }
 
-   maven { url "http://repo.boundlessgeo.com/main" }
-   maven { url "http://download.osgeo.org/webdav/geotools/" }
-   maven { url "http://maven.geo-solutions.it/" }
-   maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
+  maven { url "http://repo.boundlessgeo.com/main" }
+  maven { url "http://maven.geo-solutions.it/" }
+  maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
 
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "org.grails:grails-bom:$grailsVersion"
-    }
-    applyMavenExclusions false
+  imports {
+    mavenBom "org.grails:grails-bom:$grailsVersion"
+  }
+  applyMavenExclusions false
 }
 
 dependencies {
-    compile project(':omar-openlayers')
-    compile project(':omar-wfs')
-    compile project(':omar-wms')
-
+  compile project( ':omar-openlayers' )
+  compile project( ':omar-wfs' )
+  compile project( ':omar-wms' )
+  compile project( ':omar-oms' )
 
   compile( "org.geoscript:geoscript-groovy:1.5.0" ) {
     exclude module: "slf4j-log4j12"
@@ -75,32 +80,58 @@ dependencies {
     exclude module: "groovy-all"
   }    
 
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies"
-    compile "org.grails:grails-web-boot"
+  compile "org.springframework.boot:spring-boot-starter-logging"
+  compile "org.springframework.boot:spring-boot-starter-actuator"
+  compile "org.springframework.boot:spring-boot-autoconfigure"
+  compile "org.springframework.boot:spring-boot-starter-tomcat"
+  compile "org.grails:grails-dependencies"
+  compile "org.grails:grails-web-boot"
 
-    compile "org.grails.plugins:hibernate"
-    compile "org.grails.plugins:cache"
-    compile "org.hibernate:hibernate-ehcache"
-    compile "org.grails.plugins:scaffolding"
+  compile "org.grails.plugins:hibernate"
+  compile "org.grails.plugins:cache"
+  compile "org.hibernate:hibernate-ehcache"
+  compile "org.grails.plugins:scaffolding"
 
-    runtime "org.grails.plugins:asset-pipeline"
+  runtime "org.grails.plugins:asset-pipeline"
 
-    testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails.plugins:geb"
+  testCompile "org.grails:grails-plugin-testing"
+  testCompile "org.grails.plugins:geb"
 
-    // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
-    testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
+  // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
+  testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
 
-    console "org.grails:grails-console"
+  console "org.grails:grails-console"
 
-    compile "org.grails.plugins:grails3-cors-interceptor:0.1.1"
+  compile "org.grails.plugins:grails3-cors-interceptor:0.1.1"
+
+  // UI Webjar core dependencies
+  compile 'org.webjars:jquery:2.1.4'
+  compile 'org.webjars:openlayers:3.11.1'
+  compile 'org.webjars:bootstrap:3.3.5'
+  compile 'org.webjars.bower:angularjs:1.4.8'
+  compile 'org.webjars:angular-ui-router:0.2.15'
+  compile 'org.webjars.npm:angular-ui-bootstrap:0.14.3'
+  compile 'org.webjars:angular-deferred-bootstrap:0.1.5'
+  compile 'org.webjars.bower:bootstrap-select:1.7.5'
+  compile 'org.webjars.bower:devbridge-autocomplete:1.2.21'
+  compile 'org.webjars:spin-js:2.1.0'
+  compile 'org.webjars.npm:angular-spinner:0.7.0'
+  compile 'org.webjars.bower:angular-toastr:1.6.0'
+  compile 'org.webjars:momentjs:2.11.0'
+
+  // Font stuff
+  compile 'org.webjars:font-awesome:4.4.0'
+  // Dark .css themes
+  compile 'org.webjars:bootswatch-darkly:3.3.5+4'
+  compile 'org.webjars:bootswatch-slate:3.3.5+4'
+  compile 'org.webjars:bootswatch-superhero:3.3.5+4'
+  // Light .css themes
+  compile 'org.webjars:bootswatch-spacelab:3.3.5+4'
+  compile 'org.webjars:bootswatch-cosmo:3.3.5+4'
+  compile 'org.webjars:bootswatch-flatly:3.3.5+4'
 
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = gradleWrapperVersion
+task wrapper( type: Wrapper ) {
+  gradleVersion = gradleWrapperVersion
 }

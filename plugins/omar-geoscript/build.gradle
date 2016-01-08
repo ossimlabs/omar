@@ -5,6 +5,7 @@ buildscript {
   repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
+
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -21,6 +22,7 @@ plugins {
   id "com.jfrog.bintray" version "1.2"
 }
 
+evaluationDependsOnChildren()
 version "0.1-SNAPSHOT"
 group "org.grails.plugins"
 
@@ -126,4 +128,4 @@ task installJavaVectorTiles( type: Exec, dependsOn: 'downloadJavaVectorTiles' ) 
 }
 
 
-compileGroovy.dependsOn 'installJavaVectorTiles'
+//compileGroovy.dependsOn 'installJavaVectorTiles'

@@ -345,6 +345,7 @@ class WebFeatureService
     def xml = new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x )
     def contentType = 'application/xml'
 
+
     return [contentType: contentType, buffer: xml.toString()]
   }
 
@@ -453,7 +454,7 @@ class WebFeatureService
       namespaceInfo = NamespaceInfo.findByPrefix( namespacePrefix )
     }
 
-    println "${namespaceInfo} ${layerName}"
+    //println "${namespaceInfo} ${layerName}"
 
     LayerInfo layerInfo = LayerInfo.where {
       name == layerName && workspaceInfo.namespaceInfo == namespaceInfo
@@ -479,7 +480,7 @@ class WebFeatureService
 /*
   def getFeature(GetFeatureRequest wfsParams)
   {
-    println wfsParams
+    //println wfsParams
 
     def x = wfsParams?.typeName?.split( ':' )
     def namespacePrefix
@@ -520,7 +521,7 @@ class WebFeatureService
       namespaceInfo = NamespaceInfo.findByPrefix( namespacePrefix )
     }
 
-    println "${namespaceInfo} ${layerName}"
+    //println "${namespaceInfo} ${layerName}"
 
     LayerInfo layerInfo = LayerInfo.where {
       name == layerName && workspaceInfo.namespaceInfo == namespaceInfo
@@ -612,7 +613,7 @@ class WebFeatureService
       namespaceInfo = NamespaceInfo.findByPrefix( namespacePrefix )
     }
 
-    println "${namespaceInfo} ${layerName}"
+    //println "${namespaceInfo} ${layerName}"
 
     LayerInfo.where {
       name == layerName && workspaceInfo.namespaceInfo == namespaceInfo
@@ -766,7 +767,7 @@ class WebFeatureService
       options
     }
 
-    println options
+    //println options
 
     Workspace.withWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) { workspace ->
       def layer = workspace[layerInfo.name]
