@@ -9,6 +9,9 @@
             /* jshint validthis: true */
             var vm = this;
 
+            var filterString = "";
+            var filterArray =[];
+
             vm.initKeywords = function(){
                 // Keywords
                 vm.imageIdCheck = false;
@@ -33,11 +36,11 @@
                 vm.filename = "";
 
                 // Clears out the current filter
-                vm.filterWfs();
+                vm.updateFilterString();
 
             };
 
-            vm.initRanges = function(){
+            vm.initRanges = function() {
                 // Ranges
                 vm.predNiirsCheck = false;
                 vm.predNiirsMin = "0.0";
@@ -63,78 +66,135 @@
                 vm.cloudCover = "20";
 
                 // Clears out the current filter
-                vm.filterWfs();
+                vm.updateFilterString();
 
             };
 
+            vm.dateTypes = [
+                {value: 'acquisition_date', label: 'Acquisition Date' },
+                {value: 'ingest_date', label: 'Ingest Date' }
+            ];
+            vm.currentDateType = vm.dateTypes[0]; // sets the first selected date type (acquisition_date)
+
+            vm.temporalDurations = [
+                {value: 'lastDay', label: 'Today' },
+                {value: 'yesterday', label: 'Yesterday' },
+                {value: 'last3Days', label: 'Last 3 Days' },
+                {value: 'last7Days', label: 'Last Week' },
+                {value: 'lastMonth', label: 'Last Month' },
+                {value: 'last3Months', label: 'Last 3 Months' },
+                {value: 'last6Months', label: 'Last 6 Months' },
+                {value: 'customDateRange', label: 'Custom Date Range' },
+            ];
+            vm.currentTemporalDuration = vm.temporalDurations[0];
+
             vm.customDateRangeVisible = false;
 
-            vm.showCustomDateRange = function(){
+            vm.showCustomDateRange = function() {
                 vm.customDateRangeVisible = true;
                 console.log('vm.customDateRangeVisible', vm.customDateRangeVisible);
             };
 
-            vm.setInitialStartDate = function() {
+            vm.setInitialCustomStartDate = function() {
                 var yesterday = new Date();
                 yesterday.setDate(yesterday.getDate()-1);
 
                 vm.startDate = yesterday;
             };
 
-            vm.setInitialEndDate = function() {
+            vm.setInitialCustomEndDate = function() {
                 vm.endDate = new Date();
+                //vm.endDate = new Date(new Date().setMinutes(0, 0));
             };
 
-            vm.getStartDate = function(){
+            vm.getCustomStartDate = function() {
                 console.log('Start: ' + vm.startDate);
+                console.log('moment formatted start date', moment(vm.startDate).format('MM-DD-YYYY HH:mm:ss'));
+
+                // TODO: Pickup the time from the timepicker control instead of formatting from moment
+                console.log('vm.startDate before momnent', vm.startDate);
+                return moment(vm.startDate).format('MM-DD-YYYY HH:mm:ss');
             };
 
-            vm.getEndDate = function(){
-                console.log('End: ' + vm.endDate);
+            vm.getCustomEndDate = function() {
+                //console.log('End: ' + vm.endDate);
+                //console.log('moment formatted end date', moment(vm.endDate).format('MM-DD-YYYY'));
+
+                // TODO: Pickup the time from the timepicker control instead of formatting from moment
+
+                return moment(vm.endDate).format('MM-DD-YYYY HH:mm:ss');
             };
 
-            var filterString = "";
+            vm.updateFilterString = function(){
 
-            function updateFilterString(){
+                filterArray =[];
 
-                var filterArray =[];
+                // Move this to an init like the others?
+                var dateToday = moment().format('MM-DD-YYYY 00:00');
+                var dateTodayEnd = moment().format('MM-DD-YYYY 23:59');
+                var dateYesterday = moment().subtract(1, 'days').format('MM-DD-YYYY 00:00');
+                var dateYesterdayEnd = moment().subtract(1, 'days').format('MM-DD-YYYY 23:59');
+                var dateLast3Days = moment().subtract(2, 'days').format('MM-DD-YYYY 00:00');
+                var dateLast7Days = moment().subtract(7, 'days').format('MM-DD-YYYY 00:00');
+                var dateThisMonth = moment().subtract(1, 'months').format('MM-DD-YYYY 00:00');
+                var dateLast3Months = moment().subtract(3, 'months').format('MM-DD-YYYY 00:00');
+                var dateLast6Months = moment().subtract(6, 'months').format('MM-DD-YYYY 00:00');
 
-                function pushTemporalToArray(dbName){
+                // TODO: grab this from the filter date type select element
+                var dbName = vm.currentDateType.value; //"acquisition_date";
+                var temporalParam = vm.currentTemporalDuration.value;
 
-                    //if()
-
-
-                    var dateToday = moment().format('MM-DD-YYYY 00:00');
-                    var dateTodayEnd = moment().format('MM-DD-YYYY 23:59');
-                    var dateYesterday = moment().subtract(1, 'days').format('MM-DD-YYYY 00:00');
-                    var dateYesterdayEnd = moment().subtract(1, 'days').format('MM-DD-YYYY 23:59');
-                    var dateLast7Days = moment().subtract(7, 'days').format('MM-DD-YYYY 00:00');
-                    var dateThisMonth = moment().subtract(1, 'months').format('MM-DD-YYYY 00:00');
-                    var dateLast3Months = moment().subtract(3, 'months').format('MM-DD-YYYY 00:00');
-                    var dateLast6Months = moment().subtract(6, 'months').format('MM-DD-YYYY 00:00');
-
-
-
-
-                    console.log(dateLast6Months);
-                    console.log(dateToday);
-
-                    filterArray.push([dbName,  ">='", dateLast6Months, "'AND", dbName, "<='",  dateToday + "'"].join(" "));
-
+                // Feed the switch statement from the value of the currently selected date range
+                switch(temporalParam){
+                    case "lastDay":
+                        vm.customDateRangeVisible = false;
+                        filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        break;
+                    case "yesterday":
+                        vm.customDateRangeVisible = false;
+                        filterArray.push([dbName,  ">='", dateYesterday, "'AND", dbName, "<='",  dateYesterdayEnd + "'"].join(" "));
+                        break;
+                    case "last3Days":
+                        vm.customDateRangeVisible = false;
+                        filterArray.push([dbName,  ">='", dateLast3Days, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        break;
+                    case "last7Days":
+                        vm.customDateRangeVisible = false;
+                        filterArray.push([dbName,  ">='", dateLast7Days, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        break;
+                    case "lastMonth":
+                        vm.customDateRangeVisible = false;
+                        filterArray.push([dbName,  ">='", dateThisMonth, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        break;
+                    case "last3Months":
+                        vm.customDateRangeVisible = false;
+                        filterArray.push([dbName,  ">='", dateLast3Months, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        break;
+                    case "last6Months":
+                        vm.customDateRangeVisible = false;
+                        filterArray.push([dbName,  ">='", dateLast6Months, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        break;
+                    case "customDateRange":
+                        //console.log('switch == "customDateRange"');
+                        vm.customDateRangeVisible = true;
+                        filterArray.push([dbName,  ">='", vm.getCustomStartDate(), "'AND", dbName, "<='",  vm.getCustomEndDate() + "'"].join(" "));
+                        break;
+                    default:
+                        vm.customDateRangeVisible = false;
+                        filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        console.log('switch default working');
+                        break;
                 }
-                //pushTemporalToArray("ingest_date");
 
-                function pushKeywordToArray(dbName, formField){
+                function pushKeywordToArray(dbName, formField) {
 
                     // TODO: Always assume contains and case insensitive
-
                     filterArray.push([dbName + " LIKE '%", formField ,"%'"].join(""));
-
                     console.log(dbName + ' filterArray', filterArray);
 
                 }
 
-                function pushRangeToArray(dbName, formFieldMin, formFieldMax){
+                function pushRangeToArray(dbName, formFieldMin, formFieldMax) {
 
                     var min,
                         max;
@@ -241,23 +301,17 @@
 
                 filterString = filterArray.join(" AND ");
                 console.log(filterString);
-                return filterString;
+                //return filterString;
 
-            }
-
-            vm.filterWfs = function() {
-
-                //console.log('filterWfs firing!');
-                var filterStringParam = updateFilterString();
-
-                //wfsService.executeWfsQuery(null, filterStringParam); // (currentSpatialFilter, filterStringParam)
-                wfsService.updateAttrFilter(filterStringParam);
+                wfsService.updateAttrFilter(filterString);
 
             };
 
             vm.initKeywords();
             vm.initRanges();
-            vm.setInitialStartDate();
-            vm.setInitialEndDate();
+
+            vm.setInitialCustomStartDate();
+            vm.setInitialCustomEndDate();
+
         }
 })();

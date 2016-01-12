@@ -54,7 +54,7 @@ h5 > .image-id-link:hover {
 
 #list {
     /*height: 750px;*/
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #list .media {
@@ -144,7 +144,7 @@ h5 > .image-id-link:hover {
 }
 .yamm .yamm-content {
     padding: 20px 30px;
-    overflow: scroll;
+    /*overflow: scroll;*/
 }
 .yamm .dropdown.yamm-fw .dropdown-menu {
     left: 0;

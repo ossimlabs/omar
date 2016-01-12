@@ -50,7 +50,7 @@
             //this.executeWfsQuery = function(spatialParam, filterParam) {
             this.executeWfsQuery = function() {
 
-                console.log('spatialObj inside of executeWfsQuery', spatialObj);
+                //console.log('spatialObj inside of executeWfsQuery', spatialObj);
                 console.log('attrObj inside of executeWfsQuery', attrObj);
 
                 // We need to be able to pass in the spatialFilterObj and

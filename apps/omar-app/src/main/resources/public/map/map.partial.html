@@ -46,70 +46,86 @@
                     &nbsp;Temporal<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <div class="yamm-content">
+                        <div ng-click="$event.stopPropagation();" style="padding-bottom: 0px;" class="yamm-content">
+                            <div class="row">
+                                <p>Select a date type and duration filter from the select boxes below</p>
+                            </div>
                             <form class="form">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4>Date Acquired</h4>
+                                        <div class="form-group">
+                                            <label for="temporalTypeFilter">Date Type</label>
+                                            <select ng-model="filter.currentDateType"
+                                                    ng-options="type.label for type in filter.dateTypes"
+                                                    ng-change="filter.updateFilterString()"
+                                                    id="temporalTypeFilter"
+                                                    class="form-control">
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-primary">Last Day</button>
-                                        <button class="btn btn-primary">Last Week</button>
-                                        <button class="btn btn-primary">Last Month</button>
-                                        <button class="btn btn-primary">Last 6 Months</button>
-                                        <button class="btn btn-primary">Last Year</button>
-                                        <button
-                                                ng-click="filter.customDateRangeVisible = !filter.customDateRangeVisible"
-                                                class="btn btn-primary">Custom
-                                        </button>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row" ng-show="filter.customDateRangeVisible">
-                                    <div class="col-md-6"><p class="text-center">Start Date</p></div>
-                                    <div class="col-md-6"><p class="text-center">End Date</p></div>
-                                </div>
-                                <div class="row" ng-show="filter.customDateRangeVisible">
-                                    <div class="col-md-6">
-                                        <div style="display:inline-block; min-height:290px;">
-                                            <uib-datepicker ng-model="filter.startDate" show-weeks="false"
-                                                            class="well well-sm"></uib-datepicker>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div style="display:inline-block; min-height:290px;">
-                                            <uib-datepicker ng-model="filter.endDate" min-date="minDate"
-                                                            show-weeks="false"
-                                                            class="well well-sm"></uib-datepicker>
+                                        <div class="form-group">
+                                            <label for="temporalDuration">Duration</label>
+                                            <select ng-model="filter.currentTemporalDuration"
+                                                    ng-options="duration.label for duration in filter.temporalDurations"
+                                                    ng-change="filter.updateFilterString()"
+                                                    id="temporalDuration"
+                                                    class="form-control">
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <!--<div class="row">-->
-                                    <!--<div class="col-md-6">-->
-                                        <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
-                                            <!--&lt;!&ndash;<label class="label label-info" for="startDateAcq">Start Date</label>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;<input class="form-control" id="startDateAcq" placeholder="Starting date">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                        <!--<p class="input-group">-->
-                                            <!--<input type="text" class="form-control" uib-datepicker-popup="{{format}}"-->
-                                                   <!--ng-model="dt" is-open="filter.status.opened" min-date="minDate"-->
-                                                   <!--max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
-                                              <!--<span class="input-group-btn">-->
-                                                <!--<button type="button" class="btn btn-default"-->
-                                                        <!--ng-click="filter.open($event)"><i-->
-                                                        <!--class="glyphicon glyphicon-calendar"></i></button>-->
-                                              <!--</span>-->
-                                        <!--</p>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-md-6">-->
-                                        <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
-                                            <!--&lt;!&ndash;<label class="label label-info" for="endDateAcq">End Date</label>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;<input class="form-control" id="endDateAcq" placeholder="Ending date">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                                <div class="row" ng-show="filter.customDateRangeVisible">
+                                    <div class="col-md-12">
+                                        <label class="">Custom Dates</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row" ng-show="filter.customDateRangeVisible">
+                                        <div class="col-md-6"><p class="text-center">Start Time & Date</p></div>
+                                        <div class="col-md-6"><p class="text-center">End Time & Date</p></div>
+                                    </div>
+                                    <div class="row" ng-show="filter.customDateRangeVisible">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control"
+                                                       ng-model="filter.startDate"
+                                                       ng-change="filter.updateFilterString();"
+                                                       data-time-format="HH:mm:ss a"
+                                                       data-autoclose="false"
+                                                       data-minute-step="1"
+                                                       data-second-step="1"
+                                                       placeholder="Time" bs-timepicker>
+                                            </div>
+                                            <div style="display:inline-block;">
+                                                <uib-datepicker
+                                                        ng-model="filter.startDate"
+                                                        ng-change="filter.updateFilterString();"
+                                                        show-weeks="false"
+                                                        class="well well-sm">
+                                                </uib-datepicker>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" size="8" class="form-control"
+                                                       ng-model="filter.endDate"
+                                                       data-time-format="HH:mm:ss a"
+                                                       data-autoclose="0" placeholder="Time" bs-timepicker>
+                                            </div>
+                                            <div style="display:inline-block;">
+                                                <uib-datepicker
+                                                    ng-model="filter.endDate"
+                                                    ng-change="filter.updateFilterString();"
+                                                    show-weeks="false"
+                                                    class="well well-sm">
+                                                </uib-datepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </li>
@@ -126,7 +142,7 @@
                             <form>
                                 <div class="row">
                                     <button class="btn btn-primary" type="button"
-                                        ng-click="filter.filterWfs();">Apply
+                                        ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
                                     </button>
                                     <button class="btn btn-warning" type="button"
                                             ng-click="filter.initKeywords();">Reset
@@ -249,7 +265,6 @@
                             </form>
                         </div>
                     </li>
-
                 </ul>
             </li>
             <li class="dropdown">
@@ -264,7 +279,7 @@
                             <form class="">
                                 <div class="row">
                                     <button class="btn btn-primary" type="button"
-                                            ng-click="filter.filterWfs();">Apply
+                                            ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
                                     </button>
                                     <button class="btn btn-warning" type="button"
                                             ng-click="filter.initRanges();">Reset
@@ -414,7 +429,6 @@
                             </form>
                         </div>
                     </li>
-
                 </ul>
             </li>
         </ul>
