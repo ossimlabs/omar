@@ -2,6 +2,7 @@ package omar.wfs
 
 import grails.validation.Validateable
 import groovy.transform.ToString
+import groovy.util.slurpersupport.GPathResult
 
 /**
  * Created by sbortman on 9/22/15.
@@ -36,28 +37,40 @@ class GetFeatureRequest implements Validateable
     return ""
   }
 
-  static GetFeatureRequest fromXML(String xml)
+  static GetFeatureRequest fromXML(String text)
   {
-    def x = new XmlSlurper().parseText( xml )
-    def typeName = x?.Query?.@typeName?.text()
-    def prefix = typeName?.split( ':' )?.first()
-    String specifiedVersion = WfsParseUtil.findVersion( x )
-    def maxFeatures = x?.@maxFeatures?.text()
-    def startIndex = x?.@startIndex?.text()
+    def xml = new XmlSlurper().parseText( text )
+
+    fromXML( xml )
+  }
+
+  static GetFeatureRequest fromXML(def xml)
+  {
+    def typeName = xml?.Query?.@typeName?.text()
+    def namespacePrefix = typeName?.split( ':' )?.first()
+    def namespaceUri = xml?.lookupNamespace( namespacePrefix ) ?: null
+    String specifiedVersion = WfsParseUtil.findVersion( xml )
+    def maxFeatures = xml?.@maxFeatures?.text()
+    def startIndex = xml?.@startIndex?.text()
+//    def namespace = "xmlns(${namespacePrefix}=${namespaceUri})"
+    def propertyNames = xml?.Query?.first()?.PropertyName?.collect { it?.text()?.split( ':' )?.last() }?.join( ',' )
+
+
+//    println namespace
 
     return new GetFeatureRequest(
         service: 'WFS',
         version: specifiedVersion,
         request: 'GetFeature',
         typeName: typeName,
-        namespace: x?.lookupNamespace( prefix ) ?: null,
-        outputFormat: x?.@outputFormat?.text() ?: null,
+//        namespace: namespace,
+        outputFormat: xml?.@outputFormat?.text() ?: null,
         maxFeatures: ( maxFeatures ) ? maxFeatures?.toInteger() : null,
         startIndex: ( startIndex ) ? startIndex?.toInteger() : null,
-        resultType: x?.@resultType?.text(),
-        filter: WfsParseUtil.getFilterAsString( x ),
-        sortBy: x?.Query?.first()?.SortBy?.text(),
-        propertyName: x?.Query?.first()?.PropertyName?.collect { it?.text() }?.join( ',' )
+        resultType: xml?.@resultType?.text(),
+        filter: WfsParseUtil.getFilterAsString( xml ),
+        sortBy: xml?.Query?.first()?.SortBy?.text(),
+        propertyName: propertyNames
     )
 
   }

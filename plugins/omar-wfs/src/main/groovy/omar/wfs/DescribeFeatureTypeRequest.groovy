@@ -47,19 +47,20 @@ class DescribeFeatureTypeRequest implements Validateable
     return new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x ).toString()
   }
 
-  static DescribeFeatureTypeRequest fromXML(String xml)
+  static DescribeFeatureTypeRequest fromXML(def x)
   {
-    def x = new XmlSlurper().parseText( xml )
+//    def x = new XmlSlurper().parseText( xml )
     def typeName = x?.TypeName?.text()
     def prefix = typeName?.split( ':' )?.first()
     def specifiedVersion = WfsParseUtil.findVersion( x )
+    def namespace = "xmlns(${prefix}=${x?.lookupNamespace( prefix ) ?: null})"
 
     return new DescribeFeatureTypeRequest(
         service: x?.@service?.text(),
         version: specifiedVersion,
         request: 'DescribeFeatureType',
         typeName: typeName,
-        namespace: x?.lookupNamespace( prefix )
+        namespace: namespace
     )
   }
 }

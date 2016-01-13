@@ -326,7 +326,7 @@ wfs:
           - features
         datastoreId: omardb-1.8.20-prod
 
-#grails.serverURL: http://localhost/
+grails.serverURL: http://o2.ossim.org
 
 wms:
   styles:
@@ -337,7 +337,7 @@ wms:
               r: 50
               g: 111
               b: 111
-              a: 25
+              a: 255
           aaigrid:
             filter: file_type='aaigrid'
             color: pink
