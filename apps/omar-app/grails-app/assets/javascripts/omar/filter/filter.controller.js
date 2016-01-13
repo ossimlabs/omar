@@ -10,7 +10,9 @@
             var vm = this;
 
             var filterString = "";
-            var filterArray =[];
+            var filterArray = [];
+
+            vm.filterStringDisplay = "";
 
             vm.initKeywords = function(){
                 // Keywords
@@ -125,7 +127,7 @@
                 return moment(vm.endDate).format('MM-DD-YYYY HH:mm:ss');
             };
 
-            vm.updateFilterString = function(){
+            vm.updateFilterString = function() {
 
                 filterArray =[];
 
@@ -148,40 +150,40 @@
                 switch(temporalParam){
                     case "lastDay":
                         vm.customDateRangeVisible = false;
-                        filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd, "'"].join(" "));
                         break;
                     case "yesterday":
                         vm.customDateRangeVisible = false;
-                        filterArray.push([dbName,  ">='", dateYesterday, "'AND", dbName, "<='",  dateYesterdayEnd + "'"].join(" "));
+                        filterArray.push([dbName,  ">='", dateYesterday, "'AND", dbName, "<='",  dateYesterdayEnd, "'"].join(" "));
                         break;
                     case "last3Days":
                         vm.customDateRangeVisible = false;
-                        filterArray.push([dbName,  ">='", dateLast3Days, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        filterArray.push([dbName,  ">='", dateLast3Days, "'AND", dbName, "<='",  dateTodayEnd, "'"].join(" "));
                         break;
                     case "last7Days":
                         vm.customDateRangeVisible = false;
-                        filterArray.push([dbName,  ">='", dateLast7Days, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        filterArray.push([dbName,  ">='", dateLast7Days, "'AND", dbName, "<='",  dateTodayEnd, "'"].join(" "));
                         break;
                     case "lastMonth":
                         vm.customDateRangeVisible = false;
-                        filterArray.push([dbName,  ">='", dateThisMonth, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        filterArray.push([dbName,  ">='", dateThisMonth, "'AND", dbName, "<='",  dateTodayEnd, "'"].join(" "));
                         break;
                     case "last3Months":
                         vm.customDateRangeVisible = false;
-                        filterArray.push([dbName,  ">='", dateLast3Months, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        filterArray.push([dbName,  ">='", dateLast3Months, "'AND", dbName, "<='",  dateTodayEnd, "'"].join(" "));
                         break;
                     case "last6Months":
                         vm.customDateRangeVisible = false;
-                        filterArray.push([dbName,  ">='", dateLast6Months, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        filterArray.push([dbName,  ">='", dateLast6Months, "'AND", dbName, "<='",  dateTodayEnd, "'"].join(" "));
                         break;
                     case "customDateRange":
                         //console.log('switch == "customDateRange"');
                         vm.customDateRangeVisible = true;
-                        filterArray.push([dbName,  ">='", vm.getCustomStartDate(), "'AND", dbName, "<='",  vm.getCustomEndDate() + "'"].join(" "));
+                        filterArray.push([dbName,  ">='", vm.getCustomStartDate(), "'AND", dbName, "<='",  vm.getCustomEndDate(), "'"].join(" "));
                         break;
                     default:
                         vm.customDateRangeVisible = false;
-                        filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd + "'"].join(" "));
+                        filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd, "' AND "].join(" "));
                         console.log('switch default working');
                         break;
                 }
@@ -300,10 +302,12 @@
                 }
 
                 filterString = filterArray.join(" AND ");
-                console.log(filterString);
-                //return filterString;
+                console.log(filterString + "&sortBy=acquisition_date:D");
 
-                wfsService.updateAttrFilter(filterString);
+                // Uncomment for debugging
+                //vm.filterStringDisplay = filterString;
+
+                wfsService.updateAttrFilter(filterString); //=acquisition_date:D");
 
             };
 

@@ -55,6 +55,7 @@ h5 > .image-id-link:hover {
 #list {
     /*height: 750px;*/
     overflow-y: auto;
+    padding-right: 5px;
 }
 
 #list .media {

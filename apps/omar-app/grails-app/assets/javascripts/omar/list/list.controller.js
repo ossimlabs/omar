@@ -15,6 +15,8 @@
             vm.thumbSize = '&size=64';
             vm.thumbFormat = '&format=jpeg';
 
+
+
             // We need an $on event here to listen for changes to the
             // wfs.spatial and wfs.attr filters
             $scope.$on('spatialObj.filter.updated', function(event, filter) {
@@ -34,7 +36,6 @@
                 wfsService.executeWfsQuery();
 
             });
-
 
             $scope.$on('wfs: updated', function(event, data) {
 
