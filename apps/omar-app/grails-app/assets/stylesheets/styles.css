@@ -35,9 +35,13 @@ body { padding-top: 70px; }
     color: #ffffff
 }
 
-h5 > .image-id-link:hover {
+.image-id-link:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.tooltip {
+   z-index: 2000;
 }
 
 #searchForm .input-group-btn {
@@ -59,7 +63,7 @@ h5 > .image-id-link:hover {
 }
 
 #list .media {
-    margin-bottom: -30px;
+    margin-bottom: -20px;
     margin-top: -5px;
 }
 
@@ -78,6 +82,10 @@ h5 > .image-id-link:hover {
 #imageMap {
     height: 300px;
     width: 100%;
+}
+
+.button.active {
+    color: yellow;
 }
 
 .dont-break-out {

@@ -475,23 +475,23 @@
                                                                                 aria-hidden="true"></span>
                                 &nbsp;&nbsp;Sort<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a>Acquired (Newest to Oldest)</a></li>
-                                <li><a>Acquired (Oldest to Newest)</a></li>
+                                <li ng-click="list.sortWfs('acquisition_date', '+D');"><a>Acquired (Newest to
+                                Oldest)</a></li>
+                                <li ng-click="list.sortWfs('acquisition_date', '+A');"><a>Acquired (Oldest to
+                                    Newest)</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a>Ingested (Newest to Oldest)</a></li>
-                                <li><a>Ingested (Oldest to Newest)</a></li>
+                                <li ng-click="list.sortWfs('ingest_date', '+D');"><a>Ingested (Newest to
+                                    Oldest)</a></li>
+                                <li ng-click="list.sortWfs('ingest_date', '+A');"><a>Ingested (Oldest to Newest)</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a>Image ID (High to Low)</a></li>
-                                <li><a>Image ID (Low to High)</a></li>
-                                <!--<li role="separator" class="divider"></li>-->
-                                <!--<li><a>Image Type (High to Low)</a></li>-->
-                                <!--<li><a>Image Type (Low to High)</a></li>-->
+                                <li ng-click="list.sortWfs('title', '+D');"><a>Image ID (High to Low)</a></li>
+                                <li ng-click="list.sortWfs('title', '+A');"><a>Image ID (Low to High)</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a>Sensor (Asc)</a></li>
-                                <li><a>Sensor (Desc)</a></li>
+                                <li ng-click="list.sortWfs('sensor_id', '+A');"><a>Sensor (Asc)</a></li>
+                                <li ng-click="list.sortWfs('sensor_id', '+D');"><a>Sensor (Desc)</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a>Misson (Asc)</a></li>
-                                <li><a>Misson (Desc)</a></li>
+                                <li ng-click="list.sortWfs('mission_id', '+A');"><a>Misson (Asc)</a></li>
+                                <li ng-click="list.sortWfs('mission_id', '+D');"><a>Misson (Desc)</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -523,12 +523,28 @@
         </div>
         <div id="list">
             <div ng-show="list.wfsData.length === 0">
-                <p class="alert alert-warning">No images to display for currently selected filters.&nbsp;  Please adjust the
-                    filters to query for imagery.
+                <div class="alert alert-default"><h4 class="text-center"><strong>We did not find any images that match
+                    your search
+                    filters</strong></h4>
+                    <hr>
+                    <h4>Check the dates</h4>
+                    <p>Make sure you provide valid dates for the query.  Also, make sure you are searching for the
+                        appropriate date type (acquisition versus ingest).</p>
                     <br>
+                    <h4>Check the spelling</h4>
+                    <p>It is possible that one of the Keyword filters has a spelling error.</p>
                     <br>
-                    The default filter is:<br><code>"Temporal" Acquisition Date = Today</code>
-                </p>
+                    <h4>Check range values</h4>
+                    <p>Make sure that the range values you have submitted are valid for those attributes.</p>
+                    <br>
+                    <h4>Check your map extent</h4>
+                    <p>The map extent is also a filter for the images.  Make sure the map is zoomed out to an
+                        appropriate extent for your search.</p>
+                </div>
+                <!--<div class="alert alert-warning">-->
+                    <!--<p>Your current filter is:</p>-->
+                    <!--<strong><em>{{list.currentAttrFilter.filter}}</em></strong>-->
+                <!--</div>-->
             </div>
             <div ng-show="list.wfsData.length >= 1" ng-repeat="image in list.wfsData" ng-model="image">
                 <div class="panel panel-primary">
@@ -538,22 +554,33 @@
                                 <img class="media-object"
                                      ng-click="list.showImageModal(image)"
                                      tooltip-placement="right"
-                                     uib-tooltip="Click thumbnail to view preview image and metadata"
+                                     uib-tooltip="Click the thumbnail or the Image ID to preview image and view metadata"
                                      ng-src="{{list.thumbPath}}{{list.thumbFilename}}{{image.properties.filename}}{{list.thumbEntry}}{{image.properties.entry_id}}{{list.thumbSize}}{{list.thumbFormat}}"
                                      alt="Image thumbnail"
                                      style="cursor: pointer;"
                                      >&nbsp;
                             </div>
                             <div class="media-body">
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-10">-->
+                                        <!--<h5 class="media-heading">ID:&nbsp;&nbsp;-->
+                                            <!--<span-->
+                                                <!--class="text-success image-id-link"-->
+                                                <!--tooltip-placement="bottom"-->
+                                                <!--uib-tooltip="Click link to view preview image and metadata"-->
+                                                <!--ng-click="list.showImageModal(image)">-->
+                                                <!--<span ng-show="!image.properties.title">Unknown</span>-->
+                                            <!--{{image.properties.title}}</span>-->
+                                        <!--</h5>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <div class="row">
-                                    <div class="col-md-10">
-                                        <h5 class="media-heading">ID:&nbsp;&nbsp;<span
-                                                class="text-success image-id-link"
-                                                tooltip-placement="bottom"
-                                                uib-tooltip="Click link to view preview image and metadata"
-                                                ng-click="list.showImageModal(image)">20151218-000{{image.properties
-                                            .id}}</span>
-                                        </h5>
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        ID:&nbsp;&nbsp;
+                                        <span ng-click="list.showImageModal(image)"
+                                              class="text-success image-id-link">
+                                            <span ng-show="!image.properties.title">Unknown</span>
+                                            {{image.properties.title}}</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -561,16 +588,41 @@
                                         Acquisition Date:&nbsp;&nbsp;
                                         <span class="text-success">
                                             <span ng-show="!image.properties.acquisition_date">Unknown</span>
-                                            {{image.properties.acquisition_date | date:'medium'}}</span>
+                                            {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        Ingest Date:&nbsp;&nbsp;
+                                        <span class="text-success">
+                                            <span ng-show="!image.properties.ingest_date">Unknown</span>
+                                            {{image.properties.ingest_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        Sensor ID:&nbsp;&nbsp;
+                                        <span class="text-success">
+                                            <span ng-show="!image.properties.sensor_id">Unknown</span>
+                                            {{image.properties.sensor_id}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        Mission ID:&nbsp;&nbsp;
+                                        <span class="text-success">
+                                            <span ng-show="!image.properties.mission_id">Unknown</span>
+                                            {{image.properties.mission_id}}</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <p class="text-primary" style="margin-top:.2em;">
-                                            <i class="fa fa-info-circle fa-border"
-                                               style="cursor: pointer;"
-                                               tooltip-placement="right"
-                                               uib-tooltip="View image metadata"></i>&nbsp;&nbsp;
+                                            <!--<i class="fa fa-info-circle fa-border"-->
+                                               <!--style="cursor: pointer;"-->
+                                               <!--tooltip-placement="right"-->
+                                               <!--uib-tooltip="View image metadata"></i>&nbsp;&nbsp;-->
                                             <!--<i class="fa fa-thumbs-o-up fa-2x"-->
                                                <!--style="cursor: pointer;"-->
                                                <!--tooltip-placement="right"-->
@@ -579,10 +631,10 @@
                                                <!--style="cursor: pointer;"-->
                                                <!--tooltip-placement="right"-->
                                                <!--uib-tooltip="Add this image to the Images Cart"></i>&nbsp;&nbsp;-->
-                                            <i class="fa fa-exchange fa-border"
-                                               style="cursor: pointer;"
-                                               tooltip-placement="right"
-                                               uib-tooltip="View image in swipe viewer"></i>&nbsp;&nbsp;
+                                            <!--<i class="fa fa-exchange fa-border"-->
+                                               <!--style="cursor: pointer;"-->
+                                               <!--tooltip-placement="right"-->
+                                               <!--uib-tooltip="View image in swipe viewer"></i>&nbsp;&nbsp;-->
                                         </p>
                                     </div>
                                 </div>

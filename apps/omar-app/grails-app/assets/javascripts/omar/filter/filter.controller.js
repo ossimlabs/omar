@@ -12,8 +12,6 @@
             var filterString = "";
             var filterArray = [];
 
-            vm.filterStringDisplay = "";
-
             vm.initKeywords = function(){
                 // Keywords
                 vm.imageIdCheck = false;
@@ -79,6 +77,7 @@
             vm.currentDateType = vm.dateTypes[0]; // sets the first selected date type (acquisition_date)
 
             vm.temporalDurations = [
+                {value: 'none', label: 'None' },
                 {value: 'lastDay', label: 'Today' },
                 {value: 'yesterday', label: 'Yesterday' },
                 {value: 'last3Days', label: 'Last 3 Days' },
@@ -183,8 +182,12 @@
                         break;
                     default:
                         vm.customDateRangeVisible = false;
-                        filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd, "' AND "].join(" "));
-                        console.log('switch default working');
+                        //filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd, "'
+                        // AND"].join(" "));
+                        //filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd, "'
+                        // AND"].join(" "));
+                        //filterArray.push([" ",].join(" "));
+                        //console.log('switch default working');
                         break;
                 }
 
@@ -302,12 +305,12 @@
                 }
 
                 filterString = filterArray.join(" AND ");
-                console.log(filterString + "&sortBy=acquisition_date:D");
+                //console.log(filterString);
 
-                // Uncomment for debugging
-                //vm.filterStringDisplay = filterString;
+                // Get this from values off of a dropdown on the sort nav bar.  We may need to move the
+                // nav bar into the filter controller div
 
-                wfsService.updateAttrFilter(filterString); //=acquisition_date:D");
+                wfsService.updateAttrFilter(filterString);
 
             };
 

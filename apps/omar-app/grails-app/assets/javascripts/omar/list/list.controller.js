@@ -12,14 +12,24 @@
             vm.thumbPath = '/o2/imageSpace/getThumbnail?';
             vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
             vm.thumbEntry = '&entry=';  // parameter provided by image.properties.entry_id
-            vm.thumbSize = '&size=64';
+            vm.thumbSize = '&size=100';
             vm.thumbFormat = '&format=jpeg';
 
+            vm.currentAttrFilter = wfsService.attrObj;
 
+            vm.sortWfs = function(field, type) {
+                console.log('sortWfs firing --> field: ' + field + ' type: ' + type);
+                //wfsService.updateAttrFilter(undefined, "ingest_date", "+A");
+                wfsService.updateAttrFilter(undefined, field, type);
+            };
+
+            function addSortCheck() {
+
+            }
 
             // We need an $on event here to listen for changes to the
             // wfs.spatial and wfs.attr filters
-            $scope.$on('spatialObj.filter.updated', function(event, filter) {
+            $scope.$on('spatialObj.updated', function(event, filter) {
 
                 //console.log('$on spatialObj filter updated', filter);
 
@@ -28,12 +38,12 @@
 
             });
 
-            $scope.$on('attrObj.filter.updated', function(event, filter) {
+            $scope.$on('attrObj.updated', function(event, filter) {
 
                 //console.log('$on attrObj filter updated', filter);
 
-                //wfsService.executeWfsQuery(filter, null);
                 wfsService.executeWfsQuery();
+
 
             });
 
