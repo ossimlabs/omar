@@ -106,18 +106,19 @@
                 //console.log('wfsRequest object...', wfsRequest);
 
                 var wfsUrl = wfsRequestUrl +
-                    "&service=WFS" +
+                    "service=WFS" +
                     "&version=" + wfsRequest.version +
                     "&request=GetFeature" +
                     "&typeName=" + wfsRequest.typeName +
                     "&filter=" + wfsRequest.cql +
                     "&outputFormat=" + wfsRequest.outputFormat +
-                    //"&sortBy=acquisition_date+D";
                     "&sortBy=" + wfsRequest.sortField + wfsRequest.sortType;
+
+                var wfsUrlEncoded = encodeURI(wfsUrl);
 
                 $http({
                     method: 'GET',
-                    url: wfsUrl
+                    url: wfsUrlEncoded
                     //url: wfsRequestUrl, // +
                     // "&version=1.1.0&request=GetFeature&typeName=omar:raster_entry&outputFormat=json",
                     //params: {
