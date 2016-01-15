@@ -285,7 +285,7 @@
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-2">
                                         <label class="label label-primary">Enabled</label>
                                     </div>
                                     <div class="col-md-2 col-md-offset-1 text-center">
@@ -295,6 +295,7 @@
                                         <label class="label label-primary">Maximum</label>
                                     </div>
                                 </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div  class="checkbox" id="predNiirsCheck">
@@ -463,7 +464,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <!--<a class="navbar-brand">Sort</a>-->
+                    <a class="navbar-text"><span class="glyphicon glyphicon-sort"></span>&nbsp;&nbsp;Sort</a>
                 </div>
                 <div class="collapse navbar-collapse" id="sort-navbar-collapse">
                     <ul class="nav navbar-nav">
@@ -471,27 +472,38 @@
                         <!--<li><a >New Ingests</a></li>-->
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-sort"
-                                                                                aria-hidden="true"></span>
-                                &nbsp;&nbsp;Sort<span class="caret"></span></a>
+                               aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;
+                                {{list.currentSortText}}<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li ng-click="list.sortWfs('acquisition_date', '+D');"><a>Acquired (Newest to
-                                Oldest)</a></li>
-                                <li ng-click="list.sortWfs('acquisition_date', '+A');"><a>Acquired (Oldest to
-                                    Newest)</a></li>
+                                <li
+                                        ng-click="list.sortWfs('acquisition_date', '+D', 'Acquired (Newest)');"><a>Acquired
+                                    (Newest)</a></li>
+                                <li
+                                        ng-click="list.sortWfs('acquisition_date', '+A', 'Acquired (Oldest)');"><a>Acquired (Oldest)</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li ng-click="list.sortWfs('ingest_date', '+D');"><a>Ingested (Newest to
-                                    Oldest)</a></li>
-                                <li ng-click="list.sortWfs('ingest_date', '+A');"><a>Ingested (Oldest to Newest)</a></li>
+                                <li ng-click="list.sortWfs('ingest_date', '+D', 'Ingest (Newest)');"><a>Ingested
+                                    (Newest)</a></li>
+                                <li
+                                        ng-click="list.sortWfs('ingest_date', '+A', 'Ingest (Oldest)');"><a>Ingested
+                                    (Oldest)</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li ng-click="list.sortWfs('title', '+D');"><a>Image ID (High to Low)</a></li>
-                                <li ng-click="list.sortWfs('title', '+A');"><a>Image ID (Low to High)</a></li>
+                                <li
+                                        ng-click="list.sortWfs('title', '+D', 'Image ID (Desc)');"><a>Image ID
+                                    (Descinding)</a></li>
+                                <li
+                                        ng-click="list.sortWfs('title', '+A', 'Image ID (Asc)');"><a>Image ID
+                                    (Ascending)</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li ng-click="list.sortWfs('sensor_id', '+A');"><a>Sensor (Asc)</a></li>
-                                <li ng-click="list.sortWfs('sensor_id', '+D');"><a>Sensor (Desc)</a></li>
+                                <li ng-click="list.sortWfs('sensor_id', '+A', 'Sensor (Asc)');"><a>Sensor (Asc)</a></li>
+                                <li
+                                        ng-click="list.sortWfs('sensor_id', '+D', 'Sensor (Desc)');"><a>Sensor (Desc)</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li ng-click="list.sortWfs('mission_id', '+A');"><a>Misson (Asc)</a></li>
-                                <li ng-click="list.sortWfs('mission_id', '+D');"><a>Misson (Desc)</a></li>
+                                <li
+                                        ng-click="list.sortWfs('mission_id', '+A', 'Mission (Asc)');"><a>Misson
+                                    (Asc)</a></li>
+                                <li
+                                        ng-click="list.sortWfs('mission_id', '+D', 'Mission (Desc)');"><a>Misson
+                                    (Desc)</a></li>
                             </ul>
                         </li>
                     </ul>

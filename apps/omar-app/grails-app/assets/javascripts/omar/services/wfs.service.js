@@ -115,7 +115,7 @@
                     "&sortBy=" + wfsRequest.sortField + wfsRequest.sortType;
 
                 var url = encodeURI(wfsUrl);
-                console.log('test-----', url)
+                //alert(url);
 
                 $http({
                     method: 'GET',

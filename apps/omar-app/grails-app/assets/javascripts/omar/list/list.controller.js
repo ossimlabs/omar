@@ -16,16 +16,15 @@
             vm.thumbFormat = '&format=jpeg';
 
             vm.currentAttrFilter = wfsService.attrObj;
+            vm.currentSortText = "Acquisition Date (Newest)";
 
-            vm.sortWfs = function(field, type) {
-                console.log('sortWfs firing --> field: ' + field + ' type: ' + type);
-                //wfsService.updateAttrFilter(undefined, "ingest_date", "+A");
+            vm.sortWfs = function(field, type, text) {
+                console.log('sortWfs firing --> field: ' + field + ' type: ' + type + ' text: ' + text);
+
+                vm.currentSortText = text;
                 wfsService.updateAttrFilter(undefined, field, type);
+
             };
-
-            function addSortCheck() {
-
-            }
 
             // We need an $on event here to listen for changes to the
             // wfs.spatial and wfs.attr filters
