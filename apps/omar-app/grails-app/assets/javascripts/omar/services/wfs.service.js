@@ -114,11 +114,12 @@
                     "&outputFormat=" + wfsRequest.outputFormat +
                     "&sortBy=" + wfsRequest.sortField + wfsRequest.sortType;
 
-                var wfsUrlEncoded = encodeURI(wfsUrl);
+                var url = encodeURI(wfsUrl);
+                console.log('test-----', url)
 
                 $http({
                     method: 'GET',
-                    url: wfsUrlEncoded
+                    url: url
                     //url: wfsRequestUrl, // +
                     // "&version=1.1.0&request=GetFeature&typeName=omar:raster_entry&outputFormat=json",
                     //params: {
