@@ -16,7 +16,7 @@
             vm.thumbFormat = '&format=jpeg';
 
             vm.currentAttrFilter = wfsService.attrObj;
-            vm.currentSortText = "Acquisition Date (Newest)";
+            vm.currentSortText = "Acquired (Newest)";
 
             vm.sortWfs = function(field, type, text) {
                 console.log('sortWfs firing --> field: ' + field + ' type: ' + type + ' text: ' + text);
