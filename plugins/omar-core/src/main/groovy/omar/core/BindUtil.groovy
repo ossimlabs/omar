@@ -25,7 +25,7 @@ class BindUtil
       a
     }
 
-    println "${params} ${newParams}"
+//    println "${params} ${newParams}"
 
     params?.clear()
     params.putAll( newParams )
