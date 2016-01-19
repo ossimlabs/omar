@@ -18,11 +18,12 @@
                 typeName: 'omar:raster_entry',
                 namespace: 'http://omar.ossim.org',
                 version: '1.1.0',
-                maxFeatures: '200',
                 outputFormat: 'JSON',
                 cql: '',
                 sortField: 'acquisition_date',
-                sortType: '+D'
+                sortType: '+D',
+                startIndex: '0',
+                maxFeatures: '1000'
             };
 
             // When this changea ir needa to be passed to the executeWfsQuery method
@@ -34,7 +35,8 @@
             this.attrObj = {
                 filter: "",
                 sortField: "acquisition_date",
-                sortType: "+D"
+                sortType: "+D",
+                startIndex: 0,
             };
 
             this.updateSpatialFilter = function(filter) {
@@ -47,24 +49,29 @@
 
             // wfsService.updateAttrFilter(filterString, undefined, undefined);
 
-            this.updateAttrFilter = function(filter, sortField, sortType) {
+            this.updateAttrFilter = function(filter, sortField, sortType, startIndex) {
 
                 if (filter !== undefined){
-                    console.log('filter !== undefined');
+                    //console.log('filter !== undefined');
                     this.attrObj.filter = filter;
                 }
                 else if (sortField !== undefined || sortType !== undefined){
-                    console.log("sortField !==, sortType !==");
+                    //console.log("sortField !==, sortType !==");
                     this.attrObj.sortField = sortField;
                     this.attrObj.sortType = sortType;
+                }
+                else if (startIndex !== undefined){
+                    this.attrObj.startIndex = startIndex;
+                    console.log('...updating startIndex...');
                 }
 
                 $rootScope.$broadcast(
                     'attrObj.updated', filter
                 );
-                console.log('updateAttrFilter filter', filter);
-                console.log('updateAttrFilter sortField', sortField);
-                console.log('updateAttrFilter sortType', sortType);
+                //console.log('updateAttrFilter filter', filter);
+                //console.log('updateAttrFilter sortField', sortField);
+                //console.log('updateAttrFilter sortType', sortType);
+                //console.log('updateAttrFilter startIndex', startIndex);
             };
 
             this.executeWfsQuery = function() {
@@ -78,7 +85,7 @@
                 // Only send the spatialObj to filter the results
                 if (this.attrObj.filter === ""){
 
-                    console.log('filterParam === ""');
+                    //console.log('filterParam === ""');
                     wfsRequest.cql = this.spatialObj.filter;
 
                 }
@@ -86,14 +93,16 @@
                 else {
 
                     wfsRequest.cql = this.spatialObj.filter + " AND " + this.attrObj.filter;
-                    console.log('wfsRequest Object', wfsRequest);
+                    //console.log('wfsRequest Object', wfsRequest);
 
                 }
 
                 wfsRequest.sortField = this.attrObj.sortField;
                 wfsRequest.sortType = this.attrObj.sortType;
+                wfsRequest.startIndex = this.attrObj.startIndex;
+                //wfsRequest.maxFeatures = this.attrObj.maxFeatures;
 
-                console.log('wfsRequest', wfsRequest);
+                //console.log('wfsRequest', wfsRequest);
 
                 //wfsClient.getFeature(wfsRequest, function(data) {
                 //
@@ -112,10 +121,17 @@
                     "&typeName=" + wfsRequest.typeName +
                     "&filter=" + wfsRequest.cql +
                     "&outputFormat=" + wfsRequest.outputFormat +
-                    "&sortBy=" + wfsRequest.sortField + wfsRequest.sortType;
+                    "&sortBy=" + wfsRequest.sortField + wfsRequest.sortType +
+                    "&startIndex=" + wfsRequest.startIndex; // +
+                    //"&maxFeatures=" + wfsRequest.maxFeatures;
 
                 var url = encodeURI(wfsUrl);
                 //alert(url);
+
+
+                //var items = [];
+                //var busy = false;
+                //var after = '';
 
                 $http({
                     method: 'GET',
@@ -135,6 +151,11 @@
                 .then(function(response) {
                     var data;
                     data = response.data.features;
+
+                    //for (var i = 0; i < items.length; i++){
+                    //    items.push(items[i].response);
+                    //}
+
                     // $timeout needed: http://stackoverflow.com/a/18996042
                     $timeout(function(){
                         $rootScope.$broadcast('wfs: updated', data);

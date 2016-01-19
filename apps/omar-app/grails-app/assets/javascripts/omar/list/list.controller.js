@@ -4,7 +4,7 @@
         .module('omarApp')
         .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'imageSpaceService', '$scope', ListController]);
 
-        function ListController(wfsService, $stateParams, $uibModal, imageSpaceService,  $scope) {
+        function ListController(wfsService, $stateParams, $uibModal, imageSpaceService, $scope) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -15,13 +15,29 @@
             vm.thumbSize = '&size=100';
             vm.thumbFormat = '&format=jpeg';
 
+            //vm.infiniteTest = function() {
+            //    console.log('infinite firing!');
+            //    wfsService.executeWfsQuery();
+            //};
+
             vm.currentAttrFilter = wfsService.attrObj;
             vm.currentSortText = "Acquired (Newest)";
 
-            vm.sortWfs = function(field, type, text) {
-                console.log('sortWfs firing --> field: ' + field + ' type: ' + type + ' text: ' + text);
+            vm.currentStartIndex = 1; //wfsService.attrObj.startIndex;
+            vm.itemsPerPage = 10;
 
+            vm.pagingChanged = function(){
+
+                console.log('Page changed');
+
+            };
+
+            vm.sortWfs = function(field, type, text) {
+                //console.log('sortWfs firing --> field: ' + field + ' type: ' + type + ' text: ' + text);
+
+                // Sets the text of the current sort method on the sort navbar
                 vm.currentSortText = text;
+
                 wfsService.updateAttrFilter(undefined, field, type);
 
             };

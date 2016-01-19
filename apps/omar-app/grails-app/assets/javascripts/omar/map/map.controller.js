@@ -38,7 +38,7 @@
 
             // Set the initial height of map and list elements
             mapService.resizeElement('#map', 240);
-            mapService.resizeElement('#list', 325);
+            mapService.resizeElement('#list', 368);
 
             //Adjust the height of map and list elements if browser window changes
             $(window).resize(function () {

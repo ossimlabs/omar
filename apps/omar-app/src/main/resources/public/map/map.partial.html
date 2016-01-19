@@ -515,25 +515,26 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <!-- TBD -->
-                </div>
-                <div class="col-md-6 text-right">
-                    <!--<uib-rating ng-model="list.rate" max="list.max" readonly="list.isReadonly"-->
-                    <!--on-hover="list.hoveringOver(value)"-->
-                    <!--on-leave="list.overStar = null" titles="['one','two','three']"-->
-                    <!--aria-labelledby="default-rating"></uib-rating>-->
-                    <!--<span class="label" -->
-                    <!--ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="list.overStar && !list.isReadonly">{{percent}}%</span>-->
-                    <!--<button class="btn btn-info" ><span-->
-                            <!--class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)-->
-                    <!--</button>-->
-                </div>
-            </div>
-        </div>
-        <div id="list">
+        <!--<div class="container-fluid">-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-6">-->
+                    <!--&lt;!&ndash; TBD &ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="col-md-6 text-right">-->
+                    <!--&lt;!&ndash;<uib-rating ng-model="list.rate" max="list.max" readonly="list.isReadonly"&ndash;&gt;-->
+                    <!--&lt;!&ndash;on-hover="list.hoveringOver(value)"&ndash;&gt;-->
+                    <!--&lt;!&ndash;on-leave="list.overStar = null" titles="['one','two','three']"&ndash;&gt;-->
+                    <!--&lt;!&ndash;aria-labelledby="default-rating"></uib-rating>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="label" &ndash;&gt;-->
+                    <!--&lt;!&ndash;ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="list.overStar && !list.isReadonly">{{percent}}%</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button class="btn btn-info" ><span&ndash;&gt;-->
+                            <!--&lt;!&ndash;class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;&nbsp;Images Cart (0)&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div id="list" style="border-style: solid; border-width: 1px; padding: 10px; border-radius: 4px;">
             <div ng-show="list.wfsData.length === 0">
                 <div class="alert alert-default"><h4 class="text-center"><strong>We did not find any images that match
                     your search
@@ -558,7 +559,11 @@
                     <!--<strong><em>{{list.currentAttrFilter.filter}}</em></strong>-->
                 <!--</div>-->
             </div>
-            <div ng-show="list.wfsData.length >= 1" ng-repeat="image in list.wfsData" ng-model="image">
+            <!--<label>Quick Search: <input ng-model="searchText"></label>-->
+            <!--<div infinite-scroll='list.infiniteTest();' infinite-scroll-distance='1'>-->
+            <div ng-show="list.wfsData.length >= 1"
+                 ng-repeat="image in list.wfsData.slice(((list.currentStartIndex-1)*list.itemsPerPage), ((list.currentStartIndex)*list.itemsPerPage))"
+                 ng-model="image">
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div class="media">
@@ -655,6 +660,18 @@
                     </div>
                 </div>
             </div>
+
+            <!--</div>-->
+        </div>
+        <div class="text-center">
+            <uib-pagination style="margin: 8px;"
+                            total-items="list.wfsData.length"
+                            ng-model="list.currentStartIndex"
+                            ng-change="list.pagingChanged()"
+                            items-per-page="5"
+                            max-size="5">
+
+            </uib-pagination>
         </div>
     </div>
 </div>
