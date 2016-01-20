@@ -20,7 +20,7 @@ class WebMappingService
   def grailsLinkGenerator
 
   enum RenderMode {
-    BLANK, GEOSCRIPT
+    BLANK, GEOSCRIPT, FOO
   }
 
   static final def getMapOutputFormats = [
@@ -192,7 +192,7 @@ class WebMappingService
             // <!--All supported EPSG projections:-->
             SRS( 'EPSG:3857' )
             SRS( 'EPSG:4326' )
-            LatLonBoundingBox( minx: "-180.0", miny: "-90.0", maxx: "180.0", maxy: "90.0" )                \
+            LatLonBoundingBox( minx: "-180.0", miny: "-90.0", maxx: "180.0", maxy: "90.0" )                        \
 
             LayerInfo.list()?.each { layerInfo ->
               WorkspaceInfo workspaceInfo = WorkspaceInfo.findByName( layerInfo.workspaceInfo.name )
@@ -1150,7 +1150,7 @@ AUTHORITY["EPSG","4326"]]-->
 
   def getMap(GetMapRequest wmsParams)
   {
-    def renderMode = RenderMode.GEOSCRIPT
+    def renderMode = RenderMode.FOO
 
     println wmsParams
 
@@ -1179,6 +1179,46 @@ AUTHORITY["EPSG","4326"]]-->
       def image = new BufferedImage( wmsParams.width, wmsParams.height, BufferedImage.TYPE_INT_ARGB )
 
       ImageIO.write( image, wmsParams?.format?.split( '/' )?.last(), ostream )
+      break
+
+    case RenderMode.FOO:
+
+      def (prefix, layerName) = wmsParams?.layers?.split( ':' )
+
+      def layerInfo = LayerInfo.where {
+        name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
+      }.get()
+
+      List images = null
+
+      Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
+        def layer = workspace[layerName]
+
+        images = layer.collectFromFeature(
+            filter: wmsParams?.filter,
+            fields: ['filename', 'entry_id'] as List<String>
+        ) {
+          [imageFile: it.filename as File, entry: it.entry_id?.toInteger()]
+        }
+      }
+
+      def chipperLayer = new ChipperLayer( images )
+
+      def map = new GeoScriptMap(
+          width: wmsParams?.width,
+          height: wmsParams?.height,
+          type: wmsParams?.format?.split( '/' )?.last(),
+          proj: wmsParams?.srs,
+          bounds: new Bounds( *( wmsParams?.bbox?.split( ',' )?.collect { it.toDouble() } ), wmsParams?.srs ),
+          layers: [chipperLayer]
+      )
+
+      map.render( ostream )
+      map.close()
+
+
+
+
       break
     }
 

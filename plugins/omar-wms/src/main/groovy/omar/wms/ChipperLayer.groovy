@@ -29,10 +29,10 @@ class ChipperLayer extends DirectLayer
     def info = ImageInfoUtil.getImageInfoAsMap( imageFile )
 
     bbox = new Bounds(
-        info.image0.geometry.ll_lon.toDouble(),
-        info.image0.geometry.ll_lat.toDouble(),
-        info.image0.geometry.ur_lon.toDouble(),
-        info.image0.geometry.ur_lat.toDouble(),
+        info."image${entry}".geometry.ll_lon.toDouble(),
+        info."image${entry}".geometry.ll_lat.toDouble(),
+        info."image${entry}".geometry.ur_lon.toDouble(),
+        info."image${entry}".geometry.ur_lat.toDouble(),
         'epsg:4326' )
 
     initOpts = [

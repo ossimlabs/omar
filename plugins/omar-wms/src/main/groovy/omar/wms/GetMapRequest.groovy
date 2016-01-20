@@ -26,6 +26,8 @@ class GetMapRequest implements Validateable
 
   Boolean transparent
 
+  String filter
+
   static mapping = {
     version false
   }
