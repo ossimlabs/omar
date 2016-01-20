@@ -4,7 +4,7 @@
         .module('omarApp')
         .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'imageSpaceService', '$scope', ListController]);
 
-        function ListController(wfsService, $stateParams, $uibModal, imageSpaceService,  $scope) {
+        function ListController(wfsService, $stateParams, $uibModal, imageSpaceService, $scope) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -12,14 +12,39 @@
             vm.thumbPath = '/o2/imageSpace/getThumbnail?';
             vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
             vm.thumbEntry = '&entry=';  // parameter provided by image.properties.entry_id
-            vm.thumbSize = '&size=64';
+            vm.thumbSize = '&size=100';
             vm.thumbFormat = '&format=jpeg';
 
+            //vm.infiniteTest = function() {
+            //    console.log('infinite firing!');
+            //    wfsService.executeWfsQuery();
+            //};
 
+            vm.currentAttrFilter = wfsService.attrObj;
+            vm.currentSortText = "Acquired (Newest)";
+
+            vm.currentStartIndex = 1; //wfsService.attrObj.startIndex;
+            vm.itemsPerPage = 10;
+
+            vm.pagingChanged = function(){
+
+                console.log('Page changed');
+
+            };
+
+            vm.sortWfs = function(field, type, text) {
+                //console.log('sortWfs firing --> field: ' + field + ' type: ' + type + ' text: ' + text);
+
+                // Sets the text of the current sort method on the sort navbar
+                vm.currentSortText = text;
+
+                wfsService.updateAttrFilter(undefined, field, type);
+
+            };
 
             // We need an $on event here to listen for changes to the
             // wfs.spatial and wfs.attr filters
-            $scope.$on('spatialObj.filter.updated', function(event, filter) {
+            $scope.$on('spatialObj.updated', function(event, filter) {
 
                 //console.log('$on spatialObj filter updated', filter);
 
@@ -28,12 +53,12 @@
 
             });
 
-            $scope.$on('attrObj.filter.updated', function(event, filter) {
+            $scope.$on('attrObj.updated', function(event, filter) {
 
                 //console.log('$on attrObj filter updated', filter);
 
-                //wfsService.executeWfsQuery(filter, null);
                 wfsService.executeWfsQuery();
+
 
             });
 

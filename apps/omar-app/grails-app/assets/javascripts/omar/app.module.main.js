@@ -13,7 +13,7 @@
     });
 
     angular
-        .module('omarApp', ['ui.router', 'ui.bootstrap', 'angularSpinner', 'toastr', 'mgcrea.ngStrap.timepicker'])
+        .module('omarApp', ['ui.router', 'ui.bootstrap', 'angularSpinner', 'toastr', 'mgcrea.ngStrap.timepicker', 'infinite-scroll'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
             $urlRouterProvider.otherwise('/o2/home');
@@ -60,6 +60,14 @@
                     return filename;
                 }
             };
-        });
+        })
+        //.filter('offset', function($timeout) {
+        //    return function(input, start) {
+        //        $timeout(function(){
+        //            console.log(input);
+        //            return input.slice(start);
+        //        },10000);
+        //    };
+        //});
 
 })();

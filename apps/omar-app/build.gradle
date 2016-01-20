@@ -119,6 +119,7 @@ dependencies {
   compile 'org.webjars.bower:angular-toastr:1.6.0'
   compile 'org.webjars:momentjs:2.11.0'
   compile 'org.webjars:angular-strap:2.3.4'
+  compile 'org.webjars:ngInfiniteScroll:1.2.1'
 
   // Font stuff
   compile 'org.webjars:font-awesome:4.4.0'
