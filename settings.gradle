@@ -7,3 +7,4 @@ project(':omar-openlayers').projectDir = 'plugins/omar-openlayers' as File
 project(':omar-wfs').projectDir = 'plugins/omar-wfs' as File
 project(':omar-wms').projectDir = 'plugins/omar-wms' as File
 project(':omar-oms').projectDir = 'plugins/omar-oms' as File
+

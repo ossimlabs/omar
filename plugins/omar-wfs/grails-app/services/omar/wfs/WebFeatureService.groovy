@@ -169,7 +169,7 @@ class WebFeatureService
             ows.DCP {
               ows.HTTP {
                 ows.Get( 'xlink:href': wfsServiceAddress )
-                //ows.Post('xlink:href': wfsServiceAddress )
+                ows.Post('xlink:href': wfsServiceAddress )
               }
             }
             ows.Parameter( name: "AcceptVersions" ) {
@@ -184,7 +184,7 @@ class WebFeatureService
             ows.DCP {
               ows.HTTP {
                 ows.Get( 'xlink:href': wfsServiceAddress )
-                //ows.Post( 'xlink:href': wfsServiceAddress )
+                ows.Post( 'xlink:href': wfsServiceAddress )
               }
             }
             ows.Parameter( name: "outputFormat" ) {
@@ -195,7 +195,7 @@ class WebFeatureService
             ows.DCP {
               ows.HTTP {
                 ows.Get( 'xlink:href': wfsServiceAddress )
-                //ows.Post( 'xlink:href': wfsServiceAddress )
+                ows.Post( 'xlink:href': wfsServiceAddress )
               }
             }
             ows.Parameter( name: "resultType" ) {
@@ -694,7 +694,7 @@ class WebFeatureService
       options
     }
 
-//    println options
+    println options
 
     Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
       def layer = workspace[layerName]

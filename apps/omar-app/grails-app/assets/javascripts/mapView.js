@@ -6,11 +6,21 @@ var MapView = (function ()
     function init()
     {
         var layers = [
+            //new ol.layer.Tile( {
+            //    source: new ol.source.TileWMS( {
+            //        url: 'http://demo.boundlessgeo.com/geoserver/wms',
+            //        params: {
+            //            LAYERS: 'ne:NE1_HR_LC_SR_W_DR'
+            //        }
+            //    } )
+            //} ),
             new ol.layer.Tile( {
                 source: new ol.source.TileWMS( {
-                    url: 'http://demo.boundlessgeo.com/geoserver/wms',
+                    url: '/o2/wms/getMap',
                     params: {
-                        LAYERS: 'ne:NE1_HR_LC_SR_W_DR'
+                        VERSION: '1.1.1',
+                        LAYERS: 'omar:raster_entry',
+                        FORMAT: 'image/jpeg'
                     }
                 } )
             } ),
@@ -25,7 +35,6 @@ var MapView = (function ()
                     }
                 } )
             } )
-
         ];
 
         var map = new ol.Map( {
