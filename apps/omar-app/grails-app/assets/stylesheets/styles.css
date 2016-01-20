@@ -59,37 +59,37 @@ body { padding-top: 70px; }
 
 @media (max-height: 599px) {
     #map { height: 79%; }
-    #list { height: 50%; }
+    #list { height: 57%; }
 }
 
 @media (min-height: 600px) AND (max-height: 699px){
     #map { height: 83%; }
-    #list { height: 58%; }
+    #list { height: 59%; }
 }
 
 @media (min-height: 700px) AND (max-height: 799px){
     #map { height: 86%; }
-    #list { height: 65%; }
+    #list { height: 66%; }
 }
 
 @media (min-height: 800px) AND (max-height: 899px){
     #map { height: 88%; }
-    #list { height: 70%; }
+    #list { height: 71%; }
 }
 
 @media (min-height: 900px) AND (max-height: 999px){
     #map { height: 89%; }
-    #list { height: 73%; }
+    #list { height: 74%; }
 }
 
 @media (min-height: 1000px) AND (max-height: 1099px){
     #map { height: 91%; }
-    #list { height: 76%; }
+    #list { height: 77%; }
 }
 
 @media (min-height: 1100px) AND (max-height: 1199px){
     #map { height: 91%; }
-    #list { height: 78%; }
+    #list { height: 79%; }
 }
 
 @media (min-height: 1200px){
