@@ -509,10 +509,8 @@
                     <p class="navbar-text pull-right">&nbsp;&nbsp;Images:&nbsp;&nbsp;<span
                             class="label label-primary">{{list.wfsData.length}}</span>
                     </p>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container-fluid -->
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
         </nav>
         <!--<div class="container-fluid">-->
             <!--<div class="row">-->
@@ -532,7 +530,6 @@
                 <!--</div>-->
             <!--</div>-->
         <!--</div>-->
-
         <div id="list" style="border-style: solid; border-width: 1px; padding: 10px; border-radius: 4px;">
             <div ng-show="list.wfsData.length === 0">
                 <div class="alert alert-default"><h4 class="text-center"><strong>We did not find any images that match
@@ -630,6 +627,14 @@
                                         <span class="text-success">
                                             <span ng-show="!image.properties.mission_id">Unknown</span>
                                             {{image.properties.mission_id}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="font-size: 13px;">
+                                        File Type:&nbsp;&nbsp;
+                                        <span class="text-success">
+                                            <span ng-show="!image.properties.file_type">Unknown</span>
+                                            {{image.properties.file_type}}</span>
                                     </div>
                                 </div>
                                 <div class="row">

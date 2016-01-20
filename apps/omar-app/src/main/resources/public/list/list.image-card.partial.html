@@ -27,225 +27,220 @@
     <div class="container-fluid">
         <!-- Image Space Map -->
         <div class="row">
-            <div class="col-md-12">
-                <button popover-placement="bottom" uib-popover-template="vm.imageMapHelpPopover.templateUrl"
-                        popover-title="{{vm.imageMapHelpPopover.title}}" type="button"
-                        class="btn btn-warning btn-xs pull-right"><i
-                        class="fa fa-question-circle"
-                        ></i>&nbsp;&nbsp;Map Help
-                </button>
-                <script type="text/ng-template" id="imageMapHelpTemplate.html">
-                    <div></div>
-                    <div class="form-group">
-                        <label>Hotkeys:</label>
-                        <p class="text-warning"><kbd>{{vm.imageMapHelpPopover.zoomHotkey}}</kbd> left drag to zoom
-                            </p>
-                        <p class="text-warning"><kbd>{{vm.imageMapHelpPopover.rotateHotkey}}</kbd> to rotate
-                            the map</p>
-                        <p class="text-warning"><kbd>N</kbd> button rotates the map North</p>
-                        <p class="text-warning"><kbd>U</kbd> button rotates the map to "<em>Up is Up</em>"</p>
-                        <p class="text-warning"><kbd><i class="fa fa-arrows-h"></i></kbd> button toggles the
-                            map
-                            to and from fullscreen mode</p>
+            <uib-tabset>
+                <uib-tab heading="Image">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button popover-placement="bottom" uib-popover-template="vm.imageMapHelpPopover.templateUrl"
+                                    popover-title="{{vm.imageMapHelpPopover.title}}" type="button"
+                                    class="btn btn-warning btn-xs pull-right"><i
+                                    class="fa fa-question-circle"
+                                    ></i>&nbsp;&nbsp;Image Help
+                            </button>
+                            <script type="text/ng-template" id="imageMapHelpTemplate.html">
+                                <div></div>
+                                <div class="form-group">
+                                    <label>Hotkeys:</label>
+                                    <p class="text-warning"><kbd>{{vm.imageMapHelpPopover.zoomHotkey}}</kbd> left drag to zoom
+                                    </p>
+                                    <p class="text-warning"><kbd>{{vm.imageMapHelpPopover.rotateHotkey}}</kbd> to rotate
+                                        the map</p>
+                                    <p class="text-warning"><kbd>N</kbd> button rotates the map North</p>
+                                    <p class="text-warning"><kbd>U</kbd> button rotates the map to "<em>Up is Up</em>"</p>
+                                    <p class="text-warning"><kbd><i class="fa fa-arrows-h"></i></kbd> button toggles the
+                                        map
+                                        to and from fullscreen mode</p>
+                                </div>
+                            </script>
+                        </div>
                     </div>
-                </script>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="map" id="imageMap"></div>
-            </div>
-        </div>
-        <!-- Image metadata -->
-        <div class="row">
-            <div class="col-md-6">
-                <h4>Acquisition Date:&nbsp;&nbsp;<span
-                        class="text-success"><span ng-show="!vm.selectedImage.properties.acquisition_date">Unknown
-                </span>{{vm.selectedImage.properties.acquisition_date |
-                    date:'MM/dd/yyyy HH:mm:ss:sss'}}</span></h4>
-                <!--<uib-rating ng-model="list.rate"-->
-                <!--max="list.max"-->
-                <!--readonly="list.isReadonly"-->
-                <!--on-hover="list.hoveringOver(value)"-->
-                <!--on-leave="list.overStar = null"-->
-                <!--titles="['one','two','three']"-->
-                <!--aria-labelledby="default-rating">-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="map" id="imageMap"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Acquisition Date:&nbsp;&nbsp;<span
+                                    class="text-success"><span ng-show="!vm.selectedImage.properties.acquisition_date">Unknown
+                                </span>{{vm.selectedImage.properties.acquisition_date |
+                                    date:'MM/dd/yyyy HH:mm:ss:sss'}}</span></h4>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Ingest Date:&nbsp;&nbsp;<span class="text-success"><span
+                                    ng-show="!vm.selectedImage.properties.ingest_date">Unknown
+                                </span>{{vm.selectedImage.properties.ingest_date| date:'MM/dd/yyyy HH:mm:ss:sss'}}</span></h4>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab heading="Metadata">
+                    <div class="col-md-6">
+                        <h4>Source</h4>
 
-                <!--</uib-rating>-->
-            </div>
-            <div class="col-md-6">
-                <h4>Ingest Date:&nbsp;&nbsp;<span class="text-success"><span
-                        ng-show="!vm.selectedImage.properties.ingest_date">Unknown
-                </span>{{vm.selectedImage.properties.ingest_date| date:'MM/dd/yyyy HH:mm:ss:sss'}}</span></h4>
-            </div>
-        </div>
-        <div class="row">
-            <hr>
-            <div class="col-md-6">
-                <h4>Source</h4>
-
-                <div class="panel panel-primary">
-                    <ul>
-                        <li>
-                            Mission:&nbsp;
-                            &nbsp;<span class="text-success"><span ng-show="!vm.selectedImage.properties.mission_id">Unknown
+                        <div class="panel panel-primary">
+                            <ul>
+                                <li>
+                                    Mission:&nbsp;
+                                    &nbsp;<span class="text-success"><span ng-show="!vm.selectedImage.properties.mission_id">Unknown
                 </span>{{vm.selectedImage.properties.mission_id}}</span>
-                        </li>
-                        <li>
-                            Sensor:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.sensor_id">Unknown</span>{{vm.selectedImage.properties.sensor_id}}</span>
-                        </li>
-                        <li>
-                            Organization:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.organization">Unknown</span>{{vm.selectedImage.properties.organization}}</span>
-                        </li>
-                        <li>
-                            Country Code:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.country_code">Unknown</span>{{vm.selectedImage.properties.country_code}}</span>
-                        </li>
-                        <li>
-                            WAC Code:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.wac_code">Unknown</span>{{vm.selectedImage.properties.wac_code}}</span>
-                        </li>
-                        <li>
-                            Image Representation:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.image_representation">Unknown</span>{{vm.selectedImage.properties.image_representation}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <h4>File</h4>
+                                </li>
+                                <li>
+                                    Sensor:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.sensor_id">Unknown</span>{{vm.selectedImage.properties.sensor_id}}</span>
+                                </li>
+                                <li>
+                                    Organization:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.organization">Unknown</span>{{vm.selectedImage.properties.organization}}</span>
+                                </li>
+                                <li>
+                                    Country Code:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.country_code">Unknown</span>{{vm.selectedImage.properties.country_code}}</span>
+                                </li>
+                                <li>
+                                    WAC Code:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.wac_code">Unknown</span>{{vm.selectedImage.properties.wac_code}}</span>
+                                </li>
+                                <li>
+                                    Image Representation:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.image_representation">Unknown</span>{{vm.selectedImage.properties.image_representation}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <h4>File</h4>
 
-                <div class="panel panel-primary">
-                    <ul>
-                        <li>
-                            Type:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.file_type">Unknown</span>{{vm.selectedImage.properties
+                        <div class="panel panel-primary">
+                            <ul>
+                                <li>
+                                    Type:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.file_type">Unknown</span>{{vm.selectedImage.properties
                         .file_type}}</span>
-                        </li>
-                        <li class="dont-break-out">
-                            Name:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.filename">Unknown</span>{{vm.selectedImage.properties
+                                </li>
+                                <li class="dont-break-out">
+                                    Name:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.filename">Unknown</span>{{vm.selectedImage.properties
                         .filename}}</span>
-                        </li>
-                        <li class="dont-break-out">
-                            Entry ID:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.entry_id">Unknown
+                                </li>
+                                <li class="dont-break-out">
+                                    Entry ID:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.entry_id">Unknown
                         </span>{{vm.selectedImage.properties
                         .entry_id}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <h4>General</h4>
+                                </li>
+                            </ul>
+                        </div>
+                        <h4>General</h4>
 
-                <div class="panel panel-primary">
-                    <ul>
-                        <li>
-                            Description:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.description">Unknown
+                        <div class="panel panel-primary">
+                            <ul>
+                                <li>
+                                    Description:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.description">Unknown
                         </span>{{vm.selectedImage.properties
                         .description}}</span>
-                        </li>
-                        <li class="dont-break-out">
-                            Title:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.title">Unknown</span>{{vm.selectedImage.properties.title}}</span>
-                        </li>
-                        <li>
-                            Security Classification:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.security_classification"></span>{{vm.selectedImage.properties
+                                </li>
+                                <li class="dont-break-out">
+                                    Title:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.title">Unknown</span>{{vm.selectedImage.properties.title}}</span>
+                                </li>
+                                <li>
+                                    Security Classification:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.security_classification"></span>{{vm.selectedImage.properties
                         .security_classification}}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h4>Metrics</h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Metrics</h4>
 
-                <div class="panel panel-primary">
-                    <ul>
-                        <li>
-                            Azimuth Angle:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties.azimuth_angle}}</span>
-                        </li>
-                        <li>
-                            Grazing Angle:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.grazing_angle">Unknown</span>{{vm.selectedImage.properties
+                        <div class="panel panel-primary">
+                            <ul>
+                                <li>
+                                    Azimuth Angle:&nbsp;&nbsp;<span class="text-success">{{vm.selectedImage.properties.azimuth_angle}}</span>
+                                </li>
+                                <li>
+                                    Grazing Angle:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.grazing_angle">Unknown</span>{{vm.selectedImage.properties
                             .grazing_angle}}</span>
-                        </li>
-                        <li>
-                            Sun Azimuth:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.sun_azimuth">Unknown
+                                </li>
+                                <li>
+                                    Sun Azimuth:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.sun_azimuth">Unknown
                         </span>{{vm.selectedImage.properties
                             .sun_azimuth}}</span>
-                        </li>
-                        <li>
-                            Sun Elevation:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.sun_elevation">Unknown
+                                </li>
+                                <li>
+                                    Sun Elevation:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.sun_elevation">Unknown
                         </span>{{vm.selectedImage.properties
                             .sun_elevation}}</span>
-                        </li>
-                        <li>
-                            Cloud Cover:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.cloud_cover">Unknown</span>{{vm.selectedImage.properties
+                                </li>
+                                <li>
+                                    Cloud Cover:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.cloud_cover">Unknown</span>{{vm.selectedImage.properties
                             .cloud_cover}}</span>
-                        </li>
-                        <li>
-                            Number of Bands:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.number_of_bands">Unknown</span>{{vm.selectedImage.properties
+                                </li>
+                                <li>
+                                    Number of Bands:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.number_of_bands">Unknown</span>{{vm.selectedImage.properties
                             .number_of_bands}}</span>
-                        </li>
-                        <li>
-                            Number of Resolution Levels:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.number_of_res_levels">Unknown</span>{{vm.selectedImage.properties
+                                </li>
+                                <li>
+                                    Number of Resolution Levels:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.number_of_res_levels">Unknown</span>{{vm.selectedImage.properties
                             .number_of_res_levels}}</span>
-                        </li>
-                        <li>
-                            Bit Depth:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.bit_depth">Unknown</span>{{vm.selectedImage.properties
+                                </li>
+                                <li>
+                                    Bit Depth:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.bit_depth">Unknown</span>{{vm.selectedImage.properties
                             .bit_depth}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <h4>Dimensions</h4>
+                                </li>
+                            </ul>
+                        </div>
+                        <h4>Dimensions</h4>
 
-                <div class="panel panel-primary">
-                    <ul>
-                        <li>
-                            Image Height:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.height">Unknown
+                        <div class="panel panel-primary">
+                            <ul>
+                                <li>
+                                    Image Height:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.height">Unknown
                         </span>{{vm.selectedImage.properties
                         .height}}</span>
-                        </li>
-                        <li>
-                            Image Width:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.width">Unknown</span>{{vm.selectedImage.properties
+                                </li>
+                                <li>
+                                    Image Width:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.width">Unknown</span>{{vm.selectedImage.properties
                         .width}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <h4>Geometry</h4>
+                                </li>
+                            </ul>
+                        </div>
+                        <h4>Geometry</h4>
 
-                <div class="panel panel-primary">
-                    <ul>
-                        <li>
-                            GSD Unit:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.gsd_unit">Unknown
+                        <div class="panel panel-primary">
+                            <ul>
+                                <li>
+                                    GSD Unit:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.gsd_unit">Unknown
                         </span>{{vm.selectedImage.properties
                         .gsd_unit}}</span>
-                        </li>
-                        <li>
-                            GSD X:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.gsdx">Unknown
+                                </li>
+                                <li>
+                                    GSD X:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.gsdx">Unknown
                         </span>{{vm.selectedImage.properties
                         .gsdx}}</span>
-                        </li>
-                        <li>
-                            GSD Y:&nbsp;&nbsp;<span class="text-success"><span
-                                ng-show="!vm.selectedImage.properties.gsdx">Unknown</span>{{vm.selectedImage.properties
+                                </li>
+                                <li>
+                                    GSD Y:&nbsp;&nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.gsdx">Unknown</span>{{vm.selectedImage.properties
                         .gsdy}}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+
         </div>
     </div>
 </div>

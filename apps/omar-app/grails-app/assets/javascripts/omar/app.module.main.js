@@ -60,14 +60,6 @@
                     return filename;
                 }
             };
-        })
-        //.filter('offset', function($timeout) {
-        //    return function(input, start) {
-        //        $timeout(function(){
-        //            console.log(input);
-        //            return input.slice(start);
-        //        },10000);
-        //    };
-        //});
+        });
 
 })();
