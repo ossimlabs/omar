@@ -62,6 +62,9 @@ dependencies {
 
     testCompile "org.grails:grails-plugin-testing"
 
+    compile "org.grails.plugins:scaffolding"
+    compile 'io.prediction:client:0.9.5'
+
     console "org.grails:grails-console"
 }
 
