@@ -19,7 +19,8 @@ var MapView = (function ()
                     url: '/o2/wms/getMap',
                     params: {
                         VERSION: '1.1.1',
-                        LAYERS: 'omar:raster_entry',
+//                        LAYERS: 'omar:raster_entry',
+                        LAYERS: '/data/bmng/world.200406.A1.tif,/data/bmng/world.200406.B1.tif,/data/bmng/world.200406.C1.tif,/data/bmng/world.200406.D1.tif,/data/bmng/world.200406.A2.tif,/data/bmng/world.200406.B2.tif,/data/bmng/world.200406.C2.tif,/data/bmng/world.200406.D2.tif',
                         FORMAT: 'image/jpeg'
                     }
                 } )
