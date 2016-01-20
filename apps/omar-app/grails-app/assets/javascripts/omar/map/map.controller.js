@@ -37,14 +37,14 @@
             mapService.mapInit(vm.mapParams);
 
             // Set the initial height of map and list elements
-            mapService.resizeElement('#map', 240);
-            mapService.resizeElement('#list', 368);
+            //mapService.resizeElement('#map', 240);
+            //mapService.resizeElement('#list', 368);
 
             //Adjust the height of map and list elements if browser window changes
-            $(window).resize(function () {
-                mapService.resizeElement('#map', 154);
-                mapService.resizeElement('#list', 255);
-            });
+            //$(window).resize(function () {
+            //    mapService.resizeElement('#map', 154);
+            //    mapService.resizeElement('#list', 255);
+            //});
 
         }
 })();

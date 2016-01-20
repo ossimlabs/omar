@@ -287,7 +287,7 @@
                 controls: ol.control.defaults().extend( [
                     new RotateNorthControl(),
                     new RotateUpControl(),
-                    //new ol.control.FullScreen()
+                    new ol.control.FullScreen()
                 ] ),
                 //interactions: ol.interaction.defaults().extend([
                 //    new ol.interaction.DragRotateAndZoom()
@@ -296,10 +296,10 @@
                 layers: [
                     new ol.layer.Tile( {
                         source: source
-                    } ),
+                    } )/*,
                     new ol.layer.Tile( {
                         source: source2
-                    } )
+                    } )*/
                 ],
                 target: 'imageMap',
                 view: new ol.View( {

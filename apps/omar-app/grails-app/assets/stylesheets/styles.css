@@ -53,11 +53,12 @@ body { padding-top: 70px; }
 }
 
 #map {
-    /*height: 800px;*/
+    /*width: 100%;*/
+    height: 88%;
 }
 
 #list {
-    /*height: 750px;*/
+    height: 70%;
     overflow-y: auto;
     padding-right: 5px;
 }
