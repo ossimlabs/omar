@@ -560,18 +560,20 @@
             <div ng-show="list.wfsData.length >= 1"
                  ng-repeat="image in list.wfsData.slice(((list.currentStartIndex-1)*list.itemsPerPage), ((list.currentStartIndex)*list.itemsPerPage))"
                  ng-model="image">
-                <div class="panel panel-primary">
+                <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="media">
                             <div class="media-left">
-                                <img class="media-object"
-                                     ng-click="list.showImageModal(image)"
-                                     tooltip-placement="right"
-                                     uib-tooltip="Click the thumbnail or the Image ID to preview image and view metadata"
-                                     ng-src="{{list.thumbPath}}{{list.thumbFilename}}{{image.properties.filename}}{{list.thumbEntry}}{{image.properties.entry_id}}{{list.thumbSize}}{{list.thumbFormat}}"
-                                     alt="Image thumbnail"
-                                     style="cursor: pointer;"
-                                     >&nbsp;
+                                <img
+                                    ng-style="list.thumbBorder(image.properties.file_type)"
+                                    class="media-object"
+                                    ng-click="list.showImageModal(image)"
+                                    tooltip-placement="right"
+                                    uib-tooltip="Click the thumbnail or the Image ID to preview image and view metadata"
+                                    ng-src="{{list.thumbPath}}{{list.thumbFilename}}{{image.properties.filename}}{{list.thumbEntry}}{{image.properties.entry_id}}{{list.thumbSize}}{{list.thumbFormat}}"
+                                    alt="Image thumbnail"
+                                    style="cursor: pointer;"
+                                >&nbsp;
                             </div>
                             <div class="media-body">
                                 <!--<div class="row">-->
