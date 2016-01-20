@@ -67,6 +67,7 @@ dependencies {
   compile project( ':omar-wfs' )
   compile project( ':omar-wms' )
   compile project( ':omar-oms' )
+  compile project( ':omar-predio' )
 
   compile( "org.geoscript:geoscript-groovy:1.5.0" ) {
     exclude module: "slf4j-log4j12"
