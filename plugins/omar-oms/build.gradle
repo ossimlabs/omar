@@ -42,8 +42,9 @@ targetCompatibility = 1.7
 repositories {
 
     mavenLocal()
-    mavenCentral()
+    // this is for JAI.  Must be before the mavenCentral and stuff.
     maven { url "http://download.osgeo.org/webdav/geotools"}
+    mavenCentral()
     maven { url "https://repo.grails.org/grails/core" }
 }
 
