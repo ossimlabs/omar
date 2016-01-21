@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'imageSpaceService', '$scope', ListController]);
+        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'imageSpaceService', '$scope', '$http', ListController]);
 
-        function ListController(wfsService, $stateParams, $uibModal, imageSpaceService, $scope) {
+        function ListController(wfsService, $stateParams, $uibModal, imageSpaceService, $scope, $http) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -16,7 +16,7 @@
             vm.thumbFormat = '&format=jpeg';
 
             vm.thumbBorder = function(imageType) {
-                console.log(imageType);
+                //console.log(imageType);
 
                 var border = {
                     "border-color": "white",
@@ -155,11 +155,27 @@
                 });
 
                 modalInstance.result.then(function() {
-                    console.log('Modal closed at: ' + new Date());
+                    //console.log('Modal closed at: ' + new Date());
 
                 }, function () {
-                    console.log('Modal dismissed at: ' + new Date());
+                    //console.log('Modal dismissed at: ' + new Date());
                 });
+
+            };
+
+            vm.logRatingToPio = function(imageId){
+                console.log('logRating imageId param:', imageId);
+
+                var pioUrl = 'some/path/to/predictiveIo';
+                $http({
+                    method: 'POST',
+                    url: pioUrl
+                })
+                    .then(function(response) {
+                        var data;
+                        data = response;  // callback response from Predictive IO controller
+
+                    });
 
             };
 

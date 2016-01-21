@@ -7,10 +7,10 @@ import grails.validation.Validateable
 /**
  * Created by gpotts on 1/20/16.
  */
-@ToString
+@ToString(includeNames = true)
 class RateCommand implements Validateable
 {
-   String appName="omar"
+   String appName="omar_recommendation"
    String event="rate"
    String entityType="user"
    String entityId

@@ -141,7 +141,6 @@
                 var dateLast3Months = moment().subtract(3, 'months').format('MM-DD-YYYY 00:00');
                 var dateLast6Months = moment().subtract(6, 'months').format('MM-DD-YYYY 00:00');
 
-                // TODO: grab this from the filter date type select element
                 var dbName = vm.currentDateType.value; //"acquisition_date";
                 var temporalParam = vm.currentTemporalDuration.value;
 
