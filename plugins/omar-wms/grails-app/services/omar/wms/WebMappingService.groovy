@@ -20,7 +20,7 @@ class WebMappingService
   def grailsLinkGenerator
 
   enum RenderMode {
-    BLANK, GEOSCRIPT, FOO
+    BLANK, GEOSCRIPT, FILTER
   }
 
   static final def getMapOutputFormats = [
@@ -180,6 +180,12 @@ class WebMappingService
 </GetStyles>
 */
           }
+          VendorSpecificCapabilities {
+            filter( required: '0' ) {
+              Title("Filter")
+              Abstract("Apply a Filter to the layer before rendering it.  Can accept either CQL or OGC syntax")
+            }
+          }
           Exception {
             Format( 'application/vnd.ogc.se_xml' )
             Format( 'application/vnd.ogc.se_inimage' )
@@ -192,7 +198,7 @@ class WebMappingService
             // <!--All supported EPSG projections:-->
             SRS( 'EPSG:3857' )
             SRS( 'EPSG:4326' )
-            LatLonBoundingBox( minx: "-180.0", miny: "-90.0", maxx: "180.0", maxy: "90.0" )                        \
+            LatLonBoundingBox( minx: "-180.0", miny: "-90.0", maxx: "180.0", maxy: "90.0" )                         \
 
             LayerInfo.list()?.each { layerInfo ->
               WorkspaceInfo workspaceInfo = WorkspaceInfo.findByName( layerInfo.workspaceInfo.name )
@@ -1150,7 +1156,7 @@ AUTHORITY["EPSG","4326"]]-->
 
   def getMap(GetMapRequest wmsParams)
   {
-    def renderMode = RenderMode.FOO
+    def renderMode = RenderMode.FILTER
 
     println wmsParams
 
@@ -1181,7 +1187,7 @@ AUTHORITY["EPSG","4326"]]-->
       ImageIO.write( image, wmsParams?.format?.split( '/' )?.last(), ostream )
       break
 
-    case RenderMode.FOO:
+    case RenderMode.FILTER:
 
       def (prefix, layerName) = wmsParams?.layers?.split( ':' )
 
