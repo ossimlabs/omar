@@ -15,7 +15,8 @@
 //= require webjars/angular-strap/2.3.4/angular-strap.js
 //= require webjars/angular-strap/2.3.4/angular-strap.tpl.js
 //= require webjars/momentjs/2.11.0/moment.js
-//= require webjars/ngInfiniteScroll/1.2.1/ng-infinite-scroll.js
+//= require webjars/slick-carousel/1.5.9/slick/slick.js
+//= require webjars/angular-slick-carousel/3.0.10/dist/angular-slick.js
 
 // <--Core-->
 //= require omar/core/OpenLayersLite-formats.js

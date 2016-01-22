@@ -1,3 +1,4 @@
+OmarPredioGrailsPlugin.groovy
 .gradle
 Thumbs.db
 .DS_Store
@@ -13,3 +14,4 @@ build/
 node_modules
 apps/omar-app/.asscache
 *.db
+*OmarPredioGrailsPlugin.groovy

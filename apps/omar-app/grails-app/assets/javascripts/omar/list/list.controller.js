@@ -166,15 +166,15 @@
             vm.logRatingToPio = function(imageId){
                 console.log('logRating imageId param:', imageId);
 
-                var pioUrl = 'some/path/to/predictiveIo';
+                var pioUrl = '../predio/rate?appName=omar_trending&entityId=all&targetEntityId=' + imageId + '&rating=4';
                 $http({
-                    method: 'POST',
+                    method: 'GET',
                     url: pioUrl
                 })
                     .then(function(response) {
                         var data;
                         data = response;  // callback response from Predictive IO controller
-
+                        console.log('rating response', data);
                     });
 
             };

@@ -165,6 +165,92 @@
 
             };
 
+            this.executeWfsTrendingThumbs = function(trendData) {
+
+                var wfsImagesList = [];
+                trendData.data.itemScores.filter(function(el){
+
+                    console.log(el);
+                    wfsImagesList.push(el.item);
+
+                });
+
+                var wfsImageString = wfsImagesList.join(",");
+
+                var trendingImages = {};
+
+                var wfsRequest = {
+                    typeName: 'omar:raster_entry',
+                    namespace: 'http://omar.ossim.org',
+                    version: '1.1.0',
+                    outputFormat: 'JSON',
+                    cql: '',
+                };
+
+                wfsRequest.cql = 'id in(' + wfsImageString + ')';
+
+                var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
+
+                var wfsUrl = wfsRequestUrl +
+                    "service=WFS" +
+                    "&version=" + wfsRequest.version +
+                    "&request=GetFeature" +
+                    "&typeName=" + wfsRequest.typeName +
+                    "&filter=" + wfsRequest.cql +
+                    "&outputFormat=" + wfsRequest.outputFormat;
+
+                var url = encodeURI(wfsUrl);
+
+                $http({
+                    method: 'GET',
+                    url: url
+                })
+                    .then(function(response) {
+                        var data;
+                        data = response.data.features;
+                        console.log('data from wfs', data);
+
+                        $timeout(function(){
+
+                            $rootScope.$broadcast('wfsTrendingThumb: updated', data);
+
+                        });
+
+                    });
+
+            };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
 }());

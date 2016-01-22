@@ -592,7 +592,8 @@
                                 <div class="row">
                                     <div class="col-md-12" style="font-size: 13px;">
                                         ID:&nbsp;&nbsp;
-                                        <span ng-click="list.showImageModal(image); list.logRatingToPio(image.properties.title);"
+                                        <span
+                                                ng-click="list.showImageModal(image); list.logRatingToPio(image.properties.id);"
                                               class="text-success image-id-link">
                                             <span ng-show="!image.properties.title">Unknown</span>
                                             {{image.properties.title}}</span>
