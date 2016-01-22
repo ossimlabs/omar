@@ -141,7 +141,7 @@
 
             vm.showImageModal = function(imageObj) {
 
-                //console.log('imageObj', imageObj);
+                console.log('imageObj', imageObj);
 
                 var modalInstance = $uibModal.open({
                     size: 'lg',

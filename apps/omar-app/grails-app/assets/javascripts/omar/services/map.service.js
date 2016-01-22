@@ -15,7 +15,7 @@
         //var omarPort = APP_CONFIG.services.omar.port || '80';
         var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
 
-        console.log('omarFootprintsUrl', omarFootprintsUrl);
+        //console.log('omarFootprintsUrl', omarFootprintsUrl);
 
         var zoomToLevel = 16;
         var map,
@@ -78,7 +78,7 @@
                 source: new ol.source.TileWMS({
                     url: '/o2/footprints/getFootprints',
                     params: {
-                        FILTER: "sensor_id LIKE '%Villon%'",
+                        FILTER: "",
                         VERSION: '1.1.1',
                         LAYERS: 'omar:raster_entry',
                         STYLES: 'byFileType'
@@ -90,41 +90,6 @@
 
             map = new ol.Map({
                 layers: [
-                    //new ol.layer.Tile({
-                    //    source: new ol.source.TileWMS({
-                    //        url: osmBaseMapUrl,
-                    //        params: {'LAYERS': osmBaseMapLayers, 'TILED': true},
-                    //        serverType: 'geoserver'
-                    //    }),
-                    //    name: 'osmBaseMap'
-                    //}),
-                    //new ol.layer.Tile({
-                    //    source: new ol.source.TileWMS( {
-                    //        //url: 'http://localhost:8888/omar/wms/footprints?',
-                    //        //url: 'http://localhost:8888/omar/wms/footprints?',
-                    //        //url: omarUrl + ':' + omarPort + omarFootprintsUrl,
-                    //        url: omarFootprintsUrl,
-                    //        params: {
-                    //            VERSION: '1.1.1',
-                    //            SRS: 'EPSG:3857',
-                    //            LAYERS: 'Imagery',
-                    //            FORMAT: 'image/png',
-                    //            STYLES: 'byFileType'
-                    //        }
-                    //    } )
-                    //})
-                    //new ol.layer.Tile({
-                    //    source: new ol.source.TileWMS({
-                    //        url: '/o2/footprints/getFootprints',
-                    //        params: {
-                    //            FILTER: "sensor_id LIKE '%Villon%'",
-                    //            VERSION: '1.1.1',
-                    //            LAYERS: 'omar:raster_entry',
-                    //            STYLES: 'byFileType'
-                    //        }
-                    //    }),
-                    //    name: 'footprints'
-                    //})
                     baseMap, footPrints
                 ],
                 controls: ol.control.defaults().extend([
@@ -136,8 +101,9 @@
             });
 
             this.updateFootPrintLayer = function (filter) {
-                console.log('updating footprint layer with filter:', filter);
-                console.log(footPrints.getSource().getParams());
+
+                //console.log('updating footprint layer with filter:', filter);
+                //console.log(footPrints.getSource().getParams());
                 var params = footPrints.getSource().getParams();
                 params.FILTER = filter;
                 console.log('params.FILTER', params.FILTER);
