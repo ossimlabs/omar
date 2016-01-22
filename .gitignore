@@ -14,4 +14,3 @@ build/
 node_modules
 apps/omar-app/.asscache
 *.db
-*OmarPredioGrailsPlugin.groovy

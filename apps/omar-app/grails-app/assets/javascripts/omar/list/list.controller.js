@@ -128,7 +128,6 @@
 
                 wfsService.executeWfsQuery();
 
-
             });
 
             $scope.$on('wfs: updated', function(event, data) {

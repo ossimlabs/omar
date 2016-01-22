@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('MapController', ['mapService', '$stateParams', 'toastr', MapController]);
+        .controller('MapController', ['mapService', '$stateParams', '$scope', 'toastr', MapController]);
 
-        function MapController(mapService, $stateParams, toastr) {
+        function MapController(mapService, $stateParams, $scope, toastr) {
 
             toastr.info("Click on the thumbnail or ID text in the image card to view the image and it's" +
                 " metadata", 'Heads Up:', {
@@ -35,6 +35,13 @@
 
             //console.log(vm.mapParams);
             mapService.mapInit(vm.mapParams);
+
+            $scope.$on('attrObj.updated', function(event, filter) {
+
+                console.log('$on attrObj filter updated', filter);
+                mapService.updateFootPrintLayer(filter);
+
+            });
 
         }
 })();

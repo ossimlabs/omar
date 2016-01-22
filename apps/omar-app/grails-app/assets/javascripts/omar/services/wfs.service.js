@@ -31,7 +31,7 @@
                 filter: ""
             };
 
-            // When this changea ir needa to be passed to the executeWfsQuery method
+            // When this changes it needs to be passed to the executeWfsQuery method
             this.attrObj = {
                 filter: "",
                 sortField: "acquisition_date",
@@ -46,8 +46,6 @@
                 );
                 //console.log('updateSpatialFilter param', filter);
             };
-
-            // wfsService.updateAttrFilter(filterString, undefined, undefined);
 
             this.updateAttrFilter = function(filter, sortField, sortType, startIndex) {
 
@@ -126,35 +124,14 @@
                     //"&maxFeatures=" + wfsRequest.maxFeatures;
 
                 var url = encodeURI(wfsUrl);
-                //alert(url);
-
-
-                //var items = [];
-                //var busy = false;
-                //var after = '';
 
                 $http({
                     method: 'GET',
                     url: url
-                    //url: wfsRequestUrl, // +
-                    // "&version=1.1.0&request=GetFeature&typeName=omar:raster_entry&outputFormat=json",
-                    //params: {
-                    //    filter: wfsRequest.cql,
-                    //    outputFormat: wfsRequest.outputFormat,
-                    //    typeName: wfsRequest.typeName,
-                    //    request: 'GetFeature',
-                    //    version: wfsRequest.version,
-                    //    service: 'WFS',
-                    //    //sortBy: 'acquisition_date+D'
-                    //}
                 })
                 .then(function(response) {
                     var data;
                     data = response.data.features;
-
-                    //for (var i = 0; i < items.length; i++){
-                    //    items.push(items[i].response);
-                    //}
 
                     // $timeout needed: http://stackoverflow.com/a/18996042
                     $timeout(function(){
@@ -177,8 +154,6 @@
 
                 var wfsImageString = wfsImagesList.join(",");
 
-                var trendingImages = {};
-
                 var wfsRequest = {
                     typeName: 'omar:raster_entry',
                     namespace: 'http://omar.ossim.org',
@@ -191,6 +166,7 @@
 
                 var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
 
+                // TODO: Refactor and use string from other wfs method
                 var wfsUrl = wfsRequestUrl +
                     "service=WFS" +
                     "&version=" + wfsRequest.version +
@@ -205,51 +181,20 @@
                     method: 'GET',
                     url: url
                 })
-                    .then(function(response) {
-                        var data;
-                        data = response.data.features;
-                        console.log('data from wfs', data);
+                .then(function(response) {
+                    var data;
+                    data = response.data.features;
+                    console.log('data from wfs', data);
 
-                        $timeout(function(){
+                    $timeout(function(){
 
-                            $rootScope.$broadcast('wfsTrendingThumb: updated', data);
-
-                        });
+                        $rootScope.$broadcast('wfsTrendingThumb: updated', data);
 
                     });
 
+                });
+
             };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         }
 
