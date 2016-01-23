@@ -449,6 +449,10 @@
     <div class="col-md-8" ng-controller="MapController as map">
         <div id="map" class="map" params="map.mapParams" map></div>
     </div>
+    <div id="popup" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+        <div id="popup-content"></div>
+    </div>
     <div class="col-md-4" ng-controller="ListController as list">
         <div class="visible-xs-block visible-sm-block">
             <hr>
@@ -560,8 +564,10 @@
             <div ng-show="list.wfsData.length >= 1"
                  ng-repeat="image in list.wfsData.slice(((list.currentStartIndex-1)*list.itemsPerPage), ((list.currentStartIndex)*list.itemsPerPage))"
                  ng-model="image">
-                <div class="panel panel-default">
-                    <div class="panel-body">
+                <div class="panel panel-default" >
+                    <div class="panel-body"
+                         ng-mouseenter="list.displayFootprint(image);"
+                         ng-mouseleave="list.removeFootprint();">
                         <div class="media">
                             <div class="media-left">
                                 <img
@@ -677,7 +683,6 @@
                             ng-change="list.pagingChanged()"
                             max-size="5"
                             class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
-
             </uib-pagination>
         </div>
     </div>

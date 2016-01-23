@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'imageSpaceService', '$scope', '$http', ListController]);
+        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', '$scope', '$http', ListController]);
 
-        function ListController(wfsService, $stateParams, $uibModal, imageSpaceService, $scope, $http) {
+        function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, $scope, $http) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -84,10 +84,17 @@
                 return border;
             };
 
-            //vm.infiniteTest = function() {
-            //    console.log('infinite firing!');
-            //    wfsService.executeWfsQuery();
-            //};
+            vm.displayFootprint = function(obj){
+
+                mapService.mapShowImageFootprint(obj);
+
+            };
+
+            vm.removeFootprint = function () {
+
+                mapService.mapRemoveImageFootprint();
+
+            };
 
             vm.currentAttrFilter = wfsService.attrObj;
             vm.currentSortText = "Acquired (Newest)";
@@ -163,7 +170,7 @@
             };
 
             vm.logRatingToPio = function(imageId){
-                console.log('logRating imageId param:', imageId);
+                //console.log('logRating imageId param:', imageId);
 
                 var pioUrl = '../predio/rate?appName=omar_trending&entityId=all&targetEntityId=' + imageId + '&rating=4';
                 $http({
@@ -173,7 +180,7 @@
                     .then(function(response) {
                         var data;
                         data = response;  // callback response from Predictive IO controller
-                        console.log('rating response', data);
+                        //console.log('rating response', data);
                     });
 
             };

@@ -25,7 +25,8 @@
             wktFormat,
             searchFeatureWkt,
             iconStyle,
-            wktStyle;
+            wktStyle,
+            footprintStyle;
 
         iconStyle = new ol.style.Style({
             image: new ol.style.Icon(({
@@ -43,6 +44,16 @@
             }),
             stroke: new ol.style.Stroke({
                 width: 1.5,
+                color: 'rgba(255, 100, 50, 0.6)'
+            })
+        });
+
+        footprintStyle = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 100, 50, 0.9)'
+            }),
+            stroke: new ol.style.Stroke({
+                width: 5.5,
                 color: 'rgba(255, 100, 50, 0.6)'
             })
         });
@@ -145,6 +156,28 @@
 
         };
 
+        this.mapShowImageFootprint = function(geomObj) {
+
+            clearLayerSource(searchLayerVector);
+
+            //console.log('mapShowImageFootprint firing: ', geomObj);
+            //console.log(geomObj.geometry.coordinates);
+
+            var footprintFeature = new ol.Feature({
+                geometry: new ol.geom.MultiPolygon(geomObj.geometry.coordinates)
+            });
+
+            footprintFeature.setStyle(footprintStyle);
+            searchLayerVector.getSource().addFeature(footprintFeature);
+
+        };
+
+        this.mapRemoveImageFootprint = function() {
+
+            clearLayerSource(searchLayerVector);
+
+        }
+
         //this.resizeElement = function (element, height){
         //    //console.log('resizing');
         //    $(element).animate({height:$(window).height()- height}, 10, function(){
@@ -160,6 +193,7 @@
         };
 
         function convertToWktPolygon() {
+
             var extent = getMapBbox();
             var minX = extent[0];
             var minY = extent[1];
