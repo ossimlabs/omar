@@ -1,14 +1,19 @@
 package omar.oms
 
 import grails.converters.JSON
+import com.github.rahulsom.swaggydoc.*
+import com.wordnik.swagger.annotations.*
 
+@Api(value = "imageSpace",
+        description = "API operations in image space."
+)
 class ImageSpaceController
 {
   def imageSpaceService
 
   def index(GetTileCommand cmd)
   {
-    def filename = cmd.filename ?: '/data/uav/predator/vesdata/po_197675_pan_0000000.ntf'
+    def filename = cmd.filename //?: '/data/uav/predator/vesdata/po_197675_pan_0000000.ntf'
     def entry = cmd.entry ?: 0
     def imageInfo = imageSpaceService.readImageInfo( filename as File )
     def upAngle = imageSpaceService.computeUpIsUp( filename, entry )
