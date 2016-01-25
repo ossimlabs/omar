@@ -1,7 +1,7 @@
 
 // Vendor
 //= require webjars/jquery/2.1.4/jquery.min.js
-//= require webjars/openlayers/3.11.1/ol-debug.js
+//= require webjars/openlayers/3.11.1/ol.js
 //= require webjars/bootstrap/3.3.5/js/bootstrap.js
 //= require webjars/angularjs/1.4.8/angular.js
 //= require webjars/angular-ui-router/0.2.15/angular-ui-router.js
