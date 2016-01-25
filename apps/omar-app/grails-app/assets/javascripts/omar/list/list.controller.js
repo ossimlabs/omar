@@ -71,6 +71,9 @@
                     case "tiff":
                         border["border-color"] = "#FF0000"; // red
                         break;
+                    case "mpeg":
+                        border["border-color"] = "#A4FEFF"; // red
+                        break;
                     case "unspecified":
                         border["border-color"] = "white";
                         //border["border-width"] = "1.5px"; // makes it look the same size as others
