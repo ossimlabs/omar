@@ -231,7 +231,7 @@
         this.mapRemoveImageFootprint = function() {
 
             clearLayerSource(searchLayerVector);
-            //overlay.setPosition(undefined);
+            overlay.setPosition(undefined);
 
         }
 
