@@ -36,7 +36,6 @@
             //console.log(vm.mapParams);
             mapService.mapInit(vm.mapParams);
 
-
             $scope.$on('attrObj.updated', function(event, filter) {
 
                 console.log('$on attrObj filter updated', filter);

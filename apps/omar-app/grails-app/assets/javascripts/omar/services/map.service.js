@@ -13,7 +13,7 @@
         // Add the path to OMAR and the footprints URL
         //var omarUrl = APP_CONFIG.services.omar.url;
         //var omarPort = APP_CONFIG.services.omar.port || '80';
-        var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
+        //var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
 
         //console.log('omarFootprintsUrl', omarFootprintsUrl);
 
@@ -62,13 +62,25 @@
             source: new ol.source.Vector()
         });
 
+        /**
+         * Elements that make up the popup.
+         */
+        var container = document.getElementById('popup');
+        var content = document.getElementById('popup-content');
+        var closer = document.getElementById('popup-closer');
+
+        /**
+         * Create an overlay to anchor the popup to the map.
+         */
+        var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+            element: container
+        }));
+
         this.mapInit = function (mapParams) {
 
             //console.log('mapParams', mapParams);
 
             mapView = new ol.View({
-                //center: [lng, lat],
-                //center: [-80.7253178, 28.1174627],
                 center: [0, 0],
                 projection: 'EPSG:4326',
                 zoom: 12,
@@ -98,7 +110,6 @@
                 name: 'Image Footprints'
             });
 
-
             map = new ol.Map({
                 layers: [
                     baseMap, footPrints
@@ -107,6 +118,7 @@
                     //new ol.control.FullScreen(),
                     new ol.control.ScaleLine()
                 ]),
+                overlays: [overlay],
                 target: 'map',
                 view: mapView
             });
@@ -124,6 +136,7 @@
             };
 
             map.addLayer(searchLayerVector);
+
 
             geomField = 'ground_geom';
             var mapObj = {};
@@ -156,11 +169,11 @@
 
         };
 
-        this.mapShowImageFootprint = function(imageObj, color) {
+        this.mapShowImageFootprint = function(imageObj) {
 
             clearLayerSource(searchLayerVector);
 
-            //console.log('mapShowImageFootprint firing: ',imageObj);
+            console.log('mapShowImageFootprint firing: ',imageObj);
             //console.log(geomObj.geometry.coordinates);
 
             var footprintFeature = new ol.Feature({
@@ -168,7 +181,7 @@
             });
 
             var color = setFootprintColors(imageObj.properties.file_type);
-            console.log(color);
+            //console.log(color);
 
             footprintStyle.getFill().setColor(color);
             footprintStyle.getStroke().setColor(color);
@@ -177,12 +190,48 @@
 
             searchLayerVector.getSource().addFeature(footprintFeature);
 
+            var featureExtent = footprintFeature.getGeometry().getExtent();
+            var featureExtentCenter = new ol.extent.getCenter(featureExtent);
+
+            var missionID = "Unknown";
+            var sensorID = "Unknown";
+            var acquisition_date = "Unknown"
+
+            if (imageObj.properties.mission_id != undefined) {
+                missionID = imageObj.properties.mission_id;
+            }
+            if (imageObj.properties.sensor_id != undefined) {
+                sensorID = imageObj.properties.sensor_id;
+            }
+            if (imageObj.properties.acquisition_date != undefined) {
+                acquisition_date = moment(imageObj.properties.acquisition_date).format('MM/DD/YYYY HH:mm:ss');
+            }
+
+            content.innerHTML =
+            '<div class="media">' +
+                '<div class="media-left">' +
+                    '<img class="media-object" ' +
+                        'src="/o2/imageSpace/getThumbnail?filename=' +
+                        imageObj.properties.filename +
+                        '&entry=' + imageObj.properties.entry_id +
+                        '&size=50' + '&format=jpeg">' +
+                '</div>' +
+                '<div class="media-body">' +
+                    '<small><span class="text-primary">Mission:&nbsp; </span><span class="text-success">' + missionID + '</span></small><br>' +
+                    '<small><span class="text-primary">Sensor:&nbsp; </span><span class="text-success">' + sensorID + '</span></small><br>' +
+                    '<small><span class="text-primary">Acquisition:&nbsp; </span><span class="text-success">' + acquisition_date + '</span></small>' +
+                '</div>' +
+            '</div>'
+
+            overlay.setPosition(featureExtentCenter);
+
         };
 
 
         this.mapRemoveImageFootprint = function() {
 
             clearLayerSource(searchLayerVector);
+            overlay.setPosition(undefined);
 
         }
 
