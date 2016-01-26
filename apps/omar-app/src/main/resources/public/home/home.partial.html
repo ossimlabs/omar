@@ -40,17 +40,44 @@
         <div class="row">
             <div class="well">
                 <h3 class="text-center"><span class="fa fa-thumbs-up text-info"></span>&nbsp;Trending images</h3>
-                <slick style="height: 240px" ng-if="home.trendingImages.length"  slides-to-show=5
+                <slick style="height: 300px" ng-if="home.trendingImages.length"  slides-to-show=5
                        slides-to-scroll=1 dots="true" infinite="false">
                     <div ng-repeat="image in home.trendingImages">
                         <img style="height: 200px; width: 200px" ng-click="home.imageClick(image.properties.id);"
                              ng-src="/o2/imageSpace/getThumbnail?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=200&format=jpeg"
+                             tooltip-placement="bottom"
+                             uib-tooltip="{{image.properties.title}}"
                              alt="Some text here...">
-                        <div class="text-center">
+                        <div class="text-left">
                         <!--<uib-rating ng-model="home.trendRating" max="max" readonly="isReadonly"-->
                                     <!--titles="['one','two','three']"-->
                                     <!--aria-labelledby="default-rating"></uib-rating>-->
-                            <p>Image ID: {{image.properties.id}}</p>
+                            <p><small>
+                                <!--<strong>Image ID:&nbsp;</strong>-->
+                                <!--<span class="text-success">-->
+                                    <!--<span ng-show="!image.properties.title">Unknown</span>-->
+                                    <!--{{image.properties.title}}</span><br>-->
+                                <!--</span>-->
+
+                                <strong>Acquired:&nbsp;</strong>
+                                <span class="text-success" style="font-size: 12px">
+                                    <span ng-show="!image.properties.acquisition_date">Unknown</span>
+                                    {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}<br>
+                                </span>
+
+                                <strong>Mission:&nbsp;</strong>
+                                <span class="text-success">
+                                    <span ng-show="!image.properties.mission_id">Unknown</span>
+                                    {{image.properties.mission_id}}</span><br>
+                                </span>
+
+                                <strong>Sensor:&nbsp;</strong>
+                                <span class="text-success">
+                                    <span ng-show="!image.properties.sensor_id">Unknown</span>
+                                    {{image.properties.sensor_id}}
+                                </span>
+
+                            </small></p>
                         </div>
                     </div>
                 </slick>

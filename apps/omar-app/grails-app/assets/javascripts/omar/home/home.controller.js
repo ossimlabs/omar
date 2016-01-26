@@ -158,7 +158,7 @@
             vm.getTrendingPio = function(){
 
                 console.log('getTrendingPio firing...');
-                var pioUrl = '../predio/showTrending';
+                var pioUrl = '/o2/predio/showTrending';
                 $http({
                     method: 'GET',
                     url: pioUrl
