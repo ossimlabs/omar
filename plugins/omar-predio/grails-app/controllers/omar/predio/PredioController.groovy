@@ -11,24 +11,26 @@ import com.wordnik.swagger.annotations.*
 )
 class PredioController
 {
+   static allowedMethods = [index:'GET',
+                            rate:['POST', 'GET'],
+                            showTrending:["GET"]
+   ]
+
    def predioService
 
    def index()
    {
       render ""
    }
-   @ApiOperation(value = "Rate an item", produces='application/json')
+   @ApiOperation(value = "Rate an item", consumes= 'application/json', produces='application/json', httpMethod="POST")
    @ApiImplicitParams([
-           @ApiImplicitParam(name = 'appName', value = 'Event App ID for Prediciton IO', defaultValue = 'omar_recommendation', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'event', value = 'Type of event', defaultValue = 'rate', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'entityType', value = 'Entity type', defaultValue = 'user', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'appName', value = 'Event App ID for Prediciton IO', allowableValues="[omar_recommendation,omar_trending]", defaultValue = 'omar_recommendation', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'event', value = 'Type of event', allowableValues="[rate]", defaultValue = 'rate', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'entityType', value = 'Entity type', allowableValues="[user]", defaultValue = 'user', paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'entityId', value = 'Id of the Entity', defaultValue = '', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'targetEntityType', value = 'Target entity type', defaultValue="item", paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'targetEntityType', value = 'Target entity type', allowableValues="[item]", defaultValue="item", paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'targetEntityId', value = 'Id of the target we are rating', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'rating', value = 'Rating value from 1 to 5', paramType = 'query', dataType = 'float'),
-   ])
-   @ApiResponses([
-           @ApiResponse(code = 400, message = 'Bad Request'),
+           @ApiImplicitParam(name = 'rating', allowableValues="[1,2,3,4,5]", value = 'Rating value from 1 to 5', paramType = 'query', dataType = 'float'),
    ])
    def rate()
    {
@@ -44,10 +46,10 @@ class PredioController
       render result.message
    }
 
-   @ApiOperation(value = "Show trending items")
+   @ApiOperation(value = "Show trending items", produces='plain/text', httpMethod = "GET")
    @ApiImplicitParams([
-           @ApiImplicitParam(name = 'appName', value = 'Event App ID for Prediciton IO for trending items', defaultValue = 'omar_trending', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'entityId', value = 'Entity/user', defaultValue = 'all', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'appName', allowableValues="[omar_trending]", value = 'Event App ID for Prediciton IO for trending items', defaultValue = 'omar_trending', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'entityId', value = 'Entity/user', allowableValues="[all]", defaultValue = 'all', paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'maxCount', value = 'Maximum results', defaultValue = '10', paramType = 'query', dataType = 'int'),
    ])
    def showTrending()
