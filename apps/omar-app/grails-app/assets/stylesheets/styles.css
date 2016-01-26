@@ -274,6 +274,10 @@ body { padding-top: 70px; }
 #imageMap:fullscreen {
     height: 100%;
 }
+
+.ol-viewport{
+    border-radius: 10px;
+}
 .ol-rotate {
     top: 3em;
 }
@@ -312,3 +316,9 @@ body { padding-top: 70px; }
     margin-left: -11px;
 }
 
+.truncate {
+    width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
