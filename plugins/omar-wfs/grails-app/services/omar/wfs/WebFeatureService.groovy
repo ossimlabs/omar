@@ -419,7 +419,7 @@ class WebFeatureService
     def namespacePrefix
     def layerName
 
-    switch ( x.size() )
+    switch ( x?.size() )
     {
     case 1:
       layerName = x?.last()
