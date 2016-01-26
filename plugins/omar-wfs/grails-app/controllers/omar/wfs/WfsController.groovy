@@ -1,7 +1,12 @@
 package omar.wfs
 
 import omar.core.BindUtil
+import com.github.rahulsom.swaggydoc.*
+import com.wordnik.swagger.annotations.*
 
+@Api(value = "wfs",
+        description = "WFS Support"
+)
 class WfsController
 {
   def webFeatureService
@@ -101,6 +106,12 @@ class WfsController
     render contentType: results.contentType, text: results.buffer
   }
 
+  @ApiOperation(value = "Get the capabilities of the server", produces='application/xml')
+  @ApiImplicitParams([
+          @ApiImplicitParam(name = 'service', value = 'Service type', defaultValue = 'WFS', paramType = 'query', dataType = 'string'),
+          @ApiImplicitParam(name = 'version', value = 'Version', defaultValue = '1.1.0', paramType = 'query', dataType = 'string'),
+          @ApiImplicitParam(name = 'request', value = 'Request', defaultValue = 'GetCapabilities', paramType = 'query', dataType = 'string'),
+  ])
   def getCapabilities(GetCapabilitiesRequest wfsParams)
   {
     def results = webFeatureService.getCapabilities( wfsParams )

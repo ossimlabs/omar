@@ -45,6 +45,11 @@ class PredioController
    }
 
    @ApiOperation(value = "Show trending items")
+   @ApiImplicitParams([
+           @ApiImplicitParam(name = 'appName', value = 'Event App ID for Prediciton IO for trending items', defaultValue = 'omar_trending', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'entityId', value = 'Entity/user', defaultValue = 'all', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'maxCount', value = 'Maximum results', defaultValue = '10', paramType = 'query', dataType = 'int'),
+   ])
    def showTrending()
    {
       def showTrendingParams = params - params.subMap( ['controller', 'format', 'action'] )
