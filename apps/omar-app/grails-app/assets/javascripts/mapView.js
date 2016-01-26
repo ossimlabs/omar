@@ -1,4 +1,4 @@
-//= require webjars/openlayers/3.11.1/ol.js
+//= require webjars/openlayers/3.13.0/ol.js
 //= require_self
 
 var MapView = (function ()

@@ -3,7 +3,7 @@
  */
 //= require jquery-2.1.3.js
 //= require webjars/bootswatch-superhero/3.3.5/js/bootstrap.js
-//= require webjars/openlayers/3.11.1/ol.js
+//= require webjars/openlayers/3.13.0/ol.js
 //= require_self
 
 ossimHLZ = (function ()
