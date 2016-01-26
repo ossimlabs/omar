@@ -108,9 +108,9 @@ class WfsController
 
   @ApiOperation(value = "Get the capabilities of the server", produces='application/xml')
   @ApiImplicitParams([
-          @ApiImplicitParam(name = 'service', value = 'Service type', defaultValue = 'WFS', paramType = 'query', dataType = 'string'),
-          @ApiImplicitParam(name = 'version', value = 'Version', defaultValue = '1.1.0', paramType = 'query', dataType = 'string'),
-          @ApiImplicitParam(name = 'request', value = 'Request', defaultValue = 'GetCapabilities', paramType = 'query', dataType = 'string'),
+          @ApiImplicitParam(name = 'service', value = 'OGC Service type', allowableValues="[WFS]", defaultValue = 'WFS', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'version', value = 'Version to request', allowableValues="[1.1.0]", defaultValue = '1.1.0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'request', value = 'Request type', allowableValues="[GetCapabilities]", defaultValue = 'GetCapabilities', paramType = 'query', dataType = 'string', required=true),
   ])
   def getCapabilities(GetCapabilitiesRequest wfsParams)
   {
@@ -119,6 +119,13 @@ class WfsController
     render contentType: results.contentType, text: results.buffer
   }
 
+  @ApiOperation(value = "Get the capabilities of the server", produces='application/xml')
+  @ApiImplicitParams([
+          @ApiImplicitParam(name = 'service', value = 'OGC Service type', allowableValues="[WFS]", defaultValue = 'WFS', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'version', value = 'Version to request', allowableValues="[1.1.0]", defaultValue = '1.1.0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'request', value = 'Request type', allowableValues="[DescribeFeatureType]", defaultValue = 'DescribeFeatureType', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'typeName', value = 'Type Name', defaultValue="omar:raster_entry", paramType = 'query', dataType = 'string', required=true)
+  ])
   def describeFeatureType(DescribeFeatureTypeRequest wfsParams)
   {
     def results = webFeatureService.describeFeatureType( wfsParams )
@@ -126,6 +133,21 @@ class WfsController
     render contentType: results.contentType, text: results.buffer
   }
 
+  Integer startIndex
+  @ApiOperation(value = "Get the capabilities of the server", produces='application/xml,application/json')
+  @ApiImplicitParams([
+          @ApiImplicitParam(name = 'service', value = 'OGC service type', allowableValues="[WFS]", defaultValue = 'WFS', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'version', value = 'Version to request', allowableValues="[1.1.0]", defaultValue = '1.1.0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'request', value = 'Request type', allowableValues="[GetFeature]", defaultValue = 'GetFeature', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'typeName', value = 'Type name', defaultValue="omar:raster_entry", paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'filter', value = 'Filter', paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'resultType', value = 'Result type', defaultValue="results", allowableValues="[results,hits]", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'outputFormat', value = 'Output format', defaultValue="JSON", allowableValues="[JSON, GML2, GML3, GML32]", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'sortBy', value = 'Sort by', paramType = 'query', dataType = 'string'),
+          @ApiImplicitParam(name = 'propertyName', value = 'Property name (comma separated fields)', defaultValue="", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'maxFeatures', value = 'Maximum Features in the result', defaultValue="10", paramType = 'query', dataType = 'int', required=false),
+          @ApiImplicitParam(name = 'startIndex', value = 'Starting offset', defaultValue="0", paramType = 'query', dataType = 'int', required=false),
+  ])
   def getFeature(GetFeatureRequest wfsParams)
   {
 //    println wfsParams
