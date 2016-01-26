@@ -3,6 +3,10 @@ grails:
     profile: web
     codegen:
         defaultPackage: omar.app
+
+    resources:
+        pattern: '/**'
+
 info:
     app:
         name: '@info.app.name@'
