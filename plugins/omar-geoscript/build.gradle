@@ -47,12 +47,12 @@ targetCompatibility = 1.7
 
 repositories {
   mavenLocal()
-  mavenCentral()
   maven { url "http://download.osgeo.org/webdav/geotools/" }
   maven { url "https://repo.grails.org/grails/core" }
   maven { url "http://repo.boundlessgeo.com/main" }
   maven { url "http://maven.geo-solutions.it/" }
   maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
+  mavenCentral()
 }
 
 dependencyManagement {

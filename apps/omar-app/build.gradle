@@ -3,7 +3,7 @@ buildscript {
     grailsVersion = project.grailsVersion
   }
   repositories {
-    maven{ url "http://download.osgeo.org/webdav/geotools"}
+//    maven{ url "http://download.osgeo.org/webdav/geotools"}
     maven { url "https://repo.grails.org/grails/core" }
     mavenLocal()
   }
@@ -50,8 +50,8 @@ repositories {
   maven { url "https://repo.grails.org/grails/core" }
 
   maven { url "http://repo.boundlessgeo.com/main" }
-  maven { url "http://maven.geo-solutions.it/" }
-  maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
+//  maven { url "http://maven.geo-solutions.it/" }
+//  maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
 
 }
 
@@ -94,7 +94,7 @@ dependencies {
 
   // UI Webjar core dependencies
   compile 'org.webjars:jquery:2.1.4'
-  compile 'org.webjars:openlayers:3.11.1'
+  compile 'org.webjars:openlayers:3.13.0'
   compile 'org.webjars:bootstrap:3.3.5'
   compile 'org.webjars.bower:angularjs:1.4.8'
   compile 'org.webjars:angular-ui-router:0.2.15'

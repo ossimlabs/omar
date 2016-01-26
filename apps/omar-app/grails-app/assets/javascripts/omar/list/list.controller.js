@@ -173,6 +173,7 @@
             };
 
             vm.logRatingToPio = function(imageId){
+
                 console.log('logRating imageId param:', imageId);
 
                 var pioUrl = '/o2/predio/rate?appName=omar_trending&entityId=all&targetEntityId=' + imageId + '&rating=4';
@@ -180,12 +181,16 @@
                     method: 'GET',
                     url: pioUrl
                 })
-                    .then(function(response) {
-                        var data;
-                        data = response;  // callback response from Predictive IO controller
-                        //console.log('rating response', data);
-                    });
+                .then(function(response) {
 
+                    var data;
+                    data = response;  // callback response from Predictive IO controller
+                    console.log('rating response', data);
+
+                },
+                function error(response) {
+                    console.log('failed', response); // supposed to have: data, status, headers, config, statusText
+                });
             };
 
         }
