@@ -133,7 +133,6 @@ class WfsController
     render contentType: results.contentType, text: results.buffer
   }
 
-  Integer startIndex
   @ApiOperation(value = "Get the capabilities of the server", produces='application/xml,application/json')
   @ApiImplicitParams([
           @ApiImplicitParam(name = 'service', value = 'OGC service type', allowableValues="[WFS]", defaultValue = 'WFS', paramType = 'query', dataType = 'string', required=true),
