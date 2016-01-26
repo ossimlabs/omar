@@ -181,7 +181,7 @@
                 $scope.$apply(function(){
 
                         vm.trendingImages = data;
-                        console.log('vm.trendingImageTest: ', vm.trendingImages);
+                        console.log('vm.trendingImages: ', vm.trendingImages);
 
                 });
 
