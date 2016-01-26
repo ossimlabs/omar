@@ -163,13 +163,13 @@
                     method: 'GET',
                     url: pioUrl
                 })
-                    .then(function(response) {
-                        var data;
-                        data = response;  // callback response from Predictive IO service
-                        console.log(data);
-                        //formatTrendingList(data);
-                        wfsService.executeWfsTrendingThumbs(data);
-                    });
+                .then(function(response) {
+                    var data;
+                    data = response;  // callback response from Predictive IO service
+                    console.log(data);
+                    //formatTrendingList(data);
+                    wfsService.executeWfsTrendingThumbs(data);
+                });
 
             };
             vm.getTrendingPio(); // get the top 10 trending images on page load and throw them into the carousel
@@ -180,8 +180,8 @@
 
                 $scope.$apply(function(){
 
-                        vm.trendingImages = data;
-                        console.log('vm.trendingImages: ', vm.trendingImages);
+                    vm.trendingImages = data;
+                    console.log('vm.trendingImages: ', vm.trendingImages);
 
                 });
 
@@ -236,7 +236,6 @@
             //
             //}
 
-            //vm.trendRating = 7;
 
             vm.imageClick = function(imageId){
                 console.log('imageClick imageId: ', imageId);
