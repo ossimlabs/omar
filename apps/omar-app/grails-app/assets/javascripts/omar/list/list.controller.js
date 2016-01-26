@@ -151,7 +151,7 @@
 
             vm.showImageModal = function(imageObj) {
 
-                console.log('imageObj', imageObj);
+                //console.log('imageObj', imageObj);
 
                 var modalInstance = $uibModal.open({
                     size: 'lg',
@@ -173,9 +173,9 @@
             };
 
             vm.logRatingToPio = function(imageId){
-                //console.log('logRating imageId param:', imageId);
+                console.log('logRating imageId param:', imageId);
 
-                var pioUrl = '../predio/rate?appName=omar_trending&entityId=all&targetEntityId=' + imageId + '&rating=4';
+                var pioUrl = '/o2/predio/rate?appName=omar_trending&entityId=all&targetEntityId=' + imageId + '&rating=4';
                 $http({
                     method: 'GET',
                     url: pioUrl
