@@ -13,7 +13,8 @@
             //OpenLayers.ProxyHost = "/o2/proxy/index?url=";
 
             // TODO: getCapabilities and DescribeFeatureType to get the geometry column
-            var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
+            //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
+            var wfsRequestUrl = '/o2/wfs?'
             var wfsRequest = {
                 typeName: 'omar:raster_entry',
                 namespace: 'http://omar.ossim.org',
@@ -164,7 +165,8 @@
 
                 wfsRequest.cql = 'id in(' + wfsImageString + ')';
 
-                var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
+                //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
+                var wfsRequestUrl = '/o2/wfs?';
 
                 // TODO: Refactor and use string from other wfs method
                 var wfsUrl = wfsRequestUrl +

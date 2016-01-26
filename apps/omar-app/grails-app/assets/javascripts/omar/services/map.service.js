@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('mapService', ['APP_CONFIG', 'wfsService', mapService]);
+        .service('mapService', ['APP_CONFIG', 'wfsService', '$http', mapService]);
 
-    function mapService(APP_CONFIG, wfsService) {
+    function mapService(APP_CONFIG, wfsService, $http) {
 
         // Add the basemap parameters from the applicaiton config file.
         var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
@@ -150,6 +150,52 @@
 
             });
 
+            // Handle pointer
+            //map.on('pointermove', function(event) {
+            //    //unselectPreviousFeatures();
+            //    console.log('pointermove');
+            //    map.forEachFeatureAtPixel(event.pixel, function(feature) {
+            //        console.log(event.pixel);
+            //        console.log(feature);
+            //        //feature.setStyle([
+            //        //    selectedStyle,
+            //        //    selectedTextStyleFunction(feature.get('CITY_NAME'))
+            //        //]);
+            //        //selectedFeatures.push(feature);
+            //    });
+            //});
+
+
+            // Need a map.on singleclick to fire a WFS request using
+            // an intersect to get the imagery at the clicked point
+            map.on('click', function(event) {
+                var coordinate = event.coordinate;
+                console.log('click coordinates', coordinate[0] + ' ' +
+                coordinate[1]);
+
+                var clickCoordinates = coordinate[0] + ' ' +
+                    coordinate[1];
+
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:7272/o2/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=omar:raster_entry&filter=INTERSECTS(ground_geom,POINT(' + clickCoordinates + '))&outputFormat=JSON&sortBy=acquisition_date+D&startIndex=0&maxFeatures=20'
+                })
+                    .then(function(response) {
+                        var data;
+                        data = response.data.features;
+                        console.log('data from wfs', data);
+
+                        //$timeout(function(){
+                        //
+                        //    $rootScope.$broadcast('wfsTrendingThumb: updated', data);
+                        //
+                        //});
+
+                    });
+
+
+            });
+
             if (mapParams === undefined) {
 
                 //zoomTo(0,0,4);
@@ -173,7 +219,7 @@
 
             clearLayerSource(searchLayerVector);
 
-            console.log('mapShowImageFootprint firing: ',imageObj);
+            //console.log('mapShowImageFootprint firing: ',imageObj);
             //console.log(geomObj.geometry.coordinates);
 
             var footprintFeature = new ol.Feature({
