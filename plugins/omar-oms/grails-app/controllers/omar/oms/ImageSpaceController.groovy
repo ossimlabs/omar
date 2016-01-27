@@ -12,8 +12,12 @@ class ImageSpaceController
 {
   def imageSpaceService
 
-  def index(GetTileCommand cmd)
+  def index(/*GetTileCommand cmd*/)
   {
+    def cmd = new GetTileCommand()
+
+    BindUtil.fixParamNames( GetTileCommand, params )
+    bindData( cmd, params )
     def filename = cmd.filename //?: '/data/uav/predator/vesdata/po_197675_pan_0000000.ntf'
     def entry = cmd.entry ?: 0
     def imageInfo = imageSpaceService.readImageInfo( filename as File )
@@ -44,8 +48,12 @@ class ImageSpaceController
           @ApiImplicitParam(name = 'filename', value = 'Filename', paramType = 'query', dataType = 'string', required=true),
           @ApiImplicitParam(name = 'entry', value = 'Image entry id(typically 0)', defaultValue="0", paramType = 'query', dataType = 'string', required=true),
   ])
-  def getTile(GetTileCommand cmd)
+  def getTile(/*GetTileCommand cmd*/)
   {
+     def cmd = new GetTileCommand()
+
+     BindUtil.fixParamNames( GetTileCommand, params )
+     bindData( cmd, params )
     def results = imageSpaceService.getTile( cmd )
 
     render contentType: results.contentType, file: results.buffer
@@ -100,9 +108,14 @@ class ImageSpaceController
           @ApiImplicitParam(name = 'filename', value = 'Filename', paramType = 'query', dataType = 'string', required=true),
           @ApiImplicitParam(name = 'entry', value = 'Image entry id(typically 0)', defaultValue="0", paramType = 'query', dataType = 'string', required=true),
   ])
-  def getThumbnail(GetThumbnailCommand cmd)
+  def getThumbnail(/*GetThumbnailCommand cmd*/)
   {
-    def results = imageSpaceService.getThumbnail( cmd )
+     def cmd = new GetThumbnailCommand()
+
+     BindUtil.fixParamNames( GetTileCommand, params )
+     bindData( cmd, params )
+
+     def results = imageSpaceService.getThumbnail( cmd )
 
     render contentType: results.contentType, file: results.buffer
   }

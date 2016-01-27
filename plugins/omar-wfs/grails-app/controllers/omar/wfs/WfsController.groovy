@@ -112,8 +112,13 @@ class WfsController
           @ApiImplicitParam(name = 'version', value = 'Version to request', allowableValues="[1.1.0]", defaultValue = '1.1.0', paramType = 'query', dataType = 'string', required=true),
           @ApiImplicitParam(name = 'request', value = 'Request type', allowableValues="[GetCapabilities]", defaultValue = 'GetCapabilities', paramType = 'query', dataType = 'string', required=true),
   ])
-  def getCapabilities(GetCapabilitiesRequest wfsParams)
+  def getCapabilities(/*GetCapabilitiesRequest wfsParams*/)
   {
+    def wfsParams = new GetCapabilitiesRequest()
+
+    BindUtil.fixParamNames( GetCapabilitiesRequest, params )
+    bindData( wfsParams, params )
+
     def results = webFeatureService.getCapabilities( wfsParams )
 
     render contentType: results.contentType, text: results.buffer
@@ -126,8 +131,12 @@ class WfsController
           @ApiImplicitParam(name = 'request', value = 'Request type', allowableValues="[DescribeFeatureType]", defaultValue = 'DescribeFeatureType', paramType = 'query', dataType = 'string', required=true),
           @ApiImplicitParam(name = 'typeName', value = 'Type Name', defaultValue="omar:raster_entry", paramType = 'query', dataType = 'string', required=true)
   ])
-  def describeFeatureType(DescribeFeatureTypeRequest wfsParams)
+  def describeFeatureType(/*DescribeFeatureTypeRequest wfsParams*/)
   {
+    def wfsParams = new DescribeFeatureTypeRequest()
+
+    BindUtil.fixParamNames( DescribeFeatureTypeRequest, params )
+    bindData( wfsParams, params )
     def results = webFeatureService.describeFeatureType( wfsParams )
 
     render contentType: results.contentType, text: results.buffer
@@ -147,9 +156,13 @@ class WfsController
           @ApiImplicitParam(name = 'maxFeatures', value = 'Maximum Features in the result', defaultValue="10", paramType = 'query', dataType = 'int', required=false),
           @ApiImplicitParam(name = 'startIndex', value = 'Starting offset', defaultValue="0", paramType = 'query', dataType = 'int', required=false),
   ])
-  def getFeature(GetFeatureRequest wfsParams)
+  def getFeature(/*GetFeatureRequest wfsParams*/)
   {
 //    println wfsParams
+    def wfsParams = new GetFeatureRequest()
+
+    BindUtil.fixParamNames( GetFeatureRequest, params )
+    bindData( wfsParams, params )
 
     def results = webFeatureService.getFeature( wfsParams )
 
