@@ -3,6 +3,7 @@ package omar.oms
 import grails.converters.JSON
 import com.github.rahulsom.swaggydoc.*
 import com.wordnik.swagger.annotations.*
+import omar.core.BindUtil
 
 @Api(value = "imageSpace",
         description = "API operations in image space."
@@ -33,6 +34,16 @@ class ImageSpaceController
     [initParams: initParams]
   }
 
+  @ApiOperation(value = "Get a tile from the passed in image file", produces="image/jpeg,image/png,image/gif")
+  @ApiImplicitParams([
+          @ApiImplicitParam(name = 'x', value = 'Tile in x direciton', defaultValue = '0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'y', value = 'Tile in y direction', defaultValue = '0', paramType = 'query', dataType = 'int', required=true),
+          @ApiImplicitParam(name = 'z', value = 'Resolution level (0 full resolution)', defaultValue = '0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'tileSize', value = 'Tile size', allowableValues="[512,256]", defaultValue="256", paramType = 'query', dataType = 'int', required=true),
+          @ApiImplicitParam(name = 'format', value = 'Output image format', allowableValues="[png,jpeg,gif]", defaultValue="png", paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'filename', value = 'Filename', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'entry', value = 'Image entry id(typically 0)', defaultValue="0", paramType = 'query', dataType = 'string', required=true),
+  ])
   def getTile(GetTileCommand cmd)
   {
     def results = imageSpaceService.getTile( cmd )
@@ -41,6 +52,14 @@ class ImageSpaceController
   }
 
 
+  @ApiOperation(value = "Get the footprint of  tile and its name", produces="image/jpeg,image/png,image/gif")
+  @ApiImplicitParams([
+          @ApiImplicitParam(name = 'x', value = 'Tile in x direciton', defaultValue = '0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'y', value = 'Tile in y direction', defaultValue = '0', paramType = 'query', dataType = 'int', required=true),
+          @ApiImplicitParam(name = 'z', value = 'Resolution level (0 full resolution)', defaultValue = '0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'tileSize', value = 'Tile size', allowableValues="[512,256]", defaultValue="256", paramType = 'query', dataType = 'int', required=true),
+          @ApiImplicitParam(name = 'format', value = 'Output image format', allowableValues="[png,jpeg,gif]", defaultValue="png", paramType = 'query', dataType = 'string', required=true),
+  ])
   def getTileOverlay(GetTileCommand cmd)
   {
     def results = imageSpaceService.getTileOverlay( cmd )
@@ -66,6 +85,13 @@ class ImageSpaceController
     render contentType: 'application/json', text: results as JSON
   }
 
+  @ApiOperation(value = "Get the thumbnail of the passed in file name", produces="image/jpeg,image/png,image/gif")
+  @ApiImplicitParams([
+          @ApiImplicitParam(name = 'size', value = 'Overview image size', allowableValues="[64,128,256]", defaultValue="256", paramType = 'query', dataType = 'int', required=true),
+          @ApiImplicitParam(name = 'format', value = 'Output image format', allowableValues="[png,jpeg,gif]", defaultValue="png", paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'filename', value = 'Filename', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'entry', value = 'Image entry id(typically 0)', defaultValue="0", paramType = 'query', dataType = 'string', required=true),
+  ])
   def getThumbnail(GetThumbnailCommand cmd)
   {
     def results = imageSpaceService.getThumbnail( cmd )
