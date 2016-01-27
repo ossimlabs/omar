@@ -60,8 +60,16 @@ class ImageSpaceController
           @ApiImplicitParam(name = 'tileSize', value = 'Tile size', allowableValues="[512,256]", defaultValue="256", paramType = 'query', dataType = 'int', required=true),
           @ApiImplicitParam(name = 'format', value = 'Output image format', allowableValues="[png,jpeg,gif]", defaultValue="png", paramType = 'query', dataType = 'string', required=true),
   ])
-  def getTileOverlay(GetTileCommand cmd)
+  def getTileOverlay(/*GetTileCommand cmd*/)
   {
+//    println params
+
+    def cmd = new GetTileCommand()
+
+    BindUtil.fixParamNames( GetTileCommand, params )
+    bindData( cmd, params )
+//    println cmd
+
     def results = imageSpaceService.getTileOverlay( cmd )
 
     render contentType: results.contentType, file: results.buffer
