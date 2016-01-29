@@ -264,7 +264,7 @@
 
                 function pushKeywordToArray(dbName, formField) {
 
-                    filterArray.push(["strToLowerCase(" + dbName + ") LIKE '%", formField.trim() ,"%'"].join(""));
+                    filterArray.push(["strToUpperCase(" + dbName + ") LIKE '%", formField.trim().toUpperCase() ,"%'"].join(""));
                     console.log(dbName + ' filterArray', filterArray);
 
                 }
