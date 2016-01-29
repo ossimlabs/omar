@@ -17,6 +17,7 @@
 //= require webjars/momentjs/2.11.0/moment.js
 //= require webjars/slick-carousel/1.5.9/slick/slick.js
 //= require webjars/angular-slick-carousel/3.0.10/dist/angular-slick.js
+//= require webjars/angular-toggle-switch/1.3.0/angular-toggle-switch.js
 
 // <--Core-->
 //= require omar/core/OpenLayersLite-formats.js

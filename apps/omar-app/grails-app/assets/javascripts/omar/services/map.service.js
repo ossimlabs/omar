@@ -2,38 +2,36 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('mapService', ['APP_CONFIG', 'wfsService', '$http', mapService]);
+        .service('mapService', ['APP_CONFIG', 'wfsService', mapService]);
 
-    function mapService(APP_CONFIG, wfsService, $http) {
+    function mapService(APP_CONFIG, wfsService) {
 
         // Add the basemap parameters from the applicaiton config file.
         var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
         var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
 
-        // Add the path to OMAR and the footprints URL
-        //var omarUrl = APP_CONFIG.services.omar.url;
-        //var omarPort = APP_CONFIG.services.omar.port || '80';
-        //var omarFootprintsUrl = APP_CONFIG.services.omar.footprintsUrl;
-
-        //console.log('omarFootprintsUrl', omarFootprintsUrl);
-
         var zoomToLevel = 16;
         var map,
             mapView,
+            footPrints,
             searchLayerVector, // Used for visualizing the search items map markers polygon boundaries
+            filterLayerVector, // Used for visualizing the filter markers and polygon AOI's
             geomField,
             wktFormat,
             searchFeatureWkt,
             iconStyle,
             wktStyle,
-            footprintStyle;
+            filterStyle,
+            footprintStyle,
+            dragBox;
+        var mapObj = {};
 
         iconStyle = new ol.style.Style({
             image: new ol.style.Icon(({
                 anchor: [0.5, 46],
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
-                opacity: 0.75,
+                //opacity: 0.75,
                 src: APP_CONFIG.misc.icons.greenMarker
             }))
         });
@@ -44,6 +42,16 @@
             }),
             stroke: new ol.style.Stroke({
                 width: 1.5,
+                color: 'rgba(255, 100, 50, 0.6)'
+            })
+        });
+
+        filterStyle = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 100, 50, 0.2)'
+            }),
+            stroke: new ol.style.Stroke({
+                width: 5.0,
                 color: 'rgba(255, 100, 50, 0.6)'
             })
         });
@@ -59,6 +67,10 @@
         });
 
         searchLayerVector = new ol.layer.Vector({
+            source: new ol.source.Vector()
+        });
+
+        filterLayerVector = new ol.layer.Vector({
             source: new ol.source.Vector()
         });
 
@@ -88,16 +100,35 @@
                 maxZoom: 18
             });
 
+            //var baseMap = new ol.layer.Tile({
+            //    source: new ol.source.TileWMS({
+            //        url: osmBaseMapUrl,
+            //        params: {'LAYERS': osmBaseMapLayers, 'TILED': true},
+            //        serverType: 'geoserver'
+            //    }),
+            //    name: 'Open Street Map'
+            //});
+
             var baseMap = new ol.layer.Tile({
-                source: new ol.source.TileWMS({
-                    url: osmBaseMapUrl,
-                    params: {'LAYERS': osmBaseMapLayers, 'TILED': true},
-                    serverType: 'geoserver'
+                 source: new ol.source.TileWMS({
+                 url: 'http://vmap0.tiles.osgeo.org/wms/vmap0',
+                     params: {
+                        'VERSION': '1.1.1',
+                        'LAYERS': 'basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel',
+                        'FORMAT': 'image/jpeg'
+                    }
                 }),
-                name: 'Open Street Map'
+                 name: 'baseMap'
             });
 
-            var footPrints = new ol.layer.Tile({
+             //var baseMap = new ol.layer.Tile({
+             //	source: new ol.source.XYZ({
+             //		url: 'http://54.174.83.202/osm/{z}/{x}/{y}.png'
+             //	}),
+             //	name: 'OSM XYZ'
+             //});
+
+            footPrints = new ol.layer.Tile({
                 source: new ol.source.TileWMS({
                     url: '/o2/footprints/getFootprints',
                     params: {
@@ -123,76 +154,43 @@
                 view: mapView
             });
 
-            this.updateFootPrintLayer = function (filter) {
-
-                //console.log('updating footprint layer with filter:', filter);
-                //console.log(footPrints.getSource().getParams());
-                var params = footPrints.getSource().getParams();
-                params.FILTER = filter;
-                console.log('params.FILTER', params.FILTER);
-                footPrints.getSource().updateParams(params);
-
-
-            };
-
             map.addLayer(searchLayerVector);
-
+            map.addLayer(filterLayerVector);
 
             geomField = 'ground_geom';
-            var mapObj = {};
 
-            map.on('moveend', function () {
+            this.viewPortFilter(true);
 
-                mapObj.cql = "INTERSECTS(" + geomField + "," + convertToWktPolygon() + ")";
-
-                // Update the image cards in the list via spatial bounds
-                wfsService.updateSpatialFilter(mapObj.cql);
-
+            dragBox = new ol.interaction.DragBox({
+                condition: ol.events.condition.altKeyOnly
             });
 
-            // Handle pointer
-            //map.on('pointermove', function(event) {
-            //    //unselectPreviousFeatures();
-            //    console.log('pointermove');
-            //    map.forEachFeatureAtPixel(event.pixel, function(feature) {
-            //        console.log(event.pixel);
-            //        console.log(feature);
-            //        //feature.setStyle([
-            //        //    selectedStyle,
-            //        //    selectedTextStyleFunction(feature.get('CITY_NAME'))
-            //        //]);
-            //        //selectedFeatures.push(feature);
-            //    });
-            //});
+            dragBox.on('boxend', function() {
 
+                clearLayerSource(filterLayerVector);
 
-            // Need a map.on singleclick to fire a WFS request using
-            // an intersect to get the imagery at the clicked point
-            map.on('click', function(event) {
-                var coordinate = event.coordinate;
-                console.log('click coordinates', coordinate[0] + ' ' +
-                coordinate[1]);
+                var dragBoxExtent = dragBox.getGeometry().getExtent();
+                //console.log('dragbox extent', dragBoxExtent);
 
-                var clickCoordinates = coordinate[0] + ' ' +
-                    coordinate[1];
+                mapObj.cql = "INTERSECTS(" + geomField + "," + convertToWktPolygon(dragBoxExtent) + ")";
 
-                $http({
-                    method: 'GET',
-                    url: 'http://localhost:7272/o2/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=omar:raster_entry&filter=INTERSECTS(ground_geom,POINT(' + clickCoordinates + '))&outputFormat=JSON&sortBy=acquisition_date+D&startIndex=0&maxFeatures=20'
-                })
-                    .then(function(response) {
-                        var data;
-                        data = response.data.features;
-                        console.log('data from wfs', data);
+                // Update the image cards in the list via spatial click coordinates
+                wfsService.updateSpatialFilter(mapObj.cql);
 
-                        //$timeout(function(){
-                        //
-                        //    $rootScope.$broadcast('wfsTrendingThumb: updated', data);
-                        //
-                        //});
+                // Grabs the current value of the attrObj.filter so that the click
+                // will also update if there are any temporal, keyword, or range filters
+                console.log(wfsService.attrObj.filter);
+                wfsService.updateAttrFilter(wfsService.attrObj.filter);
 
-                    });
+                //updateFootPrints(mapObj.cql);
 
+                var searchPolygon = new ol.Feature({
+                    geometry: new ol.geom.Polygon.fromExtent(dragBoxExtent)
+                });
+                //console.log('searchPolygon', searchPolygon);
+
+                searchPolygon.setStyle(filterStyle);
+                filterLayerVector.getSource().addFeatures([searchPolygon]);
 
             });
 
@@ -210,6 +208,139 @@
             else {
 
                 zoomToExt(mapParams);
+
+            }
+
+        };
+
+        function updateFootPrints(filter) {
+
+            //console.log('updating footprint layer with filter:', filter);
+            //console.log(footPrints.getSource().getParams());
+            var params = footPrints.getSource().getParams();
+            params.FILTER = filter;
+            console.log('params.FILTER', params.FILTER);
+            footPrints.getSource().updateParams(params);
+
+        }
+
+        this.updateFootPrintLayer = function (filter) {
+
+            updateFootPrints(filter);
+
+        };
+
+        // This is used to select images by creating a polygon based on the
+        // current map extent and sending it to the wfs service to update the
+        // card list
+        function filterByViewPort() {
+
+            clearLayerSource(filterLayerVector);
+
+            mapObj.cql = "INTERSECTS(" + geomField + "," + convertToWktPolygon(getMapBbox()) + ")";
+
+            // Update the image cards in the list via spatial bounds
+            wfsService.updateSpatialFilter(mapObj.cql);
+            //this.updateFootPrintLayer(mapObj.cql);
+
+        }
+
+        this.viewPortFilter = function(status) {
+
+            //console.log('mapService viewPortFilter firing... ', status);
+
+            if (status) {
+
+                map.on('moveend', filterByViewPort);
+                filterByViewPort();
+                //updateFootPrints("");
+                //console.log('viewport on...');
+
+            }
+            else {
+
+                // https://groups.google.com/d/msg/ol3-dev/Z4JoCBs-iEY/HSpihl8bcVIJ
+                map.un('moveend', filterByViewPort);
+                clearLayerSource(filterLayerVector);
+
+                //console.log('viewport off...');
+
+            }
+
+        };
+
+        // This is used to select images by getting the point the user clicked in
+        // the map and sending the XY (point) to the wfs service to update the card
+        // list
+        function filterByPoint (event) {
+
+            clearLayerSource(filterLayerVector);
+
+            //filterByViewPort();
+
+            var coordinate = event.coordinate;
+
+            var clickCoordinates = coordinate[0] + ' ' + coordinate[1];
+            //console.log('click coordinates', clickCoordinates);
+
+            mapObj.cql = "INTERSECTS(" + geomField + ",POINT(" + clickCoordinates + "))";
+
+            console.log('mapObj.cql: ', mapObj.cql);
+
+            // Update the image cards in the list via spatial click coordinates
+            wfsService.updateSpatialFilter(mapObj.cql);
+
+            // Grabs the current value of the attrObj.filter so that the click
+            // will also update if there are any temporal, keyword, or range filters
+            wfsService.updateAttrFilter(wfsService.attrObj.filter);
+
+            //updateFootPrints(mapObj.cql + " AND " +wfsService.attrObj.filter);
+
+            addMarker(coordinate[1],coordinate[0], filterLayerVector);
+
+        };
+
+        this.pointFilter = function(status) {
+
+            //console.log('mapService pointFilter firing... ', status);
+
+            if (status) {
+
+                map.on('singleclick', filterByPoint);
+                //console.log('point on...');
+
+            }
+            else {
+
+                // https://groups.google.com/d/msg/ol3-dev/Z4JoCBs-iEY/HSpihl8bcVIJ
+                map.un('singleclick', filterByPoint);
+                clearLayerSource(searchLayerVector);
+                wfsService.updateAttrFilter(wfsService.attrObj.filter);
+                //console.log('point off...');
+
+            }
+
+        };
+
+        this.polygonFilter = function(status) {
+
+            //console.log('mapService polygonFilter firing... ', status);
+
+            if (status) {
+
+                // Add interaction
+                //filterByViewPort();
+
+                map.addInteraction(dragBox);
+                //console.log('polygon on...');
+
+            }
+            else {
+
+                // Remove interaction
+                map.removeInteraction(dragBox);
+                clearLayerSource(filterLayerVector);
+                //console.log('polygon off...');
 
             }
 
@@ -273,31 +404,23 @@
 
         };
 
-
         this.mapRemoveImageFootprint = function() {
 
             clearLayerSource(searchLayerVector);
             overlay.setPosition(undefined);
 
-        }
-
-        //this.resizeElement = function (element, height){
-        //    //console.log('resizing');
-        //    $(element).animate({height:$(window).height()- height}, 10, function(){
-        //        map.updateSize();
-        //    });
-        //
-        //};
+        };
 
         function getMapBbox() {
 
             return map.getView().calculateExtent(map.getSize());
 
-        };
+        }
 
-        function convertToWktPolygon() {
+        function convertToWktPolygon(extent) {
 
-            var extent = getMapBbox();
+            //var extent = getMapBbox();
+
             var minX = extent[0];
             var minY = extent[1];
             var maxX = extent[2];
@@ -310,7 +433,7 @@
 
             return wkt;
 
-        };
+        }
 
         /**
          * Move and zoom the map to a

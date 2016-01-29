@@ -107,17 +107,17 @@
 
             vm.pagingChanged = function(){
 
-                console.log('Page changed');
+                //console.log('Page changed');
 
             };
 
             vm.sortWfs = function(field, type, text) {
-                //console.log('sortWfs firing --> field: ' + field + ' type: ' + type + ' text: ' + text);
 
                 // Sets the text of the current sort method on the sort navbar
                 vm.currentSortText = text;
 
-                wfsService.updateAttrFilter(undefined, field, type);
+                //wfsService.updateAttrFilter(undefined, field, type);
+                wfsService.updateAttrFilter(wfsService.attrObj.filter, field, type);
 
             };
 
@@ -189,7 +189,9 @@
 
                 },
                 function error(response) {
+
                     console.log('failed', response); // supposed to have: data, status, headers, config, statusText
+
                 });
             };
 

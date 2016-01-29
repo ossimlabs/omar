@@ -52,11 +52,6 @@ body { padding-top: 70px; }
     z-index: 1048;
 }
 
-#list {
-    overflow-y: auto;
-    padding-right: 5px;
-}
-
 @media (max-height: 599px) {
     #map { height: 79%; }
     #list { height: 57%; }
@@ -97,10 +92,10 @@ body { padding-top: 70px; }
     #list { height: 80%; }
 }
 
-/*@media (min-height: 1000px) {*/
-    /*#map { height: 91%; }*/
-    /*#list { height: 76%; }*/
-/*}*/
+#list {
+    overflow-y: auto;
+    padding-right: 5px;
+}
 
 #list .media {
     margin-bottom: -20px;
@@ -119,14 +114,15 @@ body { padding-top: 70px; }
     -ms-transition: all 0.3s ease;
 }
 
+.ranges hr {
+    margin-top: 0px;
+    margin-bottom: 11px;
+}
+
 #imageMap {
     /*height: 300px;*/
     width: 100%;
     height: 60%;
-}
-
-.button.active {
-    color: yellow;
 }
 
 .dont-break-out {

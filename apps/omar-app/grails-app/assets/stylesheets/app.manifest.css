@@ -1,5 +1,5 @@
 /*
-*= require webjars/bootswatch-darkly/3.3.5+4/css/bootstrap.css
+*= require webjars/bootswatch-flatly/3.3.5+4/css/bootstrap.css
 *= require webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap-csp.css
 *= require webjars/openlayers/3.13.0/ol.css
 *= require webjars/font-awesome/4.4.0/css/font-awesome.css
@@ -7,6 +7,7 @@
 *= require webjars/angular-toastr/1.6.0/dist/angular-toastr.css
 *= require webjars/slick-carousel/1.5.9/slick/slick.css
 *= require webjars/slick-carousel/1.5.9/slick/slick-theme.css
+*= require webjars/angular-toggle-switch/1.3.0/angular-toggle-switch.css
 *= require styles.css
 *= require_self
 */

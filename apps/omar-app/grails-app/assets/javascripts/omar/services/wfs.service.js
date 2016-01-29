@@ -27,7 +27,7 @@
                 maxFeatures: '1000'
             };
 
-            // When this changea ir needa to be passed to the executeWfsQuery method
+            // When this changes it needs to be passed to the executeWfsQuery method
             this.spatialObj = {
                 filter: ""
             };
@@ -48,29 +48,40 @@
                 //console.log('updateSpatialFilter param', filter);
             };
 
-            this.updateAttrFilter = function(filter, sortField, sortType, startIndex) {
+            this.updateAttrFilter = function(filter, sortField, sortType) {
 
-                if (filter !== undefined){
-                    //console.log('filter !== undefined');
-                    this.attrObj.filter = filter;
-                }
-                else if (sortField !== undefined || sortType !== undefined){
-                    //console.log("sortField !==, sortType !==");
+                this.attrObj.filter = filter;
+
+                if (sortField !== undefined) {
+
                     this.attrObj.sortField = sortField;
+
+                }
+
+                if (sortType !== undefined) {
+
                     this.attrObj.sortType = sortType;
+
                 }
-                else if (startIndex !== undefined){
-                    this.attrObj.startIndex = startIndex;
-                    console.log('...updating startIndex...');
-                }
+
+                //if (filter !== undefined){
+                //    console.log('filter !== undefined');
+                //    this.attrObj.filter = filter;
+                //}
+                //else if (sortField !== undefined || sortType !== undefined){
+                //    console.log("sortField !==, sortType !==");
+                //    this.attrObj.sortField = sortField;
+                //    this.attrObj.sortType = sortType;
+                //}
 
                 $rootScope.$broadcast(
                     'attrObj.updated', filter
                 );
+
                 //console.log('updateAttrFilter filter', filter);
                 //console.log('updateAttrFilter sortField', sortField);
                 //console.log('updateAttrFilter sortType', sortType);
-                //console.log('updateAttrFilter startIndex', startIndex);
+
             };
 
             this.executeWfsQuery = function() {
@@ -99,9 +110,8 @@
                 wfsRequest.sortField = this.attrObj.sortField;
                 wfsRequest.sortType = this.attrObj.sortType;
                 wfsRequest.startIndex = this.attrObj.startIndex;
-                //wfsRequest.maxFeatures = this.attrObj.maxFeatures;
 
-                //console.log('wfsRequest', wfsRequest);
+                console.log('wfsRequest', wfsRequest);
 
                 //wfsClient.getFeature(wfsRequest, function(data) {
                 //
