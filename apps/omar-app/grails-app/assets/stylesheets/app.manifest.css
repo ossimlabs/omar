@@ -8,6 +8,7 @@
 *= require webjars/slick-carousel/1.5.9/slick/slick.css
 *= require webjars/slick-carousel/1.5.9/slick/slick-theme.css
 *= require webjars/angular-toggle-switch/1.3.0/angular-toggle-switch.css
+*= require ol3-layerswitcher.css
 *= require styles.css
 *= require_self
 */

@@ -22,6 +22,7 @@
 // <--Core-->
 //= require omar/core/OpenLayersLite-formats.js
 //= require omar/core/wfs-client.js
+//= require omar/core/ol3-layerswitcher.js
 //= require omar/app.module.main.js
 
 // <--Services-->

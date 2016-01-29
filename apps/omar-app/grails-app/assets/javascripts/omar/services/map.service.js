@@ -109,17 +109,39 @@
             //    name: 'Open Street Map'
             //});
 
-            var baseMap = new ol.layer.Tile({
-                 source: new ol.source.TileWMS({
-                 url: 'http://vmap0.tiles.osgeo.org/wms/vmap0',
-                     params: {
-                        'VERSION': '1.1.1',
-                        'LAYERS': 'basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel',
-                        'FORMAT': 'image/jpeg'
-                    }
-                }),
-                 name: 'baseMap'
-            });
+            //var baseMap = new ol.layer.Tile({
+            //     source: new ol.source.TileWMS({
+            //     url: 'http://vmap0.tiles.osgeo.org/wms/vmap0',
+            //         params: {
+            //            'VERSION': '1.1.1',
+            //            'LAYERS': 'basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel',
+            //            'FORMAT': 'image/jpeg'
+            //        }
+            //    }),
+            //     name: 'baseMap'
+            //});
+
+            //var baseMap = new ol.layer.Tile({
+            //    source: new ol.source.OSM()
+            //});
+
+            //var baseMap = new ol.layer.Tile({
+            //    style: 'Road',
+            //    source: new ol.source.MapQuest({layer: 'osm'})
+            //});
+
+            //var baseMap = new ol.layer.Group({
+            //    style: 'AerialWithLabels',
+            //    visible: true,
+            //    layers: [
+            //        new ol.layer.Tile({
+            //            source: new ol.source.MapQuest({layer: 'sat'})
+            //        }),
+            //        new ol.layer.Tile({
+            //            source: new ol.source.MapQuest({layer: 'hyb'})
+            //        })
+            //    ]
+            //});
 
              //var baseMap = new ol.layer.Tile({
              //	source: new ol.source.XYZ({
@@ -129,6 +151,7 @@
              //});
 
             footPrints = new ol.layer.Tile({
+                title: 'Image Footprints',
                 source: new ol.source.TileWMS({
                     url: '/o2/footprints/getFootprints',
                     params: {
@@ -142,9 +165,40 @@
             });
 
             map = new ol.Map({
-                layers: [
+                layers: /*[
                     baseMap, footPrints
-                ],
+                ], */
+                    [
+                        new ol.layer.Group({
+                            'title': 'Base maps',
+                            layers: [
+                                new ol.layer.Tile({
+                                    title: 'OSM',
+                                    type: 'base',
+                                    visible: true,
+                                    source: new ol.source.OSM()
+                                }),
+                                new ol.layer.Tile({
+                                    title: 'Roads',
+                                    type: 'base',
+                                    visible: false,
+                                    source: new ol.source.MapQuest({layer: 'osm'})
+                                }),
+                                new ol.layer.Tile({
+                                    title: 'Satellite',
+                                    type: 'base',
+                                    visible: false,
+                                    source: new ol.source.MapQuest({layer: 'sat'})
+                                })
+                            ]
+                        }),
+                        new ol.layer.Group({
+                            title: 'Overlays',
+                            layers: [
+                                footPrints
+                            ]
+                        })
+                    ],
                 controls: ol.control.defaults().extend([
                     //new ol.control.FullScreen(),
                     new ol.control.ScaleLine()
@@ -153,6 +207,11 @@
                 target: 'map',
                 view: mapView
             });
+
+            var layerSwitcher = new ol.control.LayerSwitcher({
+                tipLabel: 'Layers' // Optional label for button
+            });
+            map.addControl(layerSwitcher);
 
             map.addLayer(searchLayerVector);
             map.addLayer(filterLayerVector);
