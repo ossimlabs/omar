@@ -12,7 +12,7 @@ import com.wordnik.swagger.annotations.*
 class PredioController
 {
    static allowedMethods = [index:["GET"],
-                            viewItem:["POST"],
+                            viewItem:["POST", "GET"],
                             setItem:["POST"],
                             getPopularItems:["GET"],
                             getRecommendations:["POST","GET"],
@@ -28,15 +28,11 @@ class PredioController
 
    @ApiOperation(value = "View an item", consumes= 'application/json', produces='application/json', httpMethod="POST")
    @ApiImplicitParams([
-           @ApiImplicitParam(name = 'body',
-                   value = "JSON message for viewing an item",
-                   defaultValue = """{
-   "entityId": "<Replace with id of the user>",
-   "targetEntityId": "<Id of the item we are viewing>"
-}
-                     """,
-                   paramType = 'body',
-                   dataType = 'string')
+           @ApiImplicitParam(name = 'appName', value = 'Application name', allowableValues="[omar_universal]", defaultValue = 'omar_universal', required=true, paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'entityType', value = 'Entity type', allowableValues="[user]",  defaultValue = 'user', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'entityId', value = 'User id', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'targetEntityType', value = 'item', allowableValues="[item]", defaultValue = 'item', paramType = 'query', dataType = 'int'),
+           @ApiImplicitParam(name = 'targetEntityId', value = 'Id of the item being viewed', paramType = 'query', dataType = 'int'),
    ])
    def viewItem()
    {
