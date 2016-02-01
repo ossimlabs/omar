@@ -157,8 +157,8 @@
             // TODO: Follow up on moving this to a PIO service...
             vm.getTrendingPio = function(){
 
-                console.log('getTrendingPio firing...');
-                var pioUrl = '/o2/predio/showPopularItems';
+                console.log('showPopularItems firing...');
+                var pioUrl = '/o2/predio/getPopularItems';
                 $http({
                     method: 'GET',
                     url: pioUrl
