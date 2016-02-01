@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'imageSpaceService', '$scope', ListController]);
+        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', '$scope', '$http', ListController]);
 
-        function ListController(wfsService, $stateParams, $uibModal, imageSpaceService,  $scope) {
+        function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, $scope, $http) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -15,17 +15,111 @@
             vm.thumbSize = '&size=100';
             vm.thumbFormat = '&format=jpeg';
 
-            vm.currentAttrFilter = wfsService.attrObj;
+            vm.thumbBorder = function(imageType) {
+                //console.log(imageType);
 
-            vm.sortWfs = function(field, type) {
-                console.log('sortWfs firing --> field: ' + field + ' type: ' + type);
-                //wfsService.updateAttrFilter(undefined, "ingest_date", "+A");
-                wfsService.updateAttrFilter(undefined, field, type);
+                var border = {
+                    "border-color": "white",
+                    "border-width": "1px",
+                    "border-style": "solid",
+                    "border-radius": "4px"
+                };
+
+                switch(imageType){
+                    case "adrg":
+                        border["border-color"] = "#326F6F"; // atoll
+                        break;
+                    case "aaigrid":
+                        border["border-color"] = "pink";
+                        break;
+                    case "cadrg":
+                        border["border-color"] = "#00FFFF"; // cyan
+                        border["border-width"] = "2px"; // makes it look the same size as others
+                        break;
+                    case "ccf":
+                        border["border-color"] = "#8064FF"; // light slate blue
+                        break;
+                    case "cib":
+                        border["border-color"] = "#008080"; // teal
+                        border["border-width"] = "2px"; // makes it look the same size as others
+                        break;
+                    case "doqq":
+                        border["border-color"] = "purple";
+                        break;
+                    case "dted":
+                        border["border-color"] = "#00FF00"; // green
+                        break;
+                    case "imagine_hfa":
+                        border["border-color"] = "lightGrey";
+                        //border["border-width"] = "1.5px"; // makes it look the same size as others
+                        break;
+                    case "jpeg":
+                        border["border-color"] = "#FFFF00"; // yellow
+                        break;
+                    case "jpeg2000":
+                        border["border-color"] = "#FFC800"; // orange
+                        break;
+                    case "landsat7":
+                        border["border-color"] = "#FF00FF"; // pink
+                        break;
+                    case "mrsid":
+                        border["border-color"] = "#00BC00"; // light green
+                        break;
+                    case "nitf":
+                        border["border-color"] = "#0000FF"; // blue
+                        break;
+                    case "tiff":
+                        border["border-color"] = "#FF0000"; // red
+                        break;
+                    case "mpeg":
+                        border["border-color"] = "#A4FEFF"; // red
+                        break;
+                    case "unspecified":
+                        border["border-color"] = "white";
+                        //border["border-width"] = "1.5px"; // makes it look the same size as others
+                        break;
+                    default:
+                        border["border-color"] = "white";
+                        //border["border-width"] = "2px"; // makes it look the same size as others
+
+                }
+
+                return border;
             };
 
-            function addSortCheck() {
+            vm.displayFootprint = function(obj){
 
-            }
+                mapService.mapShowImageFootprint(obj);
+
+            };
+
+            vm.removeFootprint = function () {
+
+                mapService.mapRemoveImageFootprint();
+
+            };
+
+            vm.currentAttrFilter = wfsService.attrObj;
+            vm.currentSortText = "Acquired (Newest)";
+
+            vm.currentStartIndex = 1; //wfsService.attrObj.startIndex;
+            vm.itemsPerPage = 10;
+
+            vm.pagingChanged = function(){
+
+                //console.log('Page changed');
+
+            };
+
+            vm.sortWfs = function(field, type, text) {
+
+                // Sets the text of the current sort method on the sort navbar
+                vm.currentSortText = text;
+
+                //wfsService.updateAttrFilter(undefined, field, type);
+                wfsService.updateAttrFilter(wfsService.attrObj.filter, field, type);
+
+            };
 
             // We need an $on event here to listen for changes to the
             // wfs.spatial and wfs.attr filters
@@ -43,7 +137,6 @@
                 //console.log('$on attrObj filter updated', filter);
 
                 wfsService.executeWfsQuery();
-
 
             });
 
@@ -71,12 +164,35 @@
                 });
 
                 modalInstance.result.then(function() {
-                    console.log('Modal closed at: ' + new Date());
+                    //console.log('Modal closed at: ' + new Date());
 
                 }, function () {
-                    console.log('Modal dismissed at: ' + new Date());
+                    //console.log('Modal dismissed at: ' + new Date());
                 });
 
+            };
+
+            vm.logRatingToPio = function(imageId){
+
+                console.log('logRating imageId param:', imageId);
+
+                var pioUrl = '/o2/predio/rate?appName=omar_trending&entityId=all&targetEntityId=' + imageId + '&rating=4';
+                $http({
+                    method: 'GET',
+                    url: pioUrl
+                })
+                .then(function(response) {
+
+                    var data;
+                    data = response;  // callback response from Predictive IO controller
+                    console.log('rating response', data);
+
+                },
+                function error(response) {
+
+                    console.log('failed', response); // supposed to have: data, status, headers, config, statusText
+
+                });
             };
 
         }

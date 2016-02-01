@@ -3,6 +3,10 @@ grails:
     profile: web
     codegen:
         defaultPackage: omar.app
+
+    resources:
+        pattern: '/**'
+
 info:
     app:
         name: '@info.app.name@'
@@ -326,7 +330,7 @@ wfs:
           - features
         datastoreId: omardb-1.8.20-prod
 
-grails.serverURL: http://o2.ossim.org
+-- grails.serverURL:
 
 wms:
   styles:

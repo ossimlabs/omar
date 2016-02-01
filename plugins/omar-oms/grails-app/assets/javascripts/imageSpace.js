@@ -2,8 +2,8 @@
  * Created by sbortman on 12/10/15.
  */
 //= require jquery-2.1.3.js
-//= require webjars/openlayers/3.11.1/ol.js
-// require webjars/openlayers/3.11.1/ol-debug.js
+//= require webjars/openlayers/3.13.0/ol.js
+// require webjars/openlayers/3.13.0/ol-debug.js
 //= require_self
 
 var ImageSpace = (function ()

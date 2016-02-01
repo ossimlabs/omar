@@ -1,7 +1,12 @@
 package omar.wfs
 
 import omar.core.BindUtil
+import com.github.rahulsom.swaggydoc.*
+import com.wordnik.swagger.annotations.*
 
+@Api(value = "wfs",
+        description = "WFS Support"
+)
 class WfsController
 {
   def webFeatureService
@@ -101,23 +106,63 @@ class WfsController
     render contentType: results.contentType, text: results.buffer
   }
 
-  def getCapabilities(GetCapabilitiesRequest wfsParams)
+  @ApiOperation(value = "Get the capabilities of the server", produces='application/xml')
+  @ApiImplicitParams([
+          @ApiImplicitParam(name = 'service', value = 'OGC Service type', allowableValues="[WFS]", defaultValue = 'WFS', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'version', value = 'Version to request', allowableValues="[1.1.0]", defaultValue = '1.1.0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'request', value = 'Request type', allowableValues="[GetCapabilities]", defaultValue = 'GetCapabilities', paramType = 'query', dataType = 'string', required=true),
+  ])
+  def getCapabilities(/*GetCapabilitiesRequest wfsParams*/)
   {
+    def wfsParams = new GetCapabilitiesRequest()
+
+    BindUtil.fixParamNames( GetCapabilitiesRequest, params )
+    bindData( wfsParams, params )
+
     def results = webFeatureService.getCapabilities( wfsParams )
 
     render contentType: results.contentType, text: results.buffer
   }
 
-  def describeFeatureType(DescribeFeatureTypeRequest wfsParams)
+  @ApiOperation(value = "Describe the feature from the server", produces='application/xml')
+  @ApiImplicitParams([
+          @ApiImplicitParam(name = 'service', value = 'OGC Service type', allowableValues="[WFS]", defaultValue = 'WFS', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'version', value = 'Version to request', allowableValues="[1.1.0]", defaultValue = '1.1.0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'request', value = 'Request type', allowableValues="[DescribeFeatureType]", defaultValue = 'DescribeFeatureType', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'typeName', value = 'Type Name', defaultValue="omar:raster_entry", paramType = 'query', dataType = 'string', required=true)
+  ])
+  def describeFeatureType(/*DescribeFeatureTypeRequest wfsParams*/)
   {
+    def wfsParams = new DescribeFeatureTypeRequest()
+
+    BindUtil.fixParamNames( DescribeFeatureTypeRequest, params )
+    bindData( wfsParams, params )
     def results = webFeatureService.describeFeatureType( wfsParams )
 
     render contentType: results.contentType, text: results.buffer
   }
 
-  def getFeature(GetFeatureRequest wfsParams)
+  @ApiOperation(value = "Get features from the server", produces='application/xml,application/json')
+  @ApiImplicitParams([
+          @ApiImplicitParam(name = 'service', value = 'OGC service type', allowableValues="[WFS]", defaultValue = 'WFS', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'version', value = 'Version to request', allowableValues="[1.1.0]", defaultValue = '1.1.0', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'request', value = 'Request type', allowableValues="[GetFeature]", defaultValue = 'GetFeature', paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'typeName', value = 'Type name', defaultValue="omar:raster_entry", paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'filter', value = 'Filter', paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'resultType', value = 'Result type', defaultValue="results", allowableValues="[results,hits]", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'outputFormat', value = 'Output format', defaultValue="JSON", allowableValues="[JSON, GML2, GML3, GML32]", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'sortBy', value = 'Sort by', paramType = 'query', dataType = 'string'),
+          @ApiImplicitParam(name = 'propertyName', value = 'Property name (comma separated fields)', defaultValue="", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'maxFeatures', value = 'Maximum Features in the result', defaultValue="10", paramType = 'query', dataType = 'int', required=false),
+          @ApiImplicitParam(name = 'startIndex', value = 'Starting offset', defaultValue="0", paramType = 'query', dataType = 'int', required=false),
+  ])
+  def getFeature(/*GetFeatureRequest wfsParams*/)
   {
 //    println wfsParams
+    def wfsParams = new GetFeatureRequest()
+
+    BindUtil.fixParamNames( GetFeatureRequest, params )
+    bindData( wfsParams, params )
 
     def results = webFeatureService.getFeature( wfsParams )
 

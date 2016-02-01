@@ -1,0 +1,12 @@
+/*
+*= require webjars/bootswatch-superhero/3.3.5/css/bootstrap.css
+*= require webjars/openlayers/3.13.0/ol.css
+*= require_self
+*/
+
+#map {
+    /*width: 1024px;*/
+    height: 512px;
+    /*border: solid thin #255b17;*/
+    /*margin: auto;*/
+}

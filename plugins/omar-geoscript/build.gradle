@@ -47,13 +47,12 @@ targetCompatibility = 1.7
 
 repositories {
   mavenLocal()
-  mavenCentral()
-  maven { url "https://repo.grails.org/grails/core" }
-
-  maven { url "http://repo.boundlessgeo.com/main" }
   maven { url "http://download.osgeo.org/webdav/geotools/" }
+  maven { url "https://repo.grails.org/grails/core" }
+  maven { url "http://repo.boundlessgeo.com/main" }
   maven { url "http://maven.geo-solutions.it/" }
   maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
+  mavenCentral()
 }
 
 dependencyManagement {
@@ -74,7 +73,8 @@ dependencies {
 
 
   compile 'net.sf.opencsv:opencsv:2.3'
-  compile 'org.postgresql:postgresql:9.4-1203-jdbc42'
+//  compile 'org.postgresql:postgresql:9.4-1203-jdbc42'
+  compile 'org.postgresql:postgresql:9.3-1100-jdbc41'
   compile 'xml-apis:xml-apis:1.0.b2'
 
   compile( "org.geoscript:geoscript-groovy:1.5.0" ) {

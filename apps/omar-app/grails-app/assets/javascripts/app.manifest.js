@@ -1,7 +1,7 @@
 
 // Vendor
 //= require webjars/jquery/2.1.4/jquery.min.js
-//= require webjars/openlayers/3.11.1/ol.js
+//= require webjars/openlayers/3.13.0/ol.js
 //= require webjars/bootstrap/3.3.5/js/bootstrap.js
 //= require webjars/angularjs/1.4.8/angular.js
 //= require webjars/angular-ui-router/0.2.15/angular-ui-router.js
@@ -15,10 +15,14 @@
 //= require webjars/angular-strap/2.3.4/angular-strap.js
 //= require webjars/angular-strap/2.3.4/angular-strap.tpl.js
 //= require webjars/momentjs/2.11.0/moment.js
+//= require webjars/slick-carousel/1.5.9/slick/slick.js
+//= require webjars/angular-slick-carousel/3.0.10/dist/angular-slick.js
+//= require webjars/angular-toggle-switch/1.3.0/angular-toggle-switch.js
 
 // <--Core-->
 //= require omar/core/OpenLayersLite-formats.js
 //= require omar/core/wfs-client.js
+//= require omar/core/ol3-layerswitcher.js
 //= require omar/app.module.main.js
 
 // <--Services-->

@@ -6,7 +6,7 @@ class FootprintsController
 
   def getFootprints(GetFootprintsRequest cmd)
   {
-    println cmd
+//    println cmd
 
     def results = footprintService.getFootprints( cmd )
 

@@ -287,7 +287,7 @@
                 controls: ol.control.defaults().extend( [
                     new RotateNorthControl(),
                     new RotateUpControl(),
-                    //new ol.control.FullScreen()
+                    new ol.control.FullScreen()
                 ] ),
                 //interactions: ol.interaction.defaults().extend([
                 //    new ol.interaction.DragRotateAndZoom()
@@ -296,16 +296,16 @@
                 layers: [
                     new ol.layer.Tile( {
                         source: source
-                    } ),
+                    } )/*,
                     new ol.layer.Tile( {
                         source: source2
-                    } )
+                    } )*/
                 ],
                 target: 'imageMap',
                 view: new ol.View( {
                     projection: proj,
                     center: imgCenter,
-                    zoom: 0,
+                    zoom: 3,
                     // constrain the center: center cannot be set outside
                     // this extent
                     extent: [0, -imgHeight, imgWidth, 0]

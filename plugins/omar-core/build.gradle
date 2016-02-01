@@ -64,6 +64,7 @@ dependencies {
     testCompile "org.grails:grails-plugin-testing"
 
     console "org.grails:grails-console"
+    compile "org.grails.plugins:swaggydoc-grails3:0.26.0"
 }
 
 task wrapper(type: Wrapper) {

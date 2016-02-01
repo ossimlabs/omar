@@ -2,15 +2,87 @@
    'use strict';
     angular
         .module('omarApp')
-        .controller('FilterController', ['wfsService', 'toastr', FilterController]);
+        .controller('FilterController', ['wfsService', 'mapService', 'toastr', FilterController]);
 
-        function FilterController(wfsService, toastr){
+        function FilterController(wfsService, mapService, toastr){
 
             /* jshint validthis: true */
             var vm = this;
 
             var filterString = "";
             var filterArray = [];
+
+            vm.initSpatial = function(){
+
+                vm.viewPortSpatial = true;
+
+                vm.pointSpatial = false;
+
+                vm.polygonSpatial = false;
+            };
+
+            function checkNoSpatialFilter(){
+
+                if(!vm.viewPortSpatial && !vm.pointSpatial && !vm.polygonSpatial) {
+
+                    console.log('checkNoFilter', 'no spatial filter!!!');
+                    //vm.viewPortSpatial = true;
+                    console.log('@@@@@@@@@@@@@@@@@@@@', wfsService.spatialObj.filter);
+                    //wfsService.spatialObj.filter = "";
+                }
+
+            }
+
+            this.byViewPort = function(status) {
+
+                // Turn on viewport
+                mapService.viewPortFilter(status);
+
+                // Turn off point
+                vm.pointSpatial = false;
+                mapService.pointFilter(vm.pointSpatial);
+
+                // Turn off polygon
+                vm.polygonSpatial = false;
+                mapService.polygonFilter(vm.polygonSpatial);
+
+                checkNoSpatialFilter();
+
+            };
+
+            this.byPointer = function(status) {
+
+                // Turn on point
+                mapService.pointFilter(status);
+
+                // Turn off viewport
+                vm.viewPortSpatial = false;
+                mapService.viewPortFilter(vm.viewPortSpatial);
+
+                // Turn off polygon
+                vm.polygonSpatial = false;
+                mapService.polygonFilter(vm.polygonSpatial);
+
+                checkNoSpatialFilter();
+
+            };
+
+            this.byPolygon = function(status) {
+
+                // Turn on polygons
+                mapService.polygonFilter(status);
+
+                // Turn off viewport
+                vm.viewPortSpatial = false;
+                mapService.viewPortFilter(vm.viewPortSpatial);
+
+                // Turn off point
+                vm.pointSpatial = false;
+                mapService.pointFilter(vm.pointSpatial);
+
+                checkNoSpatialFilter();
+
+            };
 
             vm.initKeywords = function(){
                 // Keywords
@@ -141,7 +213,6 @@
                 var dateLast3Months = moment().subtract(3, 'months').format('MM-DD-YYYY 00:00');
                 var dateLast6Months = moment().subtract(6, 'months').format('MM-DD-YYYY 00:00');
 
-                // TODO: grab this from the filter date type select element
                 var dbName = vm.currentDateType.value; //"acquisition_date";
                 var temporalParam = vm.currentTemporalDuration.value;
 
@@ -193,8 +264,7 @@
 
                 function pushKeywordToArray(dbName, formField) {
 
-                    // TODO: Always assume contains and case insensitive
-                    filterArray.push([dbName + " LIKE '%", formField ,"%'"].join(""));
+                    filterArray.push(["strToUpperCase(" + dbName + ") LIKE '%", formField.trim().toUpperCase() ,"%'"].join(""));
                     console.log(dbName + ' filterArray', filterArray);
 
                 }
@@ -305,15 +375,13 @@
                 }
 
                 filterString = filterArray.join(" AND ");
-                //console.log(filterString);
-
-                // Get this from values off of a dropdown on the sort nav bar.  We may need to move the
-                // nav bar into the filter controller div
+                console.log('filterString', filterString);
 
                 wfsService.updateAttrFilter(filterString);
 
             };
 
+            vm.initSpatial();
             vm.initKeywords();
             vm.initRanges();
 

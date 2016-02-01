@@ -5,7 +5,7 @@ class ProxyController
 
   def index()
   {
-    println params
+   // println params
 
 //    def urlText = params.url.decodeBase64()
     def urlText = params.url

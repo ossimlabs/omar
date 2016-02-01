@@ -13,7 +13,14 @@
     });
 
     angular
-        .module('omarApp', ['ui.router', 'ui.bootstrap', 'angularSpinner', 'toastr', 'mgcrea.ngStrap.timepicker'])
+        .module('omarApp', [
+            'ui.router',
+            'ui.bootstrap',
+            'angularSpinner',
+            'toastr',
+            'mgcrea.ngStrap.timepicker',
+            'slickCarousel',
+            'toggle-switch'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
             $urlRouterProvider.otherwise('/o2/home');

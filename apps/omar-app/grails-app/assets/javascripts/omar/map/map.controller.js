@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('MapController', ['mapService', '$stateParams', 'toastr', MapController]);
+        .controller('MapController', ['mapService', '$stateParams', '$scope', 'toastr', MapController]);
 
-        function MapController(mapService, $stateParams, toastr) {
+        function MapController(mapService, $stateParams, $scope, toastr) {
 
             toastr.info("Click on the thumbnail or ID text in the image card to view the image and it's" +
                 " metadata", 'Heads Up:', {
@@ -17,8 +17,8 @@
 
             /* jshint validthis: true */
             var vm = this;
-            vm.mapTitle = "Map";
-            vm.listTitle = "Images";
+            //vm.mapTitle = "Map";
+            //vm.listTitle = "Images";
 
             // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
             //console.log('$stateParams', $stateParams);
@@ -36,14 +36,11 @@
             //console.log(vm.mapParams);
             mapService.mapInit(vm.mapParams);
 
-            // Set the initial height of map and list elements
-            mapService.resizeElement('#map', 240);
-            mapService.resizeElement('#list', 325);
+            $scope.$on('attrObj.updated', function(event, filter) {
 
-            //Adjust the height of map and list elements if browser window changes
-            $(window).resize(function () {
-                mapService.resizeElement('#map', 154);
-                mapService.resizeElement('#list', 255);
+                console.log('$on attrObj filter updated', filter);
+                mapService.updateFootPrintLayer(filter);
+
             });
 
         }

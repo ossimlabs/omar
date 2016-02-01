@@ -52,12 +52,47 @@ body { padding-top: 70px; }
     z-index: 1048;
 }
 
-#map {
-    /*height: 800px;*/
+@media (max-height: 599px) {
+    #map { height: 79%; }
+    #list { height: 57%; }
+}
+
+@media (min-height: 600px) AND (max-height: 699px){
+    #map { height: 83%; }
+    #list { height: 59%; }
+}
+
+@media (min-height: 700px) AND (max-height: 799px){
+    #map { height: 86%; }
+    #list { height: 66%; }
+}
+
+@media (min-height: 800px) AND (max-height: 899px){
+    #map { height: 88%; }
+    #list { height: 71%; }
+}
+
+@media (min-height: 900px) AND (max-height: 999px){
+    #map { height: 89%; }
+    #list { height: 74%; }
+}
+
+@media (min-height: 1000px) AND (max-height: 1099px){
+    #map { height: 91%; }
+    #list { height: 77%; }
+}
+
+@media (min-height: 1100px) AND (max-height: 1199px){
+    #map { height: 91%; }
+    #list { height: 79%; }
+}
+
+@media (min-height: 1200px){
+    #map { height: 92%; }
+    #list { height: 80%; }
 }
 
 #list {
-    /*height: 750px;*/
     overflow-y: auto;
     padding-right: 5px;
 }
@@ -79,13 +114,15 @@ body { padding-top: 70px; }
     -ms-transition: all 0.3s ease;
 }
 
-#imageMap {
-    height: 300px;
-    width: 100%;
+.ranges hr {
+    margin-top: 0px;
+    margin-bottom: 11px;
 }
 
-.button.active {
-    color: yellow;
+#imageMap {
+    /*height: 300px;*/
+    width: 100%;
+    height: 60%;
 }
 
 .dont-break-out {
@@ -233,17 +270,51 @@ body { padding-top: 70px; }
 #imageMap:fullscreen {
     height: 100%;
 }
+
+.ol-viewport{
+    border-radius: 10px;
+}
 .ol-rotate {
     top: 3em;
 }
 
-/*.full button span {*/
-    /*background-color: limegreen;*/
-    /*border-radius: 32px;*/
-    /*color: black;*/
-/*}*/
-/*.partially button span {*/
-    /*background-color: orange;*/
-    /*border-radius: 32px;*/
-    /*color: black;*/
-/*}*/
+.ol-popup {
+    position: absolute;
+    background-color: white;
+    -webkit-filter: drop-shadow(0 8px 4px rgba(0,0,0,0.8));
+    filter: drop-shadow(0 1px 8px rgba(0,0,0,0.8));
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    left: -50px;
+    min-width: 275px;
+}
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.ol-popup:after {
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+}
+.ol-popup:before {
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+}
+
+.truncate {
+    width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

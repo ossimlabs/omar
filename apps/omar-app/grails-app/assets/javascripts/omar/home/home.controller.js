@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('HomeController', ['APP_CONFIG', '$state', 'toastr', HomeController]);
+        .controller('HomeController', ['APP_CONFIG', '$scope', '$state', 'wfsService', 'toastr', '$http', HomeController]);
 
-        function HomeController(APP_CONFIG, $state, toastr){
+        function HomeController(APP_CONFIG, $scope, $state, wfsService, toastr, $http, $timeout){
 
             toastr.info('This pre-alpha release has limited functionality.  Some items' +
                 ' are disabled at this time. More capabilities will be added on a continous' +
@@ -153,6 +153,93 @@
                 $searchInput.autocomplete('disable');
                 //$searchButton.on('click', ZoomTo.cycleRegExs);
             }
+            
+            // TODO: Follow up on moving this to a PIO service...
+            vm.getTrendingPio = function(){
+
+                console.log('showPopularItems firing...');
+                var pioUrl = '/o2/predio/getPopularItems';
+                $http({
+                    method: 'GET',
+                    url: pioUrl
+                })
+                .then(function(response) {
+                    var data;
+                    data = response;  // callback response from Predictive IO service
+                    console.log(data);
+                    //formatTrendingList(data);
+                    wfsService.executeWfsTrendingThumbs(data);
+                });
+
+            };
+            vm.getTrendingPio(); // get the top 10 trending images on page load and throw them into the carousel
+
+            vm.trendingImages = {};
+
+            $scope.$on('wfsTrendingThumb: updated', function(event, data) {
+
+                $scope.$apply(function(){
+
+                    vm.trendingImages = data;
+                    console.log('vm.trendingImages: ', vm.trendingImages);
+
+                });
+
+            });
+
+            //function formatTrendingList(trendData) {
+            //
+            //    var wfsImagesList = [];
+            //    trendData.data.itemScores.filter(function(el){
+            //
+            //        console.log(el);
+            //        wfsImagesList.push(el.item);
+            //
+            //    });
+            //
+            //
+            //    var wfsImageString = wfsImagesList.join(",");
+            //
+            //    // TODO: Move this $http to the wfs.service.js
+            //    var wfsRequest = {
+            //        typeName: 'omar:raster_entry',
+            //        namespace: 'http://omar.ossim.org',
+            //        version: '1.1.0',
+            //        outputFormat: 'JSON',
+            //        cql: '',
+            //    };
+            //
+            //    wfsRequest.cql = 'id in(' + wfsImageString + ')';
+            //
+            //    var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
+            //
+            //    var wfsUrl = wfsRequestUrl +
+            //        "service=WFS" +
+            //        "&version=" + wfsRequest.version +
+            //        "&request=GetFeature" +
+            //        "&typeName=" + wfsRequest.typeName +
+            //        "&filter=" + wfsRequest.cql +
+            //        "&outputFormat=" + wfsRequest.outputFormat;
+            //
+            //    var url = encodeURI(wfsUrl);
+            //
+            //    $http({
+            //        method: 'GET',
+            //        url: url
+            //    })
+            //    .then(function(response) {
+            //        var data;
+            //        data = response.data.features;
+            //        console.log('data from wfs', data);
+            //        vm.trendingImages = data;
+            //    });
+            //
+            //}
+
+
+            vm.imageClick = function(imageId){
+                console.log('imageClick imageId: ', imageId);
+            };
 
         }
 

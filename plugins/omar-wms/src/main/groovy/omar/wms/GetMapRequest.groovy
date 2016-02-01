@@ -15,6 +15,19 @@ class GetMapRequest implements Validateable
   String version
   String request
 
+  Integer width
+  Integer height
+
+  String srs
+  String bbox
+  String format
+  String layers
+  String styles
+
+  Boolean transparent
+
+  String filter
+
   static mapping = {
     version false
   }

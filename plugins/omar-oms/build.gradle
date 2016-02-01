@@ -3,9 +3,8 @@ buildscript {
         grailsVersion = project.grailsVersion
     }
     repositories {
-        mavenLocal()
+       mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
-        // for JAI download
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -42,9 +41,10 @@ targetCompatibility = 1.7
 repositories {
 
     mavenLocal()
-    maven{ url "http://download.osgeo.org/webdav/geotools"}
-    maven { url "https://repo.grails.org/grails/core" }
+    // this is for JAI.  Must be before the mavenCentral and stuff.
+    maven { url "http://download.osgeo.org/webdav/geotools"}
     mavenCentral()
+    maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
@@ -58,6 +58,7 @@ dependencies {
 
     //compile 'org.webjars:openlayers:3.11.1'
     compile project(':omar-openlayers')
+    compile project(':omar-core')
 
     provided 'org.springframework.boot:spring-boot-starter-logging'
     provided "org.springframework.boot:spring-boot-starter-actuator"

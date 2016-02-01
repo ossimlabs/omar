@@ -169,7 +169,7 @@ class WebFeatureService
             ows.DCP {
               ows.HTTP {
                 ows.Get( 'xlink:href': wfsServiceAddress )
-                //ows.Post('xlink:href': wfsServiceAddress )
+                ows.Post( 'xlink:href': wfsServiceAddress )
               }
             }
             ows.Parameter( name: "AcceptVersions" ) {
@@ -184,7 +184,7 @@ class WebFeatureService
             ows.DCP {
               ows.HTTP {
                 ows.Get( 'xlink:href': wfsServiceAddress )
-                //ows.Post( 'xlink:href': wfsServiceAddress )
+                ows.Post( 'xlink:href': wfsServiceAddress )
               }
             }
             ows.Parameter( name: "outputFormat" ) {
@@ -195,7 +195,7 @@ class WebFeatureService
             ows.DCP {
               ows.HTTP {
                 ows.Get( 'xlink:href': wfsServiceAddress )
-                //ows.Post( 'xlink:href': wfsServiceAddress )
+                ows.Post( 'xlink:href': wfsServiceAddress )
               }
             }
             ows.Parameter( name: "resultType" ) {
@@ -419,7 +419,7 @@ class WebFeatureService
     def namespacePrefix
     def layerName
 
-    switch ( x.size() )
+    switch ( x?.size() )
     {
     case 1:
       layerName = x?.last()
@@ -656,49 +656,13 @@ class WebFeatureService
     def results
 
 
-    def wfsParamNames = [
-        'maxFeatures', 'startIndex', 'propertyName', 'sortBy', 'filter'
-    ]
+    def options = parseOptions( wfsParams )
 
-    def options = wfsParamNames.inject( [:] ) { options, wfsParamName ->
-      if ( wfsParams[wfsParamName] != null )
-      {
-        switch ( wfsParamName )
-        {
-        case 'maxFeatures':
-          options['max'] = wfsParams[wfsParamName]
-          break
-        case 'startIndex':
-          options['start'] = wfsParams[wfsParamName]
-          break
-        case 'propertyName':
-          options['fields'] = wfsParams[wfsParamName]?.split( ',' )?.collect { it.split( ':' )?.last() } as List<String>
-          break
-        case 'sortBy':
-          if ( wfsParams[wfsParamName]?.trim() )
-          {
-            options['sort'] = wfsParams[wfsParamName].split( ',' )?.collect {
-              def props = it.split( ' ' ) as List
-              if ( props.size() == 2 )
-              {
-                props[1] = ( props[1].equalsIgnoreCase( 'D' ) ) ? 'DESC' : 'ASC'
-              }
-              props
-            }
-          }
-          break
-        default:
-          options[wfsParamName] = wfsParams[wfsParamName]
-        }
-      }
-      options
-    }
-
-//    println options
+    println options
 
     Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
       def layer = workspace[layerName]
-      def count = -1 // layer.count( wfsParams.filter )
+      def count = layer.count( wfsParams.filter )
 
 //      def features = layer.getFeatures(options)
 //
@@ -740,13 +704,8 @@ class WebFeatureService
     return JsonOutput.toJson( results )
   }
 
-  private def getFeatureGML3(GetFeatureRequest wfsParams)
+  private Object parseOptions(GetFeatureRequest wfsParams)
   {
-    LayerInfo layerInfo = findLayerInfo( wfsParams )
-    def xml
-
-    println wfsParams
-
     def wfsParamNames = [
         'maxFeatures', 'startIndex', 'propertyName', 'sortBy', 'filter'
     ]
@@ -757,16 +716,16 @@ class WebFeatureService
         switch ( wfsParamName )
         {
         case 'maxFeatures':
-          options['max'] = wfsParams[wfsParamName]?.toInteger()
+          options['max'] = wfsParams[wfsParamName]
           break
         case 'startIndex':
-          options['start'] = wfsParams[wfsParamName]?.toInteger()
+          options['start'] = wfsParams[wfsParamName]
           break
         case 'propertyName':
           options['fields'] = wfsParams[wfsParamName]?.split( ',' )?.collect { it.split( ':' )?.last() } as List<String>
           break
         case 'sortBy':
-          if ( wfsParams[wfsParamName].trim() )
+          if ( wfsParams[wfsParamName]?.trim() )
           {
             options['sort'] = wfsParams[wfsParamName].split( ',' )?.collect {
               def props = it.split( ' ' ) as List
@@ -784,6 +743,18 @@ class WebFeatureService
       }
       options
     }
+    options
+  }
+
+  private def getFeatureGML3(GetFeatureRequest wfsParams)
+  {
+    LayerInfo layerInfo = findLayerInfo( wfsParams )
+    def xml
+
+//    println wfsParams
+
+
+    def options = parseOptions( wfsParams )
 
 //    println options
 
@@ -821,7 +792,6 @@ class WebFeatureService
         }
       }
 
-
       def x = {
         mkp.xmlDeclaration()
         mkp.declareNamespace( ogcNamespacesByPrefix )
@@ -840,7 +810,7 @@ class WebFeatureService
               features?.each { feature ->
                 mkp.yieldUnescaped(
                     // writer.write( feature, 3, false, false, false, namespaceInfo.prefix )
-                    it
+                    feature
                 )
               }
             }
