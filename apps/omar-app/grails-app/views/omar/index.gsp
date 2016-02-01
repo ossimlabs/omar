@@ -47,8 +47,9 @@
                     <ul class="nav navbar-nav">
                         <li><a ui-sref="home">&nbsp;Home</a></li>
                         <li><a ui-sref="map">&nbsp;Map</a></li>
-                        <li><a ui-sref="#">&nbsp;Swipe Viewer</a></li>
+                        <li><a ui-sref="#">&nbsp;Swipe</a></li>
                         <li><a ui-sref="#">&nbsp;PIWIK</a></li>
+                        <li><a href="/o2/api">&nbsp;API</a></li>
                         %{--<li><a ui-sref="wfs">&nbsp;WFS</a></li>--}%
                         %{--<li><a ui-sref="multiple">&nbsp;Multi</a></li>--}%
                     </ul>
