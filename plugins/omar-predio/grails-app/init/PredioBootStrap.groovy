@@ -1,3 +1,4 @@
+import grails.util.Environment
 import omar.predio.PredioAppId
 
 /**
@@ -8,20 +9,26 @@ class PredioBootStrap
    def grailsApplication
 
    def init = { servletContext ->
-      PredioAppId.withTransaction {
-         if (!PredioAppId.findByName("omar_recommendation"))
-         {
-            new PredioAppId(name: "omar_recommendation",
-                    eventUrl: "http://omar.ossim.org:7070",
-                    queryUrl: "http://omar.ossim.org:8000",
-                    accessKey: "")
-                    .save(flush: true)
+      if (Environment.current == Environment.DEVELOPMENT) {
+         PredioAppId.withTransaction {
+            if (!PredioAppId.findByName("omar_universal"))
+            {
+               new PredioAppId(name: "omar_universal",
+                       eventUrl: "http://predio.local:7070",
+                       queryUrl: "http://predio.local:8000",
+                       accessKey: "")
+                       .save(flush: true)
+            }
          }
-         if (!PredioAppId.findByName("omar_trending"))
+      }
+      else if (Environment.current == Environment.TEST) {
+      }
+      else if (Environment.current == Environment.PRODUCTION) {
+         if (!PredioAppId.findByName("omar_universal"))
          {
-            new PredioAppId(name: "omar_trending",
-                    eventUrl: "http://omar.ossim.org:7070",
-                    queryUrl: "http://omar.ossim.org:8001",
+            new PredioAppId(name: "omar_universal",
+                    eventUrl: "http://<ip>:7070",
+                    queryUrl: "http://<ip>:8000",
                     accessKey: "")
                     .save(flush: true)
          }
