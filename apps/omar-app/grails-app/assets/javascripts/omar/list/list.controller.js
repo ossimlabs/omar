@@ -176,9 +176,9 @@
 
                 console.log('logRating imageId param:', imageId);
 
-                var pioUrl = '/o2/predio/rate?appName=omar_trending&entityId=all&targetEntityId=' + imageId + '&rating=4';
+                var pioUrl = '/o2/predio/viewItem?targetEntityId=' + imageId;
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: pioUrl
                 })
                 .then(function(response) {
