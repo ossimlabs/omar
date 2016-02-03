@@ -1,6 +1,16 @@
-include 'omar-app', 'omar-core', 'omar-openlayers', 'omar-geoscript', 'omar-wms', 'omar-wfs', 'omar-oms', 'omar-predio', 'wfs-app', 'hlz-app'
+include 'omar-core', 
+	'omar-openlayers', 
+	'omar-geoscript', 
+	'omar-wms', 
+	'omar-wfs', 
+	'omar-oms', 
+	'omar-predio', 
+	'omar-app', 
+	'wfs-app', 
+	'hlz-app', 
+	'superoverlay-app'
 
-project(':omar-app').projectDir = 'apps/omar-app' as File
+// Plugins
 project(':omar-core').projectDir = 'plugins/omar-core' as File
 project(':omar-geoscript').projectDir = 'plugins/omar-geoscript' as File
 project(':omar-openlayers').projectDir = 'plugins/omar-openlayers' as File
@@ -9,6 +19,8 @@ project(':omar-wms').projectDir = 'plugins/omar-wms' as File
 project(':omar-oms').projectDir = 'plugins/omar-oms' as File
 project(':omar-predio').projectDir = 'plugins/omar-predio' as File
 
-
+// Apps
+project(':omar-app').projectDir = 'apps/omar-app' as File
 project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':hlz-app').projectDir = 'apps/hlz-app' as File
+project(':superoverlay-app').projectDir = 'apps/superoverlay-app' as File
