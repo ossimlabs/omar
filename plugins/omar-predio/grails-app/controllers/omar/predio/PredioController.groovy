@@ -172,8 +172,6 @@ class PredioController
       if(jsonData) requestParams << jsonData
       BindUtil.fixParamNames( ItemRecommendationCommand, requestParams )
       bindData( cmd, requestParams )
-      println "*"*40
-      println cmd
       HashMap result = predioService.getItemRecommendations(cmd)
 
       response.status      = result.status.value()
@@ -207,8 +205,6 @@ class PredioController
 
       HashMap result = predioService.getUserRecommendations(cmd)
 
-      println "*"*40
-      println cmd
       response.status      = result.status.value()
       response.contentType = result.contentType
       render result.message
