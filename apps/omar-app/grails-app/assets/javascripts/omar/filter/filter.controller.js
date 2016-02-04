@@ -375,7 +375,7 @@
                 }
 
                 filterString = filterArray.join(" AND ");
-                console.log('filterString', filterString);
+                //console.log('filterString', filterString);
 
                 wfsService.updateAttrFilter(filterString);
 

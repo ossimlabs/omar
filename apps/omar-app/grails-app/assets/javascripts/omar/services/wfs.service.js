@@ -111,7 +111,7 @@
                 wfsRequest.sortType = this.attrObj.sortType;
                 wfsRequest.startIndex = this.attrObj.startIndex;
 
-                console.log('wfsRequest', wfsRequest);
+                //console.log('wfsRequest', wfsRequest);
 
                 //wfsClient.getFeature(wfsRequest, function(data) {
                 //
@@ -207,6 +207,7 @@
                 });
 
             };
+
 
         }
 

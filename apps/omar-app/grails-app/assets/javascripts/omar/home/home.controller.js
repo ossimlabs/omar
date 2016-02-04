@@ -239,6 +239,7 @@
 
             vm.imageClick = function(imageId){
                 console.log('imageClick imageId: ', imageId);
+                $state.go('mapOrtho', {layers: imageId});
             };
 
         }

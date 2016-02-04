@@ -48,6 +48,11 @@
 
                 })
 
+                .state('mapOrtho', {
+                    url: '/o2/mapOrtho?layers',
+                    templateUrl: '/o2/mapOrtho/map.ortho.partial.html'
+                })
+
                 .state('wfs', {
                     url: '/o2/wfs',
                     templateUrl: '/o2/wfs/wfs.partial.html'

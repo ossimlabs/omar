@@ -9,6 +9,7 @@
             /* jshint validthis: true */
             var vm = this;
 
+            // TODO: Move to external config
             vm.thumbPath = '/o2/imageSpace/getThumbnail?';
             vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
             vm.thumbEntry = '&entry=';  // parameter provided by image.properties.entry_id
@@ -205,7 +206,6 @@
             vm.selectedImage = imageObj;
             //console.log(vm.selectedImage);
 
-            //var modal = this;
             //modal.rendered = false;
             //console.log('modal', modal);
 

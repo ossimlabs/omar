@@ -23,6 +23,8 @@
 //= require omar/core/OpenLayersLite-formats.js
 //= require omar/core/wfs-client.js
 //= require omar/core/ol3-layerswitcher.js
+//= require omar/core/geopoint.js
+//= require omar/core/mgrs.js
 //= require omar/app.module.main.js
 
 // <--Services-->
@@ -39,6 +41,9 @@
 
 // <--List-->
 //= require omar/list/list.controller.js
+
+// <--Map-->
+//= require omar/mapOrtho/map.ortho.controller.js
 
 //= <--WFS-->
 //= require omar/wfs/wfs.controller.js

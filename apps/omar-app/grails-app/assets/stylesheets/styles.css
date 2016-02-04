@@ -106,6 +106,10 @@ body { padding-top: 70px; }
     margin-bottom: 5px;
 }
 
+#list {
+    text-decoration: none;
+}
+
 #list .fa:hover {
     font-size: 0.9em;
     -webkit-transition: all 0.3s ease;
@@ -119,7 +123,17 @@ body { padding-top: 70px; }
     margin-bottom: 11px;
 }
 
+#modal-image-space a {
+    text-decoration: none;
+}
+
 #imageMap {
+    /*height: 300px;*/
+    width: 100%;
+    height: 60%;
+}
+
+#mapOrtho {
     /*height: 300px;*/
     width: 100%;
     height: 60%;
@@ -182,12 +196,15 @@ body { padding-top: 70px; }
 .yamm .dropdown {
     position: static;
 }
+
 .yamm .container {
     position: relative;
 }
+
 .yamm .dropdown-menu {
     left: auto;
 }
+
 .yamm .yamm-content {
     padding: 20px 30px;
     /*overflow: scroll;*/
@@ -201,6 +218,7 @@ body { padding-top: 70px; }
     top: 65px;
     left: .5em;
 }
+
 .ol-touch .rotate-north {
     top: 80px;
 }
@@ -209,6 +227,7 @@ body { padding-top: 70px; }
     top: 95px;
     left: .5em;
 }
+
 .ol-touch .rotate-up {
     top: 80px;
 }
@@ -271,6 +290,37 @@ body { padding-top: 70px; }
     height: 100%;
 }
 
+/*.slick-next:before{*/
+    /*color: blue;*/
+/*}*/
+
+/*.slick-before:before{*/
+    /*color: blue;*/
+/*}*/
+
+.slick-prev:before, .slick-next:before {
+    color:black !important;
+}
+
+.slick-loading .slick-list
+{
+    background: red url('ajax-loader.gif') center center no-repeat;
+}
+
+
+#mapOrtho:-moz-full-screen {
+    height: 100%;
+}
+#mapOrtho:-webkit-full-screen {
+    height: 100%;
+}
+#mapOrtho:-ms-fullscreen {
+    height: 100%;
+}
+#mapOrtho:fullscreen {
+    height: 100%;
+}
+
 .ol-viewport{
     border-radius: 10px;
 }
@@ -290,6 +340,7 @@ body { padding-top: 70px; }
     left: -50px;
     min-width: 275px;
 }
+
 .ol-popup:after, .ol-popup:before {
     top: 100%;
     border: solid transparent;
@@ -299,12 +350,14 @@ body { padding-top: 70px; }
     position: absolute;
     pointer-events: none;
 }
+
 .ol-popup:after {
     border-top-color: white;
     border-width: 10px;
     left: 48px;
     margin-left: -10px;
 }
+
 .ol-popup:before {
     border-top-color: #cccccc;
     border-width: 11px;

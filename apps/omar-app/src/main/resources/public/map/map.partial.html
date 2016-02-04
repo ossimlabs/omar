@@ -801,6 +801,29 @@
                                                <!--style="cursor: pointer;"-->
                                                <!--tooltip-placement="right"-->
                                                <!--uib-tooltip="View image in swipe viewer"></i>&nbsp;&nbsp;-->
+                                            <!--<i class="fa fa-exchange fa-border"-->
+                                            <!--style="cursor: pointer;"-->
+                                            <!--tooltip-placement="right"-->
+                                            <!--uib-tooltip="View image in swipe viewer"></i>&nbsp;&nbsp;-->
+                                            <a href="/o2/omar/index#/o2/mapOrtho?layers={{image.properties.id}} " target="_blank">
+                                                <i class="fa fa-map-marker fa-border text-primary"
+                                                   style="cursor: pointer;"
+                                                   tooltip-placement="right"
+                                                   uib-tooltip="View image ortho (WMS)"></i>&nbsp;&nbsp;
+                                            </a>
+                                            <a href="http://localhost:5150/superOverlayOMAR/createKml/{{image.properties.id}}">
+                                                <i class="fa fa-map fa-border text-primary"
+                                                   style="cursor: pointer;"
+                                                   tooltip-placement="right"
+                                                   uib-tooltip="Download KML superoverlay"></i>&nbsp;&nbsp;
+                                            </a>
+                                            <!--TODO: Pass in the server url as a variable from the controller-->
+                                            <a href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body=http://o2.ossim.org/o2/omar/index#/o2/mapOrtho?layers={{image.properties.id}}" target="_blank">
+                                                <i class="fa fa-envelope fa-border text-primary"
+                                                   style="cursor: pointer;"
+                                                   tooltip-placement="right"
+                                                   uib-tooltip="E-mail a link to this image"></i>&nbsp;&nbsp;
+                                            </a>
                                         </p>
                                     </div>
                                 </div>
