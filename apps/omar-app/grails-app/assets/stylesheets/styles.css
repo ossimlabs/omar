@@ -290,23 +290,9 @@ body { padding-top: 70px; }
     height: 100%;
 }
 
-/*.slick-next:before{*/
-    /*color: blue;*/
-/*}*/
-
-/*.slick-before:before{*/
-    /*color: blue;*/
-/*}*/
-
 .slick-prev:before, .slick-next:before {
     color:black !important;
 }
-
-.slick-loading .slick-list
-{
-    background: red url('ajax-loader.gif') center center no-repeat;
-}
-
 
 #mapOrtho:-moz-full-screen {
     height: 100%;

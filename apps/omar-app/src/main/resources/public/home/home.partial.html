@@ -40,6 +40,7 @@
         <div class="row">
             <div class="well">
                 <h3 class="text-center"><span class="fa fa-thumbs-up text-info"></span>&nbsp;Trending images</h3>
+                <div class="text-center text-muted" ng-if="home.loading"><h4>Loading trending images, please wait...</h4></div>
                 <slick style="height: 300px" ng-if="home.trendingImages.length"  slides-to-show=5
                        slides-to-scroll=1 dots="true" infinite="false">
                     <div ng-repeat="image in home.trendingImages">

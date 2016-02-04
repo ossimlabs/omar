@@ -17,6 +17,8 @@
             /* jshint validthis: true */
             var vm = this;
 
+            vm.loading = true;
+
             //var twofishUrl = APP_CONFIG.services.twofishes.url;
             //var twofishPort = APP_CONFIG.services.twofishes.port;
             var twofishProxy = APP_CONFIG.services.twofishes.proxy;
@@ -182,6 +184,7 @@
 
                     vm.trendingImages = data;
                     console.log('vm.trendingImages: ', vm.trendingImages);
+                    vm.loading = false;
 
                 });
 

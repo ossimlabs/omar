@@ -60,11 +60,14 @@
                 </div>
             </div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h6>Recommended Images</h6>
+                        <div class="text-center text-muted"
+                             ng-if="ortho.loading"><h4>Loading recommended images, please wait...</h4></div>
                         <slick style="height: 170px" ng-if="ortho.recommendedImages.length"
                                slides-to-show=8
                                slides-to-scroll=1 dots="true" infinite="false">

@@ -9,6 +9,8 @@
         /* jshint validthis: true */
         var vm = this;
 
+        vm.loading = true;
+
         //vm.title = "Map Ortho";
 
         console.log('$stateParams', $stateParams);
@@ -101,7 +103,7 @@
             maxZoom: 18
         });
 
-        var coordTemplate = '{y}, {x}';
+        //var coordTemplate = '{y}, {x}';
         var mousePositionControl = new ol.control.MousePosition({
             coordinateFormat: function(coord) {
 
@@ -220,6 +222,7 @@
                 data = response.data.features;
                 console.log('data from wfs', data);
                 vm.recommendedImages = data;
+                    vm.loading = false;
             });
 
         }
