@@ -2,6 +2,7 @@ package omar.predio
 
 import grails.validation.Validateable
 import groovy.transform.ToString
+import org.joda.time.DateTime
 
 /**
  * Created by gpotts on 1/28/16.
@@ -16,10 +17,19 @@ class UniversalQueryCommand implements Validateable
    String item
 
    /**
+    * bias applied to the specified item
+    */
+   Double itemBias
+
+   /**
     * Get recomendations for a given user
     */
    String user
 
+   /**
+    * Bias applied more to the user
+    */
+   Double userBias
    /**
     * These are specific event names such a "view" or "buy",  This is a comma separated
     * list of events.  So if you want view recommendations then your event names would just
@@ -41,15 +51,20 @@ class UniversalQueryCommand implements Validateable
 
    def dateRange
 
+   DateTime currentDate
+
    Integer num = 10
 
    static constraints = {
       appName nullable:false, blank:false
       item nullable:true
+      itemBias nullable:true
       user nullable:true
+      userBias nullable:true
       eventNames nullable:true
       fields nullable:true
       dateRange nullable:true
+      currentDate nullable:true
       num validator:{val ->
          ((val!=null)&&(val>0))
       }

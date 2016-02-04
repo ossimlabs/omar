@@ -3,6 +3,8 @@ import io.prediction.Event;
 import io.prediction.EventClient
 import io.prediction.EngineClient
 import grails.transaction.Transactional
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import org.springframework.http.HttpStatus
 import com.google.gson.JsonObject
 
@@ -88,9 +90,6 @@ class PredioService
       if(cmd.eventTime) universalCmd.eventTime = cmd.eventTime
       universalCmd.properties = properties?:null
 
-
-      println universalCmd
-
       sendUniversalEvent(universalCmd)
    }
 
@@ -98,9 +97,10 @@ class PredioService
    {
       // setup universal command and call the service
       UniversalQueryCommand universalCmd = new UniversalQueryCommand()
-      universalCmd.user    = cmd.user
-      universalCmd.appName = cmd.appName
-      universalCmd.num     = cmd.num
+      universalCmd.user     = cmd.user
+      universalCmd.userBias = cmd.userBias
+      universalCmd.appName  = cmd.appName
+      universalCmd.num      = cmd.num
 
       def locations = []
       def categories = []
@@ -127,18 +127,95 @@ class PredioService
       {
          HashMap mapping = [name:"categories",
                             values:categories]
-         if(cmd.categoryBiasBias!=null)
+         if(cmd.categoryBias!=null)
          {
-            mapping.bias = cmd.categoryBiasBias
+            mapping.bias = cmd.categoryBias
          }
          fields << mapping
       }
-
+      if(cmd.useCurrentDateFilter)
+      {
+         universalCmd."currentDate" = new DateTime().withZone(DateTimeZone.UTC);
+      }
+      else if(cmd.beforeAvailableDate||cmd.afterAvailableDate)
+      {
+         universalCmd.dateRange = [name:"availableDate"]
+         if(cmd.afterAvailableDate)
+         {
+            universalCmd.dateRange.after =  cmd.afterAvailableDate.toString()
+         }
+         if(cmd.beforeAvailableDate)
+         {
+            universalCmd.dateRange.before =  cmd.beforeAvailableDate.toString()
+         }
+      }
       if(fields) universalCmd.fields = fields
 
 
       getRecommendations(universalCmd)
    }
+   def getItemRecommendations(ItemRecommendationCommand cmd)
+   {
+      // setup universal command and call the service
+      UniversalQueryCommand universalCmd = new UniversalQueryCommand()
+      universalCmd.item     = cmd.item
+      universalCmd.itemBias = cmd.itemBias
+      universalCmd.appName  = cmd.appName
+      universalCmd.num      = cmd.num
+
+      def locations = []
+      def categories = []
+
+      def fields = []
+
+      cmd.locations?.split(",").each{location->
+         locations << location.trim()
+      }
+      cmd.categories?.split(",").each{category->
+         categories << category.trim()
+      }
+      if(locations)
+      {
+         HashMap mapping = [name:"locations",
+                            values:locations]
+         if(cmd.locationBias!=null)
+         {
+            mapping.bias = cmd.locationBias
+         }
+         fields << mapping
+      }
+      if(categories)
+      {
+         HashMap mapping = [name:"categories",
+                            values:categories]
+         if(cmd.categoryBias!=null)
+         {
+            mapping.bias = cmd.categoryBias
+         }
+         fields << mapping
+      }
+      if(cmd.useCurrentDateFilter)
+      {
+         universalCmd."currentDate" = new DateTime().withZone(DateTimeZone.UTC);
+      }
+      else if(cmd.beforeAvailableDate||cmd.afterAvailableDate)
+      {
+         universalCmd.dateRange = [name:"availableDate"]
+         if(cmd.afterAvailableDate)
+         {
+            universalCmd.dateRange.after =  cmd.afterAvailableDate.toString()
+         }
+         if(cmd.beforeAvailableDate)
+         {
+            universalCmd.dateRange.before =  cmd.beforeAvailableDate.toString()
+         }
+      }
+      if(fields) universalCmd.fields = fields
+
+      getRecommendations(universalCmd)
+   }
+
+
    def getRecommendations(UniversalQueryCommand cmd)
    {
       HashMap result = [status     : HttpStatus.OK,
@@ -158,9 +235,12 @@ class PredioService
 
                if (cmd.fields) queryParams.fields = cmd.fields
                if (cmd.dateRange) queryParams.dateRange = cmd.dateRange
+               if (cmd.currentDate) queryParams.currentDate = cmd.currentDate
                if (cmd.eventNames) queryParams.eventNames = cmd.eventNames
                if (cmd.item) queryParams.item = cmd.item
+               if (cmd.itemBias != null) queryParams.itemBias = cmd.itemBias
                if (cmd.user) queryParams.user = cmd.user
+               if (cmd.userBias!=null) queryParams.userBias = cmd.userBias
                if (cmd.num) queryParams.num = cmd.num
 
                JsonObject jsonObject = engine.sendQuery(queryParams)

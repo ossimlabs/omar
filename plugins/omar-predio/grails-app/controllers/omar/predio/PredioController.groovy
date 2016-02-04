@@ -153,6 +153,14 @@ class PredioController
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'appName', value = 'Application name', allowableValues="[omar_universal]", defaultValue = 'omar_universal', required=true, paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'item', value = 'Item id', defaultValue = '', paramType = 'query', required=true, dataType = 'string'),
+           @ApiImplicitParam(name = 'itemBias', value = 'Item bias', defaultValue = '', paramType = 'query', dataType = 'float'),
+           @ApiImplicitParam(name = 'locations', value = 'Locations', defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'locationBias', value = 'Location bias', defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'categories', value = 'Categories', defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'categoryBias', value = 'Category bias', defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'beforeAvailableDate', value = 'Before Available Date', defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'afterAvailableDate', value = 'After Available Date', defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'useCurrentDateFilter', value = 'Use Current Date Filter', allowableValues="[true,false]", defaultValue = 'true', paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'num', value = 'Maximum results', defaultValue = '10', paramType = 'query', dataType = 'int'),
    ])
    def getItemRecommendations()
@@ -164,14 +172,9 @@ class PredioController
       if(jsonData) requestParams << jsonData
       BindUtil.fixParamNames( ItemRecommendationCommand, requestParams )
       bindData( cmd, requestParams )
-
-      // setup universal command and call the service
-      UniversalQueryCommand universalCmd = new UniversalQueryCommand()
-      universalCmd.item    = cmd.item
-      universalCmd.appName = cmd.appName
-      universalCmd.num     = cmd.num
-
-      HashMap result = predioService.getRecommendations(universalCmd)
+      println "*"*40
+      println cmd
+      HashMap result = predioService.getItemRecommendations(cmd)
 
       response.status      = result.status.value()
       response.contentType = result.contentType
@@ -182,10 +185,14 @@ class PredioController
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'appName', value = 'Application name', allowableValues="[omar_universal]", defaultValue = 'omar_universal', required=true, paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'user', value = 'User id', defaultValue = '', paramType = 'query', required=true, dataType = 'string'),
+           @ApiImplicitParam(name = 'userBias', value = 'User bias', defaultValue = '', paramType = 'query', dataType = 'float'),
            @ApiImplicitParam(name = 'locations', value = 'Locations', defaultValue = '', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'locationBias', value = 'Location bias', defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'locationBias', value = 'Location bias', defaultValue = '', paramType = 'query', dataType = 'float'),
            @ApiImplicitParam(name = 'categories', value = 'Categories', defaultValue = '', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'categoryBias', value = 'Category bias', defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'categoryBias', value = 'Category bias', defaultValue = '', paramType = 'query', dataType = 'float'),
+           @ApiImplicitParam(name = 'beforeAvailableDate', value = 'Before Available Date', defaultValue = '', paramType = 'query', dataType = 'date'),
+           @ApiImplicitParam(name = 'afterAvailableDate', value = 'After Available Date', defaultValue = '', paramType = 'query', dataType = 'date'),
+           @ApiImplicitParam(name = 'useCurrentDateFilter', value = 'Use Current Date Filter', allowableValues="[true,false]", defaultValue = 'true', paramType = 'query', dataType = 'boolean'),
            @ApiImplicitParam(name = 'num', value = 'Maximum results', defaultValue = '10', paramType = 'query', dataType = 'int'),
    ])
    def getUserRecommendations()
@@ -200,6 +207,8 @@ class PredioController
 
       HashMap result = predioService.getUserRecommendations(cmd)
 
+      println "*"*40
+      println cmd
       response.status      = result.status.value()
       response.contentType = result.contentType
       render result.message
