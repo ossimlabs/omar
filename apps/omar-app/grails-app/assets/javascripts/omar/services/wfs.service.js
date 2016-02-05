@@ -158,7 +158,7 @@
                 var wfsImagesList = [];
                 trendData.data.itemScores.filter(function(el){
 
-                    console.log(el);
+                    //console.log(el);
                     wfsImagesList.push(el.item);
 
                 });
