@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('MapOrthoController', ['APP_CONFIG', '$stateParams', '$http', MapOrthoController]);
+        .controller('MapOrthoController', ['APP_CONFIG', '$state', '$stateParams', '$http', MapOrthoController]);
 
-    function MapOrthoController(APP_CONFIG, $stateParams, $http){
+    function MapOrthoController(APP_CONFIG, $state, $stateParams, $http){
 
         /* jshint validthis: true */
         var vm = this;
@@ -41,45 +41,90 @@
             cql: '',
         };
 
-        wfsRequest.cql = 'id in(' + imageLayerIds + ')';
+        function getImageBounds(imageIds){
 
-        //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-        var wfsRequestUrl = '/o2/wfs?';
+            wfsRequest.cql = 'id in(' + imageIds + ')';
 
-        var wfsUrl = wfsRequestUrl +
-            "service=WFS" +
-            "&version=" + wfsRequest.version +
-            "&request=GetFeature" +
-            "&typeName=" + wfsRequest.typeName +
-            "&filter=" + wfsRequest.cql +
-            "&outputFormat=" + wfsRequest.outputFormat;
+            var wfsRequestUrl = '/o2/wfs?';
 
-        var url = encodeURI(wfsUrl);
+            var wfsUrl = wfsRequestUrl +
+                "service=WFS" +
+                "&version=" + wfsRequest.version +
+                "&request=GetFeature" +
+                "&typeName=" + wfsRequest.typeName +
+                "&filter=" + wfsRequest.cql +
+                "&outputFormat=" + wfsRequest.outputFormat;
 
-        // Make a call to the WFS service to get the geometry.
-        // TODO: Add the metadata to a tab on the image
-        $http({
-            method: 'GET',
-            url: url
-        })
-        .then(function(response) {
+            var url = encodeURI(wfsUrl);
 
-            var data;
-            data = response.data.features;
-            console.log('mapOrtho WFS data: ', data[0]);
+            $http({
+                method: 'GET',
+                url: url
+            })
+            .then(function(response) {
 
-            var imageFeature = new ol.Feature({
-                geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
+                var data;
+                data = response.data.features;
+                console.log('mapOrtho WFS data: ', data[0]);
+
+                var imageFeature = new ol.Feature({
+                    geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
+                });
+
+                vectorLayer.getSource().addFeature(imageFeature);
+
+                var featureExtent = imageFeature.getGeometry().getExtent();
+
+                // Moves the map to the extent of the search item
+                mapOrtho.getView().fit(featureExtent, mapOrtho.getSize());
+
             });
 
-            vectorLayer.getSource().addFeature(imageFeature);
 
-            var featureExtent = imageFeature.getGeometry().getExtent();
 
-            // Moves the map to the extent of the search item
-            mapOrtho.getView().fit(featureExtent, mapOrtho.getSize());
+        }
 
-        });
+        getImageBounds(recommendImageId);
+
+        //wfsRequest.cql = 'id in(' + imageLayerIds + ')';
+        //
+        ////var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
+        //var wfsRequestUrl = '/o2/wfs?';
+        //
+        //var wfsUrl = wfsRequestUrl +
+        //    "service=WFS" +
+        //    "&version=" + wfsRequest.version +
+        //    "&request=GetFeature" +
+        //    "&typeName=" + wfsRequest.typeName +
+        //    "&filter=" + wfsRequest.cql +
+        //    "&outputFormat=" + wfsRequest.outputFormat;
+        //
+        //var url = encodeURI(wfsUrl);
+        //
+        //// Make a call to the WFS service to get the geometry.
+        //// TODO: Add the metadata to a tab on the image
+        //$http({
+        //    method: 'GET',
+        //    url: url
+        //})
+        //.then(function(response) {
+        //
+        //    var data;
+        //    data = response.data.features;
+        //    console.log('mapOrtho WFS data: ', data[0]);
+        //
+        //    var imageFeature = new ol.Feature({
+        //        geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
+        //    });
+        //
+        //    vectorLayer.getSource().addFeature(imageFeature);
+        //
+        //    var featureExtent = imageFeature.getGeometry().getExtent();
+        //
+        //    // Moves the map to the extent of the search item
+        //    mapOrtho.getView().fit(featureExtent, mapOrtho.getSize());
+        //
+        //});
 
         imageLayers = new ol.layer.Tile({
             opacity: 1.0,
@@ -103,7 +148,6 @@
             maxZoom: 18
         });
 
-        //var coordTemplate = '{y}, {x}';
         var mousePositionControl = new ol.control.MousePosition({
             coordinateFormat: function(coord) {
 
@@ -226,6 +270,25 @@
             });
 
         }
+
+        vm.switchMapImage = function(id) {
+
+            console.log(id);
+
+            //Set url parameter for the layer
+            $state.transitionTo('mapOrtho', {layers: id}, { notify: false });
+
+            //Update the map parameters with the new image db id
+            var params = imageLayers.getSource().getParams();
+            console.log('params: ', params);
+            params.FILTER = "in(" + id + ")"
+            imageLayers.getSource().updateParams(params);
+
+            //TODO: execute the wfs to get the bounds
+            getImageBounds(id);
+
+        };
+
 
     }
 

@@ -72,7 +72,8 @@
                                slides-to-show=8
                                slides-to-scroll=1 dots="true" infinite="false">
                             <div ng-repeat="image in ortho.recommendedImages">
-                                <img style="height: 100px; width: 100px; border-radius: 10px;" ng-click="home.imageClick(image.properties.id);"
+                                <img style="height: 100px; width: 100px; border-radius: 10px;"
+                                     ng-click="ortho.switchMapImage(image.properties.id);"
                                      ng-src="/o2/imageSpace/getThumbnail?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=100&format=jpeg"
                                      tooltip-placement="bottom"
                                      uib-tooltip="{{image.properties.title}}"
