@@ -287,6 +287,8 @@
             //TODO: execute the wfs to get the bounds
             getImageBounds(id);
 
+            //TODO: Call predio to update the recommended images
+
         };
 
 
