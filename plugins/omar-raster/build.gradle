@@ -50,9 +50,15 @@ dependencyManagement {
     applyMavenExclusions false
 }
 
+grails {
+    exploded = true
+    plugins {
+      compile project(':omar-stager')
+    }
+}
+
 dependencies {
 
-  compile project(':omar-stager')
 
   // compile 'org.grails.plugins:joda-time:2.0.0'
   // compile 'org.jadira.usertype:usertype.core:3.2.0.GA'
