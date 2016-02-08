@@ -52,8 +52,14 @@ dependencyManagement {
     applyMavenExclusions false
 }
 
+grails {
+    exploded = true
+    plugins {
+      compile project(':omar-wfs')
+    }
+}
+
 dependencies {
-    compile project(':omar-wfs')
 
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"

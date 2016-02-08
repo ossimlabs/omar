@@ -56,9 +56,15 @@ dependencyManagement {
   applyMavenExclusions false
 }
 
+grails {
+    exploded = true
+    plugins {
+      compile project( ':omar-oms' )
+      compile project( ':omar-geoscript' )
+    }
+}
+
 dependencies {
-  compile project( ':omar-oms' )
-  compile project( ':omar-geoscript' )
 
   provided 'org.springframework.boot:spring-boot-starter-logging'
   provided "org.springframework.boot:spring-boot-starter-actuator"
