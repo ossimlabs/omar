@@ -8,7 +8,8 @@ include 'omar-core',
 	'omar-app', 
 	'wfs-app', 
 	'hlz-app', 
-	'superoverlay-app'
+	'superoverlay-app',
+	'swipe-app'
 
 // Plugins
 project(':omar-core').projectDir = 'plugins/omar-core' as File
@@ -24,3 +25,4 @@ project(':omar-app').projectDir = 'apps/omar-app' as File
 project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':hlz-app').projectDir = 'apps/hlz-app' as File
 project(':superoverlay-app').projectDir = 'apps/superoverlay-app' as File
+project(':swipe-app').projectDir = 'apps/swipe-app' as File

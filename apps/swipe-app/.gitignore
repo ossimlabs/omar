@@ -1,5 +1,3 @@
-OmarPredioGrailsPlugin.groovy
-.gradle
 Thumbs.db
 .DS_Store
 .gradle
@@ -11,7 +9,3 @@ build/
 .project
 .settings
 .classpath
-node_modules
-apps/omar-app/.asscache
-*.db
-.asscache
