@@ -12,11 +12,8 @@ include 'omar-core',
 	'wfs-app', 
 	'hlz-app', 
 	'superoverlay-app',
-<<<<<<< HEAD
-	'swipe-app'
-=======
+	'swipe-app',
 	'stager-app'
->>>>>>> 6d58d00e4239bd7bf0d6c9bde65814d62b812d8a
 
 // Plugins
 project(':omar-core').projectDir = 'plugins/omar-core' as File
@@ -35,8 +32,5 @@ project(':omar-app').projectDir = 'apps/omar-app' as File
 project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':hlz-app').projectDir = 'apps/hlz-app' as File
 project(':superoverlay-app').projectDir = 'apps/superoverlay-app' as File
-<<<<<<< HEAD
 project(':swipe-app').projectDir = 'apps/swipe-app' as File
-=======
 project(':stager-app').projectDir = 'apps/stager-app' as File
->>>>>>> 6d58d00e4239bd7bf0d6c9bde65814d62b812d8a
