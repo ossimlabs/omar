@@ -159,7 +159,7 @@
             // TODO: Follow up on moving this to a PIO service...
             vm.getTrendingPio = function(){
 
-                console.log('showPopularItems firing...');
+                //console.log('showPopularItems firing...');
                 var pioUrl = '/o2/predio/getPopularItems';
                 $http({
                     method: 'GET',
@@ -168,7 +168,7 @@
                 .then(function(response) {
                     var data;
                     data = response;  // callback response from Predictive IO service
-                    console.log(data);
+                    //console.log(data);
                     //formatTrendingList(data);
                     wfsService.executeWfsTrendingThumbs(data);
                 });

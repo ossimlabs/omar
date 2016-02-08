@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('MapOrthoController', ['APP_CONFIG', '$stateParams', '$http', MapOrthoController]);
+        .controller('MapOrthoController', ['APP_CONFIG', '$scope', '$state', '$stateParams', '$http', MapOrthoController]);
 
-    function MapOrthoController(APP_CONFIG, $stateParams, $http){
+    function MapOrthoController(APP_CONFIG, $scope, $state, $stateParams, $http){
 
         /* jshint validthis: true */
         var vm = this;
@@ -22,17 +22,6 @@
             vectorLayer,
             recommendImageId;
 
-        imageLayerIds = $stateParams.layers;
-        imageLayerIds.split(",");
-
-        recommendImageId = imageLayerIds[0]; // grab the first image in query string param
-        console.log('recommendId: ', recommendImageId);
-
-        vectorLayer = new ol.layer.Vector({
-            opacity: 0.0,
-            source: new ol.source.Vector()
-        });
-
         var wfsRequest = {
             typeName: 'omar:raster_entry',
             namespace: 'http://omar.ossim.org',
@@ -41,52 +30,95 @@
             cql: '',
         };
 
-        wfsRequest.cql = 'id in(' + imageLayerIds + ')';
+        imageLayerIds = $stateParams.layers.split(",");
 
-        //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-        var wfsRequestUrl = '/o2/wfs?';
+        console.log('imageLayerIds', imageLayerIds);
 
-        var wfsUrl = wfsRequestUrl +
-            "service=WFS" +
-            "&version=" + wfsRequest.version +
-            "&request=GetFeature" +
-            "&typeName=" + wfsRequest.typeName +
-            "&filter=" + wfsRequest.cql +
-            "&outputFormat=" + wfsRequest.outputFormat;
+        vectorLayer = new ol.layer.Vector({
+            opacity: 0.0,
+            source: new ol.source.Vector()
+        });
 
-        var url = encodeURI(wfsUrl);
+        getImageBounds(imageLayerIds);
 
-        // Make a call to the WFS service to get the geometry.
-        // TODO: Add the metadata to a tab on the image
-        $http({
-            method: 'GET',
-            url: url
-        })
-        .then(function(response) {
+        function getImageBounds(imageIds){
 
-            var data;
-            data = response.data.features;
-            console.log('mapOrtho WFS data: ', data[0]);
+            wfsRequest.cql = 'id in(' + imageIds + ')';
 
-            var imageFeature = new ol.Feature({
-                geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
+            console.log('wfsRequest.cql', wfsRequest.cql);
+
+            var wfsRequestUrl = '/o2/wfs?';
+
+            var wfsUrl = wfsRequestUrl +
+                "service=WFS" +
+                "&version=" + wfsRequest.version +
+                "&request=GetFeature" +
+                "&typeName=" + wfsRequest.typeName +
+                "&filter=" + wfsRequest.cql +
+                "&outputFormat=" + wfsRequest.outputFormat;
+
+            var url = encodeURI(wfsUrl);
+
+            $http({
+                method: 'GET',
+                url: url
+            })
+            .then(function(response) {
+
+                var data;
+                data = response.data.features;
+                //console.log('mapOrtho WFS data: ', data);
+                //console.log('data.length', data.length);
+
+                // If there is more than one image we can get the extent
+                // of the vectorLayer to set the maps extent
+                if (data.length > 1){
+
+                    // Add each image to the vectorLayer
+                    angular.forEach(data, function(image){
+
+                        var imageFeature = new ol.Feature({
+                            geometry: new ol.geom.MultiPolygon(image.geometry.coordinates)
+                        });
+
+                        vectorLayer.getSource().addFeature(imageFeature);
+
+                    });
+
+
+                    var vectorLayerExtent = vectorLayer.getSource().getExtent();
+
+                    // Sets the map's extent to all of the images in the vectorLayer
+                    mapOrtho.getView().fit(vectorLayerExtent, mapOrtho.getSize());
+
+                }
+                // If there is only one image we need to use the extent of the feature (image)
+                // in the vectorLayer
+                else {
+
+                    var imageFeature = new ol.Feature({
+                        geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
+                    });
+
+                    vectorLayer.getSource().addFeature(imageFeature);
+
+                    var featureExtent = imageFeature.getGeometry().getExtent();
+
+                    // Moves the map to the extent of the one image
+                    mapOrtho.getView().fit(featureExtent, mapOrtho.getSize());
+
+                }
+
             });
 
-            vectorLayer.getSource().addFeature(imageFeature);
-
-            var featureExtent = imageFeature.getGeometry().getExtent();
-
-            // Moves the map to the extent of the search item
-            mapOrtho.getView().fit(featureExtent, mapOrtho.getSize());
-
-        });
+        }
 
         imageLayers = new ol.layer.Tile({
             opacity: 1.0,
             source: new ol.source.TileWMS( {
                 url: '/o2/wms?',
                 params: {
-                    'LAYERS': 'omar:raster_entry', //imageLayerIds,
+                    'LAYERS': 'omar:raster_entry',
                     'FILTER' : "in(" + imageLayerIds + ")",
                     'TILED': true,
                     'VERSION': '1.1.1'
@@ -103,7 +135,6 @@
             maxZoom: 18
         });
 
-        //var coordTemplate = '{y}, {x}';
         var mousePositionControl = new ol.control.MousePosition({
             coordinateFormat: function(coord) {
 
@@ -158,30 +189,32 @@
             view: mapOrthoView
         });
 
-        function getRecommendedImages(){
+        function getRecommendedImages(imageId){
 
-            var pioUrl = '/o2/predio/getItemRecommendations?item=' + recommendImageId + '&num=20';
+            console.log('imageId', imageId);
+            var pioUrl = '/o2/predio/getItemRecommendations?item=' + imageId + '&num=20';
             $http({
                 method: 'GET',
                 url: pioUrl
             })
-                .then(function(response) {
-                    var data;
-                    data = response;  // callback response from Predictive IO service
-                    console.log(data);
-                    formatRecommendedList(data);
-                    //wfsService.executeWfsTrendingThumbs(data);
-                });
+            .then(function(response) {
+                var data;
+                data = response;  // callback response from Predictive IO service
+                console.log(data);
+                formatRecommendedList(data);
+
+            });
 
         }
-        getRecommendedImages();
+        // first time we will use the the first item in query string param
+        getRecommendedImages(imageLayerIds[0]);
 
         function formatRecommendedList(data) {
 
             var wfsImagesList = [];
             data.data.itemScores.filter(function(el){
 
-                console.log(el);
+                //console.log(el);
                 wfsImagesList.push(el.item);
 
             });
@@ -221,11 +254,37 @@
                 var data;
                 data = response.data.features;
                 console.log('data from wfs', data);
+
                 vm.recommendedImages = data;
-                    vm.loading = false;
+                vm.loading = false;
             });
 
         }
+
+        vm.switchMapImage = function(id) {
+
+            console.log(id);
+
+            //Set url parameter for the layer
+            $state.transitionTo('mapOrtho', {layers: id}, { notify: false });
+
+            //Update the map parameters with the new image db id
+            var params = imageLayers.getSource().getParams();
+            console.log('params: ', params);
+            params.FILTER = "in(" + id + ")"
+            imageLayers.getSource().updateParams(params);
+            console.log('params: ', params);
+
+            //Execute call to the wfs service to get the bounds
+            getImageBounds(id);
+
+            //TODO: Call predio to update the recommended images
+            // Need to fix the bug with the image elements not lining up properly on
+            // a new call to get new recommendations
+            //getRecommendedImages(id);
+
+        };
+
 
     }
 

@@ -72,22 +72,19 @@
                                slides-to-show=8
                                slides-to-scroll=1 dots="true" infinite="false">
                             <div ng-repeat="image in ortho.recommendedImages">
-                                <img style="height: 100px; width: 100px; border-radius: 10px;" ng-click="home.imageClick(image.properties.id);"
+                                <img style="height: 100px; width: 100px; border-radius: 10px;"
+                                     ng-click="ortho.switchMapImage(image.properties.id);"
                                      ng-src="/o2/imageSpace/getThumbnail?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=100&format=jpeg"
                                      tooltip-placement="bottom"
                                      uib-tooltip="{{image.properties.title}}"
                                      alt="Some text here...">
                                 <div class="text-left">
-                                    <!--<uib-rating ng-model="home.trendRating" max="max" readonly="isReadonly"-->
-                                    <!--titles="['one','two','three']"-->
-                                    <!--aria-labelledby="default-rating"></uib-rating>-->
                                     <p><small>
                                         <!--<strong>Image ID:&nbsp;</strong>-->
                                         <!--<span class="text-success">-->
                                         <!--<span ng-show="!image.properties.title">Unknown</span>-->
                                         <!--{{image.properties.title}}</span><br>-->
                                         <!--</span>-->
-
                                         <strong>Acquired:&nbsp;</strong>
                                             <span class="text-success" style="font-size: 12px">
                                                 <span ng-show="!image.properties.acquisition_date">Unknown</span>
