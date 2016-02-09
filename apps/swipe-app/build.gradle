@@ -63,6 +63,18 @@ dependencies {
     compile 'org.webjars:bootstrap:3.3.5'
     compile 'org.webjars.bower:angularjs:1.4.8'
 
+    // Font stuff
+    compile 'org.webjars:font-awesome:4.4.0'
+    // Dark .css themes
+    compile 'org.webjars:bootswatch-darkly:3.3.5+4'
+    compile 'org.webjars:bootswatch-slate:3.3.5+4'
+    compile 'org.webjars:bootswatch-superhero:3.3.5+4'
+
+    // Light .css themes
+    compile 'org.webjars:bootswatch-spacelab:3.3.5+4'
+    compile 'org.webjars:bootswatch-cosmo:3.3.5+4'
+    compile 'org.webjars:bootswatch-flatly:3.3.5+4'
+    compile 'org.webjars:bootswatch-default:3.3.5+4'
 
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"
