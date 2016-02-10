@@ -1,7 +1,5 @@
-import omar.security.Requestmap
-import omar.security.SecUser
-import omar.security.SecRole
-import omar.security.SecUserSecRole
+package omar.security
+
 import grails.plugin.springsecurity.SpringSecurityUtils
 
 class OmarSecurityBootStrap
@@ -31,13 +29,19 @@ class OmarSecurityBootStrap
                email         : "admin@ossim.org"],
       ]
       def users = []
-      userData.each {
-        if (!SecUser.findByUsername(it.username))
-        {
-          def user = new SecUser(it)
-          user.encodePassword()
-          user.save(flush: true)
-          users << user
+
+      //  Only add default users if requested to do so
+      //
+      if(OmarSecurityUtils.securityConfig.bootstrap.addDefaultUsers)
+      {
+        userData.each {
+          if (!SecUser.findByUsername(it.username))
+          {
+            def user = new SecUser(it)
+            user.encodePassword()
+            user.save(flush: true)
+            users << user
+          }
         }
       }
       users.each { user ->
@@ -50,36 +54,42 @@ class OmarSecurityBootStrap
         }
       }
 
-      for (String url in [
-              '/', '/error', '/index', '/index.gsp', '/**/favicon.ico', '/shutdown',
-              '/**/js/**', '/**/css/**', '/**/images/**',
-              '/login', '/login.*', '/login/*',
-              '/logout', '/logout.*', '/logout/*'])
+      // Only add request map definitions if request map config type is "requestmap"
+      //
+      if(SpringSecurityUtils.securityConfig.securityConfigType.toLowerCase() == "requestmap")
       {
-        if (!Requestmap.findByUrl(url))
+        println "REQUEST MAP ENABLED!!!!!!!!!!!!!!!!!!!!!!"
+        for (String url in [
+                '/', '/error', '/index', '/index.gsp', '/**/favicon.ico', '/shutdown',
+                '/**/js/**', '/**/css/**', '/**/images/**',
+                '/login', '/login.*', '/login/*',
+                '/logout', '/logout.*', '/logout/*'])
         {
-          new Requestmap(url: url, configAttribute: 'permitAll').save(flush: true)
+          if (!Requestmap.findByUrl(url))
+          {
+            new Requestmap(url: url, configAttribute: 'permitAll').save(flush: true)
+          }
         }
-      }
 
-      for (String url in [
-              '/secRole/save/**', '/secRole/update/**', '/secRole/delete/**', '/secRole/edit/**',
-              '/secUser/save/**', '/secUser/update/**', '/secUser/delete/**', '/secUser/edit/**',
-              '/secUserSecRole/save/**', '/secUser/update/**', '/secUser/delete/**', '/secUser/edit/**'])
-      {
-        if (!Requestmap.findByUrl(url))
+        for (String url in [
+                '/secRole/save/**', '/secRole/update/**', '/secRole/delete/**', '/secRole/edit/**',
+                '/secUser/save/**', '/secUser/update/**', '/secUser/delete/**', '/secUser/edit/**',
+                '/secUserSecRole/save/**', '/secUser/update/**', '/secUser/delete/**', '/secUser/edit/**'])
         {
-          new Requestmap(url: url, configAttribute: 'ROLE_ADMIN').save(flush: true)
+          if (!Requestmap.findByUrl(url))
+          {
+            new Requestmap(url: url, configAttribute: 'ROLE_ADMIN').save(flush: true)
+          }
         }
-      }
-      for (String url in [
-              '/secRole/*', '/secRole/show/**', '/secRole/index/**',
-              '/secUser/*', '/secUser/show/**', '/secUser/index/**',
-              '/secUserSecRole/*', '/secUserSecRole/show/**', '/secUserSecRole/index/**'])
-      {
-        if (!Requestmap.findByUrl(url))
+        for (String url in [
+                '/secRole/*', '/secRole/show/**', '/secRole/index/**',
+                '/secUser/*', '/secUser/show/**', '/secUser/index/**',
+                '/secUserSecRole/*', '/secUserSecRole/show/**', '/secUserSecRole/index/**'])
         {
-          new Requestmap(url: url, configAttribute: 'ROLE_USER').save(flush: true)
+          if (!Requestmap.findByUrl(url))
+          {
+            new Requestmap(url: url, configAttribute: 'ROLE_USER').save(flush: true)
+          }
         }
       }
     }

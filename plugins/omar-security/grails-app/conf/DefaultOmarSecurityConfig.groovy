@@ -8,4 +8,7 @@ security{
       defaultRoles = ["ROLE_USER"]
       userOverrides = []
    }
+   bootstrap {
+      addDefaultUsers = true
+   }
 }

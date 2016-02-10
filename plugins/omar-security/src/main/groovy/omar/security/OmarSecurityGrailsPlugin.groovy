@@ -49,9 +49,8 @@ Brief summary/description of the plugin.
        OmarSecurityUtils.resetSecurityConfig()
        def conf = OmarSecurityUtils.securityConfig
 
-       println "*"*40
-       println conf
-       println "*"*40
+       // If spring security is enabled then setup and return the pre authentication beans
+       //
        if(SpringSecurityUtils.securityConfig?.active)
        {
           return      {->
@@ -76,6 +75,7 @@ Brief summary/description of the plugin.
           }
        }
 
+       // return no beans if authentication is disabled
        return {->
 
        }
