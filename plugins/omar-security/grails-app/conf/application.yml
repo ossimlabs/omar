@@ -116,9 +116,9 @@ environments:
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
-#
+##################################################################
 # Items specific to omar-security plugin
-#
+##################################################################
 grails:
     plugin:
         springsecurity:
@@ -176,16 +176,31 @@ omar:
 #                  - ROLE_ADMIN
 
 # Example on enabling logging
+# LEVELS:
+# off
+# fatal
+# error
+# warn
+# info
+# debug
+# trace
+# all
 logging:
     level:
         omar.security: INFO
 
 
+## Enable and disable spring security ##
+#
+#
 #grails:
 #  plugin:
 #    springsecurity:
 #      active: false
 
+#
+# Remember me support
+#
 grails:
   plugin:
     springsecurity:
@@ -193,3 +208,5 @@ grails:
         persistent: true
         persistentToken:
              domainClassName: 'omar.security.PersistentLogin'
+# Uncomment for disabling spring security.  Shoudl be child of springsecurity
+ #    active: false
