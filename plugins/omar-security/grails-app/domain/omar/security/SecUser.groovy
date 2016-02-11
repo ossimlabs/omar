@@ -4,6 +4,7 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.access.annotation.Secured
 
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
@@ -54,12 +55,12 @@ class SecUser implements Serializable {
 		result
 	}
 	def beforeInsert() {
-		//encodePassword()
+		encodePassword()
 	}
 
 	def beforeUpdate() {
 		if (isDirty('password')) {
-			//encodePassword()
+			encodePassword()
 		}
 	}
 	

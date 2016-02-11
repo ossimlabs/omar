@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.util.Assert;
 
 public class RequestHeaderAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter{
-    String principalRequestHeader = "REMOTE_USER";
-    String credentialsRequestHeader = "REMOTE_PASSWORD";
+    String usernameRequestHeader = "REMOTE_USER";
+    String passwordRequestHeader = "REMOTE_PASSWORD";
     boolean exceptionIfHeaderMissing = false;
 
     /**
@@ -21,15 +21,13 @@ public class RequestHeaderAuthenticationFilter extends AbstractPreAuthenticatedP
      *          is set to {@code true}.
      */
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
-       println "WE ARE LOOKING FOR USER IN REQUEST HEADER VARIABLE ${principalRequestHeader}"
-        String principal  = request.getHeader(principalRequestHeader)
-       println "PRINCIPAL LOOKUP IS? ${principal}"
-        if (principal == null && exceptionIfHeaderMissing) {
-            throw new PreAuthenticatedCredentialsNotFoundException(principalRequestHeader
+        String username  = request.getHeader(usernameRequestHeader)
+        if (username == null && exceptionIfHeaderMissing) {
+            throw new PreAuthenticatedCredentialsNotFoundException(usernameRequestHeader
                     + " header not found in request.");
         }
 
-        principal;
+       username;
     }
 
     /**
@@ -37,8 +35,8 @@ public class RequestHeaderAuthenticationFilter extends AbstractPreAuthenticatedP
      * will be read and used as the credentials value. Otherwise a dummy value will be used.
      */
     protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
-       if (credentialsRequestHeader) {
-            return request.getHeader(credentialsRequestHeader);
+       if (passwordRequestHeader) {
+            return request.getHeader(passwordRequestHeader);
         }
 
        return "N/A";

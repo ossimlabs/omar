@@ -132,7 +132,7 @@ grails:
                 userDomainClassName: omar.security.SecUser
                 authorityJoinClassName: omar.security.SecUserSecRoll
             authority:
-                className: omar.security.SecUserSecRole
+                className: omar.security.SecRole
             requestMap:
                 className: omar.security.Requestmap
             filterChain:
@@ -156,6 +156,9 @@ grails:
                   pattern: '/**'
                   filters: 'JOINED_FILTERS'
 
+logging:
+    level:
+        omar.security: INFO
 #omar:
 #    security:
 #        preauth:

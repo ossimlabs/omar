@@ -18,7 +18,7 @@ class SecRole implements Serializable {
 
 	static constraints = {
 		authority blank: false, unique: true
-		description: nullable:true
+		description nullable:true
 	}
 
 	static mapping = {

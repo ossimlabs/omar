@@ -56,8 +56,9 @@ Brief summary/description of the plugin.
           return      {->
              preAuthenticationFilter(RequestHeaderAuthenticationFilter){
                 authenticationManager              = ref('authenticationManager')
-                principalRequestHeader             = OmarSecurityUtils.securityConfig.preauth.requestHeader.username
-                credentialsRequestHeader           = OmarSecurityUtils.securityConfig.preauth.requestHeader.password
+                usernameRequestHeader              = OmarSecurityUtils.securityConfig.preauth.requestHeader.username
+                passwordRequestHeader              = OmarSecurityUtils.securityConfig.preauth.requestHeader.password
+                exceptionIfHeaderMissing           = OmarSecurityUtils.securityConfig.preauth.exceptionIfHeaderMissing
                 invalidateSessionOnPrincipalChange = true
              }
              omarUserDetailsService(UserDetailsService){

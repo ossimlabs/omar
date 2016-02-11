@@ -1,13 +1,17 @@
 package omar.security
 
 import grails.plugin.springsecurity.SpringSecurityUtils
+import groovy.util.logging.Slf4j
 
+@Slf4j
 class OmarSecurityBootStrap
 {
   def springSecurityService
   def grailsApplication
 
   def init = { servletContext ->
+
+    log.info("OmarSecurityBootStrap: init entered....................")
 
     if(SpringSecurityUtils.securityConfig?.active)
     {
@@ -38,7 +42,6 @@ class OmarSecurityBootStrap
           if (!SecUser.findByUsername(it.username))
           {
             def user = new SecUser(it)
-            user.encodePassword()
             user.save(flush: true)
             users << user
           }
@@ -58,12 +61,11 @@ class OmarSecurityBootStrap
       //
       if(SpringSecurityUtils.securityConfig.securityConfigType.toLowerCase() == "requestmap")
       {
-        println "REQUEST MAP ENABLED!!!!!!!!!!!!!!!!!!!!!!"
         for (String url in [
-                '/', '/error', '/index', '/index.gsp', '/**/favicon.ico', '/shutdown',
+                '/**', '/error', '/index', '/index.gsp', '/**/favicon.ico', '/shutdown',
                 '/**/js/**', '/**/css/**', '/**/images/**',
                 '/login', '/login.*', '/login/*',
-                '/logout', '/logout.*', '/logout/*'])
+                '/logout', '/logout.*', '/logout/*','/register/**'])
         {
           if (!Requestmap.findByUrl(url))
           {
@@ -74,7 +76,8 @@ class OmarSecurityBootStrap
         for (String url in [
                 '/secRole/save/**', '/secRole/update/**', '/secRole/delete/**', '/secRole/edit/**',
                 '/secUser/save/**', '/secUser/update/**', '/secUser/delete/**', '/secUser/edit/**',
-                '/secUserSecRole/save/**', '/secUser/update/**', '/secUser/delete/**', '/secUser/edit/**'])
+                '/secUserSecRole/save/**', '/secUser/update/**', '/secUser/delete/**', '/secUser/edit/**',
+        '/securityinfo','/securityinfo/**','/user/**','/role/**','/registrationCode/**'])
         {
           if (!Requestmap.findByUrl(url))
           {
@@ -84,7 +87,8 @@ class OmarSecurityBootStrap
         for (String url in [
                 '/secRole/*', '/secRole/show/**', '/secRole/index/**',
                 '/secUser/*', '/secUser/show/**', '/secUser/index/**',
-                '/secUserSecRole/*', '/secUserSecRole/show/**', '/secUserSecRole/index/**'])
+                '/secUserSecRole/*', '/secUserSecRole/show/**', '/secUserSecRole/index/**',
+                '/secure/**','/secure/index','/secure/index.*','/secure/index/**'])
         {
           if (!Requestmap.findByUrl(url))
           {
@@ -92,7 +96,10 @@ class OmarSecurityBootStrap
           }
         }
       }
+
     }
+    log.info("OmarSecurityBootStrap: init leaving....................")
+
   }
   def destroy = {
   }

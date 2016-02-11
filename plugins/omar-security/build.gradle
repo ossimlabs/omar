@@ -65,6 +65,8 @@ dependencies {
     testCompile "org.grails:grails-plugin-testing"
     compile "org.grails.plugins:scaffolding"
     compile 'org.grails.plugins:spring-security-core:3.0.3'
+    compile 'org.grails.plugins:spring-security-appinfo:3.0.0'
+    compile 'org.grails.plugins:spring-security-ui:3.0.0.M1'
     console "org.grails:grails-console"
 }
 

@@ -7,6 +7,7 @@ security{
       }
       defaultRoles = ["ROLE_USER"]
       userOverrides = []
+      exceptionIfHeaderMissing = false
    }
    bootstrap {
       addDefaultUsers = true
