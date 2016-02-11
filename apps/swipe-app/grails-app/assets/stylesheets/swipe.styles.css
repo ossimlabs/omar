@@ -1,7 +1,39 @@
-#map {
-    height: 600px;
+.imageheader {
+	height: 400px;
+	background-color: red;
 }
+.hr-tight {
+	margin-top: -7px;
+}
+.map {
+    height: 400px;
+}
+.swipe {
+    
+    width: 75%;
 
-#swipe {
-    width: 100%;
+	position: absolute;
+	bottom: 5px;
+	left: 15%;
+	z-index: 1;
+	font-size: .7em;
+	color: #fff;
+	background-color: rgba(0,60,136,0.5);
+	padding: 2px 10px;
+	border-radius: 5px;	
+}
+.map:-moz-full-screen {
+	height: 100%;
+}
+.map:-webkit-full-screen {
+	height: 100%;
+}
+.map:-ms-fullscreen {
+	height: 100%;
+}
+.map:fullscreen {
+	height: 100%;
+}
+.ol-rotate {
+	top: 3em;
 }
