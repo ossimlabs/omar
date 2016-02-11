@@ -155,19 +155,19 @@ grails:
                -
                   pattern: '/**'
                   filters: 'JOINED_FILTERS'
+            verifyByEmail: false
+            createAccountLocked: false
 
-logging:
-    level:
-        omar.security: INFO
-#omar:
-#    security:
-#        preauth:
-#            autoAddUsers: true
-#            requestHeader:
-#              username: REMOTE_USER
-#              password: REMOTE_PASSWORD
-#            defaultRoles:
-#               - ROLE_USER
+---
+omar:
+    security:
+        preauth:
+            autoAddUsers: true
+            requestHeader:
+              username: REMOTE_USER
+              password: REMOTE_PASSWORD
+            defaultRoles:
+               - ROLE_USER
 #            userOverrides:
 #              -
 #                username: 'test@foo.com'
@@ -175,7 +175,21 @@ logging:
 #                  - ROLE_USER
 #                  - ROLE_ADMIN
 
+# Example on enabling logging
+logging:
+    level:
+        omar.security: INFO
+
+
 #grails:
 #  plugin:
 #    springsecurity:
 #      active: false
+
+grails:
+  plugin:
+    springsecurity:
+      rememberMe:
+        persistent: true
+        persistentToken:
+             domainClassName: 'omar.security.PersistentLogin'
