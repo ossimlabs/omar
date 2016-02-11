@@ -15,10 +15,10 @@ plugins {
     id "io.spring.dependency-management" version "0.5.4.RELEASE"
     id "com.jfrog.bintray" version "1.2"
 }
-
 evaluationDependsOnChildren()
 
-version "0.1-SNAPSHOT"
+
+version "1.0-SNAPSHOT"
 group "org.grails.plugins"
 
 apply plugin: 'maven-publish'
@@ -52,19 +52,7 @@ dependencyManagement {
     applyMavenExclusions false
 }
 
-grails {
-    exploded = true
-    plugins {
-      compile project(':omar-stager')
-    }
-}
-
 dependencies {
-
-
-  // compile 'org.grails.plugins:joda-time:2.0.0'
-  // compile 'org.jadira.usertype:usertype.core:3.2.0.GA'
-
     provided 'org.springframework.boot:spring-boot-starter-logging'
     provided "org.springframework.boot:spring-boot-starter-actuator"
     provided "org.springframework.boot:spring-boot-autoconfigure"
@@ -75,7 +63,10 @@ dependencies {
     provided 'javax.servlet:javax.servlet-api:3.1.0'
 
     testCompile "org.grails:grails-plugin-testing"
-
+    compile "org.grails.plugins:scaffolding"
+    compile 'org.grails.plugins:spring-security-core:3.0.3'
+    compile 'org.grails.plugins:spring-security-appinfo:3.0.0'
+    compile 'org.grails.plugins:spring-security-ui:3.0.0.M1'
     console "org.grails:grails-console"
 }
 
