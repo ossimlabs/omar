@@ -2,10 +2,12 @@ package omar.security
 
 import grails.plugins.*
 import grails.plugin.springsecurity.SpringSecurityUtils
+import groovy.util.logging.Slf4j
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper
 
+@Slf4j
 class OmarSecurityGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
@@ -45,6 +47,7 @@ Brief summary/description of the plugin.
 //    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
 
     Closure doWithSpring() {
+       log.trace("doWithSpring(): entered.............")
        OmarSecurityReflectionUtils.application = OmarSecurityUtils.application = grailsApplication
        OmarSecurityUtils.resetSecurityConfig()
        def conf = OmarSecurityUtils.securityConfig
@@ -53,6 +56,8 @@ Brief summary/description of the plugin.
        //
        if(SpringSecurityUtils.securityConfig?.active)
        {
+          log.trace('Spring security is active, initializing preauth beans')
+          log.trace("doWithSpring(): leaving.............")
           return      {->
              preAuthenticationFilter(RequestHeaderAuthenticationFilter){
                 authenticationManager              = ref('authenticationManager')
@@ -75,8 +80,10 @@ Brief summary/description of the plugin.
              }
           }
        }
+       log.trace('Spring security is not active.  Beans will not be added')
 
        // return no beans if authentication is disabled
+       log.trace("doWithSpring(): leaving.............")
        return {->
 
        }

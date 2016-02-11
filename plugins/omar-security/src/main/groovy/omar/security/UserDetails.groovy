@@ -31,7 +31,7 @@ class UserDetails extends GrailsUser {
               accountNonExpired : accountNonExpired,
               accountNonLocked : accountNonLocked,
               credentialsNonExpired : credentialsNonExpired,
-              authorites : authorites
+              authorites : authorities
       ]
    }
    Object getDomainClass() {

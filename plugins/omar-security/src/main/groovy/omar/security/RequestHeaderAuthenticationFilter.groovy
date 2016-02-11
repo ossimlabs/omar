@@ -1,5 +1,6 @@
 package omar.security
 
+import groovy.util.logging.Slf4j
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.context.ApplicationContextAware
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.Assert;
 
+@Slf4j
 public class RequestHeaderAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter{
     String usernameRequestHeader = "REMOTE_USER";
     String passwordRequestHeader = "REMOTE_PASSWORD";
@@ -21,11 +23,14 @@ public class RequestHeaderAuthenticationFilter extends AbstractPreAuthenticatedP
      *          is set to {@code true}.
      */
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
-        String username  = request.getHeader(usernameRequestHeader)
-        if (username == null && exceptionIfHeaderMissing) {
+
+       log.trace("getPreAuthenticatedPrincipal: entered..................")
+       String username  = request.getHeader(usernameRequestHeader)
+       if (username == null && exceptionIfHeaderMissing) {
             throw new PreAuthenticatedCredentialsNotFoundException(usernameRequestHeader
                     + " header not found in request.");
         }
+       log.trace("getPreAuthenticatedPrincipal: leaving with username = ${username} ..................")
 
        username;
     }
@@ -35,10 +40,13 @@ public class RequestHeaderAuthenticationFilter extends AbstractPreAuthenticatedP
      * will be read and used as the credentials value. Otherwise a dummy value will be used.
      */
     protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
+       log.trace("getPreAuthenticatedCredentials: entered..................")
        if (passwordRequestHeader) {
-            return request.getHeader(passwordRequestHeader);
+          log.trace("getPreAuthenticatedCredentials: Leaving with calling the header field ${passwordRequestHeader}..................")
+          return request.getHeader(passwordRequestHeader);
         }
 
+       log.trace("getPreAuthenticatedCredentials: Leaving..................")
        return "N/A";
     }
 

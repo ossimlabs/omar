@@ -11,7 +11,7 @@ class OmarSecurityBootStrap
 
   def init = { servletContext ->
 
-    log.info("OmarSecurityBootStrap: init entered....................")
+    log.trace("init: entered....................")
 
     if(SpringSecurityUtils.securityConfig?.active)
     {
@@ -98,7 +98,7 @@ class OmarSecurityBootStrap
       }
 
     }
-    log.info("OmarSecurityBootStrap: init leaving....................")
+    log.trace("init: leaving....................")
 
   }
   def destroy = {

@@ -1,10 +1,12 @@
 package omar.security
 
 import grails.plugin.springsecurity.userdetails.GrailsUserDetailsService
+import groovy.util.logging.Slf4j
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.transaction.annotation.Transactional
 
+@Slf4j
 class UserDetailsService  implements GrailsUserDetailsService {
 
     def autoAddUsers
@@ -27,10 +29,12 @@ class UserDetailsService  implements GrailsUserDetailsService {
     UserDetails  loadUserByUsername(String username) {
         UserDetails result
 
+        log.trace("loadUserByUsername(String username): Entered..............")
         SecUser.withTransaction {
             SecUser secUser = SecUser.findByUsername(username)
             if (!secUser&&autoAddUsers)
             {
+                log.trace("We are auto adding user ${username}")
                 // first add the user to the database
                 secUser = newUser(username)
                 secUser.save(flush:true)
@@ -59,14 +63,18 @@ class UserDetailsService  implements GrailsUserDetailsService {
                 }
 
                 result = secUser?.toUserDetails()
+                log.trace("User added: ${result}")
             }
             else if(secUser)
             {
+                log.trace("User already exists.  Loading the details")
                 // found the user just convert the Domain to a User detail object
                 //
                 result = secUser?.toUserDetails()
             }
         }
+        log.trace("loadUserByUsername(String username): Leaving..............")
+
         result
     }
     UserDetails  loadUserByUsername(String username, boolean v) {
