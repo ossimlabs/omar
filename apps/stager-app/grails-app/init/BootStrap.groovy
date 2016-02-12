@@ -13,7 +13,7 @@ class BootStrap {
           // '/Volumes/Iomega_HDD/data', 
           // '/data/celtic', 
           // '/data1', 
-          // '/data/uav'
+          '/data/uav'
         ].each {
           println it
           def repo = Repository.findOrCreateByBaseDir( it )

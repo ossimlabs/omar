@@ -121,3 +121,8 @@ environments:
 
 quartz:
     jdbcStore: false
+
+videoStreaming:
+  flashDirRoot: /opt/local/apache2/htdocs/videos
+  //flashDirRoot: /var/www/html/videos
+  flashUrlRoot: http://localhost/videos
