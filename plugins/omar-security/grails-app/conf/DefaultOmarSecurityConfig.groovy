@@ -6,12 +6,27 @@ security{
          password = "REMOTE_PASSWORD"
       }
       defaultRoles = ["ROLE_USER"]
+
+      /**
+       * format is a list of maps where each map can have the
+       * userOverrides =
+         [ [
+             username: 'test@foo.com'
+             roles: ["ROLE_ADMIN",.....]
+           ],
+         ]
+       **/
       userOverrides = []
       exceptionIfHeaderMissing = false
    }
    bootstrap {
       addDefaultUsers = true
    }
+
+   // this is spring specific items that this plugin integrates into
+   // Please change the config values here instead of under spring.
+   // These will get synched to spring's configuration
+   //
    spring{
       active = true
 
