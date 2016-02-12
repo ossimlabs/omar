@@ -116,64 +116,57 @@ environments:
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
-##################################################################
-# Items specific to omar-security plugin
-##################################################################
-grails:
-    plugin:
-        springsecurity:
-            providerNames:
-                - omarPreAuthenticatedAuthenticationProvider
-                - daoAuthenticationProvider
-                - anonymousAuthenticationProvider
-                - rememberMeAuthenticationProvider
-            securityConfigType: Requestmap
-            userLookup:
-                userDomainClassName: omar.security.SecUser
-                authorityJoinClassName: omar.security.SecUserSecRoll
-            authority:
-                className: omar.security.SecRole
-            requestMap:
-                className: omar.security.Requestmap
-            filterChain:
-               chainMap:
-               -
-                  pattern: '/assets/**'
-                  filters: 'none'
-               -
-                  pattern: '/**/js/**'
-                  filters: 'none'
-               -
-                  pattern: '/**/css/**'
-                  filters: 'none'
-               -
-                  pattern: '/**/images/**'
-                  filters: 'none'
-               -
-                  pattern: '/**/favicon.ico'
-                  filters: 'none'
-               -
-                  pattern: '/**'
-                  filters: 'JOINED_FILTERS'
-            verifyByEmail: false
-            createAccountLocked: false
-
 ---
 omar:
-    security:
-        preauth:
-            autoAddUsers: true
-            requestHeader:
-              username: REMOTE_USER
-              password: REMOTE_PASSWORD
-            defaultRoles:
-               - ROLE_USER
+  security:
+    preauth:
+      autoAddUsers: true
+      requestHeader:
+        username: REMOTE_USER
+        password: REMOTE_PASSWORD
+      defaultRoles:
+         - ROLE_USER
 #            userOverrides:
 #              -
 #                username: 'test@foo.com'
 #                roles:
 #                  - ROLE_USER
 #                  - ROLE_ADMIN
+    spring:
+      active: true
+      providerNames:
+        - omarPreAuthenticatedAuthenticationProvider
+        - daoAuthenticationProvider
+        - anonymousAuthenticationProvider
+        - rememberMeAuthenticationProvider
+      securityConfigType: Requestmap
+      userLookup:
+        userDomainClassName: omar.security.SecUser
+        authorityJoinClassName: omar.security.SecUserSecRole
+      authority:
+        className: omar.security.SecRole
+      requestMap:
+        className: omar.security.Requestmap
+      filterChain:
+        chainMap:
+        -
+          pattern: '/assets/**'
+          filters: 'none'
+        -
+          pattern: '/**/js/**'
+          filters: 'none'
+        -
+          pattern: '/**/css/**'
+          filters: 'none'
+        -
+          pattern: '/**/images/**'
+          filters: 'none'
+        -
+          pattern: '/**/favicon.ico'
+          filters: 'none'
+        -
+          pattern: '/**'
+          filters: 'JOINED_FILTERS'
 
 # Example on enabling logging
 # LEVELS:
@@ -186,8 +179,8 @@ omar:
 # trace
 # all
 logging:
-    level:
-        omar.security: INFO
+  level:
+    omar.security: trace
 
 
 ## Enable and disable spring security ##
@@ -207,6 +200,6 @@ grails:
       rememberMe:
         persistent: true
         persistentToken:
-             domainClassName: 'omar.security.PersistentLogin'
+          domainClassName: 'omar.security.PersistentLogin'
 # Uncomment for disabling spring security.  Shoudl be child of springsecurity
  #    active: false

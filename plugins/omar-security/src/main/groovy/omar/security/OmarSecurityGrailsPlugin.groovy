@@ -48,14 +48,30 @@ Brief summary/description of the plugin.
 
     Closure doWithSpring() {
        log.trace("doWithSpring(): entered.............")
-       OmarSecurityReflectionUtils.application = OmarSecurityUtils.application = grailsApplication
-       OmarSecurityUtils.resetSecurityConfig()
-       def conf = OmarSecurityUtils.securityConfig
 
+       //println OmarSecurityUtils.application.config.grails.plugin.springsecurity
+
+       OmarSecurityReflectionUtils.application = OmarSecurityUtils.application = grailsApplication
+
+       // reset and re-synch security configs
+       SpringSecurityUtils.resetSecurityConfig()
+       OmarSecurityUtils.resetSecurityConfig()
+       OmarSecurityUtils.reloadSecurityConfig()
+
+       //OmarSecurityUtils.application.config.grails.plugin.springsecurity.securityConfigType =  "Requestmap"
+       //OmarSecurityUtils.application.config.grails.plugin.springsecurity.providerNames =  [
+               //'omarPreAuthenticatedAuthenticationProvider',
+       //        'daoAuthenticationProvider'
+       //]
+      // println "**********************"
+      // println OmarSecurityUtils.securityConfig
+      // println "**********************"
+      // println SpringSecurityUtils.securityConfig
        // If spring security is enabled then setup and return the pre authentication beans
        //
        if(SpringSecurityUtils.securityConfig?.active)
        {
+
           log.trace('Spring security is active, initializing preauth beans')
           log.trace("doWithSpring(): leaving.............")
           return      {->

@@ -60,6 +60,8 @@ grails {
 }
 
 dependencies {
+    compile 'org.webjars:flowplayer-html5:6.0.4'
+
     provided 'org.springframework.boot:spring-boot-starter-logging'
     provided "org.springframework.boot:spring-boot-starter-actuator"
     provided "org.springframework.boot:spring-boot-autoconfigure"

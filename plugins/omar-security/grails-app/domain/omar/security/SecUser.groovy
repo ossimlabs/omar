@@ -79,5 +79,6 @@ class SecUser implements Serializable {
 
 	static mapping = {
 		password column: '`password`'
+		username index: 'sec_user_username_idx'
 	}
 }
