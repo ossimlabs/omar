@@ -15,8 +15,11 @@ class OmarSecurityBootStrap
 
     if(SpringSecurityUtils.securityConfig?.active)
     {
-      grails.plugin.springsecurity.SpringSecurityUtils.clientRegisterFilter('preAuthenticationFilter',
-              grails.plugin.springsecurity.SecurityFilterPosition.PRE_AUTH_FILTER.getOrder() - 1)
+      if(SpringSecurityUtils.securityConfig?.providerNames.find{it=='omarPreAuthenticatedAuthenticationProvider'})
+      {
+        grails.plugin.springsecurity.SpringSecurityUtils.clientRegisterFilter('preAuthenticationFilter',
+                grails.plugin.springsecurity.SecurityFilterPosition.PRE_AUTH_FILTER.getOrder() - 1)
+      }
 
       def roleData = [
               [authority: "ROLE_USER", description: "Standard User"],
@@ -57,6 +60,7 @@ class OmarSecurityBootStrap
         }
       }
 
+      log.trace("init: Setting up for Spring Security config type = ${SpringSecurityUtils.securityConfig.securityConfigType}")
       // Only add request map definitions if request map config type is "requestmap"
       //
       if(SpringSecurityUtils.securityConfig.securityConfigType.toLowerCase() == "requestmap")
@@ -96,8 +100,8 @@ class OmarSecurityBootStrap
           }
         }
       }
-
     }
+
     log.trace("init: leaving....................")
 
   }

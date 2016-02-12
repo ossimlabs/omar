@@ -1,11 +1,12 @@
 package omar.security
+
+import grails.plugin.springsecurity.SpringSecurityUtils
 import groovy.util.logging.Slf4j
-import groovy.transform.CompileStatic
 import grails.core.GrailsApplication
 import grails.util.Environment
+import org.grails.config.NavigableMap
 
 @Slf4j
-@CompileStatic
 class OmarSecurityUtils
 {
    private static ConfigObject securityConfig
@@ -23,15 +24,29 @@ class OmarSecurityUtils
 
       securityConfig
    }
+
    /** Force a reload of the security configuration. */
    static void reloadSecurityConfig() {
       mergeConfig OmarSecurityReflectionUtils.getSecurityConfig(), 'DefaultOmarSecurityConfig'
+      mergeConfigToGlobalConfig()
       log.trace 'reloaded security config'
    }
    /** Reset the config for testing or after a dev mode Config.groovy change. */
    static synchronized void resetSecurityConfig() {
       securityConfig = null
       log.trace 'reset security config'
+   }
+
+   static void mergeConfigToGlobalConfig(){
+      def rootConfig                = application?.config.grails.plugin.springsecurity
+
+      // For now we will merge to two different locations
+      // one to the global grails config and the other to the Spring security config
+      // spring security resets so we have to have it in
+      // the global config location
+      //
+      mergeConfig this.securityConfig.spring,  rootConfig
+      mergeConfig this.securityConfig.spring,  SpringSecurityUtils.securityConfig
    }
    /**
     * Merge in a secondary config (provided by a plugin as defaults) into the main config.
@@ -57,4 +72,11 @@ class OmarSecurityUtils
       (secondary ?: new ConfigObject()).merge(currentConfig ?: new ConfigObject()) as ConfigObject
    }
 
+   private static def mergeConfig(java.util.Map currentConfig, def grailsConfig)
+   {
+      currentConfig.keySet().each{key->
+         grailsConfig."${key}" = currentConfig."${key}"
+      }
+      grailsConfig
+   }
 }

@@ -30,5 +30,6 @@ class Requestmap implements Serializable {
 
 	static mapping = {
 		cache true
+		url index: 'requestmap_url_idx'
 	}
 }
