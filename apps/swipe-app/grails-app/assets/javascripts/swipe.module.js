@@ -1,6 +1,6 @@
 (function(){
     'use strict';
     angular
-        .module('swipeApp', []);
+        .module('swipeApp', ['toggle-switch']);
 
 })();

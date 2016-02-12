@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('swipeApp')
-        .controller('SwipeController', ['$location', '$http', SwipeController]);
+        .controller('SwipeController', ['$location', '$http', '$interval', '$timeout', SwipeController]);
 
-        function SwipeController($location, $http) {
+        function SwipeController($location, $http, $interval, $timeout) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -37,14 +37,15 @@
             // console.log('urlParams.layers', urlParams.layers.split(","));
             // layers = urlParams.layers.split(",");
 
-            vm.layer1 = 76;
-            vm.layer2 = 69;
+            vm.layer1 = '20030224172409SI_CARTERRA_0101495AA00000 00100001AA05100091P  GC   UCT';
+            vm.layer2 = '20030125151310SI_CARTERRA_0101314MA00000 00100001MA01200021M  GC   UCT';
 
             function getImageBounds(imageIds){
 
-                wfsRequest.cql = 'id in(' + imageIds + ')';
+                //wfsRequest.cql = 'id in(' + imageIds + ')';
+                wfsRequest.cql = "strToUpperCase(title) like '%" + imageIds + "%'";
 
-                //console.log('wfsRequest.cql', wfsRequest.cql);
+                console.log('wfsRequest.cql', wfsRequest.cql);
 
                 // TODO: Get from passed in parameter
                 var wfsRequestUrl = 'http://localhost:7272/o2/wfs?';
@@ -63,57 +64,57 @@
                     method: 'GET',
                     url: url
                 })
-                    .then(function(response) {
+                .then(function(response) {
 
-                        var data;
-                        data = response.data.features;
-                        //console.log('map WFS data: ', data);
-                        //console.log('data.length', data.length);
+                    var data;
+                    data = response.data.features;
+                    console.log('map WFS data: ', data);
+                    //console.log('data.length', data.length);
 
-                        // If there is more than one image we can get the extent
-                        // of the vectorLayer to set the maps extent
-                        if (data.length > 1){
+                    // If there is more than one image we can get the extent
+                    // of the vectorLayer to set the maps extent
+                    if (data.length > 1){
 
-                            // Add each image to the vectorLayer
-                            angular.forEach(data, function(image){
-
-                                var imageFeature = new ol.Feature({
-                                    geometry: new ol.geom.MultiPolygon(image.geometry.coordinates)
-                                });
-
-                                vectorLayer.getSource().addFeature(imageFeature);
-
-                            });
-
-
-                            var vectorLayerExtent = vectorLayer.getSource().getExtent();
-
-                            // Sets the map's extent to all of the images in the vectorLayer
-                            map.getView().fit(vectorLayerExtent, map.getSize());
-
-                            console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
-                            vectorLayer.getSource().clear();
-                            console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
-
-                        }
-                        // If there is only one image we need to use the extent of the feature (image)
-                        // in the vectorLayer
-                        else {
+                        // Add each image to the vectorLayer
+                        angular.forEach(data, function(image){
 
                             var imageFeature = new ol.Feature({
-                                geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
+                                geometry: new ol.geom.MultiPolygon(image.geometry.coordinates)
                             });
 
                             vectorLayer.getSource().addFeature(imageFeature);
 
-                            var featureExtent = imageFeature.getGeometry().getExtent();
+                        });
 
-                            // Moves the map to the extent of the one image
-                            map.getView().fit(featureExtent, map.getSize());
 
-                        }
+                        var vectorLayerExtent = vectorLayer.getSource().getExtent();
 
-                    });
+                        // Sets the map's extent to all of the images in the vectorLayer
+                        map.getView().fit(vectorLayerExtent, map.getSize());
+
+                        console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
+                        vectorLayer.getSource().clear();
+                        console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
+
+                    }
+                    // If there is only one image we need to use the extent of the feature (image)
+                    // in the vectorLayer
+                    else {
+
+                        var imageFeature = new ol.Feature({
+                            geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
+                        });
+
+                        vectorLayer.getSource().addFeature(imageFeature);
+
+                        var featureExtent = imageFeature.getGeometry().getExtent();
+
+                        // Moves the map to the extent of the one image
+                        map.getView().fit(featureExtent, map.getSize());
+
+                    }
+
+                });
 
             }
             //getImageBounds(layers);
@@ -145,14 +146,13 @@
                     })
                 ]),
                 interactions: interactions,
-                layers: [osm],
+                layers: [],
                 target: 'map',
                 view: mapView
             });
 
             swipe = document.getElementById('swipe');
         
-            
             vm.swap = function swap(layer1, layer2) {
                 
                 layers = [layer1, layer2];
@@ -185,6 +185,8 @@
 
             function addLayer1(i, swap) {
                 
+                console.log('i: ', i);
+
                 if(omar && !swap){
                     console.log('omar present...');
 
@@ -202,7 +204,9 @@
                             url: vm.url,
                             params: {
                                 'LAYERS': 'omar:raster_entry',
-                                'FILTER' : "in(" + i + ")",
+                                //'FILTER' : "in(" + i + ")",
+                                //'FILTER': "strToUpperCase(title) like '%20030123124701SI_CARTERRA_0101230MA00000 00100001MA01200017M%'",
+                                'FILTER': "strToUpperCase(title) like '%" + i + "%'",
                                 'TILED': true,
                                 'VERSION': '1.1.1'
                             }
@@ -222,6 +226,8 @@
 
             function addLayer2(i, swap) {
                 
+                console.log('i: ', i);
+
                 if(omar2&& !swap){
                     console.log('omar2 present...');
 
@@ -232,13 +238,17 @@
 
                 }
                 else {
+                    //var urlParam = "20030224172409SI_CARTERRA_0101495AA00000 00100001AA04800090P"
+
                     omar2 = new ol.layer.Tile({
                         opacity: 1.0,
                         source: new ol.source.TileWMS({
                             url: vm.url,
                             params: {
                                 'LAYERS': 'omar:raster_entry',
-                                'FILTER' : "in(" + i + ")",
+                                //'FILTER' : "in(" + i + ")",
+                                //'FILTER': "strToUpperCase(title) like '%20030224172409SI_CARTERRA_0101495AA00000 00100001AA04800090P%'",
+                                'FILTER': "strToUpperCase(title) like '%" + i + "%'",
                                 'TILED': true,
                                 'VERSION': '1.1.1'
                             }
@@ -248,7 +258,7 @@
                     map.addLayer(omar2);
                 }
                 setSwipe();
-                getImageBounds(vm.layer1 + ', ' + vm.layer2);
+                getImageBounds(vm.layer1);// + ', ' + vm.layer2);
                 
             }
             
@@ -257,7 +267,6 @@
                 map.removeLayer(omar2);
 
             }
-
 
             function setSwipe() {
 
@@ -281,6 +290,35 @@
                 }, false);
 
             }
+
+            vm.flicker = false;
+            var onInterval;
+            vm.flickerLayer = function() {
+
+                function flickerOn() {
+                    
+                    omar2.setVisible(false);
+                    $timeout(function(){
+                        omar2.setVisible(true);
+                        
+                    }, 250, false);
+
+                }
+
+                if (vm.flicker === true) {
+
+                    vm.flicker = true;
+                    onInterval = $interval(flickerOn, 1000, false);
+
+                }
+                else {
+                    
+                    $interval.cancel(onInterval);
+                    vm.flicker = false;   
+                
+                }
+
+            };
 
         }
 

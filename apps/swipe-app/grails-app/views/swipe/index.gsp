@@ -50,17 +50,12 @@
                         <label>Image 1</label>
                         <input type="text" class="form-control" ng-model="swipe.layer1">
                     </div>
-                   %{--  <button class="btn btn-default btn-sm" ng-click="swipe.addLayer1(swipe.layer1)">add</button> --}%
-                   %{--  <button class="btn btn-default btn-sm" ng-click="swipe.removeLayer1(swipe.layer1)">remove
-                    </button> --}%
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Image 2</label>
                         <input type="text" class="form-control" ng-model="swipe.layer2">
                     </div>
-                    %{-- <button class="btn btn-default btn-sm" ng-click="swipe.addLayer2(swipe.layer2)">add</button> --}%
-                    %{-- <button class="btn btn-default btn-sm" ng-click="swipe.removeLayer2(swipe.layer2)">remove</button> --}%
                 </div>
             </form>
         </div> %{-- /.row --}%
@@ -69,10 +64,15 @@
                 <div class="col-md-12 text-center">
                     
                     <button class="btn btn-success btn-sm" ng-click="swipe.addLayer1(swipe.layer1);swipe.addLayer2(swipe.layer2)">Submit</button>
+
+                    <button class="btn btn-warning btn-sm" ng-click="">Reset</button><br><br>
                     
-                    <button class="btn btn-info btn-sm" ng-click="swipe.swap(swipe.layer1, swipe.layer2);">Swap</button>
+                    <button class="btn btn-info btn-sm" ng-click="swipe.swap(swipe.layer1, swipe.layer2);">Swap</button><br><br>
+                    %{-- <button class="btn btn-info btn-sm" ng-click="swipe.flickerLayer();">Flicker</button> --}%
+                    <label>Flicker image</label>
+                    <toggle-switch ng-model="swipe.flicker" ng-change="swipe.flickerLayer();"></toggle-switch>
                     
-                    <button class="btn btn-warning btn-sm" ng-click="">Reset</button>
+                    
                 </div>
         </div> %{-- /.row --}%
     </div> %{-- /.container-fluid --}%
