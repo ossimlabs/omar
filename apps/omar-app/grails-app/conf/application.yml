@@ -531,3 +531,76 @@ webconfig:
 server:
   contextPath: /o2
   port: 7272
+
+---
+##################################################################
+# Items specific to omar-security plugin
+##################################################################
+grails:
+    plugin:
+        springsecurity:
+            providerNames:
+                - omarPreAuthenticatedAuthenticationProvider
+                - daoAuthenticationProvider
+                - anonymousAuthenticationProvider
+                - rememberMeAuthenticationProvider
+            securityConfigType: Requestmap
+            userLookup:
+                userDomainClassName: omar.security.SecUser
+                authorityJoinClassName: omar.security.SecUserSecRoll
+            authority:
+                className: omar.security.SecRole
+            requestMap:
+                className: omar.security.Requestmap
+---
+omar:
+    security:
+        preauth:
+            autoAddUsers: true
+            requestHeader:
+              username: REMOTE_USER
+              password: REMOTE_PASSWORD
+            defaultRoles:
+               - ROLE_USER
+#            userOverrides:
+#              -
+#                username: 'test@foo.com'
+#                roles:
+#                  - ROLE_USER
+#                  - ROLE_ADMIN
+
+# Example on enabling logging
+# LEVELS:
+# off
+# fatal
+# error
+# warn
+# info
+# debug
+# trace
+# all
+logging:
+    level:
+        omar.security: trace
+
+
+## Enable and disable spring security ##
+#
+#
+#grails:
+#  plugin:
+#    springsecurity:
+#      active: false
+
+#
+# Remember me support
+#
+grails:
+  plugin:
+    springsecurity:
+      rememberMe:
+        persistent: true
+        persistentToken:
+             domainClassName: 'omar.security.PersistentLogin'
+# Uncomment for disabling spring security.  Shoudl be child of springsecurity
+ #    active: false
