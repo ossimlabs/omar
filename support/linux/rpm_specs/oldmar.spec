@@ -39,9 +39,10 @@ OMAR Image server
 
 %build
 
-# Exports for ossim build:
+# Exports:
 export OMAR_DEV_HOME=%{_builddir}/%{name}-%{version}
 export OMAR_HOME=$OMAR_DEV_HOME/apps/omar
+export OMAR_CONFIG=$OMAR_HOME/grails-app/conf/Config.groovy
 export OSSIM_BUILD_DIR=%{_builddir}/%{name}-%{version}/build
 export OSSIM_BUILD_TYPE=RelWithDebInfo
 export OSSIM_VERSION=%{RPM_OSSIM_VERSION}
@@ -51,18 +52,16 @@ mkdir -p plugins/omar-oms/lib
 # cp /usr/share/java/joms-%{version}.jar plugins/omar-oms/lib/joms-%{version}.jar
 
 export OSSIM_INSTALL_PREFIX=%{buildroot}/usr
-#./package-omar-plugins.sh
-pushd apps/omar
-grails refresh-dependencies --non-interactive
-grails prod compile
-grails prod war omar.war
+pushd $OMAR_HOME
+./grailsw refresh-dependencies --non-interactive
+./grailsw compile
+./grailss --stacktrace prod war omar.war
 popd
 
 %install
-# Exports for ossim build:
-#export OSSIM_DEV_HOME=%{_builddir}/%{name}-%{version}
+
+# Exports:
 export OMAR_DEV_HOME=%{_builddir}/%{name}-%{version}
-export OMAR_HOME=$OMAR_DEV_HOME/apps/omar
 export OMAR_HOME=%{_builddir}/%{name}-%{version}/apps/omar
 export OSSIM_VERSION=%{RPM_OSSIM_VERSION}
 export OSSIM_INSTALL_PREFIX=%{buildroot}/usr
