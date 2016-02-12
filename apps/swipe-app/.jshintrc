@@ -1,0 +1,33 @@
+{
+    // Environments - these prevent warnings about the use of some global
+    // variables. e.g. 'browser' assumes a 'window' global is available, etc.
+    "browser": true,
+    "browserify": true,
+    "devel": true,
+    
+    // Var names must be camelCase or UPPER_CASE
+    "camelcase": true,
+    // Loops and conditionals must have curly brackets
+    "curly": true,
+    // Allow ES6 features
+    // Constructor functions must be capitalised
+    "newcap": true,
+    // Prevent use of undefined variables
+    "undef": true,
+    // Warn about unused variables
+    "unused": true,
+
+    // Custom globals
+    "globals": { 
+        "jasmine": true,
+        "angular": true,
+        "ol": true,
+        "browser": true,
+        "element": true,
+        "by":true,
+        "io":true,
+        "_":false,
+        "$":false
+    }
+
+}
