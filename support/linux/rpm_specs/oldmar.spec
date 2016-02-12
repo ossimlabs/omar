@@ -48,7 +48,7 @@ export OSSIM_VERSION=%{RPM_OSSIM_VERSION}
 export OSSIM_INSTALL_PREFIX=%{buildroot}/usr
 
 mkdir -p plugins/omar-oms/lib
-cp /usr/share/java/joms-%{version}.jar plugins/omar-oms/lib/joms-%{version}.jar
+# cp /usr/share/java/joms-%{version}.jar plugins/omar-oms/lib/joms-%{version}.jar
 
 export OSSIM_INSTALL_PREFIX=%{buildroot}/usr
 #./package-omar-plugins.sh
