@@ -53,9 +53,9 @@ mkdir -p plugins/omar-oms/lib
 
 export OSSIM_INSTALL_PREFIX=%{buildroot}/usr
 pushd $OMAR_HOME
-grails -w refresh-dependencies --non-interactive
-grails -w compile
-grails -w prod war omar.war
+./grailsw refresh-dependencies --non-interactive
+./grailsw compile
+./grailss --stacktrace prod war omar.war
 popd
 
 %install
