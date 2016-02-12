@@ -28,7 +28,9 @@ class OmarSecurityUtils
    /** Force a reload of the security configuration. */
    static void reloadSecurityConfig() {
       mergeConfig OmarSecurityReflectionUtils.getSecurityConfig(), 'DefaultOmarSecurityConfig'
+
       mergeConfigToGlobalConfig()
+
       log.trace 'reloaded security config'
    }
    /** Reset the config for testing or after a dev mode Config.groovy change. */
@@ -38,14 +40,16 @@ class OmarSecurityUtils
    }
 
    static void mergeConfigToGlobalConfig(){
-      def rootConfig                = application?.config.grails.plugin.springsecurity
-
       // For now we will merge to two different locations
       // one to the global grails config and the other to the Spring security config
       // spring security resets so we have to have it in
       // the global config location
       //
-      mergeConfig this.securityConfig.spring,  rootConfig
+//      if(this.securityConfig.mail)
+//      {
+//         mergeConfig this.securityConfig.mail, application?.config.grails
+//      }
+      mergeConfig this.securityConfig.spring,  application?.config.grails.plugin.springsecurity
       mergeConfig this.securityConfig.spring,  SpringSecurityUtils.securityConfig
    }
    /**

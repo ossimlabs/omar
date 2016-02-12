@@ -28,6 +28,13 @@ security{
    // These will get synched to spring's configuration
    //
    spring{
+      ui{
+         switchUserRoleName = "ROLE_SWITCH_USER"
+         register{
+            defaultRoleNames = ["ROLE_USER"]
+         }
+      }
+      useSwitchUserFilter = true
       active = true
 
       providerNames = [

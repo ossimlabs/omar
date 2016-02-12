@@ -23,6 +23,7 @@ class OmarSecurityBootStrap
 
       def roleData = [
               [authority: "ROLE_USER", description: "Standard User"],
+              [authority: "ROLE_SWITCH_USER", description: "Allows one to switch to another user.  Similar to 'su' on unix"],
               [authority: "ROLE_ADMIN", description: "Administrator"],
       ]
       def roles = roleData.collect { SecRole.findOrSaveWhere(it) }.inject([:]) { a, b -> a[b.authority] = b; a }
@@ -51,12 +52,12 @@ class OmarSecurityBootStrap
         }
       }
       users.each { user ->
-
         SecUserSecRole.create(user, roles['ROLE_USER'])
 
         if (user?.username == 'admin')
         {
           SecUserSecRole.create(user, roles['ROLE_ADMIN'])
+          SecUserSecRole.create(user, roles['ROLE_SWITCH_USER'])
         }
       }
 

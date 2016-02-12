@@ -1,5 +1,8 @@
 package omar.video
 
+import groovy.transform.ToString
+
+@ToString( includeNames = true, excludes = 'videoDataSet' )
 class VideoFile
 {
   String name

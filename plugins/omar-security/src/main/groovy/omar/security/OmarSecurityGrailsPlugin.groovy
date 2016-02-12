@@ -52,6 +52,12 @@ Brief summary/description of the plugin.
        //println OmarSecurityUtils.application.config.grails.plugin.springsecurity
 
        OmarSecurityReflectionUtils.application = OmarSecurityUtils.application = grailsApplication
+
+       // reset and re-synch security configs
+       SpringSecurityUtils.resetSecurityConfig()
+       OmarSecurityUtils.resetSecurityConfig()
+       OmarSecurityUtils.reloadSecurityConfig()
+
        //OmarSecurityUtils.application.config.grails.plugin.springsecurity.securityConfigType =  "Requestmap"
        //OmarSecurityUtils.application.config.grails.plugin.springsecurity.providerNames =  [
                //'omarPreAuthenticatedAuthenticationProvider',
