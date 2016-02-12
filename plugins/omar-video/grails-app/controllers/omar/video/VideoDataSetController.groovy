@@ -11,6 +11,11 @@ import omar.core.HttpStatusMessage
 )
 class VideoDataSetController
 {
+	static allowedMethods = [
+		addVideo: 'POST',
+		removeVideo: 'POST'
+	]
+
 	def videoDataSetService
 
 	@ApiOperation( value = "Add a Video to the database", produces = 'text/plain', httpMethod = 'POST' )
