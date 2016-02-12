@@ -42,6 +42,7 @@ OMAR Image server
 # Exports:
 export OMAR_DEV_HOME=%{_builddir}/%{name}-%{version}
 export OMAR_HOME=$OMAR_DEV_HOME/apps/omar
+export OMAR_CONFIG=$OMAR_HOME/grails-app/conf/Config.groovy
 export OSSIM_BUILD_DIR=%{_builddir}/%{name}-%{version}/build
 export OSSIM_BUILD_TYPE=RelWithDebInfo
 export OSSIM_VERSION=%{RPM_OSSIM_VERSION}
