@@ -9,9 +9,9 @@ License:        LGPLv2+
 Source0:        http://download.osgeo.org/ossim/source/%{name}-%{version}.tar.gz
 
 
-BuildRequires: ossim
-BuildRequires: ossim-oms
-BuildRequires: ossim-predator
+# BuildRequires: ossim
+# BuildRequires: ossim-oms
+# BuildRequires: ossim-predator
 
 %description
 OMAR
