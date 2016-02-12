@@ -3,6 +3,7 @@ package omar.security
 import grails.test.mixin.*
 import spock.lang.*
 
+/*
 @TestFor(SecUserController)
 @Mock(SecUser)
 class SecUserControllerSpec extends Specification {
@@ -150,3 +151,4 @@ class SecUserControllerSpec extends Specification {
             flash.message != null
     }
 }
+  */

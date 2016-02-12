@@ -130,7 +130,7 @@ grails:
             securityConfigType: Requestmap
             userLookup:
                 userDomainClassName: omar.security.SecUser
-                authorityJoinClassName: omar.security.SecUserSecRoll
+                authorityJoinClassName: omar.security.SecUserSecRole
             authority:
                 className: omar.security.SecRole
             requestMap:
@@ -187,7 +187,7 @@ omar:
 # all
 logging:
     level:
-        omar.security: INFO
+        omar.security: trace
 
 
 ## Enable and disable spring security ##
