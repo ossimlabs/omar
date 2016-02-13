@@ -2,6 +2,7 @@
 // Vendor
 // removed this webjars/jquery/2.1.4/jquery.min.js for it is in conflict with spring-security-ui
 /// spring security ui includes jquery
+
 //= require jquery.js
 
 //= require webjars/openlayers/3.13.0/ol.js
