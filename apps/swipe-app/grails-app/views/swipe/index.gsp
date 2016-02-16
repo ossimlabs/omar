@@ -27,63 +27,49 @@
         <div id="fullscreen" class="fullscreen">
             <div class="row" ng-show="!swipe.showHeader">
                 <div class="col-md-12">
-                    <div id="map" class="map">
-                        <toggle-switch
+                    <div id="map" class="map">         
+                        <div class="toggle-swap-container">
+                            <toggle-switch
                                 class="toggle toggle-swap" 
                                 knob-label="Swap"
                                 ng-model="swipe.swapStatus"
                                 ng-change="swipe.swap(swipe.layer1, swipe.layer2);">
                             </toggle-switch>
+                        </div> 
+                        <div class="toggle-flicker-container">  
                             <toggle-switch
                                 class="toggle toggle-flicker" 
                                 knob-label="Flicker"
                                 ng-model="swipe.flicker"
                                 ng-change="swipe.flickerLayer();">
                             </toggle-switch>
-                        <div class="imageOpacity imageOpacity1">
-                        <p class="text-center"><strong>Image 1 Opacity</strong></p>
-                            <input id="imageOpacity1" type="range" min="0" max="1" step="0.01" value="0" ng-model="swipe.imageOpacity1" ng-change="swipe.imageOpacity1Change()">
                         </div>
-                        <div class="imageOpacity imageOpacity2">
-                            <p class="text-center"><strong>Image 2 Opacity</strong></p>
-                            <input id="image1Opacity2" type="range" min="0" max="1" step="0.01" value="0" ng-model="swipe.imageOpacity2" ng-change="swipe.imageOpacity2Change()">
+                        <div class="imageOpacity imageOpacity1-container">
+                            <div class="imageOpacity1">
+                            <p class="text-center"><strong>Image 1 Opacity</strong></p>
+                                <input id="imageOpacity1" type="range" min="0" max="1" step="0.01" value="0" ng-model="swipe.imageOpacity1" ng-change="swipe.imageOpacity1Change()">
+                            </div>
                         </div>
-                        <div id="dd" style="
-                            position: absolute;
-                            bottom: 35px;
-                            left: 45%;
-                            z-index: 1;
-                            font-size: .7em;
-                            color: #fff;
-                            background-color: rgba(0,60,136,0.5);
-                            padding: 2px 10px;
-                            border-radius: 5px;">
+                        <div class="imageOpacity imageOpacity2-container">
+                            <div class="imageOpacity2">
+                                <p class="text-center"><strong>Image 2 Opacity</strong></p>
+                                <input id="image1Opacity2" type="range" min="0" max="1" step="0.01" value="0" ng-model="swipe.imageOpacity2" ng-change="swipe.imageOpacity2Change()">
+                            </div>
                         </div>
-                        <div id="dms" style="
-                            position: absolute;
-                            bottom: 35px;
-                            left: 25%;
-                            z-index: 1;
-                            font-size: .7em;
-                            color: #fff;
-                            background-color: rgba(0,60,136,0.5);
-                            padding: 2px 10px;
-                            border-radius: 5px;">
+                        <div class="dd-container">
+                            <div id="dd" class="dd"></div>
                         </div>
-                        <div id="mgrs" style="
-                            position: absolute;
-                            bottom: 35px;
-                            left: 62%;
-                            z-index: 1;
-                            font-size: .7em;
-                            color: #fff;
-                            background-color: rgba(0,60,136,0.5);
-                            padding: 2px 10px;
-                            border-radius: 5px;">
+                        <div class="dms-container">
+                            <div id="dms" class="dms"></div>
                         </div>
-                        <div class="swipe">
-                            <p class="text-center"><strong>Swipe Images</strong></p>
-                            <input id="swipe" type="range" value="0">
+                        <div class="mgrs-container">
+                            <div id="mgrs" class="mgrs"></div>
+                        </div>
+                        <div class="swipe-container">
+                            <div class="swipe">
+                                <p class="text-center"><strong>Swipe Images</strong></p>
+                                <input id="swipe" type="range" value="0">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,7 +80,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <h2>Change Detection Viewer</h2>
                 <p ng-show="swipe.showHeader" class="text-muted">Enter two image id's, or database id's in input boxes below </p>
-                <p ng-show="!swipe.showHeader" class="text-muted">Use the slider on the map above to hide/show the top image.</p>
+                <p ng-show="!swipe.showHeader" class="text-muted">Use the slider on the map above to hide/show the top image</p>
                 <hr class="hr-tight">
             </div>
         </div>
