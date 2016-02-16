@@ -48,6 +48,39 @@
                             <p class="text-center"><strong>Image 2 Opacity</strong></p>
                             <input id="image1Opacity2" type="range" min="0" max="1" step="0.01" value="0" ng-model="swipe.imageOpacity2" ng-change="swipe.imageOpacity2Change()">
                         </div>
+                        <div id="dd" style="
+                            position: absolute;
+                            bottom: 35px;
+                            left: 45%;
+                            z-index: 1;
+                            font-size: .7em;
+                            color: #fff;
+                            background-color: rgba(0,60,136,0.5);
+                            padding: 2px 10px;
+                            border-radius: 5px;">
+                        </div>
+                        <div id="dms" style="
+                            position: absolute;
+                            bottom: 35px;
+                            left: 25%;
+                            z-index: 1;
+                            font-size: .7em;
+                            color: #fff;
+                            background-color: rgba(0,60,136,0.5);
+                            padding: 2px 10px;
+                            border-radius: 5px;">
+                        </div>
+                        <div id="mgrs" style="
+                            position: absolute;
+                            bottom: 35px;
+                            left: 62%;
+                            z-index: 1;
+                            font-size: .7em;
+                            color: #fff;
+                            background-color: rgba(0,60,136,0.5);
+                            padding: 2px 10px;
+                            border-radius: 5px;">
+                        </div>
                         <div class="swipe">
                             <p class="text-center"><strong>Swipe Images</strong></p>
                             <input id="swipe" type="range" value="0">
