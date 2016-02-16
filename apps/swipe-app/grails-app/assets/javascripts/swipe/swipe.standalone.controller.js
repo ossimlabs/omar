@@ -21,7 +21,7 @@
                 swipe,
                 vectorLayer;
 
-            vm.showHeader = false;
+            vm.showHeader = true;
 
             vm.url = 'http://localhost:7272/o2/wms?';
 
@@ -152,7 +152,8 @@
             });
 
             swipe = document.getElementById('swipe');
-        
+            
+            vm.swapStatus = false;
             vm.swap = function swap(layer1, layer2) {
                 
                 layers = [layer1, layer2];
@@ -188,16 +189,15 @@
                 console.log('i: ', i);
 
                 if(omar && !swap){
-                    console.log('omar present...');
 
                     var params = omar.getSource().getParams();
 
                     params.FILTER = "in(" + i + ")";
                     omar.getSource().updateParams(params);
 
-
                 }
                 else {
+                    
                     omar = new ol.layer.Tile({
                         opacity: 1.0,
                         source: new ol.source.TileWMS({
@@ -214,6 +214,7 @@
                         name: 'layer1'
                     });
                     map.addLayer(omar);
+
                 }
                 
             }
@@ -228,7 +229,7 @@
                 
                 console.log('i: ', i);
 
-                if(omar2&& !swap){
+                if(omar2 && !swap){
                     console.log('omar2 present...');
 
                     var params = omar2.getSource().getParams();
@@ -256,9 +257,11 @@
                         name: 'layer2'
                     });
                     map.addLayer(omar2);
+                    getImageBounds(vm.layer1); // + ', ' + vm.layer2);
                 }
+                vm.showHeader = false; // hide the header, show the map
                 setSwipe();
-                getImageBounds(vm.layer1);// + ', ' + vm.layer2);
+                
                 
             }
             
@@ -300,7 +303,8 @@
                     omar2.setVisible(false);
                     $timeout(function(){
                         omar2.setVisible(true);
-                        
+                        console.log('on...');
+
                     }, 250, false);
 
                 }
@@ -314,12 +318,28 @@
                 else {
                     
                     $interval.cancel(onInterval);
-                    vm.flicker = false;   
+                    vm.flicker = false;
+                    console.log('off...');  
                 
                 }
 
             };
 
+            vm.imageOpacity1 = 1.0;
+            vm.imageOpacity1Change = function(){
+                //console.log('changeing...');
+                console.log('vm.imageOpacity1', vm.imageOpacity1);
+                omar.setOpacity(parseFloat(vm.imageOpacity1));
+            };
+
+            vm.imageOpacity2 = 1.0;
+            vm.imageOpacity2Change = function(){
+                //console.log('changeing...');
+                console.log('vm.imageOpacity2', vm.imageOpacity2);
+                omar2.setOpacity(parseFloat(vm.imageOpacity2));
+            };
+
         }
+    
 
 })();
