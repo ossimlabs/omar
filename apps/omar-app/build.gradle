@@ -69,6 +69,7 @@ grails {
       compile project( ':omar-wfs' )
       compile project( ':omar-wms' )
       compile project( ':omar-predio' )
+//      compile project( ':omar-security' )
     }
 }
 dependencies {
@@ -85,6 +86,7 @@ dependencies {
   compile "org.hibernate:hibernate-ehcache"
   compile "org.grails.plugins:scaffolding"
 
+
   runtime "org.grails.plugins:asset-pipeline"
 
   testCompile "org.grails:grails-plugin-testing"
@@ -99,6 +101,7 @@ dependencies {
 
   // UI Webjar core dependencies
   compile 'org.webjars:jquery:2.1.4'
+  compile 'org.webjars:jquery-ui:1.10.3'
   compile 'org.webjars:openlayers:3.13.0'
   compile 'org.webjars:bootstrap:3.3.5'
   compile 'org.webjars.bower:angularjs:1.4.8'
@@ -128,6 +131,9 @@ dependencies {
   compile 'org.webjars:bootswatch-cosmo:3.3.5+4'
   compile 'org.webjars:bootswatch-flatly:3.3.5+4'
   compile 'org.webjars:bootswatch-default:3.3.5+4'
+
+//  compile 'org.grails.plugins:spring-security-appinfo:3.0.0'
+//  compile 'org.grails.plugins:spring-security-ui:3.0.0.M1'
 
 }
 

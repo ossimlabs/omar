@@ -11,6 +11,11 @@ import omar.core.HttpStatusMessage
 )
 class RasterDataSetController
 {
+	static allowedMethods = [
+			addRaster: 'POST',
+			removeRaster: 'POST'
+	]
+
 	def rasterDataSetService
 
 	@ApiOperation( value = "Add a Raster to the database", produces = 'text/plain', httpMethod = 'POST' )
