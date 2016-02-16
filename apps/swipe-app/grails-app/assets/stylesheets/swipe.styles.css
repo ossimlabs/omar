@@ -8,19 +8,20 @@
 .map {
     height: 400px;
 }
-.swipe {
-    
-    width: 75%;
-
+.swipe { 
+    width: 95%;
 	position: absolute;
 	bottom: 5px;
-	left: 15%;
+	left: 2%;
 	z-index: 1;
 	font-size: .7em;
 	color: #fff;
 	background-color: rgba(0,60,136,0.5);
 	padding: 2px 10px;
 	border-radius: 5px;	
+}
+.swipe p {
+	margin-bottom: -5px;
 }
 .map:-moz-full-screen {
 	height: 100%;
@@ -36,4 +37,56 @@
 }
 .ol-rotate {
 	top: 3em;
+}
+.toggle {
+	color: black;
+}
+.imageOpacity {
+	width: 30%;
+}
+.imageOpacity1{
+	position: absolute;
+	top: 5px;
+	left: 9%;;
+	z-index: 1;
+	font-size: .7em;
+	background-color: rgba(0,60,136,0.5);
+	padding: 2px 10px;
+	border-radius: 5px;	
+}
+.imageOpacity1 p {
+	margin-bottom: -5px;
+}
+.imageOpacity2{
+	position: absolute;
+	top: 5px;
+	right: 9%;
+	z-index: 1;
+	font-size: .7em;
+	background-color: rgba(0,60,136,0.5);
+	padding: 2px 10px;
+	border-radius: 5px;	
+}
+.imageOpacity2 p {
+	margin-bottom: -5px;
+}
+.toggle-swap {
+	position: absolute;
+	top: 45px;
+	left: 9%;
+	z-index: 1;
+	font-size: 1.2em;
+	background-color: rgba(0,60,136,0.5);
+	padding: 2px 10px;
+	border-radius: 5px;	
+}
+.toggle-flicker {
+	position: absolute;
+	top: 45px;
+	right: 9%;
+	z-index: 1;
+	background-color: rgba(0,60,136,0.5);
+	padding: 2px 10px;
+	border-radius: 5px;
+	font-size: 1.2em
 }
