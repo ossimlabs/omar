@@ -262,7 +262,7 @@
 
                 }
                 else {
-                    
+                    getImageBounds(vm.layer1);
                     omar = new ol.layer.Tile({
                         title: 'Image 1',
                         opacity: 1.0,
@@ -307,7 +307,7 @@
                 }
                 else {
                     //var urlParam = "20030224172409SI_CARTERRA_0101495AA00000 00100001AA04800090P"
-                    getImageBounds(vm.layer1); // + ', ' + vm.layer2);
+
                     omar2 = new ol.layer.Tile({
                         title: 'Image 2',
                         opacity: 1.0,
