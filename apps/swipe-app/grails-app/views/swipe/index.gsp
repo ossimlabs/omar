@@ -104,7 +104,7 @@
         <div class="row">
                 <div class="col-md-12 text-center">
                     
-                    <button class="btn btn-success btn-sm" ng-click="swipe.addLayer1(swipe.layer1);swipe.addLayer2(swipe.layer2)">Submit</button>
+                    <button class="btn btn-success btn-sm" ng-click="swipe.addLayer1(swipe.layer1);">Submit</button>
 
                     <button class="btn btn-warning btn-sm" ng-click="">Reset</button>
         

@@ -106,7 +106,7 @@ body { padding-top: 70px; }
     margin-bottom: 5px;
 }
 
-#list {
+#list a:hover {
     text-decoration: none;
 }
 

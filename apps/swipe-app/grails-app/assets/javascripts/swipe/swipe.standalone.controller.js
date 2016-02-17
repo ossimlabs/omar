@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('swipeApp')
-        .controller('SwipeController', ['$location', '$http', '$interval', '$timeout', SwipeController]);
+        .controller('SwipeController', ['$location', '$http', '$interval', '$timeout', '$scope', SwipeController]);
 
-        function SwipeController($location, $http, $interval, $timeout) {
+        function SwipeController($location, $http, $interval, $timeout, $scope) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -33,9 +33,6 @@
                 cql: '',
             };
 
-            // var urlParams = $location.search();
-            // console.log('urlParams.layers', urlParams.layers.split(","));
-            // layers = urlParams.layers.split(",");
 
             vm.layer1 = '20030224172409SI_CARTERRA_0101495AA00000 00100001AA05100091P  GC   UCT';
             vm.layer2 = '20030125151310SI_CARTERRA_0101314MA00000 00100001MA01200021M  GC   UCT';
@@ -66,7 +63,9 @@
                 })
                 .then(function(response) {
 
-                    var data;
+                    var data,
+                        vectorLayerExtent;
+                    
                     data = response.data.features;
                     console.log('map WFS data: ', data);
                     //console.log('data.length', data.length);
@@ -74,7 +73,9 @@
                     // If there is more than one image we can get the extent
                     // of the vectorLayer to set the maps extent
                     if (data.length > 1){
-
+                        
+                        console.log('data.lenth > 1', data.length);
+                        
                         // Add each image to the vectorLayer
                         angular.forEach(data, function(image){
 
@@ -87,14 +88,16 @@
                         });
 
 
-                        var vectorLayerExtent = vectorLayer.getSource().getExtent();
+                        //var vectorLayerExtent = vectorLayer.getSource().getExtent();
 
                         // Sets the map's extent to all of the images in the vectorLayer
                         map.getView().fit(vectorLayerExtent, map.getSize());
 
-                        console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
+                        //console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
                         vectorLayer.getSource().clear();
-                        console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
+                        //console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
+
+                        return vectorLayerExtent;
 
                     }
                     // If there is only one image we need to use the extent of the feature (image)
@@ -117,12 +120,6 @@
                 });
 
             }
-            //getImageBounds(layers);
-
-            osm = new ol.layer.Tile({
-                source: new ol.source.OSM(),
-                name: 'OSM'
-            });
 
             vectorLayer = new ol.layer.Vector({
                 opacity: 0.0,
@@ -251,7 +248,7 @@
 
             function addLayer1(i, swap) {
                 
-                console.log('i: ', i);
+                //console.log('i: ', i);
 
                 if(omar && !swap){
 
@@ -262,24 +259,31 @@
 
                 }
                 else {
+                    console.log('else....');
                     getImageBounds(vm.layer1);
-                    omar = new ol.layer.Tile({
-                        title: 'Image 1',
-                        opacity: 1.0,
-                        source: new ol.source.TileWMS({
-                            url: vm.url,
-                            params: {
-                                'LAYERS': 'omar:raster_entry',
-                                //'FILTER' : "in(" + i + ")",
-                                //'FILTER': "strToUpperCase(title) like '%20030123124701SI_CARTERRA_0101230MA00000 00100001MA01200017M%'",
-                                'FILTER': "strToUpperCase(title) like '%" + i + "%'",
-                                'TILED': true,
-                                'VERSION': '1.1.1'
-                            }
-                        }),
-                        name: 'layer1'
-                    });
-                    overlayGroup.getLayers().push(omar);
+                    $timeout(function(){
+                        omar = new ol.layer.Tile({
+                            title: 'Image 1',
+                            opacity: 1.0,
+                            source: new ol.source.TileWMS({
+                                url: vm.url,
+                                params: {
+                                    'LAYERS': 'omar:raster_entry',
+                                    'FILTER': "strToUpperCase(title) like '%" + i + "%'",
+                                    'TILED': true,
+                                    'VERSION': '1.1.1'
+                                }
+                            }),
+                            name: 'layer1'
+                        });
+                        
+                        console.log('timeout...')
+                        overlayGroup.getLayers().push(omar);
+                        addLayer2(vm.layer2, false);
+                        
+                    }, 3000, false);
+ 
+                    
                     //map.addLayer(omar);
 
                 }
@@ -294,7 +298,7 @@
 
             function addLayer2(i, swap) {
                 
-                console.log('i: ', i);
+                //console.log('i: ', i);
 
                 if(omar2 && !swap){
                     console.log('omar2 present...');
@@ -307,7 +311,6 @@
                 }
                 else {
                     //var urlParam = "20030224172409SI_CARTERRA_0101495AA00000 00100001AA04800090P"
-
                     omar2 = new ol.layer.Tile({
                         title: 'Image 2',
                         opacity: 1.0,
@@ -325,10 +328,14 @@
                         name: 'layer2'
                     });
                     overlayGroup.getLayers().push(omar2);
+                    $scope.$apply(function(){
+                        vm.showHeader = false; // hide the header, show the map
+                    });
+
                     //map.addLayer(omar2);
                     //getImageBounds(vm.layer1); // + ', ' + vm.layer2);
                 }
-                vm.showHeader = false; // hide the header, show the map
+                // vm.showHeader = false; // hide the header, show the map
                 setSwipe();
               
                 
