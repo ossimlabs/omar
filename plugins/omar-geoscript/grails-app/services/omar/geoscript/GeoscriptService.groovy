@@ -1,6 +1,8 @@
 package omar.geoscript
 
 import grails.transaction.Transactional
+import org.geotools.factory.CommonFactoryFinder
+import org.opengis.filter.capability.FunctionName
 
 @Transactional( readOnly = true )
 class GeoscriptService
@@ -90,10 +92,25 @@ class GeoscriptService
 			namespaceInfo = NamespaceInfo.findByPrefix( namespacePrefix )
 		}
 
-		println "${namespaceInfo} ${layerName}"
+		//println "${namespaceInfo} ${layerName}"
 
 		LayerInfo.where {
 			name == layerName && workspaceInfo.namespaceInfo == namespaceInfo
 		}.get()
 	}
+
+	def listFunctions2()
+	{
+		List names = [ ]
+		CommonFactoryFinder.getFunctionFactories().each { f ->
+			f.functionNames.each { fn ->
+				if ( fn instanceof FunctionName )
+				{
+					names << [ name: fn.functionName.toString(), argCount: fn.argumentCount ]
+				}
+			}
+		}
+		names.sort { a, b -> a.name.compareToIgnoreCase b.name }
+	}
+
 }
