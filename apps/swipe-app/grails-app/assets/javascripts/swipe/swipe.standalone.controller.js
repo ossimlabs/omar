@@ -12,12 +12,9 @@
             var map,
                 mapView,
                 interactions,
-                osm,
                 layers,
                 omar,
-                omarParams,
                 omar2,
-                omar2Params,
                 swipe,
                 vectorLayer;
 
@@ -33,18 +30,15 @@
                 cql: '',
             };
 
-            // var urlParams = $location.search();
-            // console.log('urlParams.layers', urlParams.layers.split(","));
-            // layers = urlParams.layers.split(",");
-
             vm.layer1 = '20030224172409SI_CARTERRA_0101495AA00000 00100001AA05100091P  GC   UCT';
             vm.layer2 = '20030125151310SI_CARTERRA_0101314MA00000 00100001MA01200021M  GC   UCT';
 
             vm.vectorLayerExtent = [];
             function getImageBounds(imageIds){
 
-                //wfsRequest.cql = 'id in(' + imageIds + ')';
-                wfsRequest.cql = "strToUpperCase(title) like '%" + imageIds + "%'";
+                var imageIdsArray = imageIds.split(',');
+
+                wfsRequest.cql = "title in('" + imageIdsArray[0] + "'," + "'" + imageIdsArray[1] + "')";
 
                 console.log('wfsRequest.cql', wfsRequest.cql);
 
@@ -99,29 +93,14 @@
 
                     }
                     else {
-                        alert('Error, could not find one of the images!')
+                        
+                        alert('Error, could not find one of the images!');
+
                     }
-                    // If there is only one image we need to use the extent of the feature (image)
-                    // in the vectorLayer
-                    // else {
-
-                    //     var imageFeature = new ol.Feature({
-                    //         geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
-                    //     });
-
-                    //     vectorLayer.getSource().addFeature(imageFeature);
-
-                    //     var featureExtent = imageFeature.getGeometry().getExtent();
-
-                    //     // Moves the map to the extent of the one image
-                    //     map.getView().fit(featureExtent, map.getSize());
-
-                    // }
 
                 });
 
             }
-            //getImageBounds(layers);
 
             vectorLayer = new ol.layer.Vector({
                 opacity: 0.0,
@@ -228,8 +207,12 @@
                 vm.layer1 = layers[1];
                 vm.layer2 = layers[0];
 
-                addLayer1(layers[1], swap);
-                addLayer2(layers[0], swap);
+                // addLayer1(layers[1], swap);
+                // addLayer2(layers[0], swap);
+                
+                addLayer1(layers[1]);
+                addLayer2(layers[0]);
+
                 //getImageBounds(vm.layer1 + ', ' + vm.layer2);
 
             };
@@ -256,14 +239,16 @@
 
                     var params = omar.getSource().getParams();
 
-                    params.FILTER = "in(" + i + ")";
+                    //params.FILTER = "in(" + i + ")";
+                    params.FILTER = "title in('" + i + "')";
+                    console.log(params.FILTER);
                     omar.getSource().updateParams(params);
 
                 }
                 else {
                     
                     console.log('addLayer1, else...');
-                    getImageBounds(vm.layer1);
+                    getImageBounds(vm.layer1 + ',' + vm.layer2);
                     
                     $timeout(function(){
                         console.log('$timeout...');
@@ -288,7 +273,7 @@
                         overlayGroup.getLayers().push(omar);
                         addLayer2(vm.layer2, false);
                         
-                    }, 3000, false);
+                    }, 1500, false);
 
                 }
                 
@@ -309,7 +294,9 @@
 
                     var params = omar2.getSource().getParams();
 
-                    params.FILTER = "in(" + i + ")";
+                    //params.FILTER = "in(" + i + ")";
+                    params.FILTER = "title in('" + i + "')";
+                    console.log(params.FILTER);
                     omar2.getSource().updateParams(params);
 
                 }
