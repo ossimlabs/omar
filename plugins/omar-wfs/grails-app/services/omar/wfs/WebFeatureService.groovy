@@ -1,7 +1,6 @@
 package omar.wfs
 
 import geoscript.feature.Schema
-import geoscript.feature.io.GmlWriter
 import geoscript.filter.Filter
 import geoscript.workspace.Workspace
 
@@ -516,7 +515,6 @@ class WebFeatureService
 
 		Workspace.withWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) { workspace ->
 			def layer = workspace[ layerInfo.name ]
-			def writer = new GmlWriter()
 			def matched = layer.count( wfsParams.filter ?: Filter.PASS )
 			def count = ( wfsParams.maxFeatures ) ? Math.min( matched, wfsParams.maxFeatures ) : matched
 			def namespaceInfo = layerInfo?.workspaceInfo?.namespaceInfo
