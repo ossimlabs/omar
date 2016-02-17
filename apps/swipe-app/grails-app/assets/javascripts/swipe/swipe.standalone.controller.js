@@ -21,7 +21,7 @@
                 swipe,
                 vectorLayer;
 
-            vm.showHeader = false;
+            vm.showHeader = true;
 
             vm.url = 'http://localhost:7272/o2/wms?';
 
@@ -138,21 +138,87 @@
                 maxZoom: 18
             });
 
+            var mousePositionControl = new ol.control.MousePosition({
+                coordinateFormat: function(coord) {
+
+                    // Get DD
+                    document.getElementById("dd").innerHTML = coord[1].toFixed(6) + ', ' + coord[0].toFixed(6);
+
+                    // Get DMS
+                    var dmsPoint = new GeoPoint(coord[1], coord[0]);
+                    document.getElementById("dms").innerHTML = dmsPoint.getLonDeg() + ', ' + dmsPoint.getLatDeg();
+
+                    // Get MGRS
+                    var mgrsPoint = mgrs.forward(coord, 5); // 1m accuracy
+                    document.getElementById("mgrs").innerHTML = mgrsPoint;
+
+                    // Get DD
+                    //return ol.coordinate.format(coord, coordTemplate, 4);
+
+                },
+                projection: 'EPSG:4326',
+                // comment the following two lines to have the mouse position
+                // be placed within the map.
+                className: 'custom-mouse-position',
+                //target: document.getElementById('mouse-position'),
+                undefinedHTML: '&nbsp;'
+            });
+
+            // Create a group for overlays. Add the group to the map when it's created
+            // but add the overlay layers later
+            var overlayGroup = new ol.layer.Group({
+                title: 'Overlays',
+                layers: [
+                ]
+            });
+
             interactions = ol.interaction.defaults({altShiftDragRotate:true});
             map = new ol.Map({
+                layers:
+                    [
+                        new ol.layer.Group({
+                            'title': 'Base maps',
+                            layers: [
+                                new ol.layer.Tile({
+                                    title: 'OSM',
+                                    type: 'base',
+                                    visible: true,
+                                    source: new ol.source.OSM()
+                                }),
+                                new ol.layer.Tile({
+                                    title: 'Roads',
+                                    type: 'base',
+                                    visible: false,
+                                    source: new ol.source.MapQuest({layer: 'osm'})
+                                }),
+                                new ol.layer.Tile({
+                                    title: 'Satellite',
+                                    type: 'base',
+                                    visible: false,
+                                    source: new ol.source.MapQuest({layer: 'sat'})
+                                })
+                            ]
+                        }),
+                        overlayGroup
+                    ],
                 controls: ol.control.defaults().extend([
                     new ol.control.FullScreen({
                         source: 'fullscreen'
                     })
-                ]),
+                ]).extend([mousePositionControl]),
                 interactions: interactions,
-                layers: [],
                 target: 'map',
                 view: mapView
             });
 
+            var layerSwitcher = new ol.control.LayerSwitcher({
+                tipLabel: 'Layers' // Optional label for button
+            });
+            map.addControl(layerSwitcher);
+
             swipe = document.getElementById('swipe');
-        
+            
+            vm.swapStatus = false;
             vm.swap = function swap(layer1, layer2) {
                 
                 layers = [layer1, layer2];
@@ -188,17 +254,17 @@
                 console.log('i: ', i);
 
                 if(omar && !swap){
-                    console.log('omar present...');
 
                     var params = omar.getSource().getParams();
 
                     params.FILTER = "in(" + i + ")";
                     omar.getSource().updateParams(params);
 
-
                 }
                 else {
+                    getImageBounds(vm.layer1);
                     omar = new ol.layer.Tile({
+                        title: 'Image 1',
                         opacity: 1.0,
                         source: new ol.source.TileWMS({
                             url: vm.url,
@@ -213,7 +279,9 @@
                         }),
                         name: 'layer1'
                     });
-                    map.addLayer(omar);
+                    overlayGroup.getLayers().push(omar);
+                    //map.addLayer(omar);
+
                 }
                 
             }
@@ -228,7 +296,7 @@
                 
                 console.log('i: ', i);
 
-                if(omar2&& !swap){
+                if(omar2 && !swap){
                     console.log('omar2 present...');
 
                     var params = omar2.getSource().getParams();
@@ -241,6 +309,7 @@
                     //var urlParam = "20030224172409SI_CARTERRA_0101495AA00000 00100001AA04800090P"
 
                     omar2 = new ol.layer.Tile({
+                        title: 'Image 2',
                         opacity: 1.0,
                         source: new ol.source.TileWMS({
                             url: vm.url,
@@ -255,10 +324,13 @@
                         }),
                         name: 'layer2'
                     });
-                    map.addLayer(omar2);
+                    overlayGroup.getLayers().push(omar2);
+                    //map.addLayer(omar2);
+                    //getImageBounds(vm.layer1); // + ', ' + vm.layer2);
                 }
+                vm.showHeader = false; // hide the header, show the map
                 setSwipe();
-                getImageBounds(vm.layer1);// + ', ' + vm.layer2);
+              
                 
             }
             
@@ -300,7 +372,8 @@
                     omar2.setVisible(false);
                     $timeout(function(){
                         omar2.setVisible(true);
-                        
+                        console.log('on...');
+
                     }, 250, false);
 
                 }
@@ -314,12 +387,28 @@
                 else {
                     
                     $interval.cancel(onInterval);
-                    vm.flicker = false;   
+                    vm.flicker = false;
+                    console.log('off...');  
                 
                 }
 
             };
 
+            vm.imageOpacity1 = 1.0;
+            vm.imageOpacity1Change = function(){
+                //console.log('changeing...');
+                console.log('vm.imageOpacity1', vm.imageOpacity1);
+                omar.setOpacity(parseFloat(vm.imageOpacity1));
+            };
+
+            vm.imageOpacity2 = 1.0;
+            vm.imageOpacity2Change = function(){
+                //console.log('changeing...');
+                console.log('vm.imageOpacity2', vm.imageOpacity2);
+                omar2.setOpacity(parseFloat(vm.imageOpacity2));
+            };
+
         }
+    
 
 })();
