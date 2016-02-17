@@ -88,13 +88,13 @@
             <form class="form">    
                 <div class="col-md-4 col-md-offset-2">
                     <div class="form-group">
-                        <label>Top Image</label>
+                        <label>Image 1</label>
                         <input type="text" class="form-control" ng-model="swipe.layer1">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Bottom Image</label>
+                        <label>Image 2</label>
                         <input type="text" class="form-control" ng-model="swipe.layer2">
                     </div>
                 </div>

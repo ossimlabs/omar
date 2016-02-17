@@ -33,10 +33,14 @@
                 cql: '',
             };
 
+            // var urlParams = $location.search();
+            // console.log('urlParams.layers', urlParams.layers.split(","));
+            // layers = urlParams.layers.split(",");
 
             vm.layer1 = '20030224172409SI_CARTERRA_0101495AA00000 00100001AA05100091P  GC   UCT';
             vm.layer2 = '20030125151310SI_CARTERRA_0101314MA00000 00100001MA01200021M  GC   UCT';
 
+            vm.vectorLayerExtent = [];
             function getImageBounds(imageIds){
 
                 //wfsRequest.cql = 'id in(' + imageIds + ')';
@@ -63,9 +67,7 @@
                 })
                 .then(function(response) {
 
-                    var data,
-                        vectorLayerExtent;
-                    
+                    var data;
                     data = response.data.features;
                     console.log('map WFS data: ', data);
                     //console.log('data.length', data.length);
@@ -73,9 +75,7 @@
                     // If there is more than one image we can get the extent
                     // of the vectorLayer to set the maps extent
                     if (data.length > 1){
-                        
-                        console.log('data.lenth > 1', data.length);
-                        
+
                         // Add each image to the vectorLayer
                         angular.forEach(data, function(image){
 
@@ -88,38 +88,40 @@
                         });
 
 
-                        //var vectorLayerExtent = vectorLayer.getSource().getExtent();
+                        vm.vectorLayerExtent = vectorLayer.getSource().getExtent();
 
                         // Sets the map's extent to all of the images in the vectorLayer
-                        map.getView().fit(vectorLayerExtent, map.getSize());
+                        map.getView().fit(vm.vectorLayerExtent, map.getSize());
 
-                        //console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
+                        console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
                         vectorLayer.getSource().clear();
-                        //console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
+                        console.log('vectorLayer features', vectorLayer.getSource().getFeatures().length);
 
-                        return vectorLayerExtent;
-
+                    }
+                    else {
+                        alert('Error, could not find one of the images!')
                     }
                     // If there is only one image we need to use the extent of the feature (image)
                     // in the vectorLayer
-                    else {
+                    // else {
 
-                        var imageFeature = new ol.Feature({
-                            geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
-                        });
+                    //     var imageFeature = new ol.Feature({
+                    //         geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
+                    //     });
 
-                        vectorLayer.getSource().addFeature(imageFeature);
+                    //     vectorLayer.getSource().addFeature(imageFeature);
 
-                        var featureExtent = imageFeature.getGeometry().getExtent();
+                    //     var featureExtent = imageFeature.getGeometry().getExtent();
 
-                        // Moves the map to the extent of the one image
-                        map.getView().fit(featureExtent, map.getSize());
+                    //     // Moves the map to the extent of the one image
+                    //     map.getView().fit(featureExtent, map.getSize());
 
-                    }
+                    // }
 
                 });
 
             }
+            //getImageBounds(layers);
 
             vectorLayer = new ol.layer.Vector({
                 opacity: 0.0,
@@ -248,7 +250,7 @@
 
             function addLayer1(i, swap) {
                 
-                //console.log('i: ', i);
+                console.log('i: ', i);
 
                 if(omar && !swap){
 
@@ -259,12 +261,17 @@
 
                 }
                 else {
-                    console.log('else....');
+                    
+                    console.log('addLayer1, else...');
                     getImageBounds(vm.layer1);
+                    
                     $timeout(function(){
+                        console.log('$timeout...');
+                        console.log('vm.vectorLayerExtent: ', vm.vectorLayerExtent);
                         omar = new ol.layer.Tile({
                             title: 'Image 1',
                             opacity: 1.0,
+                            extent: vm.vectorLayerExtent,
                             source: new ol.source.TileWMS({
                                 url: vm.url,
                                 params: {
@@ -282,9 +289,6 @@
                         addLayer2(vm.layer2, false);
                         
                     }, 3000, false);
- 
-                    
-                    //map.addLayer(omar);
 
                 }
                 
@@ -298,7 +302,7 @@
 
             function addLayer2(i, swap) {
                 
-                //console.log('i: ', i);
+                console.log('i: ', i);
 
                 if(omar2 && !swap){
                     console.log('omar2 present...');
@@ -311,9 +315,11 @@
                 }
                 else {
                     //var urlParam = "20030224172409SI_CARTERRA_0101495AA00000 00100001AA04800090P"
+
                     omar2 = new ol.layer.Tile({
                         title: 'Image 2',
                         opacity: 1.0,
+                        extent: vm.vectorLayerExtent,
                         source: new ol.source.TileWMS({
                             url: vm.url,
                             params: {
@@ -331,11 +337,10 @@
                     $scope.$apply(function(){
                         vm.showHeader = false; // hide the header, show the map
                     });
-
                     //map.addLayer(omar2);
                     //getImageBounds(vm.layer1); // + ', ' + vm.layer2);
                 }
-                // vm.showHeader = false; // hide the header, show the map
+                vm.showHeader = false; // hide the header, show the map
                 setSwipe();
               
                 
