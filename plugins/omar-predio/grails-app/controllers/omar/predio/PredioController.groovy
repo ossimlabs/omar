@@ -152,7 +152,7 @@ class PredioController
    @ApiOperation(value = "Get item recommendations", produces='application/json', httpMethod = "GET")
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'appName', value = 'Application name', allowableValues="[omar_universal]", defaultValue = 'omar_universal', required=true, paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'item', value = 'Item id', defaultValue = '', paramType = 'query', required=true, dataType = 'string'),
+           @ApiImplicitParam(name = 'item', value = 'Item id', defaultValue = '', paramType = 'query', required=false, dataType = 'string'),
            @ApiImplicitParam(name = 'itemBias', value = 'Item bias', defaultValue = '', paramType = 'query', dataType = 'float'),
            @ApiImplicitParam(name = 'locations', value = 'Locations', defaultValue = '', paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'locationBias', value = 'Location bias', defaultValue = '', paramType = 'query', dataType = 'string'),
