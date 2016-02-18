@@ -65,6 +65,8 @@ dependencyManagement {
 grails {
     exploded = true
     plugins {
+      compile project( ':omar-raster' )
+      compile project( ':omar-video' )
       compile project( ':omar-openlayers' )
       compile project( ':omar-wfs' )
       compile project( ':omar-wms' )
