@@ -13,6 +13,7 @@
                 mapView,
                 interactions,
                 layers,
+                overlayGroup,
                 omar,
                 omar2,
                 swipe,
@@ -30,8 +31,11 @@
                 cql: '',
             };
 
-            vm.layer1 = '20030224172409SI_CARTERRA_0101495AA00000 00100001AA05100091P  GC   UCT';
-            vm.layer2 = '20030125151310SI_CARTERRA_0101314MA00000 00100001MA01200021M  GC   UCT';
+            // vm.layer1 = '20030205151053SI_CARTERRA_0101684MA00000 00100001MA01100011M  GC   UCT';
+            // vm.layer2 = '20030205151053SI_CARTERRA_0101684MA00000 00100001MA01100011M  GC   UCT';
+
+            vm.layer1 = 'MELB1';
+            vm.layer2 = 'MELB2';
 
             vm.vectorLayerExtent = [];
             function getImageExtents(imageIds){
@@ -73,17 +77,17 @@
                                 geometry: new ol.geom.MultiPolygon(image.geometry.coordinates)
                             });
 
+                            imageFeature.setStyle(extentStyle);
                             vectorLayer.getSource().addFeature(imageFeature);
 
                         });
-
 
                         vm.vectorLayerExtent = vectorLayer.getSource().getExtent();
 
                         // Sets the map's extent to all of the images in the vectorLayer
                         map.getView().fit(vm.vectorLayerExtent, map.getSize());
 
-                        vectorLayer.getSource().clear();
+                        //vectorLayer.getSource().clear();
                 
 
                     }
@@ -98,9 +102,20 @@
             }
 
             vectorLayer = new ol.layer.Vector({
-                opacity: 0.0,
+                title: 'Image Extents',
+                opacity: 1.0,
                 source: new ol.source.Vector(),
                 name: 'vectorLayer'
+            });
+
+            var extentStyle = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: 'rgba(255, 100, 50, 0.2)'
+            }),
+                stroke: new ol.style.Stroke({
+                    width: 1.5,
+                    color: 'rgba(255, 100, 50, 0.6)'
+                })
             });
 
             mapView = new ol.View({
@@ -137,7 +152,7 @@
                 undefinedHTML: '&nbsp;'
             });
 
-            var overlayGroup = new ol.layer.Group({
+            overlayGroup = new ol.layer.Group({
                 title: 'Overlays',
                 layers: [
                 ]
@@ -147,29 +162,29 @@
             map = new ol.Map({
                 layers:
                     [
-                        new ol.layer.Group({
-                            'title': 'Base maps',
-                            layers: [
-                                new ol.layer.Tile({
-                                    title: 'OSM',
-                                    type: 'base',
-                                    visible: true,
-                                    source: new ol.source.OSM()
-                                }),
-                                new ol.layer.Tile({
-                                    title: 'Roads',
-                                    type: 'base',
-                                    visible: false,
-                                    source: new ol.source.MapQuest({layer: 'osm'})
-                                }),
-                                new ol.layer.Tile({
-                                    title: 'Satellite',
-                                    type: 'base',
-                                    visible: false,
-                                    source: new ol.source.MapQuest({layer: 'sat'})
-                                })
-                            ]
-                        }),
+                        // new ol.layer.Group({
+                        //     'title': 'Base maps',
+                        //     layers: [
+                        //         new ol.layer.Tile({
+                        //             title: 'OSM',
+                        //             type: 'base',
+                        //             visible: true,
+                        //             source: new ol.source.OSM()
+                        //         }),
+                        //         new ol.layer.Tile({
+                        //             title: 'Roads',
+                        //             type: 'base',
+                        //             visible: false,
+                        //             source: new ol.source.MapQuest({layer: 'osm'})
+                        //         }),
+                        //         new ol.layer.Tile({
+                        //             title: 'Satellite',
+                        //             type: 'base',
+                        //             visible: false,
+                        //             source: new ol.source.MapQuest({layer: 'sat'})
+                        //         })
+                        //     ]
+                        // }),
                         overlayGroup
                     ],
                 controls: ol.control.defaults().extend([
@@ -206,7 +221,7 @@
             };
 
             vm.addLayer1 = function(i, swap) {
-                
+
                 if(omar && !swap){
 
                     // We only need to update the tile layer source
@@ -215,9 +230,16 @@
                     params.FILTER = "title in('" + i + "')";
                     omar.getSource().updateParams(params);
 
+                    if(overlayGroup.getLayers().getLength() === 0){
+                        
+                        overlayGroup.getLayers().push(omar);
+                        vm.addLayer2(vm.layer2, true);
+
+                    }
+
                 }
                 else {
-                    
+
                     // Request the extent for the images so that we can restrict
                     // the WMS request to just that area.
                     getImageExtents(vm.layer1 + ',' + vm.layer2);
@@ -254,7 +276,7 @@
 
                 }
                 
-            }
+            };
             
             function removeLayer1() {
                 
@@ -265,7 +287,7 @@
             vm.addLayer2 = function(i, swap) {
   
                 if(omar2 && !swap){
-                    
+
                     // We only need to update the tile layer source
                     // if a swap is conducted
                     var params = omar2.getSource().getParams();
@@ -291,21 +313,39 @@
                         name: 'layer2'
                     });
                     overlayGroup.getLayers().push(omar2);
-                    $scope.$apply(function(){
-                        vm.showHeader = false; // hide the header, show the map
-                    });
-
+                    overlayGroup.getLayers().push(vectorLayer);
+                    vectorLayer.setVisible(false);
+                    
                     setSwipe();
+                    
+                    // Don't try to remove the header image if it has already
+                    // been removed with the initial submit
+                    if (vm.showHeader) {
+                        $scope.$apply(function(){
+                            
+                            // hide the header, show the map
+                            vm.showHeader = false; 
+
+                        });
+                    }
                     
                 }           
                 
-            }
+            };
             
             function removeLayer2() {
 
                 map.removeLayer(omar2);
 
             }
+
+            vm.resetLayers = function() {
+
+                overlayGroup.getLayers().clear();
+                vm.layer1 = '';
+                vm.layer2 = '';
+                
+            };
 
             function setSwipe() {
 

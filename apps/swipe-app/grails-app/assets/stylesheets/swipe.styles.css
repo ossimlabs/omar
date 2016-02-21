@@ -1,12 +1,26 @@
-.imageheader {
+/*.imageheader {
 	height: 400px;
 	background-color: red;
+}*/
+.jumbotron {
+    position: relative;
+    background: #000 url("swipe.jpg") center center;
+    width: 100%;
+    /*height: 100%;*/
+    /*background-size: contain;*/
+    overflow: hidden;
+}
+.jumbotron h1 {
+    padding-bottom: 6px;
+    padding-left: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff
 }
 .hr-tight {
 	margin-top: -7px;
 }
 .map {
-    height: 400px;
+    height: 450px;
 }
 .swipe-container {
 	width: 90%;

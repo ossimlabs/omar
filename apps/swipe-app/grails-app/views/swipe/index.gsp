@@ -18,12 +18,15 @@
 </head>
 
 <body ng-controller="SwipeController as swipe">
-    <div class="container-fluid">
-        <div class="row imageheader" ng-show="swipe.showHeader">
+    <br>
+    <div class="container">
+        <div class="jumbotron imageheader" ng-show="swipe.showHeader">
             <div class="col-md-12">
-                Swipe image header here...
+                <h1 class="text-center"><i class="fa fa-exchange"></i>&nbsp;&nbsp;Swipe Viewer</h1>
             </div>
         </div>
+    </div>
+    <div class="container-fluid">
         <div id="fullscreen" class="fullscreen">
             <div class="row" ng-show="!swipe.showHeader">
                 <div class="col-md-12">
@@ -75,13 +78,22 @@
                 </div>
             </div> %{-- /.row --}%
         </div>
-        <br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2>Change Detection Viewer</h2>
-                <p ng-show="swipe.showHeader" class="text-muted">Enter two image id's, or database id's in input boxes below </p>
+                <div class="well" ng-show="swipe.showHeader">
+                    <h4>This application allows you to select two images from the O2 database, and swipe the top image over the bottom image</h4>
+                    <h5><i class="fa fa-expand text-info"></i>&nbsp;&nbsp;Use the fullscreen button to utilize your entire desktop while viewing the images</h5>
+                    <h5><i class="fa fa-rotate-left text-info"></i>&nbsp;&nbsp;Rotate the images by using the hotkeys ALT + SHIFT</h5>
+                    <h5><i class="fa fa-fast-forward text-info"></i>&nbsp;&nbsp;Use the Flicker toggle to have the images to turn on/off in rapid succession</h5>
+                    <h5><i class="fa fa-random text-info"></i>&nbsp;&nbsp;The Swap toggle can be used to change the rendering order of the images</h5>
+                    <h5><i class="fa fa-toggle-on text-info"></i>&nbsp;&nbsp;Increase or decrease the image opacity by using their sliders</h5>
+                </div>
+                <br>
+                <p ng-show="swipe.showHeader" class="text-muted">Enter two image id's in input boxes below and click the submit button </p>
+                
                 <p ng-show="!swipe.showHeader" class="text-muted">Use the slider on the map above to hide/show the top image</p>
                 <hr class="hr-tight">
+
             </div>
         </div>
         <div class="row">
@@ -104,9 +116,9 @@
         <div class="row">
                 <div class="col-md-12 text-center">
                     
-                    <button class="btn btn-success btn-sm" ng-click="swipe.addLayer1(swipe.layer1);">Submit</button>
+                    <button class="btn btn-primary" ng-click="swipe.addLayer1(swipe.layer1);">Submit</button>
 
-                    <button class="btn btn-warning btn-sm" ng-click="">Reset</button>
+                    <button class="btn btn-warning" ng-click="swipe.resetLayers();">Reset</button>
         
                 </div>
         </div> %{-- /.row --}%
