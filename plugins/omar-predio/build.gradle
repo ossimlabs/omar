@@ -51,6 +51,12 @@ dependencyManagement {
     }
     applyMavenExclusions false
 }
+grails {
+    exploded = true
+    plugins {
+        compile project( ':omar-core' )
+    }
+}
 
 dependencies {
     provided 'org.springframework.boot:spring-boot-starter-logging'
@@ -63,7 +69,6 @@ dependencies {
     provided 'javax.servlet:javax.servlet-api:3.1.0'
 
     testCompile "org.grails:grails-plugin-testing"
-    compile project(':omar-core')
     compile "org.grails.plugins:scaffolding"
     compile 'io.prediction:client:0.9.5'
 
