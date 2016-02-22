@@ -16,32 +16,32 @@ O2 Packages
 
 %package 	omar-app
 Summary:        OMAR/O2 UI application.
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %package 	wfs-app
 Summary:        OMAR/O2 WFS Service
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %package 	wms-app
 Summary:        OMAR/O2 WMS Service
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %package 	stager-app
 Summary:        Stager service for the O2 raster database Service
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %package 	superoverlay-app
 Summary:        KML Superoverlay service for the O2 raster database Service
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
