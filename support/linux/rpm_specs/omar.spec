@@ -1,6 +1,6 @@
 Name:          o2
-Version:        %{RPM_OMAR_VERSION}
-Release:        %{BUILD_RELEASE}%{?dist}
+Version:        %{O2_VERSION}
+Release:        %{O2_BUILD_RELEASE}%{?dist}
 Summary:        New OMAR/O2 Services
 Group:          System Environment/Libraries
 License:        MIT License
