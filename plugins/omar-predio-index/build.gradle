@@ -16,8 +16,6 @@ plugins {
     id "com.jfrog.bintray" version "1.2"
 }
 
-evaluationDependsOnChildren()
-
 version "0.1-SNAPSHOT"
 group "org.grails.plugins"
 
@@ -40,8 +38,6 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 repositories {
-    maven { url 'http://www.hibernatespatial.org/repository' }
-    maven { url "http://download.osgeo.org/webdav/geotools"}
     mavenLocal()
     mavenCentral()
     maven { url "https://repo.grails.org/grails/core" }
@@ -54,19 +50,7 @@ dependencyManagement {
     applyMavenExclusions false
 }
 
-grails {
-    exploded = true
-    plugins {
-      compile project(':omar-stager')
-    }
-}
-
 dependencies {
-
-
-  // compile 'org.grails.plugins:joda-time:2.0.0'
-  // compile 'org.jadira.usertype:usertype.core:3.2.0.GA'
-
     provided 'org.springframework.boot:spring-boot-starter-logging'
     provided "org.springframework.boot:spring-boot-starter-actuator"
     provided "org.springframework.boot:spring-boot-autoconfigure"
@@ -78,6 +62,9 @@ dependencies {
 
     testCompile "org.grails:grails-plugin-testing"
 
+    compile "org.codehaus.groovy.modules.http-builder:http-builder:0.6"
+    compile 'org.grails.plugins:quartz:2.0.6'
+    compile 'org.grails.plugins:quartz-monitor:1.2'
     console "org.grails:grails-console"
 }
 

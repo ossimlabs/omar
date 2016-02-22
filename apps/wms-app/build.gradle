@@ -17,10 +17,8 @@ plugins {
     id "io.spring.dependency-management" version "0.5.4.RELEASE"
 }
 
-evaluationDependsOnChildren()
-
-version "0.1"
-group "stager.app"
+version "1.0"
+group "wms.app"
 
 apply plugin: "spring-boot"
 apply plugin: "war"
@@ -45,8 +43,6 @@ assets {
 }
 
 repositories {
-    maven { url 'http://www.hibernatespatial.org/repository' }
-    maven { url "http://download.osgeo.org/webdav/geotools"}
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
 }
@@ -61,13 +57,11 @@ dependencyManagement {
 grails {
     exploded = true
     plugins {
-      compile project(':omar-raster')
-      compile project(':omar-video')      
+        compile project( ':omar-wms' )
     }
 }
 
 dependencies {
-
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-autoconfigure"
