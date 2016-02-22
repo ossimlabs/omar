@@ -221,6 +221,11 @@ class StagerJob
     index = new AtomicInteger( 0 )
     batchSize = grailsApplication.config.hibernate.jdbc.batch_size as int
 
+    Repository.withTransaction {
+      def repository = Repository.findByBaseDir( baseDir?.absolutePath )
+      repository?.scanStartDate = new Date()
+      repository?.save()
+    }
 
     if ( baseDir?.exists() )
     {

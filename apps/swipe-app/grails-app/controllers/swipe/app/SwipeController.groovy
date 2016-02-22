@@ -1,24 +1,29 @@
 package swipe.app
 
-class SwipeController {
 
-    def index() 
-    { 
-    	[
-        	initParams: [
-            	banner: grailsApplication.config.swipe.app.classificationBanner
-        	] as JSON
-    	]
+class SwipeController
+{
+	def index()
+	{
+		def banner = grailsApplication.config.classificationBanner
 
-    }
+		println "banner: ${ banner }"
 
-    def swipe() 
-    {
 		[
-        	initParams: [
-            	banner: grailsApplication.config.classificationBanner
-        	] as JSON
-    	]
+				initParams: [
+						banner: banner
+				]
+		]
 
-    }
+	}
+
+//    def swipe()
+//    {
+//		[
+//        	initParams: [
+//            	banner: grailsApplication.config.classificationBanner
+//        	] as JSON
+//    	]
+//
+//    }
 }
