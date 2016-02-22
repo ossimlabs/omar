@@ -124,14 +124,15 @@
     </div> %{-- /.container-fluid --}%
     <o2:classificationBanner position="bottom" />
     
-    <g:javascript>
-        var initParams = ${raw( initParams.toString() )};
+    <asset:script>
+        var initParams = ${raw( initParams.encodeAsJSON() as String )};
         console.log('initParams: ', initParams);
         // var APP_CONFIG = {
         //     wfs: 'blah',
         //     wms: 'blah'
         // };
-    </g:javascript>
+    </asset:script>
+    <asset:deferredScripts/>
     <asset:javascript src="swipe.manifest.js"/>
 
 </body>

@@ -8,10 +8,10 @@ class BannersTagLib {
     static defaultEncodeAs = [taglib:'raw']
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
  	
- 	@Value('${classifcationBanner.backgroundColor}')
+ 	@Value('${classificationBanner.backgroundColor}')
     def backgroundColor
     
-    @Value('${classifcationBanner.classificationType}')
+    @Value('${classificationBanner.classificationType}')
     def classificationType
 
     def classificationBanner = { attrs, body ->
