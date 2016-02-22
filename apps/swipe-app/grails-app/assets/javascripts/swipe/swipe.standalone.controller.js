@@ -5,7 +5,7 @@
         .controller('SwipeController', ['$location', '$http', '$interval', '$timeout', '$scope', SwipeController]);
 
         function SwipeController($location, $http, $interval, $timeout, $scope) {
-
+            console.log(window.APP_CONFIG);
             /* jshint validthis: true */
             var vm = this;
 
@@ -31,11 +31,14 @@
                 cql: '',
             };
 
-            // vm.layer1 = '20030205151053SI_CARTERRA_0101684MA00000 00100001MA01100011M  GC   UCT';
-            // vm.layer2 = '20030205151053SI_CARTERRA_0101684MA00000 00100001MA01100011M  GC   UCT';
+            //vm.layer1 = '20030205151053SI_CARTERRA_0101684MA00000 00100001MA01100011M  GC   UCT';
+            //vm.layer2 = '20030205151053SI_CARTERRA_0101684MA00000 00100001MA01100011M  GC   UCT';
 
-            vm.layer1 = 'MELB1';
-            vm.layer2 = 'MELB2';
+            vm.layer1 = '20030224172409SI_CARTERRA_0101495AA00000 00100001AA05100091P  GC   UCT';
+            vm.layer2 = '20030125151310SI_CARTERRA_0101314MA00000 00100001MA01200021M  GC   UCT';
+
+            // vm.layer1 = 'MELB1';
+            // vm.layer2 = 'MELB2';
 
             vm.vectorLayerExtent = [];
             function getImageExtents(imageIds){
@@ -63,8 +66,15 @@
                 })
                 .then(function(response) {
 
+                    vectorLayer.getSource().clear();
+                    console.log('vectorLayer.length', vectorLayer.getSource().getFeatures().length);
+                    vectorLayer.getSource().clear();
+
                     var data;
                     data = response.data.features;
+                    var geojsonExtentsArray  = [];
+                    var intersection;
+                    var format = new ol.format.GeoJSON();
 
                     // If there is more than one image we can get the extent
                     // of the vectorLayer to set the maps extent
@@ -77,17 +87,53 @@
                                 geometry: new ol.geom.MultiPolygon(image.geometry.coordinates)
                             });
 
-                            imageFeature.setStyle(extentStyle);
+                            //imageFeature.setStyle(extentStyle);
                             vectorLayer.getSource().addFeature(imageFeature);
+
+                            // Calculate intersection of image boundaries
+                            var polygonCoordinates = imageFeature.getGeometry().getPolygon(0).getCoordinates();
+
+                            var polygonFeature = new ol.Feature({
+                                geometry: new ol.geom.Polygon(polygonCoordinates)
+                            });
+                            
+                            geojsonExtentsArray.push(polygonFeature);
+                        
 
                         });
 
                         vm.vectorLayerExtent = vectorLayer.getSource().getExtent();
+                        console.log(vm.vectorLayerExtent);
 
                         // Sets the map's extent to all of the images in the vectorLayer
                         map.getView().fit(vm.vectorLayerExtent, map.getSize());
 
-                        //vectorLayer.getSource().clear();
+                        vectorLayer.getSource().clear();
+                        //vectorLayer.setExtent(undefined);
+                        console.log(vectorLayer.getSource().getExtent());
+
+                        intersection = turf.intersect(
+                            format.writeFeatureObject(geojsonExtentsArray[0]),
+                            format.writeFeatureObject(geojsonExtentsArray[1])
+                        );
+                        //console.log('intersection value', intersection);
+
+                        var intersectionFeature;
+                        if (intersection !== undefined) {
+
+                            intersectionFeature = format.readFeature(
+                                intersection
+                            );
+                            //console.log('intersection:', intersectionFeature);
+                            intersectionFeature.setStyle(extentStyle);   
+                            vectorLayer.getSource().addFeature(intersectionFeature);
+
+                        }
+                        else {
+
+                            alert('Images do not intersect!');
+
+                        }
                 
 
                     }
@@ -102,7 +148,7 @@
             }
 
             vectorLayer = new ol.layer.Vector({
-                title: 'Image Extents',
+                title: 'Image Interaction',
                 opacity: 1.0,
                 source: new ol.source.Vector(),
                 name: 'vectorLayer'
@@ -110,11 +156,11 @@
 
             var extentStyle = new ol.style.Style({
                 fill: new ol.style.Fill({
-                    color: 'rgba(255, 100, 50, 0.2)'
+                    color: 'rgba(255, 100, 50, 0.6)'
             }),
                 stroke: new ol.style.Stroke({
                     width: 1.5,
-                    color: 'rgba(255, 100, 50, 0.6)'
+                    color: 'rgba(255, 100, 50, 0.8)'
                 })
             });
 
@@ -162,29 +208,29 @@
             map = new ol.Map({
                 layers:
                     [
-                        // new ol.layer.Group({
-                        //     'title': 'Base maps',
-                        //     layers: [
-                        //         new ol.layer.Tile({
-                        //             title: 'OSM',
-                        //             type: 'base',
-                        //             visible: true,
-                        //             source: new ol.source.OSM()
-                        //         }),
-                        //         new ol.layer.Tile({
-                        //             title: 'Roads',
-                        //             type: 'base',
-                        //             visible: false,
-                        //             source: new ol.source.MapQuest({layer: 'osm'})
-                        //         }),
-                        //         new ol.layer.Tile({
-                        //             title: 'Satellite',
-                        //             type: 'base',
-                        //             visible: false,
-                        //             source: new ol.source.MapQuest({layer: 'sat'})
-                        //         })
-                        //     ]
-                        // }),
+                        new ol.layer.Group({
+                            'title': 'Base maps',
+                            layers: [
+                                new ol.layer.Tile({
+                                    title: 'OSM',
+                                    type: 'base',
+                                    visible: true,
+                                    source: new ol.source.OSM()
+                                }),
+                                new ol.layer.Tile({
+                                    title: 'Roads',
+                                    type: 'base',
+                                    visible: false,
+                                    source: new ol.source.MapQuest({layer: 'osm'})
+                                }),
+                                new ol.layer.Tile({
+                                    title: 'Satellite',
+                                    type: 'base',
+                                    visible: false,
+                                    source: new ol.source.MapQuest({layer: 'sat'})
+                                })
+                            ]
+                        }),
                         overlayGroup
                     ],
                 controls: ol.control.defaults().extend([
@@ -204,7 +250,7 @@
 
             swipe = document.getElementById('swipe');
             
-            vm.swapStatus = false;
+            //vm.swapStatus = false;
             vm.swap = function swap(layer1, layer2) {
                 
                 layers = [layer1, layer2];
@@ -215,27 +261,46 @@
                 vm.layer1 = layers[1];
                 vm.layer2 = layers[0];
                 
-                vm.addLayer1(layers[1]);
-                vm.addLayer2(layers[0]);
+                vm.addLayer1(layers[1], false, true);
+                vm.addLayer2(layers[0], false, true);
 
             };
 
-            vm.addLayer1 = function(i, swap) {
+            vm.addLayer1 = function(i, refresh, swap) {
 
-                if(omar && !swap){
-
-                    // We only need to update the tile layer source
-                    // if a swap is conducted
-                    var params = omar.getSource().getParams();
-                    params.FILTER = "title in('" + i + "')";
-                    omar.getSource().updateParams(params);
-
-                    if(overlayGroup.getLayers().getLength() === 0){
+                if(omar && !refresh){
+                    
+                    if (swap === undefined) {
                         
-                        overlayGroup.getLayers().push(omar);
-                        vm.addLayer2(vm.layer2, true);
+                        console.log('### swap ###', swap)
 
+                        // Now we need to update the extent
+                        getImageExtents(vm.layer1 + ',' + vm.layer2);
+                        swap === undefined;
                     }
+                    
+                    // Add a slight pause so that we don't make the WMS request
+                    // from the intial extent of the map.  This is sufficient
+                    // enough time to wait for the call to the WFS to get the
+                    // extents of the images.
+                    $timeout(function(){
+                        omar.setExtent(vm.vectorLayerExtent);
+
+                        var params = omar.getSource().getParams();
+                        params.FILTER = "title in('" + i + "')";
+                        omar.getSource().updateParams(params);
+                        console.log('layer1 params', params);
+                        console.log(vm.vectorLayerExtent);
+                        vm.addLayer2(vm.layer2, false);
+                        //debugger;
+                        
+                        if(overlayGroup.getLayers().getLength() === 0){
+                            console.log('overlayGroup === 0');
+                            overlayGroup.getLayers().push(omar);
+                            vm.addLayer2(vm.layer2, true);
+
+                        }
+                    }, 1000);
 
                 }
                 else {
@@ -268,8 +333,6 @@
 
                         overlayGroup.getLayers().push(omar);
                         
-                        // Add the second image, and indicate that it is not 
-                        // a swap
                         vm.addLayer2(vm.layer2, false);
                         
                     }, 1000, false);
@@ -284,15 +347,17 @@
 
             }
 
-            vm.addLayer2 = function(i, swap) {
+            vm.addLayer2 = function(i, refresh) {
   
-                if(omar2 && !swap){
+                if(omar2 && !refresh){
 
-                    // We only need to update the tile layer source
-                    // if a swap is conducted
+                    // Now we need to update the extent
+                    omar2.setExtent(vm.vectorLayerExtent);
+
                     var params = omar2.getSource().getParams();
                     params.FILTER = "title in('" + i + "')";
                     omar2.getSource().updateParams(params);
+                    console.log('layer2 params', params);
 
                 }
                 else {
@@ -341,9 +406,9 @@
 
             vm.resetLayers = function() {
 
-                overlayGroup.getLayers().clear();
-                vm.layer1 = '';
-                vm.layer2 = '';
+                //overlayGroup.getLayers().clear();
+                vm.layer1 = 'MELB1';
+                vm.layer2 = 'MELB2';
                 
             };
 

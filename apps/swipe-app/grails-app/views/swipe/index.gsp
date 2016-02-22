@@ -18,7 +18,7 @@
 </head>
 
 <body ng-controller="SwipeController as swipe">
-    <br>
+    <o2:classificationBanner/>
     <div class="container">
         <div class="jumbotron imageheader" ng-show="swipe.showHeader">
             <div class="col-md-12">
@@ -88,7 +88,6 @@
                     <h5><i class="fa fa-random text-info"></i>&nbsp;&nbsp;The Swap toggle can be used to change the rendering order of the images</h5>
                     <h5><i class="fa fa-toggle-on text-info"></i>&nbsp;&nbsp;Increase or decrease the image opacity by using their sliders</h5>
                 </div>
-                <br>
                 <p ng-show="swipe.showHeader" class="text-muted">Enter two image id's in input boxes below and click the submit button </p>
                 
                 <p ng-show="!swipe.showHeader" class="text-muted">Use the slider on the map above to hide/show the top image</p>
@@ -116,14 +115,24 @@
         <div class="row">
                 <div class="col-md-12 text-center">
                     
-                    <button class="btn btn-primary" ng-click="swipe.addLayer1(swipe.layer1);">Submit</button>
+                    <button class="btn btn-primary" ng-click="swipe.addLayer1(swipe.layer1, false);">Submit</button>
 
                     <button class="btn btn-warning" ng-click="swipe.resetLayers();">Reset</button>
         
                 </div>
         </div> %{-- /.row --}%
     </div> %{-- /.container-fluid --}%
-
+    <o2:classificationBanner position="bottom" />
+    
+    <g:javascript>
+        var initParams = ${raw( initParams.toString() )};
+        console.log('initParams: ', initParams);
+        // var APP_CONFIG = {
+        //     wfs: 'blah',
+        //     wms: 'blah'
+        // };
+    </g:javascript>
     <asset:javascript src="swipe.manifest.js"/>
+
 </body>
 </html>

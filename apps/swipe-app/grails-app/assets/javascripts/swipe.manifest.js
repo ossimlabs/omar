@@ -10,6 +10,7 @@
 //= require swipe/swipe.standalone.controller.js
 //= <--Core-->
 //= require core/ol3-layerswitcher.js
+//= require core/turf.min.js
 //= require core/geopoint.js
 //= require core/mgrs.js
 

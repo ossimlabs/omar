@@ -56,6 +56,7 @@ grails {
     exploded = true
     plugins {
         compile project( ':omar-openlayers' )
+        compile project( ':omar-core' )
     }
 }
 
