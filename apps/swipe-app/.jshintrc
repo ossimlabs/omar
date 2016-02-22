@@ -22,12 +22,15 @@
         "jasmine": true,
         "angular": true,
         "ol": true,
+        "turf": true,
+        "GeoPoint": true,
+        "mgrs": true,
         "browser": true,
         "element": true,
         "by":true,
         "io":true,
         "_":false,
-        "$":false
+        "$":false,
     }
 
 }

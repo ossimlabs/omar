@@ -2,6 +2,18 @@
 	height: 400px;
 	background-color: red;
 }*/
+body {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow: scroll; 
+}
+.navbar {min-height:28px !important;}
+.navbar-fixed-top {
+    height: 20px;
+}
+.navbar-fixed-bottom {
+    height: 20px;
+}
 .jumbotron {
     position: relative;
     background: #000 url("swipe.jpg") center center;
