@@ -5,7 +5,12 @@
         .controller('SwipeController', ['$location', '$http', '$interval', '$timeout', '$scope', SwipeController]);
 
         function SwipeController($location, $http, $interval, $timeout, $scope) {
-            console.log(window.APP_CONFIG);
+            
+            // #################################################################################
+            // APP_CONFIG is passed down from the .gsp, and is a global variable.  It provides
+            // the WFS and WMS url endpoints for the application.
+            // #################################################################################
+
             /* jshint validthis: true */
             var vm = this;
 
@@ -21,7 +26,7 @@
 
             vm.showHeader = true;
 
-            vm.url = 'http://localhost:7272/o2/wms?';
+            vm.url = APP_CONFIG.clientParams.wms.baseUrl;;
 
             var wfsRequest = {
                 typeName: 'omar:raster_entry',
@@ -37,9 +42,6 @@
             vm.layer1 = '20030224172409SI_CARTERRA_0101495AA00000 00100001AA05100091P  GC   UCT';
             vm.layer2 = '20030125151310SI_CARTERRA_0101314MA00000 00100001MA01200021M  GC   UCT';
 
-            // vm.layer1 = 'MELB1';
-            // vm.layer2 = 'MELB2';
-
             vm.vectorLayerExtent = [];
             function getImageExtents(imageIds){
 
@@ -47,8 +49,7 @@
 
                 wfsRequest.cql = "title in('" + imageIdsArray[0] + "'," + "'" + imageIdsArray[1] + "')";
 
-                // TODO: Get from passed in parameter
-                var wfsRequestUrl = 'http://localhost:7272/o2/wfs?';
+                var wfsRequestUrl = APP_CONFIG.clientParams.wfs.baseUrl;
 
                 var wfsUrl = wfsRequestUrl +
                     "service=WFS" +
@@ -66,8 +67,7 @@
                 })
                 .then(function(response) {
 
-                    vectorLayer.getSource().clear();
-                    console.log('vectorLayer.length', vectorLayer.getSource().getFeatures().length);
+                    //vectorLayer.getSource().clear();
                     vectorLayer.getSource().clear();
 
                     var data;
@@ -103,14 +103,11 @@
                         });
 
                         vm.vectorLayerExtent = vectorLayer.getSource().getExtent();
-                        console.log(vm.vectorLayerExtent);
 
                         // Sets the map's extent to all of the images in the vectorLayer
                         map.getView().fit(vm.vectorLayerExtent, map.getSize());
 
                         vectorLayer.getSource().clear();
-                        //vectorLayer.setExtent(undefined);
-                        console.log(vectorLayer.getSource().getExtent());
 
                         intersection = turf.intersect(
                             format.writeFeatureObject(geojsonExtentsArray[0]),
@@ -124,7 +121,6 @@
                             intersectionFeature = format.readFeature(
                                 intersection
                             );
-                            //console.log('intersection:', intersectionFeature);
                             intersectionFeature.setStyle(extentStyle);   
                             vectorLayer.getSource().addFeature(intersectionFeature);
 
@@ -271,8 +267,6 @@
                 if(omar && !refresh){
                     
                     if (swap === undefined) {
-                        
-                        console.log('### swap ###', swap)
 
                         // Now we need to update the extent
                         getImageExtents(vm.layer1 + ',' + vm.layer2);
@@ -289,17 +283,9 @@
                         var params = omar.getSource().getParams();
                         params.FILTER = "title in('" + i + "')";
                         omar.getSource().updateParams(params);
-                        console.log('layer1 params', params);
-                        console.log(vm.vectorLayerExtent);
-                        vm.addLayer2(vm.layer2, false);
-                        //debugger;
-                        
-                        if(overlayGroup.getLayers().getLength() === 0){
-                            console.log('overlayGroup === 0');
-                            overlayGroup.getLayers().push(omar);
-                            vm.addLayer2(vm.layer2, true);
 
-                        }
+                        vm.addLayer2(vm.layer2, false);
+                        
                     }, 1000);
 
                 }
@@ -357,7 +343,6 @@
                     var params = omar2.getSource().getParams();
                     params.FILTER = "title in('" + i + "')";
                     omar2.getSource().updateParams(params);
-                    console.log('layer2 params', params);
 
                 }
                 else {
@@ -406,9 +391,9 @@
 
             vm.resetLayers = function() {
 
-                //overlayGroup.getLayers().clear();
-                vm.layer1 = 'MELB1';
-                vm.layer2 = 'MELB2';
+                // Clear out the image input form elements
+                vm.layer1 = '';
+                vm.layer2 = '';
                 
             };
 

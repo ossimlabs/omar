@@ -5,25 +5,17 @@ class SwipeController
 {
 	def index()
 	{
-		def banner = grailsApplication.config.classificationBanner
+		//def banner = grailsApplication.config.classificationBanner
+		def clientParams = grailsApplication.config.swipe.app
 
-		println "banner: ${ banner }"
+		println "clientParams: ${ clientParams }"
 
 		[
-				initParams: [
-						banner: banner
+				clientConfig: [
+						clientParams: clientParams
 				]
 		]
 
 	}
 
-//    def swipe()
-//    {
-//		[
-//        	initParams: [
-//            	banner: grailsApplication.config.classificationBanner
-//        	] as JSON
-//    	]
-//
-//    }
 }
