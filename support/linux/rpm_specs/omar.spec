@@ -7,41 +7,39 @@ License:        MIT License
 #URL:           http://github
 Source0:        http://download.osgeo.org/ossim/source/%{name}-%{version}.tar.gz
 
-# BuildRequires: ossim
-# BuildRequires: ossim-oms
-# BuildRequires: ossim-predator
+Requires: ossim-oms
 
 %description
 O2 Packages
 
 %package 	omar-app
 Summary:        OMAR/O2 UI application.
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %package 	wfs-app
 Summary:        OMAR/O2 WFS Service
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %package 	wms-app
 Summary:        OMAR/O2 WMS Service
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %package 	stager-app
 Summary:        Stager service for the O2 raster database Service
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %package 	superoverlay-app
 Summary:        KML Superoverlay service for the O2 raster database Service
-Version:        %{RPM_OMAR_VERSION}
+Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -84,7 +82,7 @@ export OMAR_APP_HOME=$OMAR_DEV_HOME/apps/omar-app
 export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wms-app
 export WFS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
 export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
-export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
+export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
 
 mkdir -p plugins/omar-oms/lib
 # cp /usr/share/java/joms-%{version}.jar plugins/omar-oms/lib/joms-%{version}.jar
@@ -95,6 +93,10 @@ pushd $OMAR_APP_HOME
 popd
 
 pushd $WFS_APP_HOME
+./gradlew assemble
+popd
+
+pushd $WMS_APP_HOME
 ./gradlew assemble
 popd
 
@@ -115,9 +117,9 @@ export OSSIM_VERSION=%{RPM_OSSIM_VERSION}
 export OSSIM_INSTALL_PREFIX=%{buildroot}/usr
 export OMAR_APP_HOME=$OMAR_DEV_HOME/apps/omar-app
 export WFS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
-export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
-export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
-export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
+export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wms-app
+export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
+export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
 
 pushd $OMAR_APP_HOME
 install -d %{buildroot}/opt/ossimlabs/omar-app
