@@ -98,6 +98,10 @@ pushd $WFS_APP_HOME
 ./gradlew assemble
 popd
 
+pushd $WMS_APP_HOME
+./gradlew assemble
+popd
+
 pushd $STAGER_APP_HOME
 ./gradlew assemble
 popd
