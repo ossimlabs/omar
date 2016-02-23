@@ -22,6 +22,7 @@
         "jasmine": true,
         "angular": true,
         "ol": true,
+        "APP_CONFIG": true,
         "turf": true,
         "GeoPoint": true,
         "mgrs": true,
@@ -30,7 +31,7 @@
         "by":true,
         "io":true,
         "_":false,
-        "$":false,
+        "$":false
     }
 
 }

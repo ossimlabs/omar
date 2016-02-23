@@ -124,3 +124,13 @@ classificationBanner:
   #classificationType: Secret // NOFORN
     # backgroundColor: yellow
     # classificationType: Top Secret
+
+---
+# Client params
+swipe:
+    app:
+        wfs:
+            baseUrl: http://localhost:7272/o2/wfs?
+        wms:
+            baseUrl: http://localhost:7272/o2/wms?
+

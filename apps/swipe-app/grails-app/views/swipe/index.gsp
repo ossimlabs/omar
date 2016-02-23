@@ -125,12 +125,10 @@
     <o2:classificationBanner position="bottom" />
     
     <asset:script>
-        var initParams = ${raw( initParams.encodeAsJSON() as String )};
-        console.log('initParams: ', initParams);
-        // var APP_CONFIG = {
-        //     wfs: 'blah',
-        //     wms: 'blah'
-        // };
+
+        var APP_CONFIG = ${raw( clientConfig.encodeAsJSON() as String )};
+        console.log('APP_CONFIG: ', APP_CONFIG);
+
     </asset:script>
     <asset:deferredScripts/>
     <asset:javascript src="swipe.manifest.js"/>
