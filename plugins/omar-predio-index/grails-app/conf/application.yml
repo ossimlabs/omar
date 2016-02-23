@@ -122,11 +122,8 @@ omar:
     index:
       predioUrl: http://<ip>/predio
       wfs:
-        service: WFS
-        version: "1.0.0"
-        typeName: "omar:raster_entry"
-        base: "http://<ip>/o2/wfs"
-        url:
+        url: "http://<ip>/o2/wfs"
+        params:
       idField: id
       fields:
         categories:

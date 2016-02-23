@@ -10,6 +10,7 @@ class OmarPredioIndexBootStrap
 
    def init = { servletContext ->
       log.trace "init: Entered................................"
+
       def quartzScheduler = grailsApplication.mainContext.getBean('quartzScheduler')
       org.quartz.TriggerKey triggerKey = new TriggerKey("PredioIndexTrigger", "PredioTriggerGroup")
 
@@ -17,11 +18,10 @@ class OmarPredioIndexBootStrap
       if(trigger)
       {
          trigger.repeatInterval = OmarPredioIndexUtils.predioIndexConfig.pollingInterval as Long
-         //trigger.repeatCount=null           // Optional int value, if not set it repeats indefinately.
 
          Date nextFireTime=quartzScheduler.rescheduleJob(triggerKey, trigger)
 
       }
-      log.trace "init: Leving.................................."
+      log.trace "init: Leaving.................................."
    }
 }

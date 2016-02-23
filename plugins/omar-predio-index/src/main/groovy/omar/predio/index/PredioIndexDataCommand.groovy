@@ -9,5 +9,6 @@ class PredioIndexDataCommand
    String locationFields
    String categoryFields
    String dateField
+   String idField
    String expirePeriod
 }
