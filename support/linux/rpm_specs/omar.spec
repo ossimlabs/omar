@@ -84,7 +84,7 @@ export OMAR_APP_HOME=$OMAR_DEV_HOME/apps/omar-app
 export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wms-app
 export WFS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
 export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
-export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
+export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
 
 mkdir -p plugins/omar-oms/lib
 # cp /usr/share/java/joms-%{version}.jar plugins/omar-oms/lib/joms-%{version}.jar
