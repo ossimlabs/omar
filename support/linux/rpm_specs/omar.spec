@@ -7,9 +7,7 @@ License:        MIT License
 #URL:           http://github
 Source0:        http://download.osgeo.org/ossim/source/%{name}-%{version}.tar.gz
 
-# BuildRequires: ossim
-# BuildRequires: ossim-oms
-# BuildRequires: ossim-predator
+Requires: ossim-oms
 
 %description
 O2 Packages
