@@ -61,6 +61,7 @@ grails {
     plugins {
       compile project( ':omar-oms' )
       compile project( ':omar-geoscript' )
+      compile project( ':omar-hibernate-spatial' )
     }
 }
 
