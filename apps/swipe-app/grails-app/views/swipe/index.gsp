@@ -127,7 +127,7 @@
     <asset:script>
 
         var APP_CONFIG = ${raw( clientConfig.encodeAsJSON() as String )};
-        //console.log('APP_CONFIG: ', APP_CONFIG);
+        console.log('APP_CONFIG: ', APP_CONFIG);
 
     </asset:script>
     <asset:deferredScripts/>

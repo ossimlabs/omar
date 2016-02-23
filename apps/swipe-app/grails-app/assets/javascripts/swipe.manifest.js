@@ -8,6 +8,7 @@
 //= <--Swipe-->
 //= require swipe.module.js
 //= require swipe/swipe.standalone.controller.js
+
 //= <--Core-->
 //= require core/ol3-layerswitcher.js
 //= require core/turf.min.js

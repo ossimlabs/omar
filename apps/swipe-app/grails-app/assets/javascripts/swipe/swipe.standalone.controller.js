@@ -26,7 +26,7 @@
 
             vm.showHeader = true;
 
-            vm.url = APP_CONFIG.clientParams.wms.baseUrl;;
+            vm.url = APP_CONFIG.clientParams.wms.baseUrl;
 
             var wfsRequest = {
                 typeName: 'omar:raster_entry',

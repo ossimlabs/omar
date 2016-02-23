@@ -126,6 +126,7 @@ classificationBanner:
     # classificationType: Top Secret
 
 ---
+# Client params
 swipe:
     app:
         wfs:
