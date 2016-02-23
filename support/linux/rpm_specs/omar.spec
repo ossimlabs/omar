@@ -119,9 +119,9 @@ export OSSIM_VERSION=%{RPM_OSSIM_VERSION}
 export OSSIM_INSTALL_PREFIX=%{buildroot}/usr
 export OMAR_APP_HOME=$OMAR_DEV_HOME/apps/omar-app
 export WFS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
-export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
-export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
-export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
+export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wms-app
+export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
+export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
 
 pushd $OMAR_APP_HOME
 install -d %{buildroot}/opt/ossimlabs/omar-app
