@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', '$scope', '$http', ListController]);
+        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', '$scope', '$http', '$location', ListController]);
 
-        function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, $scope, $http) {
+        function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, $scope, $http, $location) {
 
             // #################################################################################
             // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
@@ -96,6 +96,9 @@
             };
 
             vm.o2baseUrl = AppO2.APP_CONFIG.clientParams.root.baseUrl;
+            //vm.o2baseUrl = AppO2.APP_PATH;
+            var angularUrl = $location.host();
+            console.log('angularUrl: ', angularUrl);
 
             vm.displayFootprint = function(obj){
 
