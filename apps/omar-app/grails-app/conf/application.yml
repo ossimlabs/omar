@@ -552,8 +552,6 @@ webconfig:
   services:
     proxy: /o2/proxy/index?url=
     omar:
-#      url: http://localhost
-#      port: 8888
       wfsUrl: http://localhost:7272/o2/wfs
       wmsUrl: http://localhost:8888/wms
       thumbnailsUrl: http://localhost:8888/omar/thumbnail/show/
@@ -578,3 +576,36 @@ videoStreaming:
   flashDirRoot: /opt/local/apache2/htdocs/videos
   //flashDirRoot: /var/www/html/videos
   flashUrlRoot: http://localhost/videos
+
+---
+# Client params
+omar:
+  app:
+    root:
+      baseUrl: http://localhost:7272/o2/
+    wfs:
+      baseUrl: http://localhost:7272/o2/wfs?
+    wms:
+      baseUrl: http://localhost:7272/o2/wms?
+      proxy: /o2/proxy/index?url=
+    imageSpace: 
+      baseUrl: http://localhost:7272/o2/imageSpace/
+    thumbnails:
+      baseUrl: http://localhost:7272/o2/imageSpace/getThumbnail?
+#    footprints:
+#      baseUrl: http://localhost:8888/omar/wms/footprints?
+    predio:
+      baseUrl: http://localhost:7272/o2/predio/
+    twofishes:
+      baseUrl: http://localhost:8081/twofish
+      proxy: /o2/twoFishesProxy
+#    basemaps:
+#      osm:
+#        baseUrl: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
+#        layers: osm-group
+    misc:
+      icons:
+        green-marker: search_marker_green.png
+
+
+

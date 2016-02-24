@@ -6,6 +6,12 @@
 
     function mapService(APP_CONFIG, wfsService) {
 
+        // #################################################################################
+        // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+        // provides access to various client params in application.yml
+        // #################################################################################
+        //console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
+
         // Add the basemap parameters from the applicaiton config file.
         var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
         var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
@@ -32,7 +38,7 @@
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
                 //opacity: 0.75,
-                src: APP_CONFIG.misc.icons.greenMarker
+                src: AppO2.APP_CONFIG.clientParams.misc.icons.greenMarker
             }))
         });
 

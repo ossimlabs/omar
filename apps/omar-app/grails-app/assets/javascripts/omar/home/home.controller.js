@@ -2,26 +2,31 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('HomeController', ['APP_CONFIG', '$scope', '$state', 'wfsService', 'toastr', '$http', HomeController]);
+        .controller('HomeController', ['$scope', '$state', 'wfsService', 'toastr', '$http', HomeController]);
 
-        function HomeController(APP_CONFIG, $scope, $state, wfsService, toastr, $http, $timeout){
+        function HomeController($scope, $state, wfsService, toastr, $http, $timeout){
 
-            toastr.info('This pre-alpha release has limited functionality.  Some items' +
-                ' are disabled at this time. More capabilities will be added on a continous' +
-                ' basis.', 'Note:',{
-                closeButton: true,
-                timeOut: 10000,
-                extendedTimeOut: 5000
-            });
+            // #################################################################################
+            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+            // provides access to various client params in application.yml
+            // #################################################################################
+            //console.log('AppO2.APP_CONFIG in HomeController: ', AppO2.APP_CONFIG);
+
+            // toastr.info('This pre-alpha release has limited functionality.  Some items' +
+            //     ' are disabled at this time. More capabilities will be added on a continous' +
+            //     ' basis.', 'Note:',{
+            //     closeButton: true,
+            //     timeOut: 10000,
+            //     extendedTimeOut: 5000
+            // });
 
             /* jshint validthis: true */
             var vm = this;
 
             vm.loading = true;
 
-            //var twofishUrl = APP_CONFIG.services.twofishes.url;
-            //var twofishPort = APP_CONFIG.services.twofishes.port;
-            var twofishProxy = APP_CONFIG.services.twofishes.proxy;
+            //var twofishProxy = APP_CONFIG.services.twofishes.proxy;
+            var twofishProxy = AppO2.APP_CONFIG.clientParams.twofishes.proxy;
 
             vm.title = 'Search for imagery';
             vm.titleMessage = 'Find by place name or coordinates';
@@ -160,7 +165,7 @@
             vm.getTrendingPio = function(){
 
                 //console.log('showPopularItems firing...');
-                var pioUrl = '/o2/predio/getPopularItems';
+                var pioUrl = AppO2.APP_CONFIG.clientParams.predio.baseUrl + 'getPopularItems';
                 $http({
                     method: 'GET',
                     url: pioUrl

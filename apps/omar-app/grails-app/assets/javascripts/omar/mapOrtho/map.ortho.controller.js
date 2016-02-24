@@ -2,9 +2,16 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('MapOrthoController', ['APP_CONFIG', '$scope', '$state', '$stateParams', '$http', MapOrthoController]);
+        .controller('MapOrthoController', ['$scope', '$state', '$stateParams', '$http', MapOrthoController]);
 
-    function MapOrthoController(APP_CONFIG, $scope, $state, $stateParams, $http){
+    function MapOrthoController($scope, $state, $stateParams, $http){
+
+        // #################################################################################
+        // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+        // provides access to various client params in application.yml
+        // #################################################################################
+        //console.log('AppO2.APP_CONFIG in MapOrthoController: ', AppO2.APP_CONFIG);
+
 
         /* jshint validthis: true */
         var vm = this;
@@ -13,7 +20,7 @@
 
         //vm.title = "Map Ortho";
 
-        console.log('$stateParams', $stateParams);
+        //console.log('$stateParams', $stateParams);
 
         var mapOrtho,
             mapOrthoView,
@@ -32,7 +39,7 @@
 
         imageLayerIds = $stateParams.layers.split(",");
 
-        console.log('imageLayerIds', imageLayerIds);
+        //console.log('imageLayerIds', imageLayerIds);
 
         vectorLayer = new ol.layer.Vector({
             opacity: 0.0,
@@ -45,9 +52,10 @@
 
             wfsRequest.cql = 'id in(' + imageIds + ')';
 
-            console.log('wfsRequest.cql', wfsRequest.cql);
+            //console.log('wfsRequest.cql', wfsRequest.cql);
 
-            var wfsRequestUrl = '/o2/wfs?';
+            //var wfsRequestUrl = '/o2/wfs?';
+            var wfsRequestUrl = AppO2.APP_CONFIG.clientParams.wfs.baseUrl;
 
             var wfsUrl = wfsRequestUrl +
                 "service=WFS" +
@@ -116,7 +124,8 @@
         imageLayers = new ol.layer.Tile({
             opacity: 1.0,
             source: new ol.source.TileWMS( {
-                url: '/o2/wms?',
+                //url: '/o2/wms?',
+                url: AppO2.APP_CONFIG.clientParams.wms.baseUrl,
                 params: {
                     'LAYERS': 'omar:raster_entry',
                     'FILTER' : "in(" + imageLayerIds + ")",
@@ -191,8 +200,8 @@
 
         function getRecommendedImages(imageId){
 
-            console.log('imageId', imageId);
-            var pioUrl = '/o2/predio/getItemRecommendations?item=' + imageId + '&num=20';
+            //console.log('imageId', imageId);
+            var pioUrl = AppO2.APP_CONFIG.clientParams.predio.baseUrl + 'getItemRecommendations?item=' + imageId + '&num=20';
             $http({
                 method: 'GET',
                 url: pioUrl
@@ -200,7 +209,7 @@
             .then(function(response) {
                 var data;
                 data = response;  // callback response from Predictive IO service
-                console.log(data);
+                //console.log(data);
                 formatRecommendedList(data);
 
             });
@@ -221,7 +230,6 @@
 
             var wfsImageString = wfsImagesList.join(",");
 
-            // TODO: Move this $http to the wfs.service.js
             var wfsRequest = {
                 typeName: 'omar:raster_entry',
                 namespace: 'http://omar.ossim.org',
@@ -232,9 +240,10 @@
 
             wfsRequest.cql = 'id in(' + wfsImageString + ')';
 
-            console.log('wfsRequest.cql: ', wfsRequest.cql);
+            //console.log('wfsRequest.cql: ', wfsRequest.cql);
 
-            var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
+            //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
+            var wfsRequestUrl = AppO2.APP_CONFIG.clientParams.wfs.baseUrl; 
 
             var wfsUrl = wfsRequestUrl +
                 "service=WFS" +
@@ -253,7 +262,7 @@
             .then(function(response) {
                 var data;
                 data = response.data.features;
-                console.log('data from wfs', data);
+                //console.log('data from wfs', data);
 
                 vm.recommendedImages = data;
                 vm.loading = false;
@@ -263,22 +272,22 @@
 
         vm.switchMapImage = function(id) {
 
-            console.log(id);
+            //console.log(id);
 
             //Set url parameter for the layer
             $state.transitionTo('mapOrtho', {layers: id}, { notify: false });
 
             //Update the map parameters with the new image db id
             var params = imageLayers.getSource().getParams();
-            console.log('params: ', params);
+            //console.log('params: ', params);
             params.FILTER = "in(" + id + ")"
             imageLayers.getSource().updateParams(params);
-            console.log('params: ', params);
+            //console.log('params: ', params);
 
             //Execute call to the wfs service to get the bounds
             getImageBounds(id);
 
-            //TODO: Call predio to update the recommended images
+            // TODO: Call predio to update the recommended images
             // Need to fix the bug with the image elements not lining up properly on
             // a new call to get new recommendations
             //getRecommendedImages(id);

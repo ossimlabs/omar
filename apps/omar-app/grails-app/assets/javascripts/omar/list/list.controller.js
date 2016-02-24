@@ -6,11 +6,18 @@
 
         function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, $scope, $http) {
 
+            // #################################################################################
+            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+            // provides access to various client params in application.yml
+            // #################################################################################
+            //console.log('AppO2.APP_CONFIG in HomeController: ', AppO2.APP_CONFIG);
+
             /* jshint validthis: true */
             var vm = this;
 
             // TODO: Move to external config
-            vm.thumbPath = '/o2/imageSpace/getThumbnail?';
+            //vm.thumbPath = '/o2/imageSpace/getThumbnail?';
+            vm.thumbPath = AppO2.APP_CONFIG.clientParams.thumbnails.baseUrl;
             vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
             vm.thumbEntry = '&entry=';  // parameter provided by image.properties.entry_id
             vm.thumbSize = '&size=100';
@@ -87,6 +94,8 @@
 
                 return border;
             };
+
+            vm.o2baseUrl = AppO2.APP_CONFIG.clientParams.root.baseUrl;
 
             vm.displayFootprint = function(obj){
 
@@ -175,9 +184,9 @@
 
             vm.logRatingToPio = function(imageId){
 
-                console.log('logRating imageId param:', imageId);
+                //console.log('logRating imageId param:', imageId);
 
-                var pioUrl = '/o2/predio/viewItem?targetEntityId=' + imageId;
+                var pioUrl = AppO2.APP_CONFIG.clientParams.predio.baseUrl + 'viewItem?targetEntityId=' + imageId;
                 $http({
                     method: 'POST',
                     url: pioUrl
@@ -186,12 +195,12 @@
 
                     var data;
                     data = response;  // callback response from Predictive IO controller
-                    console.log('rating response', data);
+                    //console.log('rating response', data);
 
                 },
                 function error(response) {
 
-                    console.log('failed', response); // supposed to have: data, status, headers, config, statusText
+                    //console.log('failed', response); // supposed to have: data, status, headers, config, statusText
 
                 });
             };
@@ -208,6 +217,8 @@
 
             //modal.rendered = false;
             //console.log('modal', modal);
+
+            vm.o2baseUrlModal = AppO2.APP_CONFIG.clientParams.root.baseUrl;
 
             var imageSpaceObj = {
                 filename: imageObj.properties.filename,

@@ -28,7 +28,7 @@
         <div class="corner-ribbon top-left sticky red shadow">Alpha</div>
         <div class="container-fluid">
 
-            <!--- Navigation --->
+
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -55,12 +55,25 @@
                     </ul>
                 </div>
             </nav>
-
-            <!--- Main Content --->
             <div ui-view></div>
 
         </div>
 
+        <asset:script>
+            
+            var AppO2 = (function () {
+                
+                var APP_CONFIG = ${raw( clientConfig.encodeAsJSON() as String )};
+                //console.log('APP_CONFIG: ', APP_CONFIG);
+                return {
+                    APP_CONFIG: APP_CONFIG
+                }
+
+            })();
+            //console.log('AppO2.APP_CONFIGclientParams', AppO2.APP_CONFIG.clientParams);
+            
+        </asset:script>
+        <asset:deferredScripts/>
         <asset:javascript src="app.manifest.js"/>
 
 

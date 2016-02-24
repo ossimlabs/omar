@@ -2,10 +2,16 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('wfsService', ['APP_CONFIG', '$rootScope', '$http', '$timeout', wfsService]);
+        .service('wfsService', ['$rootScope', '$http', '$timeout', wfsService]);
 
-        function wfsService (APP_CONFIG, $rootScope, $http, $timeout) {
+        function wfsService ($rootScope, $http, $timeout) {
 
+            // #################################################################################
+            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+            // provides access to various client params in application.yml
+            // #################################################################################
+            //console.log('AppO2.APP_CONFIG in wfsService: ', AppO2.APP_CONFIG);
+            
             //var wfsClient;
             //wfsClient = new OGC.WFS.Client(APP_CONFIG.services.omar.wfsUrl);
             //console.log(APP_CONFIG.services.omar.wfsUrl);
@@ -13,8 +19,9 @@
             //OpenLayers.ProxyHost = "/o2/proxy/index?url=";
 
             // TODO: getCapabilities and DescribeFeatureType to get the geometry column
-            //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-            var wfsRequestUrl = '/o2/wfs?'
+
+            //var wfsRequestUrl = '/o2/wfs?';
+            var wfsRequestUrl = AppO2.APP_CONFIG.clientParams.wfs.baseUrl;
             var wfsRequest = {
                 typeName: 'omar:raster_entry',
                 namespace: 'http://omar.ossim.org',
@@ -176,7 +183,7 @@
                 wfsRequest.cql = 'id in(' + wfsImageString + ')';
 
                 //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-                var wfsRequestUrl = '/o2/wfs?';
+                var wfsRequestUrl = AppO2.APP_CONFIG.clientParams.wfs.baseUrl;;
 
                 // TODO: Refactor and use string from other wfs method
                 var wfsUrl = wfsRequestUrl +

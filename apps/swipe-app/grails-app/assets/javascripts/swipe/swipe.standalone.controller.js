@@ -7,10 +7,11 @@
         function SwipeController($location, $http, $interval, $timeout, $scope) {
             
             // #################################################################################
-            // APP_CONFIG is passed down from the .gsp, and is a global variable.  It provides
-            // the WFS and WMS url endpoints for the application.
+            // AppSwipe.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+            // provides access to various client params in application.yml
             // #################################################################################
-
+            //console.log('AppSwipe.APP_CONFIG in SwipeController: ', AppSwipe.APP_CONFIG);
+            
             /* jshint validthis: true */
             var vm = this;
 
