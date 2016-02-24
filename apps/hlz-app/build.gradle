@@ -19,7 +19,7 @@ plugins {
 
 evaluationDependsOnChildren()
 
-version "0.1"
+version "1.0.0"
 group "hlz.app"
 
 apply plugin: "spring-boot"
@@ -38,6 +38,9 @@ ext {
 assets {
   minifyJs = true
   minifyCss = true
+  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
+  includes = ["fonts/*"]
+  excludes = ['**/*-debug.js']
 }
 
 repositories {
