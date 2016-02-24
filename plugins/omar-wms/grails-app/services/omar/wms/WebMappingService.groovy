@@ -18,7 +18,7 @@ class WebMappingService
 	static transactional = false
 
 	def grailsLinkGenerator
-	def wmsLogService
+
 
 	enum RenderMode {
 		BLANK, GEOSCRIPT, FILTER
@@ -259,8 +259,6 @@ class WebMappingService
 
 		otherParams.endDate = new Date()
 
-		wmsLogService.logGetMapRequest( wmsParams, otherParams )
-
-		[ contentType: wmsParams.format, buffer: ostream.toByteArray() ]
+		[ contentType: wmsParams.format, buffer: ostream.toByteArray(), metrics: otherParams ]
 	}
 }
