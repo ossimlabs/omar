@@ -53,7 +53,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires: ossim-oms
 
 %package 	swipe-app
-Summary:        HLZ Services
+Summary:        Swipe Services
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -147,8 +147,8 @@ export WFS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
 export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wms-app
 export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
 export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
-export HLZ_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
-export SWIPE_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
+export HLZ_APP_HOME=$OMAR_DEV_HOME/apps/hlz-app
+export SWIPE_APP_HOME=$OMAR_DEV_HOME/apps/swipe-app
 
 pushd $OMAR_APP_HOME
 install -d %{buildroot}/opt/ossimlabs/omar-app
