@@ -584,21 +584,26 @@ omar:
     root:
       baseUrl: http://localhost:7272/o2/
     wfs:
-      baseUrl: http://localhost:7272/o2/wfs?
-    wms:
-      baseUrl: http://localhost:7272/o2/wms?
+      baseUrl: /o2/wfs?
+      enabled: true
       proxy: /o2/proxy/index?url=
+    wms:
+      baseUrl: /o2/wms?
+      enabled: true
     imageSpace: 
-      baseUrl: http://localhost:7272/o2/imageSpace/
+      baseUrl: /o2/imageSpace/
+      enabled: true
     thumbnails:
-      baseUrl: http://localhost:7272/o2/imageSpace/getThumbnail?
-#    footprints:
-#      baseUrl: http://localhost:8888/omar/wms/footprints?
+      baseUrl: /o2/imageSpace/getThumbnail?
+    footprints:
+      baseUrl: /o2/footprints/getFootprints
     predio:
-      baseUrl: http://localhost:7272/o2/predio/
+      baseUrl: /o2/predio/
+      enabled: true
     twofishes:
       baseUrl: http://localhost:8081/twofish
       proxy: /o2/twoFishesProxy
+    swipeApp: 
 #    basemaps:
 #      osm:
 #        baseUrl: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
