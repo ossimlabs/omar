@@ -22,7 +22,7 @@ class HlzService
   {
     def point1 = new Point( lon, lat )
     def point2 = Projection.transform( point1, 'epsg:4326', 'epsg:3857' )
-    def bounds = Projection.transform( point2.buffer( radius ), 'epsg:3857', 'epsg:4326' ).bounds
+    def bounds = /*Projection.transform(*/ point2.buffer( radius )/*, 'epsg:3857', 'epsg:4326' )*/.bounds
 
 
     [[bounds.minX, bounds.minY], [bounds.maxX, bounds.maxY]]
@@ -57,6 +57,7 @@ class HlzService
   {
     def cmd = [
         'ossim-viewshed',
+        '--srs', 'epsg:3857',
         '--radius', radius,
         '--fov', fovStart, fovStop,
         '--hgt-of-eye', heightOfEye,
