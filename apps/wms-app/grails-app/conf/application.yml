@@ -77,6 +77,11 @@ endpoints:
     jmx:
         unique-names: true
 
+# For dialects:
+#   Postgis: org.hibernate.spatial.dialect.postgis.PostgisDialect
+#   H2:org.hibernate.spatial.dialect.h2geodb.GeoDBDialect
+#   Oracle: org.hibernate.spatial.dialect.oracle.OracleSpatial10gDialect
+#
 dataSource:
     pooled: true
     jmxExport: true
