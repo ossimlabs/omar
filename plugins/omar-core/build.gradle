@@ -50,6 +50,12 @@ dependencyManagement {
     }
     applyMavenExclusions false
 }
+grails {
+    exploded = true
+    plugins {
+        compile project(':omar-heartbeat')
+    }
+}
 
 dependencies {
     provided 'org.springframework.boot:spring-boot-starter-logging'
