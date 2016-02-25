@@ -251,8 +251,10 @@ ossimHLZ = (function ()
             updateHLZ();
             updateVS();
 
-            map.getView().setCenter( [lon, lat] );
 
+            console.log(map.getView().calculateExtent(map.getSize()));
+
+            map.getView().setCenter( [lon, lat] );
         } );
 
         setOverlayOpacity( 'hlz', 0.5 );
