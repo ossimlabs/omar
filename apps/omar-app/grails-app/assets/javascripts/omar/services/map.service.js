@@ -13,8 +13,8 @@
         //console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
 
         // Add the basemap parameters from the applicaiton config file.
-        var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
-        var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
+        //var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
+        //var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
 
         var zoomToLevel = 16;
         var map,
@@ -159,7 +159,8 @@
             footPrints = new ol.layer.Tile({
                 title: 'Image Footprints',
                 source: new ol.source.TileWMS({
-                    url: '/o2/footprints/getFootprints',
+                    //url: '/o2/footprints/getFootprints',
+                    url: AppO2.APP_CONFIG.clientParams.footprints.baseUrl,
                     params: {
                         FILTER: "",
                         VERSION: '1.1.1',

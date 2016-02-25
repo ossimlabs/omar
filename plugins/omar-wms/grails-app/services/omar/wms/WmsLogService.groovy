@@ -18,6 +18,9 @@ class WmsLogService
 				height: wmsParams.height,
 				format: wmsParams.format,
 				styles: wmsParams.styles,
+				startDate: otherParams.startDate,
+				endDate: otherParams.endDate,
+				ip: otherParams.ip
 		)
 
 		def bounds = new Bounds( *( wmsParams?.bbox?.split( ',' )?.collect {
@@ -29,8 +32,6 @@ class WmsLogService
 		wmsLog.geometry = bounds?.geometry?.g
 		wmsLog.meanGsd = ( epsg3857?.maxY - epsg3857?.minY ) / wmsLog?.height
 		wmsLog.geometry.setSRID( new Projection( wmsParams.srs )?.epsg )
-		wmsLog.startDate = otherParams.startDate
-		wmsLog.endDate = otherParams.endDate
 		wmsLog.save()
 	}
 }

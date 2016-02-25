@@ -116,12 +116,13 @@ ossimHLZ = (function ()
         layers = [
             new ol.layer.Tile( {
                 name: 'reference',
-                source: new ol.source.TileWMS( {
-                    url: 'http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?',
-                    params: {
-                        LAYERS: 'osm-group'
-                    }
-                } )
+//                source: new ol.source.TileWMS( {
+//                    url: 'http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?',
+//                    params: {
+//                        LAYERS: 'osm-group'
+//                    }
+//                } )
+                source: new ol.source.OSM()
             } ),
             new ol.layer.Tile( {
                 name: 'hillshade',
@@ -132,22 +133,22 @@ ossimHLZ = (function ()
                     }
                 } )
             } ),
-            new ol.layer.Image( {
-                name: 'hlz',
-                source: new ol.source.ImageWMS( {
-                    url: '/hlz/renderHLZ',
-                    params: {
-                        LAYERS: '',
-                        VERSION: '1.1.1',
-                        lat: lat,
-                        lon: lon,
-                        radiusROI: radiusROI,
-                        radiusLZ: radiusLZ,
-                        //roughness: roughness,
-                        slope: slope
-                    }
-                } )
-            } ),
+//            new ol.layer.Image( {
+//                name: 'hlz',
+//                source: new ol.source.ImageWMS( {
+//                    url: '/hlz/renderHLZ',
+//                    params: {
+//                        LAYERS: '',
+//                        VERSION: '1.1.1',
+//                        lat: lat,
+//                        lon: lon,
+//                        radiusROI: radiusROI,
+//                        radiusLZ: radiusLZ,
+//                        //roughness: roughness,
+//                        slope: slope
+//                    }
+//                } )
+//            } ),
             new ol.layer.Image( {
                 name: 'ovs',
                 source: new ol.source.ImageWMS( {
@@ -175,7 +176,8 @@ ossimHLZ = (function ()
             layers: layers,
             target: 'map',
             view: new ol.View( {
-                projection: 'EPSG:4326'//,
+                //projection: 'EPSG:4326'//,
+                projection: 'EPSG:3857'//,
                 //center: [initParams.lon, initParams.lat],
                 //zoom: 2
             } )

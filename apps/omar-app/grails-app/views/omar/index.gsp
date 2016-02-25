@@ -64,13 +64,16 @@
             var AppO2 = (function () {
                 
                 var APP_CONFIG = ${raw( clientConfig.encodeAsJSON() as String )};
-                //console.log('APP_CONFIG: ', APP_CONFIG);
+                var APP_PATH = '${g.createLink(absolute: true)}/'
+
                 return {
-                    APP_CONFIG: APP_CONFIG
+                    APP_CONFIG: APP_CONFIG,
+                    APP_PATH: APP_PATH
                 }
 
             })();
-            //console.log('AppO2.APP_CONFIGclientParams', AppO2.APP_CONFIG.clientParams);
+            //console.log('AppO2.APP_CONFIG.clientParams', AppO2.APP_CONFIG.clientParams); 
+            console.log('AppO2.APP_PATH', AppO2.APP_PATH); 
             
         </asset:script>
         <asset:deferredScripts/>
