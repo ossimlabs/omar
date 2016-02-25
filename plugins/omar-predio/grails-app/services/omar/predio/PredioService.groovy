@@ -63,7 +63,6 @@ class PredioService
    def setItem(SetItemCommand cmd)
    {
       UniversalEventCommand universalCmd = new UniversalEventCommand()
-
       universalCmd.event = "\$set"
       universalCmd.entityType = "item"
       universalCmd.entityId = cmd.item
@@ -76,19 +75,25 @@ class PredioService
       {
          properties.categories = []
          cmd.categories?.split(",")?.each{String category->
-            properties.categories << category.trim()
+            String tempString = category.trim()
+            if(tempString)
+            {
+               properties.categories << tempString
+            }
          }
       }
       if(cmd.locations)
       {
          properties.locations = []
          cmd.locations?.split(",")?.each{String location->
-            properties.locations << location.trim()
+            String tempString = location.trim()
+            if(tempString) properties.locations << tempString
          }
       }
       if(cmd.expireDate) properties.expireDate = cmd.expireDate
       if(cmd.eventTime) universalCmd.eventTime = cmd.eventTime
       universalCmd.properties = properties?:null
+
 
       sendUniversalEvent(universalCmd)
    }
