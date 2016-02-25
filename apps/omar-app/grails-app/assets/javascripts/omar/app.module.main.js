@@ -1,16 +1,16 @@
 (function(){
     'use strict';
     // https://github.com/philippd/angular-deferred-bootstrap
-    deferredBootstrapper.bootstrap({
-        element: document.body,
-        module: 'omarApp',
-        resolve: {
-            APP_CONFIG: ['$http', function ($http) {
-                //return $http.get('../config.json');
-                return $http.get('/o2/webAppConfig');
-            }]
-        }
-    });
+    // deferredBootstrapper.bootstrap({
+    //     element: document.body,
+    //     module: 'omarApp',
+    //     resolve: {
+    //         APP_CONFIG: ['$http', function ($http) {
+    //             //return $http.get('../config.json');
+    //             return $http.get('/o2/webAppConfig');
+    //         }]
+    //     }
+    // });
 
     angular
         .module('omarApp', [

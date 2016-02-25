@@ -25,6 +25,27 @@
 
             vm.loading = true;
 
+            vm.swipeAppEnabled = AppO2.APP_CONFIG.clientParams.swipeApp.enabled;
+            console.log('Swipe enabled: ', vm.swipeAppEnabled);
+            if (vm.swipeAppEnabled) {
+                vm.swipeAppLink = AppO2.APP_CONFIG.clientParams.swipeApp.baseUrl;
+                console.log('vm.swipeAppLink in HomeController', vm.swipeAppLink);
+            }
+
+            vm.piwikAppEnabled = AppO2.APP_CONFIG.clientParams.piwikApp.enabled;
+            console.log('Piwik enabled: ', vm.piwikAppEnabled);
+            if (vm.piwikAppEnabled) {
+                vm.piwikAppLink = AppO2.APP_CONFIG.clientParams.piwikApp.baseUrl;
+                console.log('vm.piwikAppLink in HomeController', vm.swipeAppLink);
+            }
+
+            vm.apiAppEnabled = AppO2.APP_CONFIG.clientParams.apiApp.enabled;
+            console.log('API enabled: ', vm.apiAppEnabled);
+            if (vm.apiAppEnabled) {
+                vm.apiAppLink = AppO2.APP_CONFIG.clientParams.apiApp.baseUrl;
+                console.log('vm.apiAppLink in HomeController', vm.apiAppLink);
+            }
+
             //var twofishProxy = APP_CONFIG.services.twofishes.proxy;
             var twofishProxy = AppO2.APP_CONFIG.clientParams.twofishes.proxy;
 
@@ -161,39 +182,84 @@
                 //$searchButton.on('click', ZoomTo.cycleRegExs);
             }
             
-            // TODO: Follow up on moving this to a PIO service...
-            vm.getTrendingPio = function(){
+            function pioExecute() {
 
-                //console.log('showPopularItems firing...');
-                var pioUrl = AppO2.APP_CONFIG.clientParams.predio.baseUrl + 'getPopularItems';
-                $http({
-                    method: 'GET',
-                    url: pioUrl
-                })
-                .then(function(response) {
-                    var data;
-                    data = response;  // callback response from Predictive IO service
-                    //console.log(data);
-                    //formatTrendingList(data);
-                    wfsService.executeWfsTrendingThumbs(data);
-                });
+               // TODO: Follow up on moving this to a PIO service...
+                vm.getTrendingPio = function(){
 
-            };
-            vm.getTrendingPio(); // get the top 10 trending images on page load and throw them into the carousel
+                    //console.log('showPopularItems firing...');
+                    var pioUrl = AppO2.APP_CONFIG.clientParams.predio.baseUrl + 'getPopularItems';
+                    $http({
+                        method: 'GET',
+                        url: pioUrl
+                    })
+                    .then(function(response) {
+                        var data;
+                        data = response;  // callback response from Predictive IO service
+                        //console.log(data);
+                        //formatTrendingList(data);
+                        wfsService.executeWfsTrendingThumbs(data);
+                    });
 
-            vm.trendingImages = {};
+                };
+                vm.getTrendingPio(); // get the top 10 trending images on page load and throw them into the carousel
 
-            $scope.$on('wfsTrendingThumb: updated', function(event, data) {
+                vm.trendingImages = {};
 
-                $scope.$apply(function(){
+                $scope.$on('wfsTrendingThumb: updated', function(event, data) {
 
-                    vm.trendingImages = data;
-                    console.log('vm.trendingImages: ', vm.trendingImages);
-                    vm.loading = false;
+                    $scope.$apply(function(){
 
-                });
+                        vm.trendingImages = data;
+                        console.log('vm.trendingImages: ', vm.trendingImages);
+                        vm.loading = false;
 
-            });
+                    });
+
+                }); 
+
+            }
+
+            vm.pioAppEnabled = AppO2.APP_CONFIG.clientParams.predio.enabled;
+            console.log('PIO enabled: ', vm.pioAppEnabled);
+            if (vm.pioAppEnabled) {
+                console.log('pioAppEnabled: ', vm.pioAppEnabled);
+                pioExecute();
+            }
+
+            // // TODO: Follow up on moving this to a PIO service...
+            // vm.getTrendingPio = function(){
+
+            //     //console.log('showPopularItems firing...');
+            //     var pioUrl = AppO2.APP_CONFIG.clientParams.predio.baseUrl + 'getPopularItems';
+            //     $http({
+            //         method: 'GET',
+            //         url: pioUrl
+            //     })
+            //     .then(function(response) {
+            //         var data;
+            //         data = response;  // callback response from Predictive IO service
+            //         //console.log(data);
+            //         //formatTrendingList(data);
+            //         wfsService.executeWfsTrendingThumbs(data);
+            //     });
+
+            // };
+            // vm.getTrendingPio(); // get the top 10 trending images on page load and throw them into the carousel
+
+            // vm.trendingImages = {};
+
+            // $scope.$on('wfsTrendingThumb: updated', function(event, data) {
+
+            //     $scope.$apply(function(){
+
+            //         vm.trendingImages = data;
+            //         console.log('vm.trendingImages: ', vm.trendingImages);
+            //         vm.loading = false;
+
+            //     });
+
+            // });
 
             //function formatTrendingList(trendData) {
             //

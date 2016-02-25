@@ -215,8 +215,19 @@
             });
 
         }
-        // first time we will use the the first item in query string param
-        getRecommendedImages(imageLayerIds[0]);
+
+        vm.pioAppEnabled = AppO2.APP_CONFIG.clientParams.predio.enabled;
+        console.log('PIO enabled: ', vm.pioAppEnabled);
+        if (vm.pioAppEnabled) {
+            
+            console.log(vm.pioAppEnabled);
+            // first time we will use the the first item in query string param
+            getRecommendedImages(imageLayerIds[0]);
+
+        }
+
+        // // first time we will use the the first item in query string param
+        // getRecommendedImages(imageLayerIds[0]);
 
         function formatRecommendedList(data) {
 
