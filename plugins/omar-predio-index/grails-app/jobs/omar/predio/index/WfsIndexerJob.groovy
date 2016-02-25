@@ -5,7 +5,7 @@ import groovy.json.JsonSlurper
 import omar.core.DateUtil
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
-
+import omar.predio.SetItemCommand
 @Slf4j
 class WfsIndexerJob {
    static triggers = {
@@ -13,7 +13,7 @@ class WfsIndexerJob {
    }
    def concurrent = false
 
-   transient indexJobService
+   transient predioService
 
    def execute() {
       log.trace("execute(): Entered ...............")
@@ -22,9 +22,9 @@ class WfsIndexerJob {
       def wfs = PredioIndexJob.first()
 
 
-      log.trace wfs?.properties?.toString()
       if(wfs)
       {
+         log.trace "WFS Query: ${wfs?.properties?.toString()}"
          def wfsProperties = wfs.properties
          wfs.delete()
          try{
@@ -37,28 +37,27 @@ class WfsIndexerJob {
             def categoryFields = wfsProperties.categoryFields.split(",")
             def expirePeriod = wfsProperties.expirePeriod
 
-
             def propertyNames = locationFields + categoryFields + [itemIdField,dateField]
 
             def wfsAddress = "${baseUrl}&propertyName=${propertyNames.join(',')}&outputFormat=json"
-            Integer maxFeatures = 1000
+            Integer maxFeatures = config.wfs.maxCount
 
-
-            def result = new URL(wfsAddress+"&startIndex=0&maxFeatures=${maxFeatures}").text
+            def fullAddress = wfsAddress+"&startIndex=0&maxFeatures=${maxFeatures}"
+           // log.info "Requesting features from ${fullAddress}"
+            def result = new URL(fullAddress).text
             def slurper = new JsonSlurper()
             def jsonObject = slurper.parseText(result)
 
             Integer idx = maxFeatures
             while(jsonObject?.features)
             {
-
                jsonObject?.features.each{feature->
-                  def predioItemParams =  [item:feature."${itemIdField}"]
                   def properties = feature.properties
-
-                  def itemId = properties."${itemIdField}"
-                  predioItemParams.categories = []
-                  predioItemParams.locations = []
+                  def item = properties."${itemIdField}"
+                  def categories = []
+                  def locations = []
+                  def eventTime
+                  def expireDate
 
                   categoryFields.each{field->
                      def fieldValue = properties."${field}"?.toString()?.trim()
@@ -76,25 +75,38 @@ class WfsIndexerJob {
                         def interval = DateUtil.parseOgcTimeIntervalsAsDateTime("""${dateString}/${expirePeriod}""",
                                                                        DateTimeZone.UTC)
 
-                        predioItemParams.eventTime = "${interval.start}"
-                        predioItemParams.expireDate = "${intervale.end}"
+                        eventTime = "${interval.start}"
+                        expireDate = "${interval.end}"
                      }
                      else
                      {
                         // no expire specified
                         DateTime tempDate = DateUtil.parseDateTime(properties."${dateField}")
                         tempDate = t.toDateTime(DateTimeZone.UTC)
-                        predioItemParams.eventTime = "${tempDate}"
+                        eventTime = "${tempDate}"
                      }
                   }
-                  // setItem(itemId, locations, categories, null)
-                 // println "Item id = ${itemId} , locations: ${locations.join(',')}, categories: ${categories.join(',')}"
+                  try{
+                     predioService.setItem(new SetItemCommand(
+                             [item:item,
+                              categories:categories?.join(","),
+                              locations: locations?.join(","),
+                              eventTime: eventTime?.toString(),
+                              expireDate: expireDate?.toString()
+                             ])
+                     )
+                  }
+                  catch(e)
+                  {
+                     log.error(e.toString())
+                  }
                }
 
-               result = new URL(wfsAddress+"&startIndex=${idx}&maxFeatures=${maxFeatures}").text
+               result = new URL(wfsAddress+"&startIndex=${idx}&maxFeatures=${maxFeatures}&formatType").text
+
                jsonObject = slurper.parseText(result)
 
-               println jsonObject
+               //println jsonObject
 
                idx += maxFeatures
             }
