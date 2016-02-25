@@ -3,4 +3,4 @@ grails.gorm.default.mapping = {
 	id generator: 'identity'
 }
 
-grails.serverURL = "http://${Inet4Address.localHost.hostAddress}/o2"
+//grails.serverURL = "http://${Inet4Address.localHost.hostAddress}/o2"
