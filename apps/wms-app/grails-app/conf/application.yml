@@ -83,6 +83,7 @@ dataSource:
     driverClassName: org.h2.Driver
     username: sa
     password:
+    dialect: "org.hibernate.spatial.dialect.h2geodb.GeoDBDialect"
 
 environments:
     development:
