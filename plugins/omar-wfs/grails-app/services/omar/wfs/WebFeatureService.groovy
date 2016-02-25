@@ -14,35 +14,35 @@ import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 import groovy.xml.StreamingMarkupBuilder
 
-@Transactional(readOnly = true)
+@Transactional( readOnly = true )
 class WebFeatureService
 {
 	def grailsLinkGenerator
 	def geoscriptService
 
 	static final Map<String, String> typeMappings = [
-			'Double'              : 'xsd:double',
-			'Integer'             : 'xsd:int',
-			'Long'                : 'xsd:long',
-			'Polygon'             : 'gml:PolygonPropertyType',
-			'MultiPolygon'        : 'gml:MultiPolygonPropertyType',
-			'MultiLineString'     : 'gml:MultiLineStringPropertyType',
-			'String'              : 'xsd:string',
-			'java.lang.Boolean'   : 'xsd:boolean',
+			'Double': 'xsd:double',
+			'Integer': 'xsd:int',
+			'Long': 'xsd:long',
+			'Polygon': 'gml:PolygonPropertyType',
+			'MultiPolygon': 'gml:MultiPolygonPropertyType',
+			'MultiLineString': 'gml:MultiLineStringPropertyType',
+			'String': 'xsd:string',
+			'java.lang.Boolean': 'xsd:boolean',
 			'java.math.BigDecimal': 'xsd:decimal',
-			'java.sql.Timestamp'  : 'xsd:dateTime'
+			'java.sql.Timestamp': 'xsd:dateTime'
 	]
 
 
 	static final Map<String, String> ogcNamespacesByPrefix = [
 			// These are OGC/XML specs
-			gml  : "http://www.opengis.net/gml",
-			ogc  : "http://www.opengis.net/ogc",
-			ows  : "http://www.opengis.net/ows",
-			wfs  : "http://www.opengis.net/wfs",
+			gml: "http://www.opengis.net/gml",
+			ogc: "http://www.opengis.net/ogc",
+			ows: "http://www.opengis.net/ows",
+			wfs: "http://www.opengis.net/wfs",
 			xlink: "http://www.w3.org/1999/xlink",
-			xs   : "http://www.w3.org/2001/XMLSchema",
-			xsi  : "http://www.w3.org/2001/XMLSchema-instance",
+			xs: "http://www.w3.org/2001/XMLSchema",
+			xsi: "http://www.w3.org/2001/XMLSchema-instance",
 	]
 
 	static final List<String> outputFormats = [
@@ -367,13 +367,13 @@ class WebFeatureService
 	private def generateHitCount( def hitCount, def namespaceInfo )
 	{
 		def namespaces = [
-				gml  : "http://www.opengis.net/gml",
-				ogc  : "http://www.opengis.net/ogc",
-				ows  : "http://www.opengis.net/ows",
-				wfs  : "http://www.opengis.net/wfs",
+				gml: "http://www.opengis.net/gml",
+				ogc: "http://www.opengis.net/ogc",
+				ows: "http://www.opengis.net/ows",
+				wfs: "http://www.opengis.net/wfs",
 				xlink: "http://www.w3.org/1999/xlink",
-				xs   : "http://www.w3.org/2001/XMLSchema",
-				xsi  : "http://www.w3.org/2001/XMLSchema-instance",
+				xs: "http://www.w3.org/2001/XMLSchema",
+				xsi: "http://www.w3.org/2001/XMLSchema-instance",
 		]
 
 		namespaces[ namespaceInfo.prefix ] = namespaceInfo.uri
@@ -440,13 +440,6 @@ class WebFeatureService
 
 	private def getFeatureJSON( GetFeatureRequest wfsParams )
 	{
-//    def (prefix, layerName) = wfsParams.typeName.split( ':' )
-//
-//    def layerInfo = LayerInfo.where {
-//      name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
-//    }.get()
-
-
 		def layerInfo = geoscriptService.findLayerInfo( wfsParams )
 		def results
 
@@ -459,11 +452,7 @@ class WebFeatureService
 			def layer = workspace[ layerInfo.name ]
 			def count = layer.count( wfsParams.filter )
 
-//      def features = layer.getFeatures(options)
-//
 //      println features
-
-//      features.each { feature ->
 
 			def features = layer.collectFromFeature( options ) { feature ->
 				switch ( wfsParams?.outputFormat?.toUpperCase() )
@@ -481,16 +470,16 @@ class WebFeatureService
 			}
 
 			results = [
-					crs          : [
+					crs: [
 							properties: [
 									name: "urn:ogc:def:crs:${ layer.proj.id }"
 							],
-							type      : "name"
+							type: "name"
 					],
 					totalFeatures: count,
-					features     : features,
+					features: features,
 //          features: [],
-					type         : "FeatureCollection"
+					type: "FeatureCollection"
 			]
 
 			workspace.close()
