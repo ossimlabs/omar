@@ -1,16 +1,6 @@
 package ossimtools.app
 
-import geoscript.geom.Bounds
-import geoscript.geom.Point
-import geoscript.layer.GeoTIFF
-import geoscript.proj.Projection
-import geoscript.render.Map as GeoScriptMap
-import org.ossim.oms.util.TransparentFilter
-
-import javax.imageio.ImageIO
-import java.awt.AlphaComposite
-import java.awt.Graphics2D
-import java.awt.image.BufferedImage
+import joms.oms.OssimTools
 
 class OssimToolsService
 {
@@ -20,7 +10,7 @@ class OssimToolsService
 
   def execTool(def name, def params)
   {
-     def ossimTool = new OssimTool(name);
+     def ossimTool = new OssimTools(name);
      if (!ossimTool)
          return;
      
