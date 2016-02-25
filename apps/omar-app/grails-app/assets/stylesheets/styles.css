@@ -8,7 +8,20 @@
     url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-body { padding-top: 70px; }
+/*body { padding-top: 70px; }*/
+
+body {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow: scroll; 
+}
+.navbar {min-height:28px !important;}
+.navbar-fixed-top {
+    height: 20px;
+}
+.navbar-fixed-bottom {
+    height: 20px;
+}
 
 .navbar-brand {padding-top: 15px}
 
@@ -53,37 +66,37 @@ body { padding-top: 70px; }
 }
 
 @media (max-height: 599px) {
-    #map { height: 79%; }
-    #list { height: 57%; }
+    #map { height: 77%; }
+    #list { height: 50%; }
 }
 
 @media (min-height: 600px) AND (max-height: 699px){
-    #map { height: 83%; }
+    #map { height: 81%; }
     #list { height: 59%; }
 }
 
 @media (min-height: 700px) AND (max-height: 799px){
-    #map { height: 86%; }
+    #map { height: 84%; }
     #list { height: 66%; }
 }
 
 @media (min-height: 800px) AND (max-height: 899px){
-    #map { height: 88%; }
+    #map { height: 86%; }
     #list { height: 71%; }
 }
 
 @media (min-height: 900px) AND (max-height: 999px){
-    #map { height: 89%; }
+    #map { height: 87%; }
     #list { height: 74%; }
 }
 
 @media (min-height: 1000px) AND (max-height: 1099px){
-    #map { height: 91%; }
+    #map { height: 88%; }
     #list { height: 77%; }
 }
 
 @media (min-height: 1100px) AND (max-height: 1199px){
-    #map { height: 91%; }
+    #map { height: 89%; }
     #list { height: 79%; }
 }
 
@@ -95,6 +108,7 @@ body { padding-top: 70px; }
 #list {
     overflow-y: auto;
     padding-right: 5px;
+    margin-top: -15px;
 }
 
 #list .media {

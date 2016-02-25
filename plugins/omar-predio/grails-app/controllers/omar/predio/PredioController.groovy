@@ -62,7 +62,10 @@ class PredioController
       render result.message
    }
 
-   @ApiOperation(value = "View an item", consumes= 'application/json', produces='application/json', httpMethod="POST")
+   @ApiOperation(value = "Set an item",
+                 consumes= 'application/json',
+                 produces='application/json',
+                 httpMethod="POST")
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'item', value = 'Id of the item to modify or set', paramType = 'query', dataType = 'int'),
            @ApiImplicitParam(name = 'categories', value = 'Comma seperated list of categorie', paramType = 'query', dataType = 'int'),

@@ -151,38 +151,38 @@ export HLZ_APP_HOME=$OMAR_DEV_HOME/apps/hlz-app
 export SWIPE_APP_HOME=$OMAR_DEV_HOME/apps/swipe-app
 
 pushd $OMAR_APP_HOME
-install -d %{buildroot}/opt/ossimlabs/omar-app
-install -p -m644 build/libs/omar-app*.jar %{buildroot}/opt/ossimlabs/o2-omar-app
+install -d %{buildroot}/opt/ossimlabs/o2-omar-app
+install -p -m644 build/libs/omar-app*.jar %{buildroot}/opt/ossimlabs/o2-omar-app/
 popd
 
 pushd $WFS_APP_HOME
-install -d %{buildroot}/opt/ossimlabs/wfs-app
-install -p -m644 build/libs/wfs-app*.jar %{buildroot}/opt/ossimlabs/o2-wfs-app
+install -d %{buildroot}/opt/ossimlabs/o2-wfs-app
+install -p -m644 build/libs/wfs-app*.jar %{buildroot}/opt/ossimlabs/o2-wfs-app/
 popd
 
 pushd $WMS_APP_HOME
-install -d %{buildroot}/opt/ossimlabs/wms-app
-install -p -m644 build/libs/wms-app*.jar %{buildroot}/opt/ossimlabs/o2-wms-app
+install -d %{buildroot}/opt/ossimlabs/o2-wms-app
+install -p -m644 build/libs/wms-app*.jar %{buildroot}/opt/ossimlabs/o2-wms-app/
 popd
 
 pushd $STAGER_APP_HOME
-install -d %{buildroot}/opt/ossimlabs/stager-app
-install -p -m644 build/libs/stager-app*.jar %{buildroot}/opt/ossimlabs/o2-stager-app
+install -d %{buildroot}/opt/ossimlabs/o2-stager-app
+install -p -m644 build/libs/stager-app*.jar %{buildroot}/opt/ossimlabs/o2-stager-app/
 popd
 
 pushd $SUPEROVERLAY_APP_HOME
-install -d %{buildroot}/opt/ossimlabs/superoverlay-app
-install -p -m644 build/libs/superoverlay*.jar %{buildroot}/opt/ossimlabs/o2-superoverlay-app
+install -d %{buildroot}/opt/ossimlabs/o2-superoverlay-app
+install -p -m644 build/libs/superoverlay*.jar %{buildroot}/opt/ossimlabs/o2-superoverlay-app/
 popd
 
 pushd $HLZ_APP_HOME
-install -d %{buildroot}/opt/ossimlabs/hlz-app
-install -p -m644 build/libs/hlz*.jar %{buildroot}/opt/ossimlabs/o2-hlz-app
+install -d %{buildroot}/opt/ossimlabs/o2-hlz-app
+install -p -m644 build/libs/hlz*.jar %{buildroot}/opt/ossimlabs/o2-hlz-app/
 popd
 
 pushd $SWIPE_APP_HOME
-install -d %{buildroot}/opt/ossimlabs/swipe-app
-install -p -m644 build/libs/swipe*.jar %{buildroot}/opt/ossimlabs/o2-swipe-app
+install -d %{buildroot}/opt/ossimlabs/o2-swipe-app
+install -p -m644 build/libs/swipe*.jar %{buildroot}/opt/ossimlabs/o2-swipe-app/
 popd
 
 

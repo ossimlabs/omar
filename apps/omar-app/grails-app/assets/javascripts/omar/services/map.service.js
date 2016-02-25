@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('mapService', ['APP_CONFIG', 'wfsService', mapService]);
+        .service('mapService', ['wfsService', mapService]);
 
-    function mapService(APP_CONFIG, wfsService) {
+    function mapService(wfsService) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 

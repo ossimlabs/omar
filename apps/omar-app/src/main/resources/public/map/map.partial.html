@@ -1,4 +1,4 @@
-<nav class="navbar yamm navbar-default">
+<nav style="margin-top: -15px;" class="navbar yamm navbar-default">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                 data-target="#filter-navbar-collapse" aria-expanded="false">
@@ -581,7 +581,7 @@
     <!-- /.navbar-collapse -->
 </nav>
 
-<div class="row">
+<div style="margin-top: -15px;" class="row">
     <div class="col-md-8" ng-controller="MapController as map">
         <div id="map" class="map" params="map.mapParams" map></div>
         <div id="popup" class="ol-popup">
@@ -805,19 +805,19 @@
                                             <!--style="cursor: pointer;"-->
                                             <!--tooltip-placement="right"-->
                                             <!--uib-tooltip="View image in swipe viewer"></i>&nbsp;&nbsp;-->
-                                            <a href="/o2/omar/index#/o2/mapOrtho?layers={{image.properties.id}} " target="_blank">
+                                            <a href="{{list.o2baseUrl}}/#{{list.o2contextPath}}/mapOrtho?layers={{image.properties.id}} " target="_blank">
                                                 <i class="fa fa-map-marker fa-border text-primary"
                                                    style="cursor: pointer;"
                                                    tooltip-placement="right"
                                                    uib-tooltip="View image ortho (WMS)"></i>&nbsp;&nbsp;
                                             </a>
-                                            <a href="http://localhost:5150/superOverlayOMAR/createKml/{{image.properties.id}}">
+                                            <a ng-show="{{list.kmlSuperOverlayAppEnabled}}" href="{{list.kmlSuperOverlayLink}}superOverlayOMAR/createKml/{{image.properties.id}}">
                                                 <i class="fa fa-map fa-border text-primary"
                                                    style="cursor: pointer;"
                                                    tooltip-placement="right"
                                                    uib-tooltip="Download KML superoverlay"></i>&nbsp;&nbsp;
                                             </a>
-                                            <a ng-href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body={{list.o2baseUrl}}omar/index#/o2/mapOrtho?layers={{image.properties.id}}" target="_blank">
+                                            <a ng-href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body={{list.o2baseUrl}}/#{{list.o2contextPath}}/mapOrtho?layers={{image.properties.id}}" target="_blank">
                                                 <i class="fa fa-envelope fa-border text-primary"
                                                    style="cursor: pointer;"
                                                    tooltip-placement="right"
