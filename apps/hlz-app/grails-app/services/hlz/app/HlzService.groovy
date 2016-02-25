@@ -55,7 +55,7 @@ class HlzService
 
   def runVS(double lat, double lon, double radius, double fovStart, double fovStop, double heightOfEye, File outputFile)
   {
-    def point = Projection.transform( new Point(lon, lat), 'epsg:3857', 'epsg:4326')
+    //def point = Projection.transform( new Point(lon, lat), 'epsg:3857', 'epsg:4326')
 
 
     def cmd = [
@@ -65,8 +65,8 @@ class HlzService
         '--fov', fovStart, fovStop,
         '--hgt-of-eye', heightOfEye,
         "--lut", "${grailsApplication.config.hlz.supportData}/vs.lut",
-///        lat, lon,
-        point.y, point.x,
+        lat, lon,
+//        point.y, point.x,
         outputFile.absolutePath
     ]
 

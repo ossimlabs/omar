@@ -84,7 +84,7 @@ ossimHLZ = (function ()
 
     function onMoveEnd( evt )
     {
-        var center = map.getView().getCenter();
+        var center = ol.proj.transform(map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326')
 
         //console.log( center );
 
@@ -188,6 +188,8 @@ ossimHLZ = (function ()
         //console.log( extent );
         map.getView().fit( extent, map.getSize() );
 
+console.log(lat, lon);
+
         $( '#lat' ).val( lat );
         $( '#lon' ).val( lon );
         $( '#radiusROI' ).val( radiusROI );
@@ -254,7 +256,7 @@ ossimHLZ = (function ()
 
             console.log(map.getView().calculateExtent(map.getSize()));
 
-            map.getView().setCenter( [lon, lat] );
+            map.getView().setCenter( ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857') );
         } );
 
         setOverlayOpacity( 'hlz', 0.5 );
