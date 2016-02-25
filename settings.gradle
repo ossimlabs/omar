@@ -11,6 +11,7 @@ include 'omar-core',
 		'omar-stager',
 		'omar-video',
 		'omar-security',
+		'omar-heartbeat',
 		'omar-app',
 		'wfs-app',
 		'hlz-app',
@@ -34,6 +35,7 @@ project(':omar-hibernate-spatial').projectDir = 'plugins/omar-hibernate-spatial'
 project(':omar-stager').projectDir = 'plugins/omar-stager' as File
 project(':omar-video').projectDir = 'plugins/omar-video' as File
 project(':omar-security').projectDir = 'plugins/omar-security' as File
+project(':omar-heartbeat').projectDir = 'plugins/omar-heartbeat' as File
 
 // Apps
 project(':omar-app').projectDir = 'apps/omar-app' as File

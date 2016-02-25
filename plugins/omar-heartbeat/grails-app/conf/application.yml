@@ -1,8 +1,8 @@
 ---
 grails:
-    profile: web
+    profile: web-plugin
     codegen:
-        defaultPackage: wms.app
+        defaultPackage: omar.heartbeat
 info:
     app:
         name: '@info.app.name@'
@@ -77,18 +77,12 @@ endpoints:
     jmx:
         unique-names: true
 
-# For dialects:
-#   Postgis: org.hibernate.spatial.dialect.postgis.PostgisDialect
-#   H2:org.hibernate.spatial.dialect.h2geodb.GeoDBDialect
-#   Oracle: org.hibernate.spatial.dialect.oracle.OracleSpatial10gDialect
-#
 dataSource:
     pooled: true
     jmxExport: true
     driverClassName: org.h2.Driver
     username: sa
     password:
-    dialect: "org.hibernate.spatial.dialect.h2geodb.GeoDBDialect"
 
 environments:
     development:

@@ -15,7 +15,7 @@ O2 Packages
 Summary:        OMAR/O2 UI application.
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+#Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires: ossim-oms
 
 
@@ -23,40 +23,40 @@ Requires: ossim-oms
 Summary:        OMAR/O2 WFS Service
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+#Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %package 	wms-app
 Summary:        OMAR/O2 WMS Service
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+#Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires: ossim-oms
 
 %package 	stager-app
 Summary:        Stager service for the O2 raster database Service
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+#Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires: ossim-oms
 
 %package 	superoverlay-app
 Summary:        KML Superoverlay service for the O2 raster database Service
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+#Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %package 	hlz-app
 Summary:        HLZ Services
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+#Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires: ossim-oms
 
 %package 	swipe-app
 Summary:        Swipe Services
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+#Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description  omar-app
 OMAR/O2 UI

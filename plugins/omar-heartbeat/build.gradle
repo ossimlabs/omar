@@ -12,11 +12,10 @@ buildscript {
 }
 
 plugins {
-    id "io.spring.dependency-management" version "0.5.2.RELEASE"
+    id "io.spring.dependency-management" version "0.5.4.RELEASE"
     id "com.jfrog.bintray" version "1.2"
 }
 
-evaluationDependsOnChildren()
 version "0.1-SNAPSHOT"
 group "org.grails.plugins"
 
@@ -50,12 +49,6 @@ dependencyManagement {
     }
     applyMavenExclusions false
 }
-grails {
-    exploded = true
-    plugins {
-        compile project(':omar-heartbeat')
-    }
-}
 
 dependencies {
     provided 'org.springframework.boot:spring-boot-starter-logging'
@@ -70,8 +63,6 @@ dependencies {
     testCompile "org.grails:grails-plugin-testing"
 
     console "org.grails:grails-console"
-    compile "joda-time:joda-time:"
-    compile "org.grails.plugins:swaggydoc-grails3:0.26.0"
 }
 
 task wrapper(type: Wrapper) {
