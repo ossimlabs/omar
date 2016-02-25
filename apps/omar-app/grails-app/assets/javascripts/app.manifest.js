@@ -37,6 +37,9 @@
 //= require omar/services/multiple.service.js
 //= require omar/services/image-space.service.js
 
+// <--Nav-->
+//= require omar/nav/nav.controller.js
+
 // <--Home-->
 //= require omar/home/home.controller.js
 

@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
+        <div ng-show="{{home.pioAppEnabled}}" class="row">
             <div class="well">
                 <h3 class="text-center"><span class="fa fa-thumbs-up text-info"></span>&nbsp;Trending images</h3>
                 <div class="text-center text-muted" ng-if="home.loading"><h4>Loading trending images, please wait...</h4></div>
@@ -95,7 +95,7 @@
                     <a type="button" class="btn btn-success" ui-sref="map">View</a>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div ng-show="{{home.swipeAppEnabled}}" class="col-md-4">
                 <div class="text-center well">
                     <h2>Swipe Viewer</h2>
                     <div><span class="fa fa-exchange fa-3x text-info"></span></div>
@@ -106,10 +106,10 @@
                         add/remove an
                         image incrementally
                     </p>
-                    <a type="button" class="btn btn-success disabled">View</a>
+                    <a type="button" class="btn btn-success" ng-href="{{home.swipeAppLink}}">View</a>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div ng-show="{{home.piwikAppEnabled}}" class="col-md-4">
                 <div class="text-center well">
                     <h2>PIWIK</h2>
                     <div><span class="fa fa-bar-chart fa-3x text-info"></span></div>
@@ -145,7 +145,7 @@
                     <!--<a type="button" class="btn btn-success disabled">View</a>-->
                 <!--</div>-->
             <!--</div>-->
-            <div class="col-md-4 col-md-offset-4">
+            <div ng-show="{{home.apiAppEnabled}}" class="col-md-4 col-md-offset-4">
                 <div class="text-center well">
                     <h2>API</h2>
                     <div><span class="fa fa-code fa-3x text-info"></span></div>

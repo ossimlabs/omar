@@ -233,13 +233,12 @@ class WebMappingService
 			def maxCount = grailsApplication?.config?.omar?.wms?.mosaic?.maxCount
 			maxCount = maxCount?:10
 			def sorting = grailsApplication?.config?.omar?.wms?.mosaic?.sort
-			sorting = sorting?:[["acquisition_date","DESC"]]
 			Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
 				def layer = workspace[ layerName ]
 
 				images = layer.collectFromFeature(
 						filter: wmsParams?.filter,
-						sorting: [["acquisition_date","DESC"]],
+						sorting: sorting,
 						max: maxCount, // will remove and change to have the wms plugin have defaults
 						fields: [ 'filename', 'entry_id' ] as List<String>
 				) {

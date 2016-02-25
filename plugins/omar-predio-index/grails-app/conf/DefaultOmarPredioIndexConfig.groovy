@@ -6,10 +6,11 @@ predio{
       expireDuration = "P3D"
       // polling interval in milliseconds
       pollingInterval = 4000
-      predioUrl = ""
+      predioUrl = "http://o2.ossim.org/o2/predio"
       wfs{
-         baseUrl = ""
+         baseUrl = "http://o2.ossim.org/o2/wfs"
          params = [SERVICE:"WFS", VERSION:"1.0.0", REQUEST:"GetFeature", typeName:"omar:raster_entry"]
+         maxCount = 1000
       }
       fields = [
          categories: ["mission_id", "image_category", "product_id"],

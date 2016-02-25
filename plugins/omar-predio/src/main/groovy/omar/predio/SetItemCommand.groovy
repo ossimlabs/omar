@@ -17,9 +17,9 @@ class SetItemCommand implements Validateable
    String expireDate
    static constraints = {
       appName    blank: false, nullable: false
-      categories blank: false, nullable: true
-      locations  blank: false, nullable: true
-      eventTime  blank: false, nullable: true
-      expireDate blank: false, nullable: true
+      categories blank: true, nullable: true
+      locations  blank: true, nullable: true
+      eventTime  blank: true, nullable: true
+      expireDate blank: true, nullable: true
    }
 }

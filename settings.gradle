@@ -11,7 +11,6 @@ include 'omar-core',
 		'omar-stager',
 		'omar-video',
 		'omar-security',
-		'omar-heartbeat',
 		'omar-app',
 		'wfs-app',
 		'hlz-app',
@@ -19,7 +18,8 @@ include 'omar-core',
 		'wms-app',
 		'pki-app',
 		'swipe-app',
-		'stager-app'
+		'stager-app',
+		'predio-app'
 
 // Plugins
 project(':omar-core').projectDir = 'plugins/omar-core' as File
@@ -35,7 +35,6 @@ project(':omar-hibernate-spatial').projectDir = 'plugins/omar-hibernate-spatial'
 project(':omar-stager').projectDir = 'plugins/omar-stager' as File
 project(':omar-video').projectDir = 'plugins/omar-video' as File
 project(':omar-security').projectDir = 'plugins/omar-security' as File
-project(':omar-heartbeat').projectDir = 'plugins/omar-heartbeat' as File
 
 // Apps
 project(':omar-app').projectDir = 'apps/omar-app' as File
@@ -46,3 +45,4 @@ project(':superoverlay-app').projectDir = 'apps/superoverlay-app' as File
 project(':swipe-app').projectDir = 'apps/swipe-app' as File
 project(':pki-app').projectDir = 'apps/pki-app' as File
 project(':stager-app').projectDir = 'apps/stager-app' as File
+project(':predio-app').projectDir = 'apps/predio-app' as File
