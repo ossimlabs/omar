@@ -29,7 +29,7 @@ Group:          System Environment/Libraries
 Summary:        OMAR/O2 WMS Service
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+#Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires: ossim-oms
 
 %package 	stager-app
