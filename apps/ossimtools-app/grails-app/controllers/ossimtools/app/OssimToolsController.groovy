@@ -3,7 +3,7 @@ package ossimtools.app
 class OssimToolsController
 {
 
-  def OssimToolsService
+  def ossimToolsService
 
   def index()
   {
@@ -18,6 +18,7 @@ class OssimToolsController
     def gainFactor = params.double( 'gainFactor' ) ?: 2.0
     def sunAz = params.double( 'sunAz' ) ?: 135.0
     def sunEl = params.double( 'sunEl' ) ?: 45.0
+    def heightOfEye = params.double( 'heightOfEye' ) ?: 1.5
 
     def initParams = [
         name: 'unassigned',
