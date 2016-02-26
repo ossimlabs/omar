@@ -71,6 +71,8 @@ dependencies {
     testCompile "org.grails:grails-plugin-testing"
     compile "org.grails.plugins:scaffolding"
     compile 'io.prediction:client:0.9.5'
+    compile 'org.grails.plugins:quartz:2.0.6'
+    compile 'org.grails.plugins:quartz-monitor:1.2'
 
     console "org.grails:grails-console"
 }
