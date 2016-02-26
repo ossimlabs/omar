@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    // https://github.com/philippd/angular-deferred-bootstrap
+    // //https://github.com/philippd/angular-deferred-bootstrap
     // deferredBootstrapper.bootstrap({
     //     element: document.body,
     //     module: 'omarApp',

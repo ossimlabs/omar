@@ -25,9 +25,9 @@
 
                 if(!vm.viewPortSpatial && !vm.pointSpatial && !vm.polygonSpatial) {
 
-                    console.log('checkNoFilter', 'no spatial filter!!!');
+                    //console.log('checkNoFilter', 'no spatial filter!!!');
                     //vm.viewPortSpatial = true;
-                    console.log('@@@@@@@@@@@@@@@@@@@@', wfsService.spatialObj.filter);
+    
                     //wfsService.spatialObj.filter = "";
                 }
 

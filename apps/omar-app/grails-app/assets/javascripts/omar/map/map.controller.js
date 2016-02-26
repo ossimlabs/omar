@@ -36,7 +36,7 @@
 
             $scope.$on('attrObj.updated', function(event, filter) {
 
-                console.log('$on attrObj filter updated', filter);
+                //console.log('$on attrObj filter updated', filter);
                 mapService.updateFootPrintLayer(filter);
 
             });

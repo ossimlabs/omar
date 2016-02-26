@@ -613,13 +613,13 @@ omar:
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
       enabled: true  
+    misc:
+      icons:
+        greenmarker: search_marker_green.png
 #    basemaps:
 #      osm:
 #        baseUrl: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
 #        layers: osm-group
-    misc:
-      icons:
-        green-marker: search_marker_green.png
 
 ---
 classificationBanner:

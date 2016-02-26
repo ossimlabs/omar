@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('HomeController', ['$scope', '$state', 'wfsService', 'toastr', '$http', HomeController]);
+        .controller('HomeController', [/*'APP_CONFIG', */'$scope', '$state', 'wfsService', 'toastr', '$http', HomeController]);
 
-        function HomeController($scope, $state, wfsService, toastr, $http, $timeout){
+        function HomeController(/*APP_CONFIG,*/ $scope, $state, wfsService, toastr, $http, $timeout){
 
             // #################################################################################
             // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
@@ -26,28 +26,29 @@
             vm.loading = true;
 
             vm.swipeAppEnabled = AppO2.APP_CONFIG.clientParams.swipeApp.enabled;
-            console.log('Swipe enabled: ', vm.swipeAppEnabled);
+            //console.log('Swipe enabled: ', vm.swipeAppEnabled);
             if (vm.swipeAppEnabled) {
                 vm.swipeAppLink = AppO2.APP_CONFIG.clientParams.swipeApp.baseUrl;
-                console.log('vm.swipeAppLink in HomeController', vm.swipeAppLink);
+                //console.log('vm.swipeAppLink in HomeController', vm.swipeAppLink);
             }
 
             vm.piwikAppEnabled = AppO2.APP_CONFIG.clientParams.piwikApp.enabled;
-            console.log('Piwik enabled: ', vm.piwikAppEnabled);
+            //console.log('Piwik enabled: ', vm.piwikAppEnabled);
             if (vm.piwikAppEnabled) {
                 vm.piwikAppLink = AppO2.APP_CONFIG.clientParams.piwikApp.baseUrl;
-                console.log('vm.piwikAppLink in HomeController', vm.swipeAppLink);
+                //console.log('vm.piwikAppLink in HomeController', vm.swipeAppLink);
             }
 
             vm.apiAppEnabled = AppO2.APP_CONFIG.clientParams.apiApp.enabled;
-            console.log('API enabled: ', vm.apiAppEnabled);
+            //console.log('API enabled: ', vm.apiAppEnabled);
             if (vm.apiAppEnabled) {
                 vm.apiAppLink = AppO2.APP_CONFIG.clientParams.apiApp.baseUrl;
-                console.log('vm.apiAppLink in HomeController', vm.apiAppLink);
+                //console.log('vm.apiAppLink in HomeController', vm.apiAppLink);
             }
 
             //var twofishProxy = APP_CONFIG.services.twofishes.proxy;
             var twofishProxy = AppO2.APP_CONFIG.clientParams.twofishes.proxy;
+            console.log('twofisthProxy: ', twofishProxy);
 
             vm.title = 'Search for imagery';
             vm.titleMessage = 'Find by place name or coordinates';

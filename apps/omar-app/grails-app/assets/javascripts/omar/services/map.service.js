@@ -32,13 +32,14 @@
             dragBox;
         var mapObj = {};
 
+        console.log('marker: ', AppO2.APP_CONFIG.clientParams.misc.icons.greenmarker);
         iconStyle = new ol.style.Style({
             image: new ol.style.Icon(({
                 anchor: [0.5, 46],
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
                 //opacity: 0.75,
-                src: AppO2.APP_CONFIG.clientParams.misc.icons.greenMarker
+                src: AppO2.APP_CONFIG.clientParams.misc.icons.greenmarker
             }))
         });
 
@@ -285,7 +286,7 @@
             //console.log(footPrints.getSource().getParams());
             var params = footPrints.getSource().getParams();
             params.FILTER = filter;
-            console.log('params.FILTER', params.FILTER);
+            //console.log('params.FILTER', params.FILTER);
             footPrints.getSource().updateParams(params);
 
         }
@@ -351,7 +352,7 @@
 
             mapObj.cql = "INTERSECTS(" + geomField + ",POINT(" + clickCoordinates + "))";
 
-            console.log('mapObj.cql: ', mapObj.cql);
+            //console.log('mapObj.cql: ', mapObj.cql);
 
             // Update the image cards in the list via spatial click coordinates
             wfsService.updateSpatialFilter(mapObj.cql);
