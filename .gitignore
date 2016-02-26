@@ -9,13 +9,11 @@ build/
 *.iml
 *.ipr
 *.iws
+*~
 .project
 .settings
 .classpath
 node_modules
 apps/omar-app/.asscache
 *.db
-<<<<<<< HEAD
 .asscache
-=======
->>>>>>> 6d58d00e4239bd7bf0d6c9bde65814d62b812d8a

@@ -13,7 +13,6 @@ include 'omar-core',
 		'omar-security',
 		'omar-app',
 		'wfs-app',
-		'hlz-app',
 		'superoverlay-app',
 		'wms-app',
 		'pki-app',
@@ -41,10 +40,11 @@ project(':omar-security').projectDir = 'plugins/omar-security' as File
 project(':omar-app').projectDir = 'apps/omar-app' as File
 project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':wms-app').projectDir = 'apps/wms-app' as File
-project(':hlz-app').projectDir = 'apps/hlz-app' as File
 project(':superoverlay-app').projectDir = 'apps/superoverlay-app' as File
 project(':swipe-app').projectDir = 'apps/swipe-app' as File
 project(':pki-app').projectDir = 'apps/pki-app' as File
 project(':stager-app').projectDir = 'apps/stager-app' as File
 project(':predio-app').projectDir = 'apps/predio-app' as File
 project(':ossimtools-app').projectDir = 'apps/ossimtools-app' as File
+
+
