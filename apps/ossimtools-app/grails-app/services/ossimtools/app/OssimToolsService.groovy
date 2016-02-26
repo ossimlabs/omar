@@ -20,15 +20,15 @@ class OssimToolsService
     [[bounds.minX, bounds.minY], [bounds.maxX, bounds.maxY]]
   }
 
-  def execTool(def name, def params)
+  def execTool(def params)
   {
-     def ossimTool = new OssimTools(name);
+     def ossimTool = new OssimTools(params.name);
      if (!ossimTool)
          return;
 
      // Using an LUT implies 3 band output. Allocate buffer to receive product:
      int numBands = 3
-     byte[] buffer = new byte[hints.width.toInteger() * hints.height.toInteger() * numBands]
+     byte[] buffer = new byte[params.width.toInteger() * params.height.toInteger() * numBands]
 
      // Eventually need to let the user select colors. For now use hardcoded LUT on server:
      params.lut = grailsApplication?.config?.ossimtools?.supportData?.toString() + "hlz.lut"
@@ -42,6 +42,6 @@ class OssimToolsService
      if (!ossimTool.getChip(buffer, hints))
          return;
 
-     [contentType: '???', buffer: buffer]
+     [contentType: 'image/png', buffer: buffer]
   }
 }

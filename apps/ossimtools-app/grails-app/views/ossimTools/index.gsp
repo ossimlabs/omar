@@ -65,15 +65,10 @@
 
 <%-- HLZ --%>
                 <div class="row">
-                    <div class="col-md-12">
-                        <hr/>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="checkbox">
                             <label>
-                                <input id="toggleHLZ" type="checkbox" unchecked>Show HLZ
+                                <input id="toggleHLZ" type="checkbox" unchecked>HLZ
                             </label>
                         </div>
                     </div>
@@ -101,15 +96,10 @@
 
 <%-- Viewshed --%>
                 <div class="row">
-                    <div class="col-md-12">
-                        <hr/>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="checkbox">
                             <label>
-                                <input id="toggleViewshed" type="checkbox" unchecked>Show Viewshed
+                                <input id="toggleViewshed" type="checkbox" unchecked>Viewshed
                             </label>
                         </div>
                     </div>
@@ -138,15 +128,10 @@
 
 <%-- Slope --%>
                 <div class="row">
-                    <div class="col-md-12">
-                        <hr/>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="checkbox">
                             <label>
-                                <input id="toggleSlope" type="checkbox" unchecked>Show Terrain Slope
+                                <input id="toggleSlope" type="checkbox" unchecked>Terrain Slope
                             </label>
                         </div>
                     </div>
@@ -164,15 +149,10 @@
 
 <%-- Hillshade --%>
                 <div class="row">
-                    <div class="col-md-12">
-                        <hr/>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="checkbox">
                             <label>
-                                <input id="toggleHillshade" type="checkbox" unchecked>Show Hillshade
+                                <input id="toggleHillshade" type="checkbox" unchecked>Hillshade
                             </label>
                         </div>
                     </div>
