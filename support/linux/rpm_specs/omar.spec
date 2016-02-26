@@ -9,7 +9,7 @@ Source0:        http://download.osgeo.org/ossim/source/%{name}-%{version}.tar.gz
 
 # this is to stop it from compressing the jar files so we do not get nested zips because the
 # jars are already zipped
-define __os_install_post %{nil}
+%define __os_install_post %{nil}
 
 %description
 O2 Packages
