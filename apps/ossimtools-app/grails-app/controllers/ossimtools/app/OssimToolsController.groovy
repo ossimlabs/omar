@@ -19,6 +19,7 @@ class OssimToolsController
     def sunAz = params.double( 'sunAz' ) ?: 135.0
     def sunEl = params.double( 'sunEl' ) ?: 45.0
     def heightOfEye = params.double( 'heightOfEye' ) ?: 1.5
+    def extent = ossimToolsService.calculateExtent( lat, lon, radiusROI )
 
     def initParams = [
         name: 'unassigned',
@@ -33,7 +34,8 @@ class OssimToolsController
         heightOfEye: heightOfEye,
         gainFactor: gainFactor,
         sunAz: sunAz,
-        sunEl: sunEl
+        sunEl: sunEl,
+        extent: extent
     ]
 
     [initParams: initParams]
@@ -42,7 +44,7 @@ class OssimToolsController
   def renderHLZ()
   {
     params.name = 'hlz'
-    def results = OssimToolsService.execTool( params )
+    def results = ossimToolsService.execTool( params )
     render contentType: results.contentType, file: results.buffer
    }
 
@@ -50,21 +52,21 @@ class OssimToolsController
   {
     params.name = 'viewshed'
     println params
-    def results = OssimToolsService.execTool( params )
+    def results = ossimToolsService.execTool( params )
     render contentType: results.contentType, file: results.buffer
   }
 
   def renderSlope()
   {
     params.name = 'slope'
-    def results = OssimToolsService.execTool( params )
+    def results = ossimToolsService.execTool( params )
     render contentType: results.contentType, file: results.buffer
   }
   
   def renderHillShade()
   {
     params.name = 'hillshade'
-    def results = OssimToolsService.execTool( params )
+    def results = ossimToolsService.execTool( params )
     render contentType: results.contentType, file: results.buffer
   }
 }

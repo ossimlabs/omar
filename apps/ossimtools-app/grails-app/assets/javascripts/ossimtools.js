@@ -7,7 +7,7 @@ var ossimtools = (function ()
 {
     "use strict";
 
-    var center_lat, center_lon, radiusROI, 
+    var center_lat, center_lon, radiusROI,
         radiusLZ, roughness, slope,
         fovStart, fovStop, heightOfEye,
         gainFactor, 
@@ -24,8 +24,8 @@ var ossimtools = (function ()
                 // Do with layer
                 var source = layer.getSource();
                 var params = source.getParams();
-                params.lat = lat;
-                params.lon = lon;
+                params.lat = center_lat;
+                params.lon = center_lon;
                 params.radiusROI = radiusROI;
                 params.radiusLZ = radiusLZ;
                 params.roughness = roughness;
@@ -44,8 +44,8 @@ var ossimtools = (function ()
                 // Do with layer
                 var source = layer.getSource();
                 var params = source.getParams();
-                params.lat = lat;
-                params.lon = lon;
+                params.lat = center_lat;
+                params.lon = center_lon;
                 params.radiusROI = radiusROI;
                 params.fovStart = fovStart;
                 params.fovStop = fovStop;
@@ -64,8 +64,8 @@ var ossimtools = (function ()
                 // Do with layer
                 var source = layer.getSource();
                 var params = source.getParams();
-                params.lat = lat;
-                params.lon = lon;
+                params.lat = center_lat;
+                params.lon = center_lon;
                 params.radiusROI = radiusROI;
                 params.gainFactor = gainFactor;
                 source.updateParams( params );
@@ -82,8 +82,8 @@ var ossimtools = (function ()
                 // Do with layer
                 var source = layer.getSource();
                 var params = source.getParams();
-                params.lat = lat;
-                params.lon = lon;
+                params.lat = center_lat;
+                params.lon = center_lon;
                 params.radiusROI = radiusROI;
                 params.sunAz = sunAz;
                 params.sunEl = sunEl;
@@ -122,11 +122,11 @@ var ossimtools = (function ()
 
         //console.log( center );
 
-        lat = center[1];
-        lon = center[0];
+        center_lat = center[1];
+        center_lon = center[0];
 
-        $( '#lat' ).val( lat );
-        $( '#lon' ).val( lon );
+        $( '#lat' ).val( center_lat );
+        $( '#lon' ).val( center_lon );
 
         updateHLZ();
         updateViewshed();
@@ -137,8 +137,8 @@ var ossimtools = (function ()
 
     function initialize( initParams )
     {
-        lat = initParams.lat;
-        lon = initParams.lon;
+        center_lat = initParams.lat;
+        center_lon = initParams.lon;
         radiusROI = initParams.radiusROI;
 
         radiusLZ = initParams.radiusLZ;
@@ -152,12 +152,7 @@ var ossimtools = (function ()
         layers = [
             new ol.layer.Tile( {
                 name: 'reference',
-                source: new ol.source.TileWMS( {
-                    url: 'http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?',
-                    params: {
-                        LAYERS: 'osm-group'
-                    }
-                } )
+                 source: new ol.source.OSM()
             } ),
             new ol.layer.Image( {
                 name: 'hlz',
@@ -166,8 +161,8 @@ var ossimtools = (function ()
                     params: {
                         LAYERS: '',
                         VERSION: '1.1.1',
-                        lat: lat,
-                        lon: lon,
+                        lat: center_lat,
+                        lon: center_lon,
                         radiusROI: radiusROI,
                         radiusLZ: radiusLZ,
                         roughness: roughness,
@@ -182,8 +177,8 @@ var ossimtools = (function ()
                     params: {
                         LAYERS: '',
                         VERSION: '1.1.1',
-                        lat: lat,
-                        lon: lon,
+                        lat: center_lat,
+                        lon: center_lon,
                         radius: radiusROI,
                         fovStart: fovStart,
                         fovStop: fovStop,
@@ -212,27 +207,31 @@ var ossimtools = (function ()
         ];
 
         map = new ol.Map( {
-            controls: ol.control.defaults().extend( [
-                new ol.control.ScaleLine( {
-                    units: 'degrees'
-                } )
-            ] ),
-            layers: layers,
-            target: 'map',
-            view: new ol.View( {
-                projection: 'EPSG:4326'//,
-                //center: [initParams.lon, initParams.lat],
-                //zoom: 2
-            } )
-        } );
+             controls: ol.control.defaults().extend( [
+                 new ol.control.ScaleLine( {
+                     units: 'degrees'
+                 } )
+             ] ),
+             layers: layers,
+             target: 'map',
+             view: new ol.View( {
+                 //projection: 'EPSG:4326'//,
+                 projection: 'EPSG:3857'//,
+                 //center: [initParams.lon, initParams.lat],
+                 //zoom: 2
+             } )
+         } );
 
         map.on( 'moveend', onMoveEnd );
+
+                console.log( initParams );
+
         var extent = ol.extent.boundingExtent( initParams.extent );
-        //console.log( extent );
+
         map.getView().fit( extent, map.getSize() );
 
-        $( '#lat' ).val( lat );
-        $( '#lon' ).val( lon );
+        $( '#lat' ).val( center_lat );
+        $( '#lon' ).val( center_lon );
         $( '#radiusROI' ).val( radiusROI );
         $( '#radiusLZ' ).val( radiusLZ );
         $( '#roughness' ).val( roughness );
@@ -313,8 +312,8 @@ var ossimtools = (function ()
         $( '#submitButton' ).on( 'click', function ( e )
         {
             // Common Parameters:
-            lat = $( '#lat' ).val();
-            lon = $( '#lon' ).val();
+            center_lat = $( '#lat' ).val();
+            center_lon = $( '#lon' ).val();
             radiusROI = $( '#radiusROI' ).val();
 
             // HLZ Parameters:
@@ -342,7 +341,7 @@ var ossimtools = (function ()
             updateSlope();
             updateHillshade();
             
-            map.getView().setCenter( ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857') );
+            map.getView().setCenter( ol.proj.transform([center_lon, center_lat], 'EPSG:4326', 'EPSG:3857') );
 
         } );
 
