@@ -19,7 +19,8 @@ include 'omar-core',
 		'pki-app',
 		'swipe-app',
 		'stager-app',
-		'predio-app'
+		'predio-app',
+		'ossimtools-app'
 
 // Plugins
 project(':omar-core').projectDir = 'plugins/omar-core' as File
@@ -46,3 +47,4 @@ project(':swipe-app').projectDir = 'apps/swipe-app' as File
 project(':pki-app').projectDir = 'apps/pki-app' as File
 project(':stager-app').projectDir = 'apps/stager-app' as File
 project(':predio-app').projectDir = 'apps/predio-app' as File
+project(':ossimtools-app').projectDir = 'apps/ossimtools-app' as File

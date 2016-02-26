@@ -17,6 +17,8 @@ plugins {
     id "io.spring.dependency-management" version "0.5.4.RELEASE"
 }
 
+evaluationDependsOnChildren()
+
 version "0.1"
 group "ossimtools.app"
 
@@ -48,6 +50,14 @@ dependencyManagement {
         mavenBom "org.grails:grails-bom:$grailsVersion"
     }
     applyMavenExclusions false
+}
+
+grails {
+    exploded = true
+    plugins {
+        compile project(':omar-oms')
+        compile project(':omar-geoscript')
+    }
 }
 
 dependencies {
