@@ -3,7 +3,7 @@
 //= require webjars/openlayers/3.13.0/ol.js
 //= require_self
 
-ossimtools = (function ()
+var ossimtools = (function ()
 {
     "use strict";
 
@@ -190,7 +190,7 @@ ossimtools = (function ()
                         heightOfEye: heightOfEye
                     }
                 } )
-            } )
+            } ),
             new ol.layer.Tile( {
                 name: 'slope',
                 source: new ol.source.TileWMS( {

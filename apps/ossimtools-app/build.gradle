@@ -61,6 +61,10 @@ grails {
 }
 
 dependencies {
+
+    compile 'org.webjars.bower:bootstrap:3.3.5'
+    compile 'org.webjars:bootswatch-superhero:3.3.5'
+
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-autoconfigure"
