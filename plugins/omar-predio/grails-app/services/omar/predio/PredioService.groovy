@@ -18,6 +18,13 @@ class PredioService
                         message    : "Success",
                         contentType: "text/plain"
       ]
+      if(!OmarPredioUtils.predioConfig.enabled)
+      {
+         result.status  = HttpStatus.METHOD_NOT_ALLOWED
+         result.message = "PredictionIO is currently disabled"
+
+         return result
+      }
       if (cmd.validate())
       {
          try
@@ -71,6 +78,13 @@ class PredioService
       universalCmd.targetEntityType = null
 
       def properties = [:]
+      if(!OmarPredioUtils.predioConfig.enabled)
+      {
+         result.status  = HttpStatus.METHOD_NOT_ALLOWED
+         result.message = "PredictionIO is currently disabled"
+
+         return result
+      }
       if(cmd.categories)
       {
          properties.categories = []
@@ -117,6 +131,13 @@ class PredioService
       }
       cmd.categories?.split(",").each{category->
          categories << category.trim()
+      }
+      if(!OmarPredioUtils.predioConfig.enabled)
+      {
+         result.status  = HttpStatus.METHOD_NOT_ALLOWED
+         result.message = "PredictionIO is currently disabled"
+
+         return result
       }
       if(locations)
       {
@@ -173,6 +194,13 @@ class PredioService
 
       def fields = []
 
+      if(!OmarPredioUtils.predioConfig.enabled)
+      {
+         result.status  = HttpStatus.METHOD_NOT_ALLOWED
+         result.message = "PredictionIO is currently disabled"
+
+         return result
+      }
       cmd.locations?.split(",").each{location->
          locations << location.trim()
       }
@@ -227,6 +255,13 @@ class PredioService
                         message    : [],
                         contentType: "text/plain"]
 
+      if(!OmarPredioUtils.predioConfig.enabled)
+      {
+         result.status  = HttpStatus.METHOD_NOT_ALLOWED
+         result.message = "PredictionIO is currently disabled"
+
+         return result
+      }
       if (cmd.validate())
       {
          PredioAppId appId = PredioAppId.findByName(cmd.appName)
@@ -278,4 +313,69 @@ class PredioService
 
       result
    }
+
+   def indexData(PredioIndexDataCommand cmd) {
+      HashMap result = [status     : HttpStatus.OK,
+                        message    : "Success",
+                        contentType: "text/plain"]
+
+      if(!OmarPredioUtils.predioConfig.enabled)
+      {
+         result.status  = HttpStatus.METHOD_NOT_ALLOWED
+         result.message = "PredictionIO is currently disabled"
+
+         return result
+      }
+      String dateRanges = cmd.dateRanges
+      String locationFields = cmd.locationFields
+      String categoryFields = cmd.categoryFields
+      String dateField      = cmd.dateField
+      String expirePeriod   = cmd.expirePeriod
+      def config = OmarPredioUtils.predioConfig
+
+      //default if not present
+      if(!cmd.wfsUrl){
+         def wfsParams = config.index.wfs.params.inject([]){resultList,k,v-> resultList<<"${k}=${v}"}.join("&")
+         cmd.wfsUrl = "${config.index.wfs.baseUrl}?${wfsParams}"
+      }
+      if(!cmd.locationFields)
+      {
+         cmd.locationFields = config.index.fields.locations.join(",")
+      }
+      if(!cmd.categoryFields)
+      {
+         cmd.categoryFields = config.index.fields.categories.join(",")
+      }
+      if(!cmd.dateField)
+      {
+         cmd.dateField = config.index.dateField
+      }
+      if(!cmd.idField)
+      {
+         cmd.idField = config.index.idField
+      }
+
+      try{
+         def indexJobRecord = new PredioIndexJob(cmd.properties)
+         indexJobRecord.save(flush:true)
+      }
+      catch(e)
+      {
+         result = [status : HttpStatus.BAD_REQUEST,
+                   message: message.toString()]
+      }
+//        def timezone = TimeZone.getTimeZone("UTC")
+//        if(cmd.dateRanges)
+//        {
+//            def dateRanges = DateUtil.parseOgcTimeIntervalsAsDateTime(cmd.dateRanges)//, DateTimeZone.UTC
+//            println dateRanges
+//
+//            def expirePeriod = DateUtil.parsePeriod(cmd.expirePeriod)
+//            println expirePeriod
+//        }
+
+      result
+
+   }
+
 }
