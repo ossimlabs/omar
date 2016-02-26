@@ -11,7 +11,7 @@ var ossimtools = (function ()
         radiusLZ, roughness, slope,
         fovStart, fovStop, heightOfEye,
         gainFactor, 
-        sunAz, sunElev,
+        sunAz, sunEl,
         map, layers;
 
 

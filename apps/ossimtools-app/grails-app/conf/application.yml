@@ -120,8 +120,6 @@ ossimtools:
   supportData: '/data/TEST/HLZ/N48W114'
   tmpDir: '/tmp'
   hillShade: '/data/TEST/HLZ/N48W114/N48W114-hillshade.tif'
-
-#ossimtools:
 #  supportData: '/Users/sbortman/pmr-2015/oscar/N48W114'
 #  tmpDir: '/tmp'
 #  hillShade: '/Users/sbortman/pmr-2015/oscar/N48W114/N48W114-hillshade.tif'
