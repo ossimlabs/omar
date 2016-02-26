@@ -63,9 +63,9 @@ class PredioController
    }
 
    @ApiOperation(value = "Set an item",
-                 consumes= 'application/json',
-                 produces='application/json',
-                 httpMethod="POST")
+           consumes= 'application/json',
+           produces='application/json',
+           httpMethod="POST")
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'item', value = 'Id of the item to modify or set', paramType = 'query', dataType = 'int'),
            @ApiImplicitParam(name = 'categories', value = 'Comma seperated list of categorie', paramType = 'query', dataType = 'int'),
@@ -273,25 +273,15 @@ Duration and end, such as:   P1Y2M10DT2H30M/2008-05-11T15:30:00Z
    def indexData()
    {
       HashMap result
-      if(OmarPredioUtils.predioConfig.enabled)
-      {
-         // bind with JSON or URL params
-         def jsonData = request.JSON?request.JSON as HashMap:null
-         def requestParams = params - params.subMap( ['controller', 'format', 'action'] )
-         def cmd = new PredioIndexDataCommand()
-         if(jsonData) requestParams << jsonData
-         BindUtil.fixParamNames( PredioIndexDataCommand, requestParams )
-         bindData( cmd, requestParams )
+      // bind with JSON or URL params
+      def jsonData = request.JSON?request.JSON as HashMap:null
+      def requestParams = params - params.subMap( ['controller', 'format', 'action'] )
+      def cmd = new PredioIndexDataCommand()
+      if(jsonData) requestParams << jsonData
+      BindUtil.fixParamNames( PredioIndexDataCommand, requestParams )
+      bindData( cmd, requestParams )
 
-         result = predioService.indexData(cmd)
-      }
-      else
-      {
-         result = [status : HttpStatus.BAD_REQUEST,
-                   message: "Indexing is disabled",
-                   contentType:"text/plain"]
-
-      }
+      result = predioService.indexData(cmd)
 
       response.status      = result.status.value()
       response.contentType = result.contentType
