@@ -157,7 +157,7 @@ var ossimtools = (function ()
             new ol.layer.Image( {
                 name: 'hlz',
                 source: new ol.source.ImageWMS( {
-                    url: '/hlz/renderHLZ',
+                    url: '/ossimTools/renderHLZ',
                     params: {
                         LAYERS: '',
                         VERSION: '1.1.1',
@@ -173,7 +173,7 @@ var ossimtools = (function ()
             new ol.layer.Image( {
                 name: 'ovs',
                 source: new ol.source.ImageWMS( {
-                    url: '/hlz/renderViewshed',
+                    url: '/ossimTools/renderViewshed',
                     params: {
                         LAYERS: '',
                         VERSION: '1.1.1',
@@ -189,7 +189,7 @@ var ossimtools = (function ()
             new ol.layer.Tile( {
                 name: 'slope',
                 source: new ol.source.TileWMS( {
-                    url: '/hlz/renderSlope',
+                    url: '/ossimTools/renderSlope',
                     params: {
                         VERSION: '1.1.1'
                     }
@@ -198,7 +198,7 @@ var ossimtools = (function ()
             new ol.layer.Tile( {
                 name: 'hillshade',
                 source: new ol.source.TileWMS( {
-                    url: '/hlz/renderHillShade',
+                    url: '/ossimTools/renderHillShade',
                     params: {
                         VERSION: '1.1.1'
                     }
