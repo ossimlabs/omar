@@ -49,7 +49,8 @@ Brief summary/description of the plugin.
         //println OmarSecurityUtils.application.config.grails.plugin.springsecurity
         OmarPredioReflectionUtils.application = OmarPredioUtils.application = grailsApplication
         OmarPredioUtils.resetPredioConfig()
-        OmarPredioUtils.reloadPredioConfig()
+        // force reload by getting the config object
+        OmarPredioUtils.predioConfig
 
         log.trace("doWithSpring(): Leaving.............")
 
