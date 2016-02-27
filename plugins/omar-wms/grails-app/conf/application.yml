@@ -125,7 +125,7 @@ omar:
   wms:
     autoMosaic:
       maxCount: 10
-      sort:
+      sorting:
         -
           - "acquisition_date"
           - "DESC"

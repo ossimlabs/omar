@@ -239,7 +239,7 @@ class WebMappingService
 			//println "BEFORE: ${maxCount}"
 			maxCount = maxCount?:10
 			//println maxCount
-			def sorting = grailsApplication?.config.omar.wms.autoMosaic.sort
+			def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
 			Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
 				def layer = workspace[ layerName ]
 
