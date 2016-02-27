@@ -1,5 +1,6 @@
 package omar.wms
 
+import groovy.util.logging.Slf4j
 import groovy.xml.StreamingMarkupBuilder
 
 import geoscript.workspace.Workspace
@@ -12,7 +13,7 @@ import omar.geoscript.WorkspaceInfo
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
-
+@Slf4j
 class WebMappingService
 {
 	static transactional = false
@@ -188,6 +189,7 @@ class WebMappingService
 
 	def getMap( GetMapRequest wmsParams )
 	{
+		log.trace "getMap: Entered ................"
 		def renderMode = RenderMode.FILTER
 		def otherParams = [ startDate: new Date() ]
 
@@ -198,6 +200,7 @@ class WebMappingService
 		switch ( renderMode )
 		{
 		case RenderMode.GEOSCRIPT:
+			log.trace "getMap: Using  RenderMode.GEOSCRIPT Method"
 			def images = wmsParams?.layers?.split( ',' )?.collect { [ imageFile: it as File ] }
 			def chipperLayer = new ChipperLayer( images )
 
@@ -215,12 +218,14 @@ class WebMappingService
 			break
 
 		case RenderMode.BLANK:
+			log.trace "getMap: Using  RenderMode.BLANK Method"
 			def image = new BufferedImage( wmsParams.width, wmsParams.height, BufferedImage.TYPE_INT_ARGB )
 
 			ImageIO.write( image, wmsParams?.format?.split( '/' )?.last(), ostream )
 			break
 
 		case RenderMode.FILTER:
+			log.trace "getMap: Using  RenderMode.FILTER Method"
 
 			def ( prefix, layerName ) = wmsParams?.layers?.split( ':' )
 
@@ -230,16 +235,18 @@ class WebMappingService
 
 			List images = null
 
-			def maxCount = grailsApplication?.config?.omar?.wms?.mosaic?.maxCount
+			def maxCount = grailsApplication?.config.omar.wms.autoMosaic.maxCount
+			//println "BEFORE: ${maxCount}"
 			maxCount = maxCount?:10
-			def sorting = grailsApplication?.config?.omar?.wms?.mosaic?.sort
+			//println maxCount
+			def sorting = grailsApplication?.config.omar.wms.autoMosaic.sort
 			Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
 				def layer = workspace[ layerName ]
 
 				images = layer.collectFromFeature(
 						filter: wmsParams?.filter,
-						sorting: sorting,
-						max: maxCount, // will remove and change to have the wms plugin have defaults
+						//sorting: sorting,
+					//	max: maxCount, // will remove and change to have the wms plugin have defaults
 						fields: [ 'filename', 'entry_id' ] as List<String>
 				) {
 					[ imageFile: it.filename as File, entry: it.entry_id?.toInteger() ]
@@ -264,6 +271,7 @@ class WebMappingService
 
 		otherParams.endDate = new Date()
 
+		log.trace "getMap: Leaving ................"
 		[ contentType: wmsParams.format, buffer: ostream.toByteArray(), metrics: otherParams ]
 	}
 }

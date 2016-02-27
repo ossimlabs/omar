@@ -123,7 +123,7 @@ environments:
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 omar:
   wms:
-    mosaic:
+    autoMosaic:
       maxCount: 10
       sort:
         -
