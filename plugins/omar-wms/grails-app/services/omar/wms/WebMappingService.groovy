@@ -235,11 +235,12 @@ class WebMappingService
 
 			List images = null
 
-			def maxCount = grailsApplication?.config.omar.wms.autoMosaic.maxCount
+			//def maxCount = grailsApplication?.config.omar.wms.autoMosaic.maxCount
 			//println "BEFORE: ${maxCount}"
-			maxCount = maxCount?:10
+			//maxCount = maxCount?:10
 			//println maxCount
-			def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
+			//def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
+
 			Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
 				def layer = workspace[ layerName ]
 
