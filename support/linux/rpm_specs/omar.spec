@@ -48,8 +48,8 @@ Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 #Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%package 	hlz-app
-Summary:        HLZ Services
+%package 	ossimtools-app
+Summary:        OSSIM tools service Services
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
 #Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -77,7 +77,7 @@ Stager service for the O2 distribution.  Will support indexing imagery into the 
 %description  superoverlay-app
 Stager service for the O2 distribution.  Will support Google Earth's KML superoverlay
 
-%description  hlz-app
+%description  ossimtools-app
 Helicopter landing zone support
 
 %description  swipe-app
@@ -105,7 +105,7 @@ export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wms-app
 export WFS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
 export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
 export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
-export HLZ_APP_HOME=$OMAR_DEV_HOME/apps/hlz-app
+export OSSIMTOOLS_APP_HOME=$OMAR_DEV_HOME/apps/ossimtools-app
 export SWIPE_APP_HOME=$OMAR_DEV_HOME/apps/swipe-app
 
 export OSSIM_INSTALL_PREFIX=%{buildroot}/usr
@@ -129,7 +129,7 @@ pushd $SUPEROVERLAY_APP_HOME
 ./gradlew assemble
 popd
 
-pushd $HLZ_APP_HOME
+pushd $OSSIMTOOLS_APP_HOME
 ./gradlew assemble
 popd
 
@@ -150,7 +150,7 @@ export WFS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
 export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wms-app
 export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
 export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
-export HLZ_APP_HOME=$OMAR_DEV_HOME/apps/hlz-app
+export OSSIMTOOLS_APP_HOME=$OMAR_DEV_HOME/apps/ossimtools-app
 export SWIPE_APP_HOME=$OMAR_DEV_HOME/apps/swipe-app
 
 pushd $OMAR_APP_HOME
@@ -178,9 +178,9 @@ install -d %{buildroot}/opt/ossimlabs/o2-superoverlay-app
 install -p -m644 build/libs/superoverlay*.jar %{buildroot}/opt/ossimlabs/o2-superoverlay-app/
 popd
 
-pushd $HLZ_APP_HOME
-install -d %{buildroot}/opt/ossimlabs/o2-hlz-app
-install -p -m644 build/libs/hlz*.jar %{buildroot}/opt/ossimlabs/o2-hlz-app/
+pushd $OSSIMTOOLS_APP_HOME
+install -d %{buildroot}/opt/ossimlabs/o2-ossimtools-app
+install -p -m644 build/libs/ossimtools*.jar %{buildroot}/opt/ossimlabs/o2-ossimtools-app/
 popd
 
 pushd $SWIPE_APP_HOME
@@ -206,8 +206,8 @@ popd
 %files superoverlay-app
 /opt/ossimlabs/o2-superoverlay-app
 
-%files hlz-app
-/opt/ossimlabs/o2-hlz-app
+%files ossimtools-app
+/opt/ossimlabs/o2-ossimtools-app
 
 %files swipe-app
 /opt/ossimlabs/o2-swipe-app
