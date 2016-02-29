@@ -40,7 +40,7 @@ class OssimToolsService
 
     def ossimMap = [
        aoi_geo_center:  [ params.lat, params.lon ].join(' '),
-       aoi_size_meters: [ params.radiusROI, params.radiusROI].join(' '),
+//       aoi_size_meters: [ params.radiusROI, params.radiusROI].join(' '),
        lut_file:  "${grailsApplication.config.ossimtools.supportData}/vs.lut" as String,
        //lz_min_radius:  params.radiusLZ,
        //roughness_threshold: params.roughness,
