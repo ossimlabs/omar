@@ -49,10 +49,10 @@ class OssimToolsService
     ]
  	  println ossimMap  
 
-		def hints = [ transparent: true,
+		def hints = [ transparent: false,
 		              width: params.WIDTH.toInteger(),
 		              height: params.HEIGHT.toInteger() ]
-    int numBands = 4
+    int numBands = 3
     def raster = Raster.createInterleavedRaster(
 				DataBuffer.TYPE_BYTE,
 				hints.width, hints.height,
@@ -69,8 +69,16 @@ class OssimToolsService
 
 		// Since a new tool is created each time, pass in a bogus map to indicate full AOI should
 		// be computed:
-		def bogusMap = [ 'foo' : 'bar']
-		if ( !ossimTool.getChip( raster.dataBuffer.data, bogusMap ) )
+		def bbox = params.BBOX.split(',')
+		def hintsMap = [
+				min_x : bbox[0],
+				min_y : bbox[1],
+				max_x : bbox[2],
+				max_y : bbox[3],
+				width: params.WIDTH,
+				height: params.HEIGHT,
+		]
+		if ( !ossimTool.getChip( raster.dataBuffer.data, hintsMap ) )
 		{
 			return
 		}
