@@ -154,62 +154,66 @@ var ossimtools = (function ()
                 name: 'reference',
                  source: new ol.source.OSM()
             } ),
+//            new ol.layer.Image( {
+//                name: 'hlz',
+//                source: new ol.source.ImageWMS( {
+//                    url: '/ossimTools/renderHLZ',
+//                    params: {
+//                        visible: false,
+//                        LAYERS: '',
+//                        VERSION: '1.1.1',
+//                        lat: center_lat,
+//                        lon: center_lon,
+//                        radiusROI: radiusROI,
+//                        radiusLZ: radiusLZ,
+//                        roughness: roughness,
+//                        slope: slope
+//                    }
+//                } )
+//            } ),
             new ol.layer.Image( {
-                name: 'hlz',
+                name: 'viewshed',
                 source: new ol.source.ImageWMS( {
-                    url: '/ossimTools/renderHLZ',
+                    url: '/ossimTools/renderViewshed',
                     params: {
+                        visible: false,
                         LAYERS: '',
                         VERSION: '1.1.1',
                         lat: center_lat,
                         lon: center_lon,
                         radiusROI: radiusROI,
-                        radiusLZ: radiusLZ,
-                        roughness: roughness,
-                        slope: slope
-                    }
-                } )
-            } ),
-            new ol.layer.Image( {
-                name: 'ovs',
-                source: new ol.source.ImageWMS( {
-                    url: '/ossimTools/renderViewshed',
-                    params: {
-                        LAYERS: '',
-                        VERSION: '1.1.1',
-                        lat: center_lat,
-                        lon: center_lon,
-                        radius: radiusROI,
                         fovStart: fovStart,
                         fovStop: fovStop,
                         heightOfEye: heightOfEye
                     }
                 } )
             } ),
-            new ol.layer.Tile( {
-                name: 'slope',
-                source: new ol.source.TileWMS( {
-                    url: '/ossimTools/renderSlope',
-                    params: {
-                        VERSION: '1.1.1'
-                    }
-                } )
-            } ),
-            new ol.layer.Tile( {
-                name: 'hillshade',
-                source: new ol.source.TileWMS( {
-                    url: '/ossimTools/renderHillShade',
-                    params: {
-                        VERSION: '1.1.1'
-                    }
-                } )
-            } )
+//            new ol.layer.Tile( {
+//                name: 'slope',
+//                source: new ol.source.TileWMS( {
+//                    url: '/ossimTools/renderSlope',
+//                    params: {
+//                        visible: false,
+//                        VERSION: '1.1.1'
+//                    }
+//                } )
+//            } ),
+//            new ol.layer.Tile( {
+//                name: 'hillshade',
+//                source: new ol.source.TileWMS( {
+//                    url: '/ossimTools/renderHillShade',
+//                    params: {
+//                        visible: false,
+//                        VERSION: '1.1.1'
+//                    }
+//                } )
+//            } )
         ];
 
         map = new ol.Map( {
              controls: ol.control.defaults().extend( [
                  new ol.control.ScaleLine( {
-                     units: 'degrees'
+                     units: 'meters'
                  } )
              ] ),
              layers: layers,
@@ -336,7 +340,7 @@ var ossimtools = (function ()
             
             
             // Pass the request to OSSIM:
-            updateLayers();
+            updateHLZ();
             updateViewshed();
             updateSlope();
             updateHillshade();
