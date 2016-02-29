@@ -56,7 +56,7 @@ Brief summary/description of the plugin.
        // reset and re-synch security configs
        SpringSecurityUtils.resetSecurityConfig()
        OmarSecurityUtils.resetSecurityConfig()
-       OmarSecurityUtils.reloadSecurityConfig()
+       OmarSecurityUtils.securityConfig
 
        //OmarSecurityUtils.application.config.grails.plugin.springsecurity.securityConfigType =  "Requestmap"
        //OmarSecurityUtils.application.config.grails.plugin.springsecurity.providerNames =  [

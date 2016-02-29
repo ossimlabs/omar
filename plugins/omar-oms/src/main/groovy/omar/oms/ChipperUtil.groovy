@@ -9,12 +9,14 @@ import java.awt.image.ComponentColorModel
 import java.awt.image.DataBuffer
 import java.awt.image.Raster
 import java.awt.image.RenderedImage
+import groovy.util.logging.Slf4j
 
 import joms.oms.Chipper
 
 /**
  * Created by sbortman on 1/15/16.
  */
+@Slf4j
 class ChipperUtil
 {
   static ColorModel createColorModel(int numBands, boolean transparent)
@@ -31,6 +33,7 @@ class ChipperUtil
 
   static RenderedImage createImage(Map<String,String> opts, Map<String,Object> hints)
   {
+    log.trace "createImage: Entered................"
     def numBands = hints.transparent ? 4 : 3
 
     def raster = Raster.createInterleavedRaster(
@@ -44,13 +47,17 @@ class ChipperUtil
     def colorModel = createColorModel(numBands, hints.transparent)
     def image = new BufferedImage(colorModel, raster, false, null)
 
+    log.trace "createImage: Leaving.............."
+
     return image
   }
 
   static void runChipper(Map<String,String> opts, Map<String,Object> hints, byte[] buffer)
   {
+    log.trace "runChipper: Entered.................."
     def chipper = new Chipper()
 
+    log.trace "runChipper options: ${opts}"
     if ( chipper.initialize( opts ) )
     {
       //println 'initialize: good'
@@ -69,5 +76,7 @@ class ChipperUtil
     }
 
     chipper.delete()
+
+    log.trace "runChipper: Leaving.................."
   }
 }
