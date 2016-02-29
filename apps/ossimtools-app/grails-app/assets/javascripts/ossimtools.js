@@ -336,7 +336,7 @@ var ossimtools = (function ()
             
             
             // Pass the request to OSSIM:
-            updateLayers();
+            updateHLZ();
             updateViewshed();
             updateSlope();
             updateHillshade();
