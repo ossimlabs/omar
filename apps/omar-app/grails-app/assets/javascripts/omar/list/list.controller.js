@@ -17,7 +17,7 @@
 
             // TODO: Move to external config
             //vm.thumbPath = '/o2/imageSpace/getThumbnail?';
-            vm.thumbPath = AppO2.APP_CONFIG.clientParams.thumbnails.baseUrl;
+            vm.thumbPath = AppO2.APP_CONFIG.params.thumbnails.baseUrl;
             vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
             vm.thumbEntry = '&entry=';  // parameter provided by image.properties.entry_id
             vm.thumbSize = '&size=100';
@@ -97,16 +97,18 @@
 
             // Shows/Hides the KML SuperOverlay button based on parameters passed down
             // from application.yml
-            vm.kmlSuperOverlayAppEnabled = AppO2.APP_CONFIG.clientParams.kmlApp.enabled;
+            vm.kmlSuperOverlayAppEnabled = AppO2.APP_CONFIG.params.kmlApp.enabled;
 
             if (vm.kmlSuperOverlayAppEnabled) {
-                vm.kmlSuperOverlayLink = AppO2.APP_CONFIG.clientParams.kmlApp.baseUrl;
+                vm.kmlSuperOverlayLink = AppO2.APP_CONFIG.params.kmlApp.baseUrl;
 
             }
 
             //AppO2.APP_PATH is passed down from the .gsp
-            vm.o2baseUrl = AppO2.APP_PATH;
-            vm.o2contextPath = AppO2.APP_CONTEXTPATH;
+            // {{list.o2baseUrl}}/#{{list.o2contextPath}}/mapOrtho?layers={{image.properties.id}}
+            //http://localhost/omar-app/omar/#/mapOrtho?layers=118
+            vm.o2baseUrl = AppO2.APP_CONFIG.serverURL + '/omar';
+            //vm.o2contextPath = AppO2.APP_CONTEXTPATH;
 
             vm.displayFootprint = function(obj){
 
@@ -176,7 +178,7 @@
 
                 var modalInstance = $uibModal.open({
                     size: 'lg',
-                    templateUrl: '/o2/list/list.image-card.partial.html',
+                    templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-card.partial.html',
                     controller: ['$uibModalInstance', 'imageSpaceService', 'imageObj', ImageModalController],
                     controllerAs: 'vm',
                     resolve: {
@@ -193,7 +195,7 @@
 
             };
 
-            vm.pioAppEnabled = AppO2.APP_CONFIG.clientParams.predio.enabled;
+            vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
             vm.logRatingToPio = function(imageId) {
                 
                 if (vm.pioAppEnabled) {
@@ -201,7 +203,7 @@
 
                     //console.log('logRating imageId param:', imageId);
 
-                    var pioUrl = AppO2.APP_CONFIG.clientParams.predio.baseUrl + 'viewItem?targetEntityId=' + imageId;
+                    var pioUrl = AppO2.APP_CONFIG.params.predio.baseUrl + 'viewItem?targetEntityId=' + imageId;
                     $http({
                         method: 'POST',
                         url: pioUrl
@@ -237,8 +239,8 @@
             //console.log('modal', modal);
 
             //AppO2.APP_PATH is passed down from the .gsp
-            vm.o2baseUrlModal = AppO2.APP_PATH;
-            vm.o2contextPathModal = AppO2.APP_CONTEXTPATH; 
+            vm.o2baseUrlModal = AppO2.APP_CONFIG.serverURL;
+            //vm.o2contextPathModal = AppO2.APP_CONTEXTPATH; 
             
             var imageSpaceObj = {
                 filename: imageObj.properties.filename,

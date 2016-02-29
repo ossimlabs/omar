@@ -21,7 +21,7 @@
             // TODO: getCapabilities and DescribeFeatureType to get the geometry column
 
             //var wfsRequestUrl = '/o2/wfs?';
-            var wfsRequestUrl = AppO2.APP_CONFIG.clientParams.wfs.baseUrl;
+            var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl;
             var wfsRequest = {
                 typeName: 'omar:raster_entry',
                 namespace: 'http://omar.ossim.org',
@@ -183,7 +183,7 @@
                 wfsRequest.cql = 'id in(' + wfsImageString + ')';
 
                 //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-                var wfsRequestUrl = AppO2.APP_CONFIG.clientParams.wfs.baseUrl;;
+                var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl;;
 
                 // TODO: Refactor and use string from other wfs method
                 var wfsUrl = wfsRequestUrl +

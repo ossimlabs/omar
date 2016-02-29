@@ -63,20 +63,16 @@
             var AppO2 = (function () {
                 
                 var APP_CONFIG = ${raw( clientConfig.encodeAsJSON() as String )};
-                var APP_PATH = "${createLink(absolute: true)}"
-                var APP_CONTEXTPATH = "${request.contextPath}"
+                
 
                 return {
-                    APP_CONFIG: APP_CONFIG,
-                    APP_PATH: APP_PATH,
-                    APP_CONTEXTPATH: APP_CONTEXTPATH
+                    APP_CONFIG: APP_CONFIG
                 }
 
             })();
-            //console.log('AppO2.APP_CONFIG.clientParams', AppO2.APP_CONFIG.clientParams); 
-            //console.log('AppO2.APP_PATH', AppO2.APP_PATH);
-            //console.log('AppO2.APP_CONTEXTPATH', AppO2.APP_CONTEXTPATH); 
+            console.log('APP_CONFIG: ', AppO2.APP_CONFIG);
             
+
         </asset:script>
         <asset:deferredScripts/>
         <asset:javascript src="app.manifest.js"/>

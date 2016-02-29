@@ -242,7 +242,7 @@
             $http( {
                 method: 'GET',
                 //url: '/o2/imageSpace/getAngles',
-                url: AppO2.APP_CONFIG.clientParams.imageSpace.baseUrl + 'getAngles',
+                url: AppO2.APP_CONFIG.params.imageSpace.baseUrl + 'getAngles',
                 params: {filename: filename, entry: entry}
             } ).then( function successCallback( response )
             {
@@ -273,7 +273,7 @@
 
             source = new ImageSpace( {
                 //url: '/o2/imageSpace/getTile',
-                url: AppO2.APP_CONFIG.clientParams.imageSpace.baseUrl + 'getTile',
+                url: AppO2.APP_CONFIG.params.imageSpace.baseUrl + 'getTile',
                 filename: filename,
                 entry: entry,
                 format: 'jpeg',
@@ -282,7 +282,7 @@
             } );
 
             source2 = new ImageSpace( {
-                url: AppO2.APP_CONFIG.clientParams.imageSpace.baseUrl + 'getTileOverlay',
+                url: AppO2.APP_CONFIG.params.imageSpace.baseUrl + 'getTileOverlay',
                 filename: filename,
                 entry: entry,
                 format: 'png',

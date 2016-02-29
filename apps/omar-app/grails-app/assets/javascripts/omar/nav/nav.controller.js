@@ -15,26 +15,26 @@
             var vm = this;
         	/* jshint validthis: true */
 
-        	vm.swipeAppEnabled = AppO2.APP_CONFIG.clientParams.swipeApp.enabled;
+        	vm.swipeAppEnabled = AppO2.APP_CONFIG.params.swipeApp.enabled;
 
         	if (vm.swipeAppEnabled) {
         		
-        		vm.swipeAppLink = AppO2.APP_CONFIG.clientParams.swipeApp.baseUrl;
+        		vm.swipeAppLink = AppO2.APP_CONFIG.params.swipeApp.baseUrl;
 
         	}
 
-        	vm.piwikAppEnabled = AppO2.APP_CONFIG.clientParams.piwikApp.enabled;
+        	vm.piwikAppEnabled = AppO2.APP_CONFIG.params.piwikApp.enabled;
 
         	if (vm.piwikAppEnabled) {
         		
-        		vm.piwikAppLink = AppO2.APP_CONFIG.clientParams.piwikApp.baseUrl;
+        		vm.piwikAppLink = AppO2.APP_CONFIG.params.piwikApp.baseUrl;
 
         	}
 
-        	vm.apiAppEnabled = AppO2.APP_CONFIG.clientParams.apiApp.enabled;
+        	vm.apiAppEnabled = AppO2.APP_CONFIG.params.apiApp.enabled;
 
         	if (vm.apiAppEnabled) {
-        		vm.apiAppLink = AppO2.APP_CONFIG.clientParams.apiApp.baseUrl;
+        		vm.apiAppLink = AppO2.APP_CONFIG.params.apiApp.baseUrl;
 
         	}
 

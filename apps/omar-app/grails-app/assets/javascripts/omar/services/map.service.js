@@ -32,14 +32,14 @@
             dragBox;
         var mapObj = {};
 
-        console.log('marker: ', AppO2.APP_CONFIG.clientParams.misc.icons.greenmarker);
+        console.log('marker: ', AppO2.APP_CONFIG.params.misc.icons.greenmarker);
         iconStyle = new ol.style.Style({
             image: new ol.style.Icon(({
                 anchor: [0.5, 46],
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
                 //opacity: 0.75,
-                src: AppO2.APP_CONFIG.clientParams.misc.icons.greenmarker
+                src: AppO2.APP_CONFIG.params.misc.icons.greenmarker
             }))
         });
 
@@ -97,7 +97,7 @@
 
         this.mapInit = function (mapParams) {
 
-            //console.log('mapParams', mapParams);
+            console.log('mapParams', mapParams);
 
             mapView = new ol.View({
                 center: [0, 0],
@@ -161,7 +161,7 @@
                 title: 'Image Footprints',
                 source: new ol.source.TileWMS({
                     //url: '/o2/footprints/getFootprints',
-                    url: AppO2.APP_CONFIG.clientParams.footprints.baseUrl,
+                    url: AppO2.APP_CONFIG.params.footprints.baseUrl,
                     params: {
                         FILTER: "",
                         VERSION: '1.1.1',
@@ -451,11 +451,12 @@
                 acquisition_date = moment(imageObj.properties.acquisition_date).format('MM/DD/YYYY HH:mm:ss');
             }
 
+            var baseServerUrl = AppO2.APP_CONFIG.serverURL;
             content.innerHTML =
             '<div class="media">' +
                 '<div class="media-left">' +
-                    '<img class="media-object" ' +
-                        'src="/o2/imageSpace/getThumbnail?filename=' +
+                    '<img class="media-object" ' + 
+                        'src="' + baseServerUrl + '/imageSpace/getThumbnail?filename=' +
                         imageObj.properties.filename +
                         '&entry=' + imageObj.properties.entry_id +
                         '&size=50' + '&format=jpeg">' +
@@ -513,6 +514,7 @@
          */
         function zoomTo(lat, lon, zoomLevel, marker) {
             //console.log('zoomTo firing!');
+            console.log('lat:' + lat + 'lon: ' + lon);
             zoomAnimate();
             map.getView().setCenter([parseFloat(lon), parseFloat(lat)]);
             map.getView().setZoom(zoomLevel);

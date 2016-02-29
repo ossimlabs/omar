@@ -22,6 +22,9 @@
 
         //console.log('$stateParams', $stateParams);
 
+        vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
+        console.log('vm.baseServerUrl: ', vm.baseServerUrl);
+
         var mapOrtho,
             mapOrthoView,
             imageLayers,
@@ -55,7 +58,7 @@
             //console.log('wfsRequest.cql', wfsRequest.cql);
 
             //var wfsRequestUrl = '/o2/wfs?';
-            var wfsRequestUrl = AppO2.APP_CONFIG.clientParams.wfs.baseUrl;
+            var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl;
 
             var wfsUrl = wfsRequestUrl +
                 "service=WFS" +
@@ -125,7 +128,7 @@
             opacity: 1.0,
             source: new ol.source.TileWMS( {
                 //url: '/o2/wms?',
-                url: AppO2.APP_CONFIG.clientParams.wms.baseUrl,
+                url: AppO2.APP_CONFIG.params.wms.baseUrl,
                 params: {
                     'LAYERS': 'omar:raster_entry',
                     'FILTER' : "in(" + imageLayerIds + ")",
@@ -201,7 +204,7 @@
         function getRecommendedImages(imageId){
 
             //console.log('imageId', imageId);
-            var pioUrl = AppO2.APP_CONFIG.clientParams.predio.baseUrl + 'getItemRecommendations?item=' + imageId + '&num=20';
+            var pioUrl = AppO2.APP_CONFIG.params.predio.baseUrl + 'getItemRecommendations?item=' + imageId + '&num=20';
             $http({
                 method: 'GET',
                 url: pioUrl
@@ -216,7 +219,7 @@
 
         }
 
-        vm.pioAppEnabled = AppO2.APP_CONFIG.clientParams.predio.enabled;
+        vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
         console.log('PIO enabled: ', vm.pioAppEnabled);
         if (vm.pioAppEnabled) {
             
@@ -254,7 +257,7 @@
             //console.log('wfsRequest.cql: ', wfsRequest.cql);
 
             //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-            var wfsRequestUrl = AppO2.APP_CONFIG.clientParams.wfs.baseUrl; 
+            var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl; 
 
             var wfsUrl = wfsRequestUrl +
                 "service=WFS" +
