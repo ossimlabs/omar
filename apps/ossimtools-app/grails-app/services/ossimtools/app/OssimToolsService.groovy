@@ -30,6 +30,7 @@ class OssimToolsService
 
 	synchronized  def execTool( def params )
 	{
+	  println "OssimToolsService.execTool() -- params:"
 	  println params  
 	
 		def ossimTool = new OssimTools( params.name );
