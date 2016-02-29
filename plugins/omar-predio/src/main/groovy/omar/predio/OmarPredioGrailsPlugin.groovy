@@ -2,6 +2,9 @@ package omar.predio
 
 import grails.plugins.*
 
+import groovy.util.logging.Slf4j
+
+@Slf4j
 class OmarPredioGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
@@ -40,7 +43,18 @@ Brief summary/description of the plugin.
     // Online location of the plugin's browseable source code.
 //    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
 
-    Closure doWithSpring() { {->
+    Closure doWithSpring() {
+        log.trace("doWithSpring(): Entered.............")
+
+        //println OmarSecurityUtils.application.config.grails.plugin.springsecurity
+        OmarPredioReflectionUtils.application = OmarPredioUtils.application = grailsApplication
+        OmarPredioUtils.resetPredioConfig()
+        // force reload by getting the config object
+        OmarPredioUtils.predioConfig
+
+        log.trace("doWithSpring(): Leaving.............")
+
+        {->
             // TODO Implement runtime spring config (optional)
         }
     }
