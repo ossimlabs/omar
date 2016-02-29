@@ -28,48 +28,49 @@ class OssimToolsService
 		[ [ bounds.minX, bounds.minY ], [ bounds.maxX, bounds.maxY ] ]
 	}
 
-	def execTool( def name, def params )
+	def execTool( def params )
 	{
-		def ossimTool = new OssimTools( name );
+	  println params  
+	
+		def ossimTool = new OssimTools( params.name );
 		if ( !ossimTool )
 		{
 			return
-		};
+		}
 
-		// Using an LUT implies 3 band output. Allocate buffer to receive product:
-		int numBands = 3
-		//byte[] buffer = new byte[hints.width.toInteger() * hints.height.toInteger() * numBands]
+    def ossimMap = [
+       aoi_geo_center:  [ params.lat, params.lon ].join(' '),
+       aoi_size_meters: [ params.radiusROI, params.radiusROI].join(' '),
+       lut_file:  "${grailsApplication.config.ossimtools.supportData}/vs.lut" as String,
+       //lz_min_radius:  params.radiusLZ,
+       //roughness_threshold: params.roughness,
+       //slope_threshold: params.slope,
+       srs: params.SRS.split(':').last()
+    ]
+ 	  println ossimMap  
 
-		//def numBands = hints.transparent ? 4 : 3
-
-		def raster = Raster.createInterleavedRaster(
+		def hints = [ transparent: false,
+		              width: params.WIDTH.toInteger(),
+		              height: params.HEIGHT.toInteger() ]
+    int numBands = 3
+    def raster = Raster.createInterleavedRaster(
 				DataBuffer.TYPE_BYTE,
 				hints.width, hints.height,
 				hints.width * numBands, numBands, ( 0..<numBands ) as int[],
 				new Point( 0, 0 ) )
 
-  def execTool(def params)
-  {
-     def ossimTool = new OssimTools(params.name);
-     if (!ossimTool)
-         return;
-
 		// Eventually need to let the user select colors. For now use hardcoded LUT on server:
 		params.lut = grailsApplication?.config?.ossimtools?.supportData?.toString() + "hlz.lut"
 
-     // Using an LUT implies 3 band output. Allocate buffer to receive product:
-     int numBands = 3
-     byte[] buffer = new byte[params.width.toInteger() * params.height.toInteger() * numBands]
-
-		if ( !ossimTool.initialize( params ) )
+		if ( !ossimTool.initialize( ossimMap ) )
 		{
 			return
 		};
 
 		// Since a new tool is created each time, pass in a bogus map to indicate full AOI should
 		// be computed:
-		def hints = [ transparent: "true" ]
-		if ( !ossimTool.getChip( raster.dataBuffer.data, hints ) )
+		def bogusMap = [ 'foo' : 'bar']
+		if ( !ossimTool.getChip( raster.dataBuffer.data, bogusMap ) )
 		{
 			return
 		}
@@ -80,6 +81,6 @@ class OssimToolsService
 
 		ImageIO.write(image, 'png', ostream)
 
-    [contentType: 'image/png', buffer: buffer]
+    [contentType: 'image/png', buffer: ostream.toByteArray() ]
   }
 }
