@@ -213,7 +213,7 @@ var ossimtools = (function ()
         map = new ol.Map( {
              controls: ol.control.defaults().extend( [
                  new ol.control.ScaleLine( {
-                     units: 'degrees'
+                     units: 'meters'
                  } )
              ] ),
              layers: layers,

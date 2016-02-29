@@ -75,6 +75,8 @@ class OssimToolsService
 			return
 		}
 
+		ossimTool?.delete()
+
 		def colorModel = ChipperUtil.createColorModel(numBands, hints?.transparent)
 		def image = new BufferedImage(colorModel, raster, false, null)
 		def ostream = new ByteArrayOutputStream()
