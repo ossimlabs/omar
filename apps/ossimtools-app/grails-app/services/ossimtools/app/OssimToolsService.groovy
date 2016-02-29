@@ -28,7 +28,7 @@ class OssimToolsService
 		[ [ bounds.minX, bounds.minY ], [ bounds.maxX, bounds.maxY ] ]
 	}
 
-	def execTool( def params )
+	synchronized  def execTool( def params )
 	{
 	  println params  
 	
@@ -49,10 +49,10 @@ class OssimToolsService
     ]
  	  println ossimMap  
 
-		def hints = [ transparent: false,
+		def hints = [ transparent: true,
 		              width: params.WIDTH.toInteger(),
 		              height: params.HEIGHT.toInteger() ]
-    int numBands = 3
+    int numBands = 4
     def raster = Raster.createInterleavedRaster(
 				DataBuffer.TYPE_BYTE,
 				hints.width, hints.height,

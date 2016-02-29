@@ -15,7 +15,7 @@ var ossimtools = (function ()
         map, layers;
 
 
-    function updateLayers()
+    function updateHLZ()
     {
         map.getLayers().forEach( function ( layer )
         {
@@ -172,7 +172,7 @@ var ossimtools = (function ()
 //                } )
 //            } ),
             new ol.layer.Image( {
-                name: 'ovs',
+                name: 'viewshed',
                 source: new ol.source.ImageWMS( {
                     url: '/ossimTools/renderViewshed',
                     params: {
