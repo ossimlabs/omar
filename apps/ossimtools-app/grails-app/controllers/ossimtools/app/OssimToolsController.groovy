@@ -69,7 +69,8 @@ class OssimToolsController
   def renderHillShade()
   {
     params.name = 'hillshade'
-    def results = ossimToolsService.execTool( params )
+    //def results = ossimToolsService.execTool( params )
+    def results = ossimToolsService.renderHillShade(params)
     render contentType: results.contentType, file: results.buffer
   }
 }

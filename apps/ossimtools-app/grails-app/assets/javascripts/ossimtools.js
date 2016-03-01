@@ -12,7 +12,7 @@ var ossimtools = (function ()
         fovStart, fovStop, heightOfEye,
         gainFactor, 
         sunAz, sunEl,
-        map, layers;
+        map, layers, extent;
 
 
     function updateHLZ()
@@ -119,7 +119,8 @@ var ossimtools = (function ()
     function onMoveEnd( evt )
     {
          var center = ol.proj.transform(map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326')
-
+         extent = map.getView().calculateExtent(map.getSize())
+         
         //console.log( center );
 
         center_lat = center[1];
@@ -140,15 +141,14 @@ var ossimtools = (function ()
         center_lat = initParams.lat;
         center_lon = initParams.lon;
         radiusROI = initParams.radiusROI;
-
         radiusLZ = initParams.radiusLZ;
         roughness = initParams.roughness;
         slope = initParams.slope;
-
         fovStart = initParams.fovStart;
         fovStop = initParams.fovStop;
         heightOfEye = initParams.heightOfEye;
-
+        extent = initParams.extent;
+     
         layers = [
             new ol.layer.Tile( {
                 name: 'reference',
@@ -171,6 +171,16 @@ var ossimtools = (function ()
 //                    }
 //                } )
 //            } ),
+            new ol.layer.Tile( {
+                name: 'hillshade',
+                source: new ol.source.TileWMS( {
+                    url: '/ossimTools/renderHillShade',
+                    params: {
+                        visible: false,
+                        VERSION: '1.1.1'
+                    }
+                } )
+            } ),
             new ol.layer.Image( {
                 name: 'viewshed',
                 source: new ol.source.ImageWMS( {
@@ -187,7 +197,7 @@ var ossimtools = (function ()
                         heightOfEye: heightOfEye
                     }
                 } )
-            } ),
+            } )
 //            new ol.layer.Tile( {
 //                name: 'slope',
 //                source: new ol.source.TileWMS( {
@@ -198,16 +208,6 @@ var ossimtools = (function ()
 //                    }
 //                } )
 //            } ),
-//            new ol.layer.Tile( {
-//                name: 'hillshade',
-//                source: new ol.source.TileWMS( {
-//                    url: '/ossimTools/renderHillShade',
-//                    params: {
-//                        visible: false,
-//                        VERSION: '1.1.1'
-//                    }
-//                } )
-//            } )
         ];
 
         map = new ol.Map( {
@@ -230,7 +230,7 @@ var ossimtools = (function ()
 
                 console.log( initParams );
 
-        var extent = ol.extent.boundingExtent( initParams.extent );
+        extent = ol.extent.boundingExtent( initParams.extent );
 
         map.getView().fit( extent, map.getSize() );
 
@@ -338,6 +338,8 @@ var ossimtools = (function ()
             sunAz = $( '#sunAz' ).val();
             sunEl = $( '#sunEl' ).val();
             
+            map.getView().setCenter( ol.proj.transform([center_lon, center_lat], 'EPSG:4326', 'EPSG:3857') );
+            extent = map.getView().calculateExtent(map.getSize()); 
             
             // Pass the request to OSSIM:
             updateHLZ();
@@ -345,7 +347,6 @@ var ossimtools = (function ()
             updateSlope();
             updateHillshade();
             
-            map.getView().setCenter( ol.proj.transform([center_lon, center_lat], 'EPSG:4326', 'EPSG:3857') );
 
         } );
 
