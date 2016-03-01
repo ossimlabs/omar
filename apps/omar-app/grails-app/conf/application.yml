@@ -616,7 +616,7 @@ omar:
       enabled: true  
     misc:
       icons:
-        green-marker: search_marker_green.png
+        greenMarker: assets/search_marker_green.png
 #        greenmarker: search_marker_green.png
 #    basemaps:
 #      osm:
