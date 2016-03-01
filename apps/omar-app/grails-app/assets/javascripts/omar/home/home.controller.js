@@ -131,7 +131,8 @@
                 $searchInput.autocomplete('enable');
                 //$searchButton.off('click', ZoomTo.cycleRegExs);
                 //console.log('place selected');
-                url = twofishProxy /*+ twofishUrl + twofishPort*/ + '/?responseIncludes=WKT_GEOMETRY_SIMPLIFIED&autocomplete=true&maxInterpretations=10&autocompleteBias=BALANCED';
+
+                url = vm.baseUrl + twofishProxy /*+ twofishUrl + twofishPort*/ + '/?responseIncludes=WKT_GEOMETRY_SIMPLIFIED&autocomplete=true&maxInterpretations=10&autocompleteBias=BALANCED';
 
                 $searchInput.autocomplete({
                     serviceUrl: url,

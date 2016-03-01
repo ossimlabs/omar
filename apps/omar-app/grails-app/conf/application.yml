@@ -603,7 +603,7 @@ omar:
       enabled: true
     twofishes:
       baseUrl: http://localhost:8081/twofish
-      proxy: /o2/twoFishesProxy
+      proxy: /twoFishesProxy
     swipeApp:
       baseUrl: http://localhost/swipe-app/swipe
       enabled: true
