@@ -4,5 +4,5 @@ grails.gorm.default.mapping = {
 }
 
 //grails.serverURL = "http://${Inet4Address.localHost.hostAddress}/o2"
-grails.serverURL = "http://localhost/omar-app"
-grails.assets.url = "http://localhost/omar-app/assets/"
+//grails.serverURL = "http://localhost/omar-app"
+//grails.assets.url = "http://localhost/omar-app/assets/"
