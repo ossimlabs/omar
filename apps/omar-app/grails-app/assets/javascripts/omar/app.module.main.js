@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    // https://github.com/philippd/angular-deferred-bootstrap
+    // //https://github.com/philippd/angular-deferred-bootstrap
     // deferredBootstrapper.bootstrap({
     //     element: document.body,
     //     module: 'omarApp',
@@ -11,6 +11,12 @@
     //         }]
     //     }
     // });
+
+    // console.log('AppO2 in module main', AppO2);
+    // console.log('location: ', window.location);
+
+    //var urlPrefix = AppO2;
+
 
     angular
         .module('omarApp', [
@@ -23,21 +29,25 @@
             'toggle-switch'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-            $urlRouterProvider.otherwise('/o2/home');
+            $urlRouterProvider.otherwise('/home');
 
             $stateProvider
                 // HOME STATES AND NESTED VIEWS ========================================
 
                 .state('home', {
-                    url: '/o2/home',
-                   // templateUrl: '../src/app/home/home.partial.html'
-                    templateUrl: '/o2/home/home.partial.html'
+                    //url: '/o2/home',
+                    url: '/home',
+                    // templateUrl: '../src/app/home/home.partial.html'
+                    //templateUrl: '/o2/home/home.partial.html'
+
+                    templateUrl:  AppO2.APP_CONFIG.serverURL + '/home/home.partial.html'
+
                 })
 
                 .state('map', {
 
-                    url: '/o2/map/?&cql',
-                    templateUrl: '/o2/map/map.partial.html',
+                    url: '/map/?&cql',
+                    templateUrl: AppO2.APP_CONFIG.serverURL + '/map/map.partial.html',
                     params: {
                         //param1: "defaultValue"
                         mapParams: {
@@ -49,18 +59,18 @@
                 })
 
                 .state('mapOrtho', {
-                    url: '/o2/mapOrtho?layers',
-                    templateUrl: '/o2/mapOrtho/map.ortho.partial.html'
+                    url: '/mapOrtho?layers',
+                    templateUrl: AppO2.APP_CONFIG.serverURL + '/mapOrtho/map.ortho.partial.html'
                 })
 
                 .state('wfs', {
-                    url: '/o2/wfs',
-                    templateUrl: '/o2/wfs/wfs.partial.html'
+                    url: '/wfs',
+                    templateUrl: AppO2.APP_CONFIG.serverURL + '/wfs/wfs.partial.html'
                 })
 
                 .state('multiple', {
                     url: '/o2/multiple',
-                    templateUrl: '/o2/multiple/multiple.partial.html'
+                    templateUrl: AppO2.APP_CONFIG.serverURL + '/multiple/multiple.partial.html'
                 });
 
         }])

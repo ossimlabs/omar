@@ -565,9 +565,9 @@ wms:
 #         layers: osm-group
 
 
-server:
-  contextPath: /o2
-  port: 7272
+#server:
+#  contextPath: /o2
+#  port: 7272
 
 quartz:
     jdbcStore: false
@@ -582,44 +582,46 @@ videoStreaming:
 omar:
   app:
     wfs:
-      baseUrl: /o2/wfs?
+      baseUrl: http://localhost/omar-app/wfs?
       enabled: true
-      proxy: /o2/proxy/index?url=
+      proxy: /proxy/index?url=
     wms:
-      baseUrl: /o2/wms?
+      baseUrl: http://localhost/omar-app/wms?
       enabled: true
     imageSpace: 
-      baseUrl: /o2/imageSpace/
+      baseUrl: http://localhost/omar-app/imageSpace/
       enabled: true
     thumbnails:
-      baseUrl: /o2/imageSpace/getThumbnail?
+      baseUrl: http://localhost/omar-app/imageSpace/getThumbnail?
     footprints:
-      baseUrl: /o2/footprints/getFootprints
+      baseUrl: http://localhost/omar-app/footprints/getFootprints
     apiApp:
-      baseUrl: /o2/api
+      baseUrl: http://localhost/omar-app/api
       enabled: true
     predio:
-      baseUrl: /o2/predio/
+      baseUrl: http://localhost/omar-app/predio/
       enabled: true
     twofishes:
       baseUrl: http://localhost:8081/twofish
       proxy: /o2/twoFishesProxy
     swipeApp:
-      baseUrl: http://localhost:7676/swipe/index
+      baseUrl: http://localhost/swipe-app/swipe
       enabled: true
     kmlApp:
-      baseUrl: http://localhost:7878/
+      #baseUrl: http://localhost:8282/
+      baseUrl: http://localhost/superoverlay-app
       enabled: true
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
       enabled: true  
+    misc:
+      icons:
+        green-marker: search_marker_green.png
+#        greenmarker: search_marker_green.png
 #    basemaps:
 #      osm:
 #        baseUrl: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
 #        layers: osm-group
-    misc:
-      icons:
-        green-marker: search_marker_green.png
 
 ---
 classificationBanner:

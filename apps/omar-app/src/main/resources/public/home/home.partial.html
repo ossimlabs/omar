@@ -22,8 +22,7 @@
                         <input id="searchInput" class="form-control" type="text" placeholder="" value=""  autofocus>
 
                         <div class="input-group-btn">
-                            <button id="searchButton" class="btn btn-primary" type="button"><span
-                                    class="glyphicon glyphicon-search"></span></button>
+                            <button ng-click="home.cycleRegExs()" id="searchButton" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
                             <!--<button id="clearSearchButton" class="btn btn-primary" type="button"><span-->
                                     <!--class="glyphicon glyphicon-remove"></span></button>-->
                             <!--<button id="filterSearchButton" class="btn btn-info" type="button"><span-->
@@ -45,7 +44,7 @@
                        slides-to-scroll=1 dots="true" infinite="false">
                     <div ng-repeat="image in home.trendingImages">
                         <img style="height: 200px; width: 200px" ng-click="home.imageClick(image.properties.id);"
-                             ng-src="/o2/imageSpace/getThumbnail?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=200&format=jpeg"
+                             ng-src="{{home.baseUrl}}/imageSpace/getThumbnail?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=200&format=jpeg"
                              tooltip-placement="bottom"
                              uib-tooltip="{{image.properties.title}}"
                              alt="Some text here...">
@@ -106,7 +105,7 @@
                         add/remove an
                         image incrementally
                     </p>
-                    <a type="button" class="btn btn-success" ng-href="{{home.swipeAppLink}}">View</a>
+                    <a type="button" class="btn btn-success" ng-href="{{home.swipeAppLink}}" target="_blank">View</a>
                 </div>
             </div>
             <div ng-show="{{home.piwikAppEnabled}}" class="col-md-4">
@@ -118,7 +117,7 @@
                         View O2 web analytics. Track Key Performance Indicators such as visits, goal conversions
                         rates, downloads, keywords and more.
                     </p>
-                    <a type="button" class="btn btn-success disabled">View</a>
+                    <a type="button" class="btn btn-success" ng-href="{{home.piwikAppLink}}" target="_blank">View</a>
                 </div>
             </div>
             <!--<div class="col-md-4">-->
@@ -153,7 +152,7 @@
                     <br>
                     <p>The REST APIs provide programmatic access to the O2 platform.  See examples of how to query the
                         WFS, WMS, Image space services and more through standard OGC protocols.</p>
-                    <a type="button" href="/o2/api" class="btn btn-success">View</a>
+                    <a type="button" class="btn btn-success" ng-href="{{home.apiAppLink}}" target="_blank">View</a>
                 </div>
             </div>
             <!--<div class="col-md-4">-->

@@ -145,3 +145,10 @@ wfs:
           - raster_entry
           - features
         datastoreId: omardb-1.8.20-prod
+
+---
+#grails.serverURL = "http://localhost/omar-app"
+grails:
+    assets:
+        url: http://localhost/superoverlay-app/assets/
+    serverURL: http://localhost/superoverlay-app

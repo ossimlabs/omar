@@ -130,7 +130,13 @@ classificationBanner:
 swipe:
     app:
         wfs:
-            baseUrl: http://localhost:7272/o2/wfs?
+            baseUrl: http://localhost/omar-app/wfs?
         wms:
-            baseUrl: http://localhost:7272/o2/wms?
+            baseUrl: http://localhost/omar-app/wms?
+
+---
+grails:
+    assets:
+        url: http://localhost/swipe-app/assets/
+    serverURL: http://localhost/swipe-app
 
