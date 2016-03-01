@@ -51,8 +51,11 @@ class OssimToolsController
   def renderViewshed()
   {
     params.name = 'viewshed'
-    println params
+    println "\n" ; println "OssimToolsController.renderViewshed() -- params:"
+    println params ; println "\n"
     def results = ossimToolsService.execTool( params )
+    println "\n" ; println "OssimToolsController.renderViewshed() -- results:"
+    println results.contentType ; println "\n"
     render contentType: results.contentType, file: results.buffer
   }
 

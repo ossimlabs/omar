@@ -30,25 +30,29 @@ class OssimToolsService
 
 	synchronized  def execTool( def params )
 	{
-	  println "OssimToolsService.execTool() -- params:"
-	  println params  
+	  println "\n ";println "OssimToolsService.execTool() -- params:"
+	  println params; println "\n "
 	
 		def ossimTool = new OssimTools( params.name );
+	  println "AAAAAAAAAAAAAAA"; println "\n "
 		if ( !ossimTool )
 		{
 			return
 		}
-
+	  println "BBBBBBBBBBBBBB"; println "\n "
     def ossimMap = [
        aoi_geo_center:  [ params.lat, params.lon ].join(' '),
+       observer:  [ params.lat, params.lon ].join(' '),
 //       aoi_size_meters: [ params.radiusROI, params.radiusROI].join(' '),
        lut_file:  "${grailsApplication.config.ossimtools.supportData}/vs.lut" as String,
-       lz_min_radius:  params.radiusLZ,
-       roughness_threshold: params.roughness,
-       slope_threshold: params.slope,
+       height_of_eye: params.heightOfEye,
+       //lz_min_radius:  params.radiusLZ,
+       //roughness_threshold: params.roughness,
+       //slope_threshold: params.slope,
        srs: params.SRS.split(':').last()
     ]
- 	  println ossimMap  
+	  println "\n" ;println "OssimToolsService.execTool() -- ossimMap:"
+	  println ossimMap;println "\n"
 
 		def hints = [ transparent: false,
 		              width: params.WIDTH.toInteger(),
@@ -62,12 +66,12 @@ class OssimToolsService
 
 		// Eventually need to let the user select colors. For now use hardcoded LUT on server:
 		params.lut = grailsApplication?.config?.ossimtools?.supportData?.toString() + "hlz.lut"
-
+	  println "CCCCCCCCCCCCCC"; println "\n "
 		if ( !ossimTool.initialize( ossimMap ) )
 		{
 			return
 		};
-
+	  println "DDDDDDDDDDDDDDD"; println "\n "
 		// Since a new tool is created each time, pass in a bogus map to indicate full AOI should
 		// be computed:
 		def bbox = params.BBOX.split(',')
@@ -83,15 +87,15 @@ class OssimToolsService
 		{
 			return
 		}
-
+	  println "EEEEEEEEEEEEEEEE"; println "\n "
 		ossimTool?.delete()
 
 		def colorModel = ChipperUtil.createColorModel(numBands, hints?.transparent)
 		def image = new BufferedImage(colorModel, raster, false, null)
 		def ostream = new ByteArrayOutputStream()
-
+	  println "FFFFFFFFFFFFFFFF"; println "\n "
 		ImageIO.write(image, 'png', ostream)
-
+	  println "GGGGGGGGGGGGGGG"; println "\n "
     [contentType: 'image/png', buffer: ostream.toByteArray() ]
   }
 }

@@ -142,7 +142,7 @@ var ossimtools = (function ()
         radiusROI = initParams.radiusROI;
 
         radiusLZ = initParams.radiusLZ;
-        //roughness = initParams.roughness;
+        roughness = initParams.roughness;
         slope = initParams.slope;
 
         fovStart = initParams.fovStart;
