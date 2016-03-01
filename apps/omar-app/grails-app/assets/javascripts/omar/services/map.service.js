@@ -32,14 +32,18 @@
             dragBox;
         var mapObj = {};
 
-        console.log('marker: ', AppO2.APP_CONFIG.params.misc.icons.greenmarker);
+        var baseServerUrl = AppO2.APP_CONFIG.serverURL;
+        var markerUrl = baseServerUrl + '/' + AppO2.APP_CONFIG.params.misc.icons.greenMarker;
+
+        console.log('marker: ', markerUrl);
         iconStyle = new ol.style.Style({
             image: new ol.style.Icon(({
                 anchor: [0.5, 46],
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
                 //opacity: 0.75,
-                src: AppO2.APP_CONFIG.params.misc.icons.greenmarker
+                //src: AppO2.APP_CONFIG.params.misc.icons.greenMarker
+                src: markerUrl
             }))
         });
 
@@ -97,7 +101,7 @@
 
         this.mapInit = function (mapParams) {
 
-            console.log('mapParams', mapParams);
+            //console.log('mapParams', mapParams);
 
             mapView = new ol.View({
                 center: [0, 0],
@@ -451,7 +455,6 @@
                 acquisition_date = moment(imageObj.properties.acquisition_date).format('MM/DD/YYYY HH:mm:ss');
             }
 
-            var baseServerUrl = AppO2.APP_CONFIG.serverURL;
             content.innerHTML =
             '<div class="media">' +
                 '<div class="media-left">' +
@@ -514,7 +517,7 @@
          */
         function zoomTo(lat, lon, zoomLevel, marker) {
             //console.log('zoomTo firing!');
-            console.log('lat:' + lat + 'lon: ' + lon);
+            //console.log('lat:' + lat + 'lon: ' + lon);
             zoomAnimate();
             map.getView().setCenter([parseFloat(lon), parseFloat(lat)]);
             map.getView().setZoom(zoomLevel);
