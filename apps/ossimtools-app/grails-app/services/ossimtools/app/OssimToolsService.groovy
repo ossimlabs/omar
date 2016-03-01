@@ -42,8 +42,9 @@ class OssimToolsService
 	  println "BBBBBBBBBBBBBB"; println "\n "
     def ossimMap = [
        aoi_geo_center:  [ params.lat, params.lon ].join(' '),
+       aoi_map_rect: params.BBOX,
        observer:  [ params.lat, params.lon ].join(' '),
-//       aoi_size_meters: [ params.radiusROI, params.radiusROI].join(' '),
+     visibility_radius: params.radiusROI,
        lut_file:  "${grailsApplication.config.ossimtools.supportData}/vs.lut" as String,
        height_of_eye: params.heightOfEye,
        //lz_min_radius:  params.radiusLZ,
