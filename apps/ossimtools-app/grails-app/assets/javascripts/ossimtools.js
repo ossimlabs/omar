@@ -171,6 +171,16 @@ var ossimtools = (function ()
 //                    }
 //                } )
 //            } ),
+            new ol.layer.Tile( {
+                name: 'hillshade',
+                source: new ol.source.TileWMS( {
+                    url: '/ossimTools/renderHillShade',
+                    params: {
+                        visible: false,
+                        VERSION: '1.1.1'
+                    }
+                } )
+            } ),
             new ol.layer.Image( {
                 name: 'viewshed',
                 source: new ol.source.ImageWMS( {
@@ -187,7 +197,7 @@ var ossimtools = (function ()
                         heightOfEye: heightOfEye
                     }
                 } )
-            } ),
+            } )
 //            new ol.layer.Tile( {
 //                name: 'slope',
 //                source: new ol.source.TileWMS( {
@@ -198,16 +208,6 @@ var ossimtools = (function ()
 //                    }
 //                } )
 //            } ),
-//            new ol.layer.Tile( {
-//                name: 'hillshade',
-//                source: new ol.source.TileWMS( {
-//                    url: '/ossimTools/renderHillShade',
-//                    params: {
-//                        visible: false,
-//                        VERSION: '1.1.1'
-//                    }
-//                } )
-//            } )
         ];
 
         map = new ol.Map( {
