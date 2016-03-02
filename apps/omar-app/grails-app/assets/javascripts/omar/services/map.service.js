@@ -2,13 +2,19 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('mapService', ['APP_CONFIG', 'wfsService', mapService]);
+        .service('mapService', ['wfsService', mapService]);
 
-    function mapService(APP_CONFIG, wfsService) {
+    function mapService(wfsService) {
+
+        // #################################################################################
+        // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+        // provides access to various client params in application.yml
+        // #################################################################################
+        //console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
 
         // Add the basemap parameters from the applicaiton config file.
-        var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
-        var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
+        //var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
+        //var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
 
         var zoomToLevel = 16;
         var map,
@@ -26,13 +32,18 @@
             dragBox;
         var mapObj = {};
 
+        var baseServerUrl = AppO2.APP_CONFIG.serverURL;
+        var markerUrl = baseServerUrl + '/' + AppO2.APP_CONFIG.params.misc.icons.greenMarker;
+
+        console.log('marker: ', markerUrl);
         iconStyle = new ol.style.Style({
             image: new ol.style.Icon(({
                 anchor: [0.5, 46],
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
                 //opacity: 0.75,
-                src: APP_CONFIG.misc.icons.greenMarker
+                //src: AppO2.APP_CONFIG.params.misc.icons.greenMarker
+                src: markerUrl
             }))
         });
 
@@ -153,7 +164,8 @@
             footPrints = new ol.layer.Tile({
                 title: 'Image Footprints',
                 source: new ol.source.TileWMS({
-                    url: '/o2/footprints/getFootprints',
+                    //url: '/o2/footprints/getFootprints',
+                    url: AppO2.APP_CONFIG.params.footprints.baseUrl,
                     params: {
                         FILTER: "",
                         VERSION: '1.1.1',
@@ -278,7 +290,7 @@
             //console.log(footPrints.getSource().getParams());
             var params = footPrints.getSource().getParams();
             params.FILTER = filter;
-            console.log('params.FILTER', params.FILTER);
+            //console.log('params.FILTER', params.FILTER);
             footPrints.getSource().updateParams(params);
 
         }
@@ -344,7 +356,7 @@
 
             mapObj.cql = "INTERSECTS(" + geomField + ",POINT(" + clickCoordinates + "))";
 
-            console.log('mapObj.cql: ', mapObj.cql);
+            //console.log('mapObj.cql: ', mapObj.cql);
 
             // Update the image cards in the list via spatial click coordinates
             wfsService.updateSpatialFilter(mapObj.cql);
@@ -446,8 +458,8 @@
             content.innerHTML =
             '<div class="media">' +
                 '<div class="media-left">' +
-                    '<img class="media-object" ' +
-                        'src="/o2/imageSpace/getThumbnail?filename=' +
+                    '<img class="media-object" ' + 
+                        'src="' + baseServerUrl + '/imageSpace/getThumbnail?filename=' +
                         imageObj.properties.filename +
                         '&entry=' + imageObj.properties.entry_id +
                         '&size=50' + '&format=jpeg">' +
@@ -505,6 +517,7 @@
          */
         function zoomTo(lat, lon, zoomLevel, marker) {
             //console.log('zoomTo firing!');
+            //console.log('lat:' + lat + 'lon: ' + lon);
             zoomAnimate();
             map.getView().setCenter([parseFloat(lon), parseFloat(lat)]);
             map.getView().setZoom(zoomLevel);

@@ -17,11 +17,10 @@
 
             /* jshint validthis: true */
             var vm = this;
-            //vm.mapTitle = "Map";
-            //vm.listTitle = "Images";
 
             // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
-            //console.log('$stateParams', $stateParams);
+            //console.log('$stateParams.mapParams', $stateParams.mapParams);
+            
             if ($stateParams.mapParams === 'mapParamsDefaultMap') {
 
                 //console.log('Default...');
@@ -38,7 +37,7 @@
 
             $scope.$on('attrObj.updated', function(event, filter) {
 
-                console.log('$on attrObj filter updated', filter);
+                //console.log('$on attrObj filter updated', filter);
                 mapService.updateFootPrintLayer(filter);
 
             });

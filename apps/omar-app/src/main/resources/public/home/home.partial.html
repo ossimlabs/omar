@@ -22,8 +22,7 @@
                         <input id="searchInput" class="form-control" type="text" placeholder="" value=""  autofocus>
 
                         <div class="input-group-btn">
-                            <button id="searchButton" class="btn btn-primary" type="button"><span
-                                    class="glyphicon glyphicon-search"></span></button>
+                            <button ng-click="home.cycleRegExs()" id="searchButton" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
                             <!--<button id="clearSearchButton" class="btn btn-primary" type="button"><span-->
                                     <!--class="glyphicon glyphicon-remove"></span></button>-->
                             <!--<button id="filterSearchButton" class="btn btn-info" type="button"><span-->
@@ -37,14 +36,15 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
+        <div ng-show="{{home.pioAppEnabled}}" class="row">
             <div class="well">
                 <h3 class="text-center"><span class="fa fa-thumbs-up text-info"></span>&nbsp;Trending images</h3>
+                <div class="text-center text-muted" ng-if="home.loading"><h4>Loading trending images, please wait...</h4></div>
                 <slick style="height: 300px" ng-if="home.trendingImages.length"  slides-to-show=5
                        slides-to-scroll=1 dots="true" infinite="false">
                     <div ng-repeat="image in home.trendingImages">
                         <img style="height: 200px; width: 200px" ng-click="home.imageClick(image.properties.id);"
-                             ng-src="/o2/imageSpace/getThumbnail?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=200&format=jpeg"
+                             ng-src="{{home.baseUrl}}/imageSpace/getThumbnail?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=200&format=jpeg"
                              tooltip-placement="bottom"
                              uib-tooltip="{{image.properties.title}}"
                              alt="Some text here...">
@@ -52,32 +52,32 @@
                         <!--<uib-rating ng-model="home.trendRating" max="max" readonly="isReadonly"-->
                                     <!--titles="['one','two','three']"-->
                                     <!--aria-labelledby="default-rating"></uib-rating>-->
-                            <p><small>
-                                <!--<strong>Image ID:&nbsp;</strong>-->
-                                <!--<span class="text-success">-->
-                                    <!--<span ng-show="!image.properties.title">Unknown</span>-->
-                                    <!--{{image.properties.title}}</span><br>-->
-                                <!--</span>-->
+                            <p>
+                                <small>
+                                    <!--<strong>Image ID:&nbsp;</strong>-->
+                                    <!--<span class="text-success">-->
+                                        <!--<span ng-show="!image.properties.title">Unknown</span>-->
+                                        <!--{{image.properties.title}}</span><br>-->
+                                    <!--</span>-->
+                                    <strong>Acquired:&nbsp;</strong>
+                                    <span class="text-success" style="font-size: 12px">
+                                        <span ng-show="!image.properties.acquisition_date">Unknown</span>
+                                        {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}<br>
+                                    </span>
 
-                                <strong>Acquired:&nbsp;</strong>
-                                <span class="text-success" style="font-size: 12px">
-                                    <span ng-show="!image.properties.acquisition_date">Unknown</span>
-                                    {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}<br>
-                                </span>
+                                    <strong>Mission:&nbsp;</strong>
+                                    <span class="text-success">
+                                        <span ng-show="!image.properties.mission_id">Unknown</span>
+                                        {{image.properties.mission_id}}</span><br>
+                                    </span>
 
-                                <strong>Mission:&nbsp;</strong>
-                                <span class="text-success">
-                                    <span ng-show="!image.properties.mission_id">Unknown</span>
-                                    {{image.properties.mission_id}}</span><br>
-                                </span>
-
-                                <strong>Sensor:&nbsp;</strong>
-                                <span class="text-success">
-                                    <span ng-show="!image.properties.sensor_id">Unknown</span>
-                                    {{image.properties.sensor_id}}
-                                </span>
-
-                            </small></p>
+                                    <strong>Sensor:&nbsp;</strong>
+                                    <span class="text-success">
+                                        <span ng-show="!image.properties.sensor_id">Unknown</span>
+                                        {{image.properties.sensor_id}}
+                                    </span>
+                                </small>
+                            </p>
                         </div>
                     </div>
                 </slick>
@@ -94,7 +94,7 @@
                     <a type="button" class="btn btn-success" ui-sref="map">View</a>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div ng-show="{{home.swipeAppEnabled}}" class="col-md-4">
                 <div class="text-center well">
                     <h2>Swipe Viewer</h2>
                     <div><span class="fa fa-exchange fa-3x text-info"></span></div>
@@ -105,10 +105,10 @@
                         add/remove an
                         image incrementally
                     </p>
-                    <a type="button" class="btn btn-success disabled">View</a>
+                    <a type="button" class="btn btn-success" ng-href="{{home.swipeAppLink}}" target="_blank">View</a>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div ng-show="{{home.piwikAppEnabled}}" class="col-md-4">
                 <div class="text-center well">
                     <h2>PIWIK</h2>
                     <div><span class="fa fa-bar-chart fa-3x text-info"></span></div>
@@ -117,7 +117,7 @@
                         View O2 web analytics. Track Key Performance Indicators such as visits, goal conversions
                         rates, downloads, keywords and more.
                     </p>
-                    <a type="button" class="btn btn-success disabled">View</a>
+                    <a type="button" class="btn btn-success" ng-href="{{home.piwikAppLink}}" target="_blank">View</a>
                 </div>
             </div>
             <!--<div class="col-md-4">-->
@@ -144,7 +144,7 @@
                     <!--<a type="button" class="btn btn-success disabled">View</a>-->
                 <!--</div>-->
             <!--</div>-->
-            <div class="col-md-4 col-md-offset-4">
+            <div ng-show="{{home.apiAppEnabled}}" class="col-md-4 col-md-offset-4">
                 <div class="text-center well">
                     <h2>API</h2>
                     <div><span class="fa fa-code fa-3x text-info"></span></div>
@@ -152,7 +152,7 @@
                     <br>
                     <p>The REST APIs provide programmatic access to the O2 platform.  See examples of how to query the
                         WFS, WMS, Image space services and more through standard OGC protocols.</p>
-                    <a type="button" href="/o2/api" class="btn btn-success">View</a>
+                    <a type="button" class="btn btn-success" ng-href="{{home.apiAppLink}}" target="_blank">View</a>
                 </div>
             </div>
             <!--<div class="col-md-4">-->

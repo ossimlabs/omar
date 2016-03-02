@@ -27,8 +27,8 @@ apply plugin: "spring-boot"
 apply plugin: "org.grails.grails-plugin"
 apply plugin: "org.grails.grails-gsp"
 // Used for publishing to central repository, remove if not needed
-apply from: 'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/grailsCentralPublishing.gradle'
-apply from: 'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
+//apply from: 'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/grailsCentralPublishing.gradle'
+//apply from: 'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
 
 ext {
   grailsVersion = project.grailsVersion
@@ -56,9 +56,16 @@ dependencyManagement {
   applyMavenExclusions false
 }
 
+grails {
+    exploded = true
+    plugins {
+      compile project( ':omar-oms' )
+      compile project( ':omar-geoscript' )
+      compile project( ':omar-hibernate-spatial' )
+    }
+}
+
 dependencies {
-  compile project( ':omar-oms' )
-  compile project( ':omar-geoscript' )
 
   provided 'org.springframework.boot:spring-boot-starter-logging'
   provided "org.springframework.boot:spring-boot-starter-actuator"

@@ -2,14 +2,22 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', '$scope', '$http', ListController]);
+        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', '$scope', '$http', '$location', ListController]);
 
-        function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, $scope, $http) {
+        function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, $scope, $http, $location) {
+
+            // #################################################################################
+            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+            // provides access to various client params in application.yml
+            // #################################################################################
+            //console.log('AppO2.APP_CONFIG in HomeController: ', AppO2.APP_CONFIG);
 
             /* jshint validthis: true */
             var vm = this;
 
-            vm.thumbPath = '/o2/imageSpace/getThumbnail?';
+            // TODO: Move to external config
+            //vm.thumbPath = '/o2/imageSpace/getThumbnail?';
+            vm.thumbPath = AppO2.APP_CONFIG.params.thumbnails.baseUrl;
             vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
             vm.thumbEntry = '&entry=';  // parameter provided by image.properties.entry_id
             vm.thumbSize = '&size=100';
@@ -87,6 +95,21 @@
                 return border;
             };
 
+            // Shows/Hides the KML SuperOverlay button based on parameters passed down
+            // from application.yml
+            vm.kmlSuperOverlayAppEnabled = AppO2.APP_CONFIG.params.kmlApp.enabled;
+
+            if (vm.kmlSuperOverlayAppEnabled) {
+                vm.kmlSuperOverlayLink = AppO2.APP_CONFIG.params.kmlApp.baseUrl;
+
+            }
+
+            //AppO2.APP_PATH is passed down from the .gsp
+            // {{list.o2baseUrl}}/#{{list.o2contextPath}}/mapOrtho?layers={{image.properties.id}}
+            //http://localhost/omar-app/omar/#/mapOrtho?layers=118
+            vm.o2baseUrl = AppO2.APP_CONFIG.serverURL + '/omar';
+            //vm.o2contextPath = AppO2.APP_CONTEXTPATH;
+
             vm.displayFootprint = function(obj){
 
                 mapService.mapShowImageFootprint(obj);
@@ -155,7 +178,7 @@
 
                 var modalInstance = $uibModal.open({
                     size: 'lg',
-                    templateUrl: '/o2/list/list.image-card.partial.html',
+                    templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-card.partial.html',
                     controller: ['$uibModalInstance', 'imageSpaceService', 'imageObj', ImageModalController],
                     controllerAs: 'vm',
                     resolve: {
@@ -172,27 +195,34 @@
 
             };
 
-            vm.logRatingToPio = function(imageId){
+            vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
+            vm.logRatingToPio = function(imageId) {
+                
+                if (vm.pioAppEnabled) {
+                    console.log(vm.pioAppEnabled);
 
-                console.log('logRating imageId param:', imageId);
+                    //console.log('logRating imageId param:', imageId);
 
-                var pioUrl = '/o2/predio/rate?appName=omar_trending&entityId=all&targetEntityId=' + imageId + '&rating=4';
-                $http({
-                    method: 'GET',
-                    url: pioUrl
-                })
-                .then(function(response) {
+                    var pioUrl = AppO2.APP_CONFIG.params.predio.baseUrl + 'viewItem?targetEntityId=' + imageId;
+                    $http({
+                        method: 'POST',
+                        url: pioUrl
+                    })
+                    .then(function(response) {
 
-                    var data;
-                    data = response;  // callback response from Predictive IO controller
-                    console.log('rating response', data);
+                        var data;
+                        data = response;  // callback response from Predictive IO controller
+                        console.log('rating response', data);
 
-                },
-                function error(response) {
+                    },
+                    function error(response) {
 
-                    console.log('failed', response); // supposed to have: data, status, headers, config, statusText
+                        console.log('failed', response); // supposed to have: data, status, headers, config, statusText
 
-                });
+                    });
+
+                }                
+
             };
 
         }
@@ -205,10 +235,13 @@
             vm.selectedImage = imageObj;
             //console.log(vm.selectedImage);
 
-            //var modal = this;
             //modal.rendered = false;
             //console.log('modal', modal);
 
+            //AppO2.APP_PATH is passed down from the .gsp
+            vm.o2baseUrlModal = AppO2.APP_CONFIG.serverURL;
+            //vm.o2contextPathModal = AppO2.APP_CONTEXTPATH; 
+            
             var imageSpaceObj = {
                 filename: imageObj.properties.filename,
                 entry: imageObj.properties.entry_id,

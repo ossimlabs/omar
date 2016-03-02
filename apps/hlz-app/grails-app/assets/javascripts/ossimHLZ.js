@@ -84,7 +84,7 @@ ossimHLZ = (function ()
 
     function onMoveEnd( evt )
     {
-        var center = map.getView().getCenter();
+        var center = ol.proj.transform(map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326')
 
         //console.log( center );
 
@@ -116,12 +116,13 @@ ossimHLZ = (function ()
         layers = [
             new ol.layer.Tile( {
                 name: 'reference',
-                source: new ol.source.TileWMS( {
-                    url: 'http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?',
-                    params: {
-                        LAYERS: 'osm-group'
-                    }
-                } )
+//                source: new ol.source.TileWMS( {
+//                    url: 'http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?',
+//                    params: {
+//                        LAYERS: 'osm-group'
+//                    }
+//                } )
+                source: new ol.source.OSM()
             } ),
             new ol.layer.Tile( {
                 name: 'hillshade',
@@ -132,22 +133,22 @@ ossimHLZ = (function ()
                     }
                 } )
             } ),
-            new ol.layer.Image( {
-                name: 'hlz',
-                source: new ol.source.ImageWMS( {
-                    url: '/hlz/renderHLZ',
-                    params: {
-                        LAYERS: '',
-                        VERSION: '1.1.1',
-                        lat: lat,
-                        lon: lon,
-                        radiusROI: radiusROI,
-                        radiusLZ: radiusLZ,
-                        //roughness: roughness,
-                        slope: slope
-                    }
-                } )
-            } ),
+//            new ol.layer.Image( {
+//                name: 'hlz',
+//                source: new ol.source.ImageWMS( {
+//                    url: '/hlz/renderHLZ',
+//                    params: {
+//                        LAYERS: '',
+//                        VERSION: '1.1.1',
+//                        lat: lat,
+//                        lon: lon,
+//                        radiusROI: radiusROI,
+//                        radiusLZ: radiusLZ,
+//                        //roughness: roughness,
+//                        slope: slope
+//                    }
+//                } )
+//            } ),
             new ol.layer.Image( {
                 name: 'ovs',
                 source: new ol.source.ImageWMS( {
@@ -175,7 +176,8 @@ ossimHLZ = (function ()
             layers: layers,
             target: 'map',
             view: new ol.View( {
-                projection: 'EPSG:4326'//,
+                //projection: 'EPSG:4326'//,
+                projection: 'EPSG:3857'//,
                 //center: [initParams.lon, initParams.lat],
                 //zoom: 2
             } )
@@ -185,6 +187,8 @@ ossimHLZ = (function ()
         var extent = ol.extent.boundingExtent( initParams.extent );
         //console.log( extent );
         map.getView().fit( extent, map.getSize() );
+
+console.log(lat, lon);
 
         $( '#lat' ).val( lat );
         $( '#lon' ).val( lon );
@@ -249,8 +253,10 @@ ossimHLZ = (function ()
             updateHLZ();
             updateVS();
 
-            map.getView().setCenter( [lon, lat] );
 
+            console.log(map.getView().calculateExtent(map.getSize()));
+
+            map.getView().setCenter( ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857') );
         } );
 
         setOverlayOpacity( 'hlz', 0.5 );

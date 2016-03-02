@@ -6,7 +6,8 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<html ng-app="omarApp">
+%{-- <html> --}%
 <head>
 
     <meta charset="utf-8">
@@ -25,11 +26,11 @@
 
 </head>
     <body>
+        <o2:classificationBanner/>
         <div class="corner-ribbon top-left sticky red shadow">Alpha</div>
         <div class="container-fluid">
 
-            <!--- Navigation --->
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <nav style="margin-top: -15px;" class="navbar navbar-inverse" role="navigation" ng-controller="NavController as nav">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                             data-target="#main-navbar-collapse" aria-expanded="false">
@@ -38,7 +39,6 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    %{--<a class="navbar-brand" ui-sref="#">O2</a>--}%
                     <a class="navbar-brand top-logo" >
                         <asset:image src="o2-logo.png" style="width: 32px; height: 32px;"/>
                     </a>
@@ -47,20 +47,36 @@
                     <ul class="nav navbar-nav">
                         <li><a ui-sref="home">&nbsp;Home</a></li>
                         <li><a ui-sref="map">&nbsp;Map</a></li>
-                        <li><a ui-sref="#">&nbsp;Swipe</a></li>
-                        <li><a ui-sref="#">&nbsp;PIWIK</a></li>
-                        <li><a href="/o2/api">&nbsp;API</a></li>
-                        %{--<li><a ui-sref="wfs">&nbsp;WFS</a></li>--}%
-                        %{--<li><a ui-sref="multiple">&nbsp;Multi</a></li>--}%
+                        <li ng-show="{{nav.swipeAppEnabled}}"><a ng-href="{{nav.swipeAppLink}}" target="_blank">&nbsp;Swipe</a></li>
+                        <li ng-show="{{nav.piwikAppEnabled}}"><a ng-href="{{nav.piwikAppLink}}" target="_blank">&nbsp;PIWIK</a></li>
+                        <li ng-show="{{nav.apiAppEnabled}}"><a ng-href="{{nav.apiAppLink}}" target="_blank">&nbsp;API</a></li>
                     </ul>
                 </div>
             </nav>
-
-            <!--- Main Content --->
+            
             <div ui-view></div>
 
         </div>
+        <o2:classificationBanner position="bottom" />
+        <asset:script>
+            
+            var AppO2 = (function () {
+                
+                var APP_CONFIG = ${raw( clientConfig.encodeAsJSON() as String )};
+                
 
+                return {
+                    
+                    APP_CONFIG: APP_CONFIG
+                    
+                }
+
+            })();
+            //console.log('APP_CONFIG: ', AppO2.APP_CONFIG);
+            
+
+        </asset:script>
+        <asset:deferredScripts/>
         <asset:javascript src="app.manifest.js"/>
 
 

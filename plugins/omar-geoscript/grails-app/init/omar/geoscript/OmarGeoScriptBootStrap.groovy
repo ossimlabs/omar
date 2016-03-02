@@ -7,8 +7,11 @@ import org.geotools.factory.Hints
  */
 class OmarGeoScriptBootStrap
 {
+  def dataSourceService
+
   def init = { servletContext ->
     Hints.putSystemDefault( Hints.FORCE_LONGITUDE_FIRST_AXIS_ORDER, Boolean.TRUE )
+    dataSourceService.readFromConfig()
   }
 
   def destroy = {

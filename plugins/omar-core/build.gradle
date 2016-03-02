@@ -50,6 +50,9 @@ dependencyManagement {
     }
     applyMavenExclusions false
 }
+grails {
+    exploded = true
+}
 
 dependencies {
     provided 'org.springframework.boot:spring-boot-starter-logging'
@@ -64,6 +67,7 @@ dependencies {
     testCompile "org.grails:grails-plugin-testing"
 
     console "org.grails:grails-console"
+    compile "joda-time:joda-time:"
     compile "org.grails.plugins:swaggydoc-grails3:0.26.0"
 }
 

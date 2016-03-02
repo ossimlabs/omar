@@ -22,7 +22,7 @@ class HlzService
   {
     def point1 = new Point( lon, lat )
     def point2 = Projection.transform( point1, 'epsg:4326', 'epsg:3857' )
-    def bounds = Projection.transform( point2.buffer( radius ), 'epsg:3857', 'epsg:4326' ).bounds
+    def bounds = /*Projection.transform(*/ point2.buffer( radius )/*, 'epsg:3857', 'epsg:4326' )*/.bounds
 
 
     [[bounds.minX, bounds.minY], [bounds.maxX, bounds.maxY]]
@@ -55,13 +55,18 @@ class HlzService
 
   def runVS(double lat, double lon, double radius, double fovStart, double fovStop, double heightOfEye, File outputFile)
   {
+    //def point = Projection.transform( new Point(lon, lat), 'epsg:3857', 'epsg:4326')
+
+
     def cmd = [
         'ossim-viewshed',
+//        '--srs', 'epsg:3857',
         '--radius', radius,
         '--fov', fovStart, fovStop,
         '--hgt-of-eye', heightOfEye,
         "--lut", "${grailsApplication.config.hlz.supportData}/vs.lut",
         lat, lon,
+//        point.y, point.x,
         outputFile.absolutePath
     ]
 

@@ -1,6 +1,10 @@
 
 // Vendor
-//= require webjars/jquery/2.1.4/jquery.min.js
+// removed this webjars/jquery/2.1.4/jquery.min.js for it is in conflict with spring-security-ui
+/// spring security ui includes jquery
+
+//= require jquery.js
+
 //= require webjars/openlayers/3.13.0/ol.js
 //= require webjars/bootstrap/3.3.5/js/bootstrap.js
 //= require webjars/angularjs/1.4.8/angular.js
@@ -23,6 +27,8 @@
 //= require omar/core/OpenLayersLite-formats.js
 //= require omar/core/wfs-client.js
 //= require omar/core/ol3-layerswitcher.js
+//= require omar/core/geopoint.js
+//= require omar/core/mgrs.js
 //= require omar/app.module.main.js
 
 // <--Services-->
@@ -30,6 +36,9 @@
 //= require omar/services/map.service.js
 //= require omar/services/multiple.service.js
 //= require omar/services/image-space.service.js
+
+// <--Nav-->
+//= require omar/nav/nav.controller.js
 
 // <--Home-->
 //= require omar/home/home.controller.js
@@ -39,6 +48,9 @@
 
 // <--List-->
 //= require omar/list/list.controller.js
+
+// <--Map-->
+//= require omar/mapOrtho/map.ortho.controller.js
 
 //= <--WFS-->
 //= require omar/wfs/wfs.controller.js

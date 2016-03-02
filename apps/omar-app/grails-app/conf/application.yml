@@ -81,26 +81,66 @@ endpoints:
     jmx:
         unique-names: true
 
+#dataSource:
+#    pooled: true
+#    jmxExport: true
+#    driverClassName: org.h2.Driver
+#    username: sa
+#    password:
+#
+#environments:
+#    development:
+#        dataSource:
+#            dbCreate: create-drop
+#            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#    test:
+#        dataSource:
+#            dbCreate: update
+#            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#    production:
+#        dataSource:
+#            dbCreate: update
+#            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#            properties:
+#                jmxEnabled: true
+#                initialSize: 5
+#                maxActive: 50
+#                minIdle: 5
+#                maxIdle: 25
+#                maxWait: 10000
+#                maxAge: 600000
+#                timeBetweenEvictionRunsMillis: 5000
+#                minEvictableIdleTimeMillis: 60000
+#                validationQuery: SELECT 1
+#                validationQueryTimeout: 3
+#                validationInterval: 15000
+#                testOnBorrow: true
+#                testWhileIdle: true
+#                testOnReturn: false
+#                jdbcInterceptors: ConnectionState
+#                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
 dataSource:
     pooled: true
     jmxExport: true
-    driverClassName: org.h2.Driver
-    username: sa
+    driverClassName: org.postgresql.Driver
+    username: postgres
     password:
+    dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
 
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
-            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            dbCreate: update
+            url: jdbc:postgresql:omardb-1.8.20-prod
     test:
         dataSource:
             dbCreate: update
-            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:postgresql:omardb-1.8.20-prod
     production:
         dataSource:
             dbCreate: update
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:postgresql:omardb-1.8.20-prod
             properties:
                 jmxEnabled: true
                 initialSize: 5
@@ -120,52 +160,51 @@ environments:
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
-
 wfs:
-  geoserverHome: /Applications/GeoServer.app/Contents/Java
+#  geoserverHome: /Applications/GeoServer.app/Contents/Java
 
   featureTypeNamespaces:
-      - prefix: it.geosolutions
-        uri: http://www.geo-solutions.it
-      - prefix: cite
-        uri: http://www.opengeospatial.net/cite
+#      - prefix: it.geosolutions
+#        uri: http://www.geo-solutions.it
+#      - prefix: cite
+#        uri: http://www.opengeospatial.net/cite
       - prefix: omar
         uri: http://omar.ossim.org
-      - prefix: tiger
-        uri: http://www.census.gov
-      - prefix: sde
-        uri: http://geoserver.sf.net
-      - prefix: topp
-        uri: http://www.openplans.org/topp
-      - prefix: sf
-        uri: http://www.openplans.org/spearfish
-      - prefix: nurc
-        uri: http://www.nurc.nato.int
+#      - prefix: tiger
+#        uri: http://www.census.gov
+#      - prefix: sde
+#        uri: http://geoserver.sf.net
+#      - prefix: topp
+#        uri: http://www.openplans.org/topp
+#      - prefix: sf
+#        uri: http://www.openplans.org/spearfish
+#      - prefix: nurc
+#        uri: http://www.nurc.nato.int
 
   datastores:
-      - namespaceId: tiger
-        datastoreId: tiger
-        datastoreParams:
-          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/nyc
-          namespace: http://www.census.gov
+#      - namespaceId: tiger
+#        datastoreId: tiger
+#        datastoreParams:
+#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/nyc
+#          namespace: http://www.census.gov
 
-      - namespaceId: sf
-        datastoreId: sf
-        datastoreParams:
-          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/sf
-          namespace: http://www.openplans.org/spearfish
+#      - namespaceId: sf
+#        datastoreId: sf
+#        datastoreParams:
+#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/sf
+#          namespace: http://www.openplans.org/spearfish
 
-      - namespaceId: topp
-        datastoreId: states_shapefile
-        datastoreParams:
-          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/shapefiles
-          namespace: http://www.openplans.org/topp
+#      - namespaceId: topp
+#        datastoreId: states_shapefile
+#        datastoreParams:
+#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/shapefiles
+#          namespace: http://www.openplans.org/topp
 
-      - namespaceId: topp
-        datastoreId: taz_shapes
-        datastoreParams:
-          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/taz_shapes
-          namespace: http://www.openplans.org/topp
+#      - namespaceId: topp
+#        datastoreId: taz_shapes
+#        datastoreParams:
+#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/taz_shapes
+#          namespace: http://www.openplans.org/topp
 
       - namespaceId: omar
         datastoreId: omardb-1.8.20-prod
@@ -180,137 +219,137 @@ wfs:
           namespace: http://omar.ossim.org
 
   featureTypes:
-      - name: poly_landmarks
-        title: Manhattan (NY) landmarks
-        description: Manhattan landmarks, identifies water, lakes, parks, interesting buildings
-        keywords:
-          - landmarks
-          - DS_poly_landmarks
-          - manhattan
-          - poly_landmarks
-        datastoreId: tiger
-      - name: poi
-        title: Manhattan (NY) points of interest
-        description: Points of interest in New York, New York (on Manhattan). One of the attributes contains the name of a file with a picture of the point of interest.
-        keywords:
-          - poi
-          - Manhattan
-          - DS_poi
-          - points_of_interest
-        datastoreId: tiger
-
-      - name: tiger_roads
-        title: Manhattan (NY) roads
-        description: Highly simplified road layout of Manhattan in New York..
-        keywords:
-          - DS_tiger_roads
-          - tiger_roads
-          - roads
-        datastoreId: tiger
-
-      - name: archsites
-        title: Spearfish archeological sites
-        description: Sample data from GRASS, archeological sites location, Spearfish, South Dakota, USA
-        keywords:
-          - archsites
-          - spearfish
-          - sfArchsites
-          - archeology
-        datastoreId: sf
-
-      - name: bugsites
-        title: Spearfish bug locations
-        description: Sample data from GRASS, bug sites location, Spearfish, South Dakota, USA
-        keywords:
-          - spearfish
-          - sfBugsites
-          - insects
-          - bugsites
-          - tiger_beetles
-        datastoreId: sf
-
-      - name: restricted
-        title: Spearfish restricted areas
-        description: Sample data from GRASS, restricted areas, Spearfish, South Dakota, USA
-        keywords:
-          - spearfish
-          - restricted
-          - areas
-          - sfRestricted
-        datastoreId: sf
-
-      - name: roads
-        title: Spearfish roads
-        description: Sample data from GRASS, road layout, Spearfish, South Dakota, USA
-        keywords:
-          - sfRoads
-          - spearfish
-          - roads
-        datastoreId: sf
-
-      - name: streams
-        title: Spearfish streams
-        description: Sample data from GRASS, streams, Spearfish, South Dakota, USA
-        keywords:
-          - spearfish
-          - sfStreams
-          - streams
-        datastoreId: sf
-
-      - name: tasmania_cities
-        title: Tasmania cities
-        description: Cities in Tasmania (actually, just the capital)
-        keywords:
-          - cities
-          - Tasmania
-        datastoreId: taz_shapes
-
-      - name: tasmania_roads
-        title: Tasmania roads
-        description: Main Tasmania roads
-        keywords:
-          - Roads
-          - Tasmania
-        datastoreId: taz_shapes
-
-      - name: tasmania_state_boundaries
-        title: Tasmania state boundaries
-        description: Tasmania state boundaries
-        keywords:
-          - boundaries
-          - tasmania_state_boundaries
-          - Tasmania
-        datastoreId: taz_shapes
-
-      - name: tasmania_water_bodies
-        title: Tasmania water bodies
-        description: Tasmania water bodies
-        keywords:
-          - Lakes
-          - Bodies
-          - Australia
-          - Water
-          - Tasmania
-        datastoreId: taz_shapes
-
-      - name: states
-        title: USA Population
-        description: This is some census data on the states.
-        keywords:
-          - census
-          - united
-          - boundaries
-          - state
-          - states
-        datastoreId: states_shapefile
-
-      - name: giant_polygon
-        title: World rectangle
-        description: A simple rectangular polygon covering most of the world, it's only used for the purpose of providing a background (WMS bgcolor could be used instead)
-        keywords:
-          - DS_giant_polygon
-          - giant_polygon
-        datastoreId: tiger
+#      - name: poly_landmarks
+#        title: Manhattan (NY) landmarks
+#        description: Manhattan landmarks, identifies water, lakes, parks, interesting buildings
+#        keywords:
+#          - landmarks
+#          - DS_poly_landmarks
+#          - manhattan
+#          - poly_landmarks
+#        datastoreId: tiger
+#      - name: poi
+#        title: Manhattan (NY) points of interest
+#        description: Points of interest in New York, New York (on Manhattan). One of the attributes contains the name of a file with a picture of the point of interest.
+#        keywords:
+#          - poi
+#          - Manhattan
+#          - DS_poi
+#          - points_of_interest
+#        datastoreId: tiger
+#
+#      - name: tiger_roads
+#        title: Manhattan (NY) roads
+#        description: Highly simplified road layout of Manhattan in New York..
+#        keywords:
+#          - DS_tiger_roads
+#          - tiger_roads
+#          - roads
+#        datastoreId: tiger
+#
+#      - name: archsites
+#        title: Spearfish archeological sites
+#        description: Sample data from GRASS, archeological sites location, Spearfish, South Dakota, USA
+#        keywords:
+#          - archsites
+#          - spearfish
+#          - sfArchsites
+#          - archeology
+#        datastoreId: sf
+#
+#      - name: bugsites
+#        title: Spearfish bug locations
+#        description: Sample data from GRASS, bug sites location, Spearfish, South Dakota, USA
+#        keywords:
+#          - spearfish
+#          - sfBugsites
+#          - insects
+#          - bugsites
+#          - tiger_beetles
+#        datastoreId: sf
+#
+#      - name: restricted
+#        title: Spearfish restricted areas
+#        description: Sample data from GRASS, restricted areas, Spearfish, South Dakota, USA
+#        keywords:
+#          - spearfish
+#          - restricted
+#          - areas
+#          - sfRestricted
+#        datastoreId: sf
+#
+#      - name: roads
+#        title: Spearfish roads
+#        description: Sample data from GRASS, road layout, Spearfish, South Dakota, USA
+#        keywords:
+#          - sfRoads
+#          - spearfish
+#          - roads
+#        datastoreId: sf
+#
+#      - name: streams
+#        title: Spearfish streams
+#        description: Sample data from GRASS, streams, Spearfish, South Dakota, USA
+#        keywords:
+#          - spearfish
+#          - sfStreams
+#          - streams
+#        datastoreId: sf
+#
+#      - name: tasmania_cities
+#        title: Tasmania cities
+#        description: Cities in Tasmania (actually, just the capital)
+#        keywords:
+#          - cities
+#          - Tasmania
+#        datastoreId: taz_shapes
+#
+#      - name: tasmania_roads
+#        title: Tasmania roads
+#        description: Main Tasmania roads
+#        keywords:
+#          - Roads
+#          - Tasmania
+#        datastoreId: taz_shapes
+#
+#      - name: tasmania_state_boundaries
+#        title: Tasmania state boundaries
+#        description: Tasmania state boundaries
+#        keywords:
+#          - boundaries
+#          - tasmania_state_boundaries
+#          - Tasmania
+#        datastoreId: taz_shapes
+#
+#      - name: tasmania_water_bodies
+#        title: Tasmania water bodies
+#        description: Tasmania water bodies
+#        keywords:
+#          - Lakes
+#          - Bodies
+#          - Australia
+#          - Water
+#          - Tasmania
+#        datastoreId: taz_shapes
+#
+#      - name: states
+#        title: USA Population
+#        description: This is some census data on the states.
+#        keywords:
+#          - census
+#          - united
+#          - boundaries
+#          - state
+#          - states
+#        datastoreId: states_shapefile
+#
+#      - name: giant_polygon
+#        title: World rectangle
+#        description: A simple rectangular polygon covering most of the world, it's only used for the purpose of providing a background (WMS bgcolor could be used instead)
+#        keywords:
+#          - DS_giant_polygon
+#          - giant_polygon
+#        datastoreId: tiger
 
       - name: raster_entry
         title: raster_entry
@@ -506,28 +545,90 @@ wms:
 
 
 #web app configuration settings
-webconfig:
-  misc:
-    icons:
-      green-marker: search_marker_green.png
-  services:
-    proxy: /o2/proxy/index?url=
-    omar:
-#      url: http://localhost
-#      port: 8888
-      wfsUrl: http://localhost:7272/o2/wfs
-      wmsUrl: http://localhost:8888/wms
-      thumbnailsUrl: http://localhost:8888/omar/thumbnail/show/
-      footprintsUrl: http://localhost:8888/omar/wms/footprints?
+# webconfig:
+#   misc:
+#     icons:
+#       green-marker: search_marker_green.png
+#   services:
+#     proxy: /o2/proxy/index?url=
+#     omar:
+#       wfsUrl: http://localhost:7272/o2/wfs
+#       wmsUrl: http://localhost:8888/wms
+#       thumbnailsUrl: http://localhost:8888/omar/thumbnail/show/
+#       footprintsUrl: http://localhost:8888/omar/wms/footprints?
+#     twofishes:
+#       url: http://localhost:8081/twofish
+#       proxy: /o2/twoFishesProxy
+#     basemaps:
+#       osm:
+#         url: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
+#         layers: osm-group
+
+
+#server:
+#  contextPath: /o2
+#  port: 7272
+
+quartz:
+    jdbcStore: false
+
+videoStreaming:
+  flashDirRoot: /opt/local/apache2/htdocs/videos
+  //flashDirRoot: /var/www/html/videos
+  flashUrlRoot: http://localhost/videos
+
+---
+# Client params
+omar:
+  app:
+    wfs:
+      baseUrl: http://localhost/omar-app/wfs?
+      enabled: true
+      proxy: /proxy/index?url=
+    wms:
+      baseUrl: http://localhost/omar-app/wms?
+      enabled: true
+    imageSpace: 
+      baseUrl: http://localhost/omar-app/imageSpace/
+      enabled: true
+    thumbnails:
+      baseUrl: http://localhost/omar-app/imageSpace/getThumbnail?
+    footprints:
+      baseUrl: http://localhost/omar-app/footprints/getFootprints
+    apiApp:
+      baseUrl: http://localhost/omar-app/api
+      enabled: true
+    predio:
+      baseUrl: http://localhost/omar-app/predio/
+      enabled: true
     twofishes:
-      url: http://localhost:8081/twofish
-      proxy: /o2/twoFishesProxy
-    basemaps:
-      osm:
-        url: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
-        layers: osm-group
+      baseUrl: http://localhost:8081/twofish
+      proxy: /twoFishesProxy
+    swipeApp:
+      baseUrl: http://localhost/swipe-app/swipe
+      enabled: true
+    kmlApp:
+      #baseUrl: http://localhost:8282/
+      baseUrl: http://localhost/superoverlay-app
+      enabled: true
+    piwikApp:
+      baseUrl: http://omar.ossim.org/piwik/
+      enabled: true  
+    misc:
+      icons:
+        greenMarker: assets/search_marker_green.png
+#        greenmarker: search_marker_green.png
+#    basemaps:
+#      osm:
+#        baseUrl: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
+#        layers: osm-group
 
+---
+classificationBanner:
+  backgroundColor: green
+  classificationType: Unclassified
+  #backgroundColor: red
+  #classificationType: Secret // NOFORN
+    # backgroundColor: yellow
+    # classificationType: Top Secret 
 
-server:
-  contextPath: /o2
-  port: 7272

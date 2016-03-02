@@ -1,0 +1,11 @@
+/*
+*= require webjars/flowplayer-html5/6.0.4/skin/functional.css
+*= require_self
+*/
+
+#myvid {
+    width: 720px;
+    height: 480px;
+    border: solid thin #255b17;
+    margin: auto;
+}

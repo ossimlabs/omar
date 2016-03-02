@@ -8,7 +8,20 @@
     url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-body { padding-top: 70px; }
+/*body { padding-top: 70px; }*/
+
+body {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow: scroll; 
+}
+.navbar {min-height:28px !important;}
+.navbar-fixed-top {
+    height: 20px;
+}
+.navbar-fixed-bottom {
+    height: 20px;
+}
 
 .navbar-brand {padding-top: 15px}
 
@@ -53,37 +66,37 @@ body { padding-top: 70px; }
 }
 
 @media (max-height: 599px) {
-    #map { height: 79%; }
-    #list { height: 57%; }
+    #map { height: 77%; }
+    #list { height: 50%; }
 }
 
 @media (min-height: 600px) AND (max-height: 699px){
-    #map { height: 83%; }
+    #map { height: 81%; }
     #list { height: 59%; }
 }
 
 @media (min-height: 700px) AND (max-height: 799px){
-    #map { height: 86%; }
+    #map { height: 84%; }
     #list { height: 66%; }
 }
 
 @media (min-height: 800px) AND (max-height: 899px){
-    #map { height: 88%; }
+    #map { height: 86%; }
     #list { height: 71%; }
 }
 
 @media (min-height: 900px) AND (max-height: 999px){
-    #map { height: 89%; }
+    #map { height: 87%; }
     #list { height: 74%; }
 }
 
 @media (min-height: 1000px) AND (max-height: 1099px){
-    #map { height: 91%; }
+    #map { height: 88%; }
     #list { height: 77%; }
 }
 
 @media (min-height: 1100px) AND (max-height: 1199px){
-    #map { height: 91%; }
+    #map { height: 89%; }
     #list { height: 79%; }
 }
 
@@ -95,6 +108,7 @@ body { padding-top: 70px; }
 #list {
     overflow-y: auto;
     padding-right: 5px;
+    margin-top: -15px;
 }
 
 #list .media {
@@ -104,6 +118,10 @@ body { padding-top: 70px; }
 
 #list .panel {
     margin-bottom: 5px;
+}
+
+#list a:hover {
+    text-decoration: none;
 }
 
 #list .fa:hover {
@@ -119,7 +137,17 @@ body { padding-top: 70px; }
     margin-bottom: 11px;
 }
 
+#modal-image-space a {
+    text-decoration: none;
+}
+
 #imageMap {
+    /*height: 300px;*/
+    width: 100%;
+    height: 60%;
+}
+
+#mapOrtho {
     /*height: 300px;*/
     width: 100%;
     height: 60%;
@@ -182,12 +210,15 @@ body { padding-top: 70px; }
 .yamm .dropdown {
     position: static;
 }
+
 .yamm .container {
     position: relative;
 }
+
 .yamm .dropdown-menu {
     left: auto;
 }
+
 .yamm .yamm-content {
     padding: 20px 30px;
     /*overflow: scroll;*/
@@ -201,6 +232,7 @@ body { padding-top: 70px; }
     top: 65px;
     left: .5em;
 }
+
 .ol-touch .rotate-north {
     top: 80px;
 }
@@ -209,6 +241,7 @@ body { padding-top: 70px; }
     top: 95px;
     left: .5em;
 }
+
 .ol-touch .rotate-up {
     top: 80px;
 }
@@ -271,6 +304,23 @@ body { padding-top: 70px; }
     height: 100%;
 }
 
+.slick-prev:before, .slick-next:before {
+    color:black !important;
+}
+
+#mapOrtho:-moz-full-screen {
+    height: 100%;
+}
+#mapOrtho:-webkit-full-screen {
+    height: 100%;
+}
+#mapOrtho:-ms-fullscreen {
+    height: 100%;
+}
+#mapOrtho:fullscreen {
+    height: 100%;
+}
+
 .ol-viewport{
     border-radius: 10px;
 }
@@ -290,6 +340,7 @@ body { padding-top: 70px; }
     left: -50px;
     min-width: 275px;
 }
+
 .ol-popup:after, .ol-popup:before {
     top: 100%;
     border: solid transparent;
@@ -299,12 +350,14 @@ body { padding-top: 70px; }
     position: absolute;
     pointer-events: none;
 }
+
 .ol-popup:after {
     border-top-color: white;
     border-width: 10px;
     left: 48px;
     margin-left: -10px;
 }
+
 .ol-popup:before {
     border-top-color: #cccccc;
     border-width: 11px;

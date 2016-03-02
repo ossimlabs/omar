@@ -19,7 +19,7 @@ plugins {
 
 evaluationDependsOnChildren()
 
-version "0.1"
+version "1.0.0"
 group "hlz.app"
 
 apply plugin: "spring-boot"
@@ -38,6 +38,11 @@ ext {
 assets {
   minifyJs = true
   minifyCss = true
+  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
+  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
+  includes = ["fonts/*"]
+  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
+              '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
 }
 
 repositories {
@@ -52,9 +57,15 @@ dependencyManagement {
   applyMavenExclusions false
 }
 
+grails {
+    exploded = true
+    plugins {          
+      compile project(':omar-oms')
+      compile project(':omar-geoscript')
+    }
+}
+
 dependencies {
-  compile project(':omar-oms')
-  compile project(':omar-geoscript')
 
   compile 'org.webjars.bower:bootstrap:3.3.5'
   compile 'org.webjars:bootswatch-superhero:3.3.5'

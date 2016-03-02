@@ -7,6 +7,11 @@
 
     function imageSpaceService( $http )
     {
+        // #################################################################################
+        // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+        // provides access to various client params in application.yml
+        // #################################################################################
+        //console.log('AppO2.APP_CONFIG in imageSpaceService: ', AppO2.APP_CONFIG);
 
         var map,
             filename,
@@ -236,7 +241,8 @@
             // to get the upAngle and northAngle values
             $http( {
                 method: 'GET',
-                url: '/o2/imageSpace/getAngles',
+                //url: '/o2/imageSpace/getAngles',
+                url: AppO2.APP_CONFIG.params.imageSpace.baseUrl + 'getAngles',
                 params: {filename: filename, entry: entry}
             } ).then( function successCallback( response )
             {
@@ -266,7 +272,8 @@
             } );
 
             source = new ImageSpace( {
-                url: '/o2/imageSpace/getTile',
+                //url: '/o2/imageSpace/getTile',
+                url: AppO2.APP_CONFIG.params.imageSpace.baseUrl + 'getTile',
                 filename: filename,
                 entry: entry,
                 format: 'jpeg',
@@ -275,7 +282,7 @@
             } );
 
             source2 = new ImageSpace( {
-                url: '/o2/imageSpace/getTileOverlay',
+                url: AppO2.APP_CONFIG.params.imageSpace.baseUrl + 'getTileOverlay',
                 filename: filename,
                 entry: entry,
                 format: 'png',

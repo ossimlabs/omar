@@ -1,3 +1,4 @@
+.asscache
 OmarPredioGrailsPlugin.groovy
 .gradle
 Thumbs.db
@@ -8,9 +9,13 @@ build/
 *.iml
 *.ipr
 *.iws
+*~
 .project
 .settings
 .classpath
 node_modules
 apps/omar-app/.asscache
 *.db
+.asscache
+*.log
+

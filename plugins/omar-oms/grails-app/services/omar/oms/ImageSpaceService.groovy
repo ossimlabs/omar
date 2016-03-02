@@ -173,12 +173,12 @@ class ImageSpaceService
       }
       else
       {
-        println 'getChip: bad'
+        println "getChip: bad ${opts}"
       }
     }
     else
     {
-      println 'initialize: bad'
+      println "initialize: bad ${opts}"
     }
     chipper?.delete()
 
