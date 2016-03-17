@@ -100,7 +100,7 @@ dependencies {
 
   console "org.grails:grails-console"
 
-  compile "org.grails.plugins:grails3-cors-interceptor:0.1.1"
+  compile "org.grails.plugins:grails3-cors-interceptor:0.1.4"
 
   // UI Webjar core dependencies
   compile 'org.webjars:jquery:2.1.4'

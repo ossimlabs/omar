@@ -582,34 +582,34 @@ videoStreaming:
 omar:
   app:
     wfs:
-      baseUrl: http://localhost/omar-app/wfs?
+      baseUrl: http://localhost:8080/wfs?
       enabled: true
       proxy: /proxy/index?url=
     wms:
-      baseUrl: http://localhost/omar-app/wms?
+      baseUrl: http://localhost:8080/wms?
       enabled: true
     imageSpace: 
-      baseUrl: http://localhost/omar-app/imageSpace/
+      baseUrl: http://localhost:8080/imageSpace
       enabled: true
     thumbnails:
-      baseUrl: http://localhost/omar-app/imageSpace/getThumbnail?
+      baseUrl: http://localhost:8080/imageSpace/getThumbnail?
     footprints:
-      baseUrl: http://localhost/omar-app/footprints/getFootprints
+      baseUrl: http://localhost:8080/footprints/getFootprints
     apiApp:
-      baseUrl: http://localhost/omar-app/api
+      baseUrl: http://localhost:8080/api
       enabled: true
     predio:
-      baseUrl: http://localhost/omar-app/predio/
+      baseUrl: http://localhost:8080/predio/
       enabled: true
     twofishes:
       baseUrl: http://localhost:8081/twofish
       proxy: /twoFishesProxy
     swipeApp:
-      baseUrl: http://localhost/swipe-app/swipe
+      baseUrl: http://localhost:8082/swipe
       enabled: true
     kmlApp:
       #baseUrl: http://localhost:8282/
-      baseUrl: http://localhost/superoverlay-app
+      baseUrl: http://localhost:8083/
       enabled: true
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
