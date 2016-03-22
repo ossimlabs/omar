@@ -154,23 +154,23 @@ var ossimtools = (function ()
                 name: 'reference',
                  source: new ol.source.OSM()
             } ),
-//            new ol.layer.Image( {
-//                name: 'hlz',
-//                source: new ol.source.ImageWMS( {
-//                    url: '/ossimTools/renderHLZ',
-//                    params: {
-//                        visible: false,
-//                        LAYERS: '',
-//                        VERSION: '1.1.1',
-//                        lat: center_lat,
-//                        lon: center_lon,
-//                        radiusROI: radiusROI,
-//                        radiusLZ: radiusLZ,
-//                        roughness: roughness,
-//                        slope: slope
-//                    }
-//                } )
-//            } ),
+            new ol.layer.Image( {
+                name: 'hlz',
+                source: new ol.source.ImageWMS( {
+                    url: '/ossimTools/renderHLZ',
+                    params: {
+                        visible: false,
+                        LAYERS: '',
+                        VERSION: '1.1.1',
+                        lat: center_lat,
+                        lon: center_lon,
+                        radiusROI: radiusROI,
+                        radiusLZ: radiusLZ,
+                        roughness: roughness,
+                        slope: slope
+                    }
+                } )
+            } ),
             new ol.layer.Image( {
                 name: 'viewshed',
                 source: new ol.source.ImageWMS( {
