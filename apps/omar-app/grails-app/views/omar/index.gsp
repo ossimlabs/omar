@@ -66,11 +66,13 @@
                 
 
                 return {
+                    
                     APP_CONFIG: APP_CONFIG
+                    
                 }
 
             })();
-            console.log('APP_CONFIG: ', AppO2.APP_CONFIG);
+            //console.log('APP_CONFIG: ', AppO2.APP_CONFIG);
             
 
         </asset:script>

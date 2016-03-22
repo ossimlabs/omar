@@ -225,11 +225,11 @@
                 //console.log('2= ' + coordInput.match(ddRegExp)[2]);
                 //console.log('3= ' + coordInput.match(ddRegExp)[3]);
 
-                latNum = searchInput.match(ddRegExp)[1];
-                latDir = searchInput.match(ddRegExp)[2];
+                var latNum = searchInput.match(ddRegExp)[1];
+                var latDir = searchInput.match(ddRegExp)[2];
 
-                lonNum = searchInput.match(ddRegExp)[3];
-                lonDir = searchInput.match(ddRegExp)[4];
+                var lonNum = searchInput.match(ddRegExp)[3];
+                var lonDir = searchInput.match(ddRegExp)[4];
 
                 if ((latNum >= -90 && latNum <= 90) && (lonNum >= -180 && lonNum <= 180)) {
 
@@ -266,7 +266,7 @@
                 }
 
                 console.log('DD Match');
-                console.log('input: ' + coordInput);
+                console.log('input: ' + searchInput);
                 console.log('result: ' + lat + " " + lon);
             }
 
