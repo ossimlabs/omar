@@ -46,6 +46,26 @@ Brief summary/description of the plugin.
     }
 
     void doWithDynamicMethods() {
+        URL.metaClass.getParams{ ->
+            HashMap result = [:]
+            String queryParams = delegate.query?:""
+
+            def pairs = queryParams?.split("&")
+
+            pairs?.each{pair->
+                def kv = pair.split("=")
+                if(kv?.size()==2) result."${kv[0]}" = kv[1]
+            }
+
+            result
+        }
+        URL.metaClass.setParams{ p ->
+            String queryParams = p.collect { k,v -> if(v) "${k}=${v}"; else return "" }.join('&').toString()
+            delegate.set(delegate.protocol, delegate.host, delegate.port, delegate.authority, delegate.userInfo,
+                         delegate.path, queryParams, delegate.ref)
+            //delegate.query = p.collect { k,v -> if(v) "${k}=${v}"; else return "" }.join('&').toString()
+        }
+
         // TODO Implement registering dynamic methods to classes (optional)
     }
 
