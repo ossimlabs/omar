@@ -2,6 +2,7 @@ include 'omar-core',
 		'omar-openlayers',
 		'omar-geoscript',
 		'omar-wms',
+		'omar-wmts',
 		'omar-wfs',
 		'omar-oms',
 		'omar-predio',
@@ -14,6 +15,7 @@ include 'omar-core',
 		'wfs-app',
 		'superoverlay-app',
 		'wms-app',
+		'wmts-app',
 		'pki-app',
 		'swipe-app',
 		'stager-app',
@@ -26,6 +28,7 @@ project(':omar-geoscript').projectDir = 'plugins/omar-geoscript' as File
 project(':omar-openlayers').projectDir = 'plugins/omar-openlayers' as File
 project(':omar-wfs').projectDir = 'plugins/omar-wfs' as File
 project(':omar-wms').projectDir = 'plugins/omar-wms' as File
+project(':omar-wmts').projectDir = 'plugins/omar-wmts' as File
 project(':omar-oms').projectDir = 'plugins/omar-oms' as File
 project(':omar-predio').projectDir = 'plugins/omar-predio' as File
 project(':omar-raster').projectDir = 'plugins/omar-raster' as File
@@ -38,6 +41,7 @@ project(':omar-security').projectDir = 'plugins/omar-security' as File
 project(':omar-app').projectDir = 'apps/omar-app' as File
 project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':wms-app').projectDir = 'apps/wms-app' as File
+project(':wmts-app').projectDir = 'apps/wmts-app' as File
 project(':superoverlay-app').projectDir = 'apps/superoverlay-app' as File
 project(':swipe-app').projectDir = 'apps/swipe-app' as File
 project(':pki-app').projectDir = 'apps/pki-app' as File
