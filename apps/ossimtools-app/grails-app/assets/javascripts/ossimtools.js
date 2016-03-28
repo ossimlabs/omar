@@ -154,23 +154,23 @@ var ossimtools = (function ()
                 name: 'reference',
                  source: new ol.source.OSM()
             } ),
-//            new ol.layer.Image( {
-//                name: 'hlz',
-//                source: new ol.source.ImageWMS( {
-//                    url: '/ossimTools/renderHLZ',
-//                    params: {
-//                        visible: false,
-//                        LAYERS: '',
-//                        VERSION: '1.1.1',
-//                        lat: center_lat,
-//                        lon: center_lon,
-//                        radiusROI: radiusROI,
-//                        radiusLZ: radiusLZ,
-//                        roughness: roughness,
-//                        slope: slope
-//                    }
-//                } )
-//            } ),
+            new ol.layer.Image( {
+                name: 'hlz',
+                source: new ol.source.ImageWMS( {
+                    url: '/ossimTools/renderHLZ',
+                    params: {
+                        visible: false,
+                        LAYERS: '',
+                        VERSION: '1.1.1',
+                        lat: center_lat,
+                        lon: center_lon,
+                        radiusROI: radiusROI,
+                        radiusLZ: radiusLZ,
+                        roughness: roughness,
+                        slope: slope
+                    }
+                } )
+            } ),
             new ol.layer.Tile( {
                 name: 'hillshade',
                 source: new ol.source.TileWMS( {
@@ -197,17 +197,7 @@ var ossimtools = (function ()
                         heightOfEye: heightOfEye
                     }
                 } )
-            } )
-//            new ol.layer.Tile( {
-//                name: 'slope',
-//                source: new ol.source.TileWMS( {
-//                    url: '/ossimTools/renderSlope',
-//                    params: {
-//                        visible: false,
-//                        VERSION: '1.1.1'
-//                    }
-//                } )
-//            } ),
+            } ),
         ];
 
         map = new ol.Map( {
