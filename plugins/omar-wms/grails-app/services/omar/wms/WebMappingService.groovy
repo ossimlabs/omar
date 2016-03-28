@@ -205,6 +205,7 @@ class WebMappingService
 			def chipperLayer = new ChipperLayer( images )
 
 			def map = new GeoScriptMap(
+					fixAspectRatio: false,
 					width: wmsParams?.width,
 					height: wmsParams?.height,
 					type: wmsParams?.format?.split( '/' )?.last(),
@@ -257,6 +258,7 @@ class WebMappingService
 			def chipperLayer = new ChipperLayer( images )
 
 			def map = new GeoScriptMap(
+					fixAspectRatio: false,
 					width: wmsParams?.width,
 					height: wmsParams?.height,
 					type: wmsParams?.format?.split( '/' )?.last(),

@@ -150,5 +150,10 @@ wfs:
 #grails.serverURL = "http://localhost/omar-app"
 grails:
     assets:
-        url: http://localhost/superoverlay-app/assets/
-    serverURL: http://localhost/superoverlay-app
+        url: http://localhost:9999/superoverlay-app/assets/
+    serverURL: http://localhost:9999/superoverlay-app
+
+
+server:
+  port: 9999
+  contextPath: /superoverlay-app
