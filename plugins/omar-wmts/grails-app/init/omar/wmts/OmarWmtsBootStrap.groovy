@@ -9,9 +9,9 @@ class OmarWmtsBootStrap
    def init = { servletContext ->
       log.trace "init: Entered................................"
 
-      if(!OmarWmtsLayer.list())
+      if(!WmtsLayer.list())
       {
-         OmarWmtsTileMatrixSet geographicTileMatrixSet = new OmarWmtsTileMatrixSet(
+         WmtsTileMatrixSet geographicTileMatrixSet = new WmtsTileMatrixSet(
                  name: "WorldGeographic",
                  minX:-180.0,
                  minY:-90.0,
@@ -24,16 +24,16 @@ class OmarWmtsBootStrap
                  epsgCode:"epsg:4326" )
          geographicTileMatrixSet.save(flush:true)
 
-         OmarWmtsLayer worldGeographicLayer = new OmarWmtsLayer(
+         WmtsLayer worldGeographicLayer = new WmtsLayer(
                                           name:"WorldGeographic",
                                           title:"World Geographic Layer",
                                           description:"World Geographic Layer",
-                                          omarWmtsTileMatrixSet:geographicTileMatrixSet
+                                          wmtsTileMatrixSet:geographicTileMatrixSet
                                        )
 
          worldGeographicLayer.save(flush:true)
 
-/*         OmarWmtsTileMatrixSet mercatorTileMatrixSet = new OmarWmtsTileMatrixSet(
+/*         WmtsTileMatrixSet mercatorTileMatrixSet = new WmtsTileMatrixSet(
                  name: "WorldMercator",
                  minX:-20037508.342789244,
                  minY:-20037508.342789244,
@@ -46,11 +46,11 @@ class OmarWmtsBootStrap
                  epsgCode:"epsg:3857" )
 
          mercatorTileMatrixSet.save(flush:true)
-         OmarWmtsLayer worldMercatorLayer = new OmarWmtsLayer(
+         WmtsLayer worldMercatorLayer = new WmtsLayer(
                  name:"WorldMercator",
                  title:"World Mercator Layer",
                  description:"World Mercator Layer",
-                 omarWmtsTileMatrixSet:mercatorTileMatrixSet
+                 wmtsTileMatrixSet:mercatorTileMatrixSet
          )
          worldMercatorLayer.save(flush:true)
 */

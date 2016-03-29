@@ -3,7 +3,7 @@ package omar.wmts
 import geoscript.geom.Bounds
 import geoscript.proj.Projection
 
-class OmarWmtsTileMatrixSet {
+class WmtsTileMatrixSet {
     String name
     Double minX
     Double minY
@@ -19,7 +19,7 @@ class OmarWmtsTileMatrixSet {
     String epsgCode
 
     // not sure if I want this relation or not
-    static hasMany = [omarWmtsLayer:OmarWmtsLayer]
+    static hasMany = [wmtsLayer:WmtsLayer]
 
     static constraints = {
         name unique:true

@@ -44,8 +44,8 @@ class WebMapTileService implements InitializingBean{
 
     def getCapabilities(String baseUrl, GetCapabilitiesCommand cmd)
     {
-        def layers = OmarWmtsLayer.list().collect{ row ->
-            OmarWmtsTileMatrixSet tileMatrixSet = row.omarWmtsTileMatrixSet
+        def layers = WmtsLayer.list().collect{ row ->
+            WmtsTileMatrixSet tileMatrixSet = row.wmtsTileMatrixSet
             def bounds = tileMatrixSet.bounds
             def geoBounds = bounds
             if(bounds.proj)  geoBounds = bounds.reproject(geographicProj)
@@ -155,8 +155,8 @@ class WebMapTileService implements InitializingBean{
                         }
                     }
 
-                    OmarWmtsTileMatrixSet.list().each { omarWmtsTileMatrixSet ->
-                        def tileMatrixSet = omarWmtsTileMatrixSet.toTileMatrixSet()
+                    WmtsTileMatrixSet.list().each { wmtsTileMatrixSet ->
+                        def tileMatrixSet = wmtsTileMatrixSet.toTileMatrixSet()
                         TileMatrixSet {
                             ows.Identifier(tileMatrixSet.identifier)
                             tileMatrixSet.tileMatrices.each { tileMatrix ->
@@ -188,16 +188,16 @@ class WebMapTileService implements InitializingBean{
         def result = [status:400,
                       data: null,
                       contentType: null]
-        def wmtsLayer = OmarWmtsLayer.findByName(cmd.layer)
+        def wmtsLayer = WmtsLayer.findByName(cmd.layer)
         int tileWidth  = 256
         int tileHeight = 256
         int level = cmd.tileMatrix
         int row = cmd.tileRow
         int col = cmd.tileCol
 
-        if(wmtsLayer&&(cmd.tileMatrixSet?.toLowerCase() == wmtsLayer.omarWmtsTileMatrixSet.name.toLowerCase()))
+        if(wmtsLayer&&(cmd.tileMatrixSet?.toLowerCase() == wmtsLayer.wmtsTileMatrixSet.name.toLowerCase()))
         {
-            TileMatrixSet tileMatrixSet = wmtsLayer.omarWmtsTileMatrixSet.toTileMatrixSet()
+            TileMatrixSet tileMatrixSet = wmtsLayer.wmtsTileMatrixSet.toTileMatrixSet()
             Pyramid pyramid = tileMatrixSet.pyramid
             tileWidth = tileMatrixSet.tileWidth
             tileHeight = tileMatrixSet.tileHeight
@@ -317,7 +317,7 @@ class WebMapTileService implements InitializingBean{
 
             result.data        = outputStream.toByteArray()
             result.contentType = cmd.format
-            result.status      = 200
+            //result.status      = 200
         }
         result
     }

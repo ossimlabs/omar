@@ -112,6 +112,7 @@ class WmtsController {
         catch ( e )
         {
             log.error e.message.toString()
+            response.status = 400
            // println e.message
             render e.toString()
           //  render contentType: 'application/xml', text: exceptionService.createMessage( e.message )
@@ -167,6 +168,7 @@ class WmtsController {
         {
            // println "***************************************"
            // e.printStackTrace()
+            response.status = 400
             render e.toString()
             //println "*"*40
             //e.printStackTrace()
@@ -261,7 +263,7 @@ class WmtsController {
         catch ( e )
         {
 //            println e.message
-            response.status = 404
+            response.status = 400
 //            e.printStackTrace()
             render e.toString()
         }

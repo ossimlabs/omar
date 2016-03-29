@@ -1,13 +1,13 @@
 package omar.wmts
 
-class OmarWmtsLayer {
+class WmtsLayer {
     String name
     String title
     String description
     String filter
     String sortBy
 
-    static hasOne = [omarWmtsTileMatrixSet: OmarWmtsTileMatrixSet]
+    static hasOne = [wmtsTileMatrixSet: WmtsTileMatrixSet]
 
     static constraints = {
         name unique:true
