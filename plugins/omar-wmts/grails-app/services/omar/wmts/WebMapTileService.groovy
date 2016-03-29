@@ -183,6 +183,8 @@ class WebMapTileService implements InitializingBean{
 
     def getTile(GetTileCommand cmd)
     {
+
+//        println cmd
         def result = [status:400,
                       data: null,
                       contentType: null]
@@ -193,7 +195,7 @@ class WebMapTileService implements InitializingBean{
         int row = cmd.tileRow
         int col = cmd.tileCol
 
-        if(cmd.tileMatrixSet?.toLowerCase() == wmtsLayer.omarWmtsTileMatrixSet.name.toLowerCase())
+        if(wmtsLayer&&(cmd.tileMatrixSet?.toLowerCase() == wmtsLayer.omarWmtsTileMatrixSet.name.toLowerCase()))
         {
             TileMatrixSet tileMatrixSet = wmtsLayer.omarWmtsTileMatrixSet.toTileMatrixSet()
             Pyramid pyramid = tileMatrixSet.pyramid
@@ -247,11 +249,11 @@ class WebMapTileService implements InitializingBean{
 
             try{
                 wfsUrlText=wfsUrl.text
-               // println wfsUrlText
+                // println wfsUrlText
             }
             catch(e)
             {
-              //  println e
+                //  println e
                 wfsUrlText=""
             }
 
@@ -261,7 +263,7 @@ class WebMapTileService implements InitializingBean{
             }
             catch(e)
             {
-              //  println e
+                //  println e
                 obj = null
             }
 
@@ -292,13 +294,24 @@ class WebMapTileService implements InitializingBean{
                 result.contentType = contentType
                 result.status = connection.responseCode
             }
-         }
+        }
 
         if(result.status != 200)
         {
+            def imageType = cmd?.format?.split( '/' )?.last()
             def outputStream = new ByteArrayOutputStream()
 
-            def image = new BufferedImage( tileWidth, tileHeight, BufferedImage.TYPE_INT_ARGB )
+            def image
+
+            switch(imageType.toUpperCase())
+            {
+                case "JPEG":
+                    image = new BufferedImage( tileWidth, tileHeight, BufferedImage.TYPE_INT_RGB )
+                    break
+                default:
+                    image = new BufferedImage( tileWidth, tileHeight, BufferedImage.TYPE_INT_ARGB )
+                    break
+            }
 
             ImageIO.write( image, cmd?.format?.split( '/' )?.last(), outputStream )
 
