@@ -73,13 +73,21 @@ class WmsController
 
 		def results = webMappingService.getMap( wmsParams )
 
-		render contentType: results.contentType, file: results.buffer
+		try{
+			render contentType: results.contentType, file: results.buffer
+			def otherParams = results.metrics
 
-		def otherParams = results.metrics
+			otherParams.ip = IpUtil.getClientIpAddr(request)
+			wmsLogService.logGetMapRequest( wmsParams, otherParams )
+			//println getClientIpAddr(request)
 
-		otherParams.ip = IpUtil.getClientIpAddr(request)
-		wmsLogService.logGetMapRequest( wmsParams, otherParams )
-		//println getClientIpAddr(request)
+		}
+		catch(e)
+		{
+			response.status = 404
+			render e.toString()
+		}
+
 	}
 
 
