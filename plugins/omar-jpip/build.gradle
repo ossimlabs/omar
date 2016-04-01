@@ -54,7 +54,8 @@ grails {
     exploded = true
     plugins {
         compile project( ':omar-core' )
-        compile project( ':omar-raster' )
+        compile project( ':omar-oms' )
+        compile project( ':omar-hibernate-spatial' )
     }
 }
 
