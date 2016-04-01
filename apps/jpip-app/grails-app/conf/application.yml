@@ -82,14 +82,16 @@ dataSource:
     jmxExport: true
     driverClassName: org.postgresql.Driver
     username: postgres
-    password:
+    password: postgres
     dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
 
 environments:
     development:
         dataSource:
-            dbCreate: update
-            url: jdbc:postgresql:omardb-1.8.20-prod
+#            dbCreate: update
+            dbCreate: create-drop
+#            url: jdbc:postgresql:omardb-1.8.20-prod
+            url: jdbc:postgresql:omardb-dev
     test:
         dataSource:
             dbCreate: update
