@@ -79,4 +79,26 @@ class ChipperUtil
 
     log.trace "runChipper: Leaving.................."
   }
+  static Boolean executeChipper(Map<String,String> opts)
+  {
+    Boolean result = false
+    log.trace "runChipper: Entered.................."
+    def chipper = new Chipper()
+
+    log.trace "runChipper options: ${opts}"
+    if ( chipper.initialize( opts ) )
+    {
+      result = chipper.execute()
+    }
+    else
+    {
+      // println 'initialize: bad'
+    }
+
+    chipper.delete()
+
+    log.trace "runChipper: Leaving.................."
+
+    result
+  }
 }
