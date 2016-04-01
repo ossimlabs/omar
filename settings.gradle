@@ -1,6 +1,7 @@
 include 'omar-core',
 		'omar-openlayers',
 		'omar-geoscript',
+		'omar-jpip',
 		'omar-wms',
 		'omar-wmts',
 		'omar-wfs',
@@ -12,6 +13,7 @@ include 'omar-core',
 		'omar-video',
 		'omar-security',
 		'omar-app',
+		'jpip-app',
 		'wfs-app',
 		'superoverlay-app',
 		'wms-app',
@@ -25,6 +27,7 @@ include 'omar-core',
 // Plugins
 project(':omar-core').projectDir = 'plugins/omar-core' as File
 project(':omar-geoscript').projectDir = 'plugins/omar-geoscript' as File
+project(':omar-jpip').projectDir = 'plugins/omar-jpip' as File
 project(':omar-openlayers').projectDir = 'plugins/omar-openlayers' as File
 project(':omar-wfs').projectDir = 'plugins/omar-wfs' as File
 project(':omar-wms').projectDir = 'plugins/omar-wms' as File
@@ -48,5 +51,6 @@ project(':pki-app').projectDir = 'apps/pki-app' as File
 project(':stager-app').projectDir = 'apps/stager-app' as File
 project(':predio-app').projectDir = 'apps/predio-app' as File
 project(':ossimtools-app').projectDir = 'apps/ossimtools-app' as File
+project(':jpip-app').projectDir = 'apps/jpip-app' as File
 
 
