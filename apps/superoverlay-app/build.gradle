@@ -59,10 +59,7 @@ dependencyManagement {
 grails {
     exploded = true
     plugins {
-//    compile project(':omar-openlayers')
-//    compile project(':omar-oms')
-//    compile project(':omar-geoscript')
-      compile project(':omar-wms')
+      compile project(':omar-superoverlay')
     }
 }
 

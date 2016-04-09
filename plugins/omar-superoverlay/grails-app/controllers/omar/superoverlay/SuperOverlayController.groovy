@@ -1,4 +1,4 @@
-package superoverlay.app
+package omar.superoverlay
 
 import org.springframework.beans.factory.InitializingBean
 
@@ -13,11 +13,11 @@ import geoscript.filter.Filter
 import geoscript.workspace.PostGIS
 
 
-class SuperOverlayOMARController implements InitializingBean
+class SuperOverlayController implements InitializingBean
 {
   def baseDir
   def serverUrl
-  def superOverlayOMARService
+  def superOverlayService
   def outputKmz = false
 
   def index()
@@ -78,7 +78,7 @@ class SuperOverlayOMARController implements InitializingBean
           {
             try
             {
-              def kmlString = superOverlayOMARService.createTileKml( rasterEntry, params )
+              def kmlString = superOverlayService.createTileKml( rasterEntry, params )
               //response.setDateHeader("Expires", System.currentTimeMillis()+(24*24*60*60*1000));
               // response.addHeader("Cache-Control", "max-age=120")
               //   response.setHeader("max-age", "120");
@@ -94,7 +94,7 @@ class SuperOverlayOMARController implements InitializingBean
           {
             try
             {
-              def kmlString = superOverlayOMARService.createRootKml( rasterEntry, params )
+              def kmlString = superOverlayService.createRootKml( rasterEntry, params )
               response.setHeader( "Content-disposition", "attachment; filename=doc.kml" )
               render( contentType: "application/vnd.google-earth.kml+xml",
                   text: kmlString,
@@ -110,7 +110,7 @@ class SuperOverlayOMARController implements InitializingBean
         {
           if ( !isRoot )
           {
-            def kmlInfoMap = superOverlayOMARService.createTileKmzInfo( rasterEntry, params )
+            def kmlInfoMap = superOverlayService.createTileKmzInfo( rasterEntry, params )
             response.contentType = "application/vnd.google-earth.kmz"
             response.setHeader( "Content-disposition", "attachment; filename=output.kmz" )
 
@@ -139,7 +139,7 @@ class SuperOverlayOMARController implements InitializingBean
           {
             try
             {
-              def kmlString = superOverlayOMARService.createRootKml( rasterEntry, params )
+              def kmlString = superOverlayService.createRootKml( rasterEntry, params )
               response.setHeader( "Content-disposition", "attachment; filename=doc.kml" )
               render( contentType: "application/vnd.google-earth.kml+xml",
                   text: kmlString,

@@ -1,13 +1,13 @@
-package superoverlay.app
+package omar.superoverlay
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
 /**
- * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
+ * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
-@TestFor(SuperOverlayNewService)
-class SuperOverlayServiceSpec extends Specification {
+@TestFor(SuperOverlayController)
+class SuperOverlayControllerSpec extends Specification {
 
     def setup() {
     }

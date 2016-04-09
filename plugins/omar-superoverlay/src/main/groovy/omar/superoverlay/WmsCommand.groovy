@@ -1,4 +1,4 @@
-package superoverlay.app
+package omar.superoverlay
 
 import com.vividsolutions.jts.geom.Geometry
 import geoscript.geom.Bounds
@@ -9,8 +9,8 @@ import joms.oms.ossimGpt
 
 import java.awt.Color
 
-//import org.ossim.omar.core.CaseInsensitiveBinder
-//import org.ossim.omar.core.ISO8601DateParser
+//import omar.core.CaseInsensitiveBinder
+//import omar.core.ISO8601DateParser
 
 /**
  * Created by IntelliJ IDEA.
