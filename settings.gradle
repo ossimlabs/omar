@@ -12,6 +12,7 @@ include 'omar-core',
 		'omar-stager',
 		'omar-video',
 		'omar-security',
+		'omar-superoverlay',
 		'omar-app',
 		'jpip-app',
 		'wfs-app',
@@ -39,6 +40,7 @@ project(':omar-hibernate-spatial').projectDir = 'plugins/omar-hibernate-spatial'
 project(':omar-stager').projectDir = 'plugins/omar-stager' as File
 project(':omar-video').projectDir = 'plugins/omar-video' as File
 project(':omar-security').projectDir = 'plugins/omar-security' as File
+project(':omar-superoverlay').projectDir = 'plugins/omar-superoverlay' as File
 
 // Apps
 project(':omar-app').projectDir = 'apps/omar-app' as File

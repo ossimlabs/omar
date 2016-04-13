@@ -6,7 +6,7 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
-@TestFor(SuperOverlayController)
+@TestFor(SuperOverlayNewController)
 class SuperOverlayControllerSpec extends Specification {
 
     def setup() {

@@ -2,7 +2,7 @@ package superoverlay.app
 
 import groovy.xml.StreamingMarkupBuilder
 
-class SuperOverlayService
+class SuperOverlayNewService
 {
   static transactional = false
 

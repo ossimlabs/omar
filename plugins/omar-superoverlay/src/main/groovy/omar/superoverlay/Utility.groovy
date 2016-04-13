@@ -1,4 +1,4 @@
-package superoverlay.app
+package omar.superoverlay
 
 import groovy.io.FileType
 import org.apache.commons.collections.map.CaseInsensitiveMap

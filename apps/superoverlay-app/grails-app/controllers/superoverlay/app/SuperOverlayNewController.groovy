@@ -1,6 +1,6 @@
 package superoverlay.app
 
-class SuperOverlayController
+class SuperOverlayNewController
 {
   def superOverlayService
 

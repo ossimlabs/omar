@@ -1,4 +1,4 @@
-package superoverlay.app
+package omar.superoverlay
 
 /**
  * Created by sbortman on 7/9/15.

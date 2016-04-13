@@ -1,4 +1,4 @@
-package superoverlay.app
+package omar.superoverlay
 
 import groovy.xml.StreamingMarkupBuilder
 
@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage
 //import org.ossim.omar.core.Utility
 //import org.ossim.omar.ogc.WmsCommand
 
-class SuperOverlayOMARService implements InitializingBean
+class SuperOverlayService implements InitializingBean
 {
   static transactional = false
 
