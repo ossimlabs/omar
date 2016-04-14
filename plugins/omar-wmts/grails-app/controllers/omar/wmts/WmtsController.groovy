@@ -251,21 +251,42 @@ class WmtsController {
         if(jsonData) requestParams << jsonData
         BindUtil.fixParamNames( GetTileCommand, requestParams )
         bindData( cmd, requestParams )
+
+
+        // Getting the outputStream then testing in the finally will get rid
+        // of the exceptions that state:
+        //    Caused by: org.grails.gsp.GroovyPagesException: Error processing GroovyPageView: getOutputStream() has already been called for this response
+        // After putting in the finally and the try catches you see the message is now trapped
+        //
+        def outputStream = null
         try
         {
+            outputStream = response.outputStream
             def result = webMapTileService.getTile( cmd )
 
             if(result.contentType) response.contentType = result.contentType
             if(result.data?.length) response.contentLength = result.data.length
             response.status = result.status
-            response.outputStream.write(result.data)
+            if(outputStream)
+            {
+                outputStream << result.data
+            }
         }
         catch ( e )
         {
-//            println e.message
-            response.status = 400
-//            e.printStackTrace()
-            render e.toString()
+            log.debug(e.toString())
+        }
+        finally{
+            if(outputStream!=null)
+            {
+                try{
+                    outputStream.close()
+                }
+                catch(e)
+                {
+                    log.debug(e.toString())
+                }
+            }
         }
     }
 }

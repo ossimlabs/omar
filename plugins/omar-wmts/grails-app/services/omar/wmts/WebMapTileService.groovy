@@ -181,9 +181,43 @@ class WebMapTileService implements InitializingBean{
         [ contentType: 'text/xml', buffer: xml ]
     }
 
+    def createBufferedImage(GetTileCommand cmd)
+    {
+        def imageType = cmd?.format?.split( '/' )?.last()
+        def image
+
+        switch(imageType.toUpperCase())
+        {
+            case "JPEG":
+                image = new BufferedImage( tileWidth, tileHeight, BufferedImage.TYPE_INT_RGB )
+                break
+            default:
+                image = new BufferedImage( tileWidth, tileHeight, BufferedImage.TYPE_INT_ARGB )
+                break
+        }
+
+        image
+    }
+
+    def createBlankImageOutput(GetTileCommand cmd)
+    {
+        def result = [status:200,
+                      data: null,
+                      contentType: null]
+        def imageType = cmd?.format?.split( '/' )?.last()
+        def outputStream = new ByteArrayOutputStream()
+
+        def image = createBufferedImage(cmd)
+
+        ImageIO.write( image, cmd?.format?.split( '/' )?.last(), outputStream )
+
+        result.data        = outputStream.toByteArray()
+        result.contentType = cmd.format
+
+        result
+    }
     def getTile(GetTileCommand cmd)
     {
-
 //        println cmd
         def result = [status:400,
                       data: null,
@@ -253,6 +287,7 @@ class WebMapTileService implements InitializingBean{
             }
             catch(e)
             {
+                log.debug(e.toString())
                 //  println e
                 wfsUrlText=""
             }
@@ -263,6 +298,7 @@ class WebMapTileService implements InitializingBean{
             }
             catch(e)
             {
+                log.debug(e.toString())
                 //  println e
                 obj = null
             }
@@ -282,42 +318,31 @@ class WebMapTileService implements InitializingBean{
                 urlWmsParams.each{k,v->urlWmsParams."${k}" = v?.encodeAsURL()}
                 wmsUrl.setParams(urlWmsParams)
 
-                HttpURLConnection connection = (HttpURLConnection)wmsUrl.openConnection();
-                Map responseMap = connection.headerFields;
-                String contentType =  responseMap."Content-Type"[0].split(";")[0]
+                try{
+                    HttpURLConnection connection = (HttpURLConnection)wmsUrl.openConnection();
+                    Map responseMap = connection.headerFields;
+                    String contentType =  responseMap."Content-Type"[0].split(";")[0]
 
-                def outputStream = new ByteArrayOutputStream()
+                    def outputStream = new ByteArrayOutputStream()
 
-                outputStream << connection.inputStream
+                    outputStream << connection.inputStream
 
-                result.data = outputStream.toByteArray()
-                result.contentType = contentType
-                result.status = connection.responseCode
+                    result.data = outputStream.toByteArray()
+                    result.contentType = contentType
+                    result.status = connection.responseCode
+                }
+                catch(e)
+                {
+                    log.debug(e.toString())
+                    result.status = 400
+                }
             }
         }
 
         if(result.status != 200)
         {
-            def imageType = cmd?.format?.split( '/' )?.last()
-            def outputStream = new ByteArrayOutputStream()
-
-            def image
-
-            switch(imageType.toUpperCase())
-            {
-                case "JPEG":
-                    image = new BufferedImage( tileWidth, tileHeight, BufferedImage.TYPE_INT_RGB )
-                    break
-                default:
-                    image = new BufferedImage( tileWidth, tileHeight, BufferedImage.TYPE_INT_ARGB )
-                    break
-            }
-
-            ImageIO.write( image, cmd?.format?.split( '/' )?.last(), outputStream )
-
-            result.data        = outputStream.toByteArray()
-            result.contentType = cmd.format
-            //result.status      = 200
+            log.debug("WMTS: Returning blank Image")
+            result = createBlankImageOutput(cmd)
         }
         result
     }
