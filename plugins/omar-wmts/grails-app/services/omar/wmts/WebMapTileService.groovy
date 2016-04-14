@@ -343,6 +343,7 @@ class WebMapTileService implements InitializingBean{
         {
             log.debug("WMTS: Returning blank Image")
             result = createBlankImageOutput(cmd)
+            result.status = 404
         }
         result
     }
