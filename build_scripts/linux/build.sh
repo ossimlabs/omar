@@ -3,23 +3,19 @@ pushd `dirname $0` >/dev/null
 export SCRIPT_DIR=`pwd -P`
 popd >/dev/null
 
-. $SCRIPT_DIR/env.sh
-
-pushd $OMAR_HOME >/dev/null
-
-./gradlew assemble
-
-RETURN_CODE=$?
-if [ $RETURN_CODE -ne 0 ];then
-    echo "BUILD ERROR: omar-app failed build..."
-else
-    RETURN_CODE=0;
-fi
-
-#
+pushd $SCRIPT_DIR/../../.. >/dev/null
+export ROOT_DIR=$PWD
 popd >/dev/null
 
+. $SCRIPT_DIR/env.sh
 
-exit $RETURN_CODE
-
-
+for app in ${O2_APPS[@]} ; do 
+   echo "BUILDING: $app ..."
+   pushd $OMAR_DEV_HOME/apps/$app
+   ./gradlew assemble
+   if [ $? -ne 0 ];then
+       echo "BUILD ERROR: $x failed to build..."
+       exit 1
+   fi 
+   popd  
+done
