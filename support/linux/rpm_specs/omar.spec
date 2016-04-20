@@ -18,7 +18,6 @@ O2 Packages
 Summary:        OMAR/O2 UI application.
 Version:        %{O2_VERSION}
 Group:          System Environment/Libraries
-#Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires: ossim-oms
 
 
