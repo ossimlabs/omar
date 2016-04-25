@@ -1,32 +1,28 @@
 # Welcome to WMTS Web Application
 
-WMTS implements the [OGC WMTS standard](http://www.opengeospatial.org/standards/wmts).  The WMTS web app uses the WMS and the WFS web applications and assumes these services are reachable via a http get call from the WMTS we application.  The WFS is used to query what features are about a requested area and the WMS web pplicaiton is used to chip out the data found over that area.  
+WMTS implements the [OGC WMTS standard](http://www.opengeospatial.org/standards/wmts).  The WMTS web app uses the [WMS](../wms-app/README.md) and the [WFS](../wfs-app/README.md) web applications and assumes these services are reachable via a http "GET" call from the WMTS service.  When the WMTS formatted query params are performed the WFS is used to query what features are about a requested area and the WMS service is used to chip out the data found over that area.  
 
 ##Installation
 
-The Current delivery is via RPM installation and the root URL can be found at [http://s3.amazonaws.com/o2-rpms/CentOS](http://s3.amazonaws.com/o2-rpms/CentOS). Note, the URL is not listable.
-
-We currently do not have an RPM install that creates a yum repo so a yum repo should be created manaually with the following contents:
+We assume you have configured the yum repository described in the [root location](../../README.md).  To install you should be able to issue the following yum command
 
 ```yum
-[ossim]
-name=CentOS-$releasever - ossim packages for $basearch
-baseurl=http://s3.amazonaws.com/o2-rpms/CentOS/$releasever/dev/$basearch
-enabled=1
-gpgcheck=0
-metadata_expire=5m
-protect=1
+yum install o2-wmts-app
 ```
 
-This is for the dev branch location.  If you wish to have access to the master branch then you can change the location to be master for the baseurl:
+The installation will put a fat jar located under /usr/share/omar/wmts-app/ location.  At the time of writing this document the only file installed via the RPM is the fat jar.
 
- baseurl=http://s3.amazonaws.com/o2-rpms/CentOS/$releasever/master/$basearch
+You will next need to configure the application.
+
 
 ##Configuration
 
-The configuration file is a yaml formatted config file that contains the following settings:
+The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml that contains the following settings:
 
 ```yaml
+server:
+  port: 8080
+
 omar:
   wmts:
     wfsUrl: http://localhost:8080/wfs
@@ -36,7 +32,23 @@ omar:
 
 notice each indentation level is 2 characters and must not be a tab character.
 
-* <b>wfsUrl:</b> is used to identify the endpoint location for querying the WFS information.
-* <b>wmsUrl:</b> is used to chip a region based on the WMTS query specification.
-* <b>oldmarWmsFlag:</b> The format of the query string has changed in the newer versions of omar WMS implementation.   If you have an installation of OMAR that is 1.8.20 or older then you can turn this flag on and it should enable a different query string for requesting the WMS chip.
+* <b>port:</b> For the server.port you can set the port that the web application will come up on.  By default the port is 8080
+* <b>wfsUrl:</b> is used to identify the endpoint location for querying the WFS information.  The default location of localhost will have to be changed to your installation of the OMAR wfs service.
+* <b>wmsUrl:</b> is used to chip a region based on the WMTS query specification.  The default location of localhost will have to be changed to where the WMS chipping endpoint resides. 
+* <b>oldmarWmsFlag:</b> The format of the query string has changed in the newer versions of omar WMS implementation.   If you have an installation of OMAR that is 1.8.20 or older then you can turn this flag on and it will enable a different query string for requesting the WMS chip.
+
+##Executing
+
+After you have setup your wmts-app.yaml file you can run the application by issuing the following command:
+
+```
+java -jar /usr/share/omar/wmts-app/wmts-app-<version>.jar --spring.config.location=<location wmts-app.yaml>
+```
+For better performance you might want to tune the JAVA options for your environment.  Here is an example but you may add any number of additional JAVA_OPTS to the options.
+
+```
+export JAVA_OPTS="-server -Xms256m -Xmx2048m -Djava.awt.headless=true -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit"
+java $JAVA_OPTS -jar /usr/share/omar/wmts-app/wmts-app-<version>.jar --spring.config.location=<location wmts-app.yaml>
+
+```
 
