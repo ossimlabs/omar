@@ -1,15 +1,21 @@
-# omar
+# Welcome to OMAR suite of Web Applications
 
-Requirements:
-  - Install Java 8 from Oracle
-  - Install http://sdkman.io/
-  - Use sdk to install Latest versions of Grails,  Groovy,  and Gradle
-  
-To build:
-  - from project root:  gradle build
-  
-To run:
-  - from project root/apps/omar-app   grails run-app
-  
-Caveat:
-  - We are using the data that comes with GeoServer to test,   should have a local copy in place before running
+
+
+## YUM Repository
+The current binary delivery for all the OMAR web applications is via a yum repository
+
+```yum
+[ossim]
+name=CentOS-$releasever - ossim packages for $basearch
+baseurl=http://s3.amazonaws.com/o2-rpms/CentOS/$releasever/dev/$basearch
+enabled=1
+gpgcheck=0
+metadata_expire=5m
+protect=1
+```
+
+create and repo file in you /etc/yum.repos.d directory location.  For now you can call it <b>ossim.repo</b>
+
+
+* [WMTS Installation and setup](apps/wmts-app/README.md)
