@@ -280,7 +280,6 @@ class WebMapTileService implements InitializingBean{
             urlWfsParams.each{k,v->urlWfsParams."${k}" = v?.encodeAsURL()}
             wfsUrl.setParams(urlWfsParams)
             String wfsUrlText
-
             try{
                 wfsUrlText=wfsUrl.text
                 // println wfsUrlText
@@ -312,12 +311,20 @@ class WebMapTileService implements InitializingBean{
             }
             if(ids)
             {
-                urlWmsParams.filter = "id in (${ids.join(',')})"
+                if(OmarWmtsUtils.wmtsConfig.oldmarWmsFlag)
+                {
+                   urlWmsParams.layers = "${ids.join(',')}"
+                }
+                else
+                {
+                   urlWmsParams.filter = "id in (${ids.join(',')})"
+
+                }
+               // urlWmsParams.filter = "id in (${ids.join(',')})"
                 URL wmsUrl = new URL("${OmarWmtsUtils.wmtsConfig.wmsUrl}")
                 urlWmsParams = urlWmsParams+wmsUrl.params
                 urlWmsParams.each{k,v->urlWmsParams."${k}" = v?.encodeAsURL()}
                 wmsUrl.setParams(urlWmsParams)
-
                 try{
                     HttpURLConnection connection = (HttpURLConnection)wmsUrl.openConnection();
                     Map responseMap = connection.headerFields;
