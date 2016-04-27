@@ -78,7 +78,7 @@ dependencies {
 
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails.plugins:geb"
-
+    compile "com.h2database:h2:1.4.191"
     // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
     testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
 
