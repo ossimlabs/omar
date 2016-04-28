@@ -120,4 +120,4 @@ omar:
   wmts:
     wfsUrl: http://localhost:8080/wfs
     wmsUrl: http://localhost:8080/wms
-    oldmarWmsFlag: false
+    legacyWmsFlag: false

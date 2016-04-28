@@ -311,7 +311,7 @@ class WebMapTileService implements InitializingBean{
             }
             if(ids)
             {
-                if(OmarWmtsUtils.wmtsConfig.oldmarWmsFlag)
+                if(OmarWmtsUtils.wmtsConfig.legacyWmsFlag)
                 {
                    urlWmsParams.layers = "${ids.join(',')}"
                 }
