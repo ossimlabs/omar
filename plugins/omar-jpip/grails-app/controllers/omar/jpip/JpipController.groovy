@@ -8,9 +8,11 @@ class JpipController {
 
     def index() {
         render ""
+
     }
 
-    def convert(){
+    def stream()
+    {
         def jsonData = request.JSON?request.JSON as HashMap:null
         def requestParams = params - params.subMap( ['controller', 'action'] )
         def cmd = new ConvertCommand()
@@ -20,12 +22,32 @@ class JpipController {
         BindUtil.fixParamNames( ConvertCommand, requestParams )
         bindData( cmd, requestParams )
 
+        def jsonResult = jpipService.stream( cmd )
+
+        if ( jsonResult == null )
+        {
+            response.sendError(404)
+        }
+        else
+        {
+            render( jsonResult )
+        }
+    }
+
+   /*
+    def convert() {
+        def jsonData = request.JSON?request.JSON as HashMap:null
+        def requestParams = params - params.subMap( ['controller', 'action'] )
+        def cmd = new ConvertCommand()
+
+        // get map from JSON and merge into parameters
+        if(jsonData) requestParams << jsonData
+        BindUtil.fixParamNames( ConvertCommand, requestParams )
+        bindData( cmd, requestParams )
 
         jpipService.convert(cmd)
 
-//        println cmd
-
         render "Hello"
-
     }
+    */
 }

@@ -115,3 +115,25 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+jpip:
+   server:
+      cache: /data/omar/jpip_server/cache
+      log:   /data/omar/jpip_server/log/omar-jpip-server-log.txt
+      ip:    10.0.10.100
+      url:   jpip://10.0.10.100:9000
+
+# Example on enabling logging
+# LEVELS:
+# off
+# fatal
+# error
+# warn
+# info
+# debug
+# trace
+# all
+logging:
+   level:
+      omar.jpip: all
+
