@@ -56,6 +56,8 @@ dependencies {
     provided "org.springframework.boot:spring-boot-autoconfigure"
     provided "org.springframework.boot:spring-boot-starter-tomcat"
 
+    compile 'org.postgresql:postgresql:9.3-1103-jdbc41'
+    
     provided "org.grails:grails-web-boot"
     provided "org.grails:grails-dependencies"
     provided 'javax.servlet:javax.servlet-api:3.1.0'
