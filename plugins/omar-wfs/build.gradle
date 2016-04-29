@@ -63,6 +63,7 @@ grails {
     exploded = true
     plugins {
       compile project(':omar-geoscript')
+      compile project( ':omar-hibernate-spatial' )
     }
 }
 
