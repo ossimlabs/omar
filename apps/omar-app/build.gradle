@@ -23,7 +23,7 @@ version "1.0.0"
 group "omar.app"
 
 apply plugin: "spring-boot"
-apply plugin: "war"
+//apply plugin: "war"
 apply plugin: "asset-pipeline"
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -100,7 +100,7 @@ dependencies {
 
   console "org.grails:grails-console"
 
-  compile "org.grails.plugins:grails3-cors-interceptor:0.1.5"
+  compile "org.grails.plugins:grails3-cors-interceptor:0.1.6"
 
   // UI Webjar core dependencies
   compile 'org.webjars:jquery:2.1.4'
