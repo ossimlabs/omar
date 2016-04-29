@@ -41,7 +41,7 @@ assets {
   //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
   includes = ["fonts/*"]
   excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
-              '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
+              '.grunt/**', '**/locale/**', '**/intro.unminified.js', '**/outro.unminified.js']
 }
 
 repositories {
