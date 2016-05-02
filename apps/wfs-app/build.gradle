@@ -82,7 +82,7 @@ dependencies {
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails.plugins:geb"
     
-    compile "org.grails.plugins:grails3-cors-interceptor:0.1.5"
+    compile "org.grails.plugins:grails3-cors-interceptor:0.1.6"
 
     // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
     testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'

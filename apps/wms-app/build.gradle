@@ -77,7 +77,7 @@ dependencies {
 
     runtime "org.grails.plugins:asset-pipeline"
 
-    compile "org.grails.plugins:grails3-cors-interceptor:0.1.5"
+    compile "org.grails.plugins:grails3-cors-interceptor:0.1.6"
 
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails.plugins:geb"
