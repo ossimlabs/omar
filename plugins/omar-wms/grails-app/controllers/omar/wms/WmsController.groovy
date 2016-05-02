@@ -71,22 +71,61 @@ class WmsController
 		BindUtil.fixParamNames( GetMapRequest, params )
 		bindData( wmsParams, params )
 
-		def results = webMappingService.getMap( wmsParams )
+//		def results = webMappingService.getMap( wmsParams )
+//
+//		try{
+//			render contentType: results.contentType, file: results.buffer
+//			def otherParams = results.metrics
+//
+//			otherParams.ip = IpUtil.getClientIpAddr(request)
+//			wmsLogService.logGetMapRequest( wmsParams, otherParams )
+//			//println getClientIpAddr(request)
+//
+//		}
+//		catch(e)
+//		{
+//			response.status = 404
+//			render e.toString()
+//		}
 
-		try{
-			render contentType: results.contentType, file: results.buffer
-			def otherParams = results.metrics
+		// Getting the outputStream then testing in the finally will get rid
+		// of the exceptions that state:
+		//    Caused by: org.grails.gsp.GroovyPagesException: Error processing GroovyPageView: getOutputStream() has already been called for this response
+		// After putting in the finally and the try catches you see the message is now trapped
+		//
+		def outputStream = null
+		try
+		{
+			outputStream = response.outputStream
+			def result = webMappingService.getMap( wmsParams )
 
+			if(result.contentType) response.contentType = result.contentType
+			if(result.buffer?.length) response.contentLength = result.buffer.length
+			if(outputStream)
+			{
+				outputStream << result.buffer
+			}
+			def otherParams = result.metrics
 			otherParams.ip = IpUtil.getClientIpAddr(request)
 			wmsLogService.logGetMapRequest( wmsParams, otherParams )
-			//println getClientIpAddr(request)
-
 		}
-		catch(e)
+		catch ( e )
 		{
-			response.status = 404
-			render e.toString()
+			log.debug(e.toString())
 		}
+		finally{
+			if(outputStream!=null)
+			{
+				try{
+					outputStream.close()
+				}
+				catch(e)
+				{
+					log.debug(e.toString())
+				}
+			}
+		}
+
 
 	}
 
