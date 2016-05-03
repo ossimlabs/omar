@@ -151,6 +151,7 @@ class SuperOverlayService implements InitializingBean
     def transparent = false
     def ext = "jpg"
     def level = params.level as Integer
+
     if ( edgeTileFlag )
     {
       format = "image/png"
@@ -170,8 +171,19 @@ class SuperOverlayService implements InitializingBean
         bbox: "${tileBounds.minx},${tileBounds.miny},${tileBounds.maxx},${tileBounds.maxy}"] )
     def wmsMap = wmsRequest.toMap()
     Utility.removeEmptyParams( wmsMap )
+    String defaultWmsUrl = grailsLinkGenerator.link(
+                           absolute: true, controller: 'wms',
+                           action: 'getMap', params: wmsMap )
 
-    println wmsMap
+    if(OmarSuperOverlayUtils.superOverlayConfig.wmsUrl)
+    {
+      URL wmsUrl = new URL(OmarSuperOverlayUtils.superOverlayConfig.wmsUrl)
+      HashMap urlWmsParams = wmsMap+wmsUrl.params
+      wmsUrl.setParams(urlWmsParams)
+
+      defaultWmsUrl = wmsUrl.toString()
+    }
+    //println wmsMap
 
     //def minLod = Math.sqrt(tileSize.width*tileSize.height)
     //def maxLod = minLod
@@ -217,10 +229,13 @@ class SuperOverlayService implements InitializingBean
             Icon() {
               href {
                 mkp.yieldUnescaped( """<![CDATA[${
-                  grailsLinkGenerator.link(
-                      absolute: true, controller: 'wms',
-                      action: 'getMap', params: wmsMap )
+                  defaultWmsUrl
                 }]]>""" )
+//                mkp.yieldUnescaped( """<![CDATA[${
+//                  grailsLinkGenerator.link(
+//                      absolute: true, controller: 'wms',
+//                      action: 'getMap', params: wmsMap )
+//                }]]>""" )
               }
               viewRefreshMode( "onExpire" )
             }
