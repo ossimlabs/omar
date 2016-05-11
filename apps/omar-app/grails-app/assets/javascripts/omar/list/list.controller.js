@@ -7,7 +7,7 @@
         function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, $scope, $http, $location) {
 
             // #################################################################################
-            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
             // provides access to various client params in application.yml
             // #################################################################################
             //console.log('AppO2.APP_CONFIG in HomeController: ', AppO2.APP_CONFIG);
@@ -108,6 +108,7 @@
             // {{list.o2baseUrl}}/#{{list.o2contextPath}}/mapOrtho?layers={{image.properties.id}}
             //http://localhost/omar-app/omar/#/mapOrtho?layers=118
             vm.o2baseUrl = AppO2.APP_CONFIG.serverURL + '/omar';
+            console.log('vm.o2baseUrl: ', vm.o2baseUrl);
             //vm.o2contextPath = AppO2.APP_CONTEXTPATH;
 
             vm.displayFootprint = function(obj){
@@ -197,7 +198,7 @@
 
             vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
             vm.logRatingToPio = function(imageId) {
-                
+
                 if (vm.pioAppEnabled) {
                     console.log(vm.pioAppEnabled);
 
@@ -221,7 +222,7 @@
 
                     });
 
-                }                
+                }
 
             };
 
@@ -239,9 +240,9 @@
             //console.log('modal', modal);
 
             //AppO2.APP_PATH is passed down from the .gsp
-            vm.o2baseUrlModal = AppO2.APP_CONFIG.serverURL;
-            //vm.o2contextPathModal = AppO2.APP_CONTEXTPATH; 
-            
+            vm.o2baseUrlModal = AppO2.APP_CONFIG.serverURL + '/omar';
+            //vm.o2contextPathModal = AppO2.APP_CONTEXTPATH;
+
             var imageSpaceObj = {
                 filename: imageObj.properties.filename,
                 entry: imageObj.properties.entry_id,
