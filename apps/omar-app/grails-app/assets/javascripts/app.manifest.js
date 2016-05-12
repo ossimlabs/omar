@@ -36,7 +36,8 @@
 //= require omar/services/map.service.js
 //= require omar/services/multiple.service.js
 //= require omar/services/image-space.service.js
-
+//= require omar/services/jpip.service.js
+//
 // <--Nav-->
 //= require omar/nav/nav.controller.js
 

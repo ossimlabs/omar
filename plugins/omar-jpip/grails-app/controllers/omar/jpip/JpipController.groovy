@@ -1,5 +1,6 @@
 package omar.jpip
 
+import grails.converters.JSON
 import omar.core.BindUtil
 
 class JpipController {
@@ -13,24 +14,31 @@ class JpipController {
 
     def stream()
     {
-        def jsonData = request.JSON?request.JSON as HashMap:null
-        def requestParams = params - params.subMap( ['controller', 'action'] )
-        def cmd = new ConvertCommand()
-
-        // get map from JSON and merge into parameters
-        if(jsonData) requestParams << jsonData
-        BindUtil.fixParamNames( ConvertCommand, requestParams )
-        bindData( cmd, requestParams )
-
-        def jsonResult = jpipService.stream( cmd )
-
-        if ( jsonResult == null )
+	try
         {
-            response.sendError(404)
+            def jsonData = request.JSON ? request.JSON as HashMap : null
+            def requestParams = params - params.subMap(['controller', 'action'])
+            def cmd = new ConvertCommand()
+
+            // get map from JSON and merge into parameters
+            if (jsonData) requestParams << jsonData
+            BindUtil.fixParamNames(ConvertCommand, requestParams)
+            bindData(cmd, requestParams)
+
+            HashMap result = jpipService.stream(cmd)
+            if (result == null) {
+                response.sendError(404)
+            } else {
+                render contentType: "application/json", text: (result as JSON).toString()
+            }
         }
-        else
+        catch ( e )
         {
-            render( jsonResult )
+            // log.error e.message.toString()
+            response.status = 400
+            // println e.message
+            render e.toString()
+            //  render contentType: 'application/xml', text: exceptionService.createMessage( e.message )
         }
     }
 

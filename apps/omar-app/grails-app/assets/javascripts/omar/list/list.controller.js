@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', '$scope', '$http', '$location', ListController]);
+        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', '$location', ListController]);
 
-        function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, $scope, $http, $location) {
+    function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http, $location) {
 
             // #################################################################################
             // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -104,6 +104,13 @@
 
             }
 
+            // Shows/Hides the jpip stream button based on parameters passed down
+            // from application.yml
+            vm.jpipAppEnabled = AppO2.APP_CONFIG.params.jpipApp.enabled;
+            if (vm.jpipAppEnabled) {
+                vm.jpipLink = AppO2.APP_CONFIG.params.jpipApp.baseUrl;
+            }
+
             //AppO2.APP_PATH is passed down from the .gsp
             // {{list.o2baseUrl}}/#{{list.o2contextPath}}/mapOrtho?layers={{image.properties.id}}
             //http://localhost/omar-app/omar/#/mapOrtho?layers=118
@@ -122,6 +129,18 @@
                 mapService.mapRemoveImageFootprint();
 
             };
+
+            vm.getJpipStream = function (file, entry) {
+               
+               console.log('list.getJpipStream entered...');
+               console.log(file);
+               console.log(entry);
+
+               jpipService.getJpipStream(file, entry);
+               
+               console.log('list.getJpipStream exited...');
+            };
+            
 
             vm.currentAttrFilter = wfsService.attrObj;
             vm.currentSortText = "Acquired (Newest)";

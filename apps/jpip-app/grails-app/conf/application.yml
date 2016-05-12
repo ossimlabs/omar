@@ -88,10 +88,10 @@ dataSource:
 environments:
     development:
         dataSource:
-#            dbCreate: update
-            dbCreate: create-drop
-#            url: jdbc:postgresql:omardb-1.8.20-prod
-            url: jdbc:postgresql:omardb-dev
+            dbCreate: update
+#            dbCreate: create-drop
+            url: jdbc:postgresql:omardb-1.8.20-prod
+#            url: jdbc:postgresql:omardb-dev
     test:
         dataSource:
             dbCreate: update
@@ -140,5 +140,6 @@ jpip:
 # all
 logging:
    level:
-      omar.jpip: all
+      omar.jpip: trace
+
 

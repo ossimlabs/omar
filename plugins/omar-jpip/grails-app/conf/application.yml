@@ -135,5 +135,6 @@ jpip:
 # all
 logging:
    level:
-      omar.jpip: all
+      omar.jpip: trace
+
 

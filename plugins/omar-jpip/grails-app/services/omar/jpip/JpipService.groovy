@@ -29,7 +29,7 @@ class JpipService
     {
        log.trace("JpipService::stream entered...")
 
-       def jsonResult = null
+       HashMap result = null
 
        def row = JpipImage.findByFilenameAndEntry(cmd.filename, cmd.entry)
        if(!row)
@@ -40,13 +40,12 @@ class JpipService
           row = JpipImage.findByFilenameAndEntry(cmd.filename, cmd.entry)
        }
 
-       jsonResult = getJson( row )
+       result = getJpipLink( row )
 
-       log.info("jsonResult: ${jsonResult}")
-
+       log.info("result: ${result}")
        log.trace("JpipService::stream exited...")
 
-       jsonResult
+       result
     }
 
     def convert(ConvertCommand cmd)
@@ -110,6 +109,8 @@ class JpipService
            log.info( "input_file: ${inFile}")
            log.info( "output_file: ${outFile}")
 
+	   // TODO: Make 'operation' ortho or chip from flag.
+
            def jpipId = jpipJobMap.jpipId
             HashMap initOps = [
                     hist_op:  "auto-minmax",
@@ -154,14 +155,16 @@ class JpipService
       return result
    }
 
-   String getJson( JpipImage row )
+   HashMap getJpipLink( JpipImage row )
    {
-      String result = new String()
+      HashMap result = [:]
       if ( row != null )
       {
          String urlString = getServerUrl()
          urlString += "/" + row.jpipId + ".jp2"
-         result = "{ url: ${urlString}, status: " + row.status + " }"
-      }
+         result.url = urlString
+         result.status = row.status
+     }
+      result
    }
 }
