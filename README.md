@@ -162,7 +162,7 @@ We will use our common user name "omar" and create a group with the same name.  
 
 
 ```bash
-adduser -r -d /var/run/<service-name> --no-create-home --user-group omar
+adduser -r -d /usr/share/omar --no-create-home --user-group omar
 ```
 
 This account will be used for running a service with a common "omar" user name and group.
