@@ -1,7 +1,10 @@
 # Welcome to WMS Web Service
 WMS Implements the [OGC WMS standard](http://www.opengeospatial.org/standards/wms).  The WMS service uses the JAVA bindings to the OSSIM core library to perform all on-the-fly chipping of raw imagery via a WMS **GetMap** query.    
 
+If you want to take it for a test drive please visit the [vagrant setup](https://github.com/ossimlabs/ossim-vagrant).
+
 ##Installation
+
 We assume you have configured the yum repository described in [OMAR repository README](../../README.md).  To install you should be able to issue the following yum command
 
 ```yum
