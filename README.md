@@ -159,18 +159,17 @@ sudo setsebool -P httpd_can_network_connect on
 
 We will use our common user name "omar" and create a group with the same name.  We will not create the home account and make this a system user.
 
-
-
-```bash
+```
 adduser -r -d /usr/share/omar --no-create-home --user-group omar
 ```
 
 This account will be used for running a service with a common "omar" user name and group.
 
 ### Service Templates For init.d
-For systems using the startup for init.d we add a file called /et/init.d/\<program_name>.  The template contents should look similar to the following:
 
-```bash
+Installing from RPM you should not have to add this file but we will specify it here for clarity.  For systems using the startup for init.d we add a file called /etc/init.d/\<program_name>.  The template contents should look similar to the following:
+
+```
 #!/bin/bash
 #
 ### BEGIN INIT INFO
@@ -387,7 +386,7 @@ If you were creating a startup script for wmts-app then all occurances of the pa
 
 ### Service Templates For Systemd
 
-All systemd startup scripts will be setup and installed in the location /usr/lib/systemd/system/<app-name>.service.   The contents of each systemd servcie file will look something like the following:
+Using the CentOS 7 RPM repo for the OMAR distribution it will automatically install the systemd startup scripts in the location /usr/lib/systemd/system/<app-name>.service.   The contents of each systemd service file will look something like the following:
 
 ```bash
 [Service]
@@ -406,12 +405,24 @@ Restart=on-abort
 
 All web application are installed under the /usr/share/omar/\<program_name> directory.
 
+### Common Server Port and Context
+
+All services will have a common configuration entry in their yaml file that contains an entry of the form:
+
+```
+server:
+  contextPath:
+  port: 8080
+```
+
+* **contextPath** You can specify the context path and this is added to the URL to the server.  If the context is say "O2" then to access the url root path you will need to proxy to the location \<ip>:\<port>/O2
+* **port**  Defines the port that this servcie will listen on.  Default is port 8080
 
 ### Common Database
 
 We typically use a common database server to store any service specific table data.  Within this installation we have tested against a Postgres database server.  All services will have a common configuration entry in their yaml file that contains an entry of the form:
 
-```yaml
+```
 environments:
   production:
     dataSource:
@@ -424,7 +435,10 @@ environments:
       url: jdbc:postgresql://<ip>:<port>/omardb-prod
 
 ```
-In each of the individual services documentation they will describe further where their configuration yaml file is located. The above **dataSource** defines Postgres as our connecting source and we assume a postgres instance is setup for us to connect to.  In the connection you will need to specify the **url** to connect to and so the **ip** and **port** will need to be replaced with your database server instance. Postgres typically defaults to **port** 5432. Depending on how the authentication is setup you will need to specify the **username** and **password**.
+
+* **dataSource.url** In each of the individual service documentation they will describe further where their configuration yaml file is located. The above **dataSource** defines Postgres as our connecting source and we assume a postgres instance is setup for us to connect to.  In the connection you will need to specify the **url** to connect to. The **ip** and **port** will need to be replaced with your database server instance. Postgres typically defaults to **port** 5432.
+* **dataSource.username** username for the database.
+* **dataSource.password** password for the database.
 
 ## Web Service Configuration
 

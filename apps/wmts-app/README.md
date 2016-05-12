@@ -6,7 +6,7 @@ WMTS implements the [OGC WMTS standard](http://www.opengeospatial.org/standards/
 
 We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR repository README](../../README.md).  To install you should be able to issue the following yum command
 
-```yum
+```
 yum install o2-wmts-app
 ```
 
@@ -23,13 +23,13 @@ The installation sets up
 
 The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
-```bash
+```
 vi /usr/share/omar/wmts-app/wmts-app.yml
 ```
 
  that contains the following settings:
 
-```yaml
+```
 server:
   contextPath:
   port: 8080
@@ -50,6 +50,12 @@ omar:
     wfsUrl: http://<wfs-service-ip>:8080/wfs
     wmsUrl: http://<wms-service-ip>:8080/wms
     oldmarWmsFlag: false
+---
+grails:
+  serverURL: http://<ip>/stager-app
+  assets:
+    url: http://<ip>/stager-app/assets/
+
 ```
 Please modify the configuration for your environment.
 
@@ -61,6 +67,8 @@ notice each indentation level is 2 characters and must not be a tab character.
 * **wfsUrl:** is used to identify the endpoint location for querying the WFS information.  The default location of localhost will have to be changed to your installation of the OMAR wfs service. If you are going through a proxy then ignore the port and use the proxy path to the service.
 * **wmsUrl:** is used to chip a region based on the WMTS query specification.  The default location of localhost will have to be changed to where the WMS chipping endpoint resides. 
 * **oldmarWmsFlag:** The format of the query string has changed in the newer versions of omar WMS implementation.   If you have an installation of OMAR that is 1.8.20 or older then you can turn this flag on and it will enable a different query string for requesting the WMS chip.
+* **grails.serverURL** point to the root location of the wmts-app server. This example in the template above points to service via a proxy definition.  If you go directly to the service via 8080 then you can drop the proxy prefix /stager-app
+* **assets url** This is the url to the assets location.  Just add the **/assets/** path to the serverURL.
 
 ##Executing
 
