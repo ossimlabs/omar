@@ -448,3 +448,4 @@ We have seen the common settings found on all of the Web Application Services.  
 * [WMS Installation and setup](apps/wms-app/README.md)
 * [WFS Installation and setup](apps/wfs-app/README.md)
 * [Stager Installation and setup](apps/stager-app/README.md)
+* [Swipe Installation and setup](apps/swipe-app/README.md)
