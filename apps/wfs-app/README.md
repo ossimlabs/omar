@@ -1,4 +1,4 @@
-# Welcome to WFS Web Application
+# Welcome to WFS Service
 
 WFS Implements the [OGC WFS standard](http://www.opengeospatial.org/standards/wfs).  The Web Feature Service (WFS) supports returning feature information indexed into either the imagery tables or the video tables.
 

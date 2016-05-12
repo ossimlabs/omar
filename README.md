@@ -447,3 +447,4 @@ We have seen the common settings found on all of the Web Application Services.  
 * [WMTS Installation and setup](apps/wmts-app/README.md)
 * [WMS Installation and setup](apps/wms-app/README.md)
 * [WFS Installation and setup](apps/wfs-app/README.md)
+* [Stager Installation and setup](apps/stager-app/README.md)
