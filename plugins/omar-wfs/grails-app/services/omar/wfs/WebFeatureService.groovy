@@ -450,7 +450,7 @@ class WebFeatureService
 
 		Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
 			def layer = workspace[ layerInfo.name ]
-			def count = layer.count( wfsParams.filter )
+			def count = layer.count( wfsParams.filter ?: Filter.PASS)//wfsParams.filter )
 
 //      println features
 
