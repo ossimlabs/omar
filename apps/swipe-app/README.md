@@ -1,10 +1,10 @@
 # Welcome to the Swipe Service
 
-The swipe service takes two image ID's as input and allows one to swipe, manual flip, or auto flip the images to see changes.  It uses existing [WFS](../wfs-app/README.md) and [WMS](../wms-app/README.md) services.  The WFS is used to query the holding for the datasets used in the swipe.  The WMS chips data displayed in the swipe view.
+The swipe service takes two image ID's as input and allows one to swipe, manual flip, or auto flip the images to see changes.  It uses existing [WFS](../wfs-app) and [WMS](../wms-app) services.  The WFS is used to query the holding for the datasets used in the swipe.  The WMS chips data displayed in the swipe view.
 
 
 ##Installation
-We assume you have configured the yum repository described in [OMAR repository README](../../README.md).  To install you should be able to issue the following yum command
+We assume you have configured the yum repository described in [OMAR repository README](../..).  To install you should be able to issue the following yum command
 
 ```yum
 yum install o2-swipe-app

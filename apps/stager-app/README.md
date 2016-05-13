@@ -3,7 +3,7 @@
 The stager service currently indexes the data into the OMAR system.  If you want to take it for a test drive please visit the [vagrant setup](https://github.com/ossimlabs/ossim-vagrant).
 
 ##Installation
-We assume you have configured the yum repository described in [OMAR repository README](../../README.md).  To install you should be able to issue the following yum command
+We assume you have configured the yum repository described in [OMAR repository README](../..).  To install you should be able to issue the following yum command
 
 ```yum
 yum install o2-stager-app
@@ -54,7 +54,7 @@ grails:
     url: http://<ip>/stager-app/assets/
 ```
 
-* **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Readme guide](../../README.md).
+* **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Readme guide](../..).
 * **quartz.jdbcStore:** This service supports background jobs using the quartz framework.  Just fix this to not use the jdbcStore.   For now the requests are not persistent.
 * **grails.serverURL** point to the root location of the wmts-app server. This example in the template above points to service via a proxy definition.  If you go directly to the service via 8080 then you can drop the proxy prefix /stager-app
 * **assets url** This is the url to the assets location.  Just add the **/assets/** path to the serverURL.
