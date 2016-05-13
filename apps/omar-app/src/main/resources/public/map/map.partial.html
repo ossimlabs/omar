@@ -716,6 +716,9 @@
                                     alt="Image thumbnail"
                                     style="cursor: pointer;"
                                 >&nbsp;
+                                <span class="processInfo" ng-show="false">
+                                  <i class="fa fa-cog fa-spin text-info"></i><span style="font-size: .7em">&nbsp;Processing {item}</span>
+                                </span>
                             </div>
                             <div class="media-body">
                                 <!--<div class="row">-->
@@ -823,23 +826,26 @@
                                                    tooltip-placement="right"
                                                    uib-tooltip="E-mail a link to this image"></i>&nbsp;&nbsp;
                                             </a>
-                                            <a ng-show="{{list.jpipAppEnabled}}" href="{{list.jpipLink}}/stream?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}">
+                                            <!-- <a ng-show="{{list.jpipAppEnabled}}" href="{{list.jpipLink}}/stream?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}">
                                                 <i class="fa fa-map fa-border text-primary"
                                                    style="cursor: pointer;"
                                                    tooltip-placement="right"
                                                    uib-tooltip="jpip stream link"></i>&nbsp;&nbsp;
-                                            </a>
+                                            </a> -->
                                             <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream(image.properties.filename,image.properties.entry_id);">
-                                                <i class="fa fa-map fa-border text-primary"
-                                                   style="cursor: pointer;"
+                                                <i class="fa fa-rocket fa-border text-primary"
+                                                   style="pointer-events: none;cursor: default;"
                                                    tooltip-placement="right"
-                                                   uib-tooltip="jpipstream link"></i>&nbsp;&nbsp;
+                                                   uib-tooltip="jpipstream link"></i>
                                             </a>
-                                            <span ng-show="{{list.jpipAppEnabled}}">
-                                                <button type="button" ng-click="list.getJpipStream(image.properties.filename,image.properties.entry_id);" uib-tooltip="Get link to jpip stream" class="fa fa-map fa-border text-primary" style="cursor: pointer;">
-                                                    jpip
-                                                </button> 
-                                            </span>
+                                            <!-- <span ng-show="{{list.jpipAppEnabled}}">
+                                                <button type="button" ng-click="list.getJpipStream(image.properties.filename,image.properties.entry_id);" uib-tooltip="Get link to jpip stream" style="cursor: pointer;">
+                                                  <i class="fa fa-map fa-border text-primary"
+                                                     style="pointer-events: none;cursor: default;"
+                                                     tooltip-placement="right"
+                                                     uib-tooltip="jpipstream link"></i>
+                                                </button>
+                                            </span> -->
                                         </p>
                                     </div>
                                 </div>
