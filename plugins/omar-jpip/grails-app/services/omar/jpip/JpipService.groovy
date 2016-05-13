@@ -144,14 +144,14 @@ class JpipService
    String getCacheDir()
    {
       String result = new String()
-      result = grailsApplication.config.getProperty('jpip.server.cache', "/tmp")
+      result = OmarJpipReflectionUtils.jpipConfig.server.cache //grailsApplication.config.getProperty('jpip.server.cache', "/tmp")
       return result
    }
 
    String getServerUrl()
    {
       String result = new String()
-      result = grailsApplication.config.getProperty('jpip.server.url')?:null
+      result = OmarJpipReflectionUtils.jpipConfig.server.url //grailsApplication.config.getProperty('jpip.server.url')?:null
       return result
    }
 
