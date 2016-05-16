@@ -25,25 +25,43 @@ class JpipService
         result
     }
 
-    def stream(ConvertCommand cmd)
+    def createStream(ConvertCommand cmd)
     {
-       log.trace("JpipService::stream entered...")
+       log.trace("JpipService::createStream entered...")
 
        HashMap result = null
 
-       def row = JpipImage.findByFilenameAndEntry(cmd.filename, cmd.entry)
+       def row = JpipImage.findByFilenameAndEntryAndProjCode(cmd.filename, cmd.entry, cmd.projCode)
        if(!row)
        {
           convert( cmd )
 
           // Get the row again:
-          row = JpipImage.findByFilenameAndEntry(cmd.filename, cmd.entry)
+          row = JpipImage.findByFilenameAndEntryAndProjCode(cmd.filename, cmd.entry, cmd.projCode)
        }
 
        result = getJpipLink( row )
 
        log.info("result: ${result}")
-       log.trace("JpipService::stream exited...")
+       log.trace("JpipService::createStream exited...")
+
+       result
+    }
+
+    def removeStream(ConvertCommand cmd)
+    {
+       log.trace("JpipService::removeStream entered...")
+
+       def row = JpipImage.findByFilenameAndEntryAndProjCode(cmd.filename, cmd.entry, cmd.projCode)
+       if(!row)
+       {
+          // TODO:
+       }
+
+       result = getJpipLink( row )
+
+       log.info("result: ${result}")
+       log.trace("JpipService::removeStream exited...")
 
        result
     }
@@ -53,13 +71,15 @@ class JpipService
        log.trace("JpipService::convert entered...")
        log.info("cmd: ${cmd}")
 
-       def row = JpipImage.findByFilenameAndEntry(cmd.filename, cmd.entry)
-
+       def row = JpipImage.findByFilenameAndEntryAndProjCode(cmd.filename, cmd.entry, cmd.projCode)
        if(!row)
        {
-          String uuidString = UUID.randomUUID().toString()
-          JpipImage image = new JpipImage(filename:cmd.filename,
+          String uuidString = "${UUID.randomUUID().toString()}-${cmd.projCode}"
+          
+          JpipImage image = new JpipImage(
+                filename:cmd.filename,
                 entry:cmd.entry,
+                projCode:cmd.projCode,
                 jpipId:uuidString,
                 status:JobStatus.READY.toString())
           if( !image.save(flush:true) )
@@ -70,7 +90,8 @@ class JpipService
           JpipJob job = new JpipJob(
                 jpipId: image.jpipId,
                 filename:cmd.filename,
-                entry:cmd.entry)
+                entry:cmd.entry,
+                projCode:cmd.projCode)
           //image.jpipId
 
           if( !job.save(flush:true) )
@@ -85,11 +106,14 @@ class JpipService
     def updateStatus(String jpipId, String status)
     {
         JpipImage row = JpipImage.findByJpipId(jpipId)
-
-        if(row.status != status)
+	
+        if ( row )
         {
-            row.status = status
-            row.save(flush:true)
+            if(row.status != status)
+            {
+                row.status = status
+                row.save(flush:true)
+            }
         }
 
         row = null
@@ -97,35 +121,65 @@ class JpipService
 
     def convertImage(HashMap jpipJobMap)
     {
-       log.trace( "convertImage: entered...")
+        log.trace( "convertImage: entered...")
 
         if(jpipJobMap)
         {
-           String jpipCacheDir = getCacheDir()
-           String inFile = "${jpipJobMap?.filename}".toString()
-           String entry = "${jpipJobMap?.entry}".toString()
-           String outFile = "${jpipCacheDir}/${jpipJobMap?.jpipId}.jp2".toString()
+            String jpipCacheDir = getCacheDir()
+            String inFile = "${jpipJobMap?.filename}".toString()
+            String entry = "${jpipJobMap?.entry}".toString()
+            String outFile = "${jpipCacheDir}/${jpipJobMap?.jpipId}.jp2".toString()
 
-           log.info( "input_file: ${inFile}")
-           log.info( "output_file: ${outFile}")
+            log.info( "input_file: ${inFile}")
+            log.info( "output_file: ${outFile}")
 
-	   // TODO: Make 'operation' ortho or chip from flag.
+	    // TODO: Make 'operation' ortho or chip from flag.
 
-           def jpipId = jpipJobMap.jpipId
-            HashMap initOps = [
+            def jpipId = jpipJobMap.jpipId
+            HashMap initOps
+            if ( jpipJobMap.projCode.toLowerCase() == "chip" )
+            {
+                initOps = [
                     hist_op:  "auto-minmax",
                     "image0.file": inFile,
                     "image0.entry": outFile,
-                    // operation:  "chip",
-                    operation:  "ortho",
+                    operation: "chip",
                     output_file: outFile,
-                    output_radiometry:  "U8",
+                    output_radiometry: "U8",
+                    three_band_out: "true",
+                    writer: "ossim_kakadu_jp2",
+                    writer_property0:"compression_quality=epje"]
+             }
+             else if ( jpipJobMap.projCode.toLowerCase() == "geo-scaled" )
+             {
+                initOps = [
+                    hist_op:  "auto-minmax",
+                    "image0.file": inFile,
+                    "image0.entry": outFile,
+                    operation: "ortho",
+                    output_file: outFile,
+                    output_radiometry: "U8",
                     projection: "geo-scaled",
-                    three_band_out:  "true",
+                    three_band_out: "true",
                     writer:  "ossim_kakadu_jp2",
                     writer_property0:"compression_quality=epje"]
+            }
+            else
+            {
+                initOps = [
+                    hist_op:  "auto-minmax",
+                    "image0.file": inFile,
+                    "image0.entry": outFile,
+                    operation: "ortho",
+                    output_file: outFile,
+                    output_radiometry: "U8",
+                    srs: "EPSG:${jpipJobMap?.projCode}".toString(),
+                    three_band_out: "true",
+                    writer: "ossim_kakadu_jp2",
+                    writer_property0:"compression_quality=epje"]
+            }
 
-           log.debug("ChipperUtil options: ${initOps}")
+            log.debug("ChipperUtil options: ${initOps}")
 
             updateStatus(jpipId, JobStatus.RUNNING.toString())
             if(ChipperUtil.executeChipper(initOps))
@@ -138,7 +192,7 @@ class JpipService
             }
         }
 
-       log.trace("convertImage: exited...")
+        log.trace("convertImage: exited...")
     }
 
    String getCacheDir()

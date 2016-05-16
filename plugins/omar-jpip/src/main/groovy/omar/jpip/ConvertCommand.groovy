@@ -9,6 +9,7 @@ import groovy.transform.ToString
 @ToString(includeNames = true)
 class ConvertCommand  implements Validateable
 {
-   String filename
-   String entry
+   String  filename
+   String  entry
+   String  projCode
 }

@@ -138,8 +138,8 @@ jpip:
 # debug
 # trace
 # all
-logging:
-   level:
-      omar.jpip: trace
+# logging:
+#   level:
+#      omar.jpip: trace
 
 

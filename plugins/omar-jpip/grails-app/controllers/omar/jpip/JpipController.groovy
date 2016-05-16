@@ -34,6 +34,11 @@ class JpipController {
             <b>entry</b><p/>
             For multi entry Images you need to specify the entry number.   We should default to entry 0
         </li>
+        <br><br>
+        <li>
+            <b>projCode</b><p/>
+            chip=image space, geo-scaled - origin lat of true scale = image center, 4326 for geographic, 3857 for google mercator.
+        </li>
         <br>
     </ul>
 """
@@ -41,8 +46,10 @@ class JpipController {
     @ApiImplicitParams( [
             @ApiImplicitParam( name = 'filename', value = 'Filename to request a stream for', paramType = 'query', dataType = 'string', required = true ),
             @ApiImplicitParam( name = 'entry', value = 'Entry to request', defaultValue = '0', paramType = 'query', dataType = 'string', required = true ),
+            @ApiImplicitParam( name = 'projCode', value = 'Projection Code', allowableValues = "[chip,geo-scaled,4326,3857]", defaultValue = '4326', paramType = 'query', dataType = 'string', required = true ),
     ] )
-    def stream()
+    
+    def createStream()
     {
 	try
         {
@@ -55,7 +62,7 @@ class JpipController {
             BindUtil.fixParamNames(ConvertCommand, requestParams)
             bindData(cmd, requestParams)
 
-            HashMap result = jpipService.stream(cmd)
+            HashMap result = jpipService.createStream(cmd)
             if (result == null) {
                 response.sendError(404)
             } else {
