@@ -53,7 +53,7 @@ class JpipService
        log.trace("JpipService::removeStream entered...")
 
        def row = JpipImage.findByFilenameAndEntryAndProjCode(cmd.filename, cmd.entry, cmd.projCode)
-       if(!row)
+       if( row )
        {
           // TODO:
        }
@@ -74,7 +74,7 @@ class JpipService
        def row = JpipImage.findByFilenameAndEntryAndProjCode(cmd.filename, cmd.entry, cmd.projCode)
        if(!row)
        {
-          String uuidString = "${UUID.randomUUID().toString()}-${cmd.projCode}"
+          String uuidString = "${UUID.randomUUID().toString()}"
           
           JpipImage image = new JpipImage(
                 filename:cmd.filename,
@@ -128,7 +128,7 @@ class JpipService
             String jpipCacheDir = getCacheDir()
             String inFile = "${jpipJobMap?.filename}".toString()
             String entry = "${jpipJobMap?.entry}".toString()
-            String outFile = "${jpipCacheDir}/${jpipJobMap?.jpipId}.jp2".toString()
+            String outFile = "${jpipCacheDir}/${jpipJobMap?.jpipId}-${jpipJobMap?.projCode}_e${jpipJobMap?.entry}.jp2".toString()
 
             log.info( "input_file: ${inFile}")
             log.info( "output_file: ${outFile}")
