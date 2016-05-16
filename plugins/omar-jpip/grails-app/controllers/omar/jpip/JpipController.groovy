@@ -1,11 +1,15 @@
 package omar.jpip
 
+import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiImplicitParam
 import com.wordnik.swagger.annotations.ApiImplicitParams
 import com.wordnik.swagger.annotations.ApiOperation
 import grails.converters.JSON
 import omar.core.BindUtil
 
+@Api(value = "JPIP",
+        description = "JPIP conversion is performed on the image passed in."
+)
 class JpipController {
 
     def jpipService
@@ -67,21 +71,4 @@ class JpipController {
             //  render contentType: 'application/xml', text: exceptionService.createMessage( e.message )
         }
     }
-
-   /*
-    def convert() {
-        def jsonData = request.JSON?request.JSON as HashMap:null
-        def requestParams = params - params.subMap( ['controller', 'action'] )
-        def cmd = new ConvertCommand()
-
-        // get map from JSON and merge into parameters
-        if(jsonData) requestParams << jsonData
-        BindUtil.fixParamNames( ConvertCommand, requestParams )
-        bindData( cmd, requestParams )
-
-        jpipService.convert(cmd)
-
-        render "Hello"
-    }
-    */
 }
