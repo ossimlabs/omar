@@ -136,7 +136,8 @@
                console.log(file);
                console.log(entry);
 
-               jpipService.getJpipStream(file, entry);
+               // 3rd arg is projCode.  chip=image space.
+               jpipService.getJpipStream(file, entry, 'chip');
                
                console.log('list.getJpipStream exited...');
             };

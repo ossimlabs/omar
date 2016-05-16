@@ -9,13 +9,14 @@
 
        var TRACE = true;
        
-       this.getJpipStream = function( file, entry ) {
+       this.getJpipStream = function( file, entry, projCode ) {
 
           if ( Boolean(TRACE) )
           {
              console.log('jpipService.getJpipStream entered...');
              console.log('file:  ' + file);
              console.log('entry: ' + entry);
+             console.log('projCode: ' + projCode );
           }
           
           var jpipAppEnabled = AppO2.APP_CONFIG.params.jpipApp.enabled;
@@ -28,7 +29,9 @@
           if ( jpipAppEnabled )
           {
              var jpipLink = AppO2.APP_CONFIG.params.jpipApp.baseUrl;
-             var jpipServiceUrl = jpipLink + '/stream?filename=' + file + '&entry=' + entry;
+
+             // projCode can be: chip, geo-scaled, 4326, 3857
+             var jpipServiceUrl = jpipLink + '/createStream?filename=' + file + '&entry=' + entry + '&projCode=' + projCode;
 
              if ( Boolean(TRACE) )
              {
