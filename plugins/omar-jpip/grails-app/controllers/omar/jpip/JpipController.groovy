@@ -1,5 +1,8 @@
 package omar.jpip
 
+import com.wordnik.swagger.annotations.ApiImplicitParam
+import com.wordnik.swagger.annotations.ApiImplicitParams
+import com.wordnik.swagger.annotations.ApiOperation
 import grails.converters.JSON
 import omar.core.BindUtil
 
@@ -12,6 +15,29 @@ class JpipController {
 
     }
 
+    @ApiOperation( value = "Query the JPIP server stream link", produces = 'application/json',
+            notes="""
+<br>
+<br>
+    <ul>
+        <li>
+            <b>filename</b><p/>
+            This is the filename of the image you wish to have a JPIP stream created for.  If one is already
+            created then it will return a URL link with the value of FINISHED
+        </li>
+        <br><br>
+        <li>
+            <b>entry</b><p/>
+            For multi entry Images you need to specify the entry number.   We should default to entry 0
+        </li>
+        <br>
+    </ul>
+"""
+    )
+    @ApiImplicitParams( [
+            @ApiImplicitParam( name = 'filename', value = 'Filename to request a stream for', paramType = 'query', dataType = 'string', required = true ),
+            @ApiImplicitParam( name = 'entry', value = 'Entry to request', defaultValue = '0', paramType = 'query', dataType = 'string', required = true ),
+    ] )
     def stream()
     {
 	try
