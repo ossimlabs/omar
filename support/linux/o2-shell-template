@@ -14,12 +14,14 @@ else
    pushd $WORKING_DIR
 fi
 
+
 ###########
 # Need to have the OSSIM_PREFS_FILE defined
 ##########
 if [ -f /etc/profile.d/ossim.sh ] ; then
 source /etc/profile.d/ossim.sh
 fi
+
 
 if [ -z $PROGRAM_PID ]; then
 java $JAVA_OPTS -jar ${SCRIPT_DIR}/${PROGRAM_NAME}.jar --spring.config.location=${SCRIPT_DIR}/${PROGRAM_NAME}.yml
