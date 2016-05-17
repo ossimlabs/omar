@@ -116,8 +116,9 @@ environments:
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
-jpip:
-   server:
+omar:
+  jpip:
+    server:
       cache: /data/omar/jpip_server/cache
       log:   /data/omar/jpip_server/log/omar-jpip-server-log.txt
       ip:    10.0.10.100

@@ -121,8 +121,9 @@ environments:
 quartz:
   jdbcStore: false
 
-jpip:
-   server:
+omar:
+  jpip:
+    server:
       cache: /data/omar/jpip_server/cache
       log:   /data/omar/jpip_server/log/omar-jpip-server-log.txt
       ip:    10.0.10.100
@@ -138,8 +139,8 @@ jpip:
 # debug
 # trace
 # all
-# logging:
-#   level:
-#      omar.jpip: trace
+logging:
+  level:
+    omar.jpip: off
 
 
