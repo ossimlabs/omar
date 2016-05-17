@@ -125,10 +125,12 @@ class JpipService
 
         if(jpipJobMap)
         {
-            String jpipCacheDir = getCacheDir()
+            // String jpipCacheDir = getCacheDir()
+
             String inFile = "${jpipJobMap?.filename}".toString()
             String entry = "${jpipJobMap?.entry}".toString()
-            String outFile = "${jpipCacheDir}/${jpipJobMap?.jpipId}-${jpipJobMap?.projCode}_e${jpipJobMap?.entry}.jp2".toString()
+            // String outFile = "${jpipCacheDir}/getCacheFileName()}".toString()
+            String outFile = getCacheFileName( jpipJobMap );
 
             log.info( "input_file: ${inFile}")
             log.info( "output_file: ${outFile}")
@@ -221,4 +223,16 @@ class JpipService
      }
       result
    }
+
+   // e.g.: a1aa7b09-0aee-423e-b374-ede4753ea540-chip_e0.jp2
+   String getCacheFileName( HashMap jpipJobMap )
+   {
+      String result = getCacheDir();
+      if (jpipJobMap)
+      {
+        result += "${jpipJobMap?.jpipId}-${jpipJobMap?.projCode}_e${jpipJobMap?.entry}.jp2".toString();
+      }
+      return result;
+   }	
+
 }
