@@ -18,10 +18,10 @@ class OmarJpipReflectionUtils
    static ConfigObject getJpipConfig() {
       def config = getApplication().config
 
-      config.jpip
+      config.omar.jpip
    }
    static void setJpipConfig(ConfigObject c) {
       ConfigObject config = new ConfigObject()
-      config.jpip = c
+      config.omar.jpip = c
    }
 }

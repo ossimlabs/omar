@@ -50,6 +50,10 @@ Brief summary/description of the plugin.
         OmarJpipReflectionUtils.application = OmarJpipUtils.application = grailsApplication
         OmarJpipUtils.resetJpipConfig()
         OmarJpipUtils.jpipConfig
+
+        // println "jpipConfig*********************************************"
+        // println OmarJpipUtils.jpipConfig
+
         // force reload by getting the config object
         //log.trace "${OmarJpipUtils.jpipConfig}"
 

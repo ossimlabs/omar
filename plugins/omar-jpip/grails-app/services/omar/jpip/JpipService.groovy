@@ -230,7 +230,7 @@ class JpipService
       String result = getCacheDir();
       if (jpipJobMap)
       {
-        result += "${jpipJobMap?.jpipId}-${jpipJobMap?.projCode}_e${jpipJobMap?.entry}.jp2".toString();
+        result += "/${jpipJobMap?.jpipId}-${jpipJobMap?.projCode}_e${jpipJobMap?.entry}.jp2".toString();
       }
       return result;
    }	
