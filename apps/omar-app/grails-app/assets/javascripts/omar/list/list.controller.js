@@ -130,16 +130,22 @@
 
             };
 
-            vm.getJpipStream = function (file, entry) {
+            vm.getJpipStream = function ($event, file, entry) {
+               var TRACE = 0;
+               if ( TRACE )
+               {
+                  console.log('list.getJpipStream entered...');
+                  console.log('file: ' + file);
+                  console.log('entry: ' + entry);
+               }
                
-               console.log('list.getJpipStream entered...');
-               console.log(file);
-               console.log(entry);
+               // Get the jpip stream. 3rd arg is projCode.  chip=image space.
+               jpipService.getJpipStream($event, file, entry, 'chip');
 
-               // 3rd arg is projCode.  chip=image space.
-               jpipService.getJpipStream(file, entry, 'chip');
-               
-               console.log('list.getJpipStream exited...');
+               if ( TRACE )
+               {
+                  console.log('list.getJpipStream exited...');
+               }
             };
             
 
