@@ -635,3 +635,8 @@ classificationBanner:
     # backgroundColor: yellow
     # classificationType: Top Secret 
 
+
+######### Example for External logback config settings in YAML
+# logging:
+#   config: <log back config location>
+
