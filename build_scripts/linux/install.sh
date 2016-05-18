@@ -24,7 +24,7 @@ for app in ${O2_APPS[@]} ; do
    pushd $OMAR_DEV_HOME/support/linux >/dev/null
 
    install -d -m755 ${OMAR_INSTALL_PREFIX}/etc/init.d
-   install -d -m755 ${OMAR_INSTALL_PREFIX}/usr/lib/systemd/system
+   install -d -m755 ${OMAR_INSTALL_PREFIX}/lib/systemd/system
    install -d -m755 ${OMAR_INSTALL_PREFIX}/share/omar/$app/service-templates
    sed -e "s/{{program_name}}/${app}/g"  -e "s/{{program_user}}/omar/g" -e "s/{{program_group}}/omar/g" < service-wrapper-systemd-template >${OMAR_INSTALL_PREFIX}/lib/systemd/system/${app}.service 
    sed -e "s/{{program_name}}/${app}/g"  -e "s/{{program_user}}/omar/g" -e "s/{{program_group}}/omar/g" < service-wrapper-initd-template >${OMAR_INSTALL_PREFIX}/etc/init.d/${app} 
