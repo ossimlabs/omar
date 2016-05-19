@@ -30,15 +30,9 @@ class JpipService
        log.trace("JpipService::createStream entered...")
 
        HashMap result = null
+       convert( cmd )
 
        def row = JpipImage.findByFilenameAndEntryAndProjCode(cmd.filename, cmd.entry, cmd.projCode)
-       if(!row)
-       {
-          convert( cmd )
-
-          // Get the row again:
-          row = JpipImage.findByFilenameAndEntryAndProjCode(cmd.filename, cmd.entry, cmd.projCode)
-       }
 
        result = getJpipLink( row )
 
@@ -66,17 +60,20 @@ class JpipService
        result
     }
 
-    def convert(ConvertCommand cmd)
+    private def convert(ConvertCommand cmd)
     {
        log.trace("JpipService::convert entered...")
        log.info("cmd: ${cmd}")
 
        def row = JpipImage.findByFilenameAndEntryAndProjCode(cmd.filename, cmd.entry, cmd.projCode)
+       Boolean cacheFileExists = false
+       if(row) cacheFileExists = (getCacheFileName(row.properties as HashMap)).exists()
+       JpipImage image
        if(!row)
        {
           String uuidString = "${UUID.randomUUID().toString()}"
           
-          JpipImage image = new JpipImage(
+          image = new JpipImage(
                 filename:cmd.filename,
                 entry:cmd.entry,
                 projCode:cmd.projCode,
@@ -86,7 +83,22 @@ class JpipService
           {
              trace.error("JpipImage.save failed!")
           }
+       }
+       else if(!cacheFileExists)
+       {
+          if(!JpipJob.findByJpipId(row.jpipId))
+          {
+            image = row
+            image.status = JobStatus.READY.toString()
+            if( !image.save(flush:true) )
+            {
+               trace.error("JpipImage.save failed for update!")
+            }
+          }
+       }
 
+       if(image)
+       {
           JpipJob job = new JpipJob(
                 jpipId: image.jpipId,
                 filename:cmd.filename,
@@ -130,7 +142,7 @@ class JpipService
             String inFile = "${jpipJobMap?.filename}".toString()
             String entry = "${jpipJobMap?.entry}".toString()
             // String outFile = "${jpipCacheDir}/getCacheFileName()}".toString()
-            String outFile = getCacheFileName( jpipJobMap );
+            File outFile = getCacheFileName( jpipJobMap );
 
             log.info( "input_file: ${inFile}")
             log.info( "output_file: ${outFile}")
@@ -143,10 +155,10 @@ class JpipService
             {
                 initOps = [
                     hist_op:  "auto-minmax",
-                    "image0.file": inFile,
-                    "image0.entry": outFile,
+                    "image0.file": inFile.toString(),
+                    "image0.entry": entry,
                     operation: "chip",
-                    output_file: outFile,
+                    output_file: outFile.toString(),
                     output_radiometry: "U8",
                     three_band_out: "true",
                     writer: "ossim_kakadu_jp2",
@@ -156,10 +168,10 @@ class JpipService
              {
                 initOps = [
                     hist_op:  "auto-minmax",
-                    "image0.file": inFile,
-                    "image0.entry": outFile,
+                    "image0.file": inFile.toString(),
+                    "image0.entry": entry,
                     operation: "ortho",
-                    output_file: outFile,
+                    output_file: outFile.toString(),
                     output_radiometry: "U8",
                     projection: "geo-scaled",
                     three_band_out: "true",
@@ -170,10 +182,10 @@ class JpipService
             {
                 initOps = [
                     hist_op:  "auto-minmax",
-                    "image0.file": inFile,
-                    "image0.entry": outFile,
+                    "image0.file": inFile.toString(),
+                    "image0.entry": entry,
                     operation: "ortho",
-                    output_file: outFile,
+                    output_file: outFile.toString(),
                     output_radiometry: "U8",
                     srs: "EPSG:${jpipJobMap?.projCode}".toString(),
                     three_band_out: "true",
@@ -221,15 +233,16 @@ class JpipService
      }
       result
    }
+
    // e.g.: a1aa7b09-0aee-423e-b374-ede4753ea540-chip_e0.jp2
-   String getCacheFileName( HashMap jpipJobMap )
+   File getCacheFileName( HashMap jpipJobMap )
    {
       String result = getCacheDir();
       if (jpipJobMap)
       {
         result += "/${jpipJobMap?.jpipId}-${jpipJobMap?.projCode}_e${jpipJobMap?.entry}.jp2".toString();
       }
-      return result;
+      return result as File;
    }
 
     String getUrl( JpipImage row )
