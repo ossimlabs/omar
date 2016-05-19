@@ -2,10 +2,10 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('jpipService', [ '$http', jpipService ]);
+        .service('jpipService', [ '$http', 'toastr', jpipService ]);
     // .service('jpipService', [jpipService]);    
 
-    function jpipService( $http ) {
+    function jpipService( $http,  toastr) {
         var TRACE = 0;
        
         this.getJpipStream = function( $event, file, entry, projCode ) {
@@ -44,8 +44,10 @@
                 $event.currentTarget.style.opacity = 0.4;
 
                 // Poll service until we get a finished status.
+
                 var timerId = setInterval( function() {
                     var data;
+
                     // $processInfo.ng-show=true;
                     
                     $http({ method: 'GET', url: jpipServiceUrl }).then(function(response) {  
@@ -62,15 +64,36 @@
                             // $event.currentTarget.style.backgroundColor = 'green';
                             // $event.currentTarget.style.backgroundColor = bgColorSave;
                             $event.currentTarget.style.opacity = 1.0;
+
+                            toastr.success("Jpip URL: " + response.data.url,
+                                           "File: " + file,
+                                            {
+                                            positionClass: 'toast-bottom-left',
+                                            closeButton: true,
+                                            timeOut: 10000,
+                                            extendedTimeOut: 5000,
+                                            target: 'body'
+                                        });
                         }
                         else if ( secondsEllapsed > MAX ) {
+                            toastr.success("Bummer: jpip steam conversion hit time!",
+                                           "File: " + file, {
+                                            positionClass: 'toast-bottom-left',
+                                            closeButton: true,
+                                            timeOut: 10000,
+                                            extendedTimeOut: 5000,
+                                            target: 'body'
+                                        });
                            
                             console.log('TODO put timeout code here...');
                         }
                 
                        }, function error(response) {
                            console.log( JSON.stringify(response) );
-                           console.log('failed', response); // supposed to have: data, status, headers, config, statusText
+                           console.log('failed', response);
+
+
+
                        });
                     secondsEllapsed+=2;
                     

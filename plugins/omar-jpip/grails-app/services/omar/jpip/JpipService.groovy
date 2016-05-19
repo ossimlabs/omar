@@ -216,14 +216,11 @@ class JpipService
       HashMap result = [:]
       if ( row != null )
       {
-         String urlString = getServerUrl()
-         urlString += "/" + row.jpipId + ".jp2"
-         result.url = urlString
+         result.url = getUrl( row )
          result.status = row.status
      }
       result
    }
-
    // e.g.: a1aa7b09-0aee-423e-b374-ede4753ea540-chip_e0.jp2
    String getCacheFileName( HashMap jpipJobMap )
    {
@@ -233,6 +230,16 @@ class JpipService
         result += "/${jpipJobMap?.jpipId}-${jpipJobMap?.projCode}_e${jpipJobMap?.entry}.jp2".toString();
       }
       return result;
-   }	
+   }
 
+    String getUrl( JpipImage row )
+    {
+        String result = null;
+        if ( row  )
+        {
+            result = getServerUrl()
+            result += "/${row?.jpipId}-${row?.projCode}_e${row?.entry}.jp2".toString();
+        }
+        result;
+    }
 }

@@ -130,7 +130,8 @@
 
             };
 
-            vm.getJpipStream = function ($event, file, entry) {
+            vm.showProcessInfo = false;
+            vm.getJpipStream = function ($event, file, entry, projCode) {
                var TRACE = 0;
                if ( TRACE )
                {
@@ -140,7 +141,8 @@
                }
 
                // Get the jpip stream. 3rd arg is projCode.  chip=image space.
-               jpipService.getJpipStream($event, file, entry, 'chip');
+               
+               jpipService.getJpipStream($event, file, entry, projCode);
 
                if ( TRACE )
                {

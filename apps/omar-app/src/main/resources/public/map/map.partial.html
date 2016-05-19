@@ -716,7 +716,7 @@
                                     alt="Image thumbnail"
                                     style="cursor: pointer;"
                                 >&nbsp;
-                                <span class="processInfo" ng-show="false">
+                                <span class="processInfo" ng-show='showProcessInfo'>
                                   <i class="fa fa-cog fa-spin text-info"></i><span style="font-size: .7em">&nbsp;Processing {item}</span>
                                 </span>
                             </div>
@@ -832,11 +832,19 @@
                                                    tooltip-placement="right"
                                                    uib-tooltip="jpip stream link"></i>&nbsp;&nbsp;
                                             </a>-->
-                                            <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream($event, image.properties.filename, image.properties.entry_id);">
+                                            <!-- Image space jpip stream button: -->
+                                            <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream($event, image.properties.filename, image.properties.entry_id, 'chip');">
                                                 <i class="fa fa-rocket fa-border text-primary"
                                                    style="cursor: pointer;"
                                                    tooltip-placement="right"
-                                                   uib-tooltip="jpip stream link"></i>
+                                                   uib-tooltip="jpip image space stream link"></i>
+                                            </a>
+                                            <!-- ortho, i.e. 4326 jpip stream button: -->
+                                            <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream($event, image.properties.filename, image.properties.entry_id, '4326');">
+                                                <i class="fa fa-rocket fa-border text-primary"
+                                                   style="cursor: pointer;"
+                                                   tooltip-placement="right"
+                                                   uib-tooltip="jpip ortho(4326) stream link"></i>
                                             </a>
                                             <!-- <span ng-show="{{list.jpipAppEnabled}}">
                                                 <button type="button" ng-click="list.getJpipStream($event, image.properties.filename,image.properties.entry_id);" uib-tooltip="Get link to jpip stream" style="cursor: pointer;">
