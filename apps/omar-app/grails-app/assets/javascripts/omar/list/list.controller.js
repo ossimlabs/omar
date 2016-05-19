@@ -131,8 +131,13 @@
             };
 
             vm.showProcessInfo = false;
-            vm.getJpipStream = function ($event, file, entry, projCode) {
-               var TRACE = 0;
+            console.log('jpipService.serviceRunning', jpipService.serviceRunning);
+
+            vm.getJpipStream = function ($event, file, entry, projCode, index) {
+               vm.showProcessInfo = true;
+               vm.processType ="Creating JPIP";
+               //alert(index);
+               var TRACE = 1;
                if ( TRACE )
                {
                   console.log('list.getJpipStream entered...');
@@ -141,7 +146,7 @@
                }
 
                // Get the jpip stream. 3rd arg is projCode.  chip=image space.
-               
+
                jpipService.getJpipStream($event, file, entry, projCode);
 
                if ( TRACE )
@@ -149,7 +154,18 @@
                   console.log('list.getJpipStream exited...');
                }
             };
-            
+
+            $scope.$on('jpip: updated', function(event, data) {
+
+                // Update the DOM (card list)
+                $scope.$apply(function(){
+                    //vm.wfsData = data;
+                    //alert('w00t!');
+                    console.log('We are in the jpip: updated $on');
+                    vm.showProcessInfo = false;
+                });
+
+            });
 
             vm.currentAttrFilter = wfsService.attrObj;
             vm.currentSortText = "Acquired (Newest)";

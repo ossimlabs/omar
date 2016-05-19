@@ -2,12 +2,13 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('jpipService', [ '$http', 'toastr', jpipService ]);
-    // .service('jpipService', [jpipService]);    
+        .service('jpipService', [ '$rootScope', '$http', 'toastr', '$timeout', jpipService ]);
+    // .service('jpipService', [jpipService]);
 
-    function jpipService( $http,  toastr) {
+    function jpipService( $rootScope, $http,  toastr, $timeout) {
         var TRACE = 0;
-       
+        this.serviceRunning = true;
+
         this.getJpipStream = function( $event, file, entry, projCode ) {
 
             var jpipAppEnabled = AppO2.APP_CONFIG.params.jpipApp.enabled;
@@ -16,8 +17,9 @@
             var MAX=240;
             var secondsEllapsed = 0;
             var timerId = 0;
+            var showProcessInfo = true;
             // var $processInfo = $('.processInfo');
-            
+
             if ( TRACE ) {
                 console.log('jpipService.getJpipStream entered...');
                 console.log( 'jpipAppEnabled: ' + jpipAppEnabled );
@@ -25,10 +27,10 @@
                 console.log('entry: ' + entry);
                 console.log('projCode: ' + projCode );
             }
-            
+
             if ( jpipAppEnabled ) {
                 jpipLink = AppO2.APP_CONFIG.params.jpipApp.baseUrl;
-               
+
                 // projCode can be: chip, geo-scaled, 4326, 3857
                 jpipServiceUrl = jpipLink + '/createStream?filename=' + file + '&entry=' + entry + '&projCode=' + projCode;
 
@@ -38,7 +40,7 @@
 
                 //---
                 // Change the caller background color.
-                // 
+                //
                 // var bgColorSave = $event.currentTarget.style.backgroundColor;
                 // $event.currentTarget.style.backgroundColor = 'red';
                 $event.currentTarget.style.opacity = 0.4;
@@ -49,13 +51,13 @@
                     var data;
 
                     // $processInfo.ng-show=true;
-                    
-                    $http({ method: 'GET', url: jpipServiceUrl }).then(function(response) {  
+
+                    $http({ method: 'GET', url: jpipServiceUrl }).then(function(response) {
                         if ( TRACE ) {
                             data = JSON.stringify(response.data);
                             console.log('response data', data);
                         }
-                
+
                         if ( response.data.status == "FINISHED" ) {
                             if ( TRACE ) {
                                 console.log('FINISHED...');
@@ -74,9 +76,14 @@
                                             extendedTimeOut: 5000,
                                             target: 'body'
                                         });
+                            $timeout(function(){
+                                $rootScope.$broadcast('jpip: updated', data);
+                                //console.log('data object...', data);
+                            });
+
                         }
                         else if ( secondsEllapsed > MAX ) {
-                            toastr.success("Bummer: jpip steam conversion hit time!",
+                            toastr.error("Bummer: jpip steam conversion hit time!",
                                            "File: " + file, {
                                             positionClass: 'toast-bottom-left',
                                             closeButton: true,
@@ -84,10 +91,10 @@
                                             extendedTimeOut: 5000,
                                             target: 'body'
                                         });
-                           
+
                             console.log('TODO put timeout code here...');
                         }
-                
+
                        }, function error(response) {
                            console.log( JSON.stringify(response) );
                            console.log('failed', response);
@@ -96,22 +103,22 @@
 
                        });
                     secondsEllapsed+=2;
-                    
+
                     if ( TRACE ) {
                        console.log('secondsEllapsed: ' + secondsEllapsed );
                     }
-                    
+
                    }, 2000);
-             
+
                 if ( TRACE ) {
                    console.log('jpipServie.getJpipStream exited...');
                 }
             }
-          
+            console.log('in jpip.service.js showProcessInfo', showProcessInfo);
+            return this.serviceRunning;
         } // End: this.getJpipStream = function( file, entry, projCode )
-       
+
+
     } // End: function jpipService( $http )
-    
+
 }());
-
-
