@@ -1,0 +1,128 @@
+# Welcome to JPIP Web Service
+
+The JPIP web service is an interface to convert imagery so the jpip-server can stream to a client.  When interfacing into the JPIP web application you can post messages to request a URL. The result that is returned is a JSON formatted string that has the URL and the state at which the URL is in.  For example.  If a JPIP stream is requested on a given image and if the image does not have a JPIP stream associated with it yet then it will submit the image for background processing and return a STATUS.  
+
+##Installation
+We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR repository README](../../README.md).  To install you should be able to issue the following yum command
+
+```
+yum install o2-jpip-app
+```
+
+The installation sets up
+
+* Startup scripts that include /etc/init.d/jpip-app for init.d support and /usr/lib/systemd/system/jpip-app.service for systems running systemd
+* Creates a system user called *omar*
+* Creates log directory with user *omar* permissions under /var/log/jpip-app
+* Creates a var run directory with user *omar* permissions under /var/run/jpip-app
+* Adds the fat jar and shell scripts under the directory /usr/share/omar/jpip-app location
+
+##Configuration
+
+The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
+
+```
+vi /usr/share/omar/wmts-app/wmts-app.yml
+```
+
+ that contains the following settings:
+
+```
+server:
+  contextPath:
+  port: 8080
+
+environments:
+  production:
+    dataSource:
+      pooled: true
+      jmxExport: true
+      driverClassName: org.postgresql.Driver
+      username: postgres
+      password:
+      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+      url: jdbc:postgresql://<ip>:<port>/omardb-prod
+
+omar:
+  jpip:
+    server:
+      cache: <jpip_cache_dir>
+      ip:    <IP>
+      url:   jpip://<ip>:<port>
+
+---
+grails:
+  serverURL: http://<ip>/stager-app
+  assets:
+    url: http://<ip>/stager-app/assets/
+
+```
+
+* **port:** For the server.port you can set the port that the web application will come up on.  By default the port is 8080.  If you are going through a proxy then ignore the port and use the proxy path to the service.
+* **contextPath:** For most installation you will set server.contextPath to empty and proxy the request via a httpd proxy to the port 8080.  If a context path is used then the services access point is of the form: http://\<url>:\<port>/\<contextPath>
+* **dataSource** Was already covered in the common [OMAR Readme guide](apps/wmts-app/README.md).
+* **omar.jpip.server.cache:** This is the location where images are written when they are converted to the input format used by the jpip-server.
+* **omar.jpip.server.ip:** Ip of the jpip-server location 
+* **omar.jpip.server.url** Base url used as a prefix for accessing the converted file over JPIP protocol
+
+##Executing
+
+To run the service on systems that use the init.d you can issue the command
+
+```
+sudo service jpip-app start
+```
+
+and systems using systemd for starting and stopping use the command
+
+```
+sudo systemctl start jpip-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/jpip-app/jpip-app.sh.   You should be able to tail the jpip-app.log to see any standard output
+
+```
+tail -f /var/log/wmts-app/jpip-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+##Examples
+
+Assume the server has access to the image path called  **/data/sanfran/foo.ccf** If we were to submit a request:
+
+```
+wget http://<proxy_url>/jpip-app/jpip/createStream?filename=/data/sanfran/foo.ccf&entry=0&projCode=4326
+
+```
+
+Result:
+
+```
+{
+  "url": "jpip://10.0.10.100:8080/e5d73979-e76b-40a8-9f92-1f253d377387.jp2",
+  "status": "READY"
+}
+```
+
+This shows what the values for the JPIP **url** and the **status**. The **READY** status cooresonds to the state of the job being on the **READY** Queue and has not been processed.  You can call the URL again and you should get a different status:
+
+```
+wget http://<proxy_url>/jpip-app/jpip/createStream?filename=/data/sanfran/foo.ccf&entry=0&projCode=4326
+```
+
+Result:
+
+```
+{
+  "url": "jpip://10.0.10.100:8080/e5d73979-e76b-40a8-9f92-1f253d377387.jp2",
+  "status": "FINISHED"
+}
+```
+
+When you get the **FINISHED** status this means that the URL returned can now be accessed as a JPIP stream.
+
