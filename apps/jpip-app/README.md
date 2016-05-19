@@ -100,7 +100,13 @@ wget http://<proxy_url>/jpip-app/jpip/createStream?filename=/data/sanfran/foo.cc
 
 ```
 
-Result:
+* **filename** This is the filename of the image you wish to have a JPIP stream created for. If one is already created then it will return a URL link with the value of *FINISHED*
+* **entry** For multi entry Images you need to specify the entry number. We should default to entry 0
+
+* **projCode** chip=image space, geo-scaled - origin lat of true scale = image center, 4326 for geographic, 3857 for google mercator.
+
+
+The result of a call to the web service can be of severaly status types but on initial creation you should see a status of *READY*
 
 ```
 {
@@ -108,8 +114,10 @@ Result:
   "status": "READY"
 }
 ```
+* **url** The url of the jpip streaming server for accessing the image.
+* **status** Can be on of *READY*, *RUNNING*, *PAUSED*, *CANCELED*, *FINISHED*, and *FAILED*.  Note, *READY* here does not mean that the URL is ready, but instead means that it is on the *READY* queue for the background jobs to stage. 
 
-This shows what the values for the JPIP **url** and the **status**. The **READY** status cooresonds to the state of the job being on the **READY** Queue and has not been processed.  You can call the URL again and you should get a different status:
+You can call the URL again, with the same parameters, and you should get a different status if it has been started by the job:
 
 ```
 wget http://<proxy_url>/jpip-app/jpip/createStream?filename=/data/sanfran/foo.ccf&entry=0&projCode=4326
