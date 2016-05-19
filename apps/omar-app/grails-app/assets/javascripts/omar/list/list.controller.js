@@ -138,7 +138,7 @@
                   console.log('file: ' + file);
                   console.log('entry: ' + entry);
                }
-               
+
                // Get the jpip stream. 3rd arg is projCode.  chip=image space.
                jpipService.getJpipStream($event, file, entry, 'chip');
 
