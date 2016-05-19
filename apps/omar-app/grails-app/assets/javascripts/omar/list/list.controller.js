@@ -130,13 +130,13 @@
 
             };
 
-            vm.showProcessInfo = false;
+            //vm.showProcessInfo = false;
+            //vm.showProcessInfo = [];
             console.log('jpipService.serviceRunning', jpipService.serviceRunning);
 
-            vm.getJpipStream = function ($event, file, entry, projCode, index) {
-               vm.showProcessInfo = true;
-               vm.processType ="Creating JPIP";
-               //alert(index);
+            vm.getJpipStream = function ($event, file, entry, projCode, index, type) {
+               vm.showProcessInfo[index] = true;
+               vm.processType = "Creating JPIP " + type;
                var TRACE = 1;
                if ( TRACE )
                {
@@ -149,23 +149,37 @@
 
                jpipService.getJpipStream($event, file, entry, projCode);
 
+               $scope.$on('jpip: updated', function(event, data) {
+
+                   // Update the DOM (card list)
+                   $scope.$apply(function(){
+
+                       console.log('We are in the jpip: updated $on');
+                       //vm.showProcessInfo = false;
+                       vm.showProcessInfo[index] = false;
+
+                   });
+
+               });
+
                if ( TRACE )
                {
                   console.log('list.getJpipStream exited...');
                }
             };
 
-            $scope.$on('jpip: updated', function(event, data) {
-
-                // Update the DOM (card list)
-                $scope.$apply(function(){
-                    //vm.wfsData = data;
-                    //alert('w00t!');
-                    console.log('We are in the jpip: updated $on');
-                    vm.showProcessInfo = false;
-                });
-
-            });
+            // $scope.$on('jpip: updated', function(event, data) {
+            //
+            //     // Update the DOM (card list)
+            //     $scope.$apply(function(){
+            //
+            //         console.log('We are in the jpip: updated $on');
+            //         //vm.showProcessInfo = false;
+            //         vm.showProcessInfo[index] = false;
+            //
+            //     });
+            //
+            // });
 
             vm.currentAttrFilter = wfsService.attrObj;
             vm.currentSortText = "Acquired (Newest)";

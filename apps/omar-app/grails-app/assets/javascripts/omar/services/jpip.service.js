@@ -18,7 +18,6 @@
             var secondsEllapsed = 0;
             var timerId = 0;
             var showProcessInfo = true;
-            // var $processInfo = $('.processInfo');
 
             if ( TRACE ) {
                 console.log('jpipService.getJpipStream entered...');
@@ -45,8 +44,10 @@
                 // $event.currentTarget.style.backgroundColor = 'red';
                 $event.currentTarget.style.opacity = 0.4;
 
-                // Poll service until we get a finished status.
+                // Clear any previous instance of timerId
+                clearInterval(timerId);
 
+                // Poll service until we get a finished status.
                 var timerId = setInterval( function() {
                     var data;
 
@@ -67,8 +68,8 @@
                             // $event.currentTarget.style.backgroundColor = bgColorSave;
                             $event.currentTarget.style.opacity = 1.0;
 
-                            toastr.success("Jpip URL: " + response.data.url,
-                                           "File: " + file,
+                            toastr.success("JPIP URL: " + response.data.url,
+                                           /*"File: " + file ,*/
                                             {
                                             positionClass: 'toast-bottom-left',
                                             closeButton: true,
@@ -83,7 +84,7 @@
 
                         }
                         else if ( secondsEllapsed > MAX ) {
-                            toastr.error("Bummer: jpip steam conversion hit time!",
+                            toastr.error("Bummer: JPIP steam conversion hit time!",
                                            "File: " + file, {
                                             positionClass: 'toast-bottom-left',
                                             closeButton: true,
