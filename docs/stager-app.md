@@ -3,7 +3,7 @@
 The stager service currently indexes the data into the OMAR system.  If you want to take it for a test drive please visit the [vagrant setup](https://github.com/ossimlabs/ossim-vagrant).
 
 ##Installation
-We assume you have configured the yum repository described in [OMAR repository README](../..).  To install you should be able to issue the following yum command
+We assume you have configured the yum repository described in [OMAR Readme Guide](../README.md).  To install you should be able to issue the following yum command
 
 ```yum
 yum install o2-stager-app

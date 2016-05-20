@@ -3,7 +3,7 @@
 The Superoverlay service creates a KML overlay for any image found in the indexed database.  The service calls the WMS chipping servcie and allows one to create KML lod nodes to partition the dataset into a hierarchical LOD grid.
 
 ##Installation
-We assume you have configured the yum repository described in [OMAR repository README](../..).  To install you should be able to issue the following yum command
+We assume you have configured the yum repository described in [OMAR Readme Guide](../README.md).  To install you should be able to issue the following yum command
 
 ```yum
 yum install o2-superoverlay-app
@@ -89,7 +89,7 @@ grails:
     url: http://192.168.2.200/superoverlay-app/assets/
 ```
 
-* **contextPath:**, **port:**, **dataSource** Were already covered in the common [OMAR Readme guide](../..).
+* **contextPath:**, **port:**, **dataSource** Were already covered in the common [OMAR Readme Guide](../README.md).
 * **wfs** The WFS entry here is to define the location of where the feature database resides for the feature information.  In the future we will have the superoverlay service call the WFS service. For now we will leave the definition here.  The entry defines the dtabase location id for where the video and raster tables reside.
 * **omar.superOverlay.wmsURL** Specify the location of the *GetMap* call that satisfies the WMS chipping interface.
 * **grails.serverURL** point to the root location of the superoverlay-app server. This example in the template above points to service via a proxy definition.  If you go directly to the service via 8080 then you can drop the proxy prefix /superoverlay-app

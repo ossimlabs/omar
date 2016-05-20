@@ -6,7 +6,7 @@ If you want to take it for a test drive please visit the [vagrant setup](https:/
 
 ##Installation
 
-We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR repository README](../../README.md).  To install you should be able to issue the following yum command
+We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR Readme Guide](../README.md).  To install you should be able to issue the following yum command
 
 ```
 yum install o2-wmts-app
@@ -64,7 +64,7 @@ Please modify the configuration for your environment.
 notice each indentation level is 2 characters and must not be a tab character.
 
 * **port:** For the server.port you can set the port that the web application will come up on.  By default the port is 8080.  If you are going through a proxy then ignore the port and use the proxy path to the service.
-* **dataSource** Was already covered in the common [OMAR Readme guide](apps/wmts-app/README.md).
+* **dataSource** Was already covered in the common [OMAR Readme Guide](../README.md).
 * **contextPath:** For most installation you will set server.contextPath to empty and proxy the request via a httpd proxy to the port 8080.  If a context path is used then the services access point is of the form: http://\<url>:\<port>/\<contextPath>
 * **wfsUrl:** is used to identify the endpoint location for querying the WFS information.  The default location of localhost will have to be changed to your installation of the OMAR wfs service. If you are going through a proxy then ignore the port and use the proxy path to the service.
 * **wmsUrl:** is used to chip a region based on the WMTS query specification.  The default location of localhost will have to be changed to where the WMS chipping endpoint resides. 

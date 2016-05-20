@@ -1,10 +1,10 @@
 # Welcome to the Swipe Service
 
-The swipe service takes two image ID's as input and allows one to swipe, manual flip, or auto flip the images to see changes.  It uses existing [WFS](../wfs-app) and [WMS](../wms-app) services.  The WFS is used to query the holding for the datasets used in the swipe.  The WMS chips data displayed in the swipe view.
+The swipe service takes two image ID's as input and allows one to swipe, manual flip, or auto flip the images to see changes.  It uses existing [WFS](wfs-app.md) and [WMS](wms-app.md) services.  The WFS is used to query the holding for the datasets used in the swipe.  The WMS chips data displayed in the swipe view.
 
 
 ##Installation
-We assume you have configured the yum repository described in [OMAR repository README](../..).  To install you should be able to issue the following yum command
+We assume you have configured the yum repository described in [OMAR Readme Guide](../README.md).  To install you should be able to issue the following yum command
 
 ```yum
 yum install o2-swipe-app
@@ -56,7 +56,7 @@ grails:
     url: http://<ip>/swipe-app/assets/
 ```
 
-* **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Readme guide](../../README.md).
+* **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Readme Guide](../README.md).
 * **swipe.app.wfs:** Base WFS url to query the image holdings.
 * **swipe.app.wms:** Base WMS url to chip the imagery.
 * **grails.serverURL** point to the root location of the wmts-app server. This example in the template above points to service via a proxy definition.  If you go directly to the service via 8080 then you can drop the proxy prefix /stager-app

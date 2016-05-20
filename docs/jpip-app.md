@@ -3,7 +3,7 @@
 The JPIP web service is an interface to convert imagery so the jpip-server can stream to a client.  When interfacing into the JPIP web application you can post messages to request a URL. The result that is returned is a JSON formatted string that has the URL and the state at which the URL is in.  For example.  If a JPIP stream is requested on a given image and if the image does not have a JPIP stream associated with it yet then it will submit the image for background processing and return a STATUS.  
 
 ##Installation
-We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR repository README](../../README.md).  To install you should be able to issue the following yum command
+We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR Readme Guide](../README.md).  To install you should be able to issue the following yum command
 
 ```
 yum install o2-jpip-app
@@ -60,7 +60,7 @@ grails:
 
 * **port:** For the server.port you can set the port that the web application will come up on.  By default the port is 8080.  If you are going through a proxy then ignore the port and use the proxy path to the service.
 * **contextPath:** For most installation you will set server.contextPath to empty and proxy the request via a httpd proxy to the port 8080.  If a context path is used then the services access point is of the form: http://\<url>:\<port>/\<contextPath>
-* **dataSource** Was already covered in the common [OMAR Readme guide](apps/wmts-app/README.md).
+* **dataSource** Was already covered in the common [OMAR Readme guide](../README.md).
 * **omar.jpip.server.cache:** This is the location where images are written when they are converted to the input format used by the jpip-server.
 * **omar.jpip.server.ip:** Ip of the jpip-server location 
 * **omar.jpip.server.url** Base url used as a prefix for accessing the converted file over JPIP protocol

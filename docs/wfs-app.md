@@ -7,7 +7,7 @@ If you want to take it for a test drive please visit the [vagrant setup](https:/
 
 ##Installation
 
-We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR repository README](../../README.md).  To install you should be able to issue the following yum command
+We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR Readme Guide](../README.md).  To install you should be able to issue the following yum command
 
 ```
 yum install o2-wfs-app
@@ -116,6 +116,6 @@ grails:
     url: http://192.168.2.200/wfs-app/assets/
 ```
 
-* **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Readme guide](../../README.md).
+* **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Readme Guide](../README.md).
 * **wfs** This entry stores both the datastore information and the feature types.  The only thing that will change in these two is the location of the postgres datastore location identified in the **datastoreParams** section by the host, port, and database.  The Feature type uses the database ans the datastore ID.  Internally this is used to query the features.
 * **wms.styles** is used for footprint styling for the WMS footprint drawing.  You can define different color definitions and group them by a style name.  wms footprint interface can be defined with this service to allow one to draw the footprints of the WFS holdings.
