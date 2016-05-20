@@ -826,12 +826,6 @@
                                                    tooltip-placement="right"
                                                    uib-tooltip="E-mail a link to this image"></i>&nbsp;&nbsp;
                                             </a>
-                                            <!--<a ng-show="{{list.jpipAppEnabled}}" href="{{list.jpipLink}}/stream?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}">
-                                                <i class="fa fa-map fa-border text-primary"
-                                                   style="cursor: pointer;"
-                                                   tooltip-placement="right"
-                                                   uib-tooltip="jpip stream link"></i>&nbsp;&nbsp;
-                                            </a>-->
                                             <!-- Image space jpip stream button: -->
                                             <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream($event, image.properties.filename, image.properties.entry_id, 'chip', $index, 'stream');">
                                                 <i class="fa fa-file-image-o fa-border text-primary"
@@ -847,14 +841,6 @@
                                                    tooltip-placement="top"
                                                    uib-tooltip="JPIP ortho (4326) stream link"></i>
                                             </a>
-                                            <!-- <span ng-show="{{list.jpipAppEnabled}}">
-                                                <button type="button" ng-click="list.getJpipStream($event, image.properties.filename,image.properties.entry_id);" uib-tooltip="Get link to jpip stream" style="cursor: pointer;">
-                                                  <i class="fa fa-map fa-border text-primary"
-                                                     style="pointer-events: none;cursor: default;"
-                                                     tooltip-placement="right"
-                                                     uib-tooltip="jpipstream link"></i>
-                                                </button>
-                                            </span> -->
                                         </p>
                                     </div>
                                 </div>

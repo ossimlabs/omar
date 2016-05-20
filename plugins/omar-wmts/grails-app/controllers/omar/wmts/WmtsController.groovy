@@ -1,5 +1,7 @@
 package omar.wmts
 
+import grails.converters.JSON
+
 //import grails.plugin.springsecurity.annotation.Secured
 import omar.core.BindUtil
 import com.github.rahulsom.swaggydoc.*
@@ -288,5 +290,27 @@ class WmtsController {
                 }
             }
         }
+    }
+    @ApiOperation( value = "Get the layers defined in the WMTS service", produces = 'application/json',
+            notes="""
+This is a simple service call that simplifies the layer listing to just dump the wmts layer table
+to a json formatted result
+<br>
+"""
+    )
+    @ApiImplicitParams( [
+    ] )
+    def layers(){
+        def jsonData = request.JSON?request.JSON as HashMap:null
+        def requestParams = params - params.subMap( ['controller', 'action'] )
+        def cmd = new GetLayersCommand()
+
+        // get map from JSON and merge into parameters
+        if(jsonData) requestParams << jsonData
+        BindUtil.fixParamNames( GetLayersCommand, requestParams )
+        bindData( cmd, requestParams )
+        HashMap result = webMapTileService.getLayers(cmd)
+
+        render contentType: "application/json", text: result as JSON
     }
 }
