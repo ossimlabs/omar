@@ -130,14 +130,14 @@
 
             };
 
-            //vm.showProcessInfo = false;
-            //vm.showProcessInfo = [];
-            console.log('jpipService.serviceRunning', jpipService.serviceRunning);
 
-            vm.getJpipStream = function ($event, file, entry, projCode, index, type) {
+            // console.log('jpipService.serviceRunning', jpipService.serviceRunning);
+
+            vm.getJpipStream = function ($event, file, entry, projCode, index, type)
+            {
                vm.showProcessInfo[index] = true;
                vm.processType = "Creating JPIP " + type;
-               var TRACE = 1;
+               var TRACE = 0;
                if ( TRACE )
                {
                   console.log('list.getJpipStream entered...');
@@ -149,16 +149,15 @@
 
                jpipService.getJpipStream($event, file, entry, projCode);
 
-               $scope.$on('jpip: updated', function(event, data) {
+               $scope.$on('jpip: updated', function(event) {
 
                    // Update the DOM (card list)
                    $scope.$apply(function(){
 
-                       console.log('We are in the jpip: updated $on');
-                       //vm.showProcessInfo = false;
+                         // console.log('We are in the jpip: updated $on');
                        vm.showProcessInfo[index] = false;
 
-                   });
+                      });
 
                });
 
@@ -167,19 +166,6 @@
                   console.log('list.getJpipStream exited...');
                }
             };
-
-            // $scope.$on('jpip: updated', function(event, data) {
-            //
-            //     // Update the DOM (card list)
-            //     $scope.$apply(function(){
-            //
-            //         console.log('We are in the jpip: updated $on');
-            //         //vm.showProcessInfo = false;
-            //         vm.showProcessInfo[index] = false;
-            //
-            //     });
-            //
-            // });
 
             vm.currentAttrFilter = wfsService.attrObj;
             vm.currentSortText = "Acquired (Newest)";

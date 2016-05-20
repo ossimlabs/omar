@@ -143,4 +143,8 @@ omar:
 #  level:
 #    omar.jpip: off
 
+######### Example for External logback config settings in YAML
+# logging:
+#   config: <log back config location>
+
 
