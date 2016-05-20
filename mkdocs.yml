@@ -1,0 +1,12 @@
+site_name: OMAR Web Services
+pages:
+- Home: 'index.md'
+- Install Guide:
+  - 'Common Install': 'install-guide/common.md'
+  - 'WMS App': 'install-guide/wms-app.md'
+  - 'WFS App': 'install-guide/wfs-app.md'
+  - 'WMTS App': 'install-guide/wmts-app.md'
+  - 'Swipe App': 'install-guide/swipe-app.md'
+  - 'Stager App': 'install-guide/stager-app.md'
+  - 'JPIP App': 'install-guide/jpip-app.md'
+  - 'Super Overlay App': 'install-guide/superoverlay-app.md'
