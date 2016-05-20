@@ -354,8 +354,46 @@ class WebMapTileService implements InitializingBean{
         }
         result
     }
+    def getLayers(GetLayersCommand cmd){
+        HashMap result = [
+                results:[],
+                pagination: [
+                        count: 0,
+                        offset: 0,
+                        limit: 0
+                ]
+        ]
+
+        result.pagination.count = WmtsLayer.count()
+        result.pagination.offset = 0
+        result.pagination.limit = result.pagination.count
+
+        WmtsLayer.list().each{layer->
+            result.results <<
+                    [
+                            name:layer.name,
+                            title:layer.title,
+                            description: layer.description,
+                            filter: layer.filter,
+                            sortBy: layer.sortBy,
+                            tileMatrixName: layer.wmtsTileMatrixSet?.name,
+                            minX:layer.wmtsTileMatrixSet?.minX,
+                            minY:layer.wmtsTileMatrixSet?.minY,
+                            maxX:layer.wmtsTileMatrixSet?.maxX,
+                            maxY:layer.wmtsTileMatrixSet?.maxY,
+                            minLevel: layer.wmtsTileMatrixSet?.minLevel,
+                            maxLevel: layer.wmtsTileMatrixSet?.maxLevel,
+                            tileWidth: layer.wmtsTileMatrixSet?.tileWidth,
+                            tileHeight: layer.wmtsTileMatrixSet?.tileHeight,
+                            epsgCode: layer.wmtsTileMatrixSet?.epsgCode
+                    ]
+        }
+
+        result
+    }
     @Override
     void afterPropertiesSet() throws Exception
     {
+
     }
 }
