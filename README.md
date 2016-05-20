@@ -444,8 +444,10 @@ environments:
 
 We have seen the common settings found on all of the Web Application Services.  In this section please follow the specific configuration for each web application.  The documentation will assume that the common settings have been applied and will not be repeated.  We will show all files/directories required to run the web service.
 
-* [WMTS Installation and setup](apps/wmts-app)
-* [WMS Installation and setup](apps/wms-app)
-* [WFS Installation and setup](apps/wfs-app)
-* [Stager Installation and setup](apps/stager-app)
-* [Swipe Installation and setup](apps/swipe-app)
+* [WMTS Installation and setup](docs/wmts-app.md)
+* [WMS Installation and setup](docs/wms-app.md)
+* [WFS Installation and setup](docs/wfs-app.md)
+* [Stager Installation and setup](docs/stager-app.md)
+* [Swipe Installation and setup](docs/swipe-app.md)
+* [JPIP Installation and setup](docs/jpip-app.md)
+* [Super Overlay Installation and setup](docs/superoverlay-app.md)
