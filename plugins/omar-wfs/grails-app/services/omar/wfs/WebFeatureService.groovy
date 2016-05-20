@@ -446,7 +446,7 @@ class WebFeatureService
 
 		def options = geoscriptService.parseOptions( wfsParams )
 
-		println options
+		//println options
 
 		Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
 			def layer = workspace[ layerInfo.name ]
