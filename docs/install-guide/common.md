@@ -443,4 +443,5 @@ We have seen the common settings found on all of the Web Application Services.  
 * [Stager Installation and setup](stager-app.md)
 * [Swipe Installation and setup](swipe-app.md)
 * [JPIP Installation and setup](jpip-app.md)
+* [JPIP Streaming Server Installation and setup](jpip-server.md)
 * [Super Overlay Installation and setup](superoverlay-app.md)
