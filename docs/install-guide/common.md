@@ -445,7 +445,7 @@ server:
 
 ### Common Database
 
-We typically use a common database server to store any service specific table data.  Within this installation we have tested against a Postgres database server.  All services will have a common configuration entry in their yaml file that contains an entry of the form:
+We typically use a common database server to store any service specific table data.  Not all services use this common setting but will be repeated in the services that use it.  Within this installation we have tested against a Postgres database server.  All services, with exception to the jpip-server that does not have an external configuration, will have a common configuration entry in their yaml file that contains an entry of the form:
 
 ```
 environments:
@@ -472,8 +472,8 @@ We have seen the common settings found on all of the Web Application Services.  
 * [WMTS Installation and setup](wmts-app.md)
 * [WMS Installation and setup](wms-app.md)
 * [WFS Installation and setup](wfs-app.md)
-* [Stager Installation and setup](stager-app.md)
 * [Swipe Installation and setup](swipe-app.md)
+* [Stager Installation and setup](stager-app.md)
+* [Super Overlay Installation and setup](superoverlay-app.md)
 * [JPIP Installation and setup](jpip-app.md)
 * [JPIP Streaming Server Installation and setup](jpip-server.md)
-* [Super Overlay Installation and setup](superoverlay-app.md)
