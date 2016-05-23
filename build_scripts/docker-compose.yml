@@ -1,0 +1,7 @@
+version: '2'
+services:
+  wmts:
+    build: ./wmts-app
+    ports:
+      - "8080:8080"
+
