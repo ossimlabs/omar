@@ -49,7 +49,7 @@ sudo vi /etc/yum.repos.d/ossim.repo
 
 Set the contents of the repo to
 
-**Create Yum Repo**
+###Create Yum Repo
 
 ```yum
 [ossim]
