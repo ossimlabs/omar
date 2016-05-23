@@ -1,0 +1,25 @@
+server:
+  contextPath:
+  port: 8080
+
+environments:
+  production:
+    dataSource:
+      pooled: true
+      jmxExport: true
+      driverClassName: org.postgresql.Driver
+      username: postgres
+      password:
+      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+      url: jdbc:postgresql://<ip>:<port>/omardb-prod
+
+omar:
+  wmts:
+    wfsUrl: http://<wfs-service-ip>:8080/wfs
+    wmsUrl: http://<wms-service-ip>:8080/wms
+    oldmarWmsFlag: false
+---
+grails:
+  serverURL: http://<ip>/stager-app
+  assets:
+    url: http://<ip>/stager-app/assets/
