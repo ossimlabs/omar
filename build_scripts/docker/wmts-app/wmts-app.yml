@@ -8,15 +8,15 @@ environments:
       pooled: true
       jmxExport: true
       driverClassName: org.postgresql.Driver
-      username: postgres
-      password:
+      username: ${DBUSER}
+      password: ${DBPASS}
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://<ip>:<port>/omardb-prod
+      url: jdbc:postgresql://${DBHOST}:${DBPORT}/${DBNAME}
 
 omar:
   wmts:
-    wfsUrl: http://<wfs-service-ip>:8080/wfs
-    wmsUrl: http://<wms-service-ip>:8080/wms
+    wfsUrl: http://$WFSSERVER:$WFSPORT/wfs
+    wmsUrl: http://$WMSSERVER:$WMSPORT/wms
     oldmarWmsFlag: false
 ---
 grails:
