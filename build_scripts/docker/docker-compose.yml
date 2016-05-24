@@ -1,0 +1,17 @@
+version: '2'
+services:
+  wmts:
+    environment: 
+      DBHOST: 127.0.0.1
+      DBPORT: 5432
+      DBNAME: omar_prod
+      DBUSER: wmts
+      DBPASS: abc123
+      WFSSERVER: http://otd-omar-single.rbtcloud.com
+      WFSPORT: 80
+      WMSSERVER: http://otd-omar-single.rbtcloud.com
+      WMSPORT: 80
+    build: ./wmts-app
+    ports:
+      - "8080:8080"
+
