@@ -32,3 +32,9 @@ to each application:
 To build one container manually, from the app's directory, use `docker build`:
 
 `$ docker build -t rbt/wms-app .`
+
+To build all of the containers at once, you can use `docker-compose` from the 
+root `docker` directory:
+
+`$ docker-compose up`
+
