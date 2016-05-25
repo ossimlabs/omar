@@ -38,7 +38,7 @@ the directory created would be
 CentOS/7/dev/x86_64/<ALL RPMS>
 ```
 
-where **\<ALL RPMS>** is a place holder for the RPM list.
+where **ALL RPMS** is a place holder for the RPM list.
 
 
 If you want to use our repo on the AWS site the you can create a repo file in your /etc/yum.repos.d/ossim.repo directory location.  
