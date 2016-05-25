@@ -18,6 +18,9 @@ The installation sets up
 * Creates a var run directory with user *omar* permissions under /var/run/wms-app
 * Adds the fat jar and shell scripts under the directory /usr/share/omar/wms-app location
 
+Because this library accesses imagery for chipping you might want to consider adding additional plugins to handle J2K imagery or other types of data.  
+
+
 ##Configuration
 
 The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document

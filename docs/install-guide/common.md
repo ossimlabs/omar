@@ -46,8 +46,23 @@ If you want to use our repo on the AWS site the you can create a repo file in yo
 ```bash
 sudo vi /etc/yum.repos.d/ossim.repo
 ```
+###JAI Setup
 
-Set the contents of the repo to
+We have supplied the JAI files that can be added to your ext directory of the JVM version you are running
+
+* [jai_core-1.1.3.jar](http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_core-1.1.3.jar)
+* [jai_codec-1.1.3.jar](http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_codec-1.1.3.jar)
+* [jai_imageio-1.1.jar](http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_imageio-1.1.jar)
+
+If you have access to the public site we execute the following for JVM instances when configuring the OMAR/O2 services and place each jar into the proper jvm/java/jre/lib/ext directory:
+
+```
+curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_core-1.1.3.jar -o /usr/lib/jvm/java/jre/lib/ext/jai_core-1.1.3.jar
+curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_codec-1.1.3.jar -o /usr/lib/jvm/java/jre/lib/ext/jai_codec-1.1.3.jar
+curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_imageio-1.1.jar -o /usr/lib/jvm/java/jre/lib/ext/jai_imageio-1.1.jar
+```
+
+**Note:** Please modifiy the curl download script above for you JAVA installation.  At the time of writing this document we are using OpenJDK version 8.  The O2 services should already have the JAI embedded within the "Fat Jar". 
 
 ###Create Yum Repo
 
@@ -62,6 +77,48 @@ protect=1
 ```
 
 Note, in the above **baseurl** variable we have different branches that you can hook into.  In the path you will see a **dev** path http://s3.amazonaws.com/o2-rpms/CentOS/$releasever/**dev**/$basearch.  We also have the **master** branch that is being built and packaged and you can modify this url to use **master**:  http://s3.amazonaws.com/o2-rpms/CentOS/$releasever/**master**/$basearch.  In the future we will have versioned branches that can be setup and installed.  The dev branch could change hourly and so the yum repo for the dev branch might be in the middle of an update when you are accessing the packages.  The master branch will update much less frequently and will only change when a pull request is performed on the dev branch to merge the changes into master.
+
+When going through the installation for the common services there will be some services that will access imagery directly and might need more rpm's installed to handle more types of data.  We allow these additional/optional installations to be up to the site.   Here is a list of other plugins and RPMS that can be added to any of the service installations:
+
+Here is a current listing of all the ossim and o2 RPMS that are in the REPO:
+
+* **ossim-devel** Development files for ossim
+* **ossim-libs** Development files for ossim
+* **ossim-oms** Wrapper library/java bindings for interfacing with ossim. Any O2 RPM that directly accesses imagery will use this JAVA JNI binding.
+* **ossim-oms-devel** Development files for ossim oms wrapper library.
+* **ossim-planet** 3D ossim library interface via OpenSceneGraph
+* **ossim-planet-devel** Development files for ossim planet.
+* **ossim-test-apps** Ossim test apps.
+* **ossim-video** Ossim vedeo library.
+* **ossim-video-devel** Development files for ossim planet.
+* **ossim-wms** wms ossim library
+* **omar** OSSIM Server
+* **ossim** Open Source Software Image Map library and command line applications
+* **ossim-gdal-plugin** GDAL ossim plugin
+* **ossim-geopdf-plugin** geopdf ossim plugin
+* **ossim-hdf5-plugin** HDF5 ossim plugin
+* **ossim-kakadu-plugin** kakadu ossim plugin.  This is probably the most popular because a lot of data is now coming in a J2K compressed form.
+* **ossim-kml-plugin** kml ossim plugin
+* **ossim-opencv-plugin** OSSIM OpenCV plugin, contains registration code.
+* **ossim-openjpeg-plugin** OpenJPEG ossim plugin
+* **ossim-png-plugin** PNG ossim plugin
+* **ossim-sqlite-plugin** OSSIM sqlite plugin, contains GeoPackage reader/writer.
+* **ossim-web-plugin** web ossim plugin
+* **ossim-cnes-plugin** Plugin with various sensor models
+* **ossim-potrace-plugin** potrace plugin
+* **ossim-jpip-server** ossim kakadu jpip server
+* **ossim-geocell** Desktop electronic light table
+
+O2 RPM list from the yum repo:
+
+* **o2-jpip-app** JPIP Services
+* **o2-omar-app** OMAR/O2 UI application.
+* **o2-stager-app** Stager service for the O2 raster database Service
+* **o2-superoverlay-app** KML Superoverlay service for the O2 raster database Service
+* **o2-swipe-app** Swipe Services
+* **o2-wfs-app** OMAR/O2 WFS Service
+* **o2-wms-app** OMAR/O2 WMS Service
+* **o2-wmts-app** WMTS Services
 
 ###Setup EPEL
 
