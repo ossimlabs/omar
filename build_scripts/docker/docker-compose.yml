@@ -1,5 +1,7 @@
 version: '2'
 services:
+  o2-base:
+    build: ./o2-base
   wmts:
     environment: 
       DBHOST: 127.0.0.1
@@ -14,4 +16,6 @@ services:
     build: ./wmts-app
     ports:
       - "8080:8080"
+    depends_on:
+      - o2-base
 
