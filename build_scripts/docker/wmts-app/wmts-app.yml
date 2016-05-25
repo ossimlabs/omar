@@ -20,6 +20,6 @@ omar:
     oldmarWmsFlag: false
 ---
 grails:
-  serverURL: http://<ip>/stager-app
+  serverURL: http://{$WMSSERVER}/stager-app
   assets:
-    url: http://<ip>/stager-app/assets/
+    url: http://{$WMSSERVER}/stager-app/assets/

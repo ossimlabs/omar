@@ -12,5 +12,5 @@ ENV DBUSER=${DBUSER}\
     WMSPORT=${WMSPORT}
 
 EXPOSE 8080
-CMD ["sh" "/usr/share/omar/wmts-app"]
+CMD ["sh", "/usr/share/omar/wmts-app/wmts-app.sh"]
 
