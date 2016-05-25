@@ -13,6 +13,6 @@ Create a directory location for running the twofish service and then extract the
 java -jar server-assembly-<version>.jar --hfile_basepath <INDEX_DIRECTORY>
 ```
 
-* **\<version>** is the corresponds to the latest version downloaded
+* **\<version\>** is the corresponds to the latest version downloaded
 * **INDEX_DIRECTORY** Is a subdirectory that was created during the extraction of the index file.  This is the location database that is served by the server-assembly.
 
