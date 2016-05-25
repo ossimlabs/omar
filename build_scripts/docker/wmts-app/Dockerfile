@@ -1,4 +1,4 @@
-FROM rbt/o2base
+FROM rbt/o2-base
 ADD wmts-app.yml /usr/share/omar/wmts-app/wmts-app.yml
 RUN yum -y install o2-wmts-app && yum clean all
 ENV DBUSER=${DBUSER}\
@@ -11,6 +11,6 @@ ENV DBUSER=${DBUSER}\
     WMSSERVER=${WMSSERVER}\
     WMSPORT=${WMSPORT}
 
-#CMD ["/usr/bin/java", "-version"]
-CMD ["printenv"]
+EXPOSE 8080
+CMD ["sh" "/usr/share/omar/wmts-app"]
 

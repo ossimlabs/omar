@@ -2,9 +2,10 @@ version: '2'
 services:
   o2-base:
     build: ./o2-base
+    image: rbt/o2-base
   wmts:
     environment: 
-      DBHOST: 127.0.0.1
+      DBHOST: wmtsdb
       DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: wmts
@@ -16,6 +17,14 @@ services:
     build: ./wmts-app
     ports:
       - "8080:8080"
+    image: rbt/wmts
     depends_on:
       - o2-base
+      - wmtsdb
+  wmtsdb:
+    environment:
+      POSTGRES_PASSWORD: abc123
+      POSTGRES_USER: o2
+      POSTGRES_DB: omar_prod
+    image: postgres:latest
 
