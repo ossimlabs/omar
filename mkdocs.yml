@@ -11,4 +11,5 @@ pages:
   - 'Super Overlay Service': 'install-guide/superoverlay-app.md'
   - 'JPIP Service': 'install-guide/jpip-app.md'
   - 'JPIP Streaming Service': 'install-guide/jpip-server.md'
+  - 'Twofishes service': 'install-guide/twofishes.md'
   - 'OMAR/O2 UI' : 'install-guide/omar-app.md'
