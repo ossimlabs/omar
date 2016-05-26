@@ -297,7 +297,7 @@ At the top of the file you should see variables that you can modify for your set
 * PRODUCT_USER="omar"
 * PRODUCT_GROUP="omar"
 * RUN_PROG_TEST="/opt/twofishes/twofishes.sh"
-* RUN_PROGRAM="$RUN_PROG_TEST $PRODUCT_PID 9095"
+* RUN_PROGRAM="$RUN_PROG_TEST $PRODUCT_PID 8080"
 
 
 **NOTE**: This is only an exmaple and you can modify for your installation process.
