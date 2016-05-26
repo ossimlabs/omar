@@ -24,7 +24,7 @@ After extracting the latest and copying the server-assembly jar file you should 
 java -jar server-assembly-0.84.9.jar --port 8080 --hfile_basepath 2015-03-05-20-05-30.753698&
 ```
 
-## Example production setup
+## Example Production Setup
 
 For production installation we wrapped the twofishes with a shell that exports the JVM settings and give more memory to twofishes for caching the location database.  Within the same directory mentioned above add a **vi /opt/twofishes/twofishes.sh** with the contents
 
@@ -33,7 +33,7 @@ export TWOFISHES_PID=$1
 export PORT=$2
 
 if [ "$PORT" == "" ]; then
-	export PORT=9095
+	export PORT=8080
 fi
 
 pushd `dirname $0` > /dev/null
@@ -53,7 +53,7 @@ fi
 popd
 exit 0
 ```
-Note this script takes two arguments **TWOFISHES_PID** for the pid file location to write the PID, and **PORT** that you wish to run twofishes on.  In the script if a port is not specified it will come up on port 9095 and if no PID is supplied it will not run in the background.  Also note we have a JAVA_OPTS giving up to 1024m of memory.  If you have the resources you probably be better off increasing the number to 2 or 4 gigs.
+**Note**: this script takes two arguments **TWOFISHES_PID** for the pid file location to write the PID, and the **PORT** that you wish to run twofishes on.  In the script if a port is not specified it will come up on port 8080 and if no PID is supplied it will not run in the background.  Also note we have a JAVA_OPTS giving up to 1024m of memory.  If you have the resources you probably be better off increasing the number to 2 or 4 gigs.
 
 
 ## Example init.d for Twofishes
@@ -95,7 +95,7 @@ PRODUCT_ERROR_LOG=$PRODUCT_LOG_DIR/error_log
 PRODUCT_USER="omar"
 PRODUCT_GROUP="omar"
 RUN_PROG_TEST="/opt/twofishes/twofishes.sh"
-RUN_PROGRAM="$RUN_PROG_TEST $PRODUCT_PID 9095"
+RUN_PROGRAM="$RUN_PROG_TEST $PRODUCT_PID 8080"
 
 # Must be exported in order for catatlina to generate pid file
 export PRODUCT_PID
