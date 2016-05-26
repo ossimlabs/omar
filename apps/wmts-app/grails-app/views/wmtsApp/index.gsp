@@ -4,7 +4,7 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>O2 | WMTS View</title>
+      <title>O2 | WMTS Viewer</title>
 
       <asset:stylesheet src="wmts-app.manifest.css"/>
 
@@ -14,7 +14,7 @@
       <div class="container">
 
         <div class="row">
-          <h1>O2 WMTS Viewer<h1/>
+          <h1>O2 | WMTS Viewer<h1/>
         </div>
 
         <div class="row">
