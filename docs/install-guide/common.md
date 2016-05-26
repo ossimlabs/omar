@@ -11,7 +11,7 @@ In this document we will address the following:
  
 
 
-## Common Settings and Configuration
+# Common Settings and Configuration
 
 The current binary delivery for all the OMAR web applications is via a yum repository.  You can download a tgz of the yum repo hierarchy and setup a local yum repo by downloading either of the following:
 
@@ -46,7 +46,8 @@ If you want to use our repo on the AWS site the you can create a repo file in yo
 ```bash
 sudo vi /etc/yum.repos.d/ossim.repo
 ```
-###JAI Setup
+
+##JAI Setup
 
 We have supplied the JAI files that can be added to your ext directory of the JVM version you are running
 
@@ -64,7 +65,7 @@ curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_imageio-1.1.jar -
 
 **Note:** Please modifiy the curl download script above for you JAVA installation.  At the time of writing this document we are using OpenJDK version 8.  The O2 services should already have the JAI embedded within the "Fat Jar". 
 
-###Create Yum Repo
+##Create Yum Repo
 
 ```yum
 [ossim]
@@ -120,7 +121,7 @@ O2 RPM list from the yum repo:
 * **o2-wms-app** OMAR/O2 WMS Service
 * **o2-wmts-app** WMTS Services
 
-###Setup EPEL
+##Setup EPEL
 
 The [Epel](https://fedoraproject.org/wiki/EPEL) site has links to the EL6, EL7, and EL5 RPM repo installations via RPMs.   We have tested the [EL6 RPM](https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm) with the CentOS 6 distribution and [EL7 RPM](https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm) with the CentOS 7 distribution.
 
@@ -136,7 +137,7 @@ and for EL7:
 yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 ```
 
-###Firewall Settings Using iptables
+##Firewall Settings Using iptables
 
 By default the web applicaiton will come up and listen on port 8080.  Typically we will add the port to the iptables setting to open TCP on port 8080:
 
@@ -168,7 +169,7 @@ COMMIT
 # Completed on Fri May  6 13:32:29 2016
 ```
 
-### Firewall Settings using firewalld
+## Firewall Settings using firewalld
 
 On CentOS7 they use the firewalld.   To list your zones you can issue the following command:
 
@@ -237,7 +238,7 @@ To set a boolean you can give the setsebool command:
 sudo setsebool -P httpd_can_network_connect on
 ```
 
-### Common User and Group
+## Common User and Group
 
 We will use our common user name "omar" and create a group with the same name.  We will not create the home account and make this a system user.
 
@@ -247,7 +248,7 @@ adduser -r -d /usr/share/omar --no-create-home --user-group omar
 
 This account will be used for running a service with a common "omar" user name and group.
 
-### Service Templates For init.d
+## Service Templates For init.d
 
 Installing from RPM you should not have to add this file but we will specify it here for clarity.  For systems using the startup for init.d we add a file called /etc/init.d/\<program_name>.  The template contents should look similar to the following:
 
@@ -466,7 +467,7 @@ exit $RETVAL
 If you were creating a startup script for wmts-app then all occurances of the pattern {{program_name}} would be replaced with wmts-app.
 
 
-### Service Templates For Systemd
+## Service Templates For Systemd
 
 Using the CentOS 7 RPM repo for the OMAR distribution it will automatically install the systemd startup scripts in the location /usr/lib/systemd/system/<app-name>.service.   The contents of each systemd service file will look something like the following:
 
@@ -487,7 +488,7 @@ Restart=on-abort
 
 All web application are installed under the /usr/share/omar/\<program_name> directory.
 
-### Common Server Port and Context
+## Common Server Port and Context
 
 All services will have a common configuration entry in their yaml file that contains an entry of the form:
 
@@ -500,7 +501,7 @@ server:
 * **contextPath** You can specify the context path and this is added to the URL to the server.  If the context is say "O2" then to access the url root path you will need to proxy to the location \<ip>:\<port>/O2
 * **port**  Defines the port that this servcie will listen on.  Default is port 8080
 
-### Common Database
+## Common Database
 
 We typically use a common database server to store any service specific table data.  Not all services use this common setting but will be repeated in the services that use it.  Within this installation we have tested against a Postgres database server.  All services, with exception to the jpip-server that does not have an external configuration, will have a common configuration entry in their yaml file that contains an entry of the form:
 
@@ -522,7 +523,7 @@ environments:
 * **dataSource.username** username for the database.
 * **dataSource.password** password for the database.
 
-## Web Service Configuration
+# Web Service Configuration
 
 We have seen the common settings found on all of the Web Application Services.  In this section please follow the specific configuration for each web application.  The documentation will assume that the common settings have been applied and will not be repeated.  We will show all files/directories required to run the web service.
 
