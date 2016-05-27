@@ -7,24 +7,25 @@
       <title>O2 | WMTS Viewer</title>
 
       <asset:stylesheet src="wmts-app.manifest.css"/>
-
     </head>
-    <body>
+    <body ng-controller="WmtsMapController as map">
 
-      <div class="container">
+      <div class="container-fluid" >
 
-        <div class="row">
+        <!-- <div class="row">
           <h1>O2 | WMTS Viewer<h1/>
-        </div>
+        </div> -->
 
-        <div class="row">
-          <div class="col-md-12" ng-controller="WmtsMapController as map">
-            <div id="map" class="map"></div>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">O2 | WMTS Viewer</a>
+            </div>
           </div>
-        </div>
+        </nav>
 
       </div>
-
+      <div id="map" class="map"></div>
       <asset:deferredScripts/>
       <asset:javascript src="wmts-app.manifest.js"/>
 

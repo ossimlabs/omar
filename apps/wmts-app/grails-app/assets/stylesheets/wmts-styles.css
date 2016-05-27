@@ -1,4 +1,37 @@
-.map {
+/*.map {
   background-color: #ccc;
   height: 400px;
+}*/
+html,
+body {
+  margin-top: 5px;
+}
+.map {
+  z-index: 1;
+  position: absolute;
+  top: 80px;
+  left: 0px;
+  right: 0;
+  bottom: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.map:-moz-full-screen {
+  top: 0px;
+  height: 100%;
+}
+.map:-webkit-full-screen {
+  top: 0px;
+  height: 100%;
+}
+.map:-ms-fullscreen {
+  top: 0px;
+  height: 100%;
+}
+.map:fullscreen {
+  top: 0px;
+  height: 100%;
+}
+.ol-rotate {
+  top: 7em !important;
 }
