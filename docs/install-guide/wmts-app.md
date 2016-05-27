@@ -97,3 +97,9 @@ If all is good, then you should see a line that looks similar to the following:
 ```bash
 Grails application running at http://localhost:8080 in environment: production
 ```
+
+You can now verify your service with:
+
+`curl http://localhost:8080/wmts?request=GetCapabilities`
+
+which should return an XML document with meta-data about the service.
