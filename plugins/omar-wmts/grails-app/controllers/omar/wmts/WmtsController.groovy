@@ -37,6 +37,11 @@ class WmtsController {
         </li>
         <br><br>
         <li>
+            <b>layer</b><p/>
+            This is the layer name for the GetTile.
+        </li>
+        <br><br>
+        <li>
             <b>format</b><p/>
             Defines the output format of the tile if the request is GetTile.  The currently supported formats
             can be image/jpeg or image/png
@@ -201,6 +206,11 @@ class WmtsController {
         </li>
         <br><br>
         <li>
+            <b>layer</b><p/>
+            This is the layer name for the GetTile call.
+        </li>
+        <br><br>
+        <li>
             <b>format</b><p/>
             Defines the output format of the tile if the request is GetTile
         </li>
@@ -237,6 +247,7 @@ class WmtsController {
             @ApiImplicitParam( name = 'service', value = 'OGC service type', allowableValues = "[WMTS]", defaultValue = 'WMTS', paramType = 'query', dataType = 'string', required = true ),
             @ApiImplicitParam( name = 'version', value = 'Version to request', allowableValues = "[1.0.0]", defaultValue = '1.0.0', paramType = 'query', dataType = 'string', required = true ),
             @ApiImplicitParam( name = 'request', value = 'Request type', allowableValues = "[GetTile]", defaultValue = 'GetCapabilities', paramType = 'query', dataType = 'string', required = true ),
+            @ApiImplicitParam( name = 'layer', value = 'Layer name', defaultValue = "WorldGeographic", paramType = 'query', dataType = 'integer', required = true ),
             @ApiImplicitParam( name = 'format', value = 'MIME type of result image', defaultValue = "image/jpeg", allowableValues = "[image/jpeg, image/png]", paramType = 'query', dataType = 'string', required = true ),
             @ApiImplicitParam( name = 'tileRow', value = 'Tile row', defaultValue = "0", paramType = 'query', dataType = 'integer', required = true ),
             @ApiImplicitParam( name = 'tileCol', value = 'Tile column', defaultValue = "0", paramType = 'query', dataType = 'integer', required = true ),
