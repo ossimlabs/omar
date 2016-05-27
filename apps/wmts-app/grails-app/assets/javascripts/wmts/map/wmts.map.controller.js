@@ -19,69 +19,53 @@
         }
 
       var overlayGroup = new ol.layer.Group({
-          title: 'Overlays',
+          title: 'WMTS Layers',
           layers: [
-            new ol.layer.Tile({
-              title: 'Image Footprints',
-              source: new ol.source.TileWMS({
-                // TODO: The filter for the footprints needs to match
-                //       that of the WMTS layer
-                url: "http://o2.ossim.org/o2/footprints/getFootprints",
-                params: {
-                    FILTER: "",
-                    VERSION: '1.1.1',
-                    LAYERS: 'omar:raster_entry',
-                    STYLES: 'byFileType'
-                }
+
+          ]
+      });
+
+      var baseMaps = new ol.layer.Group({
+          'title': 'Base maps',
+          layers: [
+              new ol.layer.Tile({
+                  title: 'OSM',
+                  //type: 'base',
+                  visible: true,
+                  source: new ol.source.OSM()
+              }),
+              new ol.layer.Tile({
+                  title: 'Roads',
+                  //type: 'base',
+                  visible: false,
+                  source: new ol.source.MapQuest({layer: 'osm'})
+              }),
+              new ol.layer.Tile({
+                  title: 'Satellite',
+                  //type: 'base',
+                  visible: false,
+                  source: new ol.source.MapQuest({layer: 'sat'})
+              }),
+              new ol.layer.Tile({
+                title: 'Image Footprints',
+                visible: true,
+                source: new ol.source.TileWMS({
+                  // TODO: The filter for the footprints needs to match
+                  //       that of the WMTS layer
+                  url: "http://o2.ossim.org/o2/footprints/getFootprints",
+                  params: {
+                      FILTER: "",
+                      VERSION: '1.1.1',
+                      LAYERS: 'omar:raster_entry',
+                      STYLES: 'byFileType'
+                  }
+                })
               })
-            }),
-            new ol.layer.Tile({
-              title: 'Foo',
-              opacity: 1.0,
-              source: new ol.source.WMTS({
-                // TODO: This needs to be passed in as an env. variable
-                url: 'http://localhost:8080/wmts',
-                //layer: 'WorldGeographic',
-                layer: 'Foo',
-                matrixSet: 'WorldGeographic',
-                format: 'image/png',
-                projection: projection,
-                tileGrid: new ol.tilegrid.WMTS({
-                  origin: ol.extent.getTopLeft(projectionExtent),
-                  resolutions: resolutions,
-                  matrixIds: matrixIds
-                }),
-                style: 'default',
-                wrapX: true
-              })
-            })
           ]
       });
 
       var layers = [
-        new ol.layer.Group({
-            'title': 'Base maps',
-            layers: [
-                new ol.layer.Tile({
-                    title: 'OSM',
-                    type: 'base',
-                    visible: true,
-                    source: new ol.source.OSM()
-                }),
-                new ol.layer.Tile({
-                    title: 'Roads',
-                    type: 'base',
-                    visible: false,
-                    source: new ol.source.MapQuest({layer: 'osm'})
-                }),
-                new ol.layer.Tile({
-                    title: 'Satellite',
-                    type: 'base',
-                    visible: false,
-                    source: new ol.source.MapQuest({layer: 'sat'})
-                })
-            ]
-        }),
+        baseMaps,
         overlayGroup
       ];
 
@@ -117,12 +101,12 @@
         })
         .then(function(response){
 
-          // Adds toastr banner on initial load of app
-          // toastr.info("Welcome to the O2 WMTS Viewer", 'Information:', {
-          //     closeButton: true,
-          //     timeOut: 10000,
-          //     extendedTimeOut: 5000,
-          // });
+          //Adds toastr banner on initial load of app
+          toastr.info("Welcome to the O2 WMTS Viewer", 'Information:', {
+              closeButton: true,
+              timeOut: 10000,
+              extendedTimeOut: 5000,
+          });
 
           //console.log('response.data.results', response.data.results);
 
@@ -137,7 +121,7 @@
           }
 
           // Adds the layers to the layerSwitcher control
-          //var layers = response.data.results.map(addLayerToSwitcher);
+          var layers = response.data.results.map(addLayerToSwitcher);
 
         })
         .catch(function(e){
@@ -159,6 +143,8 @@
         // Create a new WMTS tile layer
         var wmtsLayer = new ol.layer.Tile({
           title: layerName,
+          type: 'base',
+          visible: true,
           opacity: 1.0,
           source: new ol.source.WMTS({
             // TODO: This needs to be passed in as an env. variable
