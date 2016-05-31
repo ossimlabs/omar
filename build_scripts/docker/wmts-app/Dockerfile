@@ -1,4 +1,4 @@
-FROM rbt/o2-base
+FROM radiantbluetechnologies/o2-base
 ADD wmts-app.yml /usr/share/omar/wmts-app/wmts-app.yml
 RUN yum -y install o2-wmts-app && yum clean all
 ENV DBUSER=${DBUSER}\
