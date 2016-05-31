@@ -599,33 +599,33 @@ omar:
     misc:
       icons:
         greenMarker: assets/search_marker_green.png
-    basemaps:
+    baseMaps:
       layerList:
         - layer:
-            title: osm
-            url: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
+            title: Open Street Map
+            url: http://vmap0.tiles.osgeo.org/wms/vmap0
             params:
               layers: basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel
-              format: image/png
+              format: image/jpeg
             options:
               # Default base layer is visible/on
-              visibile: true
+              visible: true
         - layer:
-            title: osm2
-            url: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
+            title: Natural Earth
+            url: http://demo.boundlessgeo.com/geoserver/wms
             params:
-              layers: basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel
-              format: image/png
+              layers: ne:NE1_HR_LC_SR_W_DR
+              format: image/jpeg
             options:
-              visibile: false
+              visible: false
         - layer:
-            title: osm3
-            url: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
+            title: Blue Marble
+            url: http://demo.opengeo.org/geoserver/wms
             params:
-              layers: basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel
-              format: image/png
+              layers: nasa:bluemarble
+              format: image/jpeg
             options:
-              visibile: false
+              visible: false
 
 ---
 classificationBanner:

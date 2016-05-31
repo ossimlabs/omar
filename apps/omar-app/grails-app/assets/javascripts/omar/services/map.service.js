@@ -7,14 +7,10 @@
     function mapService(wfsService) {
 
         // #################################################################################
-        // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+        // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
         // provides access to various client params in application.yml
         // #################################################################################
         //console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
-
-        // Add the basemap parameters from the applicaiton config file.
-        //var osmBaseMapUrl = APP_CONFIG.services.basemaps.osm.url;
-        //var osmBaseMapLayers = APP_CONFIG.services.basemaps.osm.layers;
 
         var zoomToLevel = 16;
         var map,
@@ -35,7 +31,7 @@
         var baseServerUrl = AppO2.APP_CONFIG.serverURL;
         var markerUrl = baseServerUrl + '/' + AppO2.APP_CONFIG.params.misc.icons.greenMarker;
 
-        console.log('marker: ', markerUrl);
+        //console.log('marker: ', markerUrl);
         iconStyle = new ol.style.Style({
             image: new ol.style.Icon(({
                 anchor: [0.5, 46],
@@ -111,56 +107,6 @@
                 maxZoom: 18
             });
 
-            //var baseMap = new ol.layer.Tile({
-            //    source: new ol.source.TileWMS({
-            //        url: osmBaseMapUrl,
-            //        params: {'LAYERS': osmBaseMapLayers, 'TILED': true},
-            //        serverType: 'geoserver'
-            //    }),
-            //    name: 'Open Street Map'
-            //});
-
-            //var baseMap = new ol.layer.Tile({
-            //     source: new ol.source.TileWMS({
-            //     url: 'http://vmap0.tiles.osgeo.org/wms/vmap0',
-            //         params: {
-            //            'VERSION': '1.1.1',
-            //            'LAYERS': 'basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel',
-            //            'FORMAT': 'image/jpeg'
-            //        }
-            //    }),
-            //     name: 'baseMap'
-            //});
-
-            //var baseMap = new ol.layer.Tile({
-            //    source: new ol.source.OSM()
-            //});
-
-            //var baseMap = new ol.layer.Tile({
-            //    style: 'Road',
-            //    source: new ol.source.MapQuest({layer: 'osm'})
-            //});
-
-            //var baseMap = new ol.layer.Group({
-            //    style: 'AerialWithLabels',
-            //    visible: true,
-            //    layers: [
-            //        new ol.layer.Tile({
-            //            source: new ol.source.MapQuest({layer: 'sat'})
-            //        }),
-            //        new ol.layer.Tile({
-            //            source: new ol.source.MapQuest({layer: 'hyb'})
-            //        })
-            //    ]
-            //});
-
-             //var baseMap = new ol.layer.Tile({
-             //	source: new ol.source.XYZ({
-             //		url: 'http://54.174.83.202/osm/{z}/{x}/{y}.png'
-             //	}),
-             //	name: 'OSM XYZ'
-             //});
-
             footPrints = new ol.layer.Tile({
                 title: 'Image Footprints',
                 source: new ol.source.TileWMS({
@@ -176,34 +122,46 @@
                 name: 'Image Footprints'
             });
 
+            var baseMapGroup = new ol.layer.Group({
+                'title': 'Base maps',
+                layers: [
+                    //baseMap
+                ]
+            });
+
+            // Takes a map layer obj, and adds
+            // the layer to the map layers array.
+            function addBaseMapLayers(layerObj){
+
+              var baseMapLayer = new ol.layer.Tile({
+                  title: layerObj.layer.title,
+                  type: 'base',
+                  //visible: true,
+                  visible: layerObj.layer.options.visible,
+                  source: new ol.source.TileWMS({
+                      url: layerObj.layer.url,
+                      params: {
+                         'VERSION': '1.1.1',
+                         'LAYERS': layerObj.layer.params.layers,
+                         'FORMAT': layerObj.layer.params.format
+                     }
+                 }),
+                  name: layerObj.layer.title
+              });
+
+              // console.log('baseMapLayer: ', baseMapLayer);
+              // Add layer(s) to the layerSwitcher
+              baseMapGroup.getLayers().push(baseMapLayer);
+
+            }
+
+            // Map over each layer item in the layerList array
+            AppO2.APP_CONFIG.params.baseMaps.layerList.map(addBaseMapLayers);
+
             map = new ol.Map({
-                layers: /*[
-                    baseMap, footPrints
-                ], */
+                layers:
                     [
-                        new ol.layer.Group({
-                            'title': 'Base maps',
-                            layers: [
-                                new ol.layer.Tile({
-                                    title: 'OSM',
-                                    type: 'base',
-                                    visible: true,
-                                    source: new ol.source.OSM()
-                                }),
-                                new ol.layer.Tile({
-                                    title: 'Roads',
-                                    type: 'base',
-                                    visible: false,
-                                    source: new ol.source.MapQuest({layer: 'osm'})
-                                }),
-                                new ol.layer.Tile({
-                                    title: 'Satellite',
-                                    type: 'base',
-                                    visible: false,
-                                    source: new ol.source.MapQuest({layer: 'sat'})
-                                })
-                            ]
-                        }),
+                        baseMapGroup,
                         new ol.layer.Group({
                             title: 'Overlays',
                             layers: [
@@ -458,7 +416,7 @@
             content.innerHTML =
             '<div class="media">' +
                 '<div class="media-left">' +
-                    '<img class="media-object" ' + 
+                    '<img class="media-object" ' +
                         'src="' + baseServerUrl + '/imageSpace/getThumbnail?filename=' +
                         imageObj.properties.filename +
                         '&entry=' + imageObj.properties.entry_id +
@@ -702,4 +660,3 @@
     }
 
 }());
-
