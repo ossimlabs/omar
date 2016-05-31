@@ -51,9 +51,9 @@ swipe:
       baseUrl: http://<ip>/wms-app/wms?
 ---
 grails:
-  serverURL: http://<ip>/swipe-app
+  serverURL: http://<ip>:8080/
   assets:
-    url: http://<ip>/swipe-app/assets/
+    url: http://<ip>:8080/assets/
 ```
 
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).

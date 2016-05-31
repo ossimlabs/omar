@@ -84,9 +84,9 @@ omar:
 
 ---
 grails:
-  serverURL: http://192.168.2.200/superoverlay-app
+  serverURL: http://<ip>:8080/
   assets:
-    url: http://192.168.2.200/superoverlay-app/assets/
+    url: http://<ip>:8080/assets/
 ```
 
 * **contextPath:**, **port:**, **dataSource** Were already covered in the common [OMAR Common Install Guide](common.md).

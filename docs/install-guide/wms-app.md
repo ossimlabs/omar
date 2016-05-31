@@ -113,9 +113,9 @@ wms:
               a: 255
 ---
 grails:
-  serverURL: http://192.168.2.200/wms-app
+  serverURL: http://192.168.2.200:8080
   assets:
-    url: http://192.168.2.200/wms-app/assets/
+    url: http://192.168.2.200:8080/assets/
 ```
 The wfs definitions are used to query the database for feature information that will be used to satisfy the Chip request.  There are styles
 

@@ -47,14 +47,14 @@ omar:
   jpip:
     server:
       cache: <jpip_cache_dir>
-      ip:    <IP>
+      ip:    <ip>
       url:   jpip://<ip>:<port>
 
 ---
 grails:
-  serverURL: http://<ip>/stager-app
+  serverURL: http://<ip>:8080/
   assets:
-    url: http://<ip>/stager-app/assets/
+    url: http://<ip>:8080/assets/
 
 ```
 

@@ -496,10 +496,19 @@ All services will have a common configuration entry in their yaml file that cont
 server:
   contextPath:
   port: 8080
+
+---
+grails:
+  serverURL: http://<ip>:8080/
+  assets:
+    url: http://<ip>:8080/assets/
+
 ```
 
 * **contextPath** You can specify the context path and this is added to the URL to the server.  If the context is say "O2" then to access the url root path you will need to proxy to the location \<ip>:\<port>/O2
 * **port**  Defines the port that this servcie will listen on.  Default is port 8080
+* **grails.serverURL** point to the root location of the wmts-app server. The example goes directly to the service via 8080.  If a proxy is used then you must add the proxy end point.
+* **assets url** This is the url to the assets location.  Just add the **/assets/** path to the serverURL.
 
 ## Common Database
 
