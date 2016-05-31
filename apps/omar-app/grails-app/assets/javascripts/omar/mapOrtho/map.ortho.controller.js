@@ -7,23 +7,19 @@
     function MapOrthoController($scope, $state, $stateParams, $http){
 
         // #################################################################################
-        // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+        // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
         // provides access to various client params in application.yml
         // #################################################################################
         //console.log('AppO2.APP_CONFIG in MapOrthoController: ', AppO2.APP_CONFIG);
-
 
         /* jshint validthis: true */
         var vm = this;
 
         vm.loading = true;
 
-        //vm.title = "Map Ortho";
-
         //console.log('$stateParams', $stateParams);
 
         vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
-        console.log('vm.baseServerUrl: ', vm.baseServerUrl);
 
         var mapOrtho,
             mapOrthoView,
@@ -175,22 +171,43 @@
 
         var interactions = ol.interaction.defaults({altShiftDragRotate:true});
 
+        var baseMapGroup = new ol.layer.Group({
+            'title': 'Base maps',
+            layers: []
+        });
+
+        // Takes a map layer obj, and adds
+        // the layer to the map layers array.
+        function addBaseMapLayers(layerObj){
+
+          var baseMapLayer = new ol.layer.Tile({
+              title: layerObj.layer.title,
+              type: 'base',
+              visible: layerObj.layer.options.visible,
+              source: new ol.source.TileWMS({
+                  url: layerObj.layer.url,
+                  params: {
+                     'VERSION': '1.1.1',
+                     'LAYERS': layerObj.layer.params.layers,
+                     'FORMAT': layerObj.layer.params.format
+                 }
+             }),
+              name: layerObj.layer.title
+          });
+
+          baseMapGroup.getLayers().push(baseMapLayer);
+
+        }
+
+        // Map over each layer item in the layerList array
+        AppO2.APP_CONFIG.params.baseMaps.layerList.map(addBaseMapLayers);
+
         mapOrtho = new ol.Map({
             layers:
                 [
-                    new ol.layer.Group({
-                        'title': 'Base maps',
-                        layers: [
-                            new ol.layer.Tile({
-                                title: 'OSM',
-                                type: 'base',
-                                visible: true,
-                                source: new ol.source.OSM()
-                            }),
-                            imageLayers,
-                            vectorLayer
-                        ]
-                    })
+                  baseMapGroup,
+                  imageLayers,
+                  vectorLayer
                 ],
             controls: ol.control.defaults().extend([
                 new ol.control.FullScreen(),
@@ -201,9 +218,13 @@
             view: mapOrthoView
         });
 
+        var layerSwitcher = new ol.control.LayerSwitcher({
+            tipLabel: 'Layers' // Optional label for button
+        });
+        mapOrtho.addControl(layerSwitcher);
+
         function getRecommendedImages(imageId){
 
-            //console.log('imageId', imageId);
             var pioUrl = AppO2.APP_CONFIG.params.predio.baseUrl + 'getItemRecommendations?item=' + imageId + '&num=20';
             $http({
                 method: 'GET',
@@ -220,10 +241,11 @@
         }
 
         vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
-        console.log('PIO enabled: ', vm.pioAppEnabled);
+        console.log(vm.pioAppEnabled)
+        //console.log('PIO enabled: ', vm.pioAppEnabled);
         if (vm.pioAppEnabled) {
-            
-            console.log(vm.pioAppEnabled);
+
+            //console.log(vm.pioAppEnabled);
             // first time we will use the the first item in query string param
             getRecommendedImages(imageLayerIds[0]);
 
@@ -257,7 +279,7 @@
             //console.log('wfsRequest.cql: ', wfsRequest.cql);
 
             //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-            var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl; 
+            var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl;
 
             var wfsUrl = wfsRequestUrl +
                 "service=WFS" +

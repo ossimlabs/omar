@@ -608,8 +608,7 @@ omar:
               layers: basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel
               format: image/jpeg
             options:
-              # Default base layer is visible/on
-              visible: true
+              visible: false
         - layer:
             title: Natural Earth
             url: http://demo.boundlessgeo.com/geoserver/wms
@@ -625,7 +624,7 @@ omar:
               layers: nasa:bluemarble
               format: image/jpeg
             options:
-              visible: false
+              visible: true
 
 ---
 classificationBanner:

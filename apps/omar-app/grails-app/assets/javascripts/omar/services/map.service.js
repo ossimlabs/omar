@@ -125,7 +125,6 @@
             var baseMapGroup = new ol.layer.Group({
                 'title': 'Base maps',
                 layers: [
-                    //baseMap
                 ]
             });
 
@@ -136,7 +135,6 @@
               var baseMapLayer = new ol.layer.Tile({
                   title: layerObj.layer.title,
                   type: 'base',
-                  //visible: true,
                   visible: layerObj.layer.options.visible,
                   source: new ol.source.TileWMS({
                       url: layerObj.layer.url,
