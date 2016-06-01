@@ -1,7 +1,7 @@
 openlayers{
-   baseMaps{
-      layerList = [
+   baseMaps = [
          [
+                layerType: "tile",
                 title: "Open Street Map",
                 url: "http://vmap0.tiles.osgeo.org/wms/vmap0",
                 params: [
@@ -13,6 +13,7 @@ openlayers{
                 ]
          ],
          [
+                layerType: "tile",
                 title: "Natural Earth",
                 url: "http://demo.boundlessgeo.com/geoserver/wms",
                 params: [
@@ -24,6 +25,7 @@ openlayers{
                 ]
          ],
          [
+                layerType: "tile",
                 title: "Blue Marble",
                 url: "http://demo.opengeo.org/geoserver/wms",
                 params: [
@@ -34,6 +36,5 @@ openlayers{
                   visible: true
                 ]
          ]
-      ]
-   }
+   ]
 }
