@@ -49,14 +49,18 @@ environments:
 
 omar:
   wmts:
-    wfsUrl: http://<wfs-service-ip>:8080/wfs
-    wmsUrl: http://<wms-service-ip>:8080/wms
+    wfsUrl: http://<wfs-service-ip>:<port>/wfs
+    wmsUrl: http://<wms-service-ip>:<port>/wms
     oldmarWmsFlag: false
+    footprints:
+      url: "http://<ip>:<port>/footprints/getFootprints"
+      layers: "omar:raster_entry"
+      styles: "byFileType"
 ---
 grails:
-  serverURL: http://<ip>:8080/
+  serverURL: http://<ip>:<port>/
   assets:
-    url: http://<ip>:8080/assets/
+    url: http://<ip>:<port>/assets/
 
 ```
 Please modify the configuration for your environment.
@@ -69,6 +73,7 @@ notice each indentation level is 2 characters and must not be a tab character.
 * **wfsUrl:** is used to identify the endpoint location for querying the WFS information.  The default location of localhost will have to be changed to your installation of the OMAR wfs service. If you are going through a proxy then ignore the port and use the proxy path to the service.
 * **wmsUrl:** is used to chip a region based on the WMTS query specification.  The default location of localhost will have to be changed to where the WMS chipping endpoint resides. 
 * **oldmarWmsFlag:** The format of the query string has changed in the newer versions of omar WMS implementation.   If you have an installation of OMAR that is 1.8.20 or older then you can turn this flag on and it will enable a different query string for requesting the WMS chip.
+* **footprints** Used to define the footprints service location and style and layer definition.  The layer will probably stay the value it is but the styles might change if you want different footprint colorings.
 * **grails.serverURL** point to the root location of the wmts-app server. The example goes directly to the service via 8080.  If a proxy is used then you must add the proxy end point.
 * **assets url** This is the url to the assets location.  Just add the **/assets/** path to the serverURL.
 
