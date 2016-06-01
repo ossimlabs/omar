@@ -9,8 +9,6 @@ class OmarController {
 		clientConfig.params = grailsApplication.config.omar.app
 
 		clientConfig.openlayers = OmarOpenlayersUtils.openlayersConfig
-		println "*"*40
-		println clientConfig.openlayers
 
 		 // Use Enhancer traits from omar-core getBaseUrl()
 		clientConfig.serverURL = getBaseUrl()

@@ -17,8 +17,6 @@
 
         vm.loading = true;
 
-        //console.log('$stateParams', $stateParams);
-
         vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
 
         var mapOrtho,
@@ -180,27 +178,38 @@
         // the layer to the map layers array.
         function addBaseMapLayers(layerObj){
 
-          var baseMapLayer = new ol.layer.Tile({
-              title: layerObj.layer.title,
-              type: 'base',
-              visible: layerObj.layer.options.visible,
-              source: new ol.source.TileWMS({
-                  url: layerObj.layer.url,
-                  params: {
-                     'VERSION': '1.1.1',
-                     'LAYERS': layerObj.layer.params.layers,
-                     'FORMAT': layerObj.layer.params.format
-                 }
-             }),
-              name: layerObj.layer.title
-          });
+          var baseMapLayer;
+          if (layerObj.layerType.toLowerCase() === 'tile'){
 
-          baseMapGroup.getLayers().push(baseMapLayer);
+            var baseMapLayer = new ol.layer.Tile({
+                title: layerObj.title,
+                type: 'base',
+                visible: layerObj.options.visible,
+                source: new ol.source.TileWMS({
+                    url: layerObj.url,
+                    params: {
+                       'VERSION': '1.1.1',
+                       'LAYERS': layerObj.params.layers,
+                       'FORMAT': layerObj.params.format
+                   }
+               }),
+                name: layerObj.title
+            });
+
+          }
+
+          if (baseMapLayer != null) {
+
+            // Add layer(s) to the layerSwitcher control
+            baseMapGroup.getLayers().push(baseMapLayer);
+
+          }
 
         }
 
         // Map over each layer item in the layerList array
-        AppO2.APP_CONFIG.params.baseMaps.layerList.map(addBaseMapLayers);
+        //AppO2.APP_CONFIG.params.baseMaps.layerList.map(addBaseMapLayers);
+        AppO2.APP_CONFIG.openlayers.baseMaps.map(addBaseMapLayers);
 
         mapOrtho = new ol.Map({
             layers:
