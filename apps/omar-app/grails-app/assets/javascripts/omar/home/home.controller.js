@@ -7,7 +7,7 @@
         function HomeController(/*APP_CONFIG,*/ $scope, $state, wfsService, toastr, $http, $timeout){
 
             // #################################################################################
-            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
             // provides access to various client params in application.yml
             // #################################################################################
             //console.log('AppO2.APP_CONFIG in HomeController: ', AppO2.APP_CONFIG);
@@ -26,6 +26,7 @@
             vm.loading = true;
 
             vm.baseUrl = AppO2.APP_CONFIG.serverURL;
+            console.log('AppO2.APP_CONFIG.params: ', AppO2.APP_CONFIG.params)
 
             vm.swipeAppEnabled = AppO2.APP_CONFIG.params.swipeApp.enabled;
             //console.log('Swipe enabled: ', vm.swipeAppEnabled);
@@ -46,6 +47,13 @@
             if (vm.apiAppEnabled) {
                 vm.apiAppLink = AppO2.APP_CONFIG.params.apiApp.baseUrl;
                 //console.log('vm.apiAppLink in HomeController', vm.apiAppLink);
+            }
+
+            vm.wmtsAppEnabled = AppO2.APP_CONFIG.params.wmtsApp.enabled;
+            console.log('WMTS enabled: ', vm.wmtsAppEnabled);
+            if (vm.wmtsAppEnabled) {
+                vm.wmtsAppLink = AppO2.APP_CONFIG.params.wmtsApp.baseUrl;
+                console.log('vm.wmtsAppLink in HomeController', vm.wmtsAppLink);
             }
 
             //var twofishProxy = APP_CONFIG.services.twofishes.proxy;
@@ -214,7 +222,7 @@
 
         this.cycleRegExs = function() {
 
-            var searchInput = $searchInput.val();       
+            var searchInput = $searchInput.val();
             searchInput.trim();
 
             if (searchInput.match(ddRegExp)) {
@@ -423,7 +431,7 @@
 
                 // ####################################    /WIP   ####################################################
             }
-        
+
             else {
                 console.log('No Match');
                 toastr.error('Sorry, could not locate coordinates: [' + $searchInput.val() + '] Please check the' +
@@ -504,7 +512,7 @@
 
                     });
 
-                }); 
+                });
 
             }
 

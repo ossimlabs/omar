@@ -27,7 +27,6 @@
 </head>
     <body>
         <o2:classificationBanner/>
-        <div class="corner-ribbon top-left sticky red shadow">Alpha</div>
         <div class="container-fluid">
 
             <nav style="margin-top: -15px;" class="navbar navbar-inverse" role="navigation" ng-controller="NavController as nav">
@@ -49,6 +48,7 @@
                         <li><a ui-sref="map">&nbsp;Map</a></li>
                         <li ng-show="{{nav.swipeAppEnabled}}"><a ng-href="{{nav.swipeAppLink}}" target="_blank">&nbsp;Swipe</a></li>
                         <li ng-show="{{nav.piwikAppEnabled}}"><a ng-href="{{nav.piwikAppLink}}" target="_blank">&nbsp;PIWIK</a></li>
+                        <li ng-show="{{nav.wmtsAppEnabled}}"><a ng-href="{{nav.wmtsAppLink}}" target="_blank">&nbsp;WMTS</a></li>
                         <li ng-show="{{nav.apiAppEnabled}}"><a ng-href="{{nav.apiAppLink}}" target="_blank">&nbsp;API</a></li>
                     </ul>
                 </div>
