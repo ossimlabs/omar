@@ -115,3 +115,31 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+---
+omar:
+  openlayers:
+    baseMaps:
+      -
+        title: "Open Street Map"
+        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        params: 
+          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        title: "Natural Earth"
+        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        params: 
+          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        title: "Blue Marble"
+        url: "http://demo.opengeo.org/geoserver/wms"
+        params: 
+          layers: "nasa:bluemarble"
+          format: "image/jpeg"
+        options:
+          visible: true

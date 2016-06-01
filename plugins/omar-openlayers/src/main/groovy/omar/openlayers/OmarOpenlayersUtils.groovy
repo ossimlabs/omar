@@ -52,14 +52,9 @@ class OmarOpenlayersUtils
     * @param className the name of the config class to load
     */
    private static void mergeConfig(ConfigObject currentConfig, String className) {
-      println "LOADING CLASS NAME ==== ${className}"
-      println "Environment.current.name = ${Environment.current.name}"    
-      println "this.classLoader = ${this.classLoader}"    
       ConfigObject secondary = new ConfigSlurper(Environment.current.name).parse(
               new GroovyClassLoader(this.classLoader).loadClass(className))
 
-      println "LOADING CLASS NAME ==== ${className}"
-      println secondary
       openlayersConfig = OmarOpenlayersReflectionUtils.openlayersConfig = mergeConfig(currentConfig, secondary.openlayers as ConfigObject)
    }
 
