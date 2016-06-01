@@ -45,11 +45,22 @@ environments:
       url: jdbc:postgresql://<ip>:<port>/omardb-prod
 
 omar:
+  openlayers:
+    baseMaps:
+      -
+        layerType: "tile"
+        title: "Open Street Map"
+        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        params:
+          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+          format: "image/jpeg"
+        options:
+          visible: false
   app:
     root:
       baseUrl: http://<ip>/omar-app
     wfs:
-      baseUrl: http://192.168.2.200/wfs-app/wfs?
+      baseUrl: http://<ip>/wfs-app/wfs?
       enabled: true
       proxy: /proxy/index?url=
     wms:
@@ -87,6 +98,7 @@ grails:
 ```
 
 * **contextPath:**, **port:**, **dataSource** Were already covered in the common [OMAR Common Install Guide](common.md).
+* **omar.openlayers.baseMaps** Allows one to controll the layers added to the base maps section of openlayers on the ortho view and map view pages in the omar-app. If you do not have this field specified in the application YAML it ill use the default layers. The default layers includes **Open Street Map** layer, **Natural Earth** layer, and a **Blue Marble** layer.
 * **omar.app.root** Root settings for the rot url.
  * **baseURL** Base URL for the omar-app
 * **omar.app.wfs** Base URL and flag for WFS.
