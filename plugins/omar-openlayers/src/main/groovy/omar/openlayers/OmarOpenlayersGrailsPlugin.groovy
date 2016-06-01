@@ -1,7 +1,10 @@
 package omar.openlayers
 
 import grails.plugins.*
+import groovy.util.logging.Slf4j
+import grails.util.Environment
 
+@Slf4j
 class OmarOpenlayersGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
@@ -40,7 +43,23 @@ Brief summary/description of the plugin.
     // Online location of the plugin's browseable source code.
 //    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
 
-    Closure doWithSpring() { {->
+    Closure doWithSpring() { 
+        log.trace("doWithSpring(): Entered.............")
+println "***************** DOING THIS ************************"
+        OmarOpenlayersReflectionUtils.application = OmarOpenlayersUtils.application = grailsApplication
+println "***************** DONE APPLICATION ************************"
+
+        OmarOpenlayersUtils.resetOpenlayersConfig()
+println "***************** DONE resetOpenlayersConfig ************************"
+        // force reload by getting the config object
+        OmarOpenlayersUtils.openlayersConfig
+println "***************** DONE openlayersConfig ************************"
+        println "*"*40
+        println OmarOpenlayersUtils.openlayersConfig
+
+        log.trace("doWithSpring(): Leaving.............")
+
+        {->
             // TODO Implement runtime spring config (optional)
         }
     }
