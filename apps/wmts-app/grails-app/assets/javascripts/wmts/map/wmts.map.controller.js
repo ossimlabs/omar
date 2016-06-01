@@ -139,7 +139,6 @@
 
       function createWmtsOlLayer (layerName){
 
-        console.log('createWmtsOlLayer => layerName', layerName);
         // Create a new WMTS tile layer
         var wmtsLayer = new ol.layer.Tile({
           title: layerName,

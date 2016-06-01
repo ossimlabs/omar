@@ -544,26 +544,6 @@ wms:
               a: 255
 
 
-#web app configuration settings
-# webconfig:
-#   misc:
-#     icons:
-#       green-marker: search_marker_green.png
-#   services:
-#     proxy: /o2/proxy/index?url=
-#     omar:
-#       wfsUrl: http://localhost:7272/o2/wfs
-#       wmsUrl: http://localhost:8888/wms
-#       thumbnailsUrl: http://localhost:8888/omar/thumbnail/show/
-#       footprintsUrl: http://localhost:8888/omar/wms/footprints?
-#     twofishes:
-#       url: http://localhost:8081/twofish
-#       proxy: /o2/twoFishesProxy
-#     basemaps:
-#       osm:
-#         url: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
-#         layers: osm-group
-
 
 #server:
 #  contextPath: /o2
@@ -588,7 +568,7 @@ omar:
     wms:
       baseUrl: http://localhost:8080/wms?
       enabled: true
-    imageSpace: 
+    imageSpace:
       baseUrl: http://localhost:8080/imageSpace
       enabled: true
     thumbnails:
@@ -608,7 +588,6 @@ omar:
       baseUrl: http://localhost:8082/swipe
       enabled: true
     kmlApp:
-      #baseUrl: http://localhost:8282/
       baseUrl: http://localhost:8083/
       enabled: true
     jpipApp:
@@ -616,15 +595,36 @@ omar:
       enabled: false
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
-      enabled: true  
+      enabled: true
     misc:
       icons:
         greenMarker: assets/search_marker_green.png
-#        greenmarker: search_marker_green.png
-#    basemaps:
-#      osm:
-#        baseUrl: http://geoserver-demo01.dev.ossim.org/geoserver/ged/wms?
-#        layers: osm-group
+    baseMaps:
+      layerList:
+        - layer:
+            title: Open Street Map
+            url: http://vmap0.tiles.osgeo.org/wms/vmap0
+            params:
+              layers: basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel
+              format: image/jpeg
+            options:
+              visible: false
+        - layer:
+            title: Natural Earth
+            url: http://demo.boundlessgeo.com/geoserver/wms
+            params:
+              layers: ne:NE1_HR_LC_SR_W_DR
+              format: image/jpeg
+            options:
+              visible: false
+        - layer:
+            title: Blue Marble
+            url: http://demo.opengeo.org/geoserver/wms
+            params:
+              layers: nasa:bluemarble
+              format: image/jpeg
+            options:
+              visible: true
 
 ---
 classificationBanner:
@@ -633,10 +633,9 @@ classificationBanner:
   #backgroundColor: red
   #classificationType: Secret // NOFORN
     # backgroundColor: yellow
-    # classificationType: Top Secret 
+    # classificationType: Top Secret
 
 
 ######### Example for External logback config settings in YAML
 # logging:
 #   config: <log back config location>
-

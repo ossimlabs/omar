@@ -115,7 +115,7 @@
             // {{list.o2baseUrl}}/#{{list.o2contextPath}}/mapOrtho?layers={{image.properties.id}}
             //http://localhost/omar-app/omar/#/mapOrtho?layers=118
             vm.o2baseUrl = AppO2.APP_CONFIG.serverURL + '/omar';
-            console.log('vm.o2baseUrl: ', vm.o2baseUrl);
+            //console.log('vm.o2baseUrl: ', vm.o2baseUrl);
             //vm.o2contextPath = AppO2.APP_CONTEXTPATH;
 
             vm.displayFootprint = function(obj){
