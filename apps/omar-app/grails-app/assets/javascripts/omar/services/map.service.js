@@ -10,7 +10,7 @@
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
         // provides access to various client params in application.yml
         // #################################################################################
-        //console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
+        console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
 
         var zoomToLevel = 16;
         var map,
@@ -131,30 +131,41 @@
             // Takes a map layer obj, and adds
             // the layer to the map layers array.
             function addBaseMapLayers(layerObj){
+              console.log('layerObj: ', layerObj)
+              var baseMapLayer;
+              if (layerObj.layerType.toLowerCase() === 'tile'){
 
-              var baseMapLayer = new ol.layer.Tile({
-                  title: layerObj.layer.title,
-                  type: 'base',
-                  visible: layerObj.layer.options.visible,
-                  source: new ol.source.TileWMS({
-                      url: layerObj.layer.url,
-                      params: {
-                         'VERSION': '1.1.1',
-                         'LAYERS': layerObj.layer.params.layers,
-                         'FORMAT': layerObj.layer.params.format
-                     }
-                 }),
-                  name: layerObj.layer.title
-              });
+                baseMapLayer = new ol.layer.Tile({
+                    title: layerObj.title,
+                    type: 'base',
+                    visible: layerObj.options.visible,
+                    source: new ol.source.TileWMS({
+                        url: layerObj.url,
+                        params: {
+                           'VERSION': '1.1.1',
+                           'LAYERS': layerObj.params.layers,
+                           'FORMAT': layerObj.params.format
+                       }
+                   }),
+                    name: layerObj.title
+                });
 
-              // console.log('baseMapLayer: ', baseMapLayer);
-              // Add layer(s) to the layerSwitcher
-              baseMapGroup.getLayers().push(baseMapLayer);
+
+              }
+
+              if (baseMapLayer != null) {
+
+                console.log('baseMapLayer: ', baseMapLayer);
+                // Add layer(s) to the layerSwitcher
+                baseMapGroup.getLayers().push(baseMapLayer);
+
+              }
 
             }
 
             // Map over each layer item in the layerList array
-            AppO2.APP_CONFIG.params.baseMaps.layerList.map(addBaseMapLayers);
+            //AppO2.APP_CONFIG.params.baseMaps.layerList.map(addBaseMapLayers);
+            AppO2.APP_CONFIG.openlayers.baseMaps.map(addBaseMapLayers);
 
             map = new ol.Map({
                 layers:

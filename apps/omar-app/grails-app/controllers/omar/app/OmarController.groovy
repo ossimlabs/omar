@@ -1,11 +1,16 @@
 package omar.app
+import omar.openlayers.OmarOpenlayersUtils
 
 class OmarController {
-	
-    def index() 
+
+    def index()
     {
 		def clientConfig = new ConfigObject()
 		clientConfig.params = grailsApplication.config.omar.app
+
+		clientConfig.openlayers = OmarOpenlayersUtils.openlayersConfig
+		println "*"*40
+		println clientConfig.openlayers
 
 		 // Use Enhancer traits from omar-core getBaseUrl()
 		clientConfig.serverURL = getBaseUrl()
