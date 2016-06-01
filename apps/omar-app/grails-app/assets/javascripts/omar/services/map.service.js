@@ -10,7 +10,7 @@
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
         // provides access to various client params in application.yml
         // #################################################################################
-        console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
+        // console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
 
         var zoomToLevel = 16;
         var map,
@@ -31,7 +31,6 @@
         var baseServerUrl = AppO2.APP_CONFIG.serverURL;
         var markerUrl = baseServerUrl + '/' + AppO2.APP_CONFIG.params.misc.icons.greenMarker;
 
-        //console.log('marker: ', markerUrl);
         iconStyle = new ol.style.Style({
             image: new ol.style.Icon(({
                 anchor: [0.5, 46],
@@ -97,8 +96,6 @@
 
         this.mapInit = function (mapParams) {
 
-            //console.log('mapParams', mapParams);
-
             mapView = new ol.View({
                 center: [0, 0],
                 projection: 'EPSG:4326',
@@ -131,7 +128,7 @@
             // Takes a map layer obj, and adds
             // the layer to the map layers array.
             function addBaseMapLayers(layerObj){
-              console.log('layerObj: ', layerObj)
+
               var baseMapLayer;
               if (layerObj.layerType.toLowerCase() === 'tile'){
 
@@ -155,16 +152,14 @@
 
               if (baseMapLayer != null) {
 
-                console.log('baseMapLayer: ', baseMapLayer);
-                // Add layer(s) to the layerSwitcher
+                // Add layer(s) to the layerSwitcher control
                 baseMapGroup.getLayers().push(baseMapLayer);
 
               }
 
             }
 
-            // Map over each layer item in the layerList array
-            //AppO2.APP_CONFIG.params.baseMaps.layerList.map(addBaseMapLayers);
+            // Map over each layer item in the baseMaps array
             AppO2.APP_CONFIG.openlayers.baseMaps.map(addBaseMapLayers);
 
             map = new ol.Map({
@@ -208,7 +203,6 @@
                 clearLayerSource(filterLayerVector);
 
                 var dragBoxExtent = dragBox.getGeometry().getExtent();
-                //console.log('dragbox extent', dragBoxExtent);
 
                 mapObj.cql = "INTERSECTS(" + geomField + "," + convertToWktPolygon(dragBoxExtent) + ")";
 
@@ -225,7 +219,6 @@
                 var searchPolygon = new ol.Feature({
                     geometry: new ol.geom.Polygon.fromExtent(dragBoxExtent)
                 });
-                //console.log('searchPolygon', searchPolygon);
 
                 searchPolygon.setStyle(filterStyle);
                 filterLayerVector.getSource().addFeatures([searchPolygon]);
@@ -253,11 +246,8 @@
 
         function updateFootPrints(filter) {
 
-            //console.log('updating footprint layer with filter:', filter);
-            //console.log(footPrints.getSource().getParams());
             var params = footPrints.getSource().getParams();
             params.FILTER = filter;
-            //console.log('params.FILTER', params.FILTER);
             footPrints.getSource().updateParams(params);
 
         }
@@ -285,14 +275,10 @@
 
         this.viewPortFilter = function(status) {
 
-            //console.log('mapService viewPortFilter firing... ', status);
-
             if (status) {
 
                 map.on('moveend', filterByViewPort);
                 filterByViewPort();
-                //updateFootPrints("");
-                //console.log('viewport on...');
 
             }
             else {
@@ -300,8 +286,6 @@
                 // https://groups.google.com/d/msg/ol3-dev/Z4JoCBs-iEY/HSpihl8bcVIJ
                 map.un('moveend', filterByViewPort);
                 clearLayerSource(filterLayerVector);
-
-                //console.log('viewport off...');
 
             }
 
@@ -313,8 +297,6 @@
         function filterByPoint (event) {
 
             clearLayerSource(filterLayerVector);
-
-            //filterByViewPort();
 
             var coordinate = event.coordinate;
 

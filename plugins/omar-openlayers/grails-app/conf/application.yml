@@ -131,9 +131,9 @@ omar:
       -
         layerType: "tile"
         title: "Natural Earth"
-        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        url: "http://demo.boundlessgeo.com/geoserver/wms"
         params:
-          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+          layers: "ne:NE1_HR_LC_SR_W_DR"
           format: "image/jpeg"
         options:
           visible: false

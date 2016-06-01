@@ -63,7 +63,7 @@
             var AppO2 = (function () {
 
                 var APP_CONFIG = ${raw( clientConfig.encodeAsJSON() as String )};
-                
+
                 return {
 
                     APP_CONFIG: APP_CONFIG
@@ -71,8 +71,6 @@
                 }
 
             })();
-            //console.log('APP_CONFIG: ', AppO2.APP_CONFIG);
-
 
         </asset:script>
         <asset:deferredScripts/>
