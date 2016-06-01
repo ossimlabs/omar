@@ -147,7 +147,6 @@
                     name: layerObj.title
                 });
 
-
               }
 
               if (baseMapLayer != null) {

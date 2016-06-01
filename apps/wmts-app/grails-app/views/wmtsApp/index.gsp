@@ -1,4 +1,4 @@
-<!doctype html>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html ng-app="wmtsApp">
     <head>
       <meta charset="utf-8">
@@ -12,20 +12,32 @@
 
       <div class="container-fluid" >
 
-        <!-- <div class="row">
-          <h1>O2 | WMTS Viewer<h1/>
-        </div> -->
-
         <nav class="navbar navbar-default">
           <div class="container-fluid">
             <div class="navbar-header">
-              <a class="navbar-brand" href="#">O2 | WMTS Viewer</a>
+              <a class="navbar-brand">O2 | WMTS Viewer</a>
             </div>
           </div>
         </nav>
 
       </div>
       <div id="map" class="map"></div>
+
+      <asset:script>
+
+          var AppWmts = (function () {
+
+              var APP_CONFIG = ${raw( clientConfig.encodeAsJSON() as String )};
+
+              return {
+
+                  APP_CONFIG: APP_CONFIG
+
+              }
+
+          })();
+
+      </asset:script>
       <asset:deferredScripts/>
       <asset:javascript src="wmts-app.manifest.js"/>
 
