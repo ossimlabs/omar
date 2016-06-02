@@ -115,7 +115,9 @@
         map.addControl(layerSwitcher);
 
         // TODO: The url will need to come from the env. var passed in from the .yml
-        var url = 'http://localhost:8080/wmts/layers';
+        //var url = 'http://localhost:8080/wmts/layers';
+        var url = AppWmts.APP_CONFIG.serverURL + '/wmts/layers';
+
 
         // Pulls in the list of WMTS layers from the WMTS API
         function getWmtsLayersList () {
