@@ -21,17 +21,24 @@ Below this current directory, you'll find individual directories that correspond
 to each application:
 
 
-   |--  docker/
-     |-- wmts-app/
-       |-- Dockerfile
-       |-- wmts-app.yml
-     |-- wms-app/
-       |-- Dockerfile
-       |-- wms-app.yml
+    |--docker/
+
+      |--wmts-app/
+
+         |--Dockerfile
+
+         |--wmts-app.yml
+
+      |--wms-app/
+
+         |--Dockerfile
+
+         |--wms-app.yml
+    ...
 
 To build one container manually, from the app's directory, use `docker build`:
 
-`$ docker build -t radiantbluetechnologies/wms-app .`
+`$ docker build -t radiantbluetechnologies/app-name-app .`
 
 To build all of the containers at once, you can use `docker-compose` from the 
 root `docker` directory:
@@ -122,4 +129,21 @@ Now use `docker-compose` to bring up the containers:
 
 ## A local Kubernetes Cluster
 
-You can install a local Kubernetes cluster in vagrant with the [official guide](http://kubernetes.io/docs/getting-started-guides/vagrant/)
+[Kubernetes](http://kubernetes.io) is used for container registration
+and scheduling. It abstracts the management and placement of containers
+within a cluster and also the discovery of those containers.
+
+You can install a local Kubernetes cluster in using vagrant with
+the [official guide](http://kubernetes.io/docs/getting-started-guides/vagrant/).
+Using the instructions there, you will end up with a vagrant Kubernetes 
+cluster using Fedora 23 as the host. 
+
+**The vagrant-cachier, vagrant-service-manager, and vagrant-registration are
+not compatible with this installation method. You should unistall them
+before using the Kubernetes box**
+
+By default, the Kubernetes vagrant installation method creates two machines, 
+a Kubernetes *master* and a Kubernetes *minion*. 
+You can use these to verify your pods and services are working
+correctly. See the [Kubernetes Documentation](http://kubernetes.io) for more
+detailed information about *pods*, *services*, and clustering.
