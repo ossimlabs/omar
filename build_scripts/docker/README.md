@@ -31,14 +31,14 @@ to each application:
 
 To build one container manually, from the app's directory, use `docker build`:
 
-`$ docker build -t rbt/wms-app .`
+`$ docker build -t radiantbluetechnologies/wms-app .`
 
 To build all of the containers at once, you can use `docker-compose` from the 
 root `docker` directory:
 
 `$ docker-compose up`
 
-### Orchestrating the Containers
+### Orchestrating the Containers with Swarm and Machine
 
 You can quickly create an EC2 instance with [docker-machine](http://somelink.com)
 and swarm:
@@ -119,3 +119,7 @@ Pull the latest app from the public registry:
 Now use `docker-compose` to bring up the containers:
 
 `$ docker-compose up -d`
+
+## A local Kubernetes Cluster
+
+You can install a local Kubernetes cluster in vagrant with the [official guide](http://kubernetes.io/docs/getting-started-guides/vagrant/)
