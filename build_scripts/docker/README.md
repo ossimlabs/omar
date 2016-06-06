@@ -138,6 +138,9 @@ the [official guide](http://kubernetes.io/docs/getting-started-guides/vagrant/).
 Using the instructions there, you will end up with a vagrant Kubernetes 
 cluster using Fedora 23 as the host. 
 
+**As of 6/6/16 the release version of kubernetes does not work with Vagrant.
+Using [v.1.3.0-alpha.5](https://github.com/kubernetes/kubernetes/releases/download/v1.3.0-alpha.5/kubernetes.tar.gz) is the recommded download.**
+
 **The vagrant-cachier, vagrant-service-manager, and vagrant-registration are
 not compatible with this installation method. You should unistall them
 before using the Kubernetes box**
@@ -147,3 +150,11 @@ a Kubernetes *master* and a Kubernetes *minion*.
 You can use these to verify your pods and services are working
 correctly. See the [Kubernetes Documentation](http://kubernetes.io) for more
 detailed information about *pods*, *services*, and clustering.
+
+By default only a master and minion are created.
+
+If you'd like more than one minion, set the environment variable `NUM_MINIONS`
+to your desired amount:
+
+`$ export NUM_MINIONS=2`
+
