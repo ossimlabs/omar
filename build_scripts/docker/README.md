@@ -32,6 +32,8 @@ to each application:
 
     |--docker/
 
+      |--kube-configs/
+
       |--wmts-app/
 
          |--Dockerfile
@@ -139,12 +141,14 @@ Now use `docker-compose` to bring up the containers:
 
 `$ docker-compose up -d`
 
-## A local Kubernetes Cluster
+## Kuberenetes
 
 [Kubernetes](http://kubernetes.io) is used for container registration
 and scheduling. It abstracts the management and placement of containers
 within a cluster and also the discovery of those containers. It also manages
 fail-over if a node crashes or is updated.
+
+### A Local Kubernetes Environment
 
 You can install a local Kubernetes cluster in using vagrant with
 the [official guide](http://kubernetes.io/docs/getting-started-guides/vagrant/).
@@ -184,10 +188,39 @@ You can use these to verify your pods and services are working
 correctly. See the [Kubernetes Documentation](http://kubernetes.io) for more
 detailed information about *pods*, *services*, and clustering.
 
-By default only a master and minion are created.
-
 If you'd like more than one minion, set the environment variable `NUM_MINIONS`
 to your desired amount:
 
 `$ export NUM_NODES=2`
+
+After `kube-up.sh`, stdout will report the urls and logins for your cluster.
+
+The user is `vagrant` and the password is `vagrant`. You'll only be able to to
+log in to the cockpit-controlled dashboard though, usually located at
+[https://10.245.1.2:9090](https://10.245.1.2:9090)
+
+### Deploying Applications with Kubernetes
+
+After you have either a local or external Kubernetes cluster running, you can
+deploy applications within the cluster. Kubernetes will manage replication for
+and the containers for you. Each application has a corresponding deployment
+yaml file located in the `kube-configs` directory. See the 
+[official kubernetes deployment](http://kubernetes.io/docs/user-guide/deployments/) 
+guide for more detailed information.
+
+If you followed the guide for setting up a local environment, you have the
+`kubectl.sh` available. See the above `.bashrc` alias for easier access to this
+script.
+
+You can deploy an application, along with all of its dependent containers like
+this:
+
+`$ kubectl create -f kube-configs/app-name/app-name-deploy.yaml --record`
+
+And then verify it has been deployed:
+
+`$ kubectl get deployments`
+
+    deployment "wmts-deployment" created
+
 
