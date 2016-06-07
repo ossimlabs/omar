@@ -15,8 +15,17 @@ with Docker is to use [Docker Toolbox](https://www.docker.com/toolbox). Install
 that first and once you're up and running, you can return here and start 
 development and testing. 
 
-### Building the Containers
-You can build each container manually, or all at once using `docker-compose`.
+### Building the Images Locally
+To create or update new images, you'll likely want to build them locally
+and then push them to the public registry once they're tested and working. You 
+don't need to build the images to use them. They're already available in
+the public docker registry. 
+
+You can get them with a simple `$ docker pull radiantbluetechnologies/image-name`
+
+If you do need to build new images, you can build each one manually, or 
+all at once using `docker-compose`.
+
 Below this current directory, you'll find individual directories that correspond
 to each application:
 
@@ -36,14 +45,17 @@ to each application:
          |--wms-app.yml
     ...
 
-To build one container manually, from the app's directory, use `docker build`:
+To build one image manually, from the app's directory, use `docker build`:
 
 `$ docker build -t radiantbluetechnologies/app-name-app .`
 
-To build all of the containers at once, you can use `docker-compose` from the 
+To build all of the images at once, you can use `docker-compose` from the 
 root `docker` directory:
 
 `$ docker-compose up`
+
+This will launch a local group of containers, properly linked together for
+testing and development.
 
 ### Orchestrating the Containers with Swarm and Machine
 
@@ -131,12 +143,33 @@ Now use `docker-compose` to bring up the containers:
 
 [Kubernetes](http://kubernetes.io) is used for container registration
 and scheduling. It abstracts the management and placement of containers
-within a cluster and also the discovery of those containers.
+within a cluster and also the discovery of those containers. It also manages
+fail-over if a node crashes or is updated.
 
 You can install a local Kubernetes cluster in using vagrant with
 the [official guide](http://kubernetes.io/docs/getting-started-guides/vagrant/).
 Using the instructions there, you will end up with a vagrant Kubernetes 
-cluster using Fedora 23 as the host. 
+cluster using Fedora 23 as the host. If you'd like to use [CoreOS](http://coreos.com)
+as the bas operating sytem, set the environment variable `KUBERNETES_OS=coreos`. 
+
+You can set the following in your `~/.bashrc` to save some typing:
+
+    # Kubernetes Local Development
+    export KUBERNETES_PROVIDER=vagrant
+    export NUM_NODES=3
+    alias kubectl='/path/to/extracted/kubernetes.tar.gz/kubernetes/cluster/kubectl.sh'
+
+Here are the basic step by step instructions:
+
+1. Download [release v.1.3.0-alpha.5](https://github.com/kubernetes/kubernetes/releases/download/v1.3.0-alpha.5/kubernetes.tar.gz)
+2. Extract it locally: 
+  - `$ tar xvf kubernetes.tar.gz`
+3. Set the Kubernetes provider environment variable:
+  - `$ export KUBERNETES_PROVIDER=vagrant`
+4. Start the cluster:
+  - `$ kubernetes/cluster/kube-up.sh`
+
+*Using CoreOS Vagrant provided: https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant.html*
 
 **As of 6/6/16 the release version of kubernetes does not work with Vagrant.
 Using [v.1.3.0-alpha.5](https://github.com/kubernetes/kubernetes/releases/download/v1.3.0-alpha.5/kubernetes.tar.gz) is the recommded download.**
@@ -156,5 +189,5 @@ By default only a master and minion are created.
 If you'd like more than one minion, set the environment variable `NUM_MINIONS`
 to your desired amount:
 
-`$ export NUM_MINIONS=2`
+`$ export NUM_NODES=2`
 
