@@ -63,7 +63,7 @@ grails:
 
 ## AWS Credentials
 
-Currently we assume that the credentials are put in the proper location.  For testing we added a file to the home account of the user this process is running as.  
+Currently we assume that the credentials are put in the proper location.  For testing we added a file to the home account of the user the sqs-app process is running as.  
 
 ```
 vi ~/.aws/credentials
