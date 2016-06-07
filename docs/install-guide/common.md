@@ -537,6 +537,7 @@ environments:
 We have seen the common settings found on all of the Web Application Services.  In this section please follow the specific configuration for each web application.  The documentation will assume that the common settings have been applied and will not be repeated.  We will show all files/directories required to run the web service.
 
 * [Twofishes Installation and setup](twofishes.md) Is not managed by us but is a dependency for the omar-app UI for location services.
+* [SQS Installation and setup](sqs-app.md)
 * [WMTS Installation and setup](wmts-app.md)
 * [WMS Installation and setup](wms-app.md)
 * [WFS Installation and setup](wfs-app.md)

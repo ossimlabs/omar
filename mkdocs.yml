@@ -12,4 +12,5 @@ pages:
   - 'JPIP Service': 'install-guide/jpip-app.md'
   - 'JPIP Streaming Service': 'install-guide/jpip-server.md'
   - 'Twofishes Service': 'install-guide/twofishes.md'
+  - 'SQS Service': 'install-guide/sqs-app.md'
   - 'OMAR/O2 UI' : 'install-guide/omar-app.md'
