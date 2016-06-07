@@ -131,5 +131,5 @@ omar:
       destination:
         type: "post"
         post:
-            urlEndPoint: ""
-            field: message
+          urlEndPoint: ""
+          field: message
