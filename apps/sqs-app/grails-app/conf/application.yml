@@ -120,7 +120,6 @@ environments:
 ---
 quartz:
   jdbcStore:   false
-  autoStartup: true
 
 omar:
   sqs:
