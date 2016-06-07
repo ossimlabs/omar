@@ -22,7 +22,7 @@ spec:
         - name: WFSPORT
           value: "80"
         - name: DBHOST
-          value: wmtsdb
+          value: "127.0.0.1"
         - name: DBUSER
           value: wmts
         - name: DBPORT
