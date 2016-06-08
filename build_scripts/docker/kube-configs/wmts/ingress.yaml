@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+spec:
+  rules:
+  - host: k8s.rbtcloud.dev
+  - http:
+      paths:
+      - path: /wmts
+        backend:
+          serviceName: wmts-app
+          servicePort: 8080

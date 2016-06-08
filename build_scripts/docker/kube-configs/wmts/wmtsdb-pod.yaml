@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wmtsdb
+  labels:
+    name: wmtsdb
+spec:
+ containers:
+ - name: wmtsdb
+   env:
+   - name:  POSTGRES_PASSWORD
+     value: abc123
+   - name: POSTGRES_USER
+     value: wmts
+   - name: POSTGRES_DB
+     value: omar_prod
+  image: postgres:latest 
+  ports:
+    - containerPort: 5432
+      name: wmtsdb
+
