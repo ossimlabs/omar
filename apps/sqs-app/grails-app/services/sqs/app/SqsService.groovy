@@ -43,7 +43,15 @@ class SqsService {
    def postMessage(String url, String field, String message)
    {
       URL tempUrl = new URL(url)
-      String host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()
+      String host
+      if(tempUrl.port> 0)
+      {
+        host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()      
+      } 
+      else
+      {
+        host = "${tempUrl.protocol}://${tempUrl.host}".toString()            
+      }
       String path = tempUrl.path
 
 
