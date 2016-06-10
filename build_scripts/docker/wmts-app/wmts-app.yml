@@ -18,8 +18,4 @@ omar:
     wfsUrl: http://{$WFSSERVER}:{$WFSPORT}/wfs
     wmsUrl: http://{$WMSSERVER}:{$WMSPORT}/wms
     oldmarWmsFlag: false
----
-grails:
-  serverURL: http://{$WMSSERVER}/stager-app
-  assets:
-    url: http://{$WMSSERVER}/stager-app/assets/
+

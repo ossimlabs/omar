@@ -2,7 +2,7 @@ version: '2'
 services:
   o2-base:
     build: ./o2-base
-    image: rbt/o2-base
+    image: radiantbluetechnologies/o2-base
   wmts:
     environment: 
       DBHOST: wmtsdb
@@ -16,10 +16,10 @@ services:
       WMSPORT: 80
     build: ./wmts-app
     ports:
-      - "8080:8080"
+      - "8080"
     links:
       - wmtsdb
-    image: rbt/wmts
+    image: radiantbluetechnologies/wmts
     depends_on:
       - o2-base
       - wmtsdb
