@@ -22,9 +22,9 @@ import org.apache.commons.codec.digest.DigestUtils
 import groovyx.net.http.HTTPBuilder
 import static groovyx.net.http.ContentType.URLENC
 
-import grails.transaction.Transactional
+//import grails.transaction.Transactional
 
-@Transactional
+//@Transactional
 class SqsService {
 
    AmazonSQSClient sqs
