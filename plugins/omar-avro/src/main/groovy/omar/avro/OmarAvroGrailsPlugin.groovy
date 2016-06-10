@@ -46,10 +46,10 @@ Brief summary/description of the plugin.
         log.trace("doWithSpring(): Entered.............")
 
         //println OmarSecurityUtils.application.config.grails.plugin.springsecurity
-        OmarPredioReflectionUtils.application = OmarPredioUtils.application = grailsApplication
-        OmarPredioUtils.resetPredioConfig()
+        OmarAvroReflectionUtils.application = OmarAvroUtils.application = grailsApplication
+        OmarAvroUtils.resetAvroConfig()
         // force reload by getting the config object
-        OmarPredioUtils.predioConfig
+        OmarAvroUtils.avroConfig
 
         log.trace("doWithSpring(): Leaving.............")
 
