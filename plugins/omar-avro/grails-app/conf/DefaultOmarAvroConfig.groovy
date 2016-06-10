@@ -1,0 +1,16 @@
+avro{
+  sourceUriField="S3_URI_Nitf"
+  dateField="Observation_Date"
+  dateFieldFormat="yyyyMMddHHmmss"
+  imageIdField="Image_Id"
+  download{
+    directory="/data"
+  }
+  destination{
+    type="post"
+    post{
+      addRasterEndPoint="http://192.168.2.200/stager-app/dataManager/addRaster"
+      addRasterField="filename"
+    }
+  }
+}
