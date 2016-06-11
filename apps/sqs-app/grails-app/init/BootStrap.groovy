@@ -11,7 +11,6 @@ class BootStrap {
       SqsUtils.resetSqsConfig()
       SqsUtils.sqsConfig
 
-      println SqsUtils.sqsConfig
       def quartzScheduler = grailsApplication.mainContext.getBean('quartzScheduler')
 
       if(SqsUtils.sqsConfig.reader.enabled)
