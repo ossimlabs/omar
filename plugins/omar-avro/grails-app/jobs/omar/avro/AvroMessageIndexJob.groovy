@@ -31,8 +31,8 @@ class AvroMessageIndexJob {
             {
               URL url = new URL(sourceURI)
               //println "DOWNLOADING: ${jsonObj.S3_URI_Nitf}"
-              //File file = new File("${fullPathLocation}") 
-              //file << url.openStream()
+              File file = new File("${fullPathLocation}") 
+              file << url.openStream()
               log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
 
               avroService.addFile(new IndexFileCommand(filename:fullPathLocation))
