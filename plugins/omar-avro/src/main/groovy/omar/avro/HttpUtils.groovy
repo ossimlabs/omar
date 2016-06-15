@@ -2,9 +2,39 @@ package omar.avro
 import groovyx.net.http.HTTPBuilder
 import static groovyx.net.http.ContentType.URLENC
 import omar.core.HttpStatus
+import java.net.URLConnection
+import java.io.BufferedInputStream
+import java.io.FileOutputStream
 
 class HttpUtils
 {
+   static void downloadURI(String destination, String sourceURI)
+   {
+      URL url = new URL(sourceURI)
+      File file = new File(destination)
+      if(file.exists())
+      {
+         file.delete()
+      }
+
+      URLConnection connection = url.openConnection();
+      connection.setReadTimeout(5000);
+      connection.connect();
+      // this will be useful so that you can show a typical 0-100% progress bar
+      //      int fileLength = connection.contentLength;
+      // download the file
+      def input = new BufferedInputStream(connection.inputStream);
+      def output = new FileOutputStream(file);
+
+      def buffer = new byte[1024];
+      long total = 0;
+      int count=0;
+      while (((count = input.read(buffer)) != -1)) {
+         total += count;
+      //            publishProgress((int) (total * 100 / fileLength - 1));
+         output.write(buffer, 0, count);
+      }
+   }
    static HashMap postMessage(String url, String field, String message)
    {
       def result = [status:200,message:""]
