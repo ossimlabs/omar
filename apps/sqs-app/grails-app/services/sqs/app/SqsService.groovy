@@ -93,6 +93,7 @@ class SqsService {
       }
    }
    def receiveMessages() {
+      log.trace "receiveMessages: Entered........"
       def config = SqsUtils.sqsConfig
 
       def messages 
@@ -109,6 +110,7 @@ class SqsService {
       {
          log.error("ERROR: Unable to receive message for queue: ${config.reader.queue}\n${e.toString()}")
       }
+      log.trace "receiveMessages: Leaving........"
 
       messages
    }
