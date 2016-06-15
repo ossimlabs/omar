@@ -65,7 +65,7 @@ class AvroController {
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'processId', value = 'Process Id', required=false, paramType = 'query', dataType = 'string'),
            @ApiImplicitParam(name = 'status', value = 'Process status', allowableValues="[READY,PAUSED,CANCELED,FINISHED,FAILED]",  defaultValue = 'READY', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'whereStatus', value = 'Where status equals', allowableValues="[READY,PAUSED,CANCELED,FINISHED,FAILED]",  defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'whereStatus', value = 'Where status equals', allowableValues="[READY,PAUSED,CANCELED,FINISHED,FAILED,RUNNING]",  defaultValue = '', paramType = 'query', dataType = 'string'),
    ])
    def resetFileProcessingStatus()
    {

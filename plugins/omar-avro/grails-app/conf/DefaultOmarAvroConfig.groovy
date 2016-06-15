@@ -10,7 +10,7 @@ avro{
     type="post"
     post{
       addRasterEndPoint="http://192.168.2.200/stager-app/dataManager/addRaster"
-      addRasterField="filename"
+      addRasterEndPointField="filename"
     }
   }
 }
