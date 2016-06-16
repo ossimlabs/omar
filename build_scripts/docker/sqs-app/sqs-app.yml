@@ -1,0 +1,19 @@
+# ${AWSDNS}
+# $AWSDNS
+server:
+  contextPath:
+  port: 8080
+
+omar:
+  sqs:
+    reader:
+      # queue: "https://sqs.us-east-1.amazonaws.com/320588532383/avro-tst"
+      queue: "https://${AWSDNS}/${AWSQUEUEPATH}"
+      waitTimeSeconds: 20
+      maxNumberOfMessages: 1
+      pollingIntervalSeconds: 10
+      destination:
+        type: "post"
+        post:
+            urlEndPoint: ""
+            field: message
