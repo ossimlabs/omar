@@ -47,7 +47,7 @@ class AvroController {
            @ApiImplicitParam(name = 'offset', value = 'Process Id', required=false, paramType = 'query', dataType = 'integer'),
            @ApiImplicitParam(name = 'limit', value = 'Process status', defaultValue = '', paramType = 'query', dataType = 'integer'),
    ])
-   def listFile()
+   def listFiles()
    {
       def jsonData = request.JSON?request.JSON as HashMap:null
       def requestParams = params - params.subMap( ['controller', 'action'] )
@@ -57,15 +57,15 @@ class AvroController {
       if(jsonData) requestParams << jsonData
       BindUtil.fixParamNames( GetFileCommand, requestParams )
       bindData( cmd, requestParams )
-      HashMap result = avroService.listFile(cmd)
+      HashMap result = avroService.listFiles(cmd)
 
       render contentType: "application/json", text: result as JSON
    }
    @ApiOperation(value = "Reset File Processing Status", consumes= 'application/json', produces='application/json', httpMethod="POST")
    @ApiImplicitParams([
            @ApiImplicitParam(name = 'processId', value = 'Process Id', required=false, paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'status', value = 'Process status', allowableValues="[READY,PAUSED,CANCELED,FINISHED,FAILED]",  defaultValue = 'READY', paramType = 'query', dataType = 'string'),
-           @ApiImplicitParam(name = 'whereStatus', value = 'Where status equals', allowableValues="[READY,PAUSED,CANCELED,FINISHED,FAILED,RUNNING]",  defaultValue = '', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'status', value = 'Set process status', allowableValues="[READY,PAUSED,CANCELED,FINISHED,FAILED]",  defaultValue = 'READY', paramType = 'query', dataType = 'string'),
+           @ApiImplicitParam(name = 'whereStatusEquals', value = 'Where status equals', allowableValues="[READY,PAUSED,CANCELED,FINISHED,FAILED,RUNNING]",  defaultValue = '', paramType = 'query', dataType = 'string'),
    ])
    def resetFileProcessingStatus()
    {
@@ -116,7 +116,7 @@ class AvroController {
            @ApiImplicitParam(name = 'offset', value = 'Process Id', required=false, paramType = 'query', dataType = 'integer'),
            @ApiImplicitParam(name = 'limit', value = 'Process status', defaultValue = '', paramType = 'query', dataType = 'integer'),
    ])
-   def listMessage()
+   def listMessages()
    {
       def jsonData = request.JSON?request.JSON as HashMap:null
       def requestParams = params - params.subMap( ['controller', 'action'] )
@@ -126,7 +126,7 @@ class AvroController {
       if(jsonData) requestParams << jsonData
       BindUtil.fixParamNames( GetMessageCommand, requestParams )
       bindData( cmd, requestParams )
-      HashMap result = avroService.listMessage(cmd)
+      HashMap result = avroService.listMessages(cmd)
 
       render contentType: "application/json", text: result as JSON
    }

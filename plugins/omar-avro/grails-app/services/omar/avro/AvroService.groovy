@@ -131,7 +131,7 @@ class AvroService {
     result
   }
 
-  HashMap listFile(GetFileCommand cmd)
+  HashMap listFiles(GetFileCommand cmd)
   {
     HashMap result = [
            results:[],
@@ -227,9 +227,9 @@ class AvroService {
         result.message = "Process ID not found: ${cmd.processId}"
       }
     }
-    else if(cmd.whereStatus)
+    else if(cmd.whereStatusEquals)
     {
-      def objects = AvroFile.findAll("FROM AvroFile where status = '${cmd.whereStatus}'")
+      def objects = AvroFile.findAll("FROM AvroFile where status = '${cmd.whereStatusEquals}'")
 
       objects.each{record->
         record.status = status
@@ -325,7 +325,7 @@ class AvroService {
     result
 
   }
-  HashMap listMessage(GetMessageCommand cmd)
+  HashMap listMessages(GetMessageCommand cmd)
   {
     HashMap result = [
            results:[],

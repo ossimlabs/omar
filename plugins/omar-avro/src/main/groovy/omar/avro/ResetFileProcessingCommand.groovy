@@ -8,11 +8,11 @@ class ResetFileProcessingCommand implements Validateable
 {
    String processId
    String status
-   String whereStatus
+   String whereStatusEquals
 
    static contraints = {
       processId nullable: true
       status nullable: false
-      whereStatus nullable: true
+      whereStatusEquals nullable: true
    }
 }
