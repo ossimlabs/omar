@@ -24,7 +24,7 @@ The installation sets up
 The configuration file is a yaml formatted config file.   For now create a file called omar-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
 ```bash
-vi /usr/share/omar/wms-app/omar-app.yml
+vi /usr/share/omar/omar-app/omar-app.yml
 ```
  that contains the following settings:
 

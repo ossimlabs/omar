@@ -21,7 +21,7 @@ The installation sets up
 
 ##Configuration
 
-The configuration file is a yaml formatted config file.   For now create a file called swipe-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document.
+The configuration file is a yaml formatted config file.   For now create a file called sqs-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document.
 
 ```bash
 sudo vi /usr/share/omar/sqs-app/sqs-app.yml
@@ -78,4 +78,7 @@ aws_secret_access_key=
 ```
 
 Where you replace **aws\_access\_key\_id** and **aws\_secret\_access\_key** with your AWS credentials.
+
+
+In production you will probably already have machine based roles and this technique should only be used when testing from a local laptop and connecting to the AWS.
 
