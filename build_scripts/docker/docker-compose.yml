@@ -3,8 +3,18 @@ services:
   o2-base:
     build: ./o2-base
     image: radiantbluetechnologies/o2-base
+  wmtsdb:
+    environment:
+      POSTGRES_PASSWORD: abc123
+      POSTGRES_USER: wmts
+      POSTGRES_DB: omar_prod
+    image: postgres:latest
   wmts:
-    environment: 
+    environment:
+      # TODO: These DB settings will become
+      # redundant as we add more services.
+      # Need to look into the 'extends' to see
+      # if it can reduce this
       DBHOST: wmtsdb
       DBPORT: 5432
       DBNAME: omar_prod
@@ -23,10 +33,23 @@ services:
     depends_on:
       - o2-base
       - wmtsdb
-  wmtsdb:
+  sqs20:
+    build: ./sqs-app
     environment:
-      POSTGRES_PASSWORD: abc123
-      POSTGRES_USER: wmts
-      POSTGRES_DB: omar_prod
-    image: postgres:latest
+      # - DEMO_VAR=${DEMO_VAR}
+      AWSDNS: sqs.us-east-1.amazonaws.com
+      AWSQUEUEPATH: 320588532383/avro-tst
+      WAIT_TIME_SECONDS: 20
+      NUMBER_OF_MESSAGES: 1
+      POLLING_INTERVAL_SECONDS: 10
+      DESTINATION_TYPE: stdout
+      DESTINATION_POST_END_POINT: ""
+      DESTINATION_POST_FIELD: message
+    volumes:
+      - /Users/adrake/.aws:/root/.aws
 
+    ports:
+      - "8080"
+    image: radiantbluetechnologies/sqs
+    depends_on:
+      - o2-base

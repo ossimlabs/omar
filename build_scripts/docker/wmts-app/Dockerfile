@@ -13,4 +13,3 @@ ENV DBUSER=${DBUSER}\
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wmts-app/wmts-app.sh"]
-
