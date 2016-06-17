@@ -48,40 +48,38 @@ environments:
 
 wfs:
   featureTypeNamespaces:
-      - prefix: omar
-        uri: http://omar.ossim.org
-
+    - prefix: omar
+      uri: http://omar.ossim.org
   datastores:
-      - namespaceId: omar
-        datastoreId: omardb-prod
-        datastoreParams:
-          dbtype: postgis
-          host: 192.168.2.100
-          port: '5432'
-          database: omardb-prod
-          user: postgres
-          passwd: postgres
-          'Expose primary keys': 'true'
-          namespace: http://omar.ossim.org
+    - namespaceId: omar
+      datastoreId: omardb-prod
+      datastoreParams:
+        dbtype: postgis
+        host: 192.168.2.100
+        port: '5432'
+        database: omardb-prod
+        user: postgres
+        passwd: postgres
+        'Expose primary keys': 'true'
+        namespace: http://omar.ossim.org
   featureTypes:
-      - name: raster_entry
-        title: raster_entry
-        description: ''
-        keywords:
-          - omar
-          - raster_entry
-          - features
-        datastoreId: omardb-prod
+    - name: raster_entry
+      title: raster_entry
+      description: ''
+      keywords:
+        - omar
+        - raster_entry
+        - features
+      datastoreId: omardb-prod
+    - name: video_data_set
+      title: video_data_set
+      description: ''
+      keywords:
+        - omar
+        - video_data_set
+        - features
+      datastoreId: omardb-prod
 
-      - name: video_data_set
-        title: video_data_set
-        description: ''
-        keywords:
-          - omar
-          - video_data_set
-          - features
-        datastoreId: omardb-prod
-        
 wms:
   styles:
     byFileType:
