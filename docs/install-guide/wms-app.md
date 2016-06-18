@@ -23,7 +23,7 @@ Because this library accesses imagery for chipping you might want to consider ad
 
 ##Configuration
 
-The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
+The configuration file is a yaml formatted config file.   For now create a file called wms-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
 ```bash
 vi /usr/share/omar/wms-app/wms-app.yml
@@ -190,3 +190,37 @@ The wfs definitions are used to query the database for feature information that 
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
 * **wfs** This entry stores both the datastore information and the feature types.  The only thing that will change in these two is the location of the postgres datastore location identified in the **datastoreParams** section by the host, port, and database.  The Feature type uses the database ans the datastore ID.
 * **wms.styles** is used for footprint styling for the WMS footprint drawing.  You can define different color definitions and group them by a style name.   
+
+##Executing
+
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service wms-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start wms-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/wms-app/wms-app.sh.   You should be able to tail the wms-app.log to see any standard output
+
+```
+tail -f /var/log/wmts-app/wms-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://localhost:8080/wms?request=GetCapabilities
+```
+
+which should return an XML document with meta-data about the service.

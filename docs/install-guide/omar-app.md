@@ -125,3 +125,43 @@ grails:
 * **omar.app.jpipApp** Base settings for thumbnail generation
  * **baseURL** Base URL for the JPIP service.
  * **enabled** Allows one to specify if the service is enabled.
+
+##Executing
+
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service omar-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start omar-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/omar-app/omar-app.sh.   You should be able to tail the omar-app.log to see any standard output
+
+```
+tail -f /var/log/stager-app/omar-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://localhost:8080/health
+```
+
+which should return a JSON reponse similar to:
+
+```
+{"status":"UP"}
+```
+
+

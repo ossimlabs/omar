@@ -91,6 +91,45 @@ If all is good, then you should see a line that looks similar to the following:
 Grails application running at http://localhost:8080 in environment: production
 ```
 
+##Executing
+
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service jpip-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start jpip-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/jpip-app/jpip-app.sh.   You should be able to tail the jpip-app.log to see any standard output
+
+```
+tail -f /var/log/stager-app/jpip-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://localhost:8080/health
+```
+
+which should return a JSON reponse similar to:
+
+```
+{"status":"UP"}
+```
+
+
 ##Examples
 
 Assume the server has access to the image path called  **/data/sanfran/foo.ccf** If we were to submit a request:

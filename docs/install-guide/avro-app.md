@@ -73,3 +73,41 @@ omar:
  * **type** Referes to the type we wish to specify and use.  The values can be "stdout" or "post".  If the value 'stdout' is used it will just do a println of the message. If the type is "post" then it will post the message to the service definition for the endPoint and the Field.
  * **post.addRasterEndPoint** If the destination type is **"post"** then this field needs to be specified to identify the location of the addRaster endpoint.  Typically you will be connecting this to a stager-app endpoint which will have a relative path of dataManager/addRaster.  The example URL was taken from the ossim-vagrant repo definitions.  This will need to be modified for your environment.
  * **post.addRasterEndPointField** If the destination type is **"post"** then this field is needed to define the post variable used.   By default this field should be left as *"filename"*.
+
+##Executing
+
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service avro-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start avro-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/avro-app/avro-app.sh.   You should be able to tail the avro-app.log to see any standard output
+
+```
+tail -f /var/log/avro-app/avro-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://localhost:8080/health
+```
+
+which should return a JSON reponse similar to:
+
+```
+{"status":"UP"}
+```

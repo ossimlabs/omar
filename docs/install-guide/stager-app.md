@@ -74,5 +74,42 @@ and to remove the raster
 
 ```
 curl -d "filename=<path of file>" "http://192.168.2.200:80/stager-app/dataManager/removeRaster"
+```
 
+##Executing
 
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service stager-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start stager-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/stager-app/stager-app.sh.   You should be able to tail the stager-app.log to see any standard output
+
+```
+tail -f /var/log/stager-app/stager-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://localhost:8080/health
+```
+
+which should return a JSON reponse similar to:
+
+```
+{"status":"UP"}
+```

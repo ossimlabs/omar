@@ -82,3 +82,40 @@ Where you replace **aws\_access\_key\_id** and **aws\_secret\_access\_key** with
 
 In production you will probably already have machine based roles and this technique should only be used when testing from a local laptop and connecting to the AWS.
 
+##Executing
+
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service aws-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start aws-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/aws-app/aws-app.sh.   You should be able to tail the aws-app.log to see any standard output
+
+```
+tail -f /var/log/stager-app/aws-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://localhost:8080/health
+```
+
+which should return a JSON reponse similar to:
+
+```
+{"status":"UP"}
+```
