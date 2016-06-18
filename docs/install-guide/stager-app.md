@@ -62,20 +62,6 @@ grails:
 If you wish to look at the swagger API documentation you can visit the api of the service by accessing the page http://\<ip>/\<proxy path>/api.
 
 
-## Examples
-
-To add a raster file for indexing make sure you are on the same NFS mount path.  In this example we will assume that the endpoint URL is located: http://<ip>/stager-app/dataManager/addRaster.   To add a raster file using curl:
-
-```
-curl -d "filename=<path of file>" "http://192.168.2.200:80/stager-app/dataManager/addRaster"
-```
-
-and to remove the raster
-
-```
-curl -d "filename=<path of file>" "http://192.168.2.200:80/stager-app/dataManager/removeRaster"
-```
-
 ##Executing
 
 To run the service on systems that use the init.d you can issue the command.
@@ -112,4 +98,18 @@ which should return a JSON reponse similar to:
 
 ```
 {"status":"UP"}
+```
+
+## Examples
+
+To add a raster file for indexing make sure you are on the same NFS mount path.  In this example we will assume that the endpoint URL is located: http://<ip>/stager-app/dataManager/addRaster.   To add a raster file using curl:
+
+```
+curl -d "filename=<path of file>" "http://192.168.2.200:80/stager-app/dataManager/addRaster"
+```
+
+and to remove the raster
+
+```
+curl -d "filename=<path of file>" "http://192.168.2.200:80/stager-app/dataManager/removeRaster"
 ```
