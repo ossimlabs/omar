@@ -120,6 +120,8 @@ O2 RPM list from the yum repo:
 * **o2-wfs-app** OMAR/O2 WFS Service
 * **o2-wms-app** OMAR/O2 WMS Service
 * **o2-wmts-app** WMTS Services
+* **o2-sqs-app** SQS Reader Services
+* **o2-avro-app** AVRO Payload ingest for NITF avro schema
 
 ##Setup EPEL
 
@@ -538,6 +540,7 @@ We have seen the common settings found on all of the Web Application Services.  
 
 * [Twofishes Installation and setup](twofishes.md) Is not managed by us but is a dependency for the omar-app UI for location services.
 * [SQS Installation and setup](sqs-app.md)
+* [AVRO Installation and setup](avro-app.md)
 * [WMTS Installation and setup](wmts-app.md)
 * [WMS Installation and setup](wms-app.md)
 * [WFS Installation and setup](wfs-app.md)
