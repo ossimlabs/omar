@@ -33,10 +33,9 @@ services:
     depends_on:
       - o2-base
       - wmtsdb
-  sqs20:
+  sqs:
     build: ./sqs-app
     environment:
-      # - DEMO_VAR=${DEMO_VAR}
       AWSDNS: sqs.us-east-1.amazonaws.com
       AWSQUEUEPATH: 320588532383/avro-tst
       WAIT_TIME_SECONDS: 20
@@ -46,8 +45,9 @@ services:
       DESTINATION_POST_END_POINT: ""
       DESTINATION_POST_FIELD: message
     volumes:
+      # Modify the path below to reflect your
+      # AWS credentials location
       - /Users/adrake/.aws:/root/.aws
-
     ports:
       - "8080"
     image: radiantbluetechnologies/sqs
