@@ -31,7 +31,7 @@ class IngestService implements ApplicationContextAware
 					if ( dataSet.save() )
 					{
 						status = 200
-						message = "Accepted"
+						message = "Added dataset"
 					}
 					else
 					{
