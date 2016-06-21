@@ -53,3 +53,19 @@ services:
     image: radiantbluetechnologies/sqs
     depends_on:
       - o2-base
+  avro:
+    build: ./avro-app
+    environment:
+      DBHOST: wmtsdb
+      DBPORT: 5432
+      DBNAME: omar_prod
+      DBUSER: wmts
+      DBPASS: abc123
+    ports:
+      - "8082"
+    links:
+      - wmtsdb
+    image: radiantbluetechnologies/avro
+    depends_on:
+      - o2-base
+      - wmtsdb

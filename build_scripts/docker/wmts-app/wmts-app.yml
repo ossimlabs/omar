@@ -18,4 +18,3 @@ omar:
     wfsUrl: http://{$WFSSERVER}:{$WFSPORT}/wfs
     wmsUrl: http://{$WMSSERVER}:{$WMSPORT}/wms
     oldmarWmsFlag: false
-
