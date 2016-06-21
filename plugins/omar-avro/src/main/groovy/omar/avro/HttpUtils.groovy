@@ -31,7 +31,7 @@ class HttpUtils
       int count=0;
       while (((count = input.read(buffer)) != -1)) {
          total += count;
-      //            publishProgress((int) (total * 100 / fileLength - 1));
+         //            publishProgress((int) (total * 100 / fileLength - 1));
          output.write(buffer, 0, count);
       }
    }
@@ -42,32 +42,35 @@ class HttpUtils
       String host
       if(tempUrl.port> 0)
       {
-         host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()      
-      } 
+         host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()
+      }
       else
       {
-         host = "${tempUrl.protocol}://${tempUrl.host}".toString()            
+         host = "${tempUrl.protocol}://${tempUrl.host}".toString()
       }
       String path = tempUrl.path
 
       try{
-      def http = new HTTPBuilder( host )
-      def postBody = ["${field}": message] 
-      http.handler.failure = {resp->
-        result.status = resp.status
-        result.message = resp.statusLine
-      }
-      http.post( path: path, body: postBody,
-         requestContentType: URLENC ) 
-      { resp ->
+         def http = new HTTPBuilder( host )
+         def postBody = ["${field}": message]
+         postBody = postBody + tempUrl.params
+         http.handler.failure = {resp->
+            result.status = resp.status
             result.message = resp.statusLine
-            result.status = resp.statusLine.statusCode 
-       }
+         }
+         http.post( path: path, body: postBody,
+                 requestContentType: URLENC )
+                 { resp ->
+                    result.message = resp.statusLine
+                    result.status = resp.statusLine.statusCode
+                 }
       }
       catch(e)
       {
          result.status = HttpStatus.NOT_FOUND
          result.message = e.toString()
+
+         log.error result.message
       }
 
       result
