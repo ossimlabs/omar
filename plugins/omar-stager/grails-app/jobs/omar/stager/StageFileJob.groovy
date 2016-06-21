@@ -23,8 +23,16 @@ class StageFileJob {
             ])
             if(result.status>=300)
             {
-               log.error  result?.message?:"Failed to stage file ${fileRecord.filename}"
-               stagerService.updateFileStatus(fileRecord.processId, ProcessStatus.FAILED, result?.message?:"Failed to stage file ${fileRecord.filename}")
+               if(result.status == 415)
+               {
+                  log.error  result?.message?:"File ${fileRecord.filename} not added.  We currently do not support updating."
+                  stagerService.updateFileStatus(fileRecord.processId, ProcessStatus.FINISHED, result?.message?:"Failed to stage file ${fileRecord.filename}")
+               }
+               else
+               {
+                  log.error  result?.message?:"Failed to stage file ${fileRecord.filename}"
+                  stagerService.updateFileStatus(fileRecord.processId, ProcessStatus.FAILED, result?.message?:"Failed to stage file ${fileRecord.filename}")
+               }
             }
             else
             {
