@@ -30,11 +30,13 @@ class AvroService {
   }
   synchronized def nextMessage()
   {
-    def firstObject = AvroPayload.find("FROM AvroPayload ORDER BY id asc")
+    def firstObject = AvroPayload.find("FROM AvroPayload where status = 'READY' ORDER BY id asc")
     def result = firstObject?.properties
-    result = result?:[:]
 
-    firstObject?.delete(flush:true)
+    result = result?:[:]
+    firstObject?.status = "RUNNING"
+    firstObject?.statusMessage = ""
+    firstObject?.save(flush:true)
 
     result
   }
@@ -59,6 +61,37 @@ class AvroService {
 
     new File(prefixPath, suffix)
   }
+  HashMap updatePayloadStatus(String messageId, ProcessStatus status, String statusMessage)
+  {
+    HashMap result = [status:HttpStatus.OK,
+                      message:""
+    ]
+
+    AvroPayload avroPayload = AvroPayload.findByMessageId(messageId)
+
+    if(avroPayload)
+    {
+      avroPayload.status = status
+      if(statusMessage != null) avroPayload.statusMessage = statusMessage
+
+      // for now, until we support archiving, ... etc.  once the status goes to finished
+      // we will remove the file from the table.
+      if(avroPayload.status == ProcessStatus.FINISHED)
+      {
+        avroPayload.delete(flush:true)
+      }
+      else
+      {
+        avroPayload.save(flush:true)
+      }
+    }
+    else
+    {
+      result.message = "Unable to update status for id: ${messageId}"
+    }
+    result
+  }
+
   Boolean isProcessingFile(String filename)
   {
     def avroFile=AvroFile.find("from AvroFile where ((filename=:filename) and (status='READY' or status='RUNNING'))",
@@ -282,7 +315,7 @@ class AvroService {
         {
           if(!isProcessingFile(messageId))
           {
-            AvroPayload avroPayload = new AvroPayload(messageId: messageId, message:cmd.message)
+            AvroPayload avroPayload = new AvroPayload(messageId: messageId, status: ProcessStatus.READY, message:cmd.message)
             if(!avroPayload.save(flush:true))
             {
               log.error "Unable to save ${cmd.message}"
@@ -346,6 +379,8 @@ class AvroService {
                   [
                      messageId:record.messageId,
                      message:record.message,
+                     status:record.status.toString(),
+                     statusMessage: record.statusMessage
                   ]
       }
 
