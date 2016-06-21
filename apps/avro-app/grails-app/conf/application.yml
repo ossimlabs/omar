@@ -80,6 +80,7 @@ endpoints:
 dataSource:
     pooled: true
     jmxExport: true
+
     driverClassName: org.h2.Driver
     username: sa
     password:
@@ -127,5 +128,5 @@ omar:
     destination:
       type: "post"
       post:
-        addRasterEndPoint: "http://192.168.2.200/stager-app/dataManager/addRaster"
+        addRasterEndPoint: "http://192.168.2.200/stager-app/dataManager/addRaster?background=true"
         addRasterEndPointField: "filename"
