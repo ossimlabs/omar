@@ -120,9 +120,11 @@ environments:
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
 quartz:
-    jdbcStore: false
+  jdbcStore: false
+  threadPool:
+    threadCount: 4
 
 videoStreaming:
   flashDirRoot: /opt/local/apache2/htdocs/videos
-  //flashDirRoot: /var/www/html/videos
+#  flashDirRoot: /var/www/html/videos
   flashUrlRoot: http://localhost/videos
