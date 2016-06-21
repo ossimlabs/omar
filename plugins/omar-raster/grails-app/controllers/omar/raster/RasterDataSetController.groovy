@@ -121,7 +121,6 @@ class RasterDataSetController
 	@ApiImplicitParams( [
 			@ApiImplicitParam(name = 'offset', value = 'Process Id', required=false, paramType = 'query', dataType = 'integer'),
 			@ApiImplicitParam(name = 'limit', value = 'Process status', defaultValue = '', paramType = 'query', dataType = 'integer'),
-			@ApiImplicitParam(name = 'filter', value = 'Filter', defaultValue = '', paramType = 'query', dataType = 'string'),
 	 ] )
 	def getRasterFilesProcessing()
 	{
