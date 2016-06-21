@@ -128,5 +128,5 @@ omar:
     destination:
       type: "post"
       post:
-        addRasterEndPoint: "http://192.168.2.200/stager-app/dataManager/addRaster?background=true"
+        addRasterEndPoint: "http://192.168.2.200/stager-app/dataManager/addRaster?background=true&buildHistograms=true&buildOverviews=true"
         addRasterEndPointField: "filename"
