@@ -24,7 +24,7 @@ The installation sets up
 The configuration file is a yaml formatted config file.   For now create a file called omar-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
 ```bash
-vi /usr/share/omar/wms-app/omar-app.yml
+vi /usr/share/omar/omar-app/omar-app.yml
 ```
  that contains the following settings:
 
@@ -90,6 +90,11 @@ omar:
     misc:
       icons:
         green-marker: search_marker_green.png
+
+classificationBanner:
+  backgroundColor: green
+  classificationType: Unclassified
+
 ---
 grails:
   serverURL: http://<ip>:8080
@@ -125,3 +130,46 @@ grails:
 * **omar.app.jpipApp** Base settings for thumbnail generation
  * **baseURL** Base URL for the JPIP service.
  * **enabled** Allows one to specify if the service is enabled.
+* **classificationBanner**
+ * **backgroundColor** Can be named values such as "red", "green", "yellow" , ... etc. or you can specify an exact color using the CSS styling format.  For example, if you wanted white banners you can set the value to "#FFFFFF" and if you wanted red you can also use the value "#FF0000".
+ * **classificationType** This is the string displayed in the banners.  So setting to "My Secret Stuff" would print that string at the top and bottom of every page with a background color identified by the **backgroundColor** field
+  
+##Executing
+
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service omar-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start omar-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/omar-app/omar-app.sh.   You should be able to tail the omar-app.log to see any standard output
+
+```
+tail -f /var/log/stager-app/omar-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://localhost:8080/health
+```
+
+which should return a JSON reponse similar to:
+
+```
+{"status":"UP"}
+```
+
+

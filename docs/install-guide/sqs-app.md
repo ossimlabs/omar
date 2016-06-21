@@ -21,7 +21,7 @@ The installation sets up
 
 ##Configuration
 
-The configuration file is a yaml formatted config file.   For now create a file called swipe-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document.
+The configuration file is a yaml formatted config file.   For now create a file called sqs-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document.
 
 ```bash
 sudo vi /usr/share/omar/sqs-app/sqs-app.yml
@@ -44,13 +44,13 @@ omar:
       destination:
         type: "post"
         post:
-            urlEndPoint: ""
+            urlEndPoint: "http://192.168.2.200/avro-app/avro/addMessage"
             field: message
 ---
 grails:
-  serverURL: http://<ip>:<port>/
+  serverURL: http://192.168.2.200/sqs-app
   assets:
-    url: http://<ip>:<port>/assets/
+    url: http://192.168.2.200/sqs-app/assets/
 ```
 
 * **queue** defines an Amazon SQS endpoint for access.
@@ -58,7 +58,7 @@ grails:
 * **maxNumberOfMessages** Value can only be between 1 and 10.  Any other value will give errors and the service will not start properly.  This defines the maximum number of messages to pop off the queue during a single read request to the service.
 * **pollingIntervalSeconds** this can be any value and defines the number of second to *SLEEP* the background process between each call to the read request.  By default it will keep calling the read request until no messages are found.  After no messages are found the backgroun process will then *SLEEP* for **pollingIntervalSeconds**.
 * **destination.type** This value can be either "post" or "stdout".   If the value is a post then it expects the **post** entry to be defined.  If the type is stdout then all message payload/message body are printed to standard out.
-* **destination.post.urlEndPoint** Defines the url to post the message to
+* **destination.post.urlEndPoint** Defines the url to post the message to.  The example here was taken from the ossim-vagrant implementation
 * **destination.post.field** Defines the post field to put the message payload.
 
 ## AWS Credentials
@@ -79,3 +79,43 @@ aws_secret_access_key=
 
 Where you replace **aws\_access\_key\_id** and **aws\_secret\_access\_key** with your AWS credentials.
 
+
+In production you will probably already have machine based roles and this technique should only be used when testing from a local laptop and connecting to the AWS.
+
+##Executing
+
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service aws-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start aws-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/aws-app/aws-app.sh.   You should be able to tail the aws-app.log to see any standard output
+
+```
+tail -f /var/log/stager-app/aws-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://localhost:8080/health
+```
+
+which should return a JSON reponse similar to:
+
+```
+{"status":"UP"}
+```

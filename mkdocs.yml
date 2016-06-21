@@ -15,6 +15,7 @@ pages:
   - 'JPIP Streaming Service': 'install-guide/jpip-server.md'
   - 'Twofishes Service': 'install-guide/twofishes.md'
   - 'SQS Service': 'install-guide/sqs-app.md'
+  - 'Avro Service': 'install-guide/avro-app.md'
   - 'OMAR/O2 UI' : 'install-guide/omar-app.md'
 - Docker:
   - 'Docker Common Instructions': 'docker-install/docker-common.md'

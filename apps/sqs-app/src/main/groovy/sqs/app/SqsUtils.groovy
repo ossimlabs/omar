@@ -14,7 +14,6 @@ class SqsUtils
    static synchronized ConfigObject getSqsConfig() {
       if (sqsConfig == null) {
          log.trace 'Building sqs config since there is no cached config'
-      println "RELOADING SQS CONFIG!!!!!!!!!!!"
          reloadSqsConfig()
       }
       sqsConfig
@@ -23,11 +22,14 @@ class SqsUtils
 
    /** Force a reload of the sqs  configuration. */
    static void reloadSqsConfig() {
+    log.trace "reloadSqsConfig: Entered........"
       mergeConfig SqsConfig.sqsConfig, 'DefaultSqsConfig'
 
       mergeConfigToGlobalConfig()
 
-      log.trace 'reloaded sqs config'
+      log.info "Reloaded config:\n${sqsConfig.toString()}"
+
+      log.trace 'reloadSqsConfig: Leaving......'
    }
    /** Reset the config for testing or after a dev mode Config.groovy change. */
    static synchronized void resetSqsConfig() {
@@ -49,7 +51,6 @@ class SqsUtils
    private static void mergeConfig(ConfigObject currentConfig, String className) {
       ConfigObject secondary = new ConfigSlurper(Environment.current.name).parse(
               new GroovyClassLoader(this.classLoader).loadClass(className))
-println "SECONDARY==========${secondary}"
       sqsConfig = SqsConfig.sqsConfig = mergeConfig(currentConfig, secondary.sqs as ConfigObject)
    }
 

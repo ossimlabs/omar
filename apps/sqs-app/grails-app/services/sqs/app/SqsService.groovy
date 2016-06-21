@@ -22,9 +22,9 @@ import org.apache.commons.codec.digest.DigestUtils
 import groovyx.net.http.HTTPBuilder
 import static groovyx.net.http.ContentType.URLENC
 
-import grails.transaction.Transactional
+//import grails.transaction.Transactional
 
-@Transactional
+//@Transactional
 class SqsService {
 
    AmazonSQSClient sqs
@@ -43,7 +43,15 @@ class SqsService {
    def postMessage(String url, String field, String message)
    {
       URL tempUrl = new URL(url)
-      String host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()
+      String host
+      if(tempUrl.port> 0)
+      {
+        host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()      
+      } 
+      else
+      {
+        host = "${tempUrl.protocol}://${tempUrl.host}".toString()            
+      }
       String path = tempUrl.path
 
 
@@ -85,6 +93,7 @@ class SqsService {
       }
    }
    def receiveMessages() {
+      log.trace "receiveMessages: Entered........"
       def config = SqsUtils.sqsConfig
 
       def messages 
@@ -101,6 +110,7 @@ class SqsService {
       {
          log.error("ERROR: Unable to receive message for queue: ${config.reader.queue}\n${e.toString()}")
       }
+      log.trace "receiveMessages: Leaving........"
 
       messages
    }
