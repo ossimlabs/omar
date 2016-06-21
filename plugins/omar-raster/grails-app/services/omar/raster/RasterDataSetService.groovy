@@ -299,16 +299,26 @@ def updateRaster(def httpStatusMessage, def params)
 			result.pagination.offset = cmd.offset?:0
 			Integer limit = cmd.limit?:result.pagination.count
 			def files
+//			println "FILTER === ${cmd.filter}"
+//			def w = 'WHAT'
+//			def query = OmarStageFile.where {
+//				status=='READY'
+//			}
 
-			if(!cmd.filter)
-			{
+//			if(!cmd.filter)
+//			{
+//				files = OmarStageFile.list([offset:result.pagination.offset, max:limit])
 				files = OmarStageFile.list([offset:result.pagination.offset, max:limit])
-			}
-			else
-			{
-				 files = OmarStageFile
-			}
-			files.list([offset:result.pagination.offset, max:limit]).each{record->
+//			}
+//			else
+//			{
+//		       files = query.find([offset:result.pagination.offset, max:limit])
+
+//			println files
+//				 files = OmarStageFile
+//			}
+			//files.list([offset:result.pagination.offset, max:limit]).each{record->
+			files?.each{record->
 				result.results <<
 						[
 								filename:record.filename,
