@@ -90,6 +90,11 @@ omar:
     misc:
       icons:
         green-marker: search_marker_green.png
+
+classificationBanner:
+  backgroundColor: green
+  classificationType: Unclassified
+
 ---
 grails:
   serverURL: http://<ip>:8080
@@ -125,7 +130,10 @@ grails:
 * **omar.app.jpipApp** Base settings for thumbnail generation
  * **baseURL** Base URL for the JPIP service.
  * **enabled** Allows one to specify if the service is enabled.
-
+* **classificationBanner**
+ * **backgroundColor** Can be named values such as "red", "green", "yellow" , ... etc. or you can specify an exact color using the CSS styling format.  For example, if you wanted white banners you can set the value to "#FFFFFF" and if you wanted red you can also use the value "#FF0000".
+ * **classificationType** This is the string displayed in the banners.  So setting to "My Secret Stuff" would print that string at the top and bottom of every page with a background color identified by the **backgroundColor** field
+  
 ##Executing
 
 To run the service on systems that use the init.d you can issue the command.
