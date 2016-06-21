@@ -2,10 +2,9 @@ package omar.stager
 
 
 import omar.core.Repository
-
-//import omar.core.HttpStatusMessage
-//import static groovyx.gpars.GParsPool.withPool
-
+import omar.core.ProcessStatus
+import omar.core.HttpStatus
+import joms.oms.ImageStager
 import grails.transaction.Transactional
 
 @Transactional
@@ -19,7 +18,7 @@ class StagerService
 
 	def parserPool
 	def ingestService
-  def dataInfoService
+   def dataInfoService
 
 	enum Action {
 		BUILD_OVRS,
@@ -98,6 +97,62 @@ class StagerService
   }
 */
 
+	def stageFileJni(HashMap params, String baseDir='/')
+	{
+		def results = [status: HttpStatus.OK, message:""]
+		ImageStager imageStager = new ImageStager()
+		String filename = params.filename
+		try{
+			if(imageStager.open(params.filename))
+			{
+				//imageStager.setDefaults()
+				//imageStager.stageAll()
+
+				imageStager.setHistogramStagingFlag(params.buildHistograms);
+				imageStager.setOverviewStagingFlag(params.buildOverviews);
+				imageStager.setCompressionType(params.overviewCompressionType)
+				imageStager.setOverviewType(params.overviewType)
+				imageStager.stageAll()
+				imageStager.delete()
+				imageStager = null
+				String xml = dataInfoService.getInfo( filename as File)
+				if ( xml )
+				{
+					def parser = parserPool.borrowObject()
+					def oms
+					try
+					{
+						oms = new XmlSlurper(parser).parseText(xml)
+					}
+					catch(e)
+					{
+						results.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
+						reuslts.message = "XML is in incorrect format for file ${params.filename}"
+					}
+
+					parserPool.returnObject(parser)
+
+					def (status, message) = ingestService.ingest(oms, baseDir)
+
+					results = [status:status, message:message]
+				}
+				else
+				{
+					results.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
+					reuslts.message = "Unable to open file ${params.filename}"
+				}
+			}
+		}
+		catch(e)
+		{
+			results.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
+			reuslts.message = "Unable to process file ${params.filename} with ERROR: ${e}"
+			log.error "${e.toString()}"
+		}
+		imageStager?.delete()
+
+		results
+	}
 	def stageFile( String filename, String baseDir='/' )
 	{
 		def results
@@ -117,7 +172,6 @@ class StagerService
 				xml = dataInfoService.getInfo( filename.absolutePath as File)
 				break
 			}
-
 			if ( xml )
 			{
 				def parser = parserPool.borrowObject()
@@ -159,4 +213,103 @@ class StagerService
 
 		return results
 	}
+	private String getNewFileStageProcessId()
+	{
+		String result
+		Boolean found = true
+		while(found)
+		{
+			result = UUID.randomUUID().toString()
+			if(OmarStageFile.findByProcessId(result)) found = true
+			else found = false
+		}
+
+		result
+	}
+	synchronized HashMap addFileToStage(String filename, HashMap params=null)
+	{
+		HashMap result = [ status: HttpStatus.OK,
+				             message: "",
+								 results:[]
+
+		]
+		def fileRecord = OmarStageFile.findByFilename(filename)
+		if(fileRecord)
+		{
+			if(fileRecord.status == ProcessStatus.FAILED)
+			{
+				fileRecord.status = ProcessStatus.READY
+				fileRecord.save(flush:true)
+			}
+			result.results << fileRecord.properties
+		}
+		else
+		{
+			String processId = getNewFileStageProcessId()
+			Boolean buildOverviews = params?.buildOverviews
+			Boolean buildHistograms = params?.buildHistograms
+			String overviewCompressionType = params?.overviewCompressionType
+			String overviewType = params?.overviewType
+
+			fileRecord = new OmarStageFile(processId: processId,
+					filename: filename,
+					buildOverviews: buildOverviews,
+					buildHistograms: buildHistograms,
+					overviewCompressionType: overviewCompressionType,
+					overviewType: overviewType,
+					status: ProcessStatus.READY,
+					statusMessage: "Ready to stage file: ${filename}"
+			)
+			fileRecord.save(flush: true)
+
+			result.results << fileRecord.properties
+		}
+
+		result
+	}
+
+	synchronized def nextFileToStage()
+	{
+		def firstObject = OmarStageFile.find("FROM OmarStageFile where status = 'READY' ORDER BY id asc")
+		def result = [:]
+
+		firstObject?.status = "RUNNING"
+		firstObject?.statusMessage = ""
+		firstObject?.save(flush:true)
+		result = firstObject?.properties
+
+		result
+	}
+
+	HashMap updateFileStatus(String processId, ProcessStatus status, String statusMessage)
+	{
+		HashMap result = [status:HttpStatus.OK,
+								message:""
+		]
+
+		OmarStageFile stageFileRecord = OmarStageFile.findByProcessId(processId)
+
+		if(stageFileRecord)
+		{
+			stageFileRecord.status = status
+			if(statusMessage != null) stageFileRecord.statusMessage = statusMessage
+
+			// for now, until we support archiving, ... etc.  once the status goes to finished
+			// we will remove the file from the table
+			if(stageFileRecord.status == ProcessStatus.FINISHED)
+			{
+				stageFileRecord.delete(flush:true)
+			}
+			else
+			{
+				stageFileRecord.save(flush:true)
+			}
+		}
+		else
+		{
+			result.message = "Unable to update status for id: ${processId}"
+		}
+		result
+	}
+
 }
