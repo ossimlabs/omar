@@ -59,7 +59,7 @@ omar:
     destination:
       type: "post"
       post:
-        addRasterEndPoint: "http://192.168.2.200/stager-app/dataManager/addRaster"
+        addRasterEndPoint: "http://192.168.2.200/stager-app/dataManager/addRaster?background=true&buildHistograms=true&buildOverviews=true"
         addRasterEndPointField: "filename"
 ```
 
@@ -71,7 +71,7 @@ omar:
  * **directory** This is the directory prefix where the file will be downloaded.  For example,   if we have the **sourceUriField** given as http://\<IP>/\<path>/\<to>/\<image>/foo.tif and the date field content has for a value of 20090215011010  with a dateField format the directory structure will be \<yyyy>/\<mm>/\<dd>/\<hh> where **yyyy** is a 4 character year and the **mm** is the two character month and the **dd** is the two character day and the **hh** is a two character hour.  If the datefield is not specified then we use the path in the URI as a suffix to the local directory defined in the **directory** field above: /data/s3/\<path>/\<to>/\<image>/foo.tif 
 * **destination**
  * **type** Referes to the type we wish to specify and use.  The values can be "stdout" or "post".  If the value 'stdout' is used it will just do a println of the message. If the type is "post" then it will post the message to the service definition for the endPoint and the Field.
- * **post.addRasterEndPoint** If the destination type is **"post"** then this field needs to be specified to identify the location of the addRaster endpoint.  Typically you will be connecting this to a stager-app endpoint which will have a relative path of dataManager/addRaster.  The example URL was taken from the ossim-vagrant repo definitions.  This will need to be modified for your environment.
+ * **post.addRasterEndPoint** If the destination type is **"post"** then this field needs to be specified to identify the location of the addRaster endpoint.  Typically you will be connecting this to a stager-app endpoint which will have a relative path of dataManager/addRaster.  The example URL was taken from the ossim-vagrant repo definitions.  This will need to be modified for your environment.  We support modifying the default action being passed and you can specify **background**, **buildHistograms**, **buildOverviews** flags.  You can also add specify the parameters **overviewCompressionType** which can be of values "NONE","JPEG","PACKBITS", or "DEFLATE" and also the paramter **overviewType** where the value can be "ossim_tiff_box", "ossim_tiff_nearest", or "ossim_kakadu_nitf_j2k". **example**:` background=true&buildHistograms=true&buildOverviews=true&overviewCompressionType=NONE&overviewType=ossim_tiff_box`.
  * **post.addRasterEndPointField** If the destination type is **"post"** then this field is needed to define the post variable used.   By default this field should be left as *"filename"*.
 
 ##Executing
