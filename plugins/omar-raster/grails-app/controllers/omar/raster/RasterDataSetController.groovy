@@ -79,8 +79,8 @@ class RasterDataSetController
 			@ApiImplicitParam( name = 'background', value = 'Process in the background', allowableValues="[true,false]", defaultValue="true", dataType = "boolean",  required = false),
 			@ApiImplicitParam( name = 'buildOverviews', value = 'Build overviews', allowableValues="[true,false]", defaultValue="true", dataType = "boolean", required = false),
 			@ApiImplicitParam( name = 'buildHistograms', value = 'Build histograms', allowableValues="[true,false]", defaultValue="true", dataType = "boolean", required = false),
-			@ApiImplicitParam( name = 'overviewType', value = 'Stage in the background', allowableValues="[ossim_tiff_box, ossim_tiff_nearest, ossim_kakadu_nitf_j2k]", defaultValue = "ossim_tiff_box", dataType = "string", required = false),
-			@ApiImplicitParam( name = 'overviewCompressionType', value = 'Stage in the background', allowableValues="[NONE,JPEG,PACKBITS,DEFLATE]", defaultValue="NONE", dataType = "string", required = false),
+			@ApiImplicitParam( name = 'overviewType', value = 'Overview type', allowableValues="[ossim_tiff_box, ossim_tiff_nearest, ossim_kakadu_nitf_j2k]", defaultValue = "ossim_tiff_box", dataType = "string", required = false),
+			@ApiImplicitParam( name = 'overviewCompressionType', value = 'Overview compression type', allowableValues="[NONE,JPEG,PACKBITS,DEFLATE]", defaultValue="NONE", dataType = "string", required = false),
 	] )
 	def addRaster()
 	{
