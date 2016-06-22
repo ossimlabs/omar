@@ -16,12 +16,32 @@ The installation sets up
 * Creates a var run directory with user *omar* permissions under /var/run/stager-app
 * Adds the fat jar and shell scripts under the directory /usr/share/omar/stager-app location
 
+##Dependencies
+
+This plugin uses JNI bindings to the ossim core C++ engine.  By default it should install the JNI C++ bindings but will not install any optional plugins for handling additional file formats.  Here is a suggested list of plugins to add to your installation:
+
+**Sugested Packages**
+
+```
+yum install ossim
+yum install ossim-kakadu-plugin
+yum install ossim-sqlite-plugin
+yum install ossim-hdf5-plugin
+yum install ossim-geopdf-plugin
+yum install ossim-png-plugin
+```
+
+**Additional**
+
+```
+yum install ossim-gdal-plugin.x86_64
+```
 
 ##Configuration
 
 The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
-```bash
+```
 vi /usr/share/omar/stager-app/stager-app.yml
 ```
 
