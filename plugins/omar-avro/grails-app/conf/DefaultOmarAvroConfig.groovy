@@ -11,6 +11,15 @@ avro{
     post{
       addRasterEndPoint="http://192.168.2.200/stager-app/dataManager/addRaster"
       addRasterEndPointField="filename"
+      addRasterEndPointParams{
+        background="true"
+        buildHistograms="true"
+        buildOverviews="true"
+        overviewCompressionType="NONE"
+        overviewType="ossim_tiff_box"
+        filename=""
+      }
+
     }
   }
 }
