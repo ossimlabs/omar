@@ -45,7 +45,9 @@ environments:
       url: jdbc:postgresql://<ip>:<port>/omardb-prod
 
 quartz:
-    jdbcStore: false
+  jdbcStore: false
+  threadPool:
+    threadCount: 4
 
 ---
 grails:
@@ -56,6 +58,7 @@ grails:
 
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
 * **quartz.jdbcStore:** This service supports background jobs using the quartz framework.  Just fix this to not use the jdbcStore.   For now the requests are not persistent.
+* **quarts.threadPool.threadCount** Quartz allows one to adjust the number of concurrent threads running.  Here we default to 4 threads.  This will allow 4 concurrent stagers to run for this service.
 * **grails.serverURL** point to the root location of the wmts-app server. This example in the template above points to service via a proxy definition.  If you go directly to the service via 8080 then you can drop the proxy prefix /stager-app
 * **assets url** This is the url to the assets location.  Just add the **/assets/** path to the serverURL.
 
