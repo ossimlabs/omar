@@ -38,7 +38,7 @@ class HttpUtils
          output.write(buffer, 0, count);
       }
    }
-   static HashMap postMessage(String url, String field, String message)
+   static HashMap postMessage(String url, HashMap params)//String field, String message)
    {
       def result = [status:200,message:""]
       URL tempUrl = new URL(url)
@@ -55,7 +55,7 @@ class HttpUtils
 
       try{
          def http = new HTTPBuilder( host )
-         def postBody = ["${field}": message]
+         def postBody = params
          postBody = postBody + tempUrl.params
          http.handler.failure = {resp->
             result.status = resp.status
