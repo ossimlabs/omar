@@ -3,69 +3,76 @@ services:
   o2-base:
     build: ./o2-base
     image: radiantbluetechnologies/o2-base
-  wmtsdb:
+  postgresdb:
     environment:
       POSTGRES_PASSWORD: abc123
-      POSTGRES_USER: wmts
+      POSTGRES_USER: postgres_user
       POSTGRES_DB: omar_prod
     image: postgres:latest
-  wmts:
-    environment:
-      # TODO: These DB settings will become
-      # redundant as we add more services.
-      # Need to look into the 'extends' to see
-      # if it can reduce this
-      DBHOST: wmtsdb
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: wmts
-      DBPASS: abc123
-      WFSSERVER: http://otd-omar-single.rbtcloud.com
-      WFSPORT: 80
-      WMSSERVER: http://otd-omar-single.rbtcloud.com
-      WMSPORT: 80
-    build: ./wmts-app
-    ports:
-      - "8080"
-    links:
-      - wmtsdb
-    image: radiantbluetechnologies/wmts
-    depends_on:
-      - o2-base
-      - wmtsdb
-  sqs:
-    build: ./sqs-app
-    environment:
-      AWSDNS: sqs.us-east-1.amazonaws.com
-      AWSQUEUEPATH: 320588532383/avro-tst
-      WAIT_TIME_SECONDS: 20
-      NUMBER_OF_MESSAGES: 1
-      POLLING_INTERVAL_SECONDS: 10
-      DESTINATION_TYPE: stdout
-      DESTINATION_POST_END_POINT: ""
-      DESTINATION_POST_FIELD: message
-    volumes:
-      # Modify the path below to reflect your
-      # AWS credentials location
-      - /Users/adrake/.aws:/root/.aws
-    ports:
-      - "8080"
-    image: radiantbluetechnologies/sqs
-    depends_on:
-      - o2-base
+  # wmts:
+  #   environment:
+  #     DBHOST: postgresdb
+  #     DBPORT: :5432
+  #     DBNAME: omar_prod
+  #     DBUSER: postgres_user
+  #     DBPASS: abc123
+  #     WFSSERVER: o2.ossim.org/o2
+  #     WFSPORT: ""
+  #     WMSSERVER: o2.ossim.org/o2
+  #     WMSPORT: ""
+  #     FOOTPRINTS: o2.ossim.org/o2
+  #     FOOTPRINTSPORT: ""
+  #   build: ./wmts-app
+  #   ports:
+  #     - "5000:8080"
+  #   links:
+  #     - postgresdb
+  #   image: radiantbluetechnologies/wmts
+  #   depends_on:
+  #     - o2-base
+  #     - postgresdb
+  # sqs:
+  #   build: ./sqs-app
+  #   environment:
+  #     AWSDNS: sqs.us-east-1.amazonaws.com
+  #     AWSQUEUEPATH: 320588532383/avro-tst
+  #     WAIT_TIME_SECONDS: 20
+  #     NUMBER_OF_MESSAGES: 1
+  #     POLLING_INTERVAL_SECONDS: 10
+  #     DESTINATION_TYPE: stdout
+  #     DESTINATION_POST_END_POINT: ""
+  #     DESTINATION_POST_FIELD: message
+  #   volumes:
+  #     # Modify the path below to reflect your
+  #     # AWS credentials location
+  #     - /Users/adrake/.aws:/root/.aws
+  #   ports:
+  #     - "8080"
+  #   image: radiantbluetechnologies/sqs
+  #   depends_on:
+  #     - o2-base
+  # avrodb:
+  #   environment:
+  #     POSTGRES_PASSWORD: abc123
+  #     POSTGRES_USER: avro
+  #     POSTGRES_DB: omar_prod
+  #   image: postgres:latest
   avro:
     build: ./avro-app
     environment:
-      DBHOST: wmtsdb
-      DBPORT: 5432
+      DBHOST: postgresdb
+      DBPORT: :5432
       DBNAME: omar_prod
-      DBUSER: wmts
+      DBUSER: postgres_user
       DBPASS: abc123
+    volumes:
+      # Mount the data directory locally to the container
+      - /data:/data
     ports:
-      - "8082"
+      - "5000:8080"
     links:
-      - wmtsdb
+      - postgresdb
     image: radiantbluetechnologies/avro
     depends_on:
       - o2-base
-      - wmtsdb
+      - postgresdb
