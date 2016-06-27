@@ -38,6 +38,7 @@ class WcsController
 
   def getCapabilities(GetCapabilitiesRequest wcsParams)
   {
+    println params
 //    println "getCapabilities: ${params}"
     BindUtil.fixParamNames( GetCapabilitiesRequest, params )
     bindData( wcsParams, params )
@@ -49,6 +50,8 @@ class WcsController
 
   def describeCoverage(DescribeCoverageRequest wcsParams)
   {
+    println params
+
 //    println "describeCoverage: ${params}"
     BindUtil.fixParamNames( DescribeCoverageRequest, params )
     bindData( wcsParams, params )
@@ -60,6 +63,8 @@ class WcsController
 
   def getCoverage(GetCoverageRequest wcsParams)
   {
+    println params
+
 //    println "getCoverage: ${params}"
     BindUtil.fixParamNames( GetCoverageRequest, params )
     bindData( wcsParams, params )

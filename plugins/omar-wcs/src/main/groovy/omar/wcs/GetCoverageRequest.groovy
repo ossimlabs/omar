@@ -21,6 +21,8 @@ class GetCoverageRequest implements Validateable
   Integer width
   Integer height
 
+  String filter
+
   static mapping = {
     version false
   }

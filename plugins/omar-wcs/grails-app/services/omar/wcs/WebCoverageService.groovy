@@ -1,5 +1,7 @@
 package omar.wcs
 
+import geoscript.filter.Filter
+import geoscript.workspace.Workspace
 import grails.transaction.Transactional
 import groovy.xml.StreamingMarkupBuilder
 
@@ -8,6 +10,7 @@ import geoscript.layer.Format
 import geoscript.layer.Shapefile
 import geoscript.render.Map as GeoScriptMap
 import geoscript.style.RasterSymbolizer
+import omar.geoscript.LayerInfo
 import org.geotools.map.GridReaderLayer
 
 @Transactional( readOnly = true )
@@ -172,7 +175,8 @@ class WebCoverageService
     getLayers().find { it.name.equalsIgnoreCase( name ) }
   }
 
-  private def getLayers()
+  /*
+  private def getLayers(def filter = Filter.PASS)
   {
     def layers = [[
 //        name: "nurc:Arc_Sample",
@@ -189,17 +193,17 @@ class WebCoverageService
 //            "WCS", "arcGridSample", "arcGridSample_Coverage"
 //        ]
 //    ], [
-        description: "A very rough imagery of North America",
-        name: "nurc:Img_Sample",
-        label: "North America sample imagery",
-        bounds: [
-            proj: "urn:ogc:def:crs:OGC:1.3:CRS84",
-            minX: -130.85168,
-            minY: 20.7052,
-            maxX: -62.0054,
-            maxY: 54.1141
-        ],
-        keywords: [
+            description: "A very rough imagery of North America",
+            name: "nurc:Img_Sample",
+            label: "North America sample imagery",
+            bounds: [
+                proj: "urn:ogc:def:crs:OGC:1.3:CRS84",
+                minX: -130.85168,
+                minY: 20.7052,
+                maxX: -62.0054,
+                maxY: 54.1141
+            ],
+            keywords: [
             "WCS", "worldImageSample", "worldImageSample_Coverage",
         ]
 //    ], [
@@ -245,6 +249,33 @@ class WebCoverageService
         numBands: 3
     ]]
     layers
+  }
+  */
+
+  def getLayers(def wcsParams)
+  {
+    def (prefix, layerName) = wcsParams?.coverage?.split( ':' )
+
+    def layerInfo = LayerInfo.where {
+      name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
+    }.get()
+
+    List images = null
+
+    Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
+      def layer = workspace[layerName]
+
+      images = layer.collectFromFeature(
+          filter: wcsParams?.filter,
+          //sorting: sorting,
+          //	max: maxCount, // will remove and change to have the wms plugin have defaults
+          fields: ['filename', 'entry_id'] as List<String>
+      ) {
+        [imageFile: it.filename as File, entry: it.entry_id?.toInteger()]
+      }
+    }
+
+    images
   }
 
   def describeCoverage(DescribeCoverageRequest wcsParams)

@@ -244,7 +244,7 @@ class WebMappingService
 
 			Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
 				def layer = workspace[ layerName ]
-
+				                                                                                         q
 				images = layer.collectFromFeature(
 						filter: wmsParams?.filter,
 						//sorting: sorting,
