@@ -11,11 +11,14 @@ environments:
       username: ${DBUSER}
       password: ${DBPASS}
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://${DBHOST}:${DBPORT}/${DBNAME}
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
 
 omar:
   wmts:
-    wfsUrl: http://{$WFSSERVER}:{$WFSPORT}/wfs
-    wmsUrl: http://{$WMSSERVER}:{$WMSPORT}/wms
+    wfsUrl: http://${WFSSERVER}${WFSPORT}/wfs
+    wmsUrl: http://${WMSSERVER}${WMSPORT}/wms
     oldmarWmsFlag: false
-
+    footprints:
+      url: http://${FOOTPRINTS}${FOOTPRINTSPORT}/footprints/getFootprints
+      layers: "omar:raster_entry"
+      styles: "byFileType"
