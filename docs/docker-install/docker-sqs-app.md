@@ -52,7 +52,7 @@ To list all running containers:
 docker ps
 ```
 
-Output:
+Output example:
 
 CONTAINER ID | IMAGE | COMMAND | CREATED | PORTS | NAMES
 ------------ | ------------- | ------------ | ------------ | ------------ | ------------
