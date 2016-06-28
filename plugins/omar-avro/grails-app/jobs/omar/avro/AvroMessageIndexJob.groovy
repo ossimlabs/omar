@@ -11,60 +11,78 @@ class AvroMessageIndexJob {
       log.trace "Entered........."
       def messageRecord
       Boolean errorFlag = false
+      def messageRecordsToRetry = []
       while(messageRecord = avroService.nextMessage())
       {
         log.info "Processing Message with ID: ${messageRecord.messageId}"
         def slurper = new groovy.json.JsonSlurper()
         try {
-          def jsonObj = slurper.parseText(messageRecord.message)
-          String suffix = AvroMessageUtils.getDestinationSuffixFromMessage(jsonObj)
+          def jsonObj
+          try{
+            jsonObj = slurper.parseText(messageRecord.message)
+          } 
+          catch(e)
+          {
+            log.error "Bad Json format.  Message will be ignored!"
+          }
           String sourceURI = jsonObj?."${OmarAvroUtils.avroConfig.sourceUriField}"?:""
           if(sourceURI)
           {
             String prefixPath = "${OmarAvroUtils.avroConfig.download.directory}"
-
-            File fullPathLocation = new File(prefixPath, suffix)
-
-            //println "DESTINATION ==== ${fullPathLocation}"
+            File fullPathLocation = avroService.getFullPathFromMessage(messageRecord.message)
             File testPath = fullPathLocation.parentFile
             if(AvroMessageUtils.tryToCreateDirectory(testPath, [:]))
             {
-              URL url = new URL(sourceURI)
-              //println "DOWNLOADING: ${jsonObj.S3_URI_Nitf}"
-              //File file = new File("${fullPathLocation}") 
-              //file << url.openStream()
-              log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
-
-              avroService.addFile(new IndexFileCommand(filename:fullPathLocation))
-
-              messageRecord = null
-            }
-            else
-            {
-              log.error "Unable to create directory ${testPath} for messageId: ${messageRecord.messageId}"
+              try{
+                if(!fullPathLocation.exists())
+                {
+                  log.info "DOWNLOADING: ${sourceURI} to ${fullPathLocation}"
+                  HttpUtils.downloadURI(fullPathLocation.toString(), sourceURI)
+                  log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
+                }
+                else
+                {
+                  log.info "${fullPathLocation} already exists and will not be re-downloaded"
+                }
+                avroService.addFile(new IndexFileCommand(filename:fullPathLocation))
+                
+                messageRecord = null
+              }
+              catch(e) {
+                log.error "Unable to Download: ${sourceURI} to ${fullPathLocation}\nWith error: ${e}"
+                if(fullPathLocation?.exists())
+                {
+                  fullPathLocation?.delete()                  
+                }
+              }
             }
           }
           else
           {
-            log.error "Message ${messageRecord?.messageId} not a JSON object or no URI found: ${messageRecord.messageId}"
+            log.error "JSON is not a proper AVRO message. Field '${OmarAvroUtils.avroConfig.sourceUriField}' not found."
+            messageRecord = null
           }
+        }
+        catch(e)
+        {
+          log.error "${e}"            
+        }
 
           // mark the record as null and we do not need to re-index it.
-          messageRecord = null
-        }
-        catch(e) {
-          log.error "Error procssing Message: ${messageRecord.messageId}\n${e}"
-        }
 
         if(messageRecord)
         {
-          log.error "Re-Indexing the RECORD ${messageRecord.messageId} for it failed to be processed"
-          def indexResult = avroService.indexMessage( new IndexMessageCommand(messageRecord))
+          messageRecordsToRetry << messageRecord
+        }
+      }
+
+      messageRecordsToRetry.each{record->
+        log.error "Re-Indexing the RECORD ${messageRecord.messageId} for it failed to be processed"
+          def indexResult = avroService.addMessage( new IndexMessageCommand(record))
           if(indexResult.status != 200)
           {
             log.error "Unable to re-index message ${messageRecord.messageId}"
           }
-        }
       }
       log.trace "Leaving........."
     }

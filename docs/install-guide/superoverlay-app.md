@@ -96,3 +96,41 @@ grails:
 * **assets url** This is the url to the assets location.  Just add the **/assets/** path to the serverURL.
 
 If you wish to look at the swagger API documentation you can visit the api of the service by accessing the page http://\<ip>/\<proxy path>/api.
+
+##Executing
+
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service superoverlay-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start superoverlay-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/superoverlay-app/superoverlay-app.sh.   You should be able to tail the superoverlay-app.log to see any standard output
+
+```
+tail -f /var/log/avro-app/superoverlay-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://localhost:8080/health
+```
+
+which should return a JSON reponse similar to:
+
+```
+{"status":"UP"}
+```

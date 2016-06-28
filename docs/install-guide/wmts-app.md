@@ -81,25 +81,25 @@ notice each indentation level is 2 characters and must not be a tab character.
 
 To run the service on systems that use the init.d you can issue the command.
 
-```bash
+```
 sudo service wmts-app start
 ```
 
 On systems using systemd for starting and stopping
 
-```bash
+```
 sudo systemctl start wmts-app
 ```
 
 The service scripts calls the shell script under the directory /usr/share/omar/wmts-app/wmts-app.sh.   You should be able to tail the wmts-app.log to see any standard output
 
-```bash
+```
 tail -f /var/log/wmts-app/wmts-app.log
 ```
 
 If all is good, then you should see a line that looks similar to the following:
 
-```bash
+```
 Grails application running at http://localhost:8080 in environment: production
 ```
 

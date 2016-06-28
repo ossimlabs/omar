@@ -20,8 +20,8 @@ class AvroFileProcessingJob {
          switch(destinationType)
          {
           case "stdout":
+            println "FINISHED ${fileRecord.filename}"
             avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FINISHED, "File successfully output")
-            println "${fileRecord}"
             break
           case "post":
             String url   = config.destination.post.addRasterEndPoint
@@ -33,19 +33,19 @@ class AvroFileProcessingJob {
             if((result?.status >= 200) && (result?.status <300))
             {
               log.info "Posted Successfully: ${fileRecord.filename} to ${url}"
-               avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FINISHED, "File successfully posted")
+              avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FINISHED, "File successfully posted")
             }
             else if(result?.status == 415)
             {
               log.error "Unable to index FILE: ${fileRecord.filename}.  Typically caused by the file is already present"               
               avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FINISHED, "File recognized but was not added")
+              
             }
             else
             {
-               log.error "Unable to handle FILE: ${fileRecord.filename} and will mark as failed"
-               avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FAILED, "Failed to post file to stager")
+              log.error "Post failed to ${url} for  ${fileRecord.filename} with post field ${field}"
+              avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FAILED, "Failed to post file to stager")
             }
-            fileRecord=null
             break
          }
       }

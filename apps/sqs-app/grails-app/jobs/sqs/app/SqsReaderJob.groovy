@@ -14,14 +14,18 @@ class SqsReaderJob {
     def destinationType = config.reader.destination.type.toLowerCase()
     if(config.reader.queue)
     {
+      log.debug "Testing for SQS messages"
       while(messages = sqsService?.receiveMessages())
       {
+        log.debug "TRAVERSING MESSAGES"
         def messagesToDelete = []
         def messageBodyList  = []
         messages?.each{message->
           try{
+            log.debug "Checking Md5 checksum"
             if(sqsService.checkMd5(message.mD5OfBody, message.body))
             {
+              log.debug "PASSED MD5"
               // try a output here and if fails then do not mark the message 
               // for deletion
               //
@@ -35,7 +39,7 @@ class SqsReaderJob {
                   String url = config.reader.destination.post.urlEndPoint
                   String field = config.reader.destination.post.field
                   def result = sqsService.postMessage(url, field, message.body)
-                 
+                 log.info "Posting message to ${url}"
                  // is a 200 range response
                  //
                   if((result?.status >= 200) && (result?.status <300))

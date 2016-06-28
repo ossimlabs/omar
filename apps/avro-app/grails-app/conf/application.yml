@@ -115,3 +115,17 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+omar:
+  avro:
+    sourceUriField: "S3_URI_Nitf"
+    dateField: "Observation_Date"
+    dateFieldFormat: "yyyyMMddHHmmss"
+    imageIdField: "Image_Id"
+    download:
+      directory: "/data/s3"
+    destination:
+      type: "post"
+      post:
+        addRasterEndPoint: "http://192.168.2.200/stager-app/dataManager/addRaster"
+        addRasterEndPointField: "filename"

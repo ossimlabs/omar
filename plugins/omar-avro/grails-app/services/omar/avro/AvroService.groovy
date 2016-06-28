@@ -4,20 +4,10 @@ import grails.transaction.Transactional
 import java.util.UUID
 import omar.core.HttpStatus
 import omar.core.ProcessStatus
+import groovy.json.JsonSlurper
 
 @Transactional
 class AvroService {
-  private getUniqueMessageId()
-  {
-    String result = UUID.randomUUID().toString()
-
-    while(AvroPayload.findByMessageId(result))
-    {
-       result = UUID.randomUUID().toString()
-    }
-
-    result
-  }
   private getUniqueProcessId()
   {
     String result = UUID.randomUUID().toString()
@@ -40,7 +30,7 @@ class AvroService {
   }
   synchronized def nextMessage()
   {
-    def firstObject = AvroPayload.first()
+    def firstObject = AvroPayload.find("FROM AvroPayload ORDER BY id asc")
     def result = firstObject?.properties
     result = result?:[:]
 
@@ -50,18 +40,32 @@ class AvroService {
   }
   synchronized def nextFile()
   {
-//    def firstObject = AvroFile.first()
     def firstObject = AvroFile.find("FROM AvroFile where status = 'READY' ORDER BY id asc")
     def result = firstObject?.properties
+
     result = result?:[:]
     firstObject?.status = "RUNNING"
     firstObject?.statusMessage = ""
     firstObject?.save(flush:true)
-//    firstObject?.delete(flush:true)
 
     result
   }
+  File getFullPathFromMessage(String message)
+  {
+    JsonSlurper slurper = new JsonSlurper()
+    def jsonObj = slurper.parseText(message)
+    String suffix = AvroMessageUtils.getDestinationSuffixFromMessage(jsonObj)
+    String prefixPath = "${OmarAvroUtils.avroConfig.download.directory}"
 
+    new File(prefixPath, suffix)
+  }
+  Boolean isProcessingFile(String filename)
+  {
+    def avroFile=AvroFile.find("from AvroFile where ((filename=:filename) and (status='READY' or status='RUNNING'))",
+      [filename:filename])
+
+    avroFile != null
+  }
   HashMap addFile(IndexFileCommand cmd)
   {
     HashMap result = [status:HttpStatus.OK,
@@ -69,26 +73,53 @@ class AvroService {
                       results:[],
                      ]
     try{
-       String filename = cmd.filename
-       AvroFile avroFile = new AvroFile(filename: filename,
-        processId:getUniqueProcessId(),
-        status:ProcessStatus.READY,
-        statusMessage:"")
 
-       if(!avroFile.save(flush:true))
-       {
+      String filename = cmd.filename
+      AvroFile avroFile
+      Boolean saveFlag = false
+      avroFile = AvroFile.findByFilename(cmd.filename)
+      // if it failed then we will force a reset 
+      // We will delete so the ID will auto increment
+      if(avroFile?.status == ProcessStatus.FAILED)
+      {
+        avroFile?.delete(flush:true)
+        avroFile = null
+      }         
+
+      if(!avroFile)
+      {
+        avroFile = new AvroFile(filename: filename,
+                               processId:getUniqueProcessId(),
+                               status:ProcessStatus.READY,
+                               statusMessage:"")
+        saveFlag = true
+      }
+      if(saveFlag)
+      {
+        if(!avroFile.save(flush:true))
+        {
           result.message = getAllErrors(avroFile)
           log.error "Unable to save ${cmd.filename}\n with errors: ${result.message}"
-          result.remove("results")  
-       }
-       else
-       {
+          result.remove("results") 
+          result.status = HttpStatus.BAD_REQUEST 
+        }
+        else
+        {
           log.info "Added ${avroFile.filename}"
           result.results <<
                   [
+                     processId:avroFile.processId,
                      filename:avroFile.filename,
+                     status:avroFile.status.name,
+                     statusMessage:avroFile.statusMessage,
+                     dateCreated:avroFile.dateCreated
                   ]
-       }
+        }
+      }
+      else
+      {
+      // may need to log
+      }
     }
     catch(e)
     {
@@ -98,10 +129,9 @@ class AvroService {
     }
 
     result
-
   }
 
-  HashMap listFile(GetFileCommand cmd)
+  HashMap listFiles(GetFileCommand cmd)
   {
     HashMap result = [
            results:[],
@@ -124,7 +154,8 @@ class AvroService {
                     filename:record.filename,
                     processId: record.processId,
                     status: record.status.name,
-                    statusMessage: record.statusMessage
+                    statusMessage: record.statusMessage,
+                    dateCreated: record.dateCreated,
                   ]
       }
 
@@ -138,9 +169,9 @@ class AvroService {
       result.remove("pagination")
     }
 
-
     result
   }
+
   HashMap updateFileStatus(String processId, ProcessStatus status, String statusMessage)
   {
     HashMap result = [status:HttpStatus.OK,
@@ -165,7 +196,11 @@ class AvroService {
         avroFile.save(flush:true)
       }
     }
-
+    else
+    {
+      result.message = "Unable to update status for id: ${processId}"
+    }
+    result
   }
   HashMap resetFileProcessingCommand(ResetFileProcessingCommand cmd)
   {
@@ -192,9 +227,9 @@ class AvroService {
         result.message = "Process ID not found: ${cmd.processId}"
       }
     }
-    else if(cmd.whereStatus)
+    else if(cmd.whereStatusEquals)
     {
-      def objects = AvroFile.findAll("FROM AvroFile where status = '${cmd.whereStatus}'")
+      def objects = AvroFile.findAll("FROM AvroFile where status = '${cmd.whereStatusEquals}'")
 
       objects.each{record->
         record.status = status
@@ -237,38 +272,60 @@ class AvroService {
                       results:[],
                      ]
     try{
-       String messageId
-       if(!cmd.messageId) messageId = getUniqueMessageId()
-       AvroPayload avroPayload = new AvroPayload(messageId: messageId, message:cmd.message)
-       if(!avroPayload.save(flush:true))
-       {
-          log.error "Unable to save ${cmd.message}"
-          result.remove("results")
-          result.message = getAllErrors(avroPayload)
+      String messageId
+      File fullPathLocation = getFullPathFromMessage(cmd.message)
 
-          result.status = HttpStatus.BAD_REQUEST 
-       }
-       else
-       {
-          log.info "Added message for processing with ID: ${avroPayload.messageId}"
-          result.results <<
-                  [
-                     messageId:avroPayload.messageId,
-                     message:avroPayload.message,
-                  ]
-       }
+      if(fullPathLocation)
+      {
+        messageId = fullPathLocation
+        if(!AvroPayload.findByMessageId(messageId))
+        {
+          if(!isProcessingFile(messageId))
+          {
+            AvroPayload avroPayload = new AvroPayload(messageId: messageId, message:cmd.message)
+            if(!avroPayload.save(flush:true))
+            {
+              log.error "Unable to save ${cmd.message}"
+              result.remove("results")
+              result.message = getAllErrors(avroPayload)
+
+              result.status = HttpStatus.BAD_REQUEST 
+            }
+            else
+            {
+              log.info "Added message for processing with ID: ${avroPayload.messageId}"
+              result.results <<
+                      [
+                         messageId:avroPayload.messageId,
+                         message:avroPayload.message,
+                      ]
+            }
+          } 
+          else
+          {
+            result.message = "File destination ${fullPathLocation} is already being processed and will not be added."
+            log.info "File destination ${fullPathLocation} is already being processed."
+          } 
+        }
+        else
+        {
+            result.message = "File destination ${fullPathLocation} is already being processed and will not be added."
+            log.info "File destination ${fullPathLocation} is already being processed."
+        }
+      }
     }
     catch(e)
     {
-       result.status = HttpStatus.BAD_REQUEST 
-       result.message = e.toString()
-       result.remove("results")
+      e.printStackTrace()
+      result.status = HttpStatus.BAD_REQUEST 
+      result.message = e.toString()
+      result.remove("results")
     }
 
     result
 
   }
-  HashMap listMessage(GetMessageCommand cmd)
+  HashMap listMessages(GetMessageCommand cmd)
   {
     HashMap result = [
            results:[],
