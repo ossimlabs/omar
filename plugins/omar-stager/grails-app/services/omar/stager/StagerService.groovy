@@ -127,7 +127,7 @@ class StagerService
 					catch(e)
 					{
 						results.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
-						reuslts.message = "XML is in incorrect format for file ${params.filename}"
+						results.message = "XML is in incorrect format for file ${params.filename}"
 					}
 
 					parserPool.returnObject(parser)
@@ -139,14 +139,14 @@ class StagerService
 				else
 				{
 					results.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
-					reuslts.message = "Unable to open file ${params.filename}"
+					results.message = "Unable to open file ${params.filename}"
 				}
 			}
 		}
 		catch(e)
 		{
 			results.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
-			reuslts.message = "Unable to process file ${params.filename} with ERROR: ${e}"
+			results.message = "Unable to process file ${params.filename} with ERROR: ${e}"
 			log.error "${e.toString()}"
 		}
 		imageStager?.delete()
