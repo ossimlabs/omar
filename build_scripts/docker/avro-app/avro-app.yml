@@ -8,13 +8,10 @@ environments:
       pooled: true
       jmxExport: true
       driverClassName: org.postgresql.Driver
-      #username: ${DBUSER}
-      username: postgres
-      #password: ${DBPASS}
-      password: postgres
+      username: ${DBUSER}
+      password: ${DBPASS}
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      # url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
-      url: jdbc:postgresql://10.0.10.181:5432/omardb-test
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
 
 omar:
   avro:
@@ -25,10 +22,9 @@ omar:
     download:
       directory: "/data/s3"
     destination:
-      type: "stdout"
+      type: "post"
       post:
-        # addRasterEndPoint: "http://192.168.2.200/stager-app/dataManager/addRaster"
-        addRasterEndPoint: "http://10.0.10.181/stager-app/dataManager/addRaster"
+        addRasterEndPoint: http://${ADDRASTERENDPOINTURL}${ADDRASTERENDPOINTPORT}/stager-app/dataManager/addRaster
         addRasterEndPointField: "filename"
         addRasterEndPointParams:
           background: "true"

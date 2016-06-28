@@ -45,7 +45,7 @@ services:
   #   volumes:
   #     # Modify the path below to reflect your
   #     # AWS credentials location
-  #     - /Users/adrake/.aws:/root/.aws
+  #     - /Users/<yourusername>/.aws:/root/.aws
   #   ports:
   #     - "8080"
   #   image: radiantbluetechnologies/sqs
@@ -59,15 +59,18 @@ services:
   #   image: postgres:latest
   avro:
     build: ./avro-app
+    container_name: avro_container
     environment:
       DBHOST: postgresdb
       DBPORT: :5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      ADDRASTERENDPOINTURL: 10.0.10.181
+      ADDRASTERENDPOINTPORT: :9999
     volumes:
       # Mount the data directory locally to the container
-      - /data:/data
+      - /Users/Shared/data://data
     ports:
       - "5000:8080"
     links:
