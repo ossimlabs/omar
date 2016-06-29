@@ -311,18 +311,19 @@ class AvroService {
       if(fullPathLocation)
       {
         messageId = fullPathLocation
-        if(!AvroPayload.findByMessageId(messageId))
+        def avroPayload = AvroPayload.findByMessageId(messageId)
+        if(!avroPayload)
         {
           if(!isProcessingFile(messageId))
           {
-            AvroPayload avroPayload = new AvroPayload(messageId: messageId, status: ProcessStatus.READY, message:cmd.message)
+            avroPayload = new AvroPayload(messageId: messageId, status: ProcessStatus.READY, message:cmd.message)
             if(!avroPayload.save(flush:true))
             {
               log.error "Unable to save ${cmd.message}"
               result.remove("results")
               result.message = getAllErrors(avroPayload)
 
-              result.status = HttpStatus.BAD_REQUEST 
+              result.status = HttpStatus.INTERNAL_SERVER_ERROR
             }
             else
             {
@@ -342,8 +343,33 @@ class AvroService {
         }
         else
         {
+          if(avroPayload.status != ProcessStatus.FAILED)
+          {
             result.message = "File destination ${fullPathLocation} is already being processed and will not be added."
             log.info "File destination ${fullPathLocation} is already being processed."
+          }
+          else
+          {
+            avroPayload.status = ProcessStatus.READY
+            avroPayload.message = cmd.message
+            if(!avroPayload.save(flush:true))
+            {
+              log.error "Unable to save ${cmd.message}"
+              result.remove("results")
+              result.message = getAllErrors(avroPayload)
+              result.statusMessage = ""
+              result.status = HttpStatus.INTERNAL_SERVER_ERROR
+            }
+            else
+            {
+              log.info "Updated message for processing with ID: ${avroPayload.messageId}"
+              result.results <<
+                      [
+                              messageId:avroPayload.messageId,
+                              message:avroPayload.message,
+                      ]
+            }
+          }
         }
       }
     }
