@@ -194,9 +194,9 @@ wms:
 
 ---
 grails:
-  serverURL: http://<ip>:8080
+  serverURL: http://192.168.2.200/wfs-app
   assets:
-    url: http://<ip>:8080/assets/
+    url: http://192.168.2.200/wfs-app/assets/
 ```
 
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
