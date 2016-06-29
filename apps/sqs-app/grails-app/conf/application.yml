@@ -124,7 +124,7 @@ quartz:
 omar:
   sqs:
     reader:
-      queue: "https://sqs.us-east-1.amazonaws.com/320588532383/gpotts-tst"
+      queue: ""
       waitTimeSeconds: 20
       maxNumberOfMessages: 1
       pollingIntervalSeconds: 1
