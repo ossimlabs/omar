@@ -6,7 +6,9 @@ If you want to take it for a test drive please visit the [vagrant setup](https:/
 
 ##Installation
 
-We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR Common Install Guide](common.md).  To install you should be able to issue the following yum command
+We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR Common Install Guide](common.md).   
+
+To install you should be able to issue the following yum command
 
 ```
 yum install o2-wmts-app
@@ -23,13 +25,25 @@ The installation sets up
 
 ##Configuration
 
+**Assumptions**:
+
+* WMTS Web Service IP location is 192.168.2.101 on port 8080
+* Proxy server is running under the location 192.168.2.200
+* Proxy pass entry `ProxyPass /wmts-app http://192.168.2.101:8080`
+* WFS Service root IP is reachable via the proxy with path: `http://192.168.2.200/wfs-app`
+* WMS Service root IP is reachable via the proxy with path: `http://http://192.168.2.200/wms-app`
+* Postgres database accessible via the IP and port 192.168.2.100:5432 with a database named omardb-prod.  The database can be any name you want as long as you specify it in the configuration. If the database name or the IP and port information changes please replace in the YAML config file example
+
+The assumptions here has the root URL for the WMTS service reachable via the proxy by using IP http://192.168.2.200/wmts-app and this is proxied to the root IP of the wmts-app service located at http://192.168.2.101:8080. **Note: please change the IP's and ports for your setup accordingly**.
+
+
 The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
 ```
 vi /usr/share/omar/wmts-app/wmts-app.yml
 ```
 
- that contains the following settings:
+that contains the following settings:
 
 ```
 server:
@@ -45,12 +59,12 @@ environments:
       username: postgres
       password:
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://<ip>:<port>/omardb-prod
+      url: jdbc:postgresql://192.168.2.100:5432/omardb-prod
 
 omar:
   wmts:
-    wfsUrl: http://<wfs-service-ip>:<port>/wfs
-    wmsUrl: http://<wms-service-ip>:<port>/wms
+    wfsUrl: http://192.168.2.200/wfs-app/wfs
+    wmsUrl: http://192.168.2.200/wms-app/wms
     oldmarWmsFlag: false
     footprints:
       url: "http://<ip>:<port>/footprints/getFootprints"
@@ -58,10 +72,9 @@ omar:
       styles: "byFileType"
 ---
 grails:
-  serverURL: http://<ip>:<port>/
+  serverURL: http://192.168.2.200/wmts-app
   assets:
-    url: http://<ip>:<port>/assets/
-
+    url: http://192.168.2.200/wmts-app/assets/
 ```
 Please modify the configuration for your environment.
 
@@ -103,8 +116,9 @@ If all is good, then you should see a line that looks similar to the following:
 Grails application running at http://localhost:8080 in environment: production
 ```
 
-You can now verify your service with:
+You can now verify your service with
 
-`curl http://localhost:8080/wmts?request=GetCapabilities`
+`curl http://192.168.2.200/wmts-app/health`
 
-which should return an XML document with meta-data about the service.
+which returns the health of your sytem and should have the value `{"status":"UP"}`
+

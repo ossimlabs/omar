@@ -6,9 +6,9 @@ In this document we will address the following:
 * Common User and Group
 * Settings and configuration for each web service.
 * Service Templates init.d
-* Service Template systemd 
+* Service Template systemd
 
- 
+
 
 
 # Common Settings and Configuration
@@ -63,7 +63,7 @@ curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_codec-1.1.3.jar -
 curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_imageio-1.1.jar -o /usr/lib/jvm/java/jre/lib/ext/jai_imageio-1.1.jar
 ```
 
-**Note:** Please modifiy the curl download script above for you JAVA installation.  At the time of writing this document we are using OpenJDK version 8.  The O2 services should already have the JAI embedded within the "Fat Jar". 
+**Note:** Please modifiy the curl download script above for you JAVA installation.  At the time of writing this document we are using OpenJDK version 8.  The O2 services should already have the JAI embedded within the "Fat Jar".
 
 ##Create Yum Repo
 
@@ -175,7 +175,7 @@ COMMIT
 
 On CentOS7 they use the firewalld.   To list your zones you can issue the following command:
 
-```bash
+```
 firewall-cmd --get-active-zones
 
 Output:
@@ -186,13 +186,13 @@ public
 
 Now to add port 8080 to the public interface you can execute the following command line application:
 
-```bash
+```
 sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
 ```
 
 Restart the service:
 
-```bash
+```
 sudo systemctl restart firewalld
 ```
 
@@ -204,7 +204,7 @@ If SELINUX is running you must enable the boolean flag
 
 To list all booleans for httpd and see if your network connect is turned on you can perform the **getsebool** and get output similar to the following:
 
-```bash
+```
 /usr/sbin/getsebool -a | grep httpd
 
 Output:
@@ -236,7 +236,7 @@ httpd_enable_homedirs --> off
 ```
 To set a boolean you can give the setsebool command:
 
-```bash
+```
 sudo setsebool -P httpd_can_network_connect on
 ```
 
@@ -461,7 +461,7 @@ status)
 esac
 
 exit $RETVAL
-``` 
+```
 * **{{program_name}}** is replaced by the web service name:  For example wmts-app.
 * **{{program_user}}** is replaced by the user.  In this case the username is *omar*.
 * **{{program_group}}** is replaced by the group name.  In this case we use the group name *omar*.
