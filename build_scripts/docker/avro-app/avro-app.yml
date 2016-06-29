@@ -1,0 +1,35 @@
+server:
+  contextPath:
+  port: 8080
+
+environments:
+  production:
+    dataSource:
+      pooled: true
+      jmxExport: true
+      driverClassName: org.postgresql.Driver
+      username: ${DBUSER}
+      password: ${DBPASS}
+      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
+
+omar:
+  avro:
+    sourceUriField: "S3_URI_Nitf"
+    dateField: "Observation_Date"
+    dateFieldFormat: "yyyyMMddHHmmss"
+    imageIdField: "Image_Id"
+    download:
+      directory: "/data/s3"
+    destination:
+      type: "post"
+      post:
+        addRasterEndPoint: http://${ADDRASTERENDPOINTURL}${ADDRASTERENDPOINTPORT}/stager-app/dataManager/addRaster
+        addRasterEndPointField: "filename"
+        addRasterEndPointParams:
+          background: "true"
+          buildHistograms: "true"
+          buildOverviews: "true"
+          overviewCompressionType: "NONE"
+          overviewType: "ossim_tiff_box"
+          filename: ""
