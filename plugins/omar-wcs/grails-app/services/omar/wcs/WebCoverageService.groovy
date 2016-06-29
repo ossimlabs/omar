@@ -142,7 +142,7 @@ class WebCoverageService
             wcs.Format( 'application/vnd.ogc.se_xml' )
           }
         }
-        def layers = getLayers()
+        def layers = getLayers( wcsParams )
 
         wcs.ContentMetadata {
           layers.each { layer ->
@@ -170,112 +170,74 @@ class WebCoverageService
     [contentType: 'application/xml', buffer: xml]
   }
 
-  private def getLayer(def name)
-  {
-    getLayers().find { it.name.equalsIgnoreCase( name ) }
-  }
-
-  /*
-  private def getLayers(def filter = Filter.PASS)
-  {
-    def layers = [[
-//        name: "nurc:Arc_Sample",
-//        description: "Generated from arcGridSample",
-//        label: "A sample ArcGrid file",
-//        bounds: [
-//            proj: "urn:ogc:def:crs:OGC:1.3:CRS84",
-//            minX: -180.0,
-//            minY: -90.0,
-//            maxX: 180.0,
-//            maxY: 90.0
-//        ],
-//        keywords: [
-//            "WCS", "arcGridSample", "arcGridSample_Coverage"
-//        ]
-//    ], [
-            description: "A very rough imagery of North America",
-            name: "nurc:Img_Sample",
-            label: "North America sample imagery",
-            bounds: [
-                proj: "urn:ogc:def:crs:OGC:1.3:CRS84",
-                minX: -130.85168,
-                minY: 20.7052,
-                maxX: -62.0054,
-                maxY: 54.1141
-            ],
-            keywords: [
-            "WCS", "worldImageSample", "worldImageSample_Coverage",
-        ]
-//    ], [
-//        description: "Generated from ImageMosaic",
-//        name: "nurc:mosaic",
-//        label: "mosaic",
-//        bounds: [
-//            proj: "urn:ogc:def:crs:OGC:1.3:CRS84",
-//            minX: 6.346,
-//            minY: 36.492,
-//            maxX: 20.83,
-//            maxY: 46.591
-//        ],
-//        keywords: [
-//            "WCS", "ImageMosaic", "mosaic"
-//        ],
-//    ], [
-//        description: "Generated from sfdem",
-//        name: "sf:sfdem",
-//        label: "sfdem is a Tagged Image File Format with Geographic information",
-//        bounds: [
-//            proj: "urn:ogc:def:crs:OGC:1.3:CRS84",
-//            minX: -103.87108701853181,
-//            minY: 44.370187074132616,
-//            maxX: -103.62940739432703,
-//            maxY: 44.5016011535299
-//        ],
-//        keywords: [
-//            "WCS", "sfdem", "sfdem"
-//        ]
-
-    ], [
-        description: "San Fran",
-        name: "o2:SanFranColor",
-        label: "San Francisco",
-        bounds: [
-            //srsName: "urn:ogc:def:crs:OGC:1.3:CRS84",
-            proj: "EPSG:4326",
-            minX: -122.567038179736, minY: 37.6654930872174, maxX: -122.109265804213, maxY: 38.0233940932067
-        ],
-        keywords: ["WCS"],
-        width: 8000, height: 8000,
-        numBands: 3
-    ]]
-    layers
-  }
-  */
-
   def getLayers(def wcsParams)
   {
-    def (prefix, layerName) = wcsParams?.coverage?.split( ':' )
+    def coverages = wcsParams?.coverage?.split( ',' )*.split( /[:\.]/ )
+    def images = []
 
-    def layerInfo = LayerInfo.where {
-      name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
-    }.get()
+    coverages?.each { coverage ->
+//      println coverage
+      def prefix, layerName, id
 
-    List images = null
+      if ( coverage.size() == 3 )
+      {
+        (prefix, layerName, id) = coverage
+      }
+      else
+      {
+        (prefix, layerName) = coverage
+      }
 
-    Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
-      def layer = workspace[layerName]
+      def layerInfo = LayerInfo.where {
+        name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
+      }.get()
 
-      images = layer.collectFromFeature(
-          filter: wcsParams?.filter,
-          //sorting: sorting,
-          //	max: maxCount, // will remove and change to have the wms plugin have defaults
-          fields: ['filename', 'entry_id'] as List<String>
-      ) {
-        [imageFile: it.filename as File, entry: it.entry_id?.toInteger()]
+      Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
+        def layer = workspace[layerName]
+
+        if ( id )
+        {
+          def image = layer?.getFeatures( filter: "in (${id})" )?.first()
+
+          if ( image )
+          {
+            images << convertImage( prefix, image )
+          }
+        }
+        else if ( wcsParams.filter )
+        {
+          layer?.eachFeature( filter: wcsParams.filter ) { images << convertImage( prefix, it ) }
+        }
       }
     }
 
     images
+  }
+
+  def convertImage(def prefix, def image)
+  {
+
+    def bounds = image.ground_geom.bounds
+    def title = image.title ?: image.image_id ?: ( image.filename as File )?.name
+
+    def metadata = [
+        label: title,
+        description: image.description,
+        name: "${prefix}:${image.id}",
+        bounds: [
+            //srsName: "urn:ogc:def:crs:OGC:1.3:CRS84",
+            proj: "EPSG:4326",
+            minX: bounds.minX, minY: bounds.minY, maxX: bounds.maxX, maxY: bounds.maxY
+        ],
+        keywords: ["WCS"],
+        width: image.width, height: image.height,
+        numBands: image.number_of_bands,
+        filename: image.filename,
+        entry: image.entry_id?.toInteger()
+    ]
+
+//    println metadata
+    metadata
   }
 
   def describeCoverage(DescribeCoverageRequest wcsParams)
@@ -295,33 +257,34 @@ class WebCoverageService
           xsi: "http://www.w3.org/2001/XMLSchema-instance"
       )
 
-      def layer = getLayer( wcsParams.coverage )
+      def layers = getLayers( wcsParams )
 
 //      println layer
 
       wcs.CoverageDescription( version: "1.0.0",
           'xsi:schemaLocation': "http://www.opengis.net/wcs ${schemaLocation}" ) {
+        layers.each { layer ->
 
-        wcs.CoverageOffering {
-          wcs.description( layer.description )
-          wcs.name( layer.name )
-          wcs.label( layer.label )
+          wcs.CoverageOffering {
+            wcs.description( layer.description )
+            wcs.name( layer.name )
+            wcs.label( layer.label )
 
-          wcs.lonLatEnvelope( srsName: layer.bounds.proj ) {
-            gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
-            gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
-          }
+            wcs.lonLatEnvelope( srsName: layer.bounds.proj ) {
+              gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
+              gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
+            }
 
-          wcs.keywords {
-            layer.keywords.each { wcs.keyword( it ) }
-          }
+            wcs.keywords {
+              layer.keywords.each { wcs.keyword( it ) }
+            }
 
-          wcs.domainSet {
-            wcs.spatialDomain {
-              gml.Envelope( srsName: layer.bounds.proj ) {
-                gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
-                gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
-              }
+            wcs.domainSet {
+              wcs.spatialDomain {
+                gml.Envelope( srsName: layer.bounds.proj ) {
+                  gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
+                  gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
+                }
 //              gml.RectifiedGrid( dimension: "2", srsName: layer.bbox.srsName ) {
 //                gml.limits {
 //                  gml.GridEnvelope {
@@ -337,34 +300,35 @@ class WebCoverageService
 //                gml.offsetVector( "0.07003690742624616 0.0" )
 //                gml.offsetVector( "0.0 -0.05586772575250837" )
 //              }
+              }
             }
-          }
-          wcs.rangeSet {
-            wcs.RangeSet {
-              wcs.name( layer.name )
-              wcs.label( layer.description )
-              wcs.axisDescription {
-                wcs.AxisDescription {
-                  wcs.name( "Band" )
-                  wcs.label( "Band" )
-                  wcs.values {
-                    wcs.interval {
-                      wcs.min( 0 )
-                      wcs.max( layer.numBands - 1 )
+            wcs.rangeSet {
+              wcs.RangeSet {
+                wcs.name( layer.name )
+                wcs.label( layer.description )
+                wcs.axisDescription {
+                  wcs.AxisDescription {
+                    wcs.name( "Band" )
+                    wcs.label( "Band" )
+                    wcs.values {
+                      wcs.interval {
+                        wcs.min( 0 )
+                        wcs.max( layer.numBands - 1 )
+                      }
                     }
                   }
                 }
               }
             }
-          }
-          wcs.supportedCRSs {
-            requestResponseCRSs.each { wcs.requestResponseCRSs( it ) }
-          }
-          wcs.supportedFormats( /*nativeFormat: "WorldImage"*/ ) {
-            supportedFormats.each { wcs.formats( it ) }
-          }
-          wcs.supportedInterpolations( default: defaultInterpolation ) {
-            supportedInterpolations.each { wcs.interpolationMethod( it ) }
+            wcs.supportedCRSs {
+              requestResponseCRSs.each { wcs.requestResponseCRSs( it ) }
+            }
+            wcs.supportedFormats( /*nativeFormat: "WorldImage"*/ ) {
+              supportedFormats.each { wcs.formats( it ) }
+            }
+            wcs.supportedInterpolations( default: defaultInterpolation ) {
+              supportedInterpolations.each { wcs.interpolationMethod( it ) }
+            }
           }
         }
       }
@@ -379,14 +343,16 @@ class WebCoverageService
   {
     println wcsParams
 
-    def coverage = getLayer( wcsParams.coverage )
+    def coverageLayers = getLayers( wcsParams )?.collect { coverage ->
+      new ChipperLayer( coverage.filename as File, coverage.entry )
+    }
 
-//    println coverage
+    def viewBbox = new Bounds( *( wcsParams?.bbox?.split( ',' )*.toDouble() ), wcsParams.crs )
+    def coverageBbox = coverageLayers?.first()?.bbox
 
-    def bbox = new Bounds( *( wcsParams?.bbox?.split( ',' )*.toDouble() ), wcsParams.crs ).intersection(
-        new Bounds( coverage.bounds.minX, coverage.bounds.minY, coverage.bounds.maxX, coverage.bounds.maxY,
-            coverage.bounds.srsName )
-    )
+    coverageLayers?.each { coverageBbox = coverageBbox.expand( it.bbox ) }
+
+    def bbox = viewBbox.intersection( coverageBbox )
 
 //    println bbox
 
@@ -397,9 +363,7 @@ class WebCoverageService
         height: wcsParams?.height,
         proj: bbox.proj,
         bounds: bbox,
-        layers: [
-            createLayer( coverage )
-        ]
+        layers: coverageLayers
     )
 
     def ostream = new ByteArrayOutputStream()
@@ -409,28 +373,5 @@ class WebCoverageService
     map?.close()
 
     [contentType: 'image/tiff', buffer: ostream.toByteArray()]
-  }
-
-
-  private def createLayer(def coverage)
-  {
-    def layer
-
-    switch ( coverage.name )
-    {
-    case 'nurc:Img_Sample':
-      layer = new Shapefile( '/data/omar/world_adm0.shp' )
-      break
-
-    case 'o2:SanFranColor':
-      def file = '/data/sanfran/sanfran_color.ccf' as File
-//      def reader = Format.getFormat( file ).gridFormat.getReader( file )
-//      layer = new GridReaderLayer( reader, new RasterSymbolizer().gtStyle )
-      layer = new ChipperLayer( file )
-
-      break
-    }
-
-    layer
   }
 }

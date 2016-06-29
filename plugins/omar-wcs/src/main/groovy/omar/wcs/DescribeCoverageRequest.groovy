@@ -15,6 +15,7 @@ class DescribeCoverageRequest implements Validateable
   String version
   String request
   String coverage
+  String filter
 
   static mapping = {
     version false
