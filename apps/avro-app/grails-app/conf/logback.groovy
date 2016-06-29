@@ -10,7 +10,7 @@ appender('STDOUT', ConsoleAppender) {
     }
 }
 
-logger 'grails.app.services', INFO, ['STDOUT']
+//logger 'grails.app.services', INFO, ['STDOUT']
 root(ERROR, ['STDOUT'])
 
 def targetDir = BuildSettings.TARGET_DIR
