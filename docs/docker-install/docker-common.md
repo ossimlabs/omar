@@ -1,8 +1,7 @@
 # Welcome to the OMAR Web Services for Docker
 
 This directory contains various `Dockerfile`(s) to build containers for the
-*OMAR Web Services* applications. It includes a `docker-compose.yml` file to help building
-and running the containers locally all at once.
+*OMAR Web Services* applications.
 
 ## Local Development and Testing
 Depending on your development environment, you'll need to install either
@@ -14,7 +13,7 @@ with Docker is to use [Docker Toolbox](https://www.docker.com/toolbox). Install
 that first and once you're up and running, you can return here and start
 development and testing.
 
-## Apple Mac related issues
+## Apple Mac issue
 
 There is an issue with Docker on the Mac. View the issue on Github [here](https://github.com/docker/kitematic/issues/1182).
 
@@ -58,11 +57,6 @@ You can get them with a simple:
 docker pull radiantbluetechnologies/image-name
 ```
 
-If you do need to build new images, you can build each one manually, or
-all at once using `docker-compose`.
-
-View the official Docker Compose documentation [here](https://docs.docker.com/compose/).
-
 ## OMAR Docker structure
 The OMAR Docker structure can be found [here](https://github.com/ossimlabs/omar/tree/master/build_scripts/docker).  You will find individual directories that correspond to each application:
 
@@ -85,11 +79,13 @@ The OMAR Docker structure can be found [here](https://github.com/ossimlabs/omar/
 ...
 ```
 
-##Building individual images
+## Building individual images
 
 To build one image manually, from the app's directory, use `docker build`:
 
-Based on the directory structure above you will need to navigate to an app directory. Example:
+Based on the directory structure above you will need to navigate to an app directory.
+
+Example:
 ```
 cd sqs-app
 ```
@@ -98,17 +94,23 @@ Execute the following:
 ```
 docker build -t radiantbluetechnologies/sqs-app .
 ```
-*Note: Be sure not to forget the period (.) after the app-name-app at the end of the command.*
+*Note: Be sure not to forget the period (.) after the **sqs-app** at the end of the command.*
 
-Running individual images:
+## Running individual images:
 ```
 docker run -d -v /Users/yourusername/.aws://root/.aws -p 5000:8080 -i radiantbluetechnologies/sqs-app
 ```
-Note: The command above will **run** the newly created **radiantbluetechnologies/sqs-app** image in detached mode (-d), map a volume from the host to the container (-v), and specify that the containers port should be mapped to port 5000 on the host (-p). 
+Note: The command above will **run** the newly created **radiantbluetechnologies/sqs-app** image in detached mode (-d), map a volume from the host to the container (-v), and specify that the containers port should be mapped to port 5000 on the host (-p).
 
-##Building all the images at once
+---
 
-Docker Compose allows you to build all of the images at one time.  This saves time by not having to type the individual build commands for each image.
+## Building all the images at once with Compose
+
+If you do need to build new images, you can build each one manually, or all at once using `docker-compose`.
+
+The OMAR Docker structure includes a `docker-compose.yml` file.  Docker Compose allows you to build all of the images at one time.  This saves time by not having to type the individual build commands for each image like we did above with `docker run`.
+
+View the official Docker Compose documentation [here](https://docs.docker.com/compose/).
 
 You will need to be in the docker directory under build_scripts:
 ```
@@ -120,7 +122,52 @@ Use Docker Compose:
 docker-compose up
 ```
 
-TODO: Running specific images with Compose
+## Running a specific image with Compose
 ```
-Add command here...
+docker-compose run --service-ports avro bash
+```
+This will run the **avro** service in the docker-compose.yml file.  We are also passing the --service-ports flag which tells docker to create the ports specified in the compose file and map them to the host.
+
+## Common commands
+
+You will probably find you will use these commands repeatedly when working with Docker.
+
+List running containers:
+```
+docker ps
+```
+
+List all containers (running or not):
+```
+docker ps -a
+```
+
+Start a container:
+```
+docker start <containerID>
+```
+
+Stop a container:
+```
+docker stop <containerID>
+```
+
+Remove a container:
+```
+docker rm <containerID>
+```
+
+Attach to a container via Bash
+```
+docker exec -it <containerID> bash
+```
+
+List images:
+```
+docker images
+```
+
+Remove an image.  Make sure it is not being used by any running containers.
+```
+docker rmi <imageID>
 ```
