@@ -17,6 +17,9 @@ class AvroMessageIndexJob {
       {
         String messageId = messageRecord.messageId
 
+        println "HERE??????????????????????"
+        println OmarAvroUtils.avroConfig
+        println "*"*40
         log.info "Processing Message with ID: ${messageRecord.messageId}"
         def slurper = new groovy.json.JsonSlurper()
         try {
@@ -35,7 +38,12 @@ class AvroMessageIndexJob {
             String prefixPath = "${OmarAvroUtils.avroConfig.download.directory}"
             File fullPathLocation = avroService.getFullPathFromMessage(messageRecord.message)
             File testPath = fullPathLocation.parentFile
-            if(AvroMessageUtils.tryToCreateDirectory(testPath, [:]))
+            HashMap tryToCreateDirectoryConfig = [
+                    numberOfAttempts:OmarAvroUtils.avroConfig.createDirectoryRetry.toInteger(),
+                    sleepInMillis: OmarAvroUtils.avroConfig.createDirectoryRetryWaitInMillis.toInteger()
+            ]
+
+            if(AvroMessageUtils.tryToCreateDirectory(testPath, tryToCreateDirectoryConfig))
             {
               try{
                 if(!fullPathLocation.exists())
@@ -64,6 +72,12 @@ class AvroMessageIndexJob {
                 message = null
               }
             }
+            else
+            {
+              log.error "Unable to create directory '${testPath}'. "
+              avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "Unable to create directory '${testPath}'.")
+              messageRecord = null
+            }
           }
           else
           {
@@ -77,7 +91,6 @@ class AvroMessageIndexJob {
           log.error "${e}"
           avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "${messageId} has error: ${e}")
         }
-
       }
 
       log.trace "Leaving........."
