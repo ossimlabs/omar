@@ -124,7 +124,7 @@ class AvroService {
     HashMap result = [status:HttpStatus.SUCCESS,
                       statusCode:HttpStatus.OK,
                       message:"",
-                      results:[],
+                      data:[],
                      ]
     try{
 
@@ -159,14 +159,14 @@ class AvroService {
         {
           result.message = getAllErrors(avroFile)
           log.error "Unable to save ${cmd.filename}\n with errors: ${result.message}"
-          result.remove("results")
+          result.data = null
           result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
           result.status = HttpStatus.ERROR
         }
         else
         {
           log.info "Added ${avroFile.filename}"
-          result.results <<
+          result.data <<
                   [
                      processId:avroFile.processId,
                      filename:avroFile.filename,
@@ -186,7 +186,7 @@ class AvroService {
       result.statusCode = HttpStatus.BAD_REQUEST
       result.status = HttpStatus.ERROR
       result.message = e.toString()
-      result.results = null
+      result.data = null
     }
 
     result
@@ -196,7 +196,7 @@ class AvroService {
   {
     HashMap result = [status:HttpStatus.SUCCESS,
             statusCode:HttpStatus.OK,
-           results:[],
+           data:[],
            pagination: [
                    count: 0,
                    offset: 0,
@@ -211,7 +211,7 @@ class AvroService {
       Integer limit = cmd.limit?:result.pagination.count
 
       AvroFile.list([offset:result.pagination.offset, max:limit]).each{record->
-          result.results <<
+          result.data <<
                   [
                     filename:record.filename,
                     processId: record.processId,
@@ -228,7 +228,7 @@ class AvroService {
       result.status = HttpStatus.ERROR
       result.statusCode = HttpStatus.BAD_REQUEST
       result.message = e.toString()
-      result.results = null
+      result.data = null
     }
 
     result
@@ -240,7 +240,7 @@ class AvroService {
                       status: HttpStatus.SUCCESS,
                       statusCode:HttpStatus.OK,
                       message:"",
-                      results:null
+                      data:null
 
     ]
 
@@ -285,7 +285,7 @@ class AvroService {
     HashMap result = [statusCode:HttpStatus.OK,
                       status:HttpStatus.SUCCESS,
                       message:"",
-                      results:null
+                      data:null
                      ]
     ProcessStatus status = ProcessStatus."${cmd.status}"
     if(cmd.processId)
@@ -361,7 +361,7 @@ class AvroService {
     HashMap result = [statusCode:HttpStatus.OK,
                       status:HttpStatus.SUCCESS,
                       message:"",
-                      results:[],
+                      data:[],
                      ]
     try{
       String messageId
@@ -379,7 +379,7 @@ class AvroService {
             if(!avroPayload.save(flush:true))
             {
               log.error "Unable to save ${cmd.message}"
-              result.remove("results")
+              result.data
               result.message = getAllErrors(avroPayload)
 
               result.status = HttpStatus.ERROR
@@ -388,7 +388,7 @@ class AvroService {
             else
             {
               log.info "Added message for processing with ID: ${avroPayload.messageId}"
-              result.results <<
+              result.data <<
                       [
                          messageId:avroPayload.messageId,
                          message:avroPayload.message,
@@ -415,7 +415,7 @@ class AvroService {
             if(!avroPayload.save(flush:true))
             {
               log.error "Unable to save ${cmd.message}"
-              result.remove("results")
+              result.data = null
               result.message = getAllErrors(avroPayload)
               result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
               result.status = HttpStatus.ERROR
@@ -423,7 +423,7 @@ class AvroService {
             else
             {
               log.info "Updated message for processing with ID: ${avroPayload.messageId}"
-              result.results <<
+              result.data <<
                       [
                               messageId:avroPayload.messageId,
                               message:avroPayload.message,
@@ -437,7 +437,7 @@ class AvroService {
         result.status = HttpStatus.ERROR
         result.statusCode = HttpStatus.NOT_FOUND
         result.message = "Could not find a file to add from the message '${cmd.message}'"
-        result.results = null
+        result.data = null
       }
     }
     catch(e)
@@ -455,7 +455,7 @@ class AvroService {
   {
     HashMap result = [statusCode:HttpStatus.OK,
                       status:HttpStatus.SUCCESS,
-           results:[],
+           data:[],
            pagination: [
                    count: 0,
                    offset: 0,
@@ -469,7 +469,7 @@ class AvroService {
       Integer limit = cmd.limit?:result.pagination.count
 
       AvroPayload.list([offset:result.pagination.offset, max:limit]).each{record->
-          result.results <<
+          result.data <<
                   [
                      messageId:record.messageId,
                      message:record.message,
