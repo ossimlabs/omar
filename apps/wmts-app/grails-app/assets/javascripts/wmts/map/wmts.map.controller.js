@@ -147,7 +147,7 @@
             }
 
             // Adds the layers to the layerSwitcher control
-            var layers = response.data.results.map(addLayerToSwitcher);
+            var layers = response.data.data.map(addLayerToSwitcher);
 
           })
           .catch(function(e){
