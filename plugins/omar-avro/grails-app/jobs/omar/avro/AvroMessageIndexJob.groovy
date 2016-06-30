@@ -17,9 +17,6 @@ class AvroMessageIndexJob {
       {
         String messageId = messageRecord.messageId
 
-        println "HERE??????????????????????"
-        println OmarAvroUtils.avroConfig
-        println "*"*40
         log.info "Processing Message with ID: ${messageRecord.messageId}"
         def slurper = new groovy.json.JsonSlurper()
         try {
