@@ -35,62 +35,67 @@ class WebCoverageService
 
   def getCapabilities(GetCapabilitiesRequest wcsParams)
   {
-    println wcsParams
+//    println wcsParams
 
-    def schemaLocation = grailsLinkGenerator.link( absolute: true, uri: '/schemas/wcs/1.0.0/wcsCapabilities.xsd' )
-    def wcsServiceAddress = grailsLinkGenerator.link( absolute: true, uri: '/wcs' )
+    def contentType
+    def buffer
 
-    def x = {
-      mkp.xmlDeclaration()
-      mkp.declareNamespace(
-          gml: "http://www.opengis.net/gml",
-          ogc: "http://www.opengis.net/ogc",
-          ows: "http://www.opengis.net/ows/1.1",
-          wcs: "http://www.opengis.net/wcs",
-          xlink: "http://www.w3.org/1999/xlink",
-          xsi: "http://www.w3.org/2001/XMLSchema-instance"
-      )
-      wcs.WCS_Capabilities(
-          version: "1.0.0",
-          'xsi:schemaLocation': "http://www.opengis.net/wcs ${schemaLocation}"
-      ) {
-        wcs.Service {
-          wcs.metadataLink( about: "http://o2.ossim.org",
-              metadataType: "other", 'xlink:type': "simple" )
-          wcs.description( "This server implements the WCS specification 1.0.0" )
-          wcs.name( "WCS" )
-          wcs.label( "Web Coverage Service" )
-          wcs.keywords {
-            wcs.keyword( "WCS" )
-            wcs.keyword( "WMS" )
-            wcs.keyword( "OMAR" )
-          }
-          wcs.responsibleParty {
-            wcs.individualName()
-            wcs.organisationName()
-            wcs.positionName()
-            wcs.contactInfo {
-              wcs.phone()
-              wcs.address {
-                wcs.city()
-                wcs.country()
-                wcs.electronicMailAddress()
-              }
+    try
+    {
+      def schemaLocation = grailsLinkGenerator.link( absolute: true, uri: '/schemas/wcs/1.0.0/wcsCapabilities.xsd' )
+      def wcsServiceAddress = grailsLinkGenerator.link( absolute: true, uri: '/wcs' )
+
+      def x = {
+        mkp.xmlDeclaration()
+        mkp.declareNamespace(
+            gml: "http://www.opengis.net/gml",
+            ogc: "http://www.opengis.net/ogc",
+            ows: "http://www.opengis.net/ows/1.1",
+            wcs: "http://www.opengis.net/wcs",
+            xlink: "http://www.w3.org/1999/xlink",
+            xsi: "http://www.w3.org/2001/XMLSchema-instance"
+        )
+        wcs.WCS_Capabilities(
+            version: "1.0.0",
+            'xsi:schemaLocation': "http://www.opengis.net/wcs ${schemaLocation}"
+        ) {
+          wcs.Service {
+            wcs.metadataLink( about: "http://o2.ossim.org",
+                metadataType: "other", 'xlink:type': "simple" )
+            wcs.description( "This server implements the WCS specification 1.0.0" )
+            wcs.name( "WCS" )
+            wcs.label( "Web Coverage Service" )
+            wcs.keywords {
+              wcs.keyword( "WCS" )
+              wcs.keyword( "WMS" )
+              wcs.keyword( "OMAR" )
             }
-          }
-          wcs.fees( "NONE" )
-          wcs.accessConstraints( "NONE" )
-        }
-        wcs.Capability {
-          wcs.Request {
-            wcs.GetCapabilities {
-              wcs.DCPType {
-                wcs.HTTP {
-                  wcs.Get {
-                    wcs.OnlineResource( 'xlink:href': "${wcsServiceAddress}" )
-                  }
+            wcs.responsibleParty {
+              wcs.individualName()
+              wcs.organisationName()
+              wcs.positionName()
+              wcs.contactInfo {
+                wcs.phone()
+                wcs.address {
+                  wcs.city()
+                  wcs.country()
+                  wcs.electronicMailAddress()
                 }
               }
+            }
+            wcs.fees( "NONE" )
+            wcs.accessConstraints( "NONE" )
+          }
+          wcs.Capability {
+            wcs.Request {
+              wcs.GetCapabilities {
+                wcs.DCPType {
+                  wcs.HTTP {
+                    wcs.Get {
+                      wcs.OnlineResource( 'xlink:href': "${wcsServiceAddress}" )
+                    }
+                  }
+                }
 /*
               wcs.DCPType {
                 wcs.HTTP {
@@ -100,15 +105,15 @@ class WebCoverageService
                 }
               }
 */
-            }
-            wcs.DescribeCoverage {
-              wcs.DCPType {
-                wcs.HTTP {
-                  wcs.Get {
-                    wcs.OnlineResource( 'xlink:href': "${wcsServiceAddress}" )
+              }
+              wcs.DescribeCoverage {
+                wcs.DCPType {
+                  wcs.HTTP {
+                    wcs.Get {
+                      wcs.OnlineResource( 'xlink:href': "${wcsServiceAddress}" )
+                    }
                   }
                 }
-              }
 /*
               wcs.DCPType {
                 wcs.HTTP {
@@ -118,15 +123,15 @@ class WebCoverageService
                 }
               }
 */
-            }
-            wcs.GetCoverage {
-              wcs.DCPType {
-                wcs.HTTP {
-                  wcs.Get {
-                    wcs.OnlineResource( 'xlink:href': "${wcsServiceAddress}" )
+              }
+              wcs.GetCoverage {
+                wcs.DCPType {
+                  wcs.HTTP {
+                    wcs.Get {
+                      wcs.OnlineResource( 'xlink:href': "${wcsServiceAddress}" )
+                    }
                   }
                 }
-              }
 /*
               wcs.DCPType {
                 wcs.HTTP {
@@ -136,41 +141,63 @@ class WebCoverageService
                 }
               }
 */
+              }
+            }
+            wcs.Exception {
+              wcs.Format( 'application/vnd.ogc.se_xml' )
             }
           }
-          wcs.Exception {
-            wcs.Format( 'application/vnd.ogc.se_xml' )
-          }
-        }
-        def layers = getLayers( wcsParams )
 
-        wcs.ContentMetadata {
-          layers.each { layer ->
-            wcs.CoverageOfferingBrief {
-              wcs.description( layer.description )
-              wcs.name( layer.name )
-              wcs.label( layer.label )
-              wcs.lonLatEnvelope( srsName: layer.bounds.proj ) {
-                gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
-                gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
-              }
-              wcs.keywords {
-                layer.keywords.each {
-                  wcs.keyword( it )
+          def layers
+
+          try
+          {
+            layers = getLayers( wcsParams )
+          }
+          catch ( e )
+          {
+            contentType = 'application/vnd.ogc.se_xml'
+            buffer = createErrorMessage( e )
+            return [contentType: contentType, buffer: buffer]
+          }
+
+          wcs.ContentMetadata {
+            layers.each { layer ->
+              wcs.CoverageOfferingBrief {
+                wcs.description( layer.description )
+                wcs.name( layer.name )
+                wcs.label( layer.label )
+                wcs.lonLatEnvelope( srsName: layer.bounds.proj ) {
+                  gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
+                  gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
+                }
+                wcs.keywords {
+                  layer.keywords.each {
+                    wcs.keyword( it )
+                  }
                 }
               }
             }
           }
         }
       }
+
+      def xml = new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x )
+
+      contentType = 'application/xml'
+      buffer = xml
+
+    }
+    catch ( e )
+    {
+      contentType = 'application/vnd.ogc.se_xml'
+      buffer = createErrorMessage( e )
     }
 
-    def xml = new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x )
-
-    [contentType: 'application/xml', buffer: xml]
+    [contentType: contentType, buffer: buffer]
   }
 
-  def getLayers(def wcsParams)
+  private def getLayers(def wcsParams) throws Exception
   {
     def coverages = wcsParams?.coverage?.split( ',' )*.split( /[:\.]/ )
     def images = []
@@ -183,9 +210,14 @@ class WebCoverageService
       {
         (prefix, layerName, id) = coverage
       }
-      else
+      else if ( coverage.size() == 2 )
       {
         (prefix, layerName) = coverage
+      }
+
+      if ( layerName == null || prefix == null )
+      {
+        throw new Exception( "Unknown coverage:  ${prefix}:${layerName}" )
       }
 
       def layerInfo = LayerInfo.where {
@@ -214,7 +246,7 @@ class WebCoverageService
     images
   }
 
-  def convertImage(def prefix, def image)
+  private def convertImage(def prefix, def image)
   {
 
     def bounds = image.ground_geom.bounds
@@ -242,49 +274,54 @@ class WebCoverageService
 
   def describeCoverage(DescribeCoverageRequest wcsParams)
   {
-    println wcsParams
+//    println wcsParams
 
-    def schemaLocation = grailsLinkGenerator.link( absolute: true, uri: '/schemas/wcs/1.0.0/describeCoverage.xsd' )
+    def contentType
+    def buffer
 
-    def x = {
-      mkp.xmlDeclaration()
-      mkp.declareNamespace(
-          gml: "http://www.opengis.net/gml",
-          ogc: "http://www.opengis.net/ogc",
-          ows: "http://www.opengis.net/ows/1.1",
-          wcs: "http://www.opengis.net/wcs",
-          xlink: "http://www.w3.org/1999/xlink",
-          xsi: "http://www.w3.org/2001/XMLSchema-instance"
-      )
+    try
+    {
+      def schemaLocation = grailsLinkGenerator.link( absolute: true, uri: '/schemas/wcs/1.0.0/describeCoverage.xsd' )
 
-      def layers = getLayers( wcsParams )
+      def x = {
+        mkp.xmlDeclaration()
+        mkp.declareNamespace(
+            gml: "http://www.opengis.net/gml",
+            ogc: "http://www.opengis.net/ogc",
+            ows: "http://www.opengis.net/ows/1.1",
+            wcs: "http://www.opengis.net/wcs",
+            xlink: "http://www.w3.org/1999/xlink",
+            xsi: "http://www.w3.org/2001/XMLSchema-instance"
+        )
+
+        def layers = getLayers( wcsParams )
 
 //      println layer
 
-      wcs.CoverageDescription( version: "1.0.0",
-          'xsi:schemaLocation': "http://www.opengis.net/wcs ${schemaLocation}" ) {
-        layers.each { layer ->
+        wcs.CoverageDescription( version: "1.0.0",
+            'xsi:schemaLocation': "http://www.opengis.net/wcs ${schemaLocation}" ) {
+          layers.each { layer ->
 
-          wcs.CoverageOffering {
-            wcs.description( layer.description )
-            wcs.name( layer.name )
-            wcs.label( layer.label )
+            wcs.CoverageOffering {
+              wcs.description( layer.description )
+              wcs.name( layer.name )
+              wcs.label( layer.label )
 
-            wcs.lonLatEnvelope( srsName: layer.bounds.proj ) {
-              gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
-              gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
-            }
+              wcs.lonLatEnvelope( srsName: layer.bounds.proj ) {
+                gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
+                gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
+              }
 
-            wcs.keywords {
-              layer.keywords.each { wcs.keyword( it ) }
-            }
+              wcs.keywords {
+                layer.keywords.each { wcs.keyword( it ) }
+              }
 
-            wcs.domainSet {
-              wcs.spatialDomain {
-                gml.Envelope( srsName: layer.bounds.proj ) {
-                  gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
-                  gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
-                }
+              wcs.domainSet {
+                wcs.spatialDomain {
+                  gml.Envelope( srsName: layer.bounds.proj ) {
+                    gml.pos( "${layer.bounds.minX} ${layer.bounds.minY}" )
+                    gml.pos( "${layer.bounds.maxX} ${layer.bounds.maxY}" )
+                  }
 //              gml.RectifiedGrid( dimension: "2", srsName: layer.bbox.srsName ) {
 //                gml.limits {
 //                  gml.GridEnvelope {
@@ -300,78 +337,125 @@ class WebCoverageService
 //                gml.offsetVector( "0.07003690742624616 0.0" )
 //                gml.offsetVector( "0.0 -0.05586772575250837" )
 //              }
+                }
               }
-            }
-            wcs.rangeSet {
-              wcs.RangeSet {
-                wcs.name( layer.name )
-                wcs.label( layer.description )
-                wcs.axisDescription {
-                  wcs.AxisDescription {
-                    wcs.name( "Band" )
-                    wcs.label( "Band" )
-                    wcs.values {
-                      wcs.interval {
-                        wcs.min( 0 )
-                        wcs.max( layer.numBands - 1 )
+              wcs.rangeSet {
+                wcs.RangeSet {
+                  wcs.name( layer.name )
+                  wcs.label( layer.description )
+                  wcs.axisDescription {
+                    wcs.AxisDescription {
+                      wcs.name( "Band" )
+                      wcs.label( "Band" )
+                      wcs.values {
+                        wcs.interval {
+                          wcs.min( 0 )
+                          wcs.max( layer.numBands - 1 )
+                        }
                       }
                     }
                   }
                 }
               }
-            }
-            wcs.supportedCRSs {
-              requestResponseCRSs.each { wcs.requestResponseCRSs( it ) }
-            }
-            wcs.supportedFormats( /*nativeFormat: "WorldImage"*/ ) {
-              supportedFormats.each { wcs.formats( it ) }
-            }
-            wcs.supportedInterpolations( default: defaultInterpolation ) {
-              supportedInterpolations.each { wcs.interpolationMethod( it ) }
+              wcs.supportedCRSs {
+                requestResponseCRSs.each { wcs.requestResponseCRSs( it ) }
+              }
+              wcs.supportedFormats( /*nativeFormat: "WorldImage"*/ ) {
+                supportedFormats.each { wcs.formats( it ) }
+              }
+              wcs.supportedInterpolations( default: defaultInterpolation ) {
+                supportedInterpolations.each { wcs.interpolationMethod( it ) }
+              }
             }
           }
         }
+      }
+
+      def xml = new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x )
+
+      contentType = 'application/xml'
+      buffer = xml
+    }
+    catch ( e )
+    {
+      contentType = 'application/vnd.ogc.se_xml'
+      buffer = createErrorMessage( e )
+    }
+
+    [contentType: contentType, buffer: buffer]
+  }
+
+  def getCoverage(GetCoverageRequest wcsParams)
+  {
+//    println wcsParams
+
+    def contentType
+    def buffer
+
+    try
+    {
+      def coverageLayers = getLayers( wcsParams )?.collect { coverage ->
+        new ChipperLayer( coverage.filename as File, coverage.entry )
+      }
+
+      def viewBbox = new Bounds( *( wcsParams?.bbox?.split( ',' )*.toDouble() ), wcsParams.crs )
+      def coverageBbox = coverageLayers?.first()?.bbox
+
+      coverageLayers?.each { coverageBbox = coverageBbox.expand( it.bbox ) }
+
+      def bbox = viewBbox.intersection( coverageBbox )
+
+//    println bbox
+
+      def map = new GeoScriptMap(
+          fixAspectRatio: false,
+          type: wcsParams?.format?.toLowerCase(),
+          width: wcsParams?.width,
+          height: wcsParams?.height,
+          proj: bbox.proj,
+          bounds: bbox,
+          layers: coverageLayers
+      )
+
+      def ostream = new ByteArrayOutputStream()
+
+      map.renderers['geotiff'] = new GeoTIFF()
+      map?.render( ostream )
+      map?.close()
+
+      contentType = 'image/tiff'
+      buffer = ostream.toByteArray()
+    }
+    catch ( e )
+    {
+      contentType = 'application/vnd.ogc.se_xml'
+      buffer = createErrorMessage( e )?.bytes
+    }
+
+
+    [contentType: contentType, buffer: buffer]
+  }
+
+  private createErrorMessage(Exception e)
+  {
+    def schemaLocation = grailsLinkGenerator.link( absolute: true, uri: '/schemas/wcs/1.0.0/OGC-exception.xsd' )
+
+    def x = {
+      mkp.xmlDeclaration()
+      mkp.declareNamespace(
+          xsi: "http://www.w3.org/2001/XMLSchema-instance"
+      )
+      ServiceExceptionReport(
+          version: "1.2.0",
+          xmlns: "http://www.opengis.net/ogc",
+          'xsi:schemaLocation': schemaLocation
+      ) {
+        ServiceException( e.message )
       }
     }
 
     def xml = new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x )
 
-    [contentType: 'application/xml', buffer: xml]
-  }
-
-  def getCoverage(GetCoverageRequest wcsParams)
-  {
-    println wcsParams
-
-    def coverageLayers = getLayers( wcsParams )?.collect { coverage ->
-      new ChipperLayer( coverage.filename as File, coverage.entry )
-    }
-
-    def viewBbox = new Bounds( *( wcsParams?.bbox?.split( ',' )*.toDouble() ), wcsParams.crs )
-    def coverageBbox = coverageLayers?.first()?.bbox
-
-    coverageLayers?.each { coverageBbox = coverageBbox.expand( it.bbox ) }
-
-    def bbox = viewBbox.intersection( coverageBbox )
-
-//    println bbox
-
-    def map = new GeoScriptMap(
-        fixAspectRatio: false,
-        type: wcsParams?.format?.toLowerCase(),
-        width: wcsParams?.width,
-        height: wcsParams?.height,
-        proj: bbox.proj,
-        bounds: bbox,
-        layers: coverageLayers
-    )
-
-    def ostream = new ByteArrayOutputStream()
-
-    map.renderers['geotiff'] = new GeoTIFF()
-    map?.render( ostream )
-    map?.close()
-
-    [contentType: 'image/tiff', buffer: ostream.toByteArray()]
+    xml.toString()
   }
 }
