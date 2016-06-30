@@ -54,16 +54,24 @@ class AvroService {
   }
   File getFullPathFromMessage(String message)
   {
+    File result
     JsonSlurper slurper = new JsonSlurper()
-    def jsonObj = slurper.parseText(message)
-    String suffix = AvroMessageUtils.getDestinationSuffixFromMessage(jsonObj)
-    String prefixPath = "${OmarAvroUtils.avroConfig.download.directory}"
+    if(message)
+    {
+      def jsonObj = slurper.parseText(message)
+      String suffix = AvroMessageUtils.getDestinationSuffixFromMessage(jsonObj)
+      String prefixPath = "${OmarAvroUtils.avroConfig.download.directory}"
 
-    new File(prefixPath, suffix)
+      result = new File(prefixPath, suffix)
+
+    }
+
+    result
   }
   HashMap updatePayloadStatus(String messageId, ProcessStatus status, String statusMessage)
   {
-    HashMap result = [status:HttpStatus.OK,
+    HashMap result = [status:HttpStatus.SUCCESS,
+                      statusCode:HttpStatus.OK,
                       message:""
     ]
 
@@ -78,15 +86,27 @@ class AvroService {
       // we will remove the file from the table.
       if(avroPayload.status == ProcessStatus.FINISHED)
       {
-        avroPayload.delete(flush:true)
+        if(!avroPayload.delete(flush:true))
+        {
+          result.status = HttpStatus.ERROR
+          result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+          result.message = "Unable to delete id: ${messageId}"
+        }
       }
       else
       {
-        avroPayload.save(flush:true)
+        if(!avroPayload.save(flush:true))
+        {
+          result.status = HttpStatus.ERROR
+          result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+          result.message = "Unable to update id: ${messageId}"
+        }
       }
     }
     else
     {
+      result.status = HttpStatus.ERROR
+      result.statusCode = HttpStatus.NOT_FOUND
       result.message = "Unable to update status for id: ${messageId}"
     }
     result
@@ -101,7 +121,8 @@ class AvroService {
   }
   HashMap addFile(IndexFileCommand cmd)
   {
-    HashMap result = [status:HttpStatus.OK,
+    HashMap result = [status:HttpStatus.SUCCESS,
+                      statusCode:HttpStatus.OK,
                       message:"",
                       results:[],
                      ]
@@ -115,7 +136,12 @@ class AvroService {
       // We will delete so the ID will auto increment
       if(avroFile?.status == ProcessStatus.FAILED)
       {
-        avroFile?.delete(flush:true)
+        if(!avroFile?.delete(flush:true))
+        {
+          result.status = HttpStatus.ERROR
+          result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+          result.message = "Unable to add file ${cmd.filename}"
+        }
         avroFile = null
       }         
 
@@ -133,8 +159,9 @@ class AvroService {
         {
           result.message = getAllErrors(avroFile)
           log.error "Unable to save ${cmd.filename}\n with errors: ${result.message}"
-          result.remove("results") 
-          result.status = HttpStatus.BAD_REQUEST 
+          result.remove("results")
+          result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+          result.status = HttpStatus.ERROR
         }
         else
         {
@@ -156,9 +183,10 @@ class AvroService {
     }
     catch(e)
     {
-      result.status = HttpStatus.BAD_REQUEST 
+      result.statusCode = HttpStatus.BAD_REQUEST
+      result.status = HttpStatus.ERROR
       result.message = e.toString()
-      result.remove("results")
+      result.results = null
     }
 
     result
@@ -166,7 +194,8 @@ class AvroService {
 
   HashMap listFiles(GetFileCommand cmd)
   {
-    HashMap result = [
+    HashMap result = [status:HttpStatus.SUCCESS,
+            statusCode:HttpStatus.OK,
            results:[],
            pagination: [
                    count: 0,
@@ -196,10 +225,10 @@ class AvroService {
     }
     catch(e) 
     {
-      result.status = HttpStatus.BAD_REQUEST 
+      result.status = HttpStatus.ERROR
+      result.statusCode = HttpStatus.BAD_REQUEST
       result.message = e.toString()
-      result.remove("results")
-      result.remove("pagination")
+      result.results = null
     }
 
     result
@@ -207,9 +236,13 @@ class AvroService {
 
   HashMap updateFileStatus(String processId, ProcessStatus status, String statusMessage)
   {
-    HashMap result = [status:HttpStatus.OK,
-                      message:""
-                     ]
+    HashMap result = [
+                      status: HttpStatus.SUCCESS,
+                      statusCode:HttpStatus.OK,
+                      message:"",
+                      results:null
+
+    ]
 
     AvroFile avroFile = AvroFile.findByProcessId(processId)
 
@@ -222,42 +255,67 @@ class AvroService {
       // we will remove the file from the table.
       if(avroFile.status == ProcessStatus.FINISHED)
       {
-        avroFile.delete(flush:true)
+        if(!avroFile.delete(flush:true))
+        {
+          result.status = HttpStatus.ERROR
+          result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+          result.message = getAllErrors(avroFile)
+        }
       }
       else
       {
-        avroFile.save(flush:true)
+        if(!avroFile.save(flush:true))
+        {
+          result.status = HttpStatus.ERROR
+          result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+          result.message = getAllErrors(avroFile)
+        }
       }
     }
     else
     {
-      result.message = "Unable to update status for id: ${processId}"
+      result.status = HttpStatus.ERROR
+      result.statusCode = HttpStatus.NOT_FOUND
+      result.message = "Id: ${processId} not found and can't be updated"
     }
     result
   }
   HashMap resetFileProcessingCommand(ResetFileProcessingCommand cmd)
   {
-    HashMap result = [status:HttpStatus.OK,
-                      message:""
+    HashMap result = [statusCode:HttpStatus.OK,
+                      status:HttpStatus.SUCCESS,
+                      message:"",
+                      results:null
                      ]
     ProcessStatus status = ProcessStatus."${cmd.status}"
     if(cmd.processId)
     {
-      AvroFile avroFile = AvroFile.findByProcessId(processId)
-      if(status == ProcessStatus.FINISHED)
+      AvroFile avroFile = AvroFile.findByProcessId(cmd.processId)
+      if(!avroFile)
       {
-        avroFile?.delete()
+        result.status = HttpStatus.ERROR
+        result.statusCode = HttpStatus.NOT_FOUND
+        result.message = "Process ID not found: ${cmd.processId}"
+      }
+      else if(status == ProcessStatus.FINISHED)
+      {
+        if(!avroFile?.delete())
+        {
+          result.status     = HttpStatus.ERROR
+          result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+          result.message    = getAllErrors(avroFile)
+        }
       }
       else
       {
         avroFile?.status = status
-        avroFile?.save(flush:true)
+        if(!avroFile?.save(flush:true))
+        {
+          result.status = HttpStatus.ERROR
+          result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+          result.message = getAllErrors(avroFile)
 
-      }
-      if(!avroFile)
-      {
-        result.status = HttpStatus.NOT_FOUND
-        result.message = "Process ID not found: ${cmd.processId}"
+        }
       }
     }
     else if(cmd.whereStatusEquals)
@@ -300,7 +358,8 @@ class AvroService {
   }
   HashMap addMessage(IndexMessageCommand cmd)
   {
-    HashMap result = [status:HttpStatus.OK,
+    HashMap result = [statusCode:HttpStatus.OK,
+                      status:HttpStatus.SUCCESS,
                       message:"",
                       results:[],
                      ]
@@ -323,7 +382,8 @@ class AvroService {
               result.remove("results")
               result.message = getAllErrors(avroPayload)
 
-              result.status = HttpStatus.INTERNAL_SERVER_ERROR
+              result.status = HttpStatus.ERROR
+              result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
             }
             else
             {
@@ -357,8 +417,8 @@ class AvroService {
               log.error "Unable to save ${cmd.message}"
               result.remove("results")
               result.message = getAllErrors(avroPayload)
-              result.statusMessage = ""
-              result.status = HttpStatus.INTERNAL_SERVER_ERROR
+              result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+              result.status = HttpStatus.ERROR
             }
             else
             {
@@ -372,13 +432,20 @@ class AvroService {
           }
         }
       }
+      else
+      {
+        result.status = HttpStatus.ERROR
+        result.statusCode = HttpStatus.NOT_FOUND
+        result.message = "Could not find a file to add from the message '${cmd.message}'"
+        result.results = null
+      }
     }
     catch(e)
     {
       e.printStackTrace()
-      result.status = HttpStatus.BAD_REQUEST 
+      result.status = HttpStatus.ERROR
+      result.statusCode = HttpStatus.BAD_REQUEST
       result.message = e.toString()
-      result.remove("results")
     }
 
     result
@@ -386,7 +453,8 @@ class AvroService {
   }
   HashMap listMessages(GetMessageCommand cmd)
   {
-    HashMap result = [
+    HashMap result = [statusCode:HttpStatus.OK,
+                      status:HttpStatus.SUCCESS,
            results:[],
            pagination: [
                    count: 0,
@@ -414,9 +482,9 @@ class AvroService {
     }
     catch(e) 
     {
-      result.status = HttpStatus.BAD_REQUEST 
+      result.status = HttpStatus.ERROR
+      result.statusCode = HttpStatus.BAD_REQUEST
       result.message = e.toString()
-      result.remove("results")
       result.remove("pagination")
     }
 

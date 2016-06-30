@@ -57,7 +57,7 @@ class AvroController {
       bindData( cmd, requestParams )
       HashMap result = avroService.addFile(cmd)
 
-      response.status = result.status
+      response.status = result.statusCode
       render contentType: "application/json", text: result as JSON
 
    }
@@ -123,7 +123,7 @@ class AvroController {
       bindData( cmd, requestParams )
       HashMap result = avroService.resetFileProcessingCommand(cmd)
 
-      response.status = result.status
+      response.status = result.statusCode
       render contentType: "application/json", text: result as JSON
 
    }
@@ -150,7 +150,7 @@ class AvroController {
       }
       HashMap result = avroService.addMessage(cmd)
 
-      response.status = result.status
+      response.status = result.statusCode
       render contentType: "application/json", text: result as JSON
    }
 
