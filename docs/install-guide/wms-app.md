@@ -29,6 +29,7 @@ This plugin uses JNI bindings to the ossim core C++ engine.  By default it shoul
 ```
 yum install ossim
 yum install ossim-kakadu-plugin
+yum install ossim-jpeg12-plugin
 yum install ossim-sqlite-plugin
 yum install ossim-hdf5-plugin
 yum install ossim-geopdf-plugin
@@ -38,7 +39,7 @@ yum install ossim-png-plugin
 **Additional**
 
 ```
-yum install ossim-gdal-plugin.x86_64
+sudo yum install ossim-gdal-plugin.x86_64
 ```
 
 ##Configuration
@@ -54,12 +55,12 @@ The assumptions here has the root URL for the WMS service reachable via the prox
 
 The configuration file is a yaml formatted config file.   For now create a file called wms-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
-```bash
-vi /usr/share/omar/wms-app/wms-app.yml
+```
+sudo vi /usr/share/omar/wms-app/wms-app.yml
 ```
  that contains the following settings:
 
-```yaml
+```
 server:
   contextPath:
   port: 8080
@@ -218,7 +219,7 @@ grails:
 The wfs definitions are used to query the database for feature information that will be used to satisfy the Chip request.
 
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
-* **wfs** This entry stores both the datastore information and the feature types.  The only thing that will change in these two is the location of the postgres datastore location identified in the **datastoreParams** section by the host, port, and database.  The Feature type uses the database ans the datastore ID.
+* **wfs** This entry stores both the datastore information and the feature types.  The only thing that will change in these two is the location of the postgres datastore location identified in the **datastoreParams** section by the host, port, and database.  The Feature type uses the database and the datastore ID.
 * **wms.styles** is used for footprint styling for the WMS footprint drawing.  You can define different color definitions and group them by a style name.   
 
 ##Executing
@@ -238,7 +239,7 @@ sudo systemctl start wms-app
 The service scripts calls the shell script under the directory /usr/share/omar/wms-app/wms-app.sh.   You should be able to tail the wms-app.log to see any standard output
 
 ```
-tail -f /var/log/wmts-app/wms-app.log
+tail -f /var/log/wcs-app/wms-app.log
 ```
 
 If all is good, then you should see a line that looks similar to the following:
