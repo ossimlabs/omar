@@ -7,15 +7,15 @@ WCS Service Implements the [OGC WCS standard](http://www.opengeospatial.org/stan
 We assume you have configured the yum repository described in [OMAR Common Install Guide](common.md).  To install you should be able to issue the following yum command
 
 ```
-yum install o2-wms-app
+yum install o2-wcs-app
 ```
 The installation sets up
 
-* Startup scripts that include /etc/init.d/wms-app for init.d support and /usr/lib/systemd/system/wms-app.service for systems running systemd
+* Startup scripts that include /etc/init.d/wcs-app for init.d support and /usr/lib/systemd/system/wms-app.service for systems running systemd
 * Creates a system user called *omar*
-* Creates log directory with user *omar* permissions under /var/log/wms-app
-* Creates a var run directory with user *omar* permissions under /var/run/wms-app
-* Adds the fat jar and shell scripts under the directory /usr/share/omar/wms-app location
+* Creates log directory with user *omar* permissions under /var/log/wcs-app
+* Creates a var run directory with user *omar* permissions under /var/run/wcs-app
+* Adds the fat jar and shell scripts under the directory /usr/share/omar/wcs-app location
 
 Because this library accesses imagery for chipping you might want to consider adding additional plugins to handle J2K imagery or other types of data.  
 
@@ -47,7 +47,7 @@ sudo yum install ossim-gdal-plugin.x86_64
 
 * WCS Web Service IP location is 192.168.2.111 on port 8080
 * Proxy server is running under the location 192.168.2.200
-* Proxy pass entry `ProxyPass /wcs-app http://192.168.2.103:8080`
+* Proxy pass entry `ProxyPass /wcs-app http://192.168.2.111:8080`
 * Postgres database accessible via the IP and port 192.168.2.100:5432 with a database named omardb-prod.  The database can be any name you want as long as you specify it in the configuration.  If the database name or the IP and port information changes please replace in the YAML config file example
 
 The assumptions here has the root URL for the WMS service reachable via the proxy by using IP http://192.168.2.200/wcs-app and this is proxied to the root IP of the wcs-app service located at http://192.168.2.111:8080. **Note: please change the IP's and ports for your setup accordingly**.
