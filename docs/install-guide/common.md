@@ -534,6 +534,51 @@ environments:
 * **dataSource.username** username for the database.
 * **dataSource.password** password for the database.
 
+## Logging
+
+Most of the services that start with the external AML file support external Logging overrides.  Let's say we have a common file under /usr/share/omar/logback.groovy then we can add to the YAML file the tags:
+
+```
+logging:
+  config: "/usr/share/omar/logback.groovy"
+```
+
+An example content of the external logback could look like the following:
+
+```
+import grails.util.BuildSettings
+import grails.util.Environment
+
+// See http://logback.qos.ch/manual/groovy.html for details on configuration
+appender('STDOUT', ConsoleAppender) {
+    encoder(PatternLayoutEncoder) {
+        pattern = "%level %logger - %msg%n"
+    }
+}
+
+logger 'grails.app.jobs', INFO, ['STDOUT']
+logger 'grails.app.services', INFO, ['STDOUT']
+logger 'grails.app.controllers', INFO, ['STDOUT']
+
+root(ERROR, ['STDOUT'])
+
+def targetDir = BuildSettings.TARGET_DIR
+
+if (Environment.isDevelopmentMode() && targetDir) {
+    appender("FULL_STACKTRACE", FileAppender) {
+        file = "${targetDir}/stacktrace.log"
+        append = true
+        encoder(PatternLayoutEncoder) {
+            pattern = "%level %logger - %msg%n"
+        }
+    }
+    logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
+}
+```
+
+Which logs all jobs, services, and controllers INFO levels to STDOUT.
+
+
 # Web Service Configuration
 
 We have seen the common settings found on all of the Web Application Services.  In this section please follow the specific configuration for each web application.  The documentation will assume that the common settings have been applied and will not be repeated.  We will show all files/directories required to run the web service.
