@@ -1,0 +1,19 @@
+server:
+  contextPath:
+  port: 8080
+
+environments:
+  production:
+    dataSource:
+      pooled: true
+      jmxExport: true
+      driverClassName: org.postgresql.Driver
+      username: ${DBUSER}
+      password: ${DBPASS}
+      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
+
+quartz:
+  jdbcStore: false
+  threadPool:
+    threadCount: 4

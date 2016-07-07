@@ -12,5 +12,5 @@ omar:
       destination:
         type: "post"
         post:
-            urlEndPoint: ""
-            field: message
+            urlEndPoint: "http://${DESTINATION_POST_END_POINT}${DESTINATION_POST_END_POINT_PORT}"
+            field: ${DESTINATION_POST_FIELD}
