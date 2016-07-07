@@ -2,10 +2,14 @@ package omar.core
 
 public class HttpStatus {
 
+  public static def ERROR = "error"
+  public static def SUCCESS = "success"
+
   // Informational repsonses 1xx
   public static def CONTINUE    = 100
   public static def SWITCHING_PROTOCOLS = 101
   public static def PROCESSING = 102
+
 
   // Successful responses 2xx
   public static def OK       = 200

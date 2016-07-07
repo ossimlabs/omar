@@ -7,7 +7,7 @@ If you want to take it for a test drive please visit the [vagrant setup](https:/
 
 We assume you have configured the yum repository described in [OMAR Common Install Guide](common.md).  To install you should be able to issue the following yum command
 
-```yum
+```
 yum install o2-wms-app
 ```
 The installation sets up
@@ -29,6 +29,7 @@ This plugin uses JNI bindings to the ossim core C++ engine.  By default it shoul
 ```
 yum install ossim
 yum install ossim-kakadu-plugin
+yum install ossim-jpeg12-plugin
 yum install ossim-sqlite-plugin
 yum install ossim-hdf5-plugin
 yum install ossim-geopdf-plugin
@@ -38,19 +39,28 @@ yum install ossim-png-plugin
 **Additional**
 
 ```
-yum install ossim-gdal-plugin.x86_64
+sudo yum install ossim-gdal-plugin.x86_64
 ```
 
 ##Configuration
 
+**Assumptions**:
+
+* WMS Web Service IP location is 192.168.2.103 on port 8080
+* Proxy server is running under the location 192.168.2.200
+* Proxy pass entry `ProxyPass /wms-app http://192.168.2.103:8080`
+* Postgres database accessible via the IP and port 192.168.2.100:5432 with a database named omardb-prod.  The database can be any name you want as long as you specify it in the configuration.  If the database name or the IP and port information changes please replace in the YAML config file example
+
+The assumptions here has the root URL for the WMS service reachable via the proxy by using IP http://192.168.2.200/wms-app and this is proxied to the root IP of the wms-app service located at http://192.168.2.103:8080. **Note: please change the IP's and ports for your setup accordingly**.
+
 The configuration file is a yaml formatted config file.   For now create a file called wms-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
-```bash
-vi /usr/share/omar/wms-app/wms-app.yml
+```
+sudo vi /usr/share/omar/wms-app/wms-app.yml
 ```
  that contains the following settings:
 
-```yaml
+```
 server:
   contextPath:
   port: 8080
@@ -64,7 +74,7 @@ environments:
       username: postgres
       password:
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://<ip>:<port>/omardb-prod
+      url: jdbc:postgresql://192.168.2.100:5432/omardb-prod
 
 wfs:
   featureTypeNamespaces:
@@ -201,14 +211,15 @@ wms:
         color: white
 ---
 grails:
-  serverURL: http://192.168.2.200:8080
+  serverURL: http://192.168.2.200/wms-app
   assets:
-    url: http://192.168.2.200:8080/assets/
+    url: http://192.168.2.200/wms-app/assets/
 ```
-The wfs definitions are used to query the database for feature information that will be used to satisfy the Chip request.  There are styles
+
+The wfs definitions are used to query the database for feature information that will be used to satisfy the Chip request.
 
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
-* **wfs** This entry stores both the datastore information and the feature types.  The only thing that will change in these two is the location of the postgres datastore location identified in the **datastoreParams** section by the host, port, and database.  The Feature type uses the database ans the datastore ID.
+* **wfs** This entry stores both the datastore information and the feature types.  The only thing that will change in these two is the location of the postgres datastore location identified in the **datastoreParams** section by the host, port, and database.  The Feature type uses the database and the datastore ID.
 * **wms.styles** is used for footprint styling for the WMS footprint drawing.  You can define different color definitions and group them by a style name.   
 
 ##Executing
@@ -228,7 +239,7 @@ sudo systemctl start wms-app
 The service scripts calls the shell script under the directory /usr/share/omar/wms-app/wms-app.sh.   You should be able to tail the wms-app.log to see any standard output
 
 ```
-tail -f /var/log/wmts-app/wms-app.log
+tail -f /var/log/wcs-app/wms-app.log
 ```
 
 If all is good, then you should see a line that looks similar to the following:
@@ -240,7 +251,7 @@ Grails application running at http://localhost:8080 in environment: production
 You can now verify your service with:
 
 ```
-curl http://localhost:8080/wms?request=GetCapabilities
+curl http://192.168.2.200/wms-app/health
 ```
 
-which should return an XML document with meta-data about the service.
+which returns the health of your sytem and should have the value `{"status":"UP"}`

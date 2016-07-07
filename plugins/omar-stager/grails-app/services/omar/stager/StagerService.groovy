@@ -283,7 +283,8 @@ class StagerService
 
 	HashMap updateFileStatus(String processId, ProcessStatus status, String statusMessage)
 	{
-		HashMap result = [status:HttpStatus.OK,
+		HashMap result = [statusCode:HttpStatus.OK,
+				            status: HttpStatus.SUCCESS,
 								message:""
 		]
 
@@ -298,16 +299,28 @@ class StagerService
 			// we will remove the file from the table
 			if(stageFileRecord.status == ProcessStatus.FINISHED)
 			{
-				stageFileRecord.delete(flush:true)
+				if(!stageFileRecord.delete(flush:true))
+				{
+					result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+					result.status = HttpStatus.ERROR
+					result.message = "Unable to delete record for id: ${processId}"
+				}
 			}
 			else
 			{
-				stageFileRecord.save(flush:true)
+				if(!stageFileRecord.save(flush:true))
+				{
+					result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+					result.status = HttpStatus.ERROR
+					result.message = "Unable to update record for id: ${processId}"
+				}
 			}
 		}
 		else
 		{
 			result.message = "Unable to update status for id: ${processId}"
+			result.statusCode = HttpStatus.NOT_FOUND
+			result.status = HttpStatus.ERROR
 		}
 		result
 	}

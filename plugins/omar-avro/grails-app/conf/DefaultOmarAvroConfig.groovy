@@ -3,6 +3,8 @@ avro{
   dateField="Observation_Date"
   dateFieldFormat="yyyyMMddHHmmss"
   imageIdField="Image_Id"
+  createDirectoryRetry="3"
+  createDirectoryRetryWaitInMillis="100"
   download{
     directory="/data"
   }
@@ -19,7 +21,6 @@ avro{
         overviewType="ossim_tiff_box"
         filename=""
       }
-
     }
   }
 }
