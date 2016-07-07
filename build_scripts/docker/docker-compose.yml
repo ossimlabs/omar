@@ -12,8 +12,8 @@ services:
       POSTGRES_USER: postgres_user
       POSTGRES_DB: omar_prod
     image: radiantbluetechnologies/o2-db
-  wmts:
-    build: ./wmts-app
+  o2-wmts:
+    build: ./o2-wmts
     container_name: o2-wmts
     environment:
       DBHOST: o2-db
@@ -35,8 +35,8 @@ services:
     depends_on:
       - o2-base
       - o2-db
-  sqs:
-    build: ./sqs-app
+  o2-sqs:
+    build: ./o2-sqs
     container_name: o2-sqs
     environment:
       AWSDNS: sqs.us-east-1.amazonaws.com
@@ -58,8 +58,10 @@ services:
     image: radiantbluetechnologies/o2-sqs
     depends_on:
       - o2-base
-  avro:
-    build: ./avro-app
+      - o2-stager
+      - o2-avro
+  o2-avro:
+    build: ./o2-avro
     container_name: o2-avro
     environment:
       DBHOST: o2-db
@@ -80,8 +82,9 @@ services:
     depends_on:
       - o2-base
       - o2-db
-  stager:
-    build: ./stager-app
+      - o2-stager
+  o2-stager:
+    build: ./o2-stager
     container_name: o2-stager
     environment:
       DBHOST: o2-db
