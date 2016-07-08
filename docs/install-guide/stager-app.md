@@ -86,7 +86,7 @@ grails:
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
 * **quartz.jdbcStore:** This service supports background jobs using the quartz framework.  Just fix this to not use the jdbcStore.   For now the requests are not persistent.
 * **quarts.threadPool.threadCount** Quartz allows one to adjust the number of concurrent threads running.  Here we default to 4 threads.  This will allow 4 concurrent stagers to run for this service.
-* **grails.serverURL** point to the root location of the wmts-app server. This example in the template above points to service via a proxy definition.  If you go directly to the service via 8080 then you can drop the proxy prefix /stager-app
+* **grails.serverURL** point to the root location of the stager-app server. This example in the template above points to service via a proxy definition.  If you go directly to the service via 8080 then you can drop the proxy prefix /stager-app
 * **assets url** This is the url to the assets location.  Just add the **/assets/** path to the serverURL.
 
 If you wish to look at the swagger API documentation you can visit the api of the service by accessing the page http://192.168.2.200/stager-app/api.
@@ -128,7 +128,7 @@ which returns the health of your sytem and should have the value `{"status":"UP"
 
 ## Examples
 
-To add a raster file for indexing make sure you are on the same NFS mount path.  In this example we will assume that the endpoint URL is located: http://<ip>/stager-app/dataManager/addRaster.   To add a raster file using curl:
+To add a raster file for indexing make sure you are on the same NFS mount path.  In this example we will assume that the endpoint URL is located: http://192.168.2.200/stager-app/dataManager/addRaster.   To add a raster file using curl:
 
 ```
 curl -d "filename=<path of file>" "http://192.168.2.200/stager-app/dataManager/addRaster"
