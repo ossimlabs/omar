@@ -1,10 +1,14 @@
-# This is a base container to install java and the ossim repo
-# there isn't a command to run it is meant to serve as
+# A base image to install java and the ossim repo.
+# There isn't a command to run it is meant to serve as
 # a beginning for the rest of the o2 apps.
+
 FROM centos:latest
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
-      com.radiantblue.description="A base image to install java and the ossim repo."\
+      com.radiantblue.description="A base image to \
+      install java and the ossim repo. There isn't \
+      a command to run it is meant to serve as a \
+      beginning for the rest of the o2 apps."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
 ADD ossim.repo /etc/yum.repos.d/ossim.repo
