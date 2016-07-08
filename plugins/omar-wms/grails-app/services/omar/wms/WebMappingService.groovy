@@ -313,7 +313,21 @@ class WebMappingService implements InitializingBean
     case RenderMode.FILTER:
       log.trace "getMap: Using  RenderMode.FILTER Method"
 
-      def (prefix, layerName) = wmsParams?.layers?.split( ':' )
+      def parts = wmsParams?.layers?.split( /[:\.]/ )
+
+      def prefix, layerName, id
+
+      switch ( parts?.size() )
+      {
+      case 2:
+        (prefix, layerName) = parts
+        break
+      case 3:
+        (prefix, layerName, id) = parts
+        break
+      }
+
+//      println "${prefix} ${layerName} ${id}"
 
       def layerInfo = LayerInfo.where {
         name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
@@ -331,7 +345,7 @@ class WebMappingService implements InitializingBean
         def layer = workspace[layerName]
 
         images = layer?.collectFromFeature(
-            filter: wmsParams?.filter,
+            filter: ( id ) ? "in(${id})" : wmsParams?.filter,
             //sorting: sorting,
             //	max: maxCount, // will remove and change to have the wms plugin have defaults
             fields: ['filename', 'entry_id'] as List<String>
