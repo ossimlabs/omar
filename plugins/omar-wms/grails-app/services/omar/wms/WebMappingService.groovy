@@ -313,48 +313,57 @@ class WebMappingService implements InitializingBean
     case RenderMode.FILTER:
       log.trace "getMap: Using  RenderMode.FILTER Method"
 
-      def parts = wmsParams?.layers?.split( /[:\.]/ )
+      def layerNames = wmsParams?.layers?.split(',')
+      def layers = []
 
-      def prefix, layerName, id
+      layerNames?.each { layerName ->
 
-      switch ( parts?.size() )
-      {
-      case 2:
-        (prefix, layerName) = parts
-        break
-      case 3:
-        (prefix, layerName, id) = parts
-        break
-      }
+        def parts = layerName?.split( /[:\.]/ )
 
-//      println "${prefix} ${layerName} ${id}"
+        def prefix, typeName, id
 
-      def layerInfo = LayerInfo.where {
-        name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
-      }.get()
-
-      List images = null
-
-      //def maxCount = grailsApplication?.config.omar.wms.autoMosaic.maxCount
-      //println "BEFORE: ${maxCount}"
-      //maxCount = maxCount?:10
-      //println maxCount
-      //def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
-
-      Workspace.withWorkspace( getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { Workspace workspace ->
-        def layer = workspace[layerName]
-
-        images = layer?.collectFromFeature(
-            filter: ( id ) ? "in(${id})" : wmsParams?.filter,
-            //sorting: sorting,
-            //	max: maxCount, // will remove and change to have the wms plugin have defaults
-            fields: ['filename', 'entry_id'] as List<String>
-        ) {
-          [imageFile: it.filename as File, entry: it.entry_id?.toInteger()]
+        switch ( parts?.size() )
+        {
+        case 2:
+          (prefix, typeName) = parts
+          break
+        case 3:
+          (prefix, typeName, id) = parts
+          break
         }
+
+//        println "${prefix} ${typeName} ${id}"
+
+        def layerInfo = LayerInfo.where {
+          name == typeName && workspaceInfo.namespaceInfo.prefix == prefix
+        }.get()
+
+        List images = null
+
+        //def maxCount = grailsApplication?.config.omar.wms.autoMosaic.maxCount
+        //println "BEFORE: ${maxCount}"
+        //maxCount = maxCount?:10
+        //println maxCount
+        //def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
+
+        Workspace.withWorkspace( getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { Workspace workspace ->
+          def layer = workspace[typeName]
+
+          images = layer?.collectFromFeature(
+              filter: ( id ) ? "in(${id})" : wmsParams?.filter,
+              //sorting: sorting,
+              //	max: maxCount, // will remove and change to have the wms plugin have defaults
+              fields: ['filename', 'entry_id'] as List<String>
+          ) {
+            [imageFile: it.filename as File, entry: it.entry_id?.toInteger()]
+          }
+        }
+
+        def chipperLayer = new ChipperLayer( images )
+
+        layers << chipperLayer
       }
 
-      def chipperLayer = new ChipperLayer( images )
       def coords = wmsParams?.bbox?.split( ',' )?.collect { it.toDouble() }
       def proj = new Projection( ( wmsParams.version == "1.3.0" ) ? wmsParams?.crs : wmsParams?.srs )
       def bbox
@@ -375,7 +384,7 @@ class WebMappingService implements InitializingBean
           type: wmsParams?.format?.split( '/' )?.last(),
           proj: bbox?.proj,
           bounds: bbox,
-          layers: [chipperLayer]
+          layers: layers
       ]
 
 //      println renderParams
