@@ -3,6 +3,8 @@ avro{
   dateField="Observation_Date"
   dateFieldFormat="yyyyMMddHHmmss"
   imageIdField="Image_Id"
+  createDirectoryRetry="3"
+  createDirectoryRetryWaitInMillis="100"
   download{
     directory="/data"
   }
@@ -11,6 +13,14 @@ avro{
     post{
       addRasterEndPoint="http://192.168.2.200/stager-app/dataManager/addRaster"
       addRasterEndPointField="filename"
+      addRasterEndPointParams{
+        background="true"
+        buildHistograms="true"
+        buildOverviews="true"
+        overviewCompressionType="NONE"
+        overviewType="ossim_tiff_box"
+        filename=""
+      }
     }
   }
 }

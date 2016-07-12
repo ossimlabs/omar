@@ -21,6 +21,15 @@ The installation sets up
 
 ##Configuration
 
+**Assumptions**:
+
+* SQS Service IP location is 192.168.2.109 on port 8080
+* Proxy server is running under the location 192.168.2.200
+* Proxy pass entry `ProxyPass /stager-app http://192.168.2.109:8080`
+
+The assumptions here has the root URL for the Stager service reachable via the proxy by using IP http://192.168.2.200/sqs-app and this is proxied to the root IP of the sqs-app service located at http://192.168.2.109:8080. **Note: please change the IP's and ports for your setup accordingly**.
+
+
 The configuration file is a yaml formatted config file.   For now create a file called sqs-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document.
 
 ```bash
@@ -82,3 +91,36 @@ Where you replace **aws\_access\_key\_id** and **aws\_secret\_access\_key** with
 
 In production you will probably already have machine based roles and this technique should only be used when testing from a local laptop and connecting to the AWS.
 
+##Executing
+
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service sqs-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start sqs-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/aws-app/aws-app.sh.   You should be able to tail the aws-app.log to see any standard output
+
+```
+tail -f /var/log/stager-app/sqs-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
+
+You can now verify your service with:
+
+```
+curl http://192.168.2.200/stager-app/health
+```
+
+which returns the health of your sytem and should have the value `{"status":"UP"}`

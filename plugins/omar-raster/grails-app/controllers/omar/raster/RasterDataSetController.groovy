@@ -4,7 +4,9 @@ import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiImplicitParam
 import com.wordnik.swagger.annotations.ApiImplicitParams
 import com.wordnik.swagger.annotations.ApiOperation
+import grails.converters.JSON
 import omar.core.HttpStatusMessage
+import omar.core.BindUtil
 
 @Api( value = "dataManager",
 		description = "DataManager Support"
@@ -13,21 +15,86 @@ class RasterDataSetController
 {
 	static allowedMethods = [
 			addRaster: 'POST',
-			removeRaster: 'POST'
+			removeRaster: 'POST' ,
+			getRasterFilesProcessing: 'GET'
 	]
 
 	def rasterDataSetService
-
-	@ApiOperation( value = "Add a Raster to the database", produces = 'text/plain', httpMethod = 'POST' )
+	@ApiOperation( value = "Add a Raster to the database",
+			produces = 'text/plain',
+			httpMethod = 'POST',
+			notes = """
+    The service api <b>addRaster</b>
+    <br><br>
+    <H2>Parameter List</H2>
+    <br><br>
+    <ul>
+        <li>
+            <b>filename</b><p/>
+				Pass the filename to be added and indexed into the database
+        </li>
+        <br>
+        <li>
+            <b>background</b><p/>
+            If the parameter is true it will indicate to submit the process as a background job.
+        </li>
+        <br>
+        <li>
+            <b>buildOverviews</b><p/>
+            If the parameter is true it will indicate to build overviews for the image.  Also
+            known as reduced resolution sets.
+        </li>
+        <br>
+        <li>
+            <b>buildHistograms</b><p/>
+            If the parameter is true it will indicate to build histograms for the image.
+        </li>
+        <br>
+        <li>
+            <b>overviewType</b><p/>
+            Indicates the overview type to use.
+        </li>
+        <br>
+        <li>
+            <b>overviewCompressionType</b><p/>
+            Indicates the type of compression to use during the building of the overviews.
+        </li>
+        <br><br>
+        <b>Additional Notes</b><br><br>
+        You can also pass the arguments as a JSON string and post to the URL.  The format supported:
+        <pre>
+        {
+          "filename": "",
+          "background: "",
+          "buildOverviews": "",
+          "buildHistograms": "",
+          "overviewType": "",
+          "overviewCompressionType":""
+        }
+        </pre>
+    <ul>
+    """)
 	@ApiImplicitParams( [
-			@ApiImplicitParam( name = 'filename', value = 'Path to file to add', dataType = 'string', required = true )//,
-//			@ApiImplicitParam(name = 'version', value = 'Version to request', allowableValues="[1.1.1]", defaultValue = '1.1.1', paramType = 'query', dataType = 'string', required=true),
-//			@ApiImplicitParam(name = 'request', value = 'Request type', allowableValues="[GetCapabilities]", defaultValue = 'GetCapabilities', paramType = 'query', dataType = 'string', required=true),
+			@ApiImplicitParam( name = 'filename', value = 'Path to file to add', dataType = 'string', required = true ),
+			@ApiImplicitParam( name = 'background', value = 'Process in the background', allowableValues="[true,false]", defaultValue="true", dataType = "boolean",  required = false),
+			@ApiImplicitParam( name = 'buildOverviews', value = 'Build overviews', allowableValues="[true,false]", defaultValue="true", dataType = "boolean", required = false),
+			@ApiImplicitParam( name = 'buildHistograms', value = 'Build histograms', allowableValues="[true,false]", defaultValue="true", dataType = "boolean", required = false),
+			@ApiImplicitParam( name = 'overviewType', value = 'Overview type', allowableValues="[ossim_tiff_box, ossim_tiff_nearest, ossim_kakadu_nitf_j2k]", defaultValue = "ossim_tiff_box", dataType = "string", required = false),
+			@ApiImplicitParam( name = 'overviewCompressionType', value = 'Overview compression type', allowableValues="[NONE,JPEG,PACKBITS,DEFLATE]", defaultValue="NONE", dataType = "string", required = false),
 	] )
 	def addRaster()
 	{
+		def jsonData = request.JSON?request.JSON as HashMap:null
+		def requestParams = params - params.subMap( ['controller', 'action'] )
+		def cmd = new AddRasterCommand()
+
+		// get map from JSON and merge into parameters
+		if(jsonData) requestParams << jsonData
+		BindUtil.fixParamNames( AddRasterCommand, requestParams )
+		bindData( cmd, requestParams )
+
 		def httpStatusMessage = new HttpStatusMessage()
-		def status = rasterDataSetService.addRaster( httpStatusMessage, params )
+		def status = rasterDataSetService.addRaster( httpStatusMessage, cmd )
 
 		response.status = httpStatusMessage.status
 		render( httpStatusMessage.message )
@@ -46,5 +113,27 @@ class RasterDataSetController
 
 		response.status = httpStatusMessage.status
 		render( httpStatusMessage.message )
+	}
+
+	@ApiOperation( value = "Returns the processing status of the raster files",
+			         produces = 'application/json',
+			httpMethod = 'GET' )
+	@ApiImplicitParams( [
+			@ApiImplicitParam(name = 'offset', value = 'Process Id', required=false, paramType = 'query', dataType = 'integer'),
+			@ApiImplicitParam(name = 'limit', value = 'Process status', defaultValue = '', paramType = 'query', dataType = 'integer'),
+	 ] )
+	def getRasterFilesProcessing()
+	{
+		def jsonData = request.JSON?request.JSON as HashMap:null
+		def requestParams = params - params.subMap( ['controller', 'action'] )
+		def cmd = new GetRasterFilesProcessingCommand()
+
+		// get map from JSON and merge into parameters
+		if(jsonData) requestParams << jsonData
+		BindUtil.fixParamNames( GetRasterFilesProcessingCommand, requestParams )
+		bindData( cmd, requestParams )
+		HashMap result = rasterDataSetService.getFileProcessingStatus(cmd)
+
+		render contentType: "application/json", text: result as JSON
 	}
 }

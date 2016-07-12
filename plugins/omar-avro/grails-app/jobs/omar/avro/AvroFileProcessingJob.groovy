@@ -26,7 +26,9 @@ class AvroFileProcessingJob {
           case "post":
             String url   = config.destination.post.addRasterEndPoint
             String field = config.destination.post.addRasterEndPointField
-            def result   = HttpUtils.postMessage(url, field, fileRecord.filename)
+            HashMap params = config.destination.post.addRasterEndPointParams as HashMap
+             params.filename = fileRecord.filename
+            def result   = HttpUtils.postMessage(url, params)
            
            // is a 200 range response
            //

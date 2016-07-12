@@ -18,8 +18,11 @@ class GetMapRequest implements Validateable
   Integer width
   Integer height
 
-  String srs
+  String srs  // used for 1.1.1
+  String crs  // used for 1.3.0
+
   String bbox
+
   String format
   String layers
   String styles

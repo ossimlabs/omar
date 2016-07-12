@@ -11,7 +11,7 @@ import geoscript.proj.Projection
 import groovy.xml.StreamingMarkupBuilder
 import org.springframework.beans.factory.InitializingBean
 import groovy.json.JsonSlurper
-
+import omar.core.HttpStatus
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
@@ -356,7 +356,9 @@ class WebMapTileService implements InitializingBean{
     }
     def getLayers(GetLayersCommand cmd){
         HashMap result = [
-                results:[],
+                statusCode:HttpStatus.OK,
+                status:HttpStatus.SUCCESS,
+                data:[],
                 pagination: [
                         count: 0,
                         offset: 0,
@@ -369,7 +371,7 @@ class WebMapTileService implements InitializingBean{
         result.pagination.limit = result.pagination.count
 
         WmtsLayer.list().each{layer->
-            result.results <<
+            result.data <<
                     [
                             name:layer.name,
                             title:layer.title,

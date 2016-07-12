@@ -127,9 +127,9 @@ omar:
       queue: ""
       waitTimeSeconds: 20
       maxNumberOfMessages: 1
-      pollingIntervalSeconds: 10
+      pollingIntervalSeconds: 1
       destination:
         type: "post"
         post:
-          urlEndPoint: "http://localhost:8080/avro/indexMessage"
+          urlEndPoint: "http://localhost:8080/avro/addMessage"
           field: message

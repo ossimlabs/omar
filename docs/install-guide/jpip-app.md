@@ -19,6 +19,15 @@ The installation sets up
 
 ##Configuration
 
+**Assumptions**:
+
+* JPIP Service IP location is 192.168.2.107 on port 8080
+* Proxy server is running under the location 192.168.2.200
+* Proxy pass entry `ProxyPass /swipe-app http://192.168.2.107:8080`
+* Postgres database accessible via the IP and port 192.168.2.100:5432 with a database named omardb-prod.  The database can be any name you want as long as you specify it in the configuration.  If the database name or the IP and port information changes please replace in the YAML config file example
+
+The assumptions here has the root URL for the JPIP service reachable via the proxy by using IP http://192.168.2.200/jpip-app and this is proxied to the root IP of the jpip-app service located at http://192.168.2.107:8080. **Note: please change the IP's and ports for your setup accordingly**.
+
 The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
 ```
@@ -41,7 +50,7 @@ environments:
       username: postgres
       password:
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://<ip>:<port>/omardb-prod
+      url: jdbc:postgresql://192.168.2.100:5432/omardb-prod
 
 omar:
   jpip:
@@ -52,10 +61,9 @@ omar:
 
 ---
 grails:
-  serverURL: http://<ip>:8080/
+  serverURL: http://192.168.2.200/jpip-app
   assets:
-    url: http://<ip>:8080/assets/
-
+    url: http://192.168.2.200/jpip-app/assets/
 ```
 
 * **port:** For the server.port you can set the port that the web application will come up on.  By default the port is 8080.  If you are going through a proxy then ignore the port and use the proxy path to the service.
@@ -65,15 +73,16 @@ grails:
 * **omar.jpip.server.ip:** Ip of the jpip-server location 
 * **omar.jpip.server.url** Base url used as a prefix for accessing the converted file over JPIP protocol
 
+
 ##Executing
 
-To run the service on systems that use the init.d you can issue the command
+To run the service on systems that use the init.d you can issue the command.
 
 ```
 sudo service jpip-app start
 ```
 
-and systems using systemd for starting and stopping use the command
+On systems using systemd for starting and stopping
 
 ```
 sudo systemctl start jpip-app
@@ -82,7 +91,7 @@ sudo systemctl start jpip-app
 The service scripts calls the shell script under the directory /usr/share/omar/jpip-app/jpip-app.sh.   You should be able to tail the jpip-app.log to see any standard output
 
 ```
-tail -f /var/log/wmts-app/jpip-app.log
+tail -f /var/log/stager-app/jpip-app.log
 ```
 
 If all is good, then you should see a line that looks similar to the following:
@@ -91,12 +100,19 @@ If all is good, then you should see a line that looks similar to the following:
 Grails application running at http://localhost:8080 in environment: production
 ```
 
+You can now verify your service with:
+
+`curl http://192.168.2.200/jpip-app/health`
+
+which returns the health of your sytem and should have the value `{"status":"UP"}`
+
+
 ##Examples
 
 Assume the server has access to the image path called  **/data/sanfran/foo.ccf** If we were to submit a request:
 
 ```
-wget http://<proxy_url>/jpip-app/jpip/createStream?filename=/data/sanfran/foo.ccf&entry=0&projCode=4326
+wget http://192.168.2.200/jpip-app/jpip/createStream?filename=/data/sanfran/foo.ccf&entry=0&projCode=4326
 
 ```
 
@@ -120,7 +136,7 @@ The result of a call to the web service can be of severaly status types but on i
 You can call the URL again, with the same parameters, and you should get a different status if it has been started by the job:
 
 ```
-wget http://<proxy_url>/jpip-app/jpip/createStream?filename=/data/sanfran/foo.ccf&entry=0&projCode=4326
+wget http://192.168.2.200/jpip-app/jpip/createStream?filename=/data/sanfran/foo.ccf&entry=0&projCode=4326
 ```
 
 Result:
