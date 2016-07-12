@@ -1,5 +1,6 @@
 include 'omar-core',
 		'omar-avro',
+		'omar-download',
 		'omar-openlayers',
 		'omar-geoscript',
 		'omar-jpip',
@@ -15,6 +16,7 @@ include 'omar-core',
 		'omar-security',
 		'omar-superoverlay',
 		'avro-app',
+		'download-app',
 		'omar-app',
 		'jpip-app',
 		'wfs-app',
@@ -44,6 +46,7 @@ project(':omar-video').projectDir = 'plugins/omar-video' as File
 project(':omar-security').projectDir = 'plugins/omar-security' as File
 project(':omar-superoverlay').projectDir = 'plugins/omar-superoverlay' as File
 project(':omar-avro').projectDir = 'plugins/omar-avro' as File
+project(':omar-download').projectDir = 'plugins/omar-download' as File
 
 // Apps
 project(':omar-app').projectDir = 'apps/omar-app' as File
@@ -58,5 +61,4 @@ project(':predio-app').projectDir = 'apps/predio-app' as File
 project(':ossimtools-app').projectDir = 'apps/ossimtools-app' as File
 project(':jpip-app').projectDir = 'apps/jpip-app' as File
 project(':avro-app').projectDir = 'apps/avro-app' as File
-
-
+project(':download-app').projectDir = 'apps/download-app' as File
