@@ -173,18 +173,20 @@ class SuperOverlayService implements InitializingBean
 
     Utility.removeEmptyParams( wmsMap )
     String defaultWmsUrl = grailsLinkGenerator.link(
-                           absolute: true, controller: 'wms',
-                           action: 'getMap', params: wmsMap )
+        absolute: true, controller: 'wms',
+        action: 'getMap', params: wmsMap )
 
-    if(OmarSuperOverlayUtils.superOverlayConfig.wmsUrl)
+    if ( OmarSuperOverlayUtils.superOverlayConfig.wmsUrl )
     {
-      URL wmsUrl = new URL(OmarSuperOverlayUtils.superOverlayConfig.wmsUrl)
-      HashMap urlWmsParams = wmsMap+wmsUrl.params
-      wmsUrl.setParams(urlWmsParams)
+      URL wmsUrl = new URL( OmarSuperOverlayUtils.superOverlayConfig.wmsUrl )
+      HashMap urlWmsParams = wmsMap + wmsUrl.params
+      wmsUrl.setParams( urlWmsParams )
 
       defaultWmsUrl = wmsUrl.toString()
     }
     //println wmsMap
+
+//    println defaultWmsUrl
 
     //def minLod = Math.sqrt(tileSize.width*tileSize.height)
     //def maxLod = minLod
@@ -229,14 +231,14 @@ class SuperOverlayService implements InitializingBean
             drawOrder( params.level )
             Icon() {
               href {
-//                mkp.yieldUnescaped( """<![CDATA[${
-//                  defaultWmsUrl
-//                }]]>""" )
                 mkp.yieldUnescaped( """<![CDATA[${
-                  grailsLinkGenerator.link(
-                      absolute: true, controller: 'wms',
-                      action: 'getMap', params: wmsMap )
+                  defaultWmsUrl
                 }]]>""" )
+//                mkp.yieldUnescaped( """<![CDATA[${
+//                  grailsLinkGenerator.link(
+//                      absolute: true, controller: 'wms',
+//                      action: 'getMap', params: wmsMap )
+//                }]]>""" )
               }
               viewRefreshMode( "onExpire" )
             }
