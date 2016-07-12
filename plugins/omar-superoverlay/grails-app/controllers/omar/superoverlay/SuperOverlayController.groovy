@@ -15,7 +15,7 @@ import geoscript.filter.Filter
 import geoscript.workspace.Workspace
 
 
-@Api( value = "superoverly",
+@Api( value = "superoverlay",
     description = "SuperOverlay Support"
 )
 class SuperOverlayController implements InitializingBean
@@ -31,7 +31,9 @@ class SuperOverlayController implements InitializingBean
     render ""
   }
 
-  @ApiOperation( value = "Create a KML SuperOverlay for viewing in GoogleEarth", produces = 'application/vnd.google-earth.kmz' )
+  @ApiOperation( value = "Create a KML SuperOverlay for viewing in GoogleEarth",
+      produces = 'application/vnd.google-earth.kmz'
+  )
   @ApiImplicitParams( [
       @ApiImplicitParam( name = 'id', value = 'id of the image (can be database id, image id, or index id)', paramType = 'path', dataType = 'string', required = true )
   ] )

@@ -170,6 +170,7 @@ class SuperOverlayService implements InitializingBean
         transparent: transparent,
         bbox: "${tileBounds.minx},${tileBounds.miny},${tileBounds.maxx},${tileBounds.maxy}"] )
     def wmsMap = wmsRequest.toMap()
+
     Utility.removeEmptyParams( wmsMap )
     String defaultWmsUrl = grailsLinkGenerator.link(
                            absolute: true, controller: 'wms',
@@ -228,14 +229,14 @@ class SuperOverlayService implements InitializingBean
             drawOrder( params.level )
             Icon() {
               href {
-                mkp.yieldUnescaped( """<![CDATA[${
-                  defaultWmsUrl
-                }]]>""" )
 //                mkp.yieldUnescaped( """<![CDATA[${
-//                  grailsLinkGenerator.link(
-//                      absolute: true, controller: 'wms',
-//                      action: 'getMap', params: wmsMap )
+//                  defaultWmsUrl
 //                }]]>""" )
+                mkp.yieldUnescaped( """<![CDATA[${
+                  grailsLinkGenerator.link(
+                      absolute: true, controller: 'wms',
+                      action: 'getMap', params: wmsMap )
+                }]]>""" )
               }
               viewRefreshMode( "onExpire" )
             }
