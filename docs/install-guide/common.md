@@ -586,6 +586,7 @@ We have seen the common settings found on all of the Web Application Services.  
 * [Twofishes Installation and setup](twofishes.md) Is not managed by us but is a dependency for the omar-app UI for location services.
 * [SQS Installation and setup](sqs-app.md)
 * [AVRO Installation and setup](avro-app.md)
+* [Download Installation and setup](download-app.md)
 * [WMTS Installation and setup](wmts-app.md)
 * [WMS Installation and setup](wms-app.md)
 * [WFS Installation and setup](wfs-app.md)
