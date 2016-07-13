@@ -21,6 +21,29 @@ The installation sets up
 
 
 ##Executing
+To run the service on systems that use the init.d you can issue the command.
+
+```
+sudo service download-app start
+```
+
+On systems using systemd for starting and stopping
+
+```
+sudo systemctl start download-app
+```
+
+The service scripts calls the shell script under the directory /usr/share/omar/download-app/download-app.sh.  You should be able to tail the download-app.log to see any standard output
+
+```
+tail -f /var/log/download-app/download-app.log
+```
+
+If all is good, then you should see a line that looks similar to the following:
+
+```
+Grails application running at http://localhost:8080 in environment: production
+```
 
 You can now verify your service with:
 
@@ -29,4 +52,3 @@ curl http://192.168.2.200/download-app/health
 ```
 
 which returns the health of your sytem and should have the value `{"status":"UP"}`
-
