@@ -16,10 +16,6 @@ The installation sets up
 * Creates a var run directory with user *omar* permissions under /var/run/download-app
 * Adds the fat jar and shell scripts under the directory /usr/share/omar/download-app location
 
-
-##Configuration
-
-
 ##Executing
 To run the service on systems that use the init.d you can issue the command.
 
