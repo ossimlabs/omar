@@ -239,7 +239,7 @@ sudo systemctl start wms-app
 The service scripts calls the shell script under the directory /usr/share/omar/wms-app/wms-app.sh.   You should be able to tail the wms-app.log to see any standard output
 
 ```
-tail -f /var/log/wcs-app/wms-app.log
+tail -f /var/log/wms-app/wms-app.log
 ```
 
 If all is good, then you should see a line that looks similar to the following:
