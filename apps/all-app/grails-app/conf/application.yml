@@ -538,6 +538,16 @@ wms:
               g: 0
               b: 0
               a: 255
+---
+omar:
+  wmts:
+    wfsUrl: http://localhost:8081/wfs
+    wmsUrl: http://localhost:8081/wms
+    legacyWmsFlag: false
+    footprints:
+      url: "http://localhost:8081/footprints/getFootprints"
+      layers: "omar:raster_entry"
+      styles: "byFileType"
 
 
 quartz:
