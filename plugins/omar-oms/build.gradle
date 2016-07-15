@@ -84,13 +84,16 @@ dependencies {
 
     console "org.grails:grails-console"
 
-    //compile 'javax.media:jai_core:1.1.3'
-    //compile 'javax.media:jai_codec:1.1.3'
+    compile 'javax.media:jai_core:1.1.3'
+    compile 'javax.media:jai_codec:1.1.3'
 
-    compile 'org.ossim:jai:1.1.3' //added 6/24/2016
+    // this is failing on the build server.
+    // need a different solution for this
+    //
+    //compile 'org.ossim:jai:1.1.3' //added 6/24/2016
     //compile 'org.ossim:jai:1.1.3' //added 6/24/2016
 
-    //compile 'javax.media:jai_imageio:1.1'
+    compile 'javax.media:jai_imageio:1.1'
 
     compile "org.ossim:joms:${System.getenv('OSSIM_VERSION')}"
 }
