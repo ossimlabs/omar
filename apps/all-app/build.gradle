@@ -63,6 +63,7 @@ grails {
       compile project( ':omar-video' )
       compile project( ':omar-wfs' )
       compile project( ':omar-wms' )
+      compile project( ':omar-wmts' )
       compile project( ':omar-predio' )
       compile project( ':omar-security' )
       compile project( ':omar-download' )
