@@ -212,6 +212,7 @@ $ docker ps
 
 Look for the running radiantbluetechnologies/o2-avro container.  It will have an associated port number.
 
+#### Health Check
 Using your Docker host IP and port from the commands above, test the **o2-avro** service **health** status in a browser:
 ```
 http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/health
@@ -219,13 +220,15 @@ http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/health
 You should receive:
 `{"status":"UP"}`
 
-You can also test the **Quartz Job** used to run the avro request in a browser:
+#### Quartz
+You can also test the **Quartz Job** used to run the **avro** request in a browser:
 ```
 http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/quartz/list
 ```
 You should see a page with a digital clock and a count down timer.
 
-**API** Documentation:
+#### API
+Access the **API** Page:
 ```
 http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/api
 ```
