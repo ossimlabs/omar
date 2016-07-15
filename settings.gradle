@@ -23,6 +23,7 @@ include 'omar-core',
 		'wfs-app',
 		'superoverlay-app',
 		'wms-app',
+		'all-app',
 		'wmts-app',
 		'pki-app',
 		'swipe-app',
@@ -54,6 +55,7 @@ project(':omar-download').projectDir = 'plugins/omar-download' as File
 
 // Apps
 project(':omar-app').projectDir = 'apps/omar-app' as File
+project(':all-app').projectDir = 'apps/all-app' as File
 project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':wms-app').projectDir = 'apps/wms-app' as File
 project(':wmts-app').projectDir = 'apps/wmts-app' as File
