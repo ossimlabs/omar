@@ -24,3 +24,4 @@ pages:
   - 'SQS Service (Docker)': 'docker-install/docker-sqs-app.md'
   - 'AVRO Service (Docker)': 'docker-install/docker-avro-app.md'
   - 'Stager Service (Docker)': 'docker-install/docker-stager-app.md'
+  - 'WMTS Service (Docker)': 'docker-install/docker-wmts-app.md'
