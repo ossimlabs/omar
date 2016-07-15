@@ -89,7 +89,7 @@ $ docker-compose up
 ```
 
 
-The **o2-sqs** should now be running in a new container.  
+The **o2-sqs** service should now be running in a new container.  
 
 To list all running containers:
 
@@ -126,8 +126,9 @@ You will need to get your Docker host IP:
 $ docker-machine ip
 ```
 
-Look for the running radiantbluetechnologies/o2-avro container.  It will have an associated port number.
+Look for the running radiantbluetechnologies/o2-sqs container.  It will have an associated port number.
 
+#### Health Check
 Using your Docker host IP and port from the commands above, test the **o2-sqs** service **health** status in a browser:
 ```
 http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/health
@@ -135,8 +136,16 @@ http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/health
 You should receive:
 `{"status":"UP"}`
 
-You can also test the **Quartz Job** used to run the sqs requests in a browser:
+#### Quartz
+You can also test the **Quartz Job** used to run the **SQS** requests in a browser:
 ```
 http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/quartz/list
 ```
 You should see a page with a digital clock and a count down timer.
+
+#### API
+Access the **API** Page:
+```
+http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/api
+```
+The API page allows you to test various parts of the **o2-sqs** service.  View the [SQS Service](../install-guide/sqs-app.md#Installation) install guide for additional information on using the service.

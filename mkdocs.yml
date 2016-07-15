@@ -23,3 +23,4 @@ pages:
   - 'Docker Common Instructions': 'docker-install/docker-common.md'
   - 'SQS Service (Docker)': 'docker-install/docker-sqs-app.md'
   - 'AVRO Service (Docker)': 'docker-install/docker-avro-app.md'
+  - 'Stager Service (Docker)': 'docker-install/docker-stager-app.md'
