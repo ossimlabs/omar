@@ -55,6 +55,18 @@ To list all running containers:
 ```
 docker ps
 ```
+Output example:
+
+CONTAINER ID | IMAGE | COMMAND | CREATED | PORTS | NAMES
+------------ | ------------- | ------------ | ------------ | ------------ | ------------
+908c7ee6d152 | radiantbluetechnologies/o2-stager  | "/bin/sh -c 'yum -y i" | 17 seconds ago | 0.0.0.0:5002->8080/tcp | o2-wmts
+
+
+To list all containers (even those not running):
+
+```
+docker ps -a
+```
 
 Attaching to the container via bash:
 

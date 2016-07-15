@@ -101,7 +101,7 @@ Output example:
 
 CONTAINER ID | IMAGE | COMMAND | CREATED | PORTS | NAMES
 ------------ | ------------- | ------------ | ------------ | ------------ | ------------
-908c7ee6d152 | 8e293390425e  | "/bin/sh -c 'yum -y i" | 17 seconds ago | 0.0.0.0:5000->8080/tcp | o2-sqs
+908c7ee6d152 | radiantbluetechnologies/o2-sqs  | "/bin/sh -c 'yum -y i" | 17 seconds ago | 0.0.0.0:5000->8080/tcp | o2-sqs
 
 
 To list all containers (even those not running):
