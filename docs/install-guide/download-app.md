@@ -16,6 +16,48 @@ The installation sets up
 * Creates a var run directory with user *omar* permissions under /var/run/download-app
 * Adds the fat jar and shell scripts under the directory /usr/share/omar/download-app location
 
+##Configuration
+
+**Assumptions**:
+
+* Download Web Service IP location is 192.168.2.112 on port 8080
+* Proxy server is running under the location 192.168.2.200
+* Proxy pass entry `ProxyPass /download-app http://192.168.2.112:8080`
+* Postgres database accessible via the IP and port 192.168.2.100:5432 with a database named omardb-prod.  The database can be any name you want as long as you specify it in the configuration.  If the database name or the IP and port information changes please replace in the YAML config file example
+
+The assumptions here has the root URL for the Download service reachable via the proxy by using IP http://192.168.2.200/download-app and this is proxied to the root IP of the download-app service located at http://192.168.2.112:8080. **Note: please change the IP's and ports for your setup accordingly**.
+
+The configuration file is a yaml formatted config file.   For now create a file called download-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
+
+```
+sudo vi /usr/share/omar/download-app/download-app.yml
+``` 
+that contains the following settings
+
+```
+server:
+  contextPath:
+  port: 8080
+
+ environments:
+   production:
+     dataSource:
+       pooled: true
+       jmxExport: true
+       driverClassName: org.postgresql.Driver
+       username: {{ salt['pillar.get']('ossim:database:username')}}
+       password: {{ salt['pillar.get']('ossim:database:password')}}
+       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+       url: {{ salt['pillar.get']('ossim:database:connection')}}
+---
+grails:
+  serverURL: {{ salt['pillar.get']('ossim:download-app:serverURL')}}
+  assets:
+    url: {{ salt['pillar.get']('ossim:download-app:assetsURL')}}
+    
+```
+* **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
+
 ##Executing
 To run the service on systems that use the init.d you can issue the command.
 
