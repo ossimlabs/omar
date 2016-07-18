@@ -205,7 +205,7 @@ omar:
       baseUrl: http://localhost:8081/imageSpace
       enabled: true
     thumbnails:
-      baseUrl: http://localhost:8081/imageSpace/getThumbnail?
+      baseUrl: http://localhost:8081/imageSpace/getThumbnail
     footprints:
       baseUrl: http://localhost:8081/footprints/getFootprints
     apiApp:
