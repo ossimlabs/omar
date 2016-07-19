@@ -31,6 +31,8 @@
         var baseServerUrl = AppO2.APP_CONFIG.serverURL;
         var markerUrl = baseServerUrl + '/' + AppO2.APP_CONFIG.params.misc.icons.greenMarker;
 
+        // console.log(AppO2.APP_CONFIG);
+
         iconStyle = new ol.style.Style({
             image: new ol.style.Icon(({
                 anchor: [0.5, 46],
@@ -407,7 +409,7 @@
             '<div class="media">' +
                 '<div class="media-left">' +
                     '<img class="media-object" ' +
-                        'src="' + baseServerUrl + '/imageSpace/getThumbnail?filename=' +
+                        'src="' + AppO2.APP_CONFIG.params.thumbnails.baseUrl + '?filename=' +
                         imageObj.properties.filename +
                         '&entry=' + imageObj.properties.entry_id +
                         '&size=50' + '&format=jpeg">' +

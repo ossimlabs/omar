@@ -127,15 +127,15 @@ environments:
     development:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql:omardb-prod
+            url: jdbc:postgresql:omardb-${OSSIM_VERSION}-dev
     test:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql:omardb-prod
+            url: jdbc:postgresql:omardb-${OSSIM_VERSION}-test
     production:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql:omardb-prod
+            url: jdbc:postgresql:omardb-${OSSIM_VERSION}-prod
             properties:
                 jmxEnabled: true
                 initialSize: 5

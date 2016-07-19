@@ -1,3 +1,6 @@
+[Unit]
+Description={{program_name}}
+
 [Service]
 PermissionsStartOnly=true
 Type=forking
@@ -7,3 +10,6 @@ User={{program_user}}
 Group={{program_group}}
 WorkingDirectory=/usr/share/omar/{{program_name}}
 Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

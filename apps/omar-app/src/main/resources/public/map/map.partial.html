@@ -712,7 +712,7 @@
                                     ng-click="list.showImageModal(image); list.logRatingToPio(image.properties.id);"
                                     tooltip-placement="right"
                                     uib-tooltip="Click the thumbnail or the Image ID to preview image and view metadata"
-                                    ng-src="{{list.thumbPath}}{{list.thumbFilename}}{{image.properties.filename}}{{list.thumbEntry}}{{image.properties.entry_id}}{{list.thumbSize}}{{list.thumbFormat}}"
+                                    ng-src="{{list.thumbPath}}?{{list.thumbFilename}}{{image.properties.filename}}{{list.thumbEntry}}{{image.properties.entry_id}}{{list.thumbSize}}{{list.thumbFormat}}"
                                     alt="Image thumbnail"
                                     style="cursor: pointer;"
                                 >&nbsp;

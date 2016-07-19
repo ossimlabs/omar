@@ -44,7 +44,7 @@
                        slides-to-scroll=1 dots="true" infinite="false">
                     <div ng-repeat="image in home.trendingImages">
                         <img style="height: 200px; width: 200px" ng-click="home.imageClick(image.properties.id);"
-                             ng-src="{{home.baseUrl}}/imageSpace/getThumbnail?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=200&format=jpeg"
+                             ng-src="{{AppO2.APP_CONFIG.params.thumbnails.baseUrl}}?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=200&format=jpeg"
                              tooltip-placement="bottom"
                              uib-tooltip="{{image.properties.title}}"
                              alt="Some text here...">
