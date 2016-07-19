@@ -97,7 +97,10 @@ omar:
       baseUrl: http://192.168.2.200/jpip-app/jpip
       enabled: true
     piwikApp:
-      baseUrl: http://omar.ossim.org/piwik/
+      baseUrl: http://<url>/piwik/
+      enabled: true
+    apiApp:
+      baseUrl: http://localhost:8081/api
       enabled: true
     misc:
       icons:
