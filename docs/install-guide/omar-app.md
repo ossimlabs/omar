@@ -96,6 +96,9 @@ omar:
     jpipApp:
       baseUrl: http://192.168.2.200/jpip-app/jpip
       enabled: true
+    piwikApp:
+      baseUrl: http://omar.ossim.org/piwik/
+      enabled: true
     misc:
       icons:
         green-marker: search_marker_green.png
