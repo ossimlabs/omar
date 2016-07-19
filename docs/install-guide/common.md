@@ -63,7 +63,7 @@ curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_codec-1.1.3.jar -
 curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_imageio-1.1.jar -o /usr/lib/jvm/java/jre/lib/ext/jai_imageio-1.1.jar
 ```
 
-**Note:** Please modifiy the curl download script above for you JAVA installation.  At the time of writing this document we are using OpenJDK version 8.  The O2 services should already have the JAI embedded within the "Fat Jar".
+**Note:** Please modifiy the curl download script above for your JAVA installation.  At the time of writing this document we are using OpenJDK version 8.  The O2 services should already have the JAI embedded within the "Fat Jar".
 
 ##Create Yum Repo
 
@@ -122,6 +122,7 @@ O2 RPM list from the yum repo:
 * **o2-wmts-app** WMTS Services
 * **o2-sqs-app** SQS Reader Services
 * **o2-avro-app** AVRO Payload ingest for NITF avro schema
+* **o2-download-app** Takes multiple images or image groups specified in a JSON and return a zip archive
 
 ##Setup EPEL
 
