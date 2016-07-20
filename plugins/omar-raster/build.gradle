@@ -40,9 +40,9 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 repositories {
-	maven { url 'http://www.hibernatespatial.org/repository' }
-	maven { url "http://download.osgeo.org/webdav/geotools" }
 	mavenLocal()
+//	maven { url 'http://www.hibernatespatial.org/repository' }
+	maven { url "http://download.osgeo.org/webdav/geotools" }
 	mavenCentral()
 	maven { url "https://repo.grails.org/grails/core" }
 }
