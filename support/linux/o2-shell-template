@@ -7,6 +7,9 @@ popd >/dev/null
 
 JAVA_OPTS="-server -Xms256m -Xmx1024m -Djava.awt.headless=true -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit"
 PROGRAM_NAME={{program_name}}
+if [ -z $OSSIM_INSTALL_PREFIX ]; then
+   export OSSIM_INSTALL_PREFIX={{OSSIM_INSTALL_PREFIX}}
+fi
 
 if [ -z $WORKING_DIR ]; then
    pushd $SCRIPT_DIR
