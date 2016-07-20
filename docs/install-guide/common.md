@@ -580,6 +580,35 @@ if (Environment.isDevelopmentMode() && targetDir) {
 Which logs all jobs, services, and controllers INFO levels to STDOUT.
 
 
+# Trouble Shooting
+
+This section is devoted to hints and tricks to problems that might be encountered during the setup and execution of the services provided in the O2 distribution.
+
+## Entropy Problems and Slow Startup Times
+
+Tomcat on startup uses the SecureRandom class for for getting secure random values for it's session ids. If the entropy source for initializing the SecureRandom class is short of entropy we have seen delays of up to 14 or 15 minutes to bring up a web service.  
+
+If you turn on logging you will see a long pause and a print of the line that will look similar to:
+
+`<DATE> org.apache.catalina.util.SessionIdGenerator createSecureRandom
+INFO: Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [5172] milliseconds.`
+
+To resolve this issue you can either use a non-blocking random generator by passing `-Djava.security.egd=file:/dev/./urandom` as a java argument to the JVM.  
+
+If you are running as a docker container you can add the following to the docker run command:
+ 
+ `docker run -v /dev/urandom:/dev/random`
+
+without having to modify the instance the docker daemon is running on.
+
+You can also install an RPM called ***haveged***.  For RPM based systems you can isntall using the command:
+
+```
+yum install haveged
+chkconfig haveged on
+```
+
+
 # Web Service Configuration
 
 We have seen the common settings found on all of the Web Application Services.  In this section please follow the specific configuration for each web application.  The documentation will assume that the common settings have been applied and will not be repeated.  We will show all files/directories required to run the web service.
