@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', '$location', ListController]);
+        .controller('ListController', ['wfsService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', '$location', ListController]);
 
-    function ListController(wfsService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http, $location) {
+    function ListController(wfsService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http, $location) {
 
             // #################################################################################
             // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -224,7 +224,7 @@
                 var modalInstance = $uibModal.open({
                     size: 'lg',
                     templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-card.partial.html',
-                    controller: ['$uibModalInstance', 'imageSpaceService', 'imageObj', ImageModalController],
+                    controller: ['$uibModalInstance', 'imageSpaceService', 'beNumberService', 'imageObj', ImageModalController],
                     controllerAs: 'vm',
                     resolve: {
                         imageObj: function() { return imageObj; },
@@ -273,9 +273,10 @@
         }
 
         // Handles the selected image modal obj
-        function ImageModalController($uibModalInstance, imageSpaceService, imageObj){
+        function ImageModalController($uibModalInstance, imageSpaceService, beNumberService, imageObj){
 
             var vm = this;
+            vm.beData = "Empty beData";
 
             vm.selectedImage = imageObj;
             //console.log(vm.selectedImage);
@@ -300,6 +301,18 @@
                 templateUrl: 'imageMapHelpTemplate.html',
                 title: 'Help'
             };
+
+            vm.loadBeData = function loadBeData(geom) {
+
+              console.log('loadBeData geometry: ', imageObj.geometry);
+
+              var beObj = {}
+              beObj  = beNumberService.getBeData(imageObj.geometry);
+              console.log('vm.beData: ', beObj);
+
+              vm.beData = beObj.prop1;
+
+            }
 
             vm.cancel = function(){
                 console.log('closing...');
