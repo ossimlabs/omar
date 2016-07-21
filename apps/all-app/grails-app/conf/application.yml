@@ -1,0 +1,563 @@
+---
+grails:
+    profile: web
+    codegen:
+        defaultPackage: all.app
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+spring:
+    groovy:
+        template:
+            check-template-location: false
+
+---
+grails:
+    mime:
+        disable:
+            accept:
+                header:
+                    userAgents:
+                        - Gecko
+                        - WebKit
+                        - Presto
+                        - Trident
+        types:
+            all: '*/*'
+            atom: application/atom+xml
+            css: text/css
+            csv: text/csv
+            form: application/x-www-form-urlencoded
+            html:
+              - text/html
+              - application/xhtml+xml
+            js: text/javascript
+            json:
+              - application/json
+              - text/json
+            multipartForm: multipart/form-data
+            pdf: application/pdf
+            rss: application/rss+xml
+            text: text/plain
+            hal:
+              - application/hal+json
+              - application/hal+xml
+            xml:
+              - text/xml
+              - application/xml
+    urlmapping:
+        cache:
+            maxsize: 1000
+    controllers:
+        defaultScope: singleton
+    converters:
+        encoding: UTF-8
+    views:
+        default:
+            codec: html
+        gsp:
+            encoding: UTF-8
+            htmlcodec: xml
+            codecs:
+                expression: html
+                scriptlets: html
+                taglib: none
+                staticparts: none
+---
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: true
+        use_query_cache: false
+        region.factory_class: 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
+
+endpoints:
+    jmx:
+        unique-names: true
+#dataSource:
+#    pooled: true
+#    jmxExport: true
+#    driverClassName: org.h2.Driver
+#    username: sa
+#    password:
+#
+#environments:
+#    development:
+#        dataSource:
+#            dbCreate: create-drop
+#            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#    test:
+#        dataSource:
+#            dbCreate: update
+#            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#    production:
+#        dataSource:
+#            dbCreate: update
+#            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#            properties:
+#                jmxEnabled: true
+#                initialSize: 5
+#                maxActive: 50
+#                minIdle: 5
+#                maxIdle: 25
+#                maxWait: 10000
+#                maxAge: 600000
+#                timeBetweenEvictionRunsMillis: 5000
+#                minEvictableIdleTimeMillis: 60000
+#                validationQuery: SELECT 1
+#                validationQueryTimeout: 3
+#                validationInterval: 15000
+#                testOnBorrow: true
+#                testWhileIdle: true
+#                testOnReturn: false
+#                jdbcInterceptors: ConnectionState
+#                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+dataSource:
+    pooled: true
+    jmxExport: true
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password:
+    dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+
+environments:
+    development:
+        dataSource:
+            dbCreate: update
+            url: jdbc:postgresql:omardb-${OSSIM_VERSION}-dev
+    test:
+        dataSource:
+            dbCreate: update
+            url: jdbc:postgresql:omardb-${OSSIM_VERSION}-test
+    production:
+        dataSource:
+            dbCreate: update
+            url: jdbc:postgresql:omardb-${OSSIM_VERSION}-prod
+            properties:
+                jmxEnabled: true
+                initialSize: 5
+                maxActive: 50
+                minIdle: 5
+                maxIdle: 25
+                maxWait: 10000
+                maxAge: 600000
+                timeBetweenEvictionRunsMillis: 5000
+                minEvictableIdleTimeMillis: 60000
+                validationQuery: SELECT 1
+                validationQueryTimeout: 3
+                validationInterval: 15000
+                testOnBorrow: true
+                testWhileIdle: true
+                testOnReturn: false
+                jdbcInterceptors: ConnectionState
+                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+
+wfs:
+#  geoserverHome: /Applications/GeoServer.app/Contents/Java
+
+  featureTypeNamespaces:
+#      - prefix: it.geosolutions
+#        uri: http://www.geo-solutions.it
+#      - prefix: cite
+#        uri: http://www.opengeospatial.net/cite
+      - prefix: omar
+        uri: http://omar.ossim.org
+#      - prefix: tiger
+#        uri: http://www.census.gov
+#      - prefix: sde
+#        uri: http://geoserver.sf.net
+#      - prefix: topp
+#        uri: http://www.openplans.org/topp
+#      - prefix: sf
+#        uri: http://www.openplans.org/spearfish
+#      - prefix: nurc
+#        uri: http://www.nurc.nato.int
+
+  datastores:
+#      - namespaceId: tiger
+#        datastoreId: tiger
+#        datastoreParams:
+#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/nyc
+#          namespace: http://www.census.gov
+
+#      - namespaceId: sf
+#        datastoreId: sf
+#        datastoreParams:
+#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/sf
+#          namespace: http://www.openplans.org/spearfish
+
+#      - namespaceId: topp
+#        datastoreId: states_shapefile
+#        datastoreParams:
+#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/shapefiles
+#          namespace: http://www.openplans.org/topp
+
+#      - namespaceId: topp
+#        datastoreId: taz_shapes
+#        datastoreParams:
+#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/taz_shapes
+#          namespace: http://www.openplans.org/topp
+
+      - namespaceId: omar
+        datastoreId: omardb-1.8.20-prod
+        datastoreParams:
+          dbtype: postgis
+          host: localhost
+          port: '5432'
+          database: omardb-1.8.20-prod
+          user: postgres
+          passwd: postgres
+          'Expose primary keys': 'true'
+          namespace: http://omar.ossim.org
+
+  featureTypes:
+#      - name: poly_landmarks
+#        title: Manhattan (NY) landmarks
+#        description: Manhattan landmarks, identifies water, lakes, parks, interesting buildings
+#        keywords:
+#          - landmarks
+#          - DS_poly_landmarks
+#          - manhattan
+#          - poly_landmarks
+#        datastoreId: tiger
+#      - name: poi
+#        title: Manhattan (NY) points of interest
+#        description: Points of interest in New York, New York (on Manhattan). One of the attributes contains the name of a file with a picture of the point of interest.
+#        keywords:
+#          - poi
+#          - Manhattan
+#          - DS_poi
+#          - points_of_interest
+#        datastoreId: tiger
+#
+#      - name: tiger_roads
+#        title: Manhattan (NY) roads
+#        description: Highly simplified road layout of Manhattan in New York..
+#        keywords:
+#          - DS_tiger_roads
+#          - tiger_roads
+#          - roads
+#        datastoreId: tiger
+#
+#      - name: archsites
+#        title: Spearfish archeological sites
+#        description: Sample data from GRASS, archeological sites location, Spearfish, South Dakota, USA
+#        keywords:
+#          - archsites
+#          - spearfish
+#          - sfArchsites
+#          - archeology
+#        datastoreId: sf
+#
+#      - name: bugsites
+#        title: Spearfish bug locations
+#        description: Sample data from GRASS, bug sites location, Spearfish, South Dakota, USA
+#        keywords:
+#          - spearfish
+#          - sfBugsites
+#          - insects
+#          - bugsites
+#          - tiger_beetles
+#        datastoreId: sf
+#
+#      - name: restricted
+#        title: Spearfish restricted areas
+#        description: Sample data from GRASS, restricted areas, Spearfish, South Dakota, USA
+#        keywords:
+#          - spearfish
+#          - restricted
+#          - areas
+#          - sfRestricted
+#        datastoreId: sf
+#
+#      - name: roads
+#        title: Spearfish roads
+#        description: Sample data from GRASS, road layout, Spearfish, South Dakota, USA
+#        keywords:
+#          - sfRoads
+#          - spearfish
+#          - roads
+#        datastoreId: sf
+#
+#      - name: streams
+#        title: Spearfish streams
+#        description: Sample data from GRASS, streams, Spearfish, South Dakota, USA
+#        keywords:
+#          - spearfish
+#          - sfStreams
+#          - streams
+#        datastoreId: sf
+#
+#      - name: tasmania_cities
+#        title: Tasmania cities
+#        description: Cities in Tasmania (actually, just the capital)
+#        keywords:
+#          - cities
+#          - Tasmania
+#        datastoreId: taz_shapes
+#
+#      - name: tasmania_roads
+#        title: Tasmania roads
+#        description: Main Tasmania roads
+#        keywords:
+#          - Roads
+#          - Tasmania
+#        datastoreId: taz_shapes
+#
+#      - name: tasmania_state_boundaries
+#        title: Tasmania state boundaries
+#        description: Tasmania state boundaries
+#        keywords:
+#          - boundaries
+#          - tasmania_state_boundaries
+#          - Tasmania
+#        datastoreId: taz_shapes
+#
+#      - name: tasmania_water_bodies
+#        title: Tasmania water bodies
+#        description: Tasmania water bodies
+#        keywords:
+#          - Lakes
+#          - Bodies
+#          - Australia
+#          - Water
+#          - Tasmania
+#        datastoreId: taz_shapes
+#
+#      - name: states
+#        title: USA Population
+#        description: This is some census data on the states.
+#        keywords:
+#          - census
+#          - united
+#          - boundaries
+#          - state
+#          - states
+#        datastoreId: states_shapefile
+#
+#      - name: giant_polygon
+#        title: World rectangle
+#        description: A simple rectangular polygon covering most of the world, it's only used for the purpose of providing a background (WMS bgcolor could be used instead)
+#        keywords:
+#          - DS_giant_polygon
+#          - giant_polygon
+#        datastoreId: tiger
+
+      - name: raster_entry
+        title: raster_entry
+        description: ''
+        keywords:
+          - omar
+          - raster_entry
+          - features
+        datastoreId: omardb-1.8.20-prod
+
+      - name: video_data_set
+        title: video_data_set
+        description: ''
+        keywords:
+          - omar
+          - video_data_set
+          - features
+        datastoreId: omardb-1.8.20-prod
+
+-- grails.serverURL:
+
+wms:
+  styles:
+      byFileType:
+          adrg:
+            filter: file_type='adrg'
+            color:
+              r: 50
+              g: 111
+              b: 111
+              a: 255
+          aaigrid:
+            filter: file_type='aaigrid'
+            color: pink
+          cadrg:
+            filter: file_type='cadrg'
+            color:
+              r: 0
+              g: 255
+              b: 255
+              a: 255
+          ccf:
+            filter: file_type='ccf'
+            color:
+              r: 128
+              g: 100
+              b: 255
+              a: 255
+          cib:
+            filter: file_type='cib'
+            color:
+              r: 0
+              g: 128
+              b: 128
+              a: 255
+          doqq:
+            filter: file_type='doqq'
+            color: purple
+          dted:
+            filter: file_type='dted'
+            color:
+              r: 0
+              g: 255
+              b: 0
+              a: 255
+          imagine_hfa:
+            filter: file_type='imagine_hfa'
+            color: lightGray
+          jpeg:
+            filter: file_type='jpeg'
+            color:
+              r: 255
+              g: 255
+              b: 0
+              a: 255
+          jpeg2000:
+            filter: file_type='jpeg2000'
+            color:
+              r: 255
+              g: 200
+              b: 0
+              a: 255
+          landsat7:
+            filter: file_type='landsat7'
+            color:
+              r: 255
+              g: 0
+              b: 255
+              a: 255
+          mrsid:
+            filter: file_type='mrsid'
+            color:
+              r: 0
+              g: 188
+              b: 0
+              a: 255
+          nitf:
+            filter: file_type='nitf'
+            color:
+              r: 0
+              g: 0
+              b: 255
+              a: 255
+          tiff:
+            filter: file_type='tiff'
+            color:
+              r: 255
+              g: 0
+              b: 0
+              a: 255
+          mpeg:
+            filter: file_type='mpeg'
+            color:
+              r: 164
+              g: 254
+              b: 255
+              a: 255
+          unspecified:
+            filter: file_type='unspecified'
+            color: white
+      bySensorType:
+          'ACES_YOGI-HRI1':
+            filter: mission_id='ACES_YOGI-HRI1'
+            color:
+              r: 255
+              g: 0
+              b: 0
+              a: 255
+          'ACES_YOGI-HRI2':
+            filter: mission_id='ACES_YOGI-HRI2'
+            color:
+              r: 255
+              g: 0
+              b: 0
+              a: 255
+          'ACES_YOGI-HRI3':
+            filter: mission_id='ACES_YOGI-HRI3'
+            color:
+              r: 255
+              g: 0
+              b: 0
+              a: 255
+          'ACES_YOGI-HSI':
+            filter: mission_id='ACES_YOGI-HSI'
+            color:
+              r: 255
+              g: 255
+              b: 0
+              a: 255
+          ALPHA:
+            filter: mission_id='ALPHA'
+            color:
+              r: 255
+              g: 0
+              b: 255
+              a: 255
+          BRAVO:
+            filter: mission_id='BRAVO'
+            color:
+              r: 0
+              g: 255
+              b: 0
+              a: 255
+          CHARLIE:
+            filter: mission_id='CHARLIE'
+            color:
+              r: 0
+              g: 255
+              b: 255
+              a: 255
+          DELTA:
+            filter: mission_id='DELTA'
+            color:
+              r: 0
+              g: 0
+              b: 255
+              a: 255
+          unspecified:
+            filter: mission_id='unspecified'
+            color:
+              r: 255
+              g: 255
+              b: 255
+              a: 255
+      byVideoType:
+          mpeg:
+            filter: filename like '%mpg'
+            color:
+              r: 255
+              g: 0
+              b: 0
+              a: 255
+---
+omar:
+  wmts:
+    wfsUrl: http://localhost:8081/wfs
+    wmsUrl: http://localhost:8081/wms
+    legacyWmsFlag: false
+    footprints:
+      url: "http://localhost:8081/footprints/getFootprints"
+      layers: "omar:raster_entry"
+      styles: "byFileType"
+
+
+quartz:
+  jdbcStore: false
+
+videoStreaming:
+  flashDirRoot: /opt/local/apache2/htdocs/videos
+  #flashDirRoot: /var/www/html/videos
+  flashUrlRoot: http://localhost/videos
+
+######### Example for External logback config settings in YAML
+# logging:
+#   config: <log back config location>

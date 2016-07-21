@@ -6,9 +6,9 @@ In this document we will address the following:
 * Common User and Group
 * Settings and configuration for each web service.
 * Service Templates init.d
-* Service Template systemd 
+* Service Template systemd
 
- 
+
 
 
 # Common Settings and Configuration
@@ -63,7 +63,7 @@ curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_codec-1.1.3.jar -
 curl -L http://s3.amazonaws.com/ossimlabs/dependencies/jai/jai_imageio-1.1.jar -o /usr/lib/jvm/java/jre/lib/ext/jai_imageio-1.1.jar
 ```
 
-**Note:** Please modifiy the curl download script above for you JAVA installation.  At the time of writing this document we are using OpenJDK version 8.  The O2 services should already have the JAI embedded within the "Fat Jar". 
+**Note:** Please modifiy the curl download script above for your JAVA installation.  At the time of writing this document we are using OpenJDK version 8.  The O2 services should already have the JAI embedded within the "Fat Jar".
 
 ##Create Yum Repo
 
@@ -122,6 +122,7 @@ O2 RPM list from the yum repo:
 * **o2-wmts-app** WMTS Services
 * **o2-sqs-app** SQS Reader Services
 * **o2-avro-app** AVRO Payload ingest for NITF avro schema
+* **o2-download-app** Takes multiple images or image groups specified in a JSON and return a zip archive
 
 ##Setup EPEL
 
@@ -175,7 +176,7 @@ COMMIT
 
 On CentOS7 they use the firewalld.   To list your zones you can issue the following command:
 
-```bash
+```
 firewall-cmd --get-active-zones
 
 Output:
@@ -186,13 +187,13 @@ public
 
 Now to add port 8080 to the public interface you can execute the following command line application:
 
-```bash
+```
 sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
 ```
 
 Restart the service:
 
-```bash
+```
 sudo systemctl restart firewalld
 ```
 
@@ -204,7 +205,7 @@ If SELINUX is running you must enable the boolean flag
 
 To list all booleans for httpd and see if your network connect is turned on you can perform the **getsebool** and get output similar to the following:
 
-```bash
+```
 /usr/sbin/getsebool -a | grep httpd
 
 Output:
@@ -236,7 +237,7 @@ httpd_enable_homedirs --> off
 ```
 To set a boolean you can give the setsebool command:
 
-```bash
+```
 sudo setsebool -P httpd_can_network_connect on
 ```
 
@@ -461,7 +462,7 @@ status)
 esac
 
 exit $RETVAL
-``` 
+```
 * **{{program_name}}** is replaced by the web service name:  For example wmts-app.
 * **{{program_user}}** is replaced by the user.  In this case the username is *omar*.
 * **{{program_group}}** is replaced by the group name.  In this case we use the group name *omar*.
@@ -534,6 +535,80 @@ environments:
 * **dataSource.username** username for the database.
 * **dataSource.password** password for the database.
 
+## Logging
+
+Most of the services that start with the external AML file support external Logging overrides.  Let's say we have a common file under /usr/share/omar/logback.groovy then we can add to the YAML file the tags:
+
+```
+logging:
+  config: "/usr/share/omar/logback.groovy"
+```
+
+An example content of the external logback could look like the following:
+
+```
+import grails.util.BuildSettings
+import grails.util.Environment
+
+// See http://logback.qos.ch/manual/groovy.html for details on configuration
+appender('STDOUT', ConsoleAppender) {
+    encoder(PatternLayoutEncoder) {
+        pattern = "%level %logger - %msg%n"
+    }
+}
+
+logger 'grails.app.jobs', INFO, ['STDOUT']
+logger 'grails.app.services', INFO, ['STDOUT']
+logger 'grails.app.controllers', INFO, ['STDOUT']
+
+root(ERROR, ['STDOUT'])
+
+def targetDir = BuildSettings.TARGET_DIR
+
+if (Environment.isDevelopmentMode() && targetDir) {
+    appender("FULL_STACKTRACE", FileAppender) {
+        file = "${targetDir}/stacktrace.log"
+        append = true
+        encoder(PatternLayoutEncoder) {
+            pattern = "%level %logger - %msg%n"
+        }
+    }
+    logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
+}
+```
+
+Which logs all jobs, services, and controllers INFO levels to STDOUT.
+
+
+# Trouble Shooting
+
+This section is devoted to hints and tricks to problems that might be encountered during the setup and execution of the services provided in the O2 distribution.
+
+## Entropy Problems and Slow Startup Times
+
+Tomcat on startup uses the SecureRandom class for for getting secure random values for it's session ids. If the entropy source for initializing the SecureRandom class is short of entropy we have seen delays of up to 14 or 15 minutes to bring up a web service.  
+
+If you turn on logging you will see a long pause and a print of the line that will look similar to:
+
+`<DATE> org.apache.catalina.util.SessionIdGenerator createSecureRandom
+INFO: Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [5172] milliseconds.`
+
+To resolve this issue you can either use a non-blocking random generator by passing `-Djava.security.egd=file:/dev/./urandom` as a java argument to the JVM.  
+
+If you are running as a docker container you can add the following to the docker run command:
+ 
+ `docker run -v /dev/urandom:/dev/random`
+
+without having to modify the instance the docker daemon is running on.
+
+You can also install an RPM called ***haveged***.  For RPM based systems you can isntall using the command:
+
+```
+yum install haveged
+chkconfig haveged on
+```
+
+
 # Web Service Configuration
 
 We have seen the common settings found on all of the Web Application Services.  In this section please follow the specific configuration for each web application.  The documentation will assume that the common settings have been applied and will not be repeated.  We will show all files/directories required to run the web service.
@@ -541,6 +616,7 @@ We have seen the common settings found on all of the Web Application Services.  
 * [Twofishes Installation and setup](twofishes.md) Is not managed by us but is a dependency for the omar-app UI for location services.
 * [SQS Installation and setup](sqs-app.md)
 * [AVRO Installation and setup](avro-app.md)
+* [Download Installation and setup](download-app.md)
 * [WMTS Installation and setup](wmts-app.md)
 * [WMS Installation and setup](wms-app.md)
 * [WFS Installation and setup](wfs-app.md)

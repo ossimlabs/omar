@@ -45,9 +45,9 @@ assets {
 }
 
 repositories {
-    maven { url 'http://www.hibernatespatial.org/repository' }
-    maven { url "http://download.osgeo.org/webdav/geotools"}
     mavenLocal()
+//    maven { url 'http://www.hibernatespatial.org/repository' }
+    maven { url "http://download.osgeo.org/webdav/geotools"}
     maven { url "https://repo.grails.org/grails/core" }
 }
 
@@ -61,8 +61,9 @@ dependencyManagement {
 grails {
     exploded = true
     plugins {
-      compile project(':omar-raster')
-      compile project(':omar-video')      
+        compile project(':omar-stager')
+        compile project(':omar-raster')
+        compile project(':omar-video')
     }
 }
 

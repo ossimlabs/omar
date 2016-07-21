@@ -8,6 +8,7 @@ class BootStrap
   def messageSource
 
   def init = { servletContext ->
+    /*
     if ( NamespaceInfo.count() == 0 )
     {
       grailsApplication.config.wfs.featureTypeNamespaces.each {
@@ -50,6 +51,7 @@ class BootStrap
         }
       }
     }
+    */
   }
   def destroy = {
   }

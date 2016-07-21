@@ -1,6 +1,7 @@
 package omar.stager
 
 import omar.core.Repository
+import omar.core.HttpStatus
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
 
@@ -30,12 +31,17 @@ class IngestService implements ApplicationContextAware
 					if ( dataSet.save() )
 					{
 						status = 200
-						message = "Accepted"
+						message = "Added dataset"
 					}
 					else
 					{
-						status = 500
-						message = "Rejected"
+						status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
+						message = ""
+						dataSet.errors.allErrors.each{
+
+							if(message)	message = "${message}\n${it}"
+							else message = it
+						}
 					}
 				}
 			}

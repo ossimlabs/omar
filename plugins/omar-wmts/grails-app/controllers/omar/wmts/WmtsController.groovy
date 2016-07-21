@@ -322,6 +322,7 @@ to a json formatted result
         bindData( cmd, requestParams )
         HashMap result = webMapTileService.getLayers(cmd)
 
+        response.status = result.statusCode
         render contentType: "application/json", text: result as JSON
     }
 }

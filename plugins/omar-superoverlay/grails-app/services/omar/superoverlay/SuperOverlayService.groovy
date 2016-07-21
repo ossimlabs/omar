@@ -170,20 +170,23 @@ class SuperOverlayService implements InitializingBean
         transparent: transparent,
         bbox: "${tileBounds.minx},${tileBounds.miny},${tileBounds.maxx},${tileBounds.maxy}"] )
     def wmsMap = wmsRequest.toMap()
+
     Utility.removeEmptyParams( wmsMap )
     String defaultWmsUrl = grailsLinkGenerator.link(
-                           absolute: true, controller: 'wms',
-                           action: 'getMap', params: wmsMap )
+        absolute: true, controller: 'wms',
+        action: 'getMap', params: wmsMap )
 
-    if(OmarSuperOverlayUtils.superOverlayConfig.wmsUrl)
+    if ( OmarSuperOverlayUtils.superOverlayConfig.wmsUrl )
     {
-      URL wmsUrl = new URL(OmarSuperOverlayUtils.superOverlayConfig.wmsUrl)
-      HashMap urlWmsParams = wmsMap+wmsUrl.params
-      wmsUrl.setParams(urlWmsParams)
+      URL wmsUrl = new URL( OmarSuperOverlayUtils.superOverlayConfig.wmsUrl )
+      HashMap urlWmsParams = wmsMap + wmsUrl.params
+      wmsUrl.setParams( urlWmsParams )
 
       defaultWmsUrl = wmsUrl.toString()
     }
     //println wmsMap
+
+//    println defaultWmsUrl
 
     //def minLod = Math.sqrt(tileSize.width*tileSize.height)
     //def maxLod = minLod

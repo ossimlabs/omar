@@ -23,6 +23,15 @@ The installation sets up
 
 ##Configuration
 
+**Assumptions**:
+
+* WFS Web Service IP location is 192.168.2.104 on port 8080
+* Proxy server is running under the location 192.168.2.200
+* Proxy pass entry `ProxyPass /wfs-app http://192.168.2.104:8080`
+* Postgres database accessible via the IP and port 192.168.2.100:5432 with a database named omardb-prod.  The database can be any name you want as long as you specify it in the configuration.  If the database name or the IP and port information changes please replace in the YAML config file example
+
+The assumptions here has the root URL for the WMS service reachabl e via the proxy by using IP http://192.168.2.200/wfs-app and this is proxied to the root IP of the wfs-app service located at http://192.168.2.104:8080. **Note: please change the IP's and ports for your setup accordingly**.
+
 The configuration file is a yaml formatted config file.   For now create a file called wfs-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
 ```
@@ -185,9 +194,9 @@ wms:
 
 ---
 grails:
-  serverURL: http://<ip>:8080
+  serverURL: http://192.168.2.200/wfs-app
   assets:
-    url: http://<ip>:8080/assets/
+    url: http://192.168.2.200/wfs-app/assets/
 ```
 
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
@@ -222,6 +231,6 @@ Grails application running at http://localhost:8080 in environment: production
 
 You can now verify your service with:
 
-`curl http://localhost:8080/wfs?request=GetCapabilities`
+`curl http://192.168.2.200/wfs-app/health`
 
-which should return an XML document with meta-data about the service.
+which returns the health of your sytem and should have the value `{"status":"UP"}`
