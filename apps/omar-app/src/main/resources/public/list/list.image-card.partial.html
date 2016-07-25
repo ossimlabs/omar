@@ -249,12 +249,30 @@
                         </div>
                     </div>
                 </uib-tab>
-                <uib-tab heading="BE" ng-click="vm.loadBeData()">
+                <uib-tab ng-show="vm.beLookupEnabled" heading="BE" ng-click="vm.loadBeData()">
                     <div>
                         <br>
-                        <ul>
-                            <li ng-repeat="foo in vm.beData">{{foo.properties.CITY_NAME}}</li>
-                        </ul>
+                        <table class="table table-striped the-table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="foo in vm.beData">
+                                <td>
+                                    <a href="{{vm.o2baseUrlModal}}/#/mapOrtho?layers={{vm.selectedImage.properties.id}}&lat={{foo.geometry.coordinates[1]}}&lon={{foo.geometry.coordinates[0]}}&resolution={{vm.calcRes()}}"
+                                       target="_blank">
+                                        {{foo.properties[vm.placemarkConfig.columnName]}}
+                                    </a>
+                                </td>
+                                <td>{{foo.geometry.coordinates[1]}}</td>
+                                <td>{{foo.geometry.coordinates[0]}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                         <!--<p>beData: {{vm.beData}}</p>-->
                     </div>
 

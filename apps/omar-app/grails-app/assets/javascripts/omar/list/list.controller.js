@@ -3,10 +3,10 @@
     'use strict';
     angular
         .module( 'omarApp' )
-        .controller( 'ListController', ['wfsService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', '$location', ListController] );
+        .controller( 'ListController', ['wfsService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', ListController] );
 
 
-    function ListController( wfsService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http, $location )
+    function ListController( wfsService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http )
     {
 
         // #################################################################################
@@ -279,26 +279,23 @@
                 $http( {
                     method: 'POST',
                     url: pioUrl
-                } )
-                    .then( function ( response )
-                        {
+                } ).then( function ( response )
+                    {
 
-                            var data;
-                            data = response;  // callback response from Predictive IO controller
-                            console.log( 'rating response', data );
+                        var data;
+                        data = response;  // callback response from Predictive IO controller
+                        console.log( 'rating response', data );
 
-                        },
-                        function error( response )
-                        {
+                    },
+                    function error( response )
+                    {
 
-                            console.log( 'failed', response ); // supposed to have: data, status, headers, config, statusText
+                        console.log( 'failed', response ); // supposed to have: data, status, headers, config, statusText
 
-                        } );
-
+                    }
+                );
             }
-
         };
-
     }
 
     // Handles the selected image modal obj
@@ -317,6 +314,9 @@
         //AppO2.APP_PATH is passed down from the .gsp
         vm.o2baseUrlModal = AppO2.APP_CONFIG.serverURL + '/omar';
         //vm.o2contextPathModal = AppO2.APP_CONTEXTPATH;
+
+        vm.placemarkConfig = AppO2.APP_CONFIG.params.misc.placemarks;
+        vm.beLookupEnabled = (vm.placemarkConfig) ? true : false;
 
         var imageSpaceObj = {};
 
@@ -344,7 +344,15 @@
 
             vm.beData = beNumberService.getBeData( imageObj.geometry );
             console.log( 'vm.beData: ', vm.beData );
-        }
+        };
+
+        vm.calcRes = function calcRes()
+        {
+            var bbox = new ol.geom.MultiPolygon( vm.selectedImage.geometry.coordinates ).getExtent();
+            var res = (bbox[2] - bbox[0]) / vm.selectedImage.properties.width;
+
+            return res;
+        };
 
         vm.cancel = function ()
         {
@@ -373,7 +381,6 @@
             $scope.$apply( function ()
             {
                 vm.beData = data;
-                console.log( 'YO!:', vm.beData );
             } );
 
         } );
