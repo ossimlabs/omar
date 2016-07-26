@@ -28,10 +28,10 @@ The installation sets up
 
 The assumptions here has the root URL for the JPIP service reachable via the proxy by using IP http://192.168.2.200/jpip-app and this is proxied to the root IP of the jpip-app service located at http://192.168.2.107:8080. **Note: please change the IP's and ports for your setup accordingly**.
 
-The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
+The configuration file is a yaml formatted config file.   For now create a file called jpip-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
 ```
-vi /usr/share/omar/wmts-app/wmts-app.yml
+vi /usr/share/omar/jpip-app/jpip-app.yml
 ```
 
  that contains the following settings:
