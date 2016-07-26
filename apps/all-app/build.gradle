@@ -65,7 +65,8 @@ grails {
       compile project( ':omar-wms' )
       compile project( ':omar-wmts' )
       compile project( ':omar-predio' )
-      compile project( ':omar-security' )
+//      compile project( ':omar-security' )
+      compile project( ':omar-jpip' )
       compile project( ':omar-download' )
     }
 }
