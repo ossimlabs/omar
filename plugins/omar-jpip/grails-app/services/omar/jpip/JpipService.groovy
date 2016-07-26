@@ -27,7 +27,7 @@ class JpipService
 
     def createStream(ConvertCommand cmd)
     {
-       log.trace("JpipService::createStream entered...")
+       log.trace("entered...")
 
        HashMap result = null
        convert( cmd )
@@ -37,7 +37,7 @@ class JpipService
        result = getJpipLink( row )
 
        log.info("result: ${result}")
-       log.trace("JpipService::createStream exited...")
+       log.trace("leaving...")
 
        result
     }
@@ -144,8 +144,7 @@ class JpipService
             // String outFile = "${jpipCacheDir}/getCacheFileName()}".toString()
             File outFile = getCacheFileName( jpipJobMap );
 
-            log.info( "input_file: ${inFile}")
-            log.info( "output_file: ${outFile}")
+            log.info( "Writing ${inFile} to location ${outFile}")
 
 	    // TODO: Make 'operation' ortho or chip from flag.
 
@@ -237,12 +236,12 @@ class JpipService
    // e.g.: a1aa7b09-0aee-423e-b374-ede4753ea540-chip_e0.jp2
    File getCacheFileName( HashMap jpipJobMap )
    {
-      String result = getCacheDir();
+      File result = new File(getCacheDir());
       if (jpipJobMap)
       {
-        result += "/${jpipJobMap?.jpipId}-${jpipJobMap?.projCode}_e${jpipJobMap?.entry}.jp2".toString();
+        result = new File(result.toString(),"${jpipJobMap?.jpipId}-${jpipJobMap?.projCode}_e${jpipJobMap?.entry}.jp2".toString())
       }
-      return result as File;
+      return result;
    }
 
     String getUrl( JpipImage row )
