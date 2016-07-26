@@ -28,10 +28,10 @@ The installation sets up
 
 The assumptions here has the root URL for the JPIP service reachable via the proxy by using IP http://192.168.2.200/jpip-app and this is proxied to the root IP of the jpip-app service located at http://192.168.2.107:8080. **Note: please change the IP's and ports for your setup accordingly**.
 
-The configuration file is a yaml formatted config file.   For now create a file called wmts-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
+The configuration file is a yaml formatted config file.   For now create a file called jpip-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document
 
 ```
-vi /usr/share/omar/wmts-app/wmts-app.yml
+vi /usr/share/omar/jpip-app/jpip-app.yml
 ```
 
  that contains the following settings:
@@ -52,6 +52,11 @@ environments:
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
       url: jdbc:postgresql://192.168.2.100:5432/omardb-prod
 
+quartz:
+  jdbcStore: false
+  threadPool:
+    threadCount: 4
+
 omar:
   jpip:
     server:
@@ -69,6 +74,8 @@ grails:
 * **port:** For the server.port you can set the port that the web application will come up on.  By default the port is 8080.  If you are going through a proxy then ignore the port and use the proxy path to the service.
 * **contextPath:** For most installation you will set server.contextPath to empty and proxy the request via a httpd proxy to the port 8080.  If a context path is used then the services access point is of the form: http://***url***:***port***/***contextPath***
 * **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
+* **quartz.jdbcStore:** This service supports background jobs using the quartz framework.  Just fix this to not use the jdbcStore.   For now the requests are not persistent.
+* **quarts.threadPool.threadCount** Quartz allows one to adjust the number of concurrent threads running.  Here we default to 4 threads.  This will allow 4 concurrent stagers to run for this service.
 * **omar.jpip.server.cache:** This is the location where images are written when they are converted to the input format used by the jpip-server.
 * **omar.jpip.server.ip:** Ip of the jpip-server location 
 * **omar.jpip.server.url** Base url used as a prefix for accessing the converted file over JPIP protocol
