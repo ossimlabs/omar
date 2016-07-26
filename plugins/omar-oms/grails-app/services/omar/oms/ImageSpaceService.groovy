@@ -131,30 +131,37 @@ class ImageSpaceService
   def getTile(GetTileCommand cmd)
   {
     def imageInfo = readImageInfo( cmd.filename as File )
+    def result = [contentType: "plane/text", buffer: "Unable to service tile".bytes]
+    def indexOffset = findIndexOffset( imageInfo.images[cmd.entry] )
 
-    def opts = [
-        cut_bbox_xywh: [cmd.x * cmd.tileSize, cmd.y * cmd.tileSize, cmd.tileSize, cmd.tileSize].join( ',' ),
-        'image0.file': cmd.filename,
-        'image0.entry': cmd.entry as String,
-        operation: 'chip',
-        rrds: "${findIndexOffset( imageInfo.images[cmd.entry] ) - ( cmd.z )}".toString(),
-        scale_2_8_bit: 'true',
-        'hist_op': 'auto-minmax',
-        three_band_out: "true"
-    ]
+    if(indexOffset)
+    {
+      def rrds = indexOffset - cmd.z
+      def opts = [
+              cut_bbox_xywh: [cmd.x * cmd.tileSize, cmd.y * cmd.tileSize, cmd.tileSize, cmd.tileSize].join( ',' ),
+              'image0.file': cmd.filename,
+              'image0.entry': cmd.entry as String,
+              operation: 'chip',
+              rrds: "${rrds}".toString(),
+              scale_2_8_bit: 'true',
+              'hist_op': 'auto-minmax',
+              three_band_out: "true"
+      ]
 
-    def hints = [
-        transparent: cmd.format == 'png',
-        width: cmd.tileSize,
-        height: cmd.tileSize,
-        type: cmd.format,
-        ostream: new ByteArrayOutputStream()
-    ]
+      def hints = [
+              transparent: cmd.format == 'png',
+              width: cmd.tileSize,
+              height: cmd.tileSize,
+              type: cmd.format,
+              ostream: new ByteArrayOutputStream()
+      ]
 
-    //println opts
-    runChipper( opts, hints )
+      //println opts
+      runChipper( opts, hints )
+      result = [contentType: "image/${hints.type}", buffer: hints.ostream.toByteArray()]
+    }
 
-    [contentType: "image/${hints.type}", buffer: hints.ostream.toByteArray()]
+    result
   }
 
   def runChipper(def opts, def hints)
@@ -209,7 +216,7 @@ class ImageSpaceService
 
   def findIndexOffset(def image, def tileSize = 256)
   {
-    def index
+    def index = image.numResLevels - 1
 
     for ( def i = 0; i < image.numResLevels; i++ )
     {

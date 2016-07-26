@@ -126,7 +126,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: update
+            dbCreate: create-drop
             url: jdbc:postgresql:omardb-${OSSIM_VERSION}-dev
     test:
         dataSource:
