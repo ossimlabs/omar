@@ -1,5 +1,7 @@
 package omar.oms
 
+import omar.core.HttpStatus
+
 import java.awt.Color
 import java.awt.Font
 import java.awt.Point
@@ -131,10 +133,11 @@ class ImageSpaceService
   def getTile(GetTileCommand cmd)
   {
     def imageInfo = readImageInfo( cmd.filename as File )
-    def result = [contentType: "plane/text", buffer: "Unable to service tile".bytes]
-    def indexOffset = findIndexOffset( imageInfo.images[cmd.entry] )
+    def result = [status:HttpStatus.NOT_FOUND, contentType: "plane/text", buffer: "Unable to service tile".bytes]
+    def imageEntry = imageInfo.images[cmd.entry]
+    def indexOffset = findIndexOffset( imageEntry)
 
-    if(indexOffset)
+    if(cmd.z < imageEntry.numResLevels )
     {
       def rrds = indexOffset - cmd.z
       def opts = [
@@ -158,7 +161,9 @@ class ImageSpaceService
 
       //println opts
       runChipper( opts, hints )
-      result = [contentType: "image/${hints.type}", buffer: hints.ostream.toByteArray()]
+      result = [status: HttpStatus.OK,
+                contentType: "image/${hints.type}",
+                buffer: hints.ostream.toByteArray()]
     }
 
     result
@@ -180,7 +185,8 @@ class ImageSpaceService
       }
       else
       {
-        println "getChip: bad ${opts}"
+
+        //println "getChip: bad ${opts}"
       }
     }
     else
@@ -216,7 +222,28 @@ class ImageSpaceService
 
   def findIndexOffset(def image, def tileSize = 256)
   {
-    def index = image.numResLevels - 1
+    // GP: Currently this will not work correctly because the calling GUI
+    // has no way of knowing the R-Levels to use.  It currently assumes that
+    // a complete tile fits at the highest resolution but the image does
+    // not guarantee that it has overviews beyond that.
+    //
+    // for now we will always return a full range and will ignore the resolutions
+    // predefined by the image
+    //
+    Integer index = 0;
+    Integer maxValue = Math.max(image.width, image.height)
+
+    if((maxValue > 0)&&(tileSize > 0))
+    {
+      while(maxValue > tileSize)
+      {
+        maxValue /= 2
+
+        ++index
+      }
+    }
+    /*
+    def index
 
     for ( def i = 0; i < image.numResLevels; i++ )
     {
@@ -228,7 +255,7 @@ class ImageSpaceService
         break
       }
     }
-
+    */
     return index
   }
 
