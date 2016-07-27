@@ -80,6 +80,68 @@ grails:
 * **omar.jpip.server.ip:** Ip of the jpip-server location 
 * **omar.jpip.server.url** Base url used as a prefix for accessing the converted file over JPIP protocol
 
+##Elevation Configuration
+
+This is a core OSSIM configuration but for clarity we will repeat the documentation for the elevation portion here. 
+
+**Assumptions**:
+
+* Environment **OSSIM_DATA** variable will be defined when the web applation starts and is pointing to a root path where elevation data and any additional geoids reside.  By default we will use /data as an example value for the **OSSIM_DATA** environment variable. Edit the file /usr/share/ossim/ossim-site-preferences
+
+`vi /usr/share/ossim/ossim-site-preferences`
+
+
+To see the default layout look for the elevation sections:
+
+```
+// One arc second post spacing dted, ~30 meters, default enabled:
+elevation_manager.elevation_source0.connection_string: $(OSSIM_DATA)/elevation/dted/level2
+elevation_manager.elevation_source0.enabled: true
+elevation_manager.elevation_source0.extension: .dt2
+elevation_manager.elevation_source0.type: dted_directory
+elevation_manager.elevation_source0.min_open_cells: 25
+elevation_manager.elevation_source0.max_open_cells: 50
+elevation_manager.elevation_source0.memory_map_cells: false
+elevation_manager.elevation_source0.geoid.type: geoid1996
+elevation_manager.elevation_source0.upcase: false
+
+// One arc second post spacing srtm, ~30 meters, default disabled:
+elevation_manager.elevation_source1.connection_string: $(OSSIM_DATA)/elevation/srtm/1arc
+elevation_manager.elevation_source1.enabled: false
+elevation_manager.elevation_source1.type: srtm_directory
+elevation_manager.elevation_source1.min_open_cells: 25
+elevation_manager.elevation_source1.max_open_cells: 50
+elevation_manager.elevation_source1.memory_map_cells: false
+elevation_manager.elevation_source1.geoid.type: geoid1996
+```
+
+Our preferences uses a keyword list to identify name value pairs and we use "." to seperate the path and the ":" to separate the value.  You can have any number of elevation sources but it is important to note that the elevation manager will start at the first database to find an elevation post for a passed in latitude and longitude.
+
+If the **OSSIM_DATA** is defined then we have a default tree structure that we assume stems from that root path stored in the environment variable.  In this example we have a path to dted level 2 format found under the directory $(OSSIM_DATA)/elevation/dted/level2.  Under that directory we have a dted format tree that has the organization structure as `e044/n33.dt2` where "e" stands for east and the "n" stands for north.
+
+We also have an example SRTM 30 meter 1 arc second directory: $(OSSIM_DATA)/elevation/srtm/1arc.  This directory is required to be a 1x1 degree cells/files that adhere to the naming convention N38W113.hgt where "N" is north latitude followed by a 2 digit lat location and a "W" for west longitude followed by a 3 digit longitude value.  Likewise you can use "S" for south latitude and "E" for east logitude.
+
+To test the elevation I would make sure the you install `yum install ossim` and run the following commands:
+
+* **ossim-info --cg [elevation file]** Replace [elevation file] with a file in the database.  This will return the center ground coordinate That can be used to query the elevation height.
+
+```
+image0.center_ground:  (38.5,-119.5,nan,WGE)
+```
+
+Now use those values to query an elevation point to see if the database returns the proper value
+
+* **ossim-info  --height 38.5 -119.5**
+
+Should output something like the following:
+
+```
+Opened cell:            /data/elevation/dted/1k/w120/n38.dt1
+MSL to ellipsoid delta: -24.1909999847412
+Height above MSL:       1863
+Height above ellipsoid: 1838.80900001526
+Geoid value:            -24.1909999847412
+``` 
 
 ##Executing
 
