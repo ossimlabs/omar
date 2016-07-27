@@ -4,6 +4,8 @@ import grails.converters.JSON
 import com.github.rahulsom.swaggydoc.*
 import com.wordnik.swagger.annotations.*
 import omar.core.BindUtil
+import omar.core.HttpStatus
+import omar.core.IpUtil
 
 @Api(value = "imageSpace",
         description = "API operations in image space."
@@ -50,13 +52,42 @@ class ImageSpaceController
   ])
   def getTile(/*GetTileCommand cmd*/)
   {
-     def cmd = new GetTileCommand()
+    def cmd = new GetTileCommand()
 
-     BindUtil.fixParamNames( GetTileCommand, params )
-     bindData( cmd, params )
-    def results = imageSpaceService.getTile( cmd )
+    BindUtil.fixParamNames( GetTileCommand, params )
+    bindData( cmd, params )
 
-    render contentType: results.contentType, file: results.buffer
+    def outputStream = null
+    try
+    {
+       response.status = HttpStatus.OK
+       def result = imageSpaceService.getTile( cmd )
+       outputStream = response.outputStream
+       if(result.status != null) response.status        = result.status
+       if(result.contentType) response.contentType      = result.contentType
+       if(result.buffer?.length) response.contentLength = result.buffer.length
+       if(outputStream)
+       {
+          outputStream << result.buffer
+       }
+    }
+    catch ( e )
+    {
+       response.status = HttpStatus.ERROR
+       log.debug(e.toString())
+    }
+    finally{
+       if(outputStream!=null)
+       {
+          try{
+             outputStream.close()
+          }
+          catch(e)
+          {
+             log.debug(e.toString())
+          }
+       }
+    }
   }
 
 
@@ -78,9 +109,38 @@ class ImageSpaceController
     bindData( cmd, params )
 //    println cmd
 
-    def results = imageSpaceService.getTileOverlay( cmd )
+    def outputStream = null
+    try
+    {
+       response.status = HttpStatus.OK
+       def result = imageSpaceService.getTileOverlay( cmd )
+       outputStream = response.outputStream
 
-    render contentType: results.contentType, file: results.buffer
+       if(result.status != null) response.status        = result.status
+       if(result.contentType) response.contentType      = result.contentType
+       if(result.buffer?.length) response.contentLength = result.buffer.length
+       if(outputStream)
+       {
+          outputStream << result.buffer
+       }
+    }
+    catch ( e )
+    {
+       response.status = HttpStatus.ERROR
+       log.debug(e.toString())
+    }
+    finally{
+       if(outputStream!=null)
+       {
+          try{
+             outputStream.close()
+          }
+          catch(e)
+          {
+             log.debug(e.toString())
+          }
+       }
+    }
   }
 
   def getAngles()
@@ -115,8 +175,37 @@ class ImageSpaceController
      BindUtil.fixParamNames( GetTileCommand, params )
      bindData( cmd, params )
 
-     def results = imageSpaceService.getThumbnail( cmd )
 
-    render contentType: results.contentType, file: results.buffer
+     def outputStream = null
+     try
+     {
+         def result = imageSpaceService.getThumbnail( cmd )
+         outputStream = response.outputStream
+         if(result.status != null) response.status        = result.status
+         if(result.contentType) response.contentType      = result.contentType
+         if(result.buffer?.length) response.contentLength = result.buffer.length
+         if(outputStream)
+         {
+          outputStream << result.buffer
+         }
+     }
+     catch(e)
+     {
+       response.status = HttpStatus.ERROR
+       log.debug(e.toString())
+     }
+     finally
+     {
+       if(outputStream!=null)
+       {
+          try{
+             outputStream.close()
+          }
+          catch(e)
+          {
+             log.debug(e.toString())
+          }
+       }
+     }
   }
 }
