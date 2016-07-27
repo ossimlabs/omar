@@ -153,6 +153,48 @@ body {
     height: 60%;
 }
 
+/* class for #dd #dms and #mgrs*/
+#mapOrtho .map-cord-div{
+    position: absolute;
+    bottom: 5px;
+    z-index: 1;
+    font-size: .7em;
+    color: #fff;
+    background-color: rgba(0,60,136,0.5);
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+#dd{
+    left: 45%;
+}
+
+#dms{
+    left: 25%;
+}
+
+#mgrs{
+    left: 62%;
+}
+
+#mapButtons{
+    position: absolute;
+    z-index: 1;
+    right: 40px;
+    bottom: 5px;
+}
+
+#mapButtons i{
+    background-color: rgba(0,60,136,0.5);
+    color: white;
+    font-size: 1em;
+}
+
+
+#mapButtons a{
+    text-decoration: none;
+}
+
 .dont-break-out {
 
     /* These are technically the same, but use both */
