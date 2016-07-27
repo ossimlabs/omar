@@ -213,7 +213,7 @@ omar:
       enabled: true
     predio:
       baseUrl: http://localhost:8081/predio/
-      enabled: true
+      enabled: false
     twofishes:
       baseUrl: http://localhost:8085/twofish
       proxy: /twoFishesProxy
