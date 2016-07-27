@@ -826,6 +826,12 @@
                                                    tooltip-placement="right"
                                                    uib-tooltip="E-mail a link to this image"></i>&nbsp;&nbsp;
                                             </a>
+                                            <a ng-href="" target="_blank">
+                                                <i class="fa fa-download fa-border text-primary"
+                                                   style="cursor: pointer;"
+                                                   tooltip-placement="right"
+                                                   uib-tooltip="Download and archive files"></i>&nbsp;&nbsp;
+                                            </a>
                                             <!-- Image space jpip stream button: -->
                                             <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream($event, image.properties.filename, image.properties.entry_id, 'chip', $index, 'stream');">
                                                 <i class="fa fa-file-image-o fa-border text-primary"
