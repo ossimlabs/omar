@@ -339,10 +339,8 @@
 
         vm.loadBeData = function loadBeData( geom )
         {
-
             console.log( 'loadBeData geometry: ', imageObj.geometry );
-
-            vm.beData = beNumberService.getBeData( imageObj.geometry );
+            vm.beData = beNumberService.getBeData( new ol.geom.MultiPolygon( imageObj.geometry.coordinates ) );
             console.log( 'vm.beData: ', vm.beData );
         };
 

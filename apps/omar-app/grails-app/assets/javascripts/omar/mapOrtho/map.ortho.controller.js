@@ -3,9 +3,9 @@
     'use strict';
     angular
         .module( 'omarApp' )
-        .controller( 'MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', MapOrthoController] );
+        .controller( 'MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'beNumberService', MapOrthoController] );
 
-    function MapOrthoController( $scope, $state, $stateParams, $http, $location )
+    function MapOrthoController( $scope, $state, $stateParams, $http, $location, beNumberService )
     {
 
         // #################################################################################
@@ -25,7 +25,8 @@
             mapOrthoView,
             imageLayers,
             imageLayerIds,
-            vectorLayer,
+            footprintLayer,
+            placemarkLayer,
             recommendImageId;
 
         var wfsRequest = {
@@ -40,9 +41,31 @@
 
         //console.log('imageLayerIds', imageLayerIds);
 
-        vectorLayer = new ol.layer.Vector( {
-            opacity: 0.0,
+        footprintLayer = new ol.layer.Vector( {
+            visible: false,
+            title: 'Image Footprints',
+            opacity: 1.0,
+            source: new ol.source.Vector(),
+            style: new ol.style.Style( {
+                fill: new ol.style.Fill( {
+                    color: 'rgba(0, 0, 0, 0)'
+                } ),
+                stroke: new ol.style.Stroke( {
+                    width: 3.0,
+                    color: 'rgba(192, 192, 192, 0.6)'
+                } )
+            } )
+        } );
+
+        placemarkLayer = new ol.layer.Vector( {
+            title: 'Placemarks',
             source: new ol.source.Vector()
+
+        } );
+
+        $scope.$on( 'placemarks: updated', function ( event, data )
+        {
+            setupPlacemarkLayer( data );
         } );
 
         var viewParams = $location.search();
@@ -53,7 +76,9 @@
             viewParams.lon = parseFloat( viewParams.lon );
             viewParams.resolution = parseFloat( viewParams.resolution );
 
-            console.log( 'viewParams', viewParams );
+            // console.log( 'viewParams', viewParams );
+
+            getImageBounds( imageLayerIds, true );
 
             mapOrthoView = new ol.View( {
                 center: [viewParams.lon, viewParams.lat],
@@ -74,7 +99,8 @@
             } );
         }
 
-        function getImageBounds( imageIds )
+
+        function getImageBounds( imageIds, flag )
         {
             wfsRequest.cql = 'id in(' + imageIds + ')';
 
@@ -101,54 +127,74 @@
 
                 var data;
                 data = response.data.features;
+
+                var geoms = [];
+
                 //console.log('mapOrtho WFS data: ', data);
                 //console.log('data.length', data.length);
 
                 // If there is more than one image we can get the extent
-                // of the vectorLayer to set the maps extent
+                // of the footprintLayer to set the maps extent
                 if ( data.length > 1 )
                 {
-
-                    // Add each image to the vectorLayer
+                    // Add each image to the footprintLayer
                     angular.forEach( data, function ( image )
                     {
+                        var geom = new ol.geom.MultiPolygon( image.geometry.coordinates );
+
+                        geoms.push( geom );
 
                         var imageFeature = new ol.Feature( {
-                            geometry: new ol.geom.MultiPolygon( image.geometry.coordinates )
+                            geometry: geom
                         } );
 
-                        vectorLayer.getSource().addFeature( imageFeature );
+                        footprintLayer.getSource().addFeature( imageFeature );
 
                     } );
 
 
-                    var vectorLayerExtent = vectorLayer.getSource().getExtent();
+                    if ( !flag )
+                    {
+                        var footprintLayerExtent = footprintLayer.getSource().getExtent();
 
-                    // Sets the map's extent to all of the images in the vectorLayer
-                    mapOrtho.getView().fit( vectorLayerExtent, mapOrtho.getSize() );
+                        // Sets the map's extent to all of the images in the footprintLayer
+                        mapOrtho.getView().fit( footprintLayerExtent, mapOrtho.getSize() );
 
+                    }
                 }
                 // If there is only one image we need to use the extent of the feature (image)
-                // in the vectorLayer
+                // in the footprintLayer
                 else
                 {
+                    var geom = new ol.geom.MultiPolygon( data[0].geometry.coordinates );
 
                     var imageFeature = new ol.Feature( {
-                        geometry: new ol.geom.MultiPolygon( data[0].geometry.coordinates )
+                        geometry: geom
                     } );
 
-                    vectorLayer.getSource().addFeature( imageFeature );
+                    geoms.push( geom );
 
-                    var featureExtent = imageFeature.getGeometry().getExtent();
+                    if ( !flag )
+                    {
+                        var featureExtent = imageFeature.getGeometry().getExtent();
 
-                    // Moves the map to the extent of the one image
-                    mapOrtho.getView().fit( featureExtent, mapOrtho.getSize() );
 
+                        // Moves the map to the extent of the one image
+                        mapOrtho.getView().fit( featureExtent, mapOrtho.getSize() );
+                    }
+                }
+
+                var totalGeoms = new ol.geom.GeometryCollection( geoms );
+
+                if ( AppO2.APP_CONFIG.params.misc.placemarks )
+                {
+                    beNumberService.getBeData( totalGeoms );
                 }
             } );
         }
 
         imageLayers = new ol.layer.Tile( {
+            title: 'Images',
             opacity: 1.0,
             source: new ol.source.TileWMS( {
                 //url: '/o2/wms?',
@@ -241,17 +287,113 @@
         mapOrtho = new ol.Map( {
             layers: [
                 baseMapGroup,
-                imageLayers,
-                vectorLayer
+                new ol.layer.Group( {
+                    title: 'Overlays',
+                    layers: [
+                        imageLayers,
+                        footprintLayer,
+                        placemarkLayer
+                    ]
+                } )
             ],
             controls: ol.control.defaults().extend( [
                 new ol.control.FullScreen(),
                 new ol.control.ScaleLine()
             ] ).extend( [mousePositionControl] ),
             interactions: interactions,
-            target: 'mapOrtho',
+            target: document.getElementById( 'mapOrtho' ),
             view: mapOrthoView
         } );
+
+        setupPopupLayer();
+
+        function setupPopupLayer()
+        {
+
+            var element = document.getElementById( 'popup' );
+
+            var popup = new ol.Overlay( {
+                element: element,
+                positioning: 'bottom-center',
+                stopEvent: false,
+                offset: [0, -50]
+            } );
+            mapOrtho.addOverlay( popup );
+
+            // display popup on click
+            mapOrtho.on( 'click', function ( evt )
+            {
+
+                var feature = mapOrtho.forEachFeatureAtPixel( evt.pixel, function ( feature )
+                {
+                    return feature;
+                } );
+
+                if ( feature )
+                {
+                    var coordinates = feature.getGeometry().getCoordinates();
+
+                    popup.setPosition( coordinates );
+
+                    var name = feature.get( AppO2.APP_CONFIG.params.misc.placemarks.columnName );
+
+                    $( element ).attr( 'data-placement', 'top' );
+                    // $( element ).attr( 'data-original-title', feature.get( 'title' ) );
+                    $( element ).attr( 'data-content', name );
+                    $( element ).attr( 'data-html', true );
+                    //now call bootstrap popover function
+                    $( element ).popover( 'show' );
+                }
+                else
+                {
+                    $( element ).popover( 'destroy' );
+                }
+            } );
+
+            // change mouse cursor when over marker
+            mapOrtho.on( 'pointermove', function ( e )
+            {
+                if ( e.dragging )
+                {
+                    $( element ).popover( 'destroy' );
+                    return;
+                }
+                var pixel = mapOrtho.getEventPixel( e.originalEvent );
+                var hit = mapOrtho.hasFeatureAtPixel( pixel );
+
+                if ( mapOrtho.getTarget().style )
+                {
+                    mapOrtho.getTarget().style.cursor = hit ? 'pointer' : '';
+                }
+
+            } );
+        }
+
+        function setupPlacemarkLayer( placemarks )
+        {
+            // console.log( 'placemarks:', placemarks );
+
+            var iconStyle = new ol.style.Style( {
+                image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
+                    anchor: [0.5, 46],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    src: vm.baseServerUrl + '/' + AppO2.APP_CONFIG.params.misc.icons.greenMarker
+                }) )
+            } );
+
+            placemarks.map( function ( placemark )
+            {
+                var data = placemark.properties;
+
+                data.geometry = new ol.geom.Point( placemark.geometry.coordinates );
+
+                var iconFeature = new ol.Feature( data );
+
+                iconFeature.setStyle( iconStyle );
+                placemarkLayer.getSource().addFeature( iconFeature );
+            } );
+        }
 
         var layerSwitcher = new ol.control.LayerSwitcher( {
             tipLabel: 'Layers' // Optional label for button
@@ -294,7 +436,6 @@
 
         function formatRecommendedList( data )
         {
-
             var wfsImagesList = [];
             data.data.itemScores.filter( function ( el )
             {
@@ -334,16 +475,15 @@
             $http( {
                 method: 'GET',
                 url: url
-            } )
-                .then( function ( response )
-                {
-                    var data;
-                    data = response.data.features;
-                    //console.log('data from wfs', data);
+            } ).then( function ( response )
+            {
+                var data;
+                data = response.data.features;
+                //console.log('data from wfs', data);
 
-                    vm.recommendedImages = data;
-                    vm.loading = false;
-                } );
+                vm.recommendedImages = data;
+                vm.loading = false;
+            } );
 
         }
 

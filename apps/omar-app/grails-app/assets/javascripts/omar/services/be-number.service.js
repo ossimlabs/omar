@@ -18,13 +18,15 @@
 
         this.getBeData = function ( geom )
         {
+            // console.log('getBeData', geom);
+
             if ( beLookupEnabled )
             {
-                console.log( 'Calling getBeData with: ', geom );
+                // console.log( 'Calling getBeData with: ', geom );
                 //
                 // beObj.prop1 = "Some really cool beData";
 
-                var bbox = new ol.geom.MultiPolygon( geom.coordinates ).getExtent().join( ',' );
+                var bbox = geom.getExtent().join( ',' );
                 var cql = "bbox(" + geomName + ", " + bbox + ")";
 
                 // console.log( cql );
@@ -56,7 +58,7 @@
                     $timeout( function ()
                     {
                         $rootScope.$broadcast( 'placemarks: updated', data );
-                        console.log( 'data object...', data );
+                        // console.log( 'data object...', data );
                         beObj = data;
                     } );
                 } );
