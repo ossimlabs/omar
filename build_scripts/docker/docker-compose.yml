@@ -12,6 +12,23 @@ services:
       POSTGRES_USER: postgres_user
       POSTGRES_DB: omar_prod
     image: radiantbluetechnologies/o2-db
+  o2-wfs:
+    build: ./o2-wfs
+    container_name: o2-wfs
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+    ports:
+      - "4998:8080"
+    links:
+      - o2-db
+    image: radiantbluetechnologies/o2-wfs
+    depends_on:
+      - o2-base
+      - o2-db
   o2-wmts:
     build: ./o2-wmts
     container_name: o2-wmts

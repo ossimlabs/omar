@@ -19,12 +19,6 @@ ENV DBUSER=${DBUSER}\
     DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
     DBNAME=${DBNAME}\
-    WFSSERVER=${WFSSERVER}\
-    WFSPORT=${WFSPORT}\
-    WMSSERVER=${WMSSERVER}\
-    WMSPORT=${WMSPORT}\
-    FOOTPRINTS=${FOOTPRINTS}\
-    FOOTPRINTSPORT=${FOOTPRINTSPORT}
 
 EXPOSE 8080
-CMD ["sh", "/usr/share/omar/wmts-app/wmts-app.sh"]
+CMD ["sh", "/usr/share/omar/wfs-app/wfs-app.sh"]
