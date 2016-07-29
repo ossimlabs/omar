@@ -24,7 +24,7 @@ wfs:
         datastoreParams:
           dbtype: postgis
           host: ${DBHOST}
-          port: '${DBPORT}''
+          port: '${DBPORT}'
           database: ${DBNAME}
           user: postgres
           passwd: postgres
@@ -38,7 +38,7 @@ wfs:
           - omar
           - raster_entry
           - features
-        datastoreId: omardb-prod
+        datastoreId: ${DBNAME}
 
       - name: video_data_set
         title: video_data_set
@@ -47,7 +47,7 @@ wfs:
           - omar
           - video_data_set
           - features
-        datastoreId: omardb-prod
+        datastoreId: ${DBNAME}
 
 wms:
   styles:
@@ -150,7 +150,7 @@ wms:
         color: white
 
 ---
-grails:
-  serverURL: http://192.168.2.200/wfs-app
-  assets:
-    url: http://192.168.2.200/wfs-app/assets/
+# grails:
+#   serverURL: http://192.168.2.200/wfs-app
+#   assets:
+#     url: http://192.168.2.200/wfs-app/assets/
