@@ -8,10 +8,13 @@ environments:
       pooled: true
       jmxExport: true
       driverClassName: org.postgresql.Driver
-      username: ${DBUSER}
-      password: ${DBPASS}
+      username: postgres_user
+      password: abc123
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/omar_prod
+      #url: jdbc:postgresql://o2-db:5432/omar_prod
+
+---
 
 wfs:
   featureTypeNamespaces:
@@ -20,14 +23,14 @@ wfs:
 
   datastores:
       - namespaceId: omar
-        datastoreId: ${DBNAME}
+        datastoreId: omar_prod
         datastoreParams:
           dbtype: postgis
-          host: ${DBHOST}
-          port: '${DBPORT}'
-          database: ${DBNAME}
-          user: postgres
-          passwd: postgres
+          host: o2-db
+          port: '5432'
+          database: omar_prod
+          user: postgres_user
+          passwd: abc123
           'Expose primary keys': 'true'
           namespace: http://omar.ossim.org
   featureTypes:
@@ -38,7 +41,7 @@ wfs:
           - omar
           - raster_entry
           - features
-        datastoreId: ${DBNAME}
+        datastoreId: omar_prod
 
       - name: video_data_set
         title: video_data_set
@@ -47,7 +50,7 @@ wfs:
           - omar
           - video_data_set
           - features
-        datastoreId: ${DBNAME}
+        datastoreId: omar_prod
 
 wms:
   styles:
