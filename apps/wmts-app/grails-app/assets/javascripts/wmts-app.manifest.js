@@ -18,7 +18,7 @@
 //= require wmts/core/ol3-layerswitcher.js
 
 // <--App-->
-//= require wmts/wmts-app.module.main.js
+//= require wmts/wmts-app.module.main.es6
 //= require wmts/map/wmts.map.controller.js
 
 //= require_self
