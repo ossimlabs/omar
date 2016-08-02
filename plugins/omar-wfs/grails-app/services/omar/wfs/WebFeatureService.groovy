@@ -2,6 +2,8 @@ package omar.wfs
 
 import geoscript.feature.Schema
 import geoscript.filter.Filter
+import geoscript.filter.Function
+import geoscript.geom.GeometryCollection
 import geoscript.workspace.Workspace
 
 import grails.transaction.Transactional
@@ -504,7 +506,7 @@ class WebFeatureService
 
 		Workspace.withWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) { workspace ->
 			def layer = workspace[ layerInfo.name ]
-			def matched = layer.count( wfsParams.filter ?: Filter.PASS )
+			def matched = layer?.count( wfsParams.filter ?: Filter.PASS )
 			def count = ( wfsParams.maxFeatures ) ? Math.min( matched, wfsParams.maxFeatures ) : matched
 			def namespaceInfo = layerInfo?.workspaceInfo?.namespaceInfo
 
@@ -563,5 +565,21 @@ class WebFeatureService
 		}
 
 		return xml
+	}
+
+	def foobar()
+	{
+		Function.registerFunction( "queryCollection" ) { def layerName, def attributeName, def filter ->
+			def workspace = getWorkspace( 'omar' )
+			def results = workspace[layerName].collectFromFeature( filter ) { it[attributeName] }
+			workspace?.close()
+			results
+		}
+
+		Function.registerFunction( 'collectGeometries' ) { def geometries ->
+			def multiType = ( geometries ) ? "geoscript.geom.Multi${geometries[0].class.simpleName}" : new GeometryCollection( geometries )
+
+			Class.forName( multiType ).newInstance( geometries )
+		}
 	}
 }

@@ -281,24 +281,23 @@
 
             function pushKeywordToArray( dbName, formField )
             {
-                var foo = ["strToUpperCase(" + dbName + ") LIKE '%", formField.trim().toUpperCase(), "%'"].join( "" );
+                var clause = ["strToUpperCase(" + dbName + ") LIKE '%", formField.trim().toUpperCase(), "%'"].join( "" );
 
                 var placemarksConfig = AppO2.APP_CONFIG.params.misc.placemarks;
 
                 if ( dbName === 'be_number' && placemarksConfig )
                 {
-                    var bar = formField.replace( 'be_number', placemarksConfig.columnName );
+                    var subClause = clause.replace( 'be_number', placemarksConfig.columnName );
 
-                    bar = bar.split( "'" ).join( "''" );
+                    subClause = subClause.split( "'" ).join( "''" );
 
-                    foo = "(" + foo + " or intersects(ground_geom, collectGeometries(queryCollection('"
-                        + placemarksConfig.tableName + "', '" + placemarksConfig.geomName + "', '" + foo + "'))))";
+                    clause = "(" + clause + " or intersects(ground_geom, collectGeometries(queryCollection('"
+                        + placemarksConfig.tableName + "', '" + placemarksConfig.geomName + "', '" + subClause + "'))))";
 
-                    alert(foo);
-
+                    // alert( clause );
                 }
 
-                filterArray.push( foo );
+                filterArray.push( clause );
                 console.log( dbName + ' filterArray', filterArray );
             }
 
