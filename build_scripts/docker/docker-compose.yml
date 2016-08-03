@@ -12,8 +12,26 @@ services:
       POSTGRES_PASSWORD: abc123
       POSTGRES_DB: omar_prod
     ports:
-      - "4997:5432"
+      - "4990:5432"
     image: radiantbluetechnologies/o2-db
+  o2-wms:
+    build: ./o2-wms
+    container_name: o2-wms
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+    #   DBNAME: omar_prod
+    #   DBUSER: postgres_user
+    #   DBPASS: abc123
+    ports:
+      - "4997:8080"
+    links:
+      - o2-db
+    image: radiantbluetechnologies/o2-wms
+    depends_on:
+      - o2-base
+      - o2-db
+      - o2-stager
   o2-wfs:
     build: ./o2-wfs
     container_name: o2-wfs
