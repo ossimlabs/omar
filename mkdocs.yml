@@ -23,6 +23,6 @@ pages:
   - 'Docker Common Instructions': 'docker-install/docker-common.md'
   - 'Stager Service (Docker)': 'docker-install/docker-stager-app.md'
   - 'SQS Service (Docker)': 'docker-install/docker-sqs-app.md'
-  - 'WFS Service (Docker)': 'docker-install/docker-wFs-app.md'
+  - 'WFS Service (Docker)': 'docker-install/docker-wfs-app.md'
   - 'WMTS Service (Docker)': 'docker-install/docker-wmts-app.md'
   - 'AVRO Service (Docker)': 'docker-install/docker-avro-app.md'
