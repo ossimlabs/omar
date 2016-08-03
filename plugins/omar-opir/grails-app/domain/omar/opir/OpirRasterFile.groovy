@@ -3,7 +3,7 @@ package omar.opir
 class OpirRasterFile {
     String name
     String type
-
+    Integer fileSize
     static belongsTo = [opirRasterDataSet: OpirRasterDataSet]
 
     static constraints = {

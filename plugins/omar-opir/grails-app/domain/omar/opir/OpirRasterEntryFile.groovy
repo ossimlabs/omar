@@ -4,7 +4,7 @@ class OpirRasterEntryFile {
 
     String name
     String type
-
+    Integer fileSize
     static belongsTo = [opirRasterEntry: OpirRasterEntry]
 
     static constraints = {

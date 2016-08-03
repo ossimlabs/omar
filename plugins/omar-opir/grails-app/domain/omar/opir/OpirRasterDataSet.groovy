@@ -6,7 +6,6 @@ class OpirRasterDataSet {
     Collection rasterEntries
 
     static constraints = {
-
     }
     static mapping = {
     }
