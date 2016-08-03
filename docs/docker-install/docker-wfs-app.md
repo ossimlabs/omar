@@ -109,4 +109,4 @@ Access the **API** Page:
 ```
 http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/api
 ```
-The API page allows you to test various parts of the **o2-wfs** service.  View the [WMTS Service](../install-guide/wfs-app.md#Installation) install guide for additional information on using the service.
+The API page allows you to test various parts of the **o2-wfs** service.  View the [WFS Service](../install-guide/wfs-app.md#Installation) install guide for additional information on using the service.
