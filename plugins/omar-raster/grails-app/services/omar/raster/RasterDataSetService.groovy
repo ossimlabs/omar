@@ -282,6 +282,7 @@ def updateRaster(def httpStatusMessage, def params)
 		removeRaster( httpStatusMessage, params )
 	}
 
+
 	def getFileProcessingStatus(GetRasterFilesProcessingCommand cmd)
 	{
 		HashMap result = [
@@ -342,6 +343,31 @@ def updateRaster(def httpStatusMessage, def params)
 			result.remove("results")
 			result.remove("pagination")
 		}
+
+		result
+	}
+
+	def getRasterFiles(GetRasterFilesCommand cmd)
+	{
+		HashMap result = [
+				results:[]
+		]
+
+		def files = RasterEntry.compositeId(cmd.id)
+
+		RasterEntry entry = files?.get()
+		def fileList = []
+		if(entry)
+		{
+			entry.fileObjects.each{fileObject->
+				fileList << fileObject.name
+
+			}
+			entry?.rasterDataSet?.fileObjects.each{ fileObject->
+				fileList << fileObject.name
+			}
+		}
+		result.results = fileList
 
 		result
 	}
