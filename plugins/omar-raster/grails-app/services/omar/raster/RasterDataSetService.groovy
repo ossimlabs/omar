@@ -105,7 +105,7 @@ class RasterDataSetService implements ApplicationContextAware// extends DataMana
 														 overviewCompressionType: params.overviewCompressionType,
 														 overviewType: params.overviewType
 					])
-					if(result?.status?.value() >= 300)
+					if(result?.status >= 300)
 					{
 						log.error(result?.message)
 
