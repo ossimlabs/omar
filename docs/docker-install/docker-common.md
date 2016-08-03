@@ -112,6 +112,135 @@ The OMAR Docker structure includes a `docker-compose.yml` file.  Docker Compose 
 
 View the official Docker Compose documentation [here](https://docs.docker.com/compose/).
 
+## Docker Compose File for O2 Services
+```
+version: '2'
+services:
+  o2-base:
+    build: ./o2-base
+    container_name: o2-base
+    image: radiantbluetechnologies/o2-base
+  o2-db:
+    build: ./o2-db
+    container_name: o2-db
+    environment:
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: abc123
+      POSTGRES_DB: omar_prod
+    ports:
+      - "4997:5432"
+    image: radiantbluetechnologies/o2-db
+  o2-wfs:
+    build: ./o2-wfs
+    container_name: o2-wfs
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+    #   DBNAME: omar_prod
+    #   DBUSER: postgres_user
+    #   DBPASS: abc123
+    ports:
+      - "4998:8080"
+    links:
+      - o2-db
+    image: radiantbluetechnologies/o2-wfs
+    depends_on:
+      - o2-base
+      - o2-db
+      - o2-stager
+  o2-wmts:
+    build: ./o2-wmts
+    container_name: o2-wmts
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      WFSSERVER: o2.ossim.org/o2
+      WFSPORT: ""
+      WMSSERVER: o2.ossim.org/o2
+      WMSPORT: ""
+      FOOTPRINTS: o2.ossim.org/o2
+      FOOTPRINTSPORT: ""
+    ports:
+      - "4999:8080"
+    links:
+      - o2-db
+    image: radiantbluetechnologies/o2-wmts
+    depends_on:
+      - o2-base
+      - o2-db
+  o2-sqs:
+    build: ./o2-sqs
+    container_name: o2-sqs
+    environment:
+      AWSDNS: sqs.us-east-1.amazonaws.com
+      AWSQUEUEPATH: 320588532383/avro-tst
+      WAIT_TIME_SECONDS: 20
+      NUMBER_OF_MESSAGES: 1
+      POLLING_INTERVAL_SECONDS: 10
+      DESTINATION_TYPE: stdout
+      DESTINATION_POST_END_POINT: o2-avro
+      DESTINATION_POST_END_POINT_PORT: :8080
+      DESTINATION_POST_FIELD: message
+    volumes:
+      # Modify the path below to reflect your
+      # AWS credentials location. Example:
+      #- /Users/jdoe/.aws:/root/.aws
+      - /Users/<yourusername>/.aws:/root/.aws
+    ports:
+      - "5000:8080"
+    image: radiantbluetechnologies/o2-sqs
+    depends_on:
+      - o2-base
+      - o2-stager
+      - o2-avro
+  o2-avro:
+    build: ./o2-avro
+    container_name: o2-avro
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      ADDRASTERENDPOINTURL: o2-stager
+      ADDRASTERENDPOINTPORT: :8080
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
+    ports:
+      - "5001:8080"
+    links:
+      - o2-db
+    image: radiantbluetechnologies/o2-avro
+    depends_on:
+      - o2-base
+      - o2-db
+      - o2-stager
+  o2-stager:
+    build: ./o2-stager
+    container_name: o2-stager
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
+    ports:
+      - "5002:8080"
+    links:
+      - o2-db
+    image: radiantbluetechnologies/o2-stager
+    depends_on:
+      - o2-base
+      - o2-db
+```
+
 You will need to be in the docker directory under build_scripts:
 ```
 cd omar/build_scripts/docker
