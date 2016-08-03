@@ -16,6 +16,8 @@ class OpirRasterEntry {
     Double frameRate
     Double scanRate
     String hdfLocation
+    Integer filter1
+    Integer filter2
     Integer spatialSummation
     Integer snapshotSize
     Integer summedScans
@@ -43,6 +45,8 @@ class OpirRasterEntry {
         frameRate index: 'opir_raster_entry_frame_rate_idx'
         scanRate index: 'opir_raster_entry_scan_rate_idx'
         hdfLocation index: 'opir_raster_entry_hdf_location_idx'
+        filter1 index: 'opir_raster_entry_filter1_idx'
+        filter2 index: 'opir_raster_entry_filter2_idx'
         spatialSummation index: 'opir_raster_entry_spatial_summation_idx'
         snapshotSize index: 'opir_raster_entry_hdf_snapshot_size_idx'
         summedScans index: 'opir_raster_entry_summed_scans_idx'
@@ -67,6 +71,8 @@ class OpirRasterEntry {
         frameRate(nullable:true)
         scanRate(nullable:true)
         hdfLocation(nullable:true)
+        filter1(nullable:true)
+        filter2(nullable:true)
         spatialSummation(nullable:true)
         snapshotSize(nullable:true)
         summedScans(nullable:true)

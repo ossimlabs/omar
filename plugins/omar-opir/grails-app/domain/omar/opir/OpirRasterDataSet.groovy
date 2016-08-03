@@ -1,14 +1,17 @@
 package omar.opir
 
 class OpirRasterDataSet {
-    String filename
-    static hasMany = [rasterEntries: OpirRasterEntry]
+    static hasMany = [fileObjects: OpirRasterFile, rasterEntries: OpirRasterEntry ]
+    Collection fileObjects
+    Collection rasterEntries
 
     static constraints = {
-        filename( unique: true, nullable:false )
 
     }
     static mapping = {
-        opirRasterEntry index: 'opir_raster_data_set_filename_idx'
+    }
+    def getFileFromObjects(def type = "main")
+    {
+        return fileObjects?.find { it.type == type }
     }
 }
