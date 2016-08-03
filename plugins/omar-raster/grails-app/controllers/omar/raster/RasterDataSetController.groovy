@@ -140,7 +140,20 @@ class RasterDataSetController
 
 	@ApiOperation( value = "Returns the Files assoicated with a given raster ID",
 			produces = 'application/json',
-			httpMethod = 'GET' )
+			httpMethod = 'GET',
+			notes = """
+    The service api <b>getRasterFiles</b>
+    <br><br>
+    <H2>Parameter List</H2>
+    <br><br>
+    <ul>
+        <li>
+            <b>id</b><p/>
+				This can be the record ID, image ID, or the indexId for a entry to search for
+        </li>
+        <br>
+    <ul>
+""")
 	@ApiImplicitParams( [
 			@ApiImplicitParam(name = 'id', value = 'Search Id', required=false, paramType = 'query', dataType = 'string'),
 	] )
