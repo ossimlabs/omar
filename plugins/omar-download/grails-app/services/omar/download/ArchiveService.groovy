@@ -14,7 +14,7 @@ class ArchiveService {
     {
         HashMap result = [
                 status:HttpStatus.OK,
-                message:"Hello There"
+                message:"Downloading Files"
         ]
 
         String fileName = cmd.zipFileName
