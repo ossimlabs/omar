@@ -71,7 +71,7 @@ Output example:
 
 CONTAINER ID | IMAGE | COMMAND | CREATED | PORTS | NAMES
 ------------ | ------------- | ------------ | ------------ | ------------ | ------------
-908c7ee6d152 | radiantbluetechnologies/o2-wfs  | "/bin/sh -c 'yum -y i" | 17 seconds ago | 0.0.0.0:4998->8080/tcp | o2-wmts
+908c7ee6d152 | radiantbluetechnologies/o2-wfs  | "/bin/sh -c 'yum -y i" | 17 seconds ago | 0.0.0.0:4998->8080/tcp | o2-wfs
 
 To list all containers (even those not running):
 
@@ -87,7 +87,7 @@ docker exec -it o2-wfs bash
 *Note: This will connect you to the container as `root@` the **containerID** you provide.*
 
 
-##Verify that the o2-wmts service is running correctly
+##Verify that the o2-wfs service is running correctly
 
 You will need to get your Docker host IP:
 ```
