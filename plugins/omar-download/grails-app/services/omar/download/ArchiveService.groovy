@@ -24,15 +24,11 @@ class ArchiveService {
             fileName = "omar_images.zip"
         }
 
-        response.setContentType("application/octet-stream")
 
         if (cmd.validate())
         {
             try
             {
-                response.setHeader("Content-Disposition", "attachment;filename=${fileName}");
-                response.setHeader("Set-Cookie", "fileDownload=true; path=/");
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
                 if ((cmd.type.toLowerCase() == "download") || (cmd.type == null))
                 {
@@ -41,6 +37,10 @@ class ArchiveService {
                     {
                         if(cmd.fileGroups.size()>=1)
                         {
+                            response.setContentType("application/octet-stream")
+                            response.setHeader("Content-Disposition", "attachment;filename=${fileName}");
+                            response.setHeader("Set-Cookie", "fileDownload=true; path=/");
+                            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                             if(cmd.fileGroups.size()==1)
                             {
                                 HashMap listOfFilesAsMaps = cmd.fileGroups

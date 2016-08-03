@@ -289,7 +289,7 @@
                                                            "zipFileName": "",
                                                            "archiveOptions":
                                                            {
-                                                               "type": "tgz"
+                                                               "type": "zip"
                                                            },
                                                            "fileGroups":
                                                            [
@@ -306,13 +306,9 @@
                                  dataType: "text",
                                  contentType: "plain/text",
                                  data:{fileInfo:JSON.stringify(data)},
-                                 successCallback: function (url) { }//alert('File download good!');}
+                                 successCallback: function (url) { },//alert('File download good!');}
+                                 failCallback: function(responseHtml, url, error) {alert("Unable to download with URL = " + url)}
                              })
-                             //.done(function () {
-                                //alert('File download good!');
-                             // })
-                            // .error(function () { alert('File download failed!'); });
-
 
                            //$http.post(downloadManager, data, null)
                            //.then(function(response){
