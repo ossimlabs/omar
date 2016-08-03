@@ -53,3 +53,60 @@ $ omar/build_scripts/docker/docker-compose.yml
 ```
 ## Modifying the docker-compose.yml
 You will also need to modify the *environment* section of the **o2-wfs** service within the [Docker Compose File for O2 Services](docker-common/#docker-compose-file-for-o2-services) with your local development parameters.
+
+Run docker compose up to build/run the images and containers:
+```
+$ docker-compose up
+```
+
+The **o2-wfs** service should now be running in a new container.
+
+To list all running containers:
+
+```
+docker ps
+```
+
+Output example:
+
+CONTAINER ID | IMAGE | COMMAND | CREATED | PORTS | NAMES
+------------ | ------------- | ------------ | ------------ | ------------ | ------------
+908c7ee6d152 | radiantbluetechnologies/o2-wfs  | "/bin/sh -c 'yum -y i" | 17 seconds ago | 0.0.0.0:4998->8080/tcp | o2-wmts
+
+To list all containers (even those not running):
+
+```
+docker ps -a
+```
+
+Attaching to the container via bash:
+
+```
+docker exec -it o2-wfs bash
+```
+*Note: This will connect you to the container as `root@` the **containerID** you provide.*
+
+
+##Verify that the o2-wmts service is running correctly
+
+You will need to get your Docker host IP:
+```
+$ docker-machine ip
+```
+
+Look for the running radiantbluetechnologies/o2-wfs container.  It will have an associated port number.
+
+#### Health Check
+Using your Docker host IP and port from the commands above, test the **o2-wfs** service **health** status in a browser:
+```
+http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/health
+```
+You should receive:
+`{"status":"UP"}`
+
+#### API
+Access the **API** Page:
+```
+http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/api
+```
+The API page allows you to test various parts of the **o2-wfs** service.  View the [WMTS Service](../install-guide/wfs-app.md#Installation) install guide for additional information on using the service.
