@@ -296,72 +296,8 @@
                 );
             }
         };
-        vm.downloadFiles = function(imageId){
-            var downloadManager = AppO2.APP_CONFIG.params.downloadApp.baseUrl
-            var dataManager = AppO2.APP_CONFIG.params.stagerApp.baseUrl
-            dataManager = dataManager+"/dataManager/getRasterFiles?id="+imageId
-            downloadManager = downloadManager+"/archive/download"
-
-                $http({
-                    method: 'GET',
-                    url: dataManager
-                })
-                .then(function(response) {
-
-  //alert(response.data.results.length)
-                    if(response.data.results.length > 0)
-                    {
-                       var data =                  {
-                                                       "type":"Download",
-                                                       "zipFileName": "",
-                                                       "archiveOptions":
-                                                       {
-                                                           "type": "zip"
-                                                       },
-                                                       "fileGroups":
-                                                       [
-                                                           {
-                                                               "rootDirectory":"",
-                                                               "files":[""]
-                                                           }
-                                                       ]
-                                                   }
-                       data.fileGroups[0].files = response.data.results
-
-                      $.fileDownload(downloadManager,{
-                             httpMethod: "POST",
-                             dataType: "text",
-                             contentType: "plain/text",
-                             data:{fileInfo:JSON.stringify(data)},
-                             successCallback: function (url) { },//alert('File download good!');}
-                             failCallback: function(responseHtml, url, error) {alert("Unable to download with URL = " + url)}
-                         })
-
-                       //$http.post(downloadManager, data, null)
-                       //.then(function(response){
-                             //alert("WE ARE DOING SOME DOWNLOADING")
-                       //},
-                       //function error(response)
-                       //{
-                       //    alert("ERROR DOWNLOADING!!!!!!!!!" + JSON.stringify(response))
-                       //}
-                       //)
-                    }
-                   //alert(JSON.stringify(response));
-                   // var data;
-                   // data = response;  // callback response from Predictive IO controller
-                   //console.log('FILES response', data);
-
-                },
-                function error(response) {
-
-                    console.log('failed', response); // supposed to have: data, status, headers, config, statusText
-
-                });
-
-  //                alert(downloadManager);
-        }
     }
+
     // Handles the selected image modal obj
     function ImageModalController( $uibModalInstance, imageSpaceService, beNumberService, $scope, imageObj )
     {
