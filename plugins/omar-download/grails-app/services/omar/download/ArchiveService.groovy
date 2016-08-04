@@ -24,15 +24,12 @@ class ArchiveService {
             fileName = "omar_images.zip"
         }
 
-
         if (cmd.validate())
         {
             try
             {
-
                 if ((cmd.type.toLowerCase() == "download") || (cmd.type == null))
                 {
-
                     if((cmd.archiveOptions["type"].toString().toLowerCase() == "zip") || (cmd.archiveOptions["type"] == null))
                     {
                         if(cmd.fileGroups.size()>=1)
