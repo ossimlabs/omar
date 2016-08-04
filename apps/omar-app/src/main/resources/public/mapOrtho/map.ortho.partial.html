@@ -3,8 +3,8 @@
         <div class="row">
             <!-- TODO: style in styles.css w/media queries for the map height-->
             <div class="col-md-12">
-                <div id="mapButtons" class="map-buttons">
-                    <a ng-href="" target="_blank">
+                <div id="mapButtons" class="map-buttons" ng-controller="DownloadController as download">
+                    <a ng-href="" target="_blank" ng-click="download.downloadFiles(image.properties.id)">
                         <i class="fa fa-download fa-border text-primary"
                            style=""
                            tooltip-placement="left-bottom"
