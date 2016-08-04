@@ -1,10 +1,12 @@
-(function(){
+(function ()
+{
     'use strict';
     angular
-        .module('omarApp')
-        .controller('MapOrthoController', ['$scope', '$state', '$stateParams', '$http', MapOrthoController]);
+        .module( 'omarApp' )
+        .controller( 'MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'beNumberService', MapOrthoController] );
 
-    function MapOrthoController($scope, $state, $stateParams, $http){
+    function MapOrthoController( $scope, $state, $stateParams, $http, $location, beNumberService )
+    {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -23,7 +25,8 @@
             mapOrthoView,
             imageLayers,
             imageLayerIds,
-            vectorLayer,
+            footprintLayer,
+            placemarkLayer,
             recommendImageId;
 
         var wfsRequest = {
@@ -34,19 +37,71 @@
             cql: '',
         };
 
-        imageLayerIds = $stateParams.layers.split(",");
+        imageLayerIds = $stateParams.layers.split( "," );
 
         //console.log('imageLayerIds', imageLayerIds);
 
-        vectorLayer = new ol.layer.Vector({
-            opacity: 0.0,
+        footprintLayer = new ol.layer.Vector( {
+            visible: false,
+            title: 'Image Footprints',
+            opacity: 1.0,
+            source: new ol.source.Vector(),
+            style: new ol.style.Style( {
+                fill: new ol.style.Fill( {
+                    color: 'rgba(0, 0, 0, 0)'
+                } ),
+                stroke: new ol.style.Stroke( {
+                    width: 3.0,
+                    color: 'rgba(192, 192, 192, 0.6)'
+                } )
+            } )
+        } );
+
+        placemarkLayer = new ol.layer.Vector( {
+            title: 'Placemarks',
             source: new ol.source.Vector()
-        });
 
-        getImageBounds(imageLayerIds);
+        } );
 
-        function getImageBounds(imageIds){
+        $scope.$on( 'placemarks: updated', function ( event, data )
+        {
+            setupPlacemarkLayer( data );
+        } );
 
+        var viewParams = $location.search();
+
+        if ( viewParams.lat && viewParams.lon && viewParams.resolution )
+        {
+            viewParams.lat = parseFloat( viewParams.lat );
+            viewParams.lon = parseFloat( viewParams.lon );
+            viewParams.resolution = parseFloat( viewParams.resolution );
+
+            // console.log( 'viewParams', viewParams );
+
+            getImageBounds( imageLayerIds, true );
+
+            mapOrthoView = new ol.View( {
+                center: [viewParams.lon, viewParams.lat],
+                projection: 'EPSG:4326',
+                resolution: viewParams.resolution
+            } );
+        }
+        else
+        {
+            getImageBounds( imageLayerIds );
+
+            mapOrthoView = new ol.View( {
+                center: [0, 0],
+                projection: 'EPSG:4326',
+                zoom: 2,
+                minZoom: 3,
+                maxZoom: 18
+            } );
+        }
+
+
+        function getImageBounds( imageIds, flag )
+        {
             wfsRequest.cql = 'id in(' + imageIds + ')';
 
             //console.log('wfsRequest.cql', wfsRequest.cql);
@@ -62,98 +117,113 @@
                 "&filter=" + wfsRequest.cql +
                 "&outputFormat=" + wfsRequest.outputFormat;
 
-            var url = encodeURI(wfsUrl);
+            var url = encodeURI( wfsUrl );
 
-            $http({
+            $http( {
                 method: 'GET',
                 url: url
-            })
-            .then(function(response) {
+            } ).then( function ( response )
+            {
 
                 var data;
                 data = response.data.features;
+
+                var geoms = [];
+
                 //console.log('mapOrtho WFS data: ', data);
                 //console.log('data.length', data.length);
 
                 // If there is more than one image we can get the extent
-                // of the vectorLayer to set the maps extent
-                if (data.length > 1){
+                // of the footprintLayer to set the maps extent
+                if ( data.length > 1 )
+                {
+                    // Add each image to the footprintLayer
+                    angular.forEach( data, function ( image )
+                    {
+                        var geom = new ol.geom.MultiPolygon( image.geometry.coordinates );
 
-                    // Add each image to the vectorLayer
-                    angular.forEach(data, function(image){
+                        geoms.push( geom );
 
-                        var imageFeature = new ol.Feature({
-                            geometry: new ol.geom.MultiPolygon(image.geometry.coordinates)
-                        });
+                        var imageFeature = new ol.Feature( {
+                            geometry: geom
+                        } );
 
-                        vectorLayer.getSource().addFeature(imageFeature);
+                        footprintLayer.getSource().addFeature( imageFeature );
 
-                    });
+                    } );
 
 
-                    var vectorLayerExtent = vectorLayer.getSource().getExtent();
+                    if ( !flag )
+                    {
+                        var footprintLayerExtent = footprintLayer.getSource().getExtent();
 
-                    // Sets the map's extent to all of the images in the vectorLayer
-                    mapOrtho.getView().fit(vectorLayerExtent, mapOrtho.getSize());
+                        // Sets the map's extent to all of the images in the footprintLayer
+                        mapOrtho.getView().fit( footprintLayerExtent, mapOrtho.getSize() );
 
+                    }
                 }
                 // If there is only one image we need to use the extent of the feature (image)
-                // in the vectorLayer
-                else {
+                // in the footprintLayer
+                else
+                {
+                    var geom = new ol.geom.MultiPolygon( data[0].geometry.coordinates );
 
-                    var imageFeature = new ol.Feature({
-                        geometry: new ol.geom.MultiPolygon(data[0].geometry.coordinates)
-                    });
+                    var imageFeature = new ol.Feature( {
+                        geometry: geom
+                    } );
 
-                    vectorLayer.getSource().addFeature(imageFeature);
+                    geoms.push( geom );
 
-                    var featureExtent = imageFeature.getGeometry().getExtent();
+                    if ( !flag )
+                    {
+                        var featureExtent = imageFeature.getGeometry().getExtent();
 
-                    // Moves the map to the extent of the one image
-                    mapOrtho.getView().fit(featureExtent, mapOrtho.getSize());
 
+                        // Moves the map to the extent of the one image
+                        mapOrtho.getView().fit( featureExtent, mapOrtho.getSize() );
+                    }
                 }
 
-            });
+                var totalGeoms = new ol.geom.GeometryCollection( geoms );
 
+                if ( AppO2.APP_CONFIG.params.misc.placemarks )
+                {
+                    beNumberService.getBeData( totalGeoms );
+                }
+            } );
         }
 
-        imageLayers = new ol.layer.Tile({
+        imageLayers = new ol.layer.Tile( {
+            title: 'Images',
             opacity: 1.0,
             source: new ol.source.TileWMS( {
                 //url: '/o2/wms?',
                 url: AppO2.APP_CONFIG.params.wms.baseUrl,
                 params: {
                     'LAYERS': 'omar:raster_entry',
-                    'FILTER' : "in(" + imageLayerIds + ")",
+                    'FILTER': "in(" + imageLayerIds + ")",
                     'TILED': true,
                     'VERSION': '1.1.1'
                 }
             } ),
             name: imageLayerIds
-        });
+        } );
 
-        mapOrthoView = new ol.View({
-            center: [0, 0],
-            projection: 'EPSG:4326',
-            zoom: 2,
-            minZoom: 3,
-            maxZoom: 18
-        });
 
-        var mousePositionControl = new ol.control.MousePosition({
-            coordinateFormat: function(coord) {
+        var mousePositionControl = new ol.control.MousePosition( {
+            coordinateFormat: function ( coord )
+            {
 
                 // Get DD
-                document.getElementById("dd").innerHTML = coord[1].toFixed(6) + ', ' + coord[0].toFixed(6);
+                document.getElementById( "dd" ).innerHTML = coord[1].toFixed( 6 ) + ', ' + coord[0].toFixed( 6 );
 
                 // Get DMS
-                var dmsPoint = new GeoPoint(coord[1], coord[0]);
-                document.getElementById("dms").innerHTML = dmsPoint.getLonDeg() + ', ' + dmsPoint.getLatDeg();
+                var dmsPoint = new GeoPoint( coord[1], coord[0] );
+                document.getElementById( "dms" ).innerHTML = dmsPoint.getLonDeg() + ', ' + dmsPoint.getLatDeg();
 
                 // Get MGRS
-                var mgrsPoint = mgrs.forward(coord, 5); // 1m accuracy
-                document.getElementById("mgrs").innerHTML = mgrsPoint;
+                var mgrsPoint = mgrs.forward( coord, 5 ); // 1m accuracy
+                document.getElementById( "mgrs" ).innerHTML = mgrsPoint;
 
                 // Get DD
                 //return ol.coordinate.format(coord, coordTemplate, 4);
@@ -165,115 +235,217 @@
             className: 'custom-mouse-position',
             //target: document.getElementById('mouse-position'),
             undefinedHTML: '&nbsp;'
-        });
+        } );
 
-        var interactions = ol.interaction.defaults({altShiftDragRotate:true});
+        var interactions = ol.interaction.defaults( {altShiftDragRotate: true} );
 
-        var baseMapGroup = new ol.layer.Group({
+        var baseMapGroup = new ol.layer.Group( {
             'title': 'Base maps',
             layers: []
-        });
+        } );
 
         // Takes a map layer obj, and adds
         // the layer to the map layers array.
-        function addBaseMapLayers(layerObj){
+        function addBaseMapLayers( layerObj )
+        {
 
-          var baseMapLayer;
-          if (layerObj.layerType.toLowerCase() === 'tile'){
+            var baseMapLayer;
+            if ( layerObj.layerType.toLowerCase() === 'tile' )
+            {
 
-            var baseMapLayer = new ol.layer.Tile({
-                title: layerObj.title,
-                type: 'base',
-                visible: layerObj.options.visible,
-                source: new ol.source.TileWMS({
-                    url: layerObj.url,
-                    params: {
-                       'VERSION': '1.1.1',
-                       'LAYERS': layerObj.params.layers,
-                       'FORMAT': layerObj.params.format
-                   }
-               }),
-                name: layerObj.title
-            });
+                var baseMapLayer = new ol.layer.Tile( {
+                    title: layerObj.title,
+                    type: 'base',
+                    visible: layerObj.options.visible,
+                    source: new ol.source.TileWMS( {
+                        url: layerObj.url,
+                        params: {
+                            'VERSION': '1.1.1',
+                            'LAYERS': layerObj.params.layers,
+                            'FORMAT': layerObj.params.format
+                        }
+                    } ),
+                    name: layerObj.title
+                } );
 
-          }
+            }
 
-          if (baseMapLayer != null) {
+            if ( baseMapLayer != null )
+            {
 
-            // Add layer(s) to the layerSwitcher control
-            baseMapGroup.getLayers().push(baseMapLayer);
+                // Add layer(s) to the layerSwitcher control
+                baseMapGroup.getLayers().push( baseMapLayer );
 
-          }
+            }
 
         }
 
         // Map over each layer item in the layerList array
         //AppO2.APP_CONFIG.params.baseMaps.layerList.map(addBaseMapLayers);
-        AppO2.APP_CONFIG.openlayers.baseMaps.map(addBaseMapLayers);
+        AppO2.APP_CONFIG.openlayers.baseMaps.map( addBaseMapLayers );
 
-        mapOrtho = new ol.Map({
-            layers:
-                [
-                  baseMapGroup,
-                  imageLayers,
-                  vectorLayer
-                ],
-            controls: ol.control.defaults().extend([
+        mapOrtho = new ol.Map( {
+            layers: [
+                baseMapGroup,
+                new ol.layer.Group( {
+                    title: 'Overlays',
+                    layers: [
+                        imageLayers,
+                        footprintLayer,
+                        placemarkLayer
+                    ]
+                } )
+            ],
+            controls: ol.control.defaults().extend( [
                 new ol.control.FullScreen(),
                 new ol.control.ScaleLine()
-            ]).extend([mousePositionControl]),
+            ] ).extend( [mousePositionControl] ),
             interactions: interactions,
-            target: 'mapOrtho',
+            target: document.getElementById( 'mapOrtho' ),
             view: mapOrthoView
-        });
+        } );
 
-        var layerSwitcher = new ol.control.LayerSwitcher({
+        setupPopupLayer();
+
+        function setupPopupLayer()
+        {
+
+            var element = document.getElementById( 'popup' );
+
+            var popup = new ol.Overlay( {
+                element: element,
+                positioning: 'bottom-center',
+                stopEvent: false,
+                offset: [0, -50]
+            } );
+            mapOrtho.addOverlay( popup );
+
+            // display popup on click
+            mapOrtho.on( 'click', function ( evt )
+            {
+
+                var feature = mapOrtho.forEachFeatureAtPixel( evt.pixel, function ( feature )
+                {
+                    return feature;
+                } );
+
+                if ( feature )
+                {
+                    var coordinates = feature.getGeometry().getCoordinates();
+
+                    popup.setPosition( coordinates );
+
+                    var name = feature.get( AppO2.APP_CONFIG.params.misc.placemarks.columnName );
+
+                    $( element ).attr( 'data-placement', 'top' );
+                    // $( element ).attr( 'data-original-title', feature.get( 'title' ) );
+                    $( element ).attr( 'data-content', name );
+                    $( element ).attr( 'data-html', true );
+                    //now call bootstrap popover function
+                    $( element ).popover( 'show' );
+                }
+                else
+                {
+                    $( element ).popover( 'destroy' );
+                }
+            } );
+
+            // change mouse cursor when over marker
+            mapOrtho.on( 'pointermove', function ( e )
+            {
+                if ( e.dragging )
+                {
+                    $( element ).popover( 'destroy' );
+                    return;
+                }
+                var pixel = mapOrtho.getEventPixel( e.originalEvent );
+                var hit = mapOrtho.hasFeatureAtPixel( pixel );
+
+                if ( mapOrtho.getTarget().style )
+                {
+                    mapOrtho.getTarget().style.cursor = hit ? 'pointer' : '';
+                }
+
+            } );
+        }
+
+        function setupPlacemarkLayer( placemarks )
+        {
+            // console.log( 'placemarks:', placemarks );
+
+            var iconStyle = new ol.style.Style( {
+                image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
+                    anchor: [0.5, 46],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    src: vm.baseServerUrl + '/' + AppO2.APP_CONFIG.params.misc.icons.greenMarker
+                }) )
+            } );
+
+            placemarks.map( function ( placemark )
+            {
+                var data = placemark.properties;
+
+                data.geometry = new ol.geom.Point( placemark.geometry.coordinates );
+
+                var iconFeature = new ol.Feature( data );
+
+                iconFeature.setStyle( iconStyle );
+                placemarkLayer.getSource().addFeature( iconFeature );
+            } );
+        }
+
+        var layerSwitcher = new ol.control.LayerSwitcher( {
             tipLabel: 'Layers' // Optional label for button
-        });
-        mapOrtho.addControl(layerSwitcher);
+        } );
+        mapOrtho.addControl( layerSwitcher );
 
-        function getRecommendedImages(imageId){
+        function getRecommendedImages( imageId )
+        {
 
             var pioUrl = AppO2.APP_CONFIG.params.predio.baseUrl + 'getItemRecommendations?item=' + imageId + '&num=20';
-            $http({
+            $http( {
                 method: 'GET',
                 url: pioUrl
-            })
-            .then(function(response) {
-                var data;
-                data = response;  // callback response from Predictive IO service
-                //console.log(data);
-                formatRecommendedList(data);
+            } )
+                .then( function ( response )
+                {
+                    var data;
+                    data = response;  // callback response from Predictive IO service
+                    //console.log(data);
+                    formatRecommendedList( data );
 
-            });
+                } );
 
         }
 
         vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
-        console.log(vm.pioAppEnabled)
+        console.log( vm.pioAppEnabled )
         //console.log('PIO enabled: ', vm.pioAppEnabled);
-        if (vm.pioAppEnabled) {
+        if ( vm.pioAppEnabled )
+        {
 
             //console.log(vm.pioAppEnabled);
             // first time we will use the the first item in query string param
-            getRecommendedImages(imageLayerIds[0]);
+            getRecommendedImages( imageLayerIds[0] );
 
         }
 
         // // first time we will use the the first item in query string param
         // getRecommendedImages(imageLayerIds[0]);
 
-        function formatRecommendedList(data) {
-
+        function formatRecommendedList( data )
+        {
             var wfsImagesList = [];
-            data.data.itemScores.filter(function(el){
+            data.data.itemScores.filter( function ( el )
+            {
 
                 //console.log(el);
-                wfsImagesList.push(el.item);
+                wfsImagesList.push( el.item );
 
-            });
+            } );
 
-            var wfsImageString = wfsImagesList.join(",");
+            var wfsImageString = wfsImagesList.join( "," );
 
             var wfsRequest = {
                 typeName: 'omar:raster_entry',
@@ -298,39 +470,40 @@
                 "&filter=" + wfsRequest.cql +
                 "&outputFormat=" + wfsRequest.outputFormat;
 
-            var url = encodeURI(wfsUrl);
+            var url = encodeURI( wfsUrl );
 
-            $http({
+            $http( {
                 method: 'GET',
                 url: url
-            })
-            .then(function(response) {
+            } ).then( function ( response )
+            {
                 var data;
                 data = response.data.features;
                 //console.log('data from wfs', data);
 
                 vm.recommendedImages = data;
                 vm.loading = false;
-            });
+            } );
 
         }
 
-        vm.switchMapImage = function(id) {
+        vm.switchMapImage = function ( id )
+        {
 
             //console.log(id);
 
             //Set url parameter for the layer
-            $state.transitionTo('mapOrtho', {layers: id}, { notify: false });
+            $state.transitionTo( 'mapOrtho', {layers: id}, {notify: false} );
 
             //Update the map parameters with the new image db id
             var params = imageLayers.getSource().getParams();
             //console.log('params: ', params);
             params.FILTER = "in(" + id + ")"
-            imageLayers.getSource().updateParams(params);
+            imageLayers.getSource().updateParams( params );
             //console.log('params: ', params);
 
             //Execute call to the wfs service to get the bounds
-            getImageBounds(id);
+            getImageBounds( id );
 
             // TODO: Call predio to update the recommended images
             // Need to fix the bug with the image elements not lining up properly on
