@@ -7,16 +7,17 @@
                 .title}}</span></h5>
         </div>
         <div class="col-md-3 text-right">
-            <a ng-href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body={{vm.o2baseUrlModal}}/#{{vm.o2contextPathModal}}/mapOrtho?layers={{vm.selectedImage.properties.id}}" target="_blank">
+            <a ng-href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body={{vm.o2baseUrlModal}}/#{{vm.o2contextPathModal}}/mapOrtho?layers={{vm.selectedImage.properties.id}}"
+               target="_blank">
                 <i class="fa fa-envelope fa-2x"
                    style="cursor: pointer;"
                    tooltip-placement="bottom"
                    uib-tooltip="Share this image via e-mail"></i>&nbsp;&nbsp;
             </a>
             <!--<i class="fa fa-plus-circle fa-2x"-->
-               <!--style="cursor: pointer;"-->
-               <!--tooltip-placement="bottom"-->
-               <!--uib-tooltip="Add this image to the Images Cart"></i>&nbsp;&nbsp;-->
+            <!--style="cursor: pointer;"-->
+            <!--tooltip-placement="bottom"-->
+            <!--uib-tooltip="Add this image to the Images Cart"></i>&nbsp;&nbsp;-->
             <i class="fa fa-close fa-2x"
                ng-click="$close()"
                style="cursor: pointer;"
@@ -37,18 +38,20 @@
                                     popover-title="{{vm.imageMapHelpPopover.title}}" type="button"
                                     class="btn btn-warning btn-xs pull-right"><i
                                     class="fa fa-question-circle"
-                                    ></i>&nbsp;&nbsp;Image Help
+                            ></i>&nbsp;&nbsp;Image Help
                             </button>
                             <script type="text/ng-template" id="imageMapHelpTemplate.html">
                                 <div></div>
                                 <div class="form-group">
                                     <label>Hotkeys:</label>
-                                    <p class="text-warning"><kbd>{{vm.imageMapHelpPopover.zoomHotkey}}</kbd> left drag to zoom
+                                    <p class="text-warning"><kbd>{{vm.imageMapHelpPopover.zoomHotkey}}</kbd> left drag
+                                        to zoom
                                     </p>
                                     <p class="text-warning"><kbd>{{vm.imageMapHelpPopover.rotateHotkey}}</kbd> to rotate
                                         the map</p>
                                     <p class="text-warning"><kbd>N</kbd> button rotates the map North</p>
-                                    <p class="text-warning"><kbd>U</kbd> button rotates the map to "<em>Up is Up</em>"</p>
+                                    <p class="text-warning"><kbd>U</kbd> button rotates the map to "<em>Up is Up</em>"
+                                    </p>
                                     <p class="text-warning"><kbd><i class="fa fa-arrows-h"></i></kbd> button toggles the
                                         map
                                         to and from fullscreen mode</p>
@@ -71,7 +74,8 @@
                         <div class="col-md-6">
                             <h4>Ingest Date:&nbsp;&nbsp;<span class="text-success"><span
                                     ng-show="!vm.selectedImage.properties.ingest_date">Unknown
-                                </span>{{vm.selectedImage.properties.ingest_date| date:'MM/dd/yyyy HH:mm:ss:sss'}}</span></h4>
+                                </span>{{vm.selectedImage.properties.ingest_date| date:'MM/dd/yyyy HH:mm:ss:sss'}}</span>
+                            </h4>
                         </div>
                     </div>
                 </uib-tab>
@@ -86,7 +90,8 @@
                                 </li>
                                 <li>
                                     Mission:&nbsp;
-                                    &nbsp;<span class="text-success"><span ng-show="!vm.selectedImage.properties.mission_id">Unknown
+                                    &nbsp;<span class="text-success"><span
+                                        ng-show="!vm.selectedImage.properties.mission_id">Unknown
                 </span>{{vm.selectedImage.properties.mission_id}}</span>
                                 </li>
                                 <li>
@@ -244,17 +249,38 @@
                         </div>
                     </div>
                 </uib-tab>
-                <uib-tab heading="BE" ng-click="vm.loadBeData()">
-                  <div>
-                    <br>
-                    <p>beData: {{vm.beData}}</p>
-                  </div>
+                <uib-tab ng-show="vm.beLookupEnabled" heading="BE" ng-click="vm.loadBeData()">
+                    <div>
+                        <br>
+                        <table class="table table-striped the-table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="foo in vm.beData">
+                                <td>
+                                    <a href="{{vm.o2baseUrlModal}}/#/mapOrtho?layers={{vm.selectedImage.properties.id}}&lat={{foo.geometry.coordinates[1]}}&lon={{foo.geometry.coordinates[0]}}&resolution={{vm.calcRes()}}"
+                                       target="_blank">
+                                        {{foo.properties[vm.placemarkConfig.columnName]}}
+                                    </a>
+                                </td>
+                                <td>{{foo.geometry.coordinates[1]}}</td>
+                                <td>{{foo.geometry.coordinates[0]}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--<p>beData: {{vm.beData}}</p>-->
+                    </div>
 
                 </uib-tab>
                 <!--<uib-tab heading="Recommended Images">-->
-                    <!--<div>-->
+                <!--<div>-->
 
-                    <!--</div>-->
+                <!--</div>-->
                 <!--</uib-tab>-->
             </uib-tabset>
         </div>

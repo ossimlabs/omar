@@ -8,6 +8,7 @@ include 'omar-core',
 		'omar-wmts',
 		'omar-wfs',
 		'omar-oms',
+		'omar-opir',
 		'omar-predio',
 		'omar-raster',
 		'omar-hibernate-spatial',
@@ -25,6 +26,7 @@ include 'omar-core',
 		'wms-app',
 		'all-app',
 		'wmts-app',
+		'opir-app',
 		'pki-app',
 		'swipe-app',
 		'stager-app',
@@ -41,6 +43,7 @@ project(':omar-wfs').projectDir = 'plugins/omar-wfs' as File
 project(':omar-wms').projectDir = 'plugins/omar-wms' as File
 project(':omar-wmts').projectDir = 'plugins/omar-wmts' as File
 project(':omar-oms').projectDir = 'plugins/omar-oms' as File
+project(':omar-opir').projectDir = 'plugins/omar-opir' as File
 project(':omar-predio').projectDir = 'plugins/omar-predio' as File
 project(':omar-raster').projectDir = 'plugins/omar-raster' as File
 project(':omar-hibernate-spatial').projectDir = 'plugins/omar-hibernate-spatial' as File
@@ -64,6 +67,7 @@ project(':swipe-app').projectDir = 'apps/swipe-app' as File
 project(':pki-app').projectDir = 'apps/pki-app' as File
 project(':stager-app').projectDir = 'apps/stager-app' as File
 project(':predio-app').projectDir = 'apps/predio-app' as File
+project(':opir-app').projectDir = 'apps/opir-app' as File
 project(':ossimtools-app').projectDir = 'apps/ossimtools-app' as File
 project(':jpip-app').projectDir = 'apps/jpip-app' as File
 project(':avro-app').projectDir = 'apps/avro-app' as File

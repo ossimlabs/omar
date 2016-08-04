@@ -64,6 +64,9 @@ The directory should have a YAML file:
 $ omar/build_scripts/docker/docker-compose.yml
 ```
 
+## Modifying the docker-compose.yml
+You will also need to modify the *environment* section of the **o2-wmts** service within the [Docker Compose File for O2 Services](docker-common/#docker-compose-file-for-o2-services) with your local development parameters.
+
 Run docker compose up to build/run the images and containers:
 ```
 $ docker-compose up

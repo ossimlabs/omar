@@ -3,9 +3,6 @@
         <div class="row">
             <!-- TODO: style in styles.css w/media queries for the map height-->
             <div class="col-md-12">
-                <div id="dd" class="map-cord-div"></div>
-                <div id="dms" class="map-cord-div"></div>
-                <div id="mgrs" class="map-cord-div"></div>
                 <div id="mapButtons" class="map-buttons">
                     <a ng-href="" target="_blank">
                         <i class="fa fa-download fa-border text-primary"
@@ -14,10 +11,16 @@
                            uib-tooltip="Download and archive files"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                     </a>
                 </div>
+                <div id="mapOrtho" class="map">
+                    <div id="popup"></div>
+                    <div id="dd" class="map-cord-div"></div>
+                    <div id="dms" class="map-cord-div"></div>
+                    <div id="mgrs" class="map-cord-div"></div>
+                </div>
             </div>
         </div>
         <br>
-        <div ng-show="{{ortho.pioAppEnabled}}"class="row">
+        <div ng-show="{{ortho.pioAppEnabled}}" class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -35,31 +38,33 @@
                                      uib-tooltip="{{image.properties.title}}"
                                      alt="Some text here...">
                                 <div class="text-left">
-                                    <p><small>
-                                        <!--<strong>Image ID:&nbsp;</strong>-->
-                                        <!--<span class="text-success">-->
-                                        <!--<span ng-show="!image.properties.title">Unknown</span>-->
-                                        <!--{{image.properties.title}}</span><br>-->
-                                        <!--</span>-->
-                                        <strong>Acquired:&nbsp;</strong>
+                                    <p>
+                                        <small>
+                                            <!--<strong>Image ID:&nbsp;</strong>-->
+                                            <!--<span class="text-success">-->
+                                            <!--<span ng-show="!image.properties.title">Unknown</span>-->
+                                            <!--{{image.properties.title}}</span><br>-->
+                                            <!--</span>-->
+                                            <strong>Acquired:&nbsp;</strong>
                                             <span class="text-success" style="font-size: 12px">
                                                 <span ng-show="!image.properties.acquisition_date">Unknown</span>
                                                 {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}<br>
                                             </span>
 
-                                        <strong>Mission:&nbsp;</strong>
+                                            <strong>Mission:&nbsp;</strong>
                                             <span class="text-success">
                                                 <span ng-show="!image.properties.mission_id">Unknown</span>
                                                 {{image.properties.mission_id}}</span><br>
-                                        </span>
+                                            </span>
 
-                                        <strong>Sensor:&nbsp;</strong>
+                                            <strong>Sensor:&nbsp;</strong>
                                             <span class="text-success">
                                                 <span ng-show="!image.properties.sensor_id">Unknown</span>
                                                 {{image.properties.sensor_id}}
                                             </span>
 
-                                    </small></p>
+                                        </small>
+                                    </p>
                                 </div>
                             </div>
                         </slick>
@@ -69,4 +74,3 @@
         </div>
     </div>
 </div>
-

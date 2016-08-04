@@ -217,7 +217,7 @@ omar:
       enabled: true
     predio:
       baseUrl: http://localhost:8081/predio/
-      enabled: true
+      enabled: false
     twofishes:
       baseUrl: http://localhost:8085/twofish
       proxy: /twoFishesProxy
@@ -239,6 +239,12 @@ omar:
     misc:
       icons:
         greenMarker: assets/search_marker_green.png
+      placemarks:
+        tableName: omar:cities
+        columnName: CITY_NAME
+        geomName: geom
+        maxResults: 100
+
 
 ---
 classificationBanner:
@@ -253,3 +259,4 @@ classificationBanner:
 ######### Example for External logback config settings in YAML
 # logging:
 #   config: <log back config location>
+

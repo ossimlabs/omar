@@ -118,10 +118,10 @@ environments:
 ---
 omar:
   wmts:
-    wfsUrl: http://localhost:8080/wfs
-    wmsUrl: http://localhost:8080/wms
+    wfsUrl: http://localhost:8081/wfs
+    wmsUrl: http://localhost:8081/wms
     legacyWmsFlag: false
     footprints:
-      url: "http://localhost:8080/footprints/getFootprints"
+      url: "http://localhost:8081/footprints/getFootprints"
       layers: "omar:raster_entry"
       styles: "byFileType"
