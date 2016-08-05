@@ -1,7 +1,10 @@
 package omar.openlayers
 
 import grails.plugins.*
+import groovy.util.logging.Slf4j
+import grails.util.Environment
 
+@Slf4j
 class OmarOpenlayersGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
