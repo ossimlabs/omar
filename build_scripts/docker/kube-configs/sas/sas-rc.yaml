@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: sas
+  labels:
+    app: sas
+    name: sas
+spec:
+  replicas: 3
+  selector:
+    app: sas
+  template:
+    metadata:
+      name: sas
+      labels:
+        app: sas
+    spec:
+      containers:
+      - name: o2-sqs
+        env:
+        - name: AWSDNS
+          value: sqs.us-east-1.amazonaws.com
+        - name: AWSQUEUEPATH
+          value: 320588532383/avro-tst
+        - name: WAIT_TIME_SECONDS
+          value: "20"
+        - name: NUMBER_OF_MESSAGES
+          value: "1"
+        - name: POLLING_INTERVAL_SECONDS
+          value: "10"
+        - name: DESTINATION_TYPE
+          value: stdout
+        - name: DESTINATION_POST_END_POINT
+          value: o2-avro
+        - name: DESTINATION_POST_END_POINT_PORT
+          value: :8080
+        - name: DESTINATION_POST_FIELD
+          value: message
+        image: radiantbluetechnologies/o2-sqs
+        ports:
+        - containerPort: 8080
+          name: javaport
+      - name: o2-stager
+        env:
+        - name: DBHOST
+          value: o2-db
+        - name: DBPORT
+          value: :5432
+        - name: DBNAME
+          value: omar_prod
+        - name: DBUSER
+          value: postgres_user
+        - name: DBPASS
+          value: abc123 
+        image: radiantbluetechnologies/o2-stager
+        ports:
+        - containerPort: 8080
+          name: javaport
+      - name: o2-avro
+        env:
+        - name: DBHOST
+          value: o2-db
+        - name: DBPORT
+          value: :5432
+        - name: DBNAME
+          value: omar_prod
+        - name: DBUSER
+          value: postgres_user
+        - name: DBPASS
+          value: abc123
+        - name: ADDRASTERENDPOINTURL
+          value: o2-stager
+        - name: ADDRASTERENDPOINTPORT
+          value: :8080
+        image: radiantbluetechnologies/o2-avro
+        ports:
+        - containerPort: 8080
+          name: javaport
+      - name: o2db
+        env:
+        - name:  POSTGRES_PASSWORD
+          value: abc123
+        - name: POSTGRES_USER
+          value: postgres_user
+        - name: POSTGRES_DB
+          value: omar_prod
+        image: postgres:latest 
+        ports:
+        - containerPort: 5432
+          name: postgresport
+
