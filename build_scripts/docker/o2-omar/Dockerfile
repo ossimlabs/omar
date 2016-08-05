@@ -17,11 +17,13 @@ RUN yum -y install o2-omar-app && yum -y clean all
 ADD omar-app.yml /usr/share/omar/omar-app/omar-app.yml
 ENV DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
-    UIHOST=${UIHOST}\
-    UIPORT=${UIPORT}
-    # DBUSER=${DBUSER}\
-    # DBPASS=${DBPASS}\
-    # DBNAME=${DBNAME}
+    DBUSER=${DBUSER}\
+    DBPASS=${DBPASS}\
+    DBNAME=${DBNAME}\
+    WFSURL=${WFSURL}\
+    WFSPORT=${WFSPORT}\
+    WMSURL=${WMSURL}\
+    WMSPORT=${WMSPORT}
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/omar-app/omar-app.sh"]
