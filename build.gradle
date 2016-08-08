@@ -1,12 +1,8 @@
 allprojects {
   repositories {
     mavenLocal()
-<<<<<<< HEAD
-//    maven { url "http://omar-mvn.s3-website-us-east-1.amazonaws.com" }
-=======
     mavenCentral()
     maven { url "http://omar-mvn.s3-website-us-east-1.amazonaws.com" }
->>>>>>> dev
     maven { url "http://download.osgeo.org/webdav/geotools/" }
 //        maven { url "http://repo.boundlessgeo.com/main" }
 //        maven { url "http://maven.geo-solutions.it/" }
