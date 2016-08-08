@@ -57,6 +57,10 @@
 //= <--WFS-->
 //= require omar/wfs/wfs.controller.js
 
+//= <--Download-->
+//= require omar/download/fileDownload.js
+//= require omar/download/download.controller.js
+
 //= <--Filter-->
 //= require omar/filter/filter.controller.js
 

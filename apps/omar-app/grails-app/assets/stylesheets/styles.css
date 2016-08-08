@@ -13,7 +13,7 @@
 body {
   padding-top: 50px;
   padding-bottom: 50px;
-  overflow: scroll; 
+  overflow: scroll;
 }
 .navbar {min-height:28px !important;}
 .navbar-fixed-top {
@@ -177,21 +177,21 @@ body {
     left: 62%;
 }
 
-#mapButtons{
+#mapDownloadButton{
     position: absolute;
     z-index: 1;
     right: 40px;
     bottom: 5px;
 }
 
-#mapButtons i{
+#mapDownloadButton i{
     background-color: rgba(0,60,136,0.5);
     color: white;
     font-size: 1em;
 }
 
 
-#mapButtons a{
+#mapDownloadButton a{
     text-decoration: none;
 }
 

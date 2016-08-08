@@ -173,6 +173,10 @@ omar:
       baseUrl: http://localhost:8081/imageSpace/getThumbnail
     footprints:
       baseUrl: http://localhost:8081/footprints/getFootprints
+    stagerApp:
+      baseUrl: http://localhost:8081
+    downloadApp:
+      baseUrl: http://localhost:8081
     apiApp:
       baseUrl: http://localhost:8081/api
       enabled: true
