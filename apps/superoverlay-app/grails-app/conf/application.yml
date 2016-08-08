@@ -1,8 +1,60 @@
 ---
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: true
+        use_query_cache: false
+        region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+
+dataSource:
+    pooled: true
+    jmxExport: true
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+
+environments:
+    development:
+        dataSource:
+            dbCreate: create-drop
+            url: jdbc:postgresql:omardb-1.8.20-dev
+    test:
+        dataSource:
+            dbCreate: update
+            url: jdbc:postgresql:omardb-1.8.20-test
+    production:
+        dataSource:
+            dbCreate: update
+            url: jdbc:postgresql:omardb-1.8.20-prod
+            properties:
+                jmxEnabled: true
+                initialSize: 5
+                maxActive: 50
+                minIdle: 5
+                maxIdle: 25
+                maxWait: 10000
+                maxAge: 600000
+                timeBetweenEvictionRunsMillis: 5000
+                minEvictableIdleTimeMillis: 60000
+                validationQuery: SELECT 1
+                validationQueryTimeout: 3
+                validationInterval: 15000
+                testOnBorrow: true
+                testWhileIdle: true
+                testOnReturn: false
+                jdbcInterceptors: ConnectionState
+                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+---
+---
 grails:
     profile: web
     codegen:
         defaultPackage: superoverlay.app
+    spring:
+        transactionManagement:
+            proxies: false
 info:
     app:
         name: '@info.app.name@'
@@ -12,6 +64,11 @@ spring:
     groovy:
         template:
             check-template-location: false
+# Spring Actuator Endpoints are Disabled by Default
+endpoints:
+    enabled: false
+    jmx:
+        enabled: true
 
 ---
 grails:
@@ -65,59 +122,9 @@ grails:
                 scriptlets: html
                 taglib: none
                 staticparts: none
----
-hibernate:
-    cache:
-        queries: false
-        use_second_level_cache: true
-        use_query_cache: false
-        region.factory_class: 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
-
 endpoints:
     jmx:
         unique-names: true
-
-dataSource:
-    pooled: true
-    jmxExport: true
-    driverClassName: org.postgresql.Driver
-    username: postgres
-    password: postgres
-    dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-
-environments:
-    development:
-        dataSource:
-            dbCreate: create-drop
-            url: jdbc:postgresql:omardb-1.8.20-dev
-    test:
-        dataSource:
-            dbCreate: update
-            url: jdbc:postgresql:omardb-1.8.20-test
-    production:
-        dataSource:
-            dbCreate: update
-            url: jdbc:postgresql:omardb-1.8.20-prod
-            properties:
-                jmxEnabled: true
-                initialSize: 5
-                maxActive: 50
-                minIdle: 5
-                maxIdle: 25
-                maxWait: 10000
-                maxAge: 600000
-                timeBetweenEvictionRunsMillis: 5000
-                minEvictableIdleTimeMillis: 60000
-                validationQuery: SELECT 1
-                validationQueryTimeout: 3
-                validationInterval: 15000
-                testOnBorrow: true
-                testWhileIdle: true
-                testOnReturn: false
-                jdbcInterceptors: ConnectionState
-                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
-
-
 wfs:
   featureTypeNamespaces:
       - prefix: omar
