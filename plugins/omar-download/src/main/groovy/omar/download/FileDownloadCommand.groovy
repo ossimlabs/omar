@@ -9,8 +9,17 @@ import groovy.transform.ToString
 @ToString(includeNames = true)
 class FileDownloadCommand implements Validateable
 {
-    String type
+    String type = "Download"
     def archiveOptions
     def fileGroups
     def zipFileName
+
+    static constraints = {
+
+        type(nullable:true)
+        archiveOptions()
+        fileGroups()
+        zipFileName(nullable:true)
+    }
+
 }

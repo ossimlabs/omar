@@ -301,7 +301,6 @@
     // Handles the selected image modal obj
     function ImageModalController( $uibModalInstance, imageSpaceService, beNumberService, $scope, imageObj )
     {
-
         var vm = this;
         vm.beData = [];
 
