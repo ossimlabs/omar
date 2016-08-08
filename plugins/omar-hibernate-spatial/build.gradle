@@ -64,9 +64,9 @@ dependencies {
     
 	compile 'org.postgresql:postgresql:9.3-1103-jdbc41'
 
-	compile "org.grails.plugins:hibernate"
+	compile "org.grails.plugins:hibernate5"
 
-	compile( 'org.hibernate:hibernate-spatial:4.3' ) {
+        compile ('org.hibernate:hibernate-spatial:5.1.0.Final') {
 		exclude module: 'hibernate-core'
 		exclude module: 'postgresql'
 	}    
