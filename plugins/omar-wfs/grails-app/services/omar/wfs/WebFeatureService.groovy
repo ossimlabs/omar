@@ -407,47 +407,86 @@ class WebFeatureService
 
 	def describeFeatureType( DescribeFeatureTypeRequest wfsParams )
 	{
+		HashMap result = [status:HttpStatus.OK]
 		def layerInfo = geoscriptService.findLayerInfo( wfsParams )
 		String schemaLocation = grailsLinkGenerator.serverBaseURL
 		def xml = null
 
-		Workspace.withWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) {
-			Workspace workspace ->
+		try{
+			Workspace.withWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) {
+				Workspace workspace ->
 
-				Schema schema = workspace[ layerInfo.name ].schema
-				String prefix = NamespaceInfo.findByUri( schema.uri ).prefix
+					Schema schema = workspace[ layerInfo.name ].schema
+					String prefix = NamespaceInfo.findByUri( schema.uri ).prefix
 
-				xml = generateSchema( schema, prefix, schemaLocation )
+					xml = generateSchema( schema, prefix, schemaLocation )
+			}
+
+			result.contentType = "text/xml"
+			result.buffer = xml
+		}
+		catch(e)
+		{
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR
+			result.contentType = "plain/text"
+			result.buffer = "${e}"
 		}
 
 //    println xml
 
-		[ contentType: 'text/xml', buffer: xml ]
+		result
 	}
 
 	def getFeature( GetFeatureRequest wfsParams )
 	{
-		def results
-		def contentType
+		HashMap result = [status:HttpStatus.OK, buffer:"", contentType:"text/xml", buffer: "" ]
 
 		switch ( wfsParams?.outputFormat?.toUpperCase() )
 		{
 			case 'GML3':
-				results = getFeatureGML3( wfsParams )
-				contentType = 'text/xml'
+				try{
+					def buffer = getFeatureGML3( wfsParams )
+					result.contentType = 'text/xml'
+					result.buffer = buffer
+				}
+				catch(e)
+				{
+					result.contentType = "plain/text"
+					result.buffer = "${e}"
+					result.status = HttpStatus.INTERNAL_SERVER_ERROR
+				}
 				break
 			case 'JSON':
 			case 'GEOJSON':
-				contentType = 'application/json'
-				results = getFeatureJSON( wfsParams )
+				try
+				{
+					def buffer = getFeatureJSON(wfsParams)
+					result.contentType = 'application/json'
+					result.buffer = buffer
+				}
+				catch(e)
+				{
+					result.contentType = "plain/text"
+					result.buffer = "${e}"
+					result.status = HttpStatus.INTERNAL_SERVER_ERROR
+				}
 				break
 			default:
-				results = getFeatureGML3( wfsParams )
-				contentType = 'text/xml'
+				try{
+					def buffer = getFeatureGML3( wfsParams )
+					result.contentType = 'text/xml'
+					result.buffer = buffer
+				}
+				catch(e)
+				{
+					result.contentType = "plain/text"
+					result.buffer = "${e}"
+					result.status = HttpStatus.INTERNAL_SERVER_ERROR
+				}
 				break
 		}
 
-		return [ contentType: contentType, buffer: results ]
+		result
 	}
 
 	private def getFeatureJSON( GetFeatureRequest wfsParams )

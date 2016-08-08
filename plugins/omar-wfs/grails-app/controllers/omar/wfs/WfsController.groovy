@@ -140,6 +140,7 @@ class WfsController
     BindUtil.fixParamNames( DescribeFeatureTypeRequest, params )
     bindData( wfsParams, params )
     def results = webFeatureService.describeFeatureType( wfsParams )
+    if(results.status != null) response.status = results.status
 
     render contentType: results.contentType, text: results.buffer
   }
@@ -167,6 +168,7 @@ class WfsController
     bindData( wfsParams, params )
 
     def results = webFeatureService.getFeature( wfsParams )
+    if(results.status != null) response.status = results.status
 
     render contentType: results.contentType, text: results.buffer
   }
