@@ -7,9 +7,16 @@
       function DownloadController($stateParams, $scope, toastr, $http) {
 
         var vm = this;
+        var imageLayerIds;
 
         vm.downloadFiles = function(imageId)
         {
+          if(!imageId)
+          {
+            imageLayerIds = $stateParams.layers.split( "," );
+            imageId = imageLayerIds[0];
+          }
+
           var downloadManager = AppO2.APP_CONFIG.params.downloadApp.baseUrl
           var dataManager = AppO2.APP_CONFIG.params.stagerApp.baseUrl
           dataManager = dataManager+"/dataManager/getRasterFiles?id="+imageId
@@ -62,6 +69,7 @@
                     },
                     failCallback: function(responseHtml, url, error)
                     {
+                      //Error will occur if type and archiveOptions type is not specified
                       toastr.error("Unable to download with URL = " + url,
                       {
                         positionClass: 'toast-bottom-left',
@@ -80,7 +88,7 @@
           },
           function error(response)
           {
-            toastr.error("FAILED!!!",
+            toastr.error("Unable to download files.",
             {
               positionClass: 'toast-bottom-left',
               closeButton: true,
