@@ -318,12 +318,12 @@ wfs:
           - features
         datastoreId: omardb-1.8.20-prod
 
-      - name: cities
-        title: cities
+      - name: opir_raster_entry
+        title: opir_raster_entry
         description: ''
         keywords:
           - omar
-          - cities
+          - opir_raster_entry
           - features
         datastoreId: omardb-1.8.20-prod
 

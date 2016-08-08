@@ -83,6 +83,15 @@ wfs:
           - features
         datastoreId: omardb-prod
 
+      - name: opir_raster_entry
+        title: opir_raster_entry
+        description: ''
+        keywords:
+          - omar
+          - opir_raster_entry
+          - features
+        datastoreId: omardb-prod
+
       - name: video_data_set
         title: video_data_set
         description: ''
