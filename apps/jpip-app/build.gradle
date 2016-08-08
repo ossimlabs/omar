@@ -1,79 +1,81 @@
 buildscript {
-    ext {
-        grailsVersion = project.grailsVersion
-    }
-    repositories {
-        mavenLocal()
-        maven { url "https://repo.grails.org/grails/core" }
-    }
-    dependencies {
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
-        classpath "org.grails.plugins:hibernate4:5.0.10"
-    }
+  ext {
+    grailsVersion = project.grailsVersion
+  }
+  repositories {
+    mavenLocal()
+    maven { url "https://repo.grails.org/grails/core" }
+  }
+  dependencies {
+    classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
+    classpath "org.grails.plugins:hibernate5:5.0.10"
+  }
 }
 
 version "0.1"
 group "jpip.app"
 
-apply plugin:"eclipse"
-apply plugin:"idea"
-apply plugin:"war"
-apply plugin:"org.grails.grails-web"
-apply plugin:"org.grails.grails-gsp"
-apply plugin:"asset-pipeline"
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "war"
+apply plugin: "org.grails.grails-web"
+apply plugin: "org.grails.grails-gsp"
+apply plugin: "asset-pipeline"
 
 ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
+  grailsVersion = project.grailsVersion
+  gradleWrapperVersion = project.gradleWrapperVersion
 }
 
 assets {
-    minifyJs = true
-    minifyCss = true
-    //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
-    includes = ["fonts/*"]
-    excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
-                '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
+  minifyJs = true
+  minifyCss = true
+  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
+  includes = ["fonts/*"]
+  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
+      '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
 }
 
 repositories {
-    mavenLocal()
-    maven { url "https://repo.grails.org/grails/core" }
+  mavenLocal()
+  maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "org.grails:grails-bom:$grailsVersion"
-    }
-    applyMavenExclusions false
+  imports {
+    mavenBom "org.grails:grails-bom:$grailsVersion"
+  }
+  applyMavenExclusions false
 }
 grails {
-    exploded = true
-    plugins {
-        compile project( ':omar-jpip' )
-    }
+  exploded = true
+  plugins {
+    compile project( ':omar-jpip' )
+  }
 }
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.grails:grails-core"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies"
-    compile "org.grails:grails-web-boot"
-    compile "org.grails.plugins:cache"
-    compile "org.grails.plugins:scaffolding"
-    compile "org.grails.plugins:hibernate4"
-    compile "org.hibernate:hibernate-ehcache"
-    console "org.grails:grails-console"
-    compile "org.grails.plugins:grails3-cors-interceptor:0.1.6"
-    profile "org.grails.profiles:web"
-    runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
-    runtime "com.h2database:h2"
-    testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails.plugins:geb"
-    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
-    testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+  compile "org.grails.plugins:hibernate5"
+  compile "org.hibernate:hibernate-core:5.0.10.Final"
+  compile "org.hibernate:hibernate-ehcache:5.0.10.Final"
+
+  compile "org.springframework.boot:spring-boot-starter-logging"
+  compile "org.springframework.boot:spring-boot-autoconfigure"
+  compile "org.grails:grails-core"
+  compile "org.springframework.boot:spring-boot-starter-actuator"
+  compile "org.springframework.boot:spring-boot-starter-tomcat"
+  compile "org.grails:grails-dependencies"
+  compile "org.grails:grails-web-boot"
+  compile "org.grails.plugins:cache"
+  compile "org.grails.plugins:scaffolding"
+  console "org.grails:grails-console"
+  compile "org.grails.plugins:grails3-cors-interceptor:0.1.6"
+  profile "org.grails.profiles:web"
+  runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
+  runtime "com.h2database:h2"
+  testCompile "org.grails:grails-plugin-testing"
+  testCompile "org.grails.plugins:geb"
+  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
+  testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
 }
 
