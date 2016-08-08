@@ -26,8 +26,8 @@ omar:
         options:
           visible: true
   app:
-    root:
-      baseUrl: http://o2-omar/omar-app
+    # root:
+    #   baseUrl: http://o2-omar/omar-app
     wfs:
       baseUrl: http://${WFSURL}:${WFSPORT}/wfs?
       enabled: true
@@ -61,7 +61,7 @@ omar:
     #   enabled: true
     apiApp:
       baseUrl: http://o2-omar/api
-      enabled: true
+      enabled: false
     misc:
       icons:
         green-marker: search_marker_green.png

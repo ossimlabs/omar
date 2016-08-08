@@ -8,10 +8,10 @@ environments:
       pooled: true
       jmxExport: true
       driverClassName: org.postgresql.Driver
-      username: postgres_user
-      password: abc123
+      username: ${DBUSER}
+      password: ${DBPASS}
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://${DBHOST}${DBPORT}/omar_prod
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
 
 ---
 
