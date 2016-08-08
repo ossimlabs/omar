@@ -121,6 +121,8 @@ class WfsController
 
     def results = webFeatureService.getCapabilities( wfsParams )
 
+    if(results.status != null) response.status = results.status
+
     render contentType: results.contentType, text: results.buffer
   }
 
