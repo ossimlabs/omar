@@ -42,26 +42,29 @@ omar:
       baseUrl: http://${WMSURL}:${WMSPORT}/imageSpace/getThumbnail?
     footprints:
       baseUrl: http://${WMSURL}:${WMSPORT}/footprints/getFootprints
-    # kmlApp:
-    #   baseUrl: http://192.168.2.200/superoverlay-app
-    # predio:
-    #   baseUrl: http://192.168.2.200/predio-app/predio/
-    #   enabled: false
-    # twofishes:
-    #   baseUrl: http://<ip>:<port>/twofish
-    #   proxy: /twoFishesProxy
-    # swipeApp:
-    #   baseUrl: http://192.168.2.200/swipe-app/swipe
-    #   enabled: true
-    # jpipApp:
-    #   baseUrl: http://192.168.2.200/jpip-app/jpip
-    #   enabled: true
-    # piwikApp:
-    #   baseUrl: http://<url>/piwik/
-    #   enabled: true
+    kmlApp:
+      baseUrl: http://${KMLURL}:${KMLPORT}/
+    predio:
+      baseUrl: http://${PREDIOURL}:${PREDIOPORT}/predio/
+      enabled: ${PREDIOENABLED}
+    twofishes:
+      baseUrl: http://${TWOFISHURL}:{TWOFISHPORT}/twofish
+      proxy: /twoFishesProxy
+    swipeApp:
+      baseUrl: http://${SWIPEURL}:${SWIPEPORT}/swipe
+      enabled: ${SWIPEENABLED}
+    jpipApp:
+      baseUrl: http://${JPIPURL}:${JPIPPORT}/jpip
+      enabled: ${JPIPENABLED}
+    wmtsApp:
+      baseUrl: http://${WMTSURL}:${WMTSPORT}/wmts
+      enabled: ${WMTSENABLED}
+    piwikApp:
+      baseUrl: http://${PIWIKURL}:${PWIKPORT}/piwik/
+      enabled: ${PWIKENABLED}
     apiApp:
-      baseUrl: http://o2-omar/api
-      enabled: false
+      baseUrl: http://${APIURL}:${APIPORT}/api
+      enabled: ${APIENABLED}
     misc:
       icons:
         green-marker: search_marker_green.png

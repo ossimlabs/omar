@@ -59,12 +59,12 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSSERVER: docker.local
-      WFSPORT: :4997
-      WMSSERVER: docker.local
-      WMSPORT: :4998
-      FOOTPRINTS: docker.local
-      FOOTPRINTSPORT: :4998
+      WFSSERVER: o2.ossim.org/o2
+      WFSPORT: ""
+      WMSSERVER: o2.ossim.org/o2
+      WMSPORT: ""
+      FOOTPRINTS: o2.ossim.org/o2
+      FOOTPRINTSPORT: ""
     ports:
       - "4999:8080"
     links:
@@ -154,6 +154,28 @@ services:
       WFSPORT: 4998
       WMSURL: docker.local
       WMSPORT: 4997
+      KMLURL: docker.local
+      KMLPORT: 9999
+      PREDIOURL: docker.local
+      PREDIOPORT: 9999
+      PREDIOENABLED: "false"
+      TWOFISHURL: docker.local
+      TWOFISHPORT: 9999
+      SWIPEURL: docker.local
+      SWIPEPORT: 9999
+      SWIPEENABLED: "false"
+      JPIPURL: docker.local
+      JPIPPORT: 9999
+      JPIPENABLED: "false"
+      WMTSURL: docker.local
+      WMTSPORT: 4999
+      WMTSENABLED: "true"
+      PWIKURL: docker.local
+      PWIKPORT: 9999
+      PWIKENABLED: "false"
+      APIURL: docker.local
+      APIPORT: 9999
+      APIENABLED: "false"
     ports:
       - "5010:8080"
     links:
