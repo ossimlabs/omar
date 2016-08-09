@@ -59,12 +59,10 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSSERVER: o2.ossim.org/o2
-      WFSPORT: ""
-      WMSSERVER: o2.ossim.org/o2
-      WMSPORT: ""
-      FOOTPRINTS: o2.ossim.org/o2
-      FOOTPRINTSPORT: ""
+      WFSSERVER: docker.local
+      WFSPORT: :4997
+      WMSSERVER: docker.local
+      WMSPORT: :4998
     ports:
       - "4999:8080"
     links:
