@@ -99,7 +99,5 @@ dependencies {
   compile 'org.webjars:bootswatch-cosmo:3.3.5+4'
   compile 'org.webjars:bootswatch-flatly:3.3.5+4'
   compile 'org.webjars:bootswatch-default:3.3.5+4'
-
-  compile 'net.errbuddy.plugins:babel-asset-pipeline:2.0.8'
+  
 }
-
