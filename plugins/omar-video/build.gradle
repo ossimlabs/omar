@@ -65,6 +65,9 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+
+    compile 'org.webjars:flowplayer-html5:6.0.4'
+
 }
 grailsPublish {
     // TODO: Provide values here
