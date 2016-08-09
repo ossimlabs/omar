@@ -4,7 +4,7 @@ import com.vividsolutions.jts.geom.Geometry
 import com.vividsolutions.jts.geom.MultiPolygon
 import com.vividsolutions.jts.geom.Polygon
 import com.vividsolutions.jts.io.WKTReader
-import org.hibernate.spatial.GeometryType
+//import org.hibernate.spatial.GeometryType
 
 class OpirRasterEntry {
     String filename
@@ -55,7 +55,7 @@ class OpirRasterEntry {
         width index: 'opir_raster_entry_width_idx'
         height index: 'opir_raster_entry_height_idx'
         metersPerPixel index: 'opir_raster_entry_meters_per_pixel_idx'
-        groundGeom type: GeometryType, sqlType: 'geometry(MultiPolygon, 4326)'
+        groundGeom /*type: GeometryType, */ sqlType: 'geometry(MultiPolygon, 4326)'
         accessDate index: 'opir_raster_entry_access_date_idx'
         ingestDate index: 'opir_raster_entry_ingest_date_idx'
         receiveDate index: 'opir_raster_entry_receive_date_idx'

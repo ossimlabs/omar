@@ -11,14 +11,14 @@ import org.springframework.security.core.userdetails.UserDetailsByNameServiceWra
 class OmarSecurityGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "3.0.12 > *"
+    def grailsVersion = "3.1.10 > *"
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
         "grails-app/views/error.gsp"
     ]
 
     // TODO Fill in these fields
-    def title = "Omar Spring Security" // Headline display name of the plugin
+    def title = "Omar Security" // Headline display name of the plugin
     def author = "Your name"
     def authorEmail = ""
     def description = '''\
