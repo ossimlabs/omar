@@ -1,7 +1,7 @@
 package omar.wms
 
 import com.vividsolutions.jts.geom.Geometry
-import org.hibernate.spatial.GeometryType
+//import org.hibernate.spatial.GeometryType
 
 class WmsLog
 {
@@ -47,6 +47,6 @@ class WmsLog
 		version false
 		url type: 'text'
 		layers type: 'text'
-		geometry type: GeometryType
+		geometry /*type: GeometryType, */ sqlType: 'geometry(polygon, 4326)'
 	}
 }

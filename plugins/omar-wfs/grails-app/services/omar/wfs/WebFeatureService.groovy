@@ -7,7 +7,7 @@ import geoscript.geom.GeometryCollection
 import geoscript.workspace.Workspace
 
 import grails.transaction.Transactional
-
+import omar.core.HttpStatus
 import omar.geoscript.LayerInfo
 import omar.geoscript.NamespaceInfo
 import omar.geoscript.WorkspaceInfo
@@ -99,236 +99,246 @@ class WebFeatureService
 
 	def getCapabilities( GetCapabilitiesRequest wfsParams )
 	{
-		def wfsServiceAddress = grailsLinkGenerator.link( absolute: true, uri: '/wfs' )
-		def wfsSchemaLocation = grailsLinkGenerator.link( absolute: true, uri: '/schemas/wfs/1.1.0/wfs.xsd' )
-		def featureTypeNamespacesByPrefix = NamespaceInfo.list().inject( [ : ] ) { a, b -> a[ b.prefix ] = b.uri; a }
-		def functionNames = geoscriptService.listFunctions2()
+		HashMap result = [status:HttpStatus.OK]
 
-		def x = {
-			mkp.xmlDeclaration()
-			mkp.declareNamespace( ogcNamespacesByPrefix )
-			mkp.declareNamespace( featureTypeNamespacesByPrefix )
-			wfs.WFS_Capabilities( version: "1.1.0", xmlns: "http://www.opengis.net/wfs",
-					'xsi:schemaLocation': "http://www.opengis.net/wfs ${ wfsSchemaLocation }"
-			) {
-				ows.ServiceIdentification {
-					ows.Title( 'My WFS Server' ) // Put in config
-					ows.Abstract( 'This is a test of the emergency broadcast system' ) // Put in config
-					ows.Keywords {
-						def keywords = [ 'WFS', 'WMS', 'OMAR' ] // Put in config
-						keywords.each { keyword ->
-							ows.Keyword( keyword )
+		try{
+			def wfsServiceAddress = grailsLinkGenerator.link( absolute: true, uri: '/wfs' )
+			def wfsSchemaLocation = grailsLinkGenerator.link( absolute: true, uri: '/schemas/wfs/1.1.0/wfs.xsd' )
+			def featureTypeNamespacesByPrefix = NamespaceInfo.list().inject( [ : ] ) { a, b -> a[ b.prefix ] = b.uri; a }
+			def functionNames = geoscriptService.listFunctions2()
+			def x = {
+				mkp.xmlDeclaration()
+				mkp.declareNamespace( ogcNamespacesByPrefix )
+				mkp.declareNamespace( featureTypeNamespacesByPrefix )
+				wfs.WFS_Capabilities( version: "1.1.0", xmlns: "http://www.opengis.net/wfs",
+						'xsi:schemaLocation': "http://www.opengis.net/wfs ${ wfsSchemaLocation }"
+				) {
+					ows.ServiceIdentification {
+						ows.Title( 'O2 WFS Server' ) // Put in config
+						ows.Abstract( 'O2 WFS server' ) // Put in config
+						ows.Keywords {
+							def keywords = [ 'WFS', 'WMS', 'OMAR' ] // Put in config
+							keywords.each { keyword ->
+								ows.Keyword( keyword )
+							}
+						}
+						ows.ServiceType( 'WFS' )
+						ows.ServiceTypeVersion( '1.1.0' ) // Put in config?
+						ows.Fees( 'NONE' )
+						ows.AccessConstraints( 'NONE' )
+					}
+					ows.ServiceProvider {
+						ows.ProviderName( 'OSSIM Labs' )  // Put in config?
+						ows.ServiceContact {
+							ows.IndividualName( 'Scott Bortman' ) // Put in config?
+							ows.PositionName( 'OMAR Developer' ) // Put in config?
+							ows.ContactInfo {
+								ows.Phone {
+									ows.Voice()
+									ows.Facsimile()
+								}
+								ows.Address {
+									ows.DeliveryPoint()
+									ows.City()
+									ows.AdministrativeArea()
+									ows.PostalCode()
+									ows.Country()
+									ows.ElectronicMailAddress()
+								}
+							}
 						}
 					}
-					ows.ServiceType( 'WFS' )
-					ows.ServiceTypeVersion( '1.1.0' ) // Put in config?
-					ows.Fees( 'NONE' )
-					ows.AccessConstraints( 'NONE' )
-				}
-				ows.ServiceProvider {
-					ows.ProviderName( 'OSSIM Labs' )  // Put in config?
-					ows.ServiceContact {
-						ows.IndividualName( 'Scott Bortman' ) // Put in config?
-						ows.PositionName( 'OMAR Developer' ) // Put in config?
-						ows.ContactInfo {
-							ows.Phone {
-								ows.Voice()
-								ows.Facsimile()
+					ows.OperationsMetadata {
+						ows.Operation( name: "GetCapabilities" ) {
+							ows.DCP {
+								ows.HTTP {
+									ows.Get( 'xlink:href': wfsServiceAddress )
+									ows.Post( 'xlink:href': wfsServiceAddress )
+								}
 							}
-							ows.Address {
-								ows.DeliveryPoint()
-								ows.City()
-								ows.AdministrativeArea()
-								ows.PostalCode()
-								ows.Country()
-								ows.ElectronicMailAddress()
+							ows.Parameter( name: "AcceptVersions" ) {
+								//ows.Value( '1.0.0' )
+								ows.Value( '1.1.0' )
+							}
+							ows.Parameter( name: "AcceptFormats" ) {
+								ows.Value( 'text/xml' )
 							}
 						}
-					}
-				}
-				ows.OperationsMetadata {
-					ows.Operation( name: "GetCapabilities" ) {
-						ows.DCP {
-							ows.HTTP {
-								ows.Get( 'xlink:href': wfsServiceAddress )
-								ows.Post( 'xlink:href': wfsServiceAddress )
+						ows.Operation( name: "DescribeFeatureType" ) {
+							ows.DCP {
+								ows.HTTP {
+									ows.Get( 'xlink:href': wfsServiceAddress )
+									ows.Post( 'xlink:href': wfsServiceAddress )
+								}
+							}
+							ows.Parameter( name: "outputFormat" ) {
+								ows.Value( 'text/xml; subtype=gml/3.1.1' )
 							}
 						}
-						ows.Parameter( name: "AcceptVersions" ) {
-							//ows.Value( '1.0.0' )
-							ows.Value( '1.1.0' )
-						}
-						ows.Parameter( name: "AcceptFormats" ) {
-							ows.Value( 'text/xml' )
-						}
-					}
-					ows.Operation( name: "DescribeFeatureType" ) {
-						ows.DCP {
-							ows.HTTP {
-								ows.Get( 'xlink:href': wfsServiceAddress )
-								ows.Post( 'xlink:href': wfsServiceAddress )
+						ows.Operation( name: "GetFeature" ) {
+							ows.DCP {
+								ows.HTTP {
+									ows.Get( 'xlink:href': wfsServiceAddress )
+									ows.Post( 'xlink:href': wfsServiceAddress )
+								}
 							}
-						}
-						ows.Parameter( name: "outputFormat" ) {
-							ows.Value( 'text/xml; subtype=gml/3.1.1' )
-						}
-					}
-					ows.Operation( name: "GetFeature" ) {
-						ows.DCP {
-							ows.HTTP {
-								ows.Get( 'xlink:href': wfsServiceAddress )
-								ows.Post( 'xlink:href': wfsServiceAddress )
+							ows.Parameter( name: "resultType" ) {
+								ows.Value( 'results' )
+								ows.Value( 'hits' )
 							}
-						}
-						ows.Parameter( name: "resultType" ) {
-							ows.Value( 'results' )
-							ows.Value( 'hits' )
-						}
-						ows.Parameter( name: "outputFormat" ) {
-							outputFormats.each { outputFormat ->
-								ows.Value( outputFormat )
+							ows.Parameter( name: "outputFormat" ) {
+								outputFormats.each { outputFormat ->
+									ows.Value( outputFormat )
+								}
 							}
+							// ows.Constraint( name: "LocalTraverseXLinkScope" ) {
+							//   ows.Value( 2 )
+							// }
 						}
-						// ows.Constraint( name: "LocalTraverseXLinkScope" ) {
-						//   ows.Value( 2 )
+						// ows.Operation( name: "GetGmlObject" ) {
+						//   ows.DCP {
+						//     ows.HTTP {
+						//       ows.Get( 'xlink:href': wfsServiceAddress )
+						//       ows.Post( 'xlink:href': wfsServiceAddress )
+						//     }
+						//   }
+						// }
+						// ows.Operation( name: "LockFeature" ) {
+						//   ows.DCP {
+						//     ows.HTTP {
+						//       ows.Get( 'xlink:href': wfsServiceAddress )
+						//       ows.Post( 'xlink:href': wfsServiceAddress )
+						//     }
+						//   }
+						//   ows.Parameter( name: "releaseAction" ) {
+						//     ows.Value( 'ALL' )
+						//     ows.Value( 'SOME' )
+						//   }
+						// }
+						// ows.Operation( name: "GetFeatureWithLock" ) {
+						//   ows.DCP {
+						//     ows.HTTP {
+						//       ows.Get( 'xlink:href': wfsServiceAddress )
+						//       ows.Post( 'xlink:href': wfsServiceAddress )
+						//     }
+						//   }
+						//   ows.Parameter( name: "resultType" ) {
+						//     ows.Value( 'results' )
+						//     ows.Value( 'hits' )
+						//   }
+						//   ows.Parameter( name: "outputFormat" ) {
+						//   	outputFormats.each { outputFormat ->
+						//     	ows.Value( outputFormat )
+						//   	}
+						//   }
+						// }
+						// ows.Operation( name: "Transaction" ) {
+						//   ows.DCP {
+						//     ows.HTTP {
+						//       ows.Get( 'xlink:href': wfsServiceAddress )
+						//       ows.Post( 'xlink:href': wfsServiceAddress )
+						//     }
+						//   }
+						//   ows.Parameter( name: "inputFormat" ) {
+						//     ows.Value( 'text/xml; subtype=gml/3.1.1' )
+						//   }
+						//   ows.Parameter( name: "idgen" ) {
+						//     ows.Value( 'GenerateNew' )
+						//     ows.Value( 'UseExisting' )
+						//     ows.Value( 'ReplaceDuplicate' )
+						//   }
+						//   ows.Parameter( name: "releaseAction" ) {
+						//     ows.Value( 'ALL' )
+						//     ows.Value( 'SOME' )
+						//   }
 						// }
 					}
-					// ows.Operation( name: "GetGmlObject" ) {
-					//   ows.DCP {
-					//     ows.HTTP {
-					//       ows.Get( 'xlink:href': wfsServiceAddress )
-					//       ows.Post( 'xlink:href': wfsServiceAddress )
-					//     }
-					//   }
-					// }
-					// ows.Operation( name: "LockFeature" ) {
-					//   ows.DCP {
-					//     ows.HTTP {
-					//       ows.Get( 'xlink:href': wfsServiceAddress )
-					//       ows.Post( 'xlink:href': wfsServiceAddress )
-					//     }
-					//   }
-					//   ows.Parameter( name: "releaseAction" ) {
-					//     ows.Value( 'ALL' )
-					//     ows.Value( 'SOME' )
-					//   }
-					// }
-					// ows.Operation( name: "GetFeatureWithLock" ) {
-					//   ows.DCP {
-					//     ows.HTTP {
-					//       ows.Get( 'xlink:href': wfsServiceAddress )
-					//       ows.Post( 'xlink:href': wfsServiceAddress )
-					//     }
-					//   }
-					//   ows.Parameter( name: "resultType" ) {
-					//     ows.Value( 'results' )
-					//     ows.Value( 'hits' )
-					//   }
-					//   ows.Parameter( name: "outputFormat" ) {
-					//   	outputFormats.each { outputFormat ->
-					//     	ows.Value( outputFormat )
-					//   	}
-					//   }
-					// }
-					// ows.Operation( name: "Transaction" ) {
-					//   ows.DCP {
-					//     ows.HTTP {
-					//       ows.Get( 'xlink:href': wfsServiceAddress )
-					//       ows.Post( 'xlink:href': wfsServiceAddress )
-					//     }
-					//   }
-					//   ows.Parameter( name: "inputFormat" ) {
-					//     ows.Value( 'text/xml; subtype=gml/3.1.1' )
-					//   }
-					//   ows.Parameter( name: "idgen" ) {
-					//     ows.Value( 'GenerateNew' )
-					//     ows.Value( 'UseExisting' )
-					//     ows.Value( 'ReplaceDuplicate' )
-					//   }
-					//   ows.Parameter( name: "releaseAction" ) {
-					//     ows.Value( 'ALL' )
-					//     ows.Value( 'SOME' )
-					//   }
-					// }
-				}
-				FeatureTypeList {
-					Operations {
-						Operation( 'Query' )
-						// Operation( 'Insert' )
-						// Operation( 'Update' )
-						// Operation( 'Delete' )
-						// Operation( 'Lock' )
-					}
-					LayerInfo.list()?.each { layerInfo ->
-						WorkspaceInfo workspaceInfo = WorkspaceInfo.findByName( layerInfo.workspaceInfo.name )
+					FeatureTypeList {
+						Operations {
+							Operation( 'Query' )
+							// Operation( 'Insert' )
+							// Operation( 'Update' )
+							// Operation( 'Delete' )
+							// Operation( 'Lock' )
+						}
+						LayerInfo.list()?.each { layerInfo ->
+							WorkspaceInfo workspaceInfo = WorkspaceInfo.findByName( layerInfo.workspaceInfo.name )
 
-						Workspace.withWorkspace( workspaceInfo?.workspaceParams ) { Workspace workspace ->
-							def layer = workspace[ layerInfo.name ]
-							def uri = layer?.schema?.uri
-							def prefix = NamespaceInfo.findByUri( uri )?.prefix
-							def geoBounds = ( layer?.proj?.epsg == 4326 ) ? layer?.bounds : layer?.bounds?.reproject( 'epsg:4326' )
-							FeatureType( "xmlns:${ prefix }": uri ) {
-								Name( "${ prefix }:${ layerInfo.name }" )
-								Title( layerInfo.title )
-								Abstract( layerInfo.description )
-								ows.Keywords {
-									layerInfo.keywords?.each { keyword ->
-										ows.Keyword( keyword )
+							Workspace.withWorkspace( workspaceInfo?.workspaceParams ) { Workspace workspace ->
+								def layer = workspace[ layerInfo.name ]
+								def uri = layer?.schema?.uri
+								def prefix = NamespaceInfo.findByUri( uri )?.prefix
+								def geoBounds = ( layer?.proj?.epsg == 4326 ) ? layer?.bounds : layer?.bounds?.reproject( 'epsg:4326' )
+								FeatureType( "xmlns:${ prefix }": uri ) {
+									Name( "${ prefix }:${ layerInfo.name }" )
+									Title( layerInfo.title )
+									Abstract( layerInfo.description )
+									ows.Keywords {
+										layerInfo.keywords?.each { keyword ->
+											ows.Keyword( keyword )
+										}
 									}
-								}
-								DefaultSRS( "urn:x-ogc:def:crs:${ layer?.proj?.id }" )
-								ows.WGS84BoundingBox {
-									ows.LowerCorner( "${ geoBounds?.minX } ${ geoBounds?.minY }" )
-									ows.UpperCorner( "${ geoBounds?.maxX } ${ geoBounds?.maxY }" )
-								}
-							}
-						}
-					}
-				}
-				ogc.Filter_Capabilities {
-					ogc.Spatial_Capabilities {
-						ogc.GeometryOperands {
-							geometryOperands.each { geometryOperand ->
-								ogc.GeometryOperand( geometryOperand )
-							}
-						}
-						ogc.SpatialOperators {
-							spatialOperators.each { spatialOperator ->
-								ogc.SpatialOperator( name: spatialOperator )
-							}
-						}
-					}
-					ogc.Scalar_Capabilities {
-						ogc.LogicalOperators()
-						ogc.ComparisonOperators {
-							comparisonOperators.each { comparisonOperator ->
-								ogc.ComparisonOperator( comparisonOperator )
-							}
-						}
-						ogc.ArithmeticOperators {
-							ogc.SimpleArithmetic()
-							ogc.Functions {
-								ogc.FunctionNames {
-									functionNames.each { functionName ->
-										ogc.FunctionName( nArgs: functionName.argCount, functionName.name )
+									DefaultSRS( "urn:x-ogc:def:crs:${ layer?.proj?.id }" )
+									ows.WGS84BoundingBox {
+										ows.LowerCorner( "${ geoBounds?.minX } ${ geoBounds?.minY }" )
+										ows.UpperCorner( "${ geoBounds?.maxX } ${ geoBounds?.maxY }" )
 									}
 								}
 							}
 						}
 					}
-					ogc.Id_Capabilities {
-						ogc.FID()
-						ogc.EID()
+					ogc.Filter_Capabilities {
+						ogc.Spatial_Capabilities {
+							ogc.GeometryOperands {
+								geometryOperands.each { geometryOperand ->
+									ogc.GeometryOperand( geometryOperand )
+								}
+							}
+							ogc.SpatialOperators {
+								spatialOperators.each { spatialOperator ->
+									ogc.SpatialOperator( name: spatialOperator )
+								}
+							}
+						}
+						ogc.Scalar_Capabilities {
+							ogc.LogicalOperators()
+							ogc.ComparisonOperators {
+								comparisonOperators.each { comparisonOperator ->
+									ogc.ComparisonOperator( comparisonOperator )
+								}
+							}
+							ogc.ArithmeticOperators {
+								ogc.SimpleArithmetic()
+								ogc.Functions {
+									ogc.FunctionNames {
+										functionNames.each { functionName ->
+											ogc.FunctionName( nArgs: functionName.argCount, functionName.name )
+										}
+									}
+								}
+							}
+						}
+						ogc.Id_Capabilities {
+							ogc.FID()
+							ogc.EID()
+						}
 					}
 				}
 			}
+			def xml = new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x )
+			def contentType = 'application/xml'
+
+			result.contentType = contentType
+			result.buffer = "${xml}".toString()
+		}
+		catch(e)
+		{
+			result.contentType = "plain/text"
+			result.buffer = "Error: ${e.toString()}"
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR
 		}
 
-		def xml = new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x )
-		def contentType = 'application/xml'
-
-
-		return [ contentType: contentType, buffer: xml.toString() ]
+		result
 	}
 
 
@@ -397,47 +407,86 @@ class WebFeatureService
 
 	def describeFeatureType( DescribeFeatureTypeRequest wfsParams )
 	{
+		HashMap result = [status:HttpStatus.OK]
 		def layerInfo = geoscriptService.findLayerInfo( wfsParams )
 		String schemaLocation = grailsLinkGenerator.serverBaseURL
 		def xml = null
 
-		Workspace.withWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) {
-			Workspace workspace ->
+		try{
+			Workspace.withWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) {
+				Workspace workspace ->
 
-				Schema schema = workspace[ layerInfo.name ].schema
-				String prefix = NamespaceInfo.findByUri( schema.uri ).prefix
+					Schema schema = workspace[ layerInfo.name ].schema
+					String prefix = NamespaceInfo.findByUri( schema.uri ).prefix
 
-				xml = generateSchema( schema, prefix, schemaLocation )
+					xml = generateSchema( schema, prefix, schemaLocation )
+			}
+
+			result.contentType = "text/xml"
+			result.buffer = xml
+		}
+		catch(e)
+		{
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR
+			result.contentType = "plain/text"
+			result.buffer = "${e}"
 		}
 
 //    println xml
 
-		[ contentType: 'text/xml', buffer: xml ]
+		result
 	}
 
 	def getFeature( GetFeatureRequest wfsParams )
 	{
-		def results
-		def contentType
+		HashMap result = [status:HttpStatus.OK, buffer:"", contentType:"text/xml", buffer: "" ]
 
 		switch ( wfsParams?.outputFormat?.toUpperCase() )
 		{
-		case 'GML3':
-			results = getFeatureGML3( wfsParams )
-			contentType = 'text/xml'
-			break
-		case 'JSON':
-		case 'GEOJSON':
-			contentType = 'application/json'
-			results = getFeatureJSON( wfsParams )
-			break
-		default:
-			results = getFeatureGML3( wfsParams )
-			contentType = 'text/xml'
-			break
+			case 'GML3':
+				try{
+					def buffer = getFeatureGML3( wfsParams )
+					result.contentType = 'text/xml'
+					result.buffer = buffer
+				}
+				catch(e)
+				{
+					result.contentType = "plain/text"
+					result.buffer = "${e}"
+					result.status = HttpStatus.INTERNAL_SERVER_ERROR
+				}
+				break
+			case 'JSON':
+			case 'GEOJSON':
+				try
+				{
+					def buffer = getFeatureJSON(wfsParams)
+					result.contentType = 'application/json'
+					result.buffer = buffer
+				}
+				catch(e)
+				{
+					result.contentType = "plain/text"
+					result.buffer = "${e}"
+					result.status = HttpStatus.INTERNAL_SERVER_ERROR
+				}
+				break
+			default:
+				try{
+					def buffer = getFeatureGML3( wfsParams )
+					result.contentType = 'text/xml'
+					result.buffer = buffer
+				}
+				catch(e)
+				{
+					result.contentType = "plain/text"
+					result.buffer = "${e}"
+					result.status = HttpStatus.INTERNAL_SERVER_ERROR
+				}
+				break
 		}
 
-		return [ contentType: contentType, buffer: results ]
+		result
 	}
 
 	private def getFeatureJSON( GetFeatureRequest wfsParams )
@@ -447,6 +496,7 @@ class WebFeatureService
 
 
 		def options = geoscriptService.parseOptions( wfsParams )
+
 
 		//println options
 
@@ -459,15 +509,15 @@ class WebFeatureService
 			def features = layer.collectFromFeature( options ) { feature ->
 				switch ( wfsParams?.outputFormat?.toUpperCase() )
 				{
-				case 'GML3':
-					return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
-					break
-				case 'GEOJSON':
-				case 'JSON':
-					return new JsonSlurper().parseText( feature.geoJSON )
-					break
-				default:
-					return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
+					case 'GML3':
+						return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
+						break
+					case 'GEOJSON':
+					case 'JSON':
+						return new JsonSlurper().parseText( feature.geoJSON )
+						break
+					default:
+						return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
 				}
 			}
 
@@ -523,15 +573,15 @@ class WebFeatureService
 			def features = layer.collectFromFeature( options ) { feature ->
 				switch ( wfsParams?.outputFormat?.toUpperCase() )
 				{
-				case 'GML3':
-					return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
-					break
-				case 'GEOJSON':
-				case 'JSON':
-					return new JsonSlurper().parseText( feature.geoJSON )
-					break
-				default:
-					return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
+					case 'GML3':
+						return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
+						break
+					case 'GEOJSON':
+					case 'JSON':
+						return new JsonSlurper().parseText( feature.geoJSON )
+						break
+					default:
+						return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
 				}
 			}
 

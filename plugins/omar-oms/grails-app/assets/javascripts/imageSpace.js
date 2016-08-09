@@ -1,7 +1,7 @@
 /**
  * Created by sbortman on 12/10/15.
  */
-//= require jquery-2.1.3.js
+//= require jquery-2.2.0.min.js
 //= require webjars/openlayers/3.13.0/ol.js
 // require webjars/openlayers/3.13.0/ol-debug.js
 //= require_self
