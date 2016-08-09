@@ -20,10 +20,10 @@ RUN yum -y install o2-wms-app && \
   yum -y install ossim-png-plugin && yum -y install ossim-gdal-plugin.x86_64
 ADD wms-app.yml /usr/share/omar/wms-app/wms-app.yml
 ENV DBHOST=${DBHOST}\
-    DBPORT=${DBPORT}
-    # DBUSER=${DBUSER}\
-    # DBPASS=${DBPASS}\
-    # DBNAME=${DBNAME}
+    DBPORT=${DBPORT}\
+    DBUSER=${DBUSER}\
+    DBPASS=${DBPASS}\
+    DBNAME=${DBNAME}
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wms-app/wms-app.sh"]

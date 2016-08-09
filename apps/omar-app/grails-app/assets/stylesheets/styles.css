@@ -182,6 +182,7 @@ body {
     z-index: 1;
     right: 40px;
     bottom: 5px;
+    margin-right: 10px;
 }
 
 #mapDownloadButton i{
@@ -193,6 +194,7 @@ body {
 
 #mapDownloadButton a{
     text-decoration: none;
+    cursor: pointer;
 }
 
 .dont-break-out {

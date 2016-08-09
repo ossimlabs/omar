@@ -1,0 +1,80 @@
+server:
+  contextPath:
+  port: 8080
+
+environments:
+  production:
+    dataSource:
+      pooled: true
+      jmxExport: true
+      driverClassName: org.postgresql.Driver
+      username: postgres_user
+      password: abc123
+      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/omar_prod
+
+omar:
+  openlayers:
+    baseMaps:
+      -
+        layerType: "tile"
+        title: "Open Street Map"
+        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        params:
+          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+          format: "image/jpeg"
+        options:
+          visible: true
+  app:
+    # root:
+    #   baseUrl: http://o2-omar/omar-app
+    wfs:
+      baseUrl: http://${WFSURL}:${WFSPORT}/wfs?
+      enabled: true
+      proxy: /proxy/index?url=
+    wms:
+      baseUrl: http://${WMSURL}:${WMSPORT}/wms?
+      enabled: true
+    imageSpace:
+      baseUrl: http://${WMSURL}:${WMSPORT}/imageSpace
+      enabled: true
+    thumbnails:
+      baseUrl: http://${WMSURL}:${WMSPORT}/imageSpace/getThumbnail?
+    footprints:
+      baseUrl: http://${WMSURL}:${WMSPORT}/footprints/getFootprints
+    kmlApp:
+      baseUrl: http://${KMLURL}:${KMLPORT}/
+    predio:
+      baseUrl: http://${PREDIOURL}:${PREDIOPORT}/predio/
+      enabled: ${PREDIOENABLED}
+    twofishes:
+      baseUrl: http://${TWOFISHURL}:{TWOFISHPORT}/twofish
+      proxy: /twoFishesProxy
+    swipeApp:
+      baseUrl: http://${SWIPEURL}:${SWIPEPORT}/swipe
+      enabled: ${SWIPEENABLED}
+    jpipApp:
+      baseUrl: http://${JPIPURL}:${JPIPPORT}/jpip
+      enabled: ${JPIPENABLED}
+    wmtsApp:
+      baseUrl: http://${WMTSURL}:${WMTSPORT}/wmts
+      enabled: ${WMTSENABLED}
+    piwikApp:
+      baseUrl: http://${PIWIKURL}:${PWIKPORT}/piwik/
+      enabled: ${PWIKENABLED}
+    apiApp:
+      baseUrl: http://${APIURL}:${APIPORT}/api
+      enabled: ${APIENABLED}
+    misc:
+      icons:
+        green-marker: search_marker_green.png
+
+classificationBanner:
+  backgroundColor: green
+  classificationType: Unclassified
+
+# ---
+# grails:
+#   serverURL: http://${UIHOST}:${UIPORT}
+#   assets:
+#     url: http://${UIHOST}:${UIPORT}/assets/

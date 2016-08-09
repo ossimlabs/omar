@@ -7,7 +7,7 @@
 //
 
 //= require webjars/jquery/2.1.4/jquery.min.js
-//= require webjars/openlayers/3.15.1/ol.js
+//= require omar-openlayers.js
 //= require webjars/bootstrap/3.3.5/js/bootstrap.js
 //= require webjars/angularjs/1.4.8/angular.js
 //= require webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js

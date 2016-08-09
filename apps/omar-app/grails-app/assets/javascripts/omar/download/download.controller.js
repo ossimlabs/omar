@@ -58,7 +58,7 @@
                     data:{fileInfo:JSON.stringify(data)},
                     successCallback: function (url)
                     {
-                      toastr.success("Download successful",
+                      toastr.success("Files are being downloaded.",
                       {
                         positionClass: 'toast-bottom-left',
                         closeButton: true,
