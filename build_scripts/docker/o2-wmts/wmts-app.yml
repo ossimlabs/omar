@@ -19,6 +19,6 @@ omar:
     wmsUrl: http://${WMSSERVER}${WMSPORT}/wms
     oldmarWmsFlag: false
     footprints:
-      url: http://${FOOTPRINTS}${FOOTPRINTSPORT}/footprints/getFootprints
+      url: http://${WMSSERVER}${WMSPORT}/footprints/getFootprints
       layers: "omar:raster_entry"
       styles: "byFileType"
