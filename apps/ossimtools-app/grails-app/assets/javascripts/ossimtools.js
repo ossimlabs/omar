@@ -1,6 +1,6 @@
 //= require jquery-2.2.0.min.js
 //= require webjars/bootswatch-superhero/3.3.5/js/bootstrap.js
-//= require webjars/openlayers/3.13.0/ol.js
+//= require omar-openlayers.js
 //= require_self
 
 var ossimtools = (function ()

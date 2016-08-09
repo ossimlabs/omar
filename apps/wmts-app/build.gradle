@@ -81,7 +81,6 @@ dependencies {
   // UI Webjar core dependencies
   compile 'org.webjars:jquery:2.1.4'
   compile 'org.webjars:jquery-ui:1.10.3'
-  compile 'org.webjars:openlayers:3.15.1'
   compile 'org.webjars:bootstrap:3.3.5'
   compile 'org.webjars.bower:angularjs:1.4.8'
   compile 'org.webjars.npm:angular-ui-bootstrap:0.14.3'

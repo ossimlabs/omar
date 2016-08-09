@@ -5,7 +5,7 @@
 
 //= require jquery.js
 
-//= require webjars/openlayers/3.13.0/ol.js
+//= require omar-openlayers.js
 //= require webjars/bootstrap/3.3.5/js/bootstrap.js
 //= require webjars/angularjs/1.4.8/angular.js
 //= require webjars/angular-ui-router/0.2.15/angular-ui-router.js
