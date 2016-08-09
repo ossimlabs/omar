@@ -45,7 +45,7 @@ ENV DBHOST=${DBHOST}\
     PWIKENABLED=${PWIKENABLED}\
     APIURL=${APIURL}\
     APIPORT=${APIPORT}\
-    APIENABLED=${APIENABLED}\
+    APIENABLED=${APIENABLED}
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/omar-app/omar-app.sh"]

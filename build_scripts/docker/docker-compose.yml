@@ -87,8 +87,8 @@ services:
     volumes:
       # Modify the path below to reflect your
       # AWS credentials location. Example:
-      - /Users/adrake/.aws:/root/.aws
-      # - /Users/<yourusername>/.aws:/root/.aws
+      #- /Users/jdoe/.aws:/root/.aws
+      - /Users/<yourusername>/.aws:/root/.aws
     ports:
       - "5000:8080"
     image: radiantbluetechnologies/o2-sqs
