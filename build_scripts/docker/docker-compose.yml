@@ -20,9 +20,9 @@ services:
     environment:
       DBHOST: o2-db
       DBPORT: :5432
-    #   DBNAME: omar_prod
-    #   DBUSER: postgres_user
-    #   DBPASS: abc123
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
     ports:
       - "4997:8080"
     links:
@@ -38,9 +38,9 @@ services:
     environment:
       DBHOST: o2-db
       DBPORT: :5432
-    #   DBNAME: omar_prod
-    #   DBUSER: postgres_user
-    #   DBPASS: abc123
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
     ports:
       - "4998:8080"
     links:
@@ -89,8 +89,8 @@ services:
     volumes:
       # Modify the path below to reflect your
       # AWS credentials location. Example:
-      #- /Users/jdoe/.aws:/root/.aws
-      - /Users/<yourusername>/.aws:/root/.aws
+      - /Users/adrake/.aws:/root/.aws
+      # - /Users/<yourusername>/.aws:/root/.aws
     ports:
       - "5000:8080"
     image: radiantbluetechnologies/o2-sqs
@@ -141,3 +141,49 @@ services:
     depends_on:
       - o2-base
       - o2-db
+  o2-omar:
+    build: ./o2-omar
+    container_name: o2-omar
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      WFSURL: docker.local
+      WFSPORT: 4998
+      WMSURL: docker.local
+      WMSPORT: 4997
+      KMLURL: docker.local
+      KMLPORT: 9999
+      PREDIOURL: docker.local
+      PREDIOPORT: 9999
+      PREDIOENABLED: "false"
+      TWOFISHURL: docker.local
+      TWOFISHPORT: 9999
+      SWIPEURL: docker.local
+      SWIPEPORT: 9999
+      SWIPEENABLED: "false"
+      JPIPURL: docker.local
+      JPIPPORT: 9999
+      JPIPENABLED: "false"
+      WMTSURL: docker.local
+      WMTSPORT: 4999
+      WMTSENABLED: "true"
+      PWIKURL: docker.local
+      PWIKPORT: 9999
+      PWIKENABLED: "false"
+      APIURL: docker.local
+      APIPORT: 9999
+      APIENABLED: "false"
+    ports:
+      - "5010:8080"
+    links:
+      - o2-db
+    image: radiantbluetechnologies/o2-omar
+    depends_on:
+      - o2-base
+      - o2-db
+      - o2-wms
+      - o2-wfs
+      - o2-stager
