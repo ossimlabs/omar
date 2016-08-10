@@ -86,7 +86,7 @@ This is a core OSSIM configuration but for clarity we will repeat the documentat
 
 **Assumptions**:
 
-* Environment **OSSIM_DATA** variable will be defined when the web applation starts and is pointing to a root path where elevation data and any additional geoids reside.  By default we will use /data as an example value for the **OSSIM_DATA** environment variable. Edit the file /usr/share/ossim/ossim-site-preferences
+* Environment **OSSIM_DATA** variable will be defined when the web application starts and is pointing to a root path where elevation data and any additional geoids reside.  By default we will use /data as an example value for the **OSSIM_DATA** environment variable. Edit the file /usr/share/ossim/ossim-site-preferences
 
 `vi /usr/share/ossim/ossim-site-preferences`
 

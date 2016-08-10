@@ -25,8 +25,8 @@ omar:
       ip:    ${JPIPSERVERURL}
       url:   jpip://${JPIPSERVERURL}:${JPIPSERVERPORT}
 
----
-grails:
-  serverURL: http://192.168.2.200/jpip-app
-  assets:
-    url: http://192.168.2.200/jpip-app/assets/
+# ---
+# grails:
+#   serverURL: http://192.168.2.200/jpip-app
+#   assets:
+#     url: http://192.168.2.200/jpip-app/assets/

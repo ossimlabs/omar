@@ -26,7 +26,8 @@ LABEL com.radiantblue.version="0.1"\
       for background processing and return a STATUS." \
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install o2-jpip-app
+RUN yum -y install o2-jpip-app && yum clean all
+ADD jpip-app.yml /usr/share/omar/jpip-app/jpip-app.yml
 ENV DBUSER=${DBUSER}\
     DBPASS=${DBPASS}\
     DBHOST=${DBHOST}\
@@ -37,4 +38,4 @@ ENV DBUSER=${DBUSER}\
     JPIPSERVERPORT=${JPIPSERVERPORT}
 
 EXPOSE 8080
-CMD["sh", "/usr/share/omar/jpip-app/jpip-app.sh"]
+CMD ["sh", "/usr/share/omar/jpip-app/jpip-app.sh"]
