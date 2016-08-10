@@ -24,7 +24,7 @@ class WebMappingService implements InitializingBean
 
   def grailsLinkGenerator
   def grailsApplication
-
+  def geoscriptService
 
   def serverData
 //  def layers
@@ -202,7 +202,7 @@ class WebMappingService implements InitializingBean
             LayerInfo.list()?.each { layerInfo ->
               WorkspaceInfo workspaceInfo = WorkspaceInfo.findByName( layerInfo.workspaceInfo.name )
 
-              Workspace.withWorkspace( getWorkspace( workspaceInfo?.workspaceParams ) ) { Workspace workspace ->
+              Workspace.withWorkspace( geoscriptService.getWorkspace( workspaceInfo?.workspaceParams ) ) { Workspace workspace ->
                 def layer = workspace[layerInfo.name]
                 def bounds = layer.bounds
                 def geoBounds = ( layer?.proj?.epsg == 4326 ) ? bounds : bounds?.reproject( 'epsg:4326' )
@@ -346,7 +346,7 @@ class WebMappingService implements InitializingBean
         //println maxCount
         //def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
 
-        Workspace.withWorkspace( getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { Workspace workspace ->
+        Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { Workspace workspace ->
           def layer = workspace[typeName]
 
           images = layer?.collectFromFeature(
@@ -400,12 +400,5 @@ class WebMappingService implements InitializingBean
 
     log.trace "getMap: Leaving ................"
     [contentType: wmsParams.format, buffer: ostream.toByteArray(), metrics: otherParams]
-  }
-
-  private Workspace getWorkspace(Map workspaceParams)
-  {
-    def dataStore = DataStoreFinder.getDataStore( workspaceParams )
-
-    ( dataStore ) ? new Workspace( dataStore ) : null
   }
 }

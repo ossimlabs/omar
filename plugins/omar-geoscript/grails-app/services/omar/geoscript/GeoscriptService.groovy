@@ -4,6 +4,7 @@ import geoscript.filter.Function
 import geoscript.geom.GeometryCollection
 import geoscript.workspace.Workspace
 import grails.transaction.Transactional
+import org.geotools.data.DataStoreFinder
 import org.geotools.factory.CommonFactoryFinder
 import org.opengis.filter.capability.FunctionName
 import org.springframework.beans.factory.InitializingBean
@@ -106,7 +107,7 @@ class GeoscriptService implements InitializingBean
   private def getWorkspaceAndLayer(String layerName)
   {
     def layerInfo = findLayerInfo( [typeName: layerName] )
-    def workspace = Workspace.getWorkspace( layerInfo?.workspaceInfo?.workspaceParams )
+    def workspace = getWorkspace( layerInfo?.workspaceInfo?.workspaceParams )
     def layer = workspace[layerInfo?.name]
 
     [workspace, layer]
@@ -142,4 +143,12 @@ class GeoscriptService implements InitializingBean
       Class.forName( multiType ).newInstance( geometries )
     }
   }
+
+  Workspace getWorkspace(Map params)
+  {
+    def dataStore = DataStoreFinder.getDataStore( params )
+
+    ( dataStore ) ? new Workspace( dataStore ) : null
+  }
+
 }

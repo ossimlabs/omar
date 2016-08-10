@@ -25,6 +25,7 @@ class SuperOverlayController implements InitializingBean
   def superOverlayService
   def outputKmz = false
   def dataSource
+  def geoscriptService
 
   def index()
   {
@@ -47,7 +48,7 @@ class SuperOverlayController implements InitializingBean
       {
         if ( params.id )
         {
-          Workspace.withWorkspace(
+          Workspace.withWorkspace( geoscriptService.getWorkspace(
               dbtype: 'postgis',
 
               // All these can be blank (except for port for some reason)
@@ -60,7 +61,7 @@ class SuperOverlayController implements InitializingBean
 
               'Data Source': dataSource,
               'Expose primary keys': true
-          ) { omardb ->
+          ) ) { omardb ->
             rasterEntry = omardb['raster_entry'].getFeatures(
                 new Filter( "in (${params.id})" ).or( "image_id='${params.id}'" ).or( "index_id='${params.id}'" )
             )?.first()
