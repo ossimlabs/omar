@@ -50,7 +50,7 @@ grails {
 
 dependencies {
     compile 'commons-io:commons-io:2.4'
-    compile 'org.grails.plugins:quartz:2.0.5'
+    compile 'org.grails.plugins:quartz:2.0.9'
 
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"
