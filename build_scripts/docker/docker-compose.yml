@@ -148,9 +148,9 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      JPIPCACHEDIR: data/jpip
-#      JPIPSERVERURL: o2-jpip-server
-#      JPIPSERVERPORT: ""
+      JPIPCACHEDIR: data/jpip-cache
+      JPIPSERVERURL: o2-jpip-server
+      JPIPSERVERPORT: ""
     volumes:
       # Mount the the host local data directory to the container
       - /Users/Shared/data:/data
@@ -158,7 +158,21 @@ services:
       - "5003:8080"
     depends_on:
       - o2-base
-      - o2-db
+      - o2-jpip-server
+  o2-jpip-server:
+    build: ./o2-jpip-server
+    container_name: o2-jpip
+    environment:
+      JPIPCACHEDIR: data/jpip-cache
+      JPIPSERVERURL: o2-jpip-server
+      JPIPSERVERPORT: 8080
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
+    ports:
+      - "5004:8080"
+    depends_on:
+      - o2-base
   o2-omar:
     build: ./o2-omar
     container_name: o2-omar
