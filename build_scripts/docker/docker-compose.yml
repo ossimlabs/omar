@@ -139,6 +139,41 @@ services:
     depends_on:
       - o2-base
       - o2-db
+  o2-jpip:
+    build: ./o2-jpip
+    container_name: o2-jpip
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      JPIPCACHEDIR: /data/jpip-cache
+      JPIPSERVERURL: docker.local
+      JPIPSERVERPORT: :5004
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
+    ports:
+      - "5003:8080"
+    image: radiantbluetechnologies/o2-jpip
+    depends_on:
+      - o2-base
+  o2-jpip-server:
+    build: ./o2-jpip-server
+    container_name: o2-jpip-server
+    environment:
+      JPIPCACHEDIR: /data/jpip-cache
+      JPIPSERVERURL: localhost
+      JPIPSERVERPORT: 8080
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
+    ports:
+      - "5004:8080"
+    image: radiantbluetechnologies/o2-jpip-server
+    depends_on:
+      - o2-base
   o2-omar:
     build: ./o2-omar
     container_name: o2-omar
