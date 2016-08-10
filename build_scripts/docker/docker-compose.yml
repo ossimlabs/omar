@@ -149,8 +149,8 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: o2-jpip-server
-      JPIPSERVERPORT: ""
+      JPIPSERVERURL: docker.local
+      JPIPSERVERPORT: :5004
     volumes:
       # Mount the the host local data directory to the container
       - /Users/Shared/data:/data
@@ -159,13 +159,13 @@ services:
     image: radiantbluetechnologies/o2-jpip
     depends_on:
       - o2-base
-      - o2-jpip-server
+      # - o2-jpip-server
   o2-jpip-server:
     build: ./o2-jpip-server
     container_name: o2-jpip-server
     environment:
       JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: o2-jpip-server
+      JPIPSERVERURL: localhost
       JPIPSERVERPORT: 8080
     volumes:
       # Mount the the host local data directory to the container

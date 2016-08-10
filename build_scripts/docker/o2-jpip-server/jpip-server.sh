@@ -7,7 +7,8 @@ export JPIP_CLIENTS=20
 #export JPIP_PORT=8080
 export JPIP_PORT=${JPIPSERVERPORT}
 # export JPIP_ADDRESS=192.168.2.108
-export JPIP_ADDRESS=${o2-jpip-server}
+#export JPIP_ADDRESS=${JPIPSERVERURL}
+export JPIP_ADDRESS=$(hostname -I)
 export JPIP_CONNECTION_THREADS=40
 export JPIP_MAX_RATE=40000000
 pushd `dirname $0` > /dev/null
