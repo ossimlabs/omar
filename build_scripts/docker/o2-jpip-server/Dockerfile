@@ -12,10 +12,15 @@ LABEL com.radiantblue.version="0.1"\
       stateless http requests." \
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install o2-jpip-server && yum clean all \
+RUN yum -y install ossim-jpip-server && yum clean all \
     && mkdir -p /usr/share/omar/jpip-server \
+    && mkdir -p /data/jpip-cache \
     && chown omar:omar /usr/share/omar
 ADD jpip-server.sh /usr/share/omar/jpip-server/jpip-server.sh
-RUN systemctl start jpip-server
+# RUN systemctl start jpip-server
+# ENTRYPOINT systemctl start jpip-server && bash
+CMD systemctl enable jpip-server.service && bash
+# ENTRYPOINT ["/usr/share/omar/jpip-server/jpip-server.sh"]
+# CMD ["sh", "/usr/share/omar/jpip-server/jpip-server.sh"] && bash
 
 EXPOSE 8080

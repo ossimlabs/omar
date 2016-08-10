@@ -148,7 +148,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      JPIPCACHEDIR: data/jpip-cache
+      JPIPCACHEDIR: /data/jpip-cache
       JPIPSERVERURL: o2-jpip-server
       JPIPSERVERPORT: ""
     volumes:
@@ -156,14 +156,15 @@ services:
       - /Users/Shared/data:/data
     ports:
       - "5003:8080"
+    image: radiantbluetechnologies/o2-jpip
     depends_on:
       - o2-base
       - o2-jpip-server
   o2-jpip-server:
     build: ./o2-jpip-server
-    container_name: o2-jpip
+    container_name: o2-jpip-server
     environment:
-      JPIPCACHEDIR: data/jpip-cache
+      JPIPCACHEDIR: /data/jpip-cache
       JPIPSERVERURL: o2-jpip-server
       JPIPSERVERPORT: 8080
     volumes:
@@ -171,6 +172,7 @@ services:
       - /Users/Shared/data:/data
     ports:
       - "5004:8080"
+    image: radiantbluetechnologies/o2-jpip-server
     depends_on:
       - o2-base
   o2-omar:
