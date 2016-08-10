@@ -18,10 +18,6 @@ RUN yum -y install ossim-jpip-server && yum clean all \
     && chown omar:omar /usr/share/omar
 ADD jpip-server.sh /usr/share/omar/jpip-server/jpip-server.sh
 
-# RUN systemctl start jpip-server
-# ENTRYPOINT systemctl start jpip-server && bash
-# CMD systemctl enable jpip-server.service && bash
-# ENTRYPOINT ["/usr/share/omar/jpip-server/jpip-server.sh"]
 CMD ["sh", "/usr/share/omar/jpip-server/jpip-server.sh"]
 
 EXPOSE 8080

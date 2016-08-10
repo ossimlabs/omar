@@ -159,7 +159,6 @@ services:
     image: radiantbluetechnologies/o2-jpip
     depends_on:
       - o2-base
-      # - o2-jpip-server
   o2-jpip-server:
     build: ./o2-jpip-server
     container_name: o2-jpip-server
