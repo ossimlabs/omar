@@ -13,3 +13,5 @@ LABEL com.radiantblue.version="0.1"\
       is used by the OMAR/O2 UI."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
+
+EXPOSE 8080 8081 8082 8083
