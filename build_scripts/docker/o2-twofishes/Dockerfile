@@ -13,11 +13,16 @@ LABEL com.radiantblue.version="0.1"\
       is used by the OMAR/O2 UI."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN mkdir twofishes && cd twofishes \
-    && yum -y install java-1.8.0-openjdk-devel \
-    && wget https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/server-assembly-0.84.9.jar \
-    && wget https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/2015-03-05.zip \
-    && unzip 2015-03-05.zip \
-    && java -jar server-assembly-0.84.9.jar --port 8080 --hfile_basepath 2015-03-05-20-05-30.753698
+RUN mkdir twofishes && \
+    yum -y install java-1.8.0-openjdk-devel && \
+    yum -y install wget && yum -y install unzip && \
+    cd /twofishes && \
+    wget https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/server-assembly-0.84.9.jar && \
+    wget https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/2015-03-05.zip && \
+    unzip 2015-03-05.zip
+
+CMD export LC_ALL=en_US.UTF-8
+CMD export LANG=en_US.UTF-8
+CMD java -Xmx4096m -jar /twofishes/server-assembly-0.84.9.jar --port 8080 --hfile_basepath /twofishes/2015-03-05-20-05-30.753698
 
 EXPOSE 8080 8081 8082 8083
