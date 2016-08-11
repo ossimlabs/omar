@@ -12,6 +12,7 @@ class FootprintService
 {
   static transactional = false
   def grailsApplication
+  def geoscriptService
 
   def getFootprints(GetFootprintsRequest params)
   {
@@ -23,7 +24,7 @@ class FootprintService
       name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
     }.get()
 
-    Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
+    Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { workspace ->
 
       def outlineLookupTable = styles[params.styles]
 

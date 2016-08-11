@@ -18,6 +18,7 @@ class WebCoverageService
 {
   def grailsLinkGenerator
   def grailsApplication
+  def geoscriptService
 
   static final supportedFormats = [
       "GeoTIFF", //"GIF", "PNG", "TIFF"
@@ -224,7 +225,7 @@ class WebCoverageService
         name == layerName && workspaceInfo.namespaceInfo.prefix == prefix
       }.get()
 
-      Workspace.withWorkspace( layerInfo.workspaceInfo.workspaceParams ) { workspace ->
+      Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { workspace ->
         def layer = workspace[layerName]
 
         if ( id )
