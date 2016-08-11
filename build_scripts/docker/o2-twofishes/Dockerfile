@@ -21,8 +21,13 @@ RUN mkdir twofishes && \
     wget https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/2015-03-05.zip && \
     unzip 2015-03-05.zip
 
-CMD export LC_ALL=en_US.UTF-8
-CMD export LANG=en_US.UTF-8
+# We need to do this because twofishes crashes without it:
+# http://jaredmarkell.com/docker-and-locales/
+
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 CMD java -Xmx4096m -jar /twofishes/server-assembly-0.84.9.jar --port 8080 --hfile_basepath /twofishes/2015-03-05-20-05-30.753698
 
 EXPOSE 8080 8081 8082 8083
