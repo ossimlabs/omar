@@ -1,6 +1,6 @@
 # Welcome to JPIP Web Service
 
-The JPIP web service is an interface to convert imagery so the jpip-server can stream to a client.  When interfacing into the JPIP web application you can post messages to request a URL. The result that is returned is a JSON formatted string that has the URL and the state at which the URL is in.  For example.  If a JPIP stream is requested on a given image and if the image does not have a JPIP stream associated with it yet then it will submit the image for background processing and return a STATUS.  
+The JPIP web service is an interface to convert imagery so the jpip-server can stream to a client.  When interfacing into the JPIP web application you can post messages to request a URL. The result that is returned is a JSON formatted string that has the URL and the state at which the URL is in.  For example, if a JPIP stream is requested on a given image and if the image does not have a JPIP stream associated with it yet then it will submit the image for background processing and return a STATUS.  
 
 ##Installation
 We assume you have read the generalized installation procedures that shows the common configuration created for all services in the OMAR distribution found in the [OMAR Common Install Guide](common.md).  To install you should be able to issue the following yum command
@@ -77,16 +77,16 @@ grails:
 * **quartz.jdbcStore:** This service supports background jobs using the quartz framework.  Just fix this to not use the jdbcStore.   For now the requests are not persistent.
 * **quarts.threadPool.threadCount** Quartz allows one to adjust the number of concurrent threads running.  Here we default to 4 threads.  This will allow 4 concurrent stagers to run for this service.
 * **omar.jpip.server.cache:** This is the location where images are written when they are converted to the input format used by the jpip-server.
-* **omar.jpip.server.ip:** Ip of the jpip-server location 
+* **omar.jpip.server.ip:** Ip of the jpip-server location
 * **omar.jpip.server.url** Base url used as a prefix for accessing the converted file over JPIP protocol
 
 ##Elevation Configuration
 
-This is a core OSSIM configuration but for clarity we will repeat the documentation for the elevation portion here. 
+This is a core OSSIM configuration but for clarity we will repeat the documentation for the elevation portion here.
 
 **Assumptions**:
 
-* Environment **OSSIM_DATA** variable will be defined when the web applation starts and is pointing to a root path where elevation data and any additional geoids reside.  By default we will use /data as an example value for the **OSSIM_DATA** environment variable. Edit the file /usr/share/ossim/ossim-site-preferences
+* Environment **OSSIM_DATA** variable will be defined when the web application starts and is pointing to a root path where elevation data and any additional geoids reside.  By default we will use /data as an example value for the **OSSIM_DATA** environment variable. Edit the file /usr/share/ossim/ossim-site-preferences
 
 `vi /usr/share/ossim/ossim-site-preferences`
 
@@ -141,7 +141,7 @@ MSL to ellipsoid delta: -24.1909999847412
 Height above MSL:       1863
 Height above ellipsoid: 1838.80900001526
 Geoid value:            -24.1909999847412
-``` 
+```
 
 ##Executing
 
@@ -200,7 +200,7 @@ The result of a call to the web service can be of severaly status types but on i
 }
 ```
 * **url** The url of the jpip streaming server for accessing the image.
-* **status** Can be on of *READY*, *RUNNING*, *PAUSED*, *CANCELED*, *FINISHED*, and *FAILED*.  Note, *READY* here does not mean that the URL is ready, but instead means that it is on the *READY* queue for the background jobs to stage. 
+* **status** Can be on of *READY*, *RUNNING*, *PAUSED*, *CANCELED*, *FINISHED*, and *FAILED*.  Note, *READY* here does not mean that the URL is ready, but instead means that it is on the *READY* queue for the background jobs to stage.
 
 You can call the URL again, with the same parameters, and you should get a different status if it has been started by the job:
 
@@ -218,4 +218,3 @@ Result:
 ```
 
 When you get the **FINISHED** status this means that the URL returned can now be accessed as a JPIP stream.
-
