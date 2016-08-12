@@ -1,0 +1,26 @@
+server:
+  contextPath:
+  port: 8080
+
+environments:
+  production:
+    dataSource:
+      pooled: true
+      jmxExport: true
+      driverClassName: org.postgresql.Driver
+      username: postgres
+      password: postgres
+      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+      url: jdbc:postgresql://192.168.2.100:5432/omardb-prod
+
+swipe:
+  app:
+    wfs:
+      baseUrl: http://192.168.2.200/wfs-app/wfs?
+    wms:
+      baseUrl: http://192.168.2.200/wms-app/wms?
+---
+grails:
+  serverURL: http://192.168.2.200/swipe-app
+  assets:
+    url: http://192.168.2.200/swipe-app/assets/

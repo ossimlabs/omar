@@ -15,7 +15,7 @@ LABEL com.radiantblue.version="0.1"\
       hierarchical LOD grid."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install o2-superoverlay-app
+RUN yum -y install o2-superoverlay-app && yum clean all
 ADD superoverlay-app.yml /usr/share/omar/superoverlay-app/superoverlay-app.yml
 ENV DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
