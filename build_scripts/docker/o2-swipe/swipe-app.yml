@@ -8,19 +8,14 @@ environments:
       pooled: true
       jmxExport: true
       driverClassName: org.postgresql.Driver
-      username: postgres
-      password: postgres
+      username: ${DBUSER}
+      password: ${DBPASS}
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://192.168.2.100:5432/omardb-prod
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
 
 swipe:
   app:
     wfs:
-      baseUrl: http://192.168.2.200/wfs-app/wfs?
+      baseUrl: http://${WFSURL}:${WFSPORT}/wfs?
     wms:
-      baseUrl: http://192.168.2.200/wms-app/wms?
----
-grails:
-  serverURL: http://192.168.2.200/swipe-app
-  assets:
-    url: http://192.168.2.200/swipe-app/assets/
+      baseUrl: http://${WMSURL}:${WMSPORT}/wms?
