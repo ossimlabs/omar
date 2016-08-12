@@ -70,7 +70,7 @@ dependencies {
   compile "org.grails:grails-web-boot"
   compile "org.grails.plugins:cache"
   compile "org.grails.plugins:scaffolding"
-  compile "org.grails.plugins:grails3-cors-interceptor:0.1.6"
+  compile "org.grails.plugins:grails3-cors-interceptor:1.1.0"
   profile "org.grails.profiles:web"
   runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
   runtime "com.h2database:h2"
