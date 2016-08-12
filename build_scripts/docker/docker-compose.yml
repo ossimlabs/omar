@@ -193,6 +193,20 @@ services:
     image: radiantbluetechnologies/o2-superoverlay
     depends_on:
       - o2-base
+  o2-download:
+    build: ./o2-download
+    container_name: o2-download
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+    ports:
+      - "5011:8080"
+    image: radiantbluetechnologies/o2-download
+    depends_on:
+      - o2-base
   o2-twofishes:
     build: ./o2-twofishes
     container_name: o2-twofishes
