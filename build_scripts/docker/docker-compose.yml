@@ -177,9 +177,6 @@ services:
   o2-twofishes:
     build: ./o2-twofishes
     container_name: o2-twofishes
-    # volumes:
-    #   # Mount the the host local data directory to the container
-    #   - /Users/Shared/twofishes:/twofishes
     ports:
       - "5005:8080"
       - "5006:8081"
