@@ -42,6 +42,8 @@ omar:
       baseUrl: http://${WMSURL}:${WMSPORT}/imageSpace/getThumbnail
     footprints:
       baseUrl: http://${WMSURL}:${WMSPORT}/footprints/getFootprints
+    downloadApp:
+      baseUrl: http://${DOWNLOADURL}:${DOWNLOADPORT}
     kmlApp:
       baseUrl: http://${KMLURL}:${KMLPORT}/
     predio:

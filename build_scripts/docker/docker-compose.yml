@@ -229,6 +229,8 @@ services:
       WFSPORT: 4998
       WMSURL: docker.local
       WMSPORT: 4997
+      DOWNLOADURL: docker.local
+      DOWNLOADPORT: 5011
       KMLURL: docker.local
       KMLPORT: 5009
       PREDIOURL: docker.local
