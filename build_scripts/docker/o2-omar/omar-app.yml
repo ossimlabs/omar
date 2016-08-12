@@ -39,7 +39,7 @@ omar:
       baseUrl: http://${WMSURL}:${WMSPORT}/imageSpace
       enabled: true
     thumbnails:
-      baseUrl: http://${WMSURL}:${WMSPORT}/imageSpace/getThumbnail?
+      baseUrl: http://${WMSURL}:${WMSPORT}/imageSpace/getThumbnail
     footprints:
       baseUrl: http://${WMSURL}:${WMSPORT}/footprints/getFootprints
     kmlApp:

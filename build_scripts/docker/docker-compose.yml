@@ -23,6 +23,9 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
     ports:
       - "4997:8080"
     links:
@@ -174,17 +177,30 @@ services:
     image: radiantbluetechnologies/o2-jpip-server
     depends_on:
       - o2-base
+  o2-superoverlay:
+    build: ./o2-superoverlay
+    container_name: o2-superoverlay
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      WMSURL: docker.local
+      WMSPORT: 4997
+    ports:
+      - "5009:8080"
+    image: radiantbluetechnologies/o2-superoverlay
+    depends_on:
+      - o2-base
   o2-twofishes:
     build: ./o2-twofishes
     container_name: o2-twofishes
-    # volumes:
-    #   # Mount the the host local data directory to the container
-    #   - /Users/Shared/twofishes:/twofishes
     ports:
-      - "5005:8080"
+      # - "5005:8080"
       - "5006:8081"
-      - "5007:8082"
-      - "5008:8083"
+      # - "5007:8082"
+      # - "5008:8083"
     image: radiantbluetechnologies/o2-twofishes
   o2-omar:
     build: ./o2-omar
@@ -200,7 +216,7 @@ services:
       WMSURL: docker.local
       WMSPORT: 4997
       KMLURL: docker.local
-      KMLPORT: 9999
+      KMLPORT: 5009
       PREDIOURL: docker.local
       PREDIOPORT: 9999
       PREDIOENABLED: "false"

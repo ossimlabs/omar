@@ -150,9 +150,3 @@ wms:
       unspecified:
         filter: file_type='unspecified'
         color: white
-
----
-# grails:
-#   serverURL: http://192.168.2.200/wms-app
-#   assets:
-#     url: http://192.168.2.200/wms-app/assets/
