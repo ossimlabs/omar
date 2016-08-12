@@ -51,10 +51,4 @@ wfs:
 
 omar:
   superOverlay:
-    wmsUrl: http://${WMSURL}:${WMSPORT}/wms-app/wms/getMap
-
-# ---
-# grails:
-#   serverURL: http://192.168.2.200/superoverlay-app
-#   assets:
-#     url: http://192.168.2.200/superoverlay-app/assets/
+    wmsUrl: http://${WMSURL}:${WMSPORT}/wms/getMap

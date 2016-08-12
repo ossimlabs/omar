@@ -15,7 +15,7 @@ LABEL com.radiantblue.version="0.1"\
       hierarchical LOD grid."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install o2-superoverlay-app && \
+RUN yum -y install o2-superoverlay-app
 ADD superoverlay-app.yml /usr/share/omar/superoverlay-app/superoverlay-app.yml
 ENV DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
@@ -23,7 +23,7 @@ ENV DBHOST=${DBHOST}\
     DBPASS=${DBPASS}\
     DBNAME=${DBNAME}\
     WMSURL=${WMSURL}\
-    WMSPORT=${WMSPORT}\
+    WMSPORT=${WMSPORT}
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/superoverlay-app/superoverlay-app.sh"]
