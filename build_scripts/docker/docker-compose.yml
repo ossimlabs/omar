@@ -193,6 +193,23 @@ services:
     image: radiantbluetechnologies/o2-superoverlay
     depends_on:
       - o2-base
+  o2-download:
+    build: ./o2-download
+    container_name: o2-download
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
+    ports:
+      - "5011:8080"
+    image: radiantbluetechnologies/o2-download
+    depends_on:
+      - o2-base
   o2-twofishes:
     build: ./o2-twofishes
     container_name: o2-twofishes
@@ -215,6 +232,10 @@ services:
       WFSPORT: 4998
       WMSURL: docker.local
       WMSPORT: 4997
+      STAGERURL: docker.local
+      STAGERPORT: 5002
+      DOWNLOADURL: docker.local
+      DOWNLOADPORT: 5011
       KMLURL: docker.local
       KMLPORT: 5009
       PREDIOURL: docker.local
@@ -237,6 +258,8 @@ services:
       APIURL: docker.local
       APIPORT: 9999
       APIENABLED: "false"
+      BANNERCOLOR: green
+      BANNERCLASSIFICATION: Unclassified
     ports:
       - "5010:8080"
     links:
