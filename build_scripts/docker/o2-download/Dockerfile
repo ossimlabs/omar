@@ -20,4 +20,4 @@ ENV DBHOST=${DBHOST}\
     DBNAME=${DBNAME}
 
 EXPOSE 8080
-CMD ["sh", "/usr/share/omar/download-app.sh"]
+CMD ["sh", "/usr/share/omar/download-app/download-app.sh"]
