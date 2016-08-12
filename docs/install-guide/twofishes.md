@@ -1,13 +1,13 @@
 # Welcome to Twofishes
 
-[Twofishes](http://twofishes.net) is not owned or packaged by us and the full installation instructions can be found at their location.  Twofishes location service is used by the [OMAR/O2 UI](omar-app.md) 
+[Twofishes](http://twofishes.net) is not owned or packaged by us and the full installation instructions can be found at their location.  Twofishes location service is used by the [OMAR/O2 UI](omar-app.md)
 
 For clarity we will repeat some of the instructions from an installation process we did for the CentOS 6 distribution:
 
-* [Download server binary](http://twofishes.net/binaries/server-assembly-0.84.9.jar) (version 0.84.9, 2015-03-10)
-* [Download latest index](http://twofishes.net/indexes/revgeo/2015-03-05.zip) (updated 2015-03-05)
+* [Download server binary](https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/server-assembly-0.84.9.jar) (version 0.84.9, 2015-03-10)
+* [Download latest index](https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/2015-03-05.zip) (updated 2015-03-05)
 
-Create a directory location for running the twofish service and then extract the index as a subdirectory to that location.  
+Create a directory location for running the twofishes service and then extract the index as a subdirectory to that location.  
 
 ```
 mkdir twofishes
