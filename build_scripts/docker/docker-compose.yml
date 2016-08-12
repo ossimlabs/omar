@@ -204,8 +204,8 @@ services:
       PREDIOURL: docker.local
       PREDIOPORT: 9999
       PREDIOENABLED: "false"
-      TWOFISHURL: docker.local
-      TWOFISHPORT: 9999
+      TWOFISHURL: o2-twofishes
+      TWOFISHPORT: 8081
       SWIPEURL: docker.local
       SWIPEPORT: 9999
       SWIPEENABLED: "false"

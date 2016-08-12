@@ -48,7 +48,7 @@ omar:
       baseUrl: http://${PREDIOURL}:${PREDIOPORT}/predio/
       enabled: ${PREDIOENABLED}
     twofishes:
-      baseUrl: http://${TWOFISHURL}:{TWOFISHPORT}/twofish
+      baseUrl: http://${TWOFISHURL}:${TWOFISHPORT}/twofish
       proxy: /twoFishesProxy
     swipeApp:
       baseUrl: http://${SWIPEURL}:${SWIPEPORT}/swipe
