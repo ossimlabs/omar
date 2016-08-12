@@ -82,6 +82,8 @@ omar:
       baseUrl: http://192.168.2.200/wms-app/imageSpace/getThumbnail?
     footprints:
       baseUrl: http://192.168.2.200/wms-app/footprints/getFootprints
+    downloadApp:
+      baseUrl: http://192.168.2.200/download-app
     kmlApp:
       baseUrl: http://192.168.2.200/superoverlay-app
     predio:
@@ -122,7 +124,7 @@ grails:
 * **omar.app.root** Root settings for the rot url.
  * **baseURL** Base URL for the omar-app
 * **omar.app.wfs** Base URL and flag for WFS.
- * **baseURL** Base URL for the WFS service 
+ * **baseURL** Base URL for the WFS service
  * **enabled** Flag used to specify if the WFS service is enabled and ready
 * **omar.app.wms** Base URL and settings for the WMS service.
  * **baseURL** Base URL for the WMS service call
@@ -135,11 +137,11 @@ grails:
 * **omar.app.footprints** Base settings for footprints
  * **baseURL** Base URL for the footprints service.   Because of the dependencies for WMS the baseURL can use the path to the IP/DNS location of the WMS service. In the above example we have a proxy called wms-app that points to the base WMS service on your WMS instance.
 * **omar.app.kmlApp** Base settings for super overlay
- * **baeURL** Base URL for the KML superoverlay service. 
+ * **baeURL** Base URL for the KML superoverlay service.
 * **omar.app.predio** Base settings for predictionIO
- * **baseURL** Base URL for the location of the Prediction IO service API. 
+ * **baseURL** Base URL for the location of the Prediction IO service API.
 * **omar.app.twofishes** Base settings for twofishes
- * **baseURL** Base URL for the Twofishes service.  This provide geolocation for coutry names, .. etc. 
+ * **baseURL** Base URL for the Twofishes service.  This provide geolocation for coutry names, .. etc.
 * **omar.app.swipeApp** Base settings for swipe service
  * **baseURL** Base URL for the swipe service.
 * **omar.app.jpipApp** Base settings for thumbnail generation
@@ -148,7 +150,7 @@ grails:
 * **classificationBanner**
  * **backgroundColor** Can be named values such as "red", "green", "yellow" , ... etc. or you can specify an exact color using the CSS styling format.  For example, if you wanted white banners you can set the value to "#FFFFFF" and if you wanted red you can also use the value "#FF0000".
  * **classificationType** This is the string displayed in the banners.  So setting to "My Secret Stuff" would print that string at the top and bottom of every page with a background color identified by the **backgroundColor** field
-  
+
 ##Executing
 
 To run the service on systems that use the init.d you can issue the command.
@@ -180,5 +182,3 @@ You can now verify your service with:
 `curl http://192.168.2.200/omar-app/health`
 
 which returns the health of your sytem and should have the value `{"status":"UP"}`
-
-
