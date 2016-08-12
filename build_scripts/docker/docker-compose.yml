@@ -202,6 +202,9 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
     ports:
       - "5011:8080"
     image: radiantbluetechnologies/o2-download
@@ -229,6 +232,8 @@ services:
       WFSPORT: 4998
       WMSURL: docker.local
       WMSPORT: 4997
+      STAGERURL: docker.local
+      STAGERPORT: 5002
       DOWNLOADURL: docker.local
       DOWNLOADPORT: 5011
       KMLURL: docker.local
@@ -253,6 +258,8 @@ services:
       APIURL: docker.local
       APIPORT: 9999
       APIENABLED: "false"
+      BANNERCOLOR: green
+      BANNERCLASSIFICATION: Unclassified
     ports:
       - "5010:8080"
     links:

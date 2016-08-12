@@ -82,6 +82,8 @@ omar:
       baseUrl: http://192.168.2.200/wms-app/imageSpace/getThumbnail?
     footprints:
       baseUrl: http://192.168.2.200/wms-app/footprints/getFootprints
+    stagerApp:
+      baseUrl: http://192.168.2.200/stager-app
     downloadApp:
       baseUrl: http://192.168.2.200/download-app
     kmlApp:
