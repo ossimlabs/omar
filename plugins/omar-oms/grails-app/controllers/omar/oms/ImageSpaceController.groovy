@@ -191,8 +191,8 @@ class ImageSpaceController
      }
      catch(e)
      {
-       response.status = HttpStatus.ERROR
-       log.debug(e.toString())
+       response.status = HttpStatus.INTERNAL_SERVER_ERROR
+       log.error(e.toString())
      }
      finally
      {
