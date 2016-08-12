@@ -19,6 +19,7 @@ LABEL com.radiantblue.version="0.1"\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
 RUN yum -y install o2-swipe-app && yum clean all
+ADD swipe-app.yml /usr/share/omar/swipe-app/swipe-app.yml
 ENV DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
     DBUSER=${DBUSER}\
