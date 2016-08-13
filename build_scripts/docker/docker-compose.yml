@@ -224,8 +224,7 @@ services:
       WMSURL: docker.local
       WMSPORT: 4997
     ports:
-      # - "5005:8080"
-      - "5012:8081"
+      - "5012:8080"
     image: radiantbluetechnologies/o2-swipe
     depends_on:
       - o2-base
