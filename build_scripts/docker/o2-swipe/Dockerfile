@@ -6,7 +6,7 @@
 # used in the swipe. The WMS chips data displayed
 # in the swipe view.
 
-FROM radiantbluetechnologies/o2-base
+FROM ossimlabs/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The swipe \
@@ -31,4 +31,4 @@ ENV DBHOST=${DBHOST}\
     WFSPORT=${WFSPORT}
 
 EXPOSE 8080
-CMD ["sh", "/usr/share/omar/swipe-app/swipe-app.yml"]
+CMD ["sh", "/usr/share/omar/swipe-app/swipe-app.sh"]

@@ -19,3 +19,9 @@ swipe:
       baseUrl: http://${WFSURL}:${WFSPORT}/wfs?
     wms:
       baseUrl: http://${WMSURL}:${WMSPORT}/wms?
+
+---
+grails:
+  serverURL: http://localhost:8080
+  assets:
+    url: http://localhost:8080/assets/
