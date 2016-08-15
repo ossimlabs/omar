@@ -144,7 +144,5 @@ swipe:
 
 ---
 grails:
-    assets:
-        url: http://localhost/swipe-app/assets/
     serverURL: http://localhost/swipe-app
 
