@@ -113,6 +113,11 @@ omar:
 classificationBanner:
   backgroundColor: green
   classificationType: Unclassified
+  #      placemarks:
+  #        tableName: omar:cities
+  #        columnName: CITY_NAME
+  #        geomName: geom
+  #        maxResults: 100
 
 ---
 grails:
