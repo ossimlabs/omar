@@ -266,24 +266,32 @@ class WebFeatureService
               WorkspaceInfo workspaceInfo = WorkspaceInfo.findByName( layerInfo.workspaceInfo.name )
 
               Workspace.withWorkspace( geoscriptService.getWorkspace( workspaceInfo?.workspaceParams ) ) { Workspace workspace ->
-                def layer = workspace[layerInfo.name]
-                def uri = layer?.schema?.uri
-                def prefix = NamespaceInfo.findByUri( uri )?.prefix
-                def geoBounds = ( layer?.proj?.epsg == 4326 ) ? layer?.bounds : layer?.bounds?.reproject( 'epsg:4326' )
-                FeatureType( "xmlns:${prefix}": uri ) {
-                  Name( "${prefix}:${layerInfo.name}" )
-                  Title( layerInfo.title )
-                  Abstract( layerInfo.description )
-                  ows.Keywords {
-                    layerInfo.keywords?.each { keyword ->
-                      ows.Keyword( keyword )
+                try
+                {
+
+                  def layer = workspace[layerInfo.name]
+                  def uri = layer?.schema?.uri
+                  def prefix = NamespaceInfo.findByUri( uri )?.prefix
+                  def geoBounds = ( layer?.proj?.epsg == 4326 ) ? layer?.bounds : layer?.bounds?.reproject( 'epsg:4326' )
+                  FeatureType( "xmlns:${prefix}": uri ) {
+                    Name( "${prefix}:${layerInfo.name}" )
+                    Title( layerInfo.title )
+                    Abstract( layerInfo.description )
+                    ows.Keywords {
+                      layerInfo.keywords?.each { keyword ->
+                        ows.Keyword( keyword )
+                      }
+                    }
+                    DefaultSRS( "urn:x-ogc:def:crs:${layer?.proj?.id}" )
+                    ows.WGS84BoundingBox {
+                      ows.LowerCorner( "${geoBounds?.minX} ${geoBounds?.minY}" )
+                      ows.UpperCorner( "${geoBounds?.maxX} ${geoBounds?.maxY}" )
                     }
                   }
-                  DefaultSRS( "urn:x-ogc:def:crs:${layer?.proj?.id}" )
-                  ows.WGS84BoundingBox {
-                    ows.LowerCorner( "${geoBounds?.minX} ${geoBounds?.minY}" )
-                    ows.UpperCorner( "${geoBounds?.maxX} ${geoBounds?.maxY}" )
-                  }
+                }
+                catch ( e )
+                {
+                  println e.message
                 }
               }
             }
