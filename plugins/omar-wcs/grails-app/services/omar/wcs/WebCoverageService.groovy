@@ -163,7 +163,7 @@ class WebCoverageService
           }
 
           wcs.ContentMetadata {
-            layers.each { layer ->
+            layers?.each { layer ->
               wcs.CoverageOfferingBrief {
                 wcs.description( layer.description )
                 wcs.name( layer.name )
