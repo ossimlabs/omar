@@ -3,7 +3,7 @@
 # be found at their location. Twofishes
 # location service is used by the OMAR/O2 UI
 
-FROM radiantbluetechnologies/o2-base
+FROM ossimlabs/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="Twofishes is\
@@ -15,7 +15,7 @@ LABEL com.radiantblue.version="0.1"\
       com.radiantblue.classification="UNCLASSIFIED"
 RUN mkdir twofishes && \
     yum -y install java-1.8.0-openjdk-devel && \
-    yum -y install wget && yum -y install unzip && \
+    yum -y install wget && yum -y install unzip && yum clean all \
     cd /twofishes && \
     wget https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/server-assembly-0.84.9.jar && \
     wget https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/2015-03-05.zip && \

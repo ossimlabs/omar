@@ -3,7 +3,7 @@ services:
   o2-base:
     build: ./o2-base
     container_name: o2-base
-    image: radiantbluetechnologies/o2-base
+    image: ossimlabs/o2-base
   o2-db:
     build: ./o2-db
     container_name: o2-db
@@ -13,7 +13,7 @@ services:
       POSTGRES_DB: omar_prod
     ports:
       - "4990:5432"
-    image: radiantbluetechnologies/o2-db
+    image: ossimlabs/o2-db
   o2-wms:
     build: ./o2-wms
     container_name: o2-wms
@@ -30,7 +30,7 @@ services:
       - "4997:8080"
     links:
       - o2-db
-    image: radiantbluetechnologies/o2-wms
+    image: ossimlabs/o2-wms
     depends_on:
       - o2-base
       - o2-db
@@ -48,7 +48,7 @@ services:
       - "4998:8080"
     links:
       - o2-db
-    image: radiantbluetechnologies/o2-wfs
+    image: ossimlabs/o2-wfs
     depends_on:
       - o2-base
       - o2-db
@@ -70,7 +70,7 @@ services:
       - "4999:8080"
     links:
       - o2-db
-    image: radiantbluetechnologies/o2-wmts
+    image: ossimlabs/o2-wmts
     depends_on:
       - o2-base
       - o2-db
@@ -91,10 +91,10 @@ services:
       # Modify the path below to reflect your
       # AWS credentials location. Example:
       #- /Users/jdoe/.aws:/root/.aws
-      - /Users/<yourusername>/.aws:/root/.aws
+      - /Users/<username>/.aws:/root/.aws
     ports:
       - "5000:8080"
-    image: radiantbluetechnologies/o2-sqs
+    image: ossimlabs/o2-sqs
     depends_on:
       - o2-base
       - o2-stager
@@ -117,7 +117,7 @@ services:
       - "5001:8080"
     links:
       - o2-db
-    image: radiantbluetechnologies/o2-avro
+    image: ossimlabs/o2-avro
     depends_on:
       - o2-base
       - o2-db
@@ -138,7 +138,7 @@ services:
       - "5002:8080"
     links:
       - o2-db
-    image: radiantbluetechnologies/o2-stager
+    image: ossimlabs/o2-stager
     depends_on:
       - o2-base
       - o2-db
@@ -159,7 +159,7 @@ services:
       - /Users/Shared/data:/data
     ports:
       - "5003:8080"
-    image: radiantbluetechnologies/o2-jpip
+    image: ossimlabs/o2-jpip
     depends_on:
       - o2-base
   o2-jpip-server:
@@ -174,7 +174,7 @@ services:
       - /Users/Shared/data:/data
     ports:
       - "5004:8080"
-    image: radiantbluetechnologies/o2-jpip-server
+    image: ossimlabs/o2-jpip-server
     depends_on:
       - o2-base
   o2-superoverlay:
@@ -190,7 +190,7 @@ services:
       WMSPORT: 4997
     ports:
       - "5009:8080"
-    image: radiantbluetechnologies/o2-superoverlay
+    image: ossimlabs/o2-superoverlay
     depends_on:
       - o2-base
   o2-download:
@@ -207,9 +207,29 @@ services:
       - /Users/Shared/data:/data
     ports:
       - "5011:8080"
-    image: radiantbluetechnologies/o2-download
+    image: ossimlabs/o2-download
     depends_on:
       - o2-base
+  o2-swipe:
+    build: ./o2-swipe
+    container_name: o2-swipe
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      WFSURL: docker.local
+      WFSPORT: 4998
+      WMSURL: docker.local
+      WMSPORT: 4997
+    ports:
+      - "5012:8080"
+    image: ossimlabs/o2-swipe
+    depends_on:
+      - o2-base
+      - o2-db
+      - o2-stager
   o2-twofishes:
     build: ./o2-twofishes
     container_name: o2-twofishes
@@ -218,7 +238,7 @@ services:
       - "5006:8081"
       # - "5007:8082"
       # - "5008:8083"
-    image: radiantbluetechnologies/o2-twofishes
+    image: ossimlabs/o2-twofishes
   o2-omar:
     build: ./o2-omar
     container_name: o2-omar
@@ -264,7 +284,7 @@ services:
       - "5010:8080"
     links:
       - o2-db
-    image: radiantbluetechnologies/o2-omar
+    image: ossimlabs/o2-omar
     depends_on:
       - o2-base
       - o2-db

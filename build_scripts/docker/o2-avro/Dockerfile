@@ -3,7 +3,7 @@
 # by looking for the reference URI field and downloading
 # the File.
 
-FROM radiantbluetechnologies/o2-base
+FROM ossimlabs/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="Takes an AVRO JSON \
