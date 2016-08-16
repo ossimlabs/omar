@@ -6,6 +6,16 @@ for app in ${O2_APPS[@]} ; do
    pushd ${app}
    docker rmi ossimlabs/${app}
    docker build -t ossimlabs/${app}:${tag} .
+   if [ $? -ne 0 ]; then
+     echo; echo "ERROR: Building container ${app} with tag ${tag}"
+     popd
+     exit 1
+   fi
    docker push ossimlabs/${app}:${tag}
+   if [ $? -ne 0 ]; then
+     echo; echo "ERROR: Pushing container ${app} with tag ${tag}"
+     popd
+     exit 1
+   fi
    popd
 done
