@@ -62,6 +62,9 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
     ports:
       - "5013:8080"
     links:

@@ -4,7 +4,7 @@ FROM ossimlabs/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="WCS Service \
-      Implements the OGC WCS standard."
+      Implements the OGC WCS standard."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
 RUN yum -y install o2-wcs-app \
