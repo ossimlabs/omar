@@ -231,14 +231,11 @@ services:
       - o2-db
       - o2-stager
   o2-twofishes:
-    build: ./o2-twofishes
-    container_name: o2-twofishes
+    build: ./twofishes
+    container_name: twofishes
     ports:
-      # - "5005:8080"
       - "5006:8081"
-      # - "5007:8082"
-      # - "5008:8083"
-    image: ossimlabs/o2-twofishes
+    image: ossimlabs/twofishes
   o2-omar:
     build: ./o2-omar
     container_name: o2-omar
