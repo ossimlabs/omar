@@ -53,6 +53,27 @@ services:
       - o2-base
       - o2-db
       - o2-stager
+  o2-wcs:
+    build: ./o2-wcs
+    container_name: o2-wcs
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
+    ports:
+      - "5013:8080"
+    links:
+      - o2-db
+    image: ossimlabs/o2-wcs
+    depends_on:
+      - o2-base
+      - o2-db
+      - o2-stager
   o2-wmts:
     build: ./o2-wmts
     container_name: o2-wmts
