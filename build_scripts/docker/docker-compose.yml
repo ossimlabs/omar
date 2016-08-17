@@ -283,8 +283,8 @@ services:
       STAGERPORT: 5002
       DOWNLOADURL: docker.local
       DOWNLOADPORT: 5011
-      KMLURL: docker.local
-      KMLPORT: 5009
+      KMLURL: 192.168.99.100/o2-superoverlay
+      KMLPORT:
       PREDIOURL: docker.local
       PREDIOPORT: 9999
       PREDIOENABLED: "false"
