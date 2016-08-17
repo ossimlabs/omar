@@ -275,10 +275,10 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSURL: docker.local
-      WFSPORT: 4998
-      WMSURL: docker.local
-      WMSPORT: 4997
+      WFSURL: 192.168.99.100/o2-wfs
+      #WFSPORT:
+      WMSURL: 192.168.99.100/o2-wms
+      #WMSPORT:
       STAGERURL: docker.local
       STAGERPORT: 5002
       DOWNLOADURL: docker.local
@@ -288,8 +288,8 @@ services:
       PREDIOURL: docker.local
       PREDIOPORT: 9999
       PREDIOENABLED: "false"
-      TWOFISHURL: o2-twofishes
-      TWOFISHPORT: 8081
+      TWOFISHURL: 192.168.99.100/twofishes
+      TWOFISHPORT:
       SWIPEURL: docker.local
       SWIPEPORT: 9999
       SWIPEENABLED: "false"
