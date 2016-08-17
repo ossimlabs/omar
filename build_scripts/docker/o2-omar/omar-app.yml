@@ -45,7 +45,7 @@ omar:
     stagerApp:
       baseUrl: http://${STAGERURL}:${STAGERPORT}
     downloadApp:
-      baseUrl: http://${DOWNLOADURL}:${DOWNLOADPORT}
+      baseUrl: http://${DOWNLOADURL}
     kmlApp:
       baseUrl: http://${KMLURL}/
     predio:

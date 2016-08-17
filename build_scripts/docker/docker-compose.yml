@@ -281,8 +281,8 @@ services:
       #WMSPORT:
       STAGERURL: docker.local
       STAGERPORT: 5002
-      DOWNLOADURL: docker.local
-      DOWNLOADPORT: 5011
+      DOWNLOADURL: 192.168.99.100/o2-download
+      DOWNLOADPORT:
       KMLURL: 192.168.99.100/o2-superoverlay
       KMLPORT:
       PREDIOURL: docker.local
