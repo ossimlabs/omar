@@ -276,11 +276,11 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       WFSURL: 192.168.99.100/o2-wfs
-      #WFSPORT:
+      WFSPORT:
       WMSURL: 192.168.99.100/o2-wms
-      #WMSPORT:
-      STAGERURL: docker.local
-      STAGERPORT: 5002
+      WMSPORT:
+      STAGERURL: 192.168.99.100/o2-stager
+      STAGERPORT: 
       DOWNLOADURL: 192.168.99.100/o2-download
       DOWNLOADPORT:
       KMLURL: 192.168.99.100/o2-superoverlay
