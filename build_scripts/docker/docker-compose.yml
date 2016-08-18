@@ -249,10 +249,10 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSURL: docker.local
-      WFSPORT: 4998
-      WMSURL: docker.local
-      WMSPORT: 4997
+      WFSURL: 192.168.99.100/o2-wfs
+      WFSPORT:
+      WMSURL: 192.168.99.100/o2-wms
+      WMSPORT:
     ports:
       - "5012:8080"
     image: ossimlabs/o2-swipe
@@ -290,8 +290,8 @@ services:
       PREDIOENABLED: "false"
       TWOFISHURL: 192.168.99.100/twofishes
       TWOFISHPORT:
-      SWIPEURL: docker.local
-      SWIPEPORT: 9999
+      SWIPEURL: 192.168.99.100/swipe
+      SWIPEPORT:
       SWIPEENABLED: "false"
       JPIPURL: docker.local
       JPIPPORT: 9999
