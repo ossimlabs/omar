@@ -92,10 +92,10 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSSERVER: docker.local
-      WFSPORT: :4997
-      WMSSERVER: docker.local
-      WMSPORT: :4998
+      WFSSERVER: 192.168.99.100/o2-wfs
+      WFSPORT:
+      WMSSERVER: 192.168.99.100/o2-wms
+      WMSPORT:
     ports:
       - "4999:8080"
     links:
@@ -296,8 +296,8 @@ services:
       JPIPURL: docker.local
       JPIPPORT: 9999
       JPIPENABLED: "false"
-      WMTSURL: docker.local
-      WMTSPORT: 4999
+      WMTSURL: 192.168.99.100/o2-wmts
+      WMTSPORT:
       WMTSENABLED: "true"
       PWIKURL: docker.local
       PWIKPORT: 9999

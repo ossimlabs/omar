@@ -15,10 +15,16 @@ environments:
 
 omar:
   wmts:
-    wfsUrl: http://${WFSSERVER}${WFSPORT}/wfs
-    wmsUrl: http://${WMSSERVER}${WMSPORT}/wms
+    wfsUrl: http://${WFSSERVER}/wfs
+    wmsUrl: http://${WMSSERVER}/wms
     oldmarWmsFlag: false
     footprints:
-      url: http://${WMSSERVER}${WMSPORT}/footprints/getFootprints
+      url: http://${WMSSERVER}/footprints/getFootprints
       layers: "omar:raster_entry"
       styles: "byFileType"
+
+---
+grails:
+  serverURL: http://192.168.99.100/o2-wmts
+  assets:
+    url: http://192.168.99.100/o2-wmts/assets/
