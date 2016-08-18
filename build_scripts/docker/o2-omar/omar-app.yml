@@ -61,7 +61,6 @@ omar:
       baseUrl: http://${JPIPURL}:${JPIPPORT}/jpip
       enabled: ${JPIPENABLED}
     wmtsApp:
-      #baseUrl: http://${WMTSURL}/wmts
       baseUrl: http://${WMTSURL}/wmtsApp/index
       enabled: ${WMTSENABLED}
     piwikApp:
