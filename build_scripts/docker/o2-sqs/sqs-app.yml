@@ -14,3 +14,9 @@ omar:
         post:
             urlEndPoint: "http://${DESTINATION_POST_END_POINT}${DESTINATION_POST_END_POINT_PORT}"
             field: ${DESTINATION_POST_FIELD}
+
+---
+grails:
+  serverURL: http://192.168.99.100/o2-sqs
+  assets:
+    url: http://192.168.99.100/o2-sqs/assets/

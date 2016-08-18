@@ -121,7 +121,7 @@ services:
       # Modify the path below to reflect your
       # AWS credentials location. Example:
       #- /Users/jdoe/.aws:/root/.aws
-      - /Users/<username>/.aws:/root/.aws
+      - /Users/adrake/.aws:/root/.aws
     ports:
       - "5000:8080"
     image: ossimlabs/o2-sqs
@@ -280,7 +280,7 @@ services:
       WMSURL: 192.168.99.100/o2-wms
       WMSPORT:
       STAGERURL: 192.168.99.100/o2-stager
-      STAGERPORT: 
+      STAGERPORT:
       DOWNLOADURL: 192.168.99.100/o2-download
       DOWNLOADPORT:
       KMLURL: 192.168.99.100/o2-superoverlay
