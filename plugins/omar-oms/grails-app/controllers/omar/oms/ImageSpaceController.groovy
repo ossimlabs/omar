@@ -164,7 +164,7 @@ class ImageSpaceController
   @ApiOperation(value = "Get the thumbnail of the passed in file name", produces="image/jpeg,image/png,image/gif")
   @ApiImplicitParams([
           @ApiImplicitParam(name = 'size', value = 'Overview image size', allowableValues="[64,128,256]", defaultValue="256", paramType = 'query', dataType = 'int', required=true),
-          @ApiImplicitParam(name = 'format', value = 'Output image format', allowableValues="[png,jpeg,gif]", defaultValue="png", paramType = 'query', dataType = 'string', required=true),
+          @ApiImplicitParam(name = 'format', value = 'Output image format', allowableValues="[png,jpeg,gif]", defaultValue="jpeg", paramType = 'query', dataType = 'string', required=true),
           @ApiImplicitParam(name = 'filename', value = 'Filename', paramType = 'query', dataType = 'string', required=true),
           @ApiImplicitParam(name = 'entry', value = 'Image entry id(typically 0)', defaultValue="0", paramType = 'query', dataType = 'string', required=true),
   ])
