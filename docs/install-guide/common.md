@@ -513,6 +513,19 @@ grails:
 * **grails.serverURL** point to the root location of the wmts-app server. The example goes directly to the service via 8080.  If a proxy is used then you must add the proxy end point.
 * **assets url** This is the url to the assets location.  Just add the **/assets/** path to the serverURL.
 
+## Common Endpoints Enable/Disable
+
+All the services that start with an application yaml file definition now has top have certain endpoints enabled before you can reach them.  If you need access to the **/heatlh** endpoint then it must be enabled.  Add an entry to the applicaitons YAML file defintion for getting the health of the service.
+
+```
+endpoints:
+  health:
+    enabled: true
+```
+
+This will enable the endpoint .../health to be accessed and should return a JSON formatted string describing the status of the service.
+
+For a complete list of endpoints please visit the spring boot page found at: [Spring Boot Endpoints](http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html).
 ## Common Database
 
 We typically use a common database server to store any service specific table data.  Not all services use this common setting but will be repeated in the services that use it.  Within this installation we have tested against a Postgres database server.  All services, with exception to the jpip-server that does not have an external configuration, will have a common configuration entry in their yaml file that contains an entry of the form:

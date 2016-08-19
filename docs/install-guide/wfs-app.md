@@ -201,6 +201,9 @@ wms:
         filter: file_type='unspecified'
         color: white
 
+endpoints:
+  health:
+    enabled: true
 ---
 grails:
   serverURL: http://192.168.2.200/wfs-app

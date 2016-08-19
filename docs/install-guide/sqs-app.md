@@ -55,6 +55,11 @@ omar:
         post:
             urlEndPoint: "http://192.168.2.200/avro-app/avro/addMessage"
             field: message
+
+endpoints:
+  health:
+    enabled: true
+
 ---
 grails:
   serverURL: http://192.168.2.200/sqs-app

@@ -99,6 +99,10 @@ omar:
       url: "http://<ip>:<port>/footprints/getFootprints"
       layers: "omar:raster_entry"
       styles: "byFileType"
+
+endpoints:
+  health:
+    enabled: true
 ---
 grails:
   serverURL: http://192.168.2.200/wmts-app

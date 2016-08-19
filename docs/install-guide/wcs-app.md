@@ -111,6 +111,9 @@ wfs:
           - features
         datastoreId: omardb-prod
 
+endpoints:
+  health:
+    enabled: true
 ---
 grails:
   serverURL: https://192.168.2.200/wcs-app
