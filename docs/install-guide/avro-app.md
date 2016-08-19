@@ -77,6 +77,9 @@ omar:
           overviewCompressionType: "NONE"
           overviewType: "ossim_tiff_box"
           filename: ""
+endpoints:
+  health:
+    enabled: false
 ```
 
 * **sourceUriField** Is the source URI field name in the JSON Avro record.

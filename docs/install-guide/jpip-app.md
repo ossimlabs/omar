@@ -64,6 +64,9 @@ omar:
       ip:    <ip>
       url:   jpip://<ip>:<port>
 
+endpoints:
+  health:
+    enabled: true
 ---
 grails:
   serverURL: http://192.168.2.200/jpip-app
