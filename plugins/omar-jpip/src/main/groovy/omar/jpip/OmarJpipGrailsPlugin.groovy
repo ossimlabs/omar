@@ -8,7 +8,7 @@ import groovy.util.logging.Slf4j
 class OmarJpipGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "3.0.15 > *"
+    def grailsVersion = "3.1.10 > *"
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
         "grails-app/views/error.gsp"
@@ -60,7 +60,6 @@ Brief summary/description of the plugin.
         log.trace("doWithSpring(): Leaving.............")
         {->
             // TODO Implement runtime spring config (optional)
-
         }
     }
 

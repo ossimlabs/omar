@@ -24,7 +24,7 @@ class WebMappingService implements InitializingBean
 
   def grailsLinkGenerator
   def grailsApplication
-
+  def geoscriptService
 
   def serverData
 //  def layers
@@ -53,7 +53,6 @@ class WebMappingService implements InitializingBean
   def getCapabilities(GetCapabilitiesRequest wmsParams)
   {
     def contentType, buffer
-
     def version = wmsParams?.version ?: "1.3.0"
     def schemaLocation = grailsLinkGenerator.link( absolute: true, uri: "/schemas/wms/1.3.0/capabilities_1_3_0.xsd" )
     def docTypeLocation = grailsLinkGenerator.link( absolute: true, uri: "/schemas/wms/1.1.1/WMS_MS_Capabilities.dtd" )
@@ -202,62 +201,70 @@ class WebMappingService implements InitializingBean
             LayerInfo.list()?.each { layerInfo ->
               WorkspaceInfo workspaceInfo = WorkspaceInfo.findByName( layerInfo.workspaceInfo.name )
 
-              Workspace.withWorkspace( getWorkspace( workspaceInfo?.workspaceParams ) ) { Workspace workspace ->
-                def layer = workspace[layerInfo.name]
-                def bounds = layer.bounds
-                def geoBounds = ( layer?.proj?.epsg == 4326 ) ? bounds : bounds?.reproject( 'epsg:4326' )
+              Workspace.withWorkspace( geoscriptService.getWorkspace( workspaceInfo?.workspaceParams ) ) { Workspace workspace ->
+                try
+                {
+                  def layer = workspace[layerInfo.name]
+                  def bounds = layer.bounds
+                  def geoBounds = ( layer?.proj?.epsg == 4326 ) ? bounds : bounds?.reproject( 'epsg:4326' )
 
 //                Layer( queryable: layerInfo?.queryable, opaque: layerInfo?.opaque ?: "0" ) {
-                Layer( queryable: "1", opaque: "0" ) {
+                  Layer( queryable: "1", opaque: "0" ) {
 
-                  Name( "${layerInfo.workspaceInfo.namespaceInfo.prefix}:${layerInfo.name}" )
-                  Title( layerInfo?.title )
-                  Abstract( layerInfo?.description )
-                  if ( layerInfo?.keywords )
-                  {
-                    KeywordList {
-                      layerInfo?.keywords?.each { keyword ->
-                        Keyword( keyword )
+                    Name( "${layerInfo.workspaceInfo.namespaceInfo.prefix}:${layerInfo.name}" )
+                    Title( layerInfo?.title )
+                    Abstract( layerInfo?.description )
+                    if ( layerInfo?.keywords )
+                    {
+                      KeywordList {
+                        layerInfo?.keywords?.each { keyword ->
+                          Keyword( keyword )
+                        }
                       }
                     }
-                  }
-                  "${crsTag}"( bounds?.proj?.id )
-                  if ( version == "1.3.0" )
-                  {
-                    EX_GeographicBoundingBox {
-                      westBoundLongitude( geoBounds?.minX )
-                      eastBoundLongitude( geoBounds?.maxX )
-                      southBoundLatitude( geoBounds?.minY )
-                      northBoundLatitude( geoBounds?.maxY )
+                    "${crsTag}"( bounds?.proj?.id )
+                    if ( version == "1.3.0" )
+                    {
+                      EX_GeographicBoundingBox {
+                        westBoundLongitude( geoBounds?.minX )
+                        eastBoundLongitude( geoBounds?.maxX )
+                        southBoundLatitude( geoBounds?.minY )
+                        northBoundLatitude( geoBounds?.maxY )
+                      }
                     }
-                  }
-                  else
-                  {
-                    LatLonBoundingBox(
-                        minx: geoBounds?.minX,
-                        miny: geoBounds?.minY,
-                        maxx: geoBounds?.maxX,
-                        maxy: geoBounds?.maxY
-                    )
-                  }
-                  BoundingBox( ( "${crsTag}" ): bounds?.proj?.id,
-                      minx: bounds?.minX, miny: bounds?.minY,
-                      maxx: bounds?.maxX, maxy: bounds?.maxY )
+                    else
+                    {
+                      LatLonBoundingBox(
+                          minx: geoBounds?.minX,
+                          miny: geoBounds?.minY,
+                          maxx: geoBounds?.maxX,
+                          maxy: geoBounds?.maxY
+                      )
+                    }
+                    BoundingBox( ( "${crsTag}" ): bounds?.proj?.id,
+                        minx: bounds?.minX, miny: bounds?.minY,
+                        maxx: bounds?.maxX, maxy: bounds?.maxY )
 //                  layerInfo?.styles?.each { style ->
-                  [].each { style ->
-                    Style {
-                      Name( style?.name )
-                      Title( style?.title )
-                      Abstract( style?.description )
-                      /*
-                      LegendURL( width: style?.legend?.width, height: style?.legend?.height ) {
-                        Format( style?.legend?.format )
-                        OnlineResource( 'xmlns:xlink': "http://www.w3.org/1999/xlink", 'xlink:type': "simple",
-                            'xlink:href': style?.legend?.url )
+/*
+                    [].each { style ->
+                      Style {
+                        Name( style?.name )
+                        Title( style?.title )
+                        Abstract( style?.description )
+
+                        LegendURL( width: style?.legend?.width, height: style?.legend?.height ) {
+                          Format( style?.legend?.format )
+                          OnlineResource( 'xmlns:xlink': "http://www.w3.org/1999/xlink", 'xlink:type': "simple",
+                              'xlink:href': style?.legend?.url )
+                        }
                       }
-                      */
                     }
+*/
                   }
+                }
+                catch ( e )
+                {
+                  println e.message
                 }
               }
             }
@@ -313,7 +320,7 @@ class WebMappingService implements InitializingBean
     case RenderMode.FILTER:
       log.trace "getMap: Using  RenderMode.FILTER Method"
 
-      def layerNames = wmsParams?.layers?.split(',')
+      def layerNames = wmsParams?.layers?.split( ',' )
       def layers = []
 
       layerNames?.each { layerName ->
@@ -340,19 +347,19 @@ class WebMappingService implements InitializingBean
 
         List images = null
 
-        //def maxCount = grailsApplication?.config.omar.wms.autoMosaic.maxCount
-        //println "BEFORE: ${maxCount}"
-        //maxCount = maxCount?:10
-        //println maxCount
-        //def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
+//def maxCount = grailsApplication?.config.omar.wms.autoMosaic.maxCount
+//println "BEFORE: ${maxCount}"
+//maxCount = maxCount?:10
+//println maxCount
+//def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
 
-        Workspace.withWorkspace( getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { Workspace workspace ->
+        Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { Workspace workspace ->
           def layer = workspace[typeName]
 
           images = layer?.collectFromFeature(
               filter: ( id ) ? "in(${id})" : wmsParams?.filter,
-              //sorting: sorting,
-              //	max: maxCount, // will remove and change to have the wms plugin have defaults
+//sorting: sorting,
+//	max: maxCount, // will remove and change to have the wms plugin have defaults
               fields: ['filename', 'entry_id'] as List<String>
           ) {
             [imageFile: it.filename as File, entry: it.entry_id?.toInteger()]
@@ -400,12 +407,5 @@ class WebMappingService implements InitializingBean
 
     log.trace "getMap: Leaving ................"
     [contentType: wmsParams.format, buffer: ostream.toByteArray(), metrics: otherParams]
-  }
-
-  private Workspace getWorkspace(Map workspaceParams)
-  {
-    def dataStore = DataStoreFinder.getDataStore( workspaceParams )
-
-    ( dataStore ) ? new Workspace( dataStore ) : null
   }
 }

@@ -14,7 +14,7 @@ class ArchiveService {
     {
         HashMap result = [
                 status:HttpStatus.OK,
-                message:"Hello There"
+                message:"Downloading Files"
         ]
 
         String fileName = cmd.zipFileName
@@ -24,23 +24,20 @@ class ArchiveService {
             fileName = "omar_images.zip"
         }
 
-        response.setContentType("application/octet-stream")
-
         if (cmd.validate())
         {
             try
             {
-                response.setHeader("Content-Disposition", "attachment;filename=${fileName}");
-                response.setHeader("Set-Cookie", "fileDownload=true; path=/");
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-
                 if ((cmd.type.toLowerCase() == "download") || (cmd.type == null))
                 {
-
                     if((cmd.archiveOptions["type"].toString().toLowerCase() == "zip") || (cmd.archiveOptions["type"] == null))
                     {
                         if(cmd.fileGroups.size()>=1)
                         {
+                            response.setContentType("application/octet-stream")
+                            response.setHeader("Content-Disposition", "attachment;filename=${fileName}");
+                            response.setHeader("Set-Cookie", "fileDownload=true; path=/");
+                            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                             if(cmd.fileGroups.size()==1)
                             {
                                 HashMap listOfFilesAsMaps = cmd.fileGroups

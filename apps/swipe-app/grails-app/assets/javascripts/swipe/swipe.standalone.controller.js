@@ -213,18 +213,6 @@
                                     type: 'base',
                                     visible: true,
                                     source: new ol.source.OSM()
-                                }),
-                                new ol.layer.Tile({
-                                    title: 'Roads',
-                                    type: 'base',
-                                    visible: false,
-                                    source: new ol.source.MapQuest({layer: 'osm'})
-                                }),
-                                new ol.layer.Tile({
-                                    title: 'Satellite',
-                                    type: 'base',
-                                    visible: false,
-                                    source: new ol.source.MapQuest({layer: 'sat'})
                                 })
                             ]
                         }),

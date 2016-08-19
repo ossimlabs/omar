@@ -1,115 +1,104 @@
 buildscript {
-    ext {
-        grailsVersion = project.grailsVersion
-    }
-    repositories {
-        mavenLocal()
-        maven { url "https://repo.grails.org/grails/core" }
-    }
-    dependencies {
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
-        classpath "org.grails.plugins:hibernate:4.3.10.5"
-    }
+  ext {
+    grailsVersion = project.grailsVersion
+  }
+  repositories {
+    mavenLocal()
+    maven { url "https://repo.grails.org/grails/core" }
+  }
+  dependencies {
+    classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
+    classpath "org.grails.plugins:hibernate5:5.0.10"
+  }
 }
-
-plugins {
-    id "io.spring.dependency-management" version "0.5.4.RELEASE"
-}
-
-evaluationDependsOnChildren()
 
 version "1.0.0"
 group "swipe.app"
 
-apply plugin: "spring-boot"
-apply plugin: "war"
-apply plugin: "asset-pipeline"
-apply plugin: 'eclipse'
-apply plugin: 'idea'
+apply plugin: "eclipse"
+apply plugin: "idea"
+//apply plugin: "war"
 apply plugin: "org.grails.grails-web"
 apply plugin: "org.grails.grails-gsp"
+apply plugin: "asset-pipeline"
 
 ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
+  grailsVersion = project.grailsVersion
+  gradleWrapperVersion = project.gradleWrapperVersion
 }
 
 assets {
-    minifyJs = true
-    minifyCss = true
-    //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
-    //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
-    includes = ["fonts/*"]
-    excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
-                '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
+  minifyJs = true
+  minifyCss = true
+  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
+  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
+  includes = ["fonts/*"]
+  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
+      '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
 }
 
 repositories {
-    mavenLocal()
-    maven { url "https://repo.grails.org/grails/core" }
+  mavenLocal()
+  maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "org.grails:grails-bom:$grailsVersion"
-    }
-    applyMavenExclusions false
+  imports {
+    mavenBom "org.grails:grails-bom:$grailsVersion"
+  }
+  applyMavenExclusions false
 }
 
 grails {
-    exploded = true
-    plugins {
-        compile project( ':omar-openlayers' )
-        compile project( ':omar-core' )
-        compile project( ':omar-hibernate-spatial' )
-    }
+  exploded = true
+  plugins {
+    compile project( ':omar-openlayers' )
+    compile project( ':omar-core' )
+    compile project( ':omar-hibernate-spatial' )
+  }
 }
 
 dependencies {
+  compile "org.grails.plugins:hibernate5"
+  compile "org.hibernate:hibernate-core:5.0.10.Final"
+  compile "org.hibernate:hibernate-ehcache:5.0.10.Final"
 
-    compile 'org.webjars:jquery:2.1.4'
-    compile 'org.webjars:bootstrap:3.3.5'
-    compile 'org.webjars.bower:angularjs:1.4.8'
-    compile 'org.webjars.bower:angular-toggle-switch:1.3.0'
+  compile 'org.webjars:jquery:2.1.4'
+  compile 'org.webjars:bootstrap:3.3.5'
+  compile 'org.webjars.bower:angularjs:1.4.8'
+  compile 'org.webjars.bower:angular-toggle-switch:1.3.0'
 
-    // Font stuff
-    compile 'org.webjars:font-awesome:4.4.0'
-    // Dark .css themes
-    compile 'org.webjars:bootswatch-darkly:3.3.5+4'
-    compile 'org.webjars:bootswatch-slate:3.3.5+4'
-    compile 'org.webjars:bootswatch-superhero:3.3.5+4'
+  // Font stuff
+  compile 'org.webjars:font-awesome:4.4.0'
+  // Dark .css themes
+  compile 'org.webjars:bootswatch-darkly:3.3.5+4'
+  compile 'org.webjars:bootswatch-slate:3.3.5+4'
+  compile 'org.webjars:bootswatch-superhero:3.3.5+4'
 
-    // Light .css themes
-    compile 'org.webjars:bootswatch-spacelab:3.3.5+4'
-    compile 'org.webjars:bootswatch-cosmo:3.3.5+4'
-    compile 'org.webjars:bootswatch-flatly:3.3.5+4'
-    compile 'org.webjars:bootswatch-default:3.3.5+4'
+  // Light .css themes
+  compile 'org.webjars:bootswatch-spacelab:3.3.5+4'
+  compile 'org.webjars:bootswatch-cosmo:3.3.5+4'
+  compile 'org.webjars:bootswatch-flatly:3.3.5+4'
+  compile 'org.webjars:bootswatch-default:3.3.5+4'
 
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies"
-    compile "org.grails:grails-web-boot"
-
-    compile "org.grails.plugins:hibernate"
-    compile "org.grails.plugins:cache"
-    compile "org.hibernate:hibernate-ehcache"
-    compile "org.grails.plugins:scaffolding"
-
-    compile "org.grails.plugins:grails3-cors-interceptor:0.1.6"
-    runtime "org.grails.plugins:asset-pipeline"
-
-    testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails.plugins:geb"
-
-    // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
-    testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
-
-    console "org.grails:grails-console"
+  compile "org.springframework.boot:spring-boot-starter-logging"
+  compile "org.springframework.boot:spring-boot-autoconfigure"
+  compile "org.grails:grails-core"
+  compile "org.springframework.boot:spring-boot-starter-actuator"
+  compile "org.springframework.boot:spring-boot-starter-tomcat"
+  compile "org.grails:grails-dependencies"
+  compile "org.grails:grails-web-boot"
+  compile "org.grails.plugins:cache"
+  compile "org.grails.plugins:scaffolding"
+  console "org.grails:grails-console"
+  profile "org.grails.profiles:web"
+  compile "org.grails.plugins:grails3-cors-interceptor:1.1.0"
+  runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
+  runtime "com.h2database:h2"
+  testCompile "org.grails:grails-plugin-testing"
+  testCompile "org.grails.plugins:geb"
+  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
+  testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = gradleWrapperVersion
-}

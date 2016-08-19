@@ -1,7 +1,9 @@
 package omar.jpip
 
 import omar.oms.ChipperUtil
+import groovy.util.logging.Slf4j
 
+@Slf4j
 class JpipStageJob {
 
    def jpipService
@@ -11,10 +13,11 @@ class JpipStageJob {
    }
 
    def execute() {
-      def job = jpipService.nextJob()
+      def job
 
-      if(job)
+      while(job = jpipService.nextJob())
       {
+         log.info("processing job ${job?.jpipId}")
          jpipService.convertImage(job)
       }
    }
