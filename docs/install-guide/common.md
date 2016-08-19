@@ -525,7 +525,7 @@ endpoints:
 
 This will enable the endpoint .../health to be accessed and should return a JSON formatted string describing the status of the service.
 
-
+For a complete list of endpoints please visit the spring boot page found at: [Spring Boot Endpoints](http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html).
 ## Common Database
 
 We typically use a common database server to store any service specific table data.  Not all services use this common setting but will be repeated in the services that use it.  Within this installation we have tested against a Postgres database server.  All services, with exception to the jpip-server that does not have an external configuration, will have a common configuration entry in their yaml file that contains an entry of the form:
