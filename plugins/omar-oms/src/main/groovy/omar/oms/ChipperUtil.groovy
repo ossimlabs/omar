@@ -1,5 +1,7 @@
 package omar.oms
 
+import groovy.json.JsonSlurper
+
 import java.awt.Point
 import java.awt.Transparency
 import java.awt.color.ColorSpace
@@ -19,6 +21,36 @@ import joms.oms.Chipper
 @Slf4j
 class ChipperUtil
 {
+  static HashMap stylesToOpts(String styles, HashMap options=null)
+  {
+    HashMap opts = options?:[:]
+
+    if(styles)
+    {
+      try
+      {
+        def stylesObj = new JsonSlurper().parseText(styles)
+
+        if(stylesObj?.bands)
+        {
+          //opts.three_band_out = false
+          opts.bands = stylesObj.bands.join(",")
+        }
+        if(stylesObj?.histOp)
+        {
+          opts.hist_op = stylesObj.histOp
+        }
+
+      }
+      catch(e)
+      {
+        log.error(e.toString())
+      }
+
+    }
+    opts
+
+}
   static ColorModel createColorModel(int numBands, boolean transparent)
   {
     def cs = ColorSpace.getInstance( ColorSpace.CS_sRGB )

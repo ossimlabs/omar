@@ -16,4 +16,7 @@ class GetTileCommand implements Validateable
   String format
   String filename
   int entry = 0
+  String bands
+  String histOp
+//  String styles
 }
