@@ -29,45 +29,45 @@ omar:
     # root:
     #   baseUrl: http://o2-omar/omar-app
     wfs:
-      baseUrl: http://${WFSURL}:${WFSPORT}/wfs?
+      baseUrl: http://${WFSURL}/wfs?
       enabled: true
       proxy: /proxy/index?url=
     wms:
-      baseUrl: http://${WMSURL}:${WMSPORT}/wms?
+      baseUrl: http://${WMSURL}/wms?
       enabled: true
     imageSpace:
-      baseUrl: http://${WMSURL}:${WMSPORT}/imageSpace
+      baseUrl: http://${WMSURL}/imageSpace
       enabled: true
     thumbnails:
-      baseUrl: http://${WMSURL}:${WMSPORT}/imageSpace/getThumbnail
+      baseUrl: http://${WMSURL}/imageSpace/getThumbnail
     footprints:
-      baseUrl: http://${WMSURL}:${WMSPORT}/footprints/getFootprints
+      baseUrl: http://${WMSURL}/footprints/getFootprints
     stagerApp:
-      baseUrl: http://${STAGERURL}:${STAGERPORT}
+      baseUrl: http://${STAGERURL}
     downloadApp:
-      baseUrl: http://${DOWNLOADURL}:${DOWNLOADPORT}
+      baseUrl: http://${DOWNLOADURL}
     kmlApp:
-      baseUrl: http://${KMLURL}:${KMLPORT}/
+      baseUrl: http://${KMLURL}/
     predio:
-      baseUrl: http://${PREDIOURL}:${PREDIOPORT}/predio/
+      baseUrl: http://${PREDIOURL}/predio/
       enabled: ${PREDIOENABLED}
     twofishes:
-      baseUrl: http://${TWOFISHURL}:${TWOFISHPORT}/twofish
+      baseUrl: http://${TWOFISHURL}/twofish
       proxy: /twoFishesProxy
     swipeApp:
-      baseUrl: http://${SWIPEURL}:${SWIPEPORT}/swipe
+      baseUrl: http://${SWIPEURL}/swipe
       enabled: ${SWIPEENABLED}
     jpipApp:
-      baseUrl: http://${JPIPURL}:${JPIPPORT}/jpip
+      baseUrl: http://${JPIPURL}/jpip
       enabled: ${JPIPENABLED}
     wmtsApp:
-      baseUrl: http://${WMTSURL}:${WMTSPORT}/wmts
+      baseUrl: http://${WMTSURL}/wmtsApp/index
       enabled: ${WMTSENABLED}
     piwikApp:
-      baseUrl: http://${PIWIKURL}:${PWIKPORT}/piwik/
+      baseUrl: http://${PIWIKURL}/piwik/
       enabled: ${PWIKENABLED}
     apiApp:
-      baseUrl: http://${APIURL}:${APIPORT}/api
+      baseUrl: http://${APIURL}/api
       enabled: ${APIENABLED}
     misc:
       icons:
@@ -76,3 +76,9 @@ omar:
 classificationBanner:
   backgroundColor: ${BANNERCOLOR}
   classificationType: ${BANNERCLASSIFICATION}
+
+---
+grails:
+  serverURL: http://192.168.99.100/o2-omar
+  assets:
+    url: http://192.168.99.100/o2-omar/assets/

@@ -33,3 +33,9 @@ omar:
           overviewCompressionType: "NONE"
           overviewType: "ossim_tiff_box"
           filename: ""
+
+---
+grails:
+  serverURL: http://192.168.99.100/o2-avro
+  assets:
+    url: http://192.168.99.100/o2-avro/assets/

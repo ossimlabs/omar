@@ -1,5 +1,14 @@
 version: '2'
 services:
+  o2-web-proxy:
+    build: ./o2-web-proxy
+    container_name: o2-web-proxy
+    image: ossimlabs/o2-web-proxy
+    ports:
+      - "80:80"
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users/Shared/data:/data
   o2-base:
     build: ./o2-base
     container_name: o2-base
@@ -83,10 +92,10 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSSERVER: docker.local
-      WFSPORT: :4997
-      WMSSERVER: docker.local
-      WMSPORT: :4998
+      WFSSERVER: ${DOCKER_HOST_IP}/o2-wfs
+      WFSPORT:
+      WMSSERVER: ${DOCKER_HOST_IP}/o2-wms
+      WMSPORT:
     ports:
       - "4999:8080"
     links:
@@ -173,7 +182,7 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: docker.local
+      JPIPSERVERURL: ${DOCKER_HOST_IP}
       JPIPSERVERPORT: :5004
     volumes:
       # Mount the the host local data directory to the container
@@ -207,8 +216,8 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WMSURL: docker.local
-      WMSPORT: 4997
+      WMSURL: ${DOCKER_HOST_IP}/o2-superoverlay
+      WMSPORT:
     ports:
       - "5009:8080"
     image: ossimlabs/o2-superoverlay
@@ -240,10 +249,10 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSURL: docker.local
-      WFSPORT: 4998
-      WMSURL: docker.local
-      WMSPORT: 4997
+      WFSURL: ${DOCKER_HOST_IP}/o2-wfs
+      WFSPORT:
+      WMSURL: ${DOCKER_HOST_IP}/o2-wms
+      WMSPORT:
     ports:
       - "5012:8080"
     image: ossimlabs/o2-swipe
@@ -266,35 +275,35 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSURL: docker.local
-      WFSPORT: 4998
-      WMSURL: docker.local
-      WMSPORT: 4997
-      STAGERURL: docker.local
-      STAGERPORT: 5002
-      DOWNLOADURL: docker.local
-      DOWNLOADPORT: 5011
-      KMLURL: docker.local
-      KMLPORT: 5009
-      PREDIOURL: docker.local
-      PREDIOPORT: 9999
+      WFSURL: ${DOCKER_HOST_IP}/o2-wfs
+      WFSPORT:
+      WMSURL: ${DOCKER_HOST_IP}/o2-wms
+      WMSPORT:
+      STAGERURL: ${DOCKER_HOST_IP}/o2-stager
+      STAGERPORT:
+      DOWNLOADURL: ${DOCKER_HOST_IP}/o2-download
+      DOWNLOADPORT:
+      KMLURL: ${DOCKER_HOST_IP}/o2-superoverlay
+      KMLPORT:
+      PREDIOURL: ${DOCKER_HOST_IP}/o2-predio
+      PREDIOPORT:
       PREDIOENABLED: "false"
-      TWOFISHURL: o2-twofishes
-      TWOFISHPORT: 8081
-      SWIPEURL: docker.local
-      SWIPEPORT: 9999
-      SWIPEENABLED: "false"
-      JPIPURL: docker.local
-      JPIPPORT: 9999
-      JPIPENABLED: "false"
-      WMTSURL: docker.local
-      WMTSPORT: 4999
+      TWOFISHURL: ${DOCKER_HOST_IP}/twofishes
+      TWOFISHPORT:
+      SWIPEURL: ${DOCKER_HOST_IP}/o2-swipe/swipe/index
+      SWIPEPORT:
+      SWIPEENABLED: "true"
+      JPIPURL:
+      JPIPPORT:
+      JPIPENABLED: "true"
+      WMTSURL: ${DOCKER_HOST_IP}/o2-wmts
+      WMTSPORT:
       WMTSENABLED: "true"
-      PWIKURL: docker.local
-      PWIKPORT: 9999
-      PWIKENABLED: "false"
-      APIURL: docker.local
-      APIPORT: 9999
+      PWIKURL:
+      PWIKPORT:
+      PWIKENABLED: "true"
+      APIURL:
+      APIPORT:
       APIENABLED: "false"
       BANNERCOLOR: green
       BANNERCLASSIFICATION: Unclassified
@@ -309,3 +318,4 @@ services:
       - o2-wms
       - o2-wfs
       - o2-stager
+      - o2-twofishes
