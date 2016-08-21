@@ -6,4 +6,4 @@ docker rm o2-download
 echo "Removing o2-download image..."
 docker rmi ossimlabs/o2-download
 echo "Running o2-download with docker-compose..."
-docker-compose run --service-ports --name o2-download o2-download
+docker-compose --file ../../docker-compose.yml run -d --service-ports --name o2-download o2-download

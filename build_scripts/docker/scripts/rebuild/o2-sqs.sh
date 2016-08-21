@@ -6,4 +6,4 @@ docker rm o2-sqs
 echo "Removing o2-sqs image..."
 docker rmi ossimlabs/o2-sqs
 echo "Running o2-sqs with docker-compose..."
-docker-compose run --service-ports --name o2-sqs o2-sqs
+docker-compose --file ../../docker-compose.yml run -d --service-ports --name o2-sqs o2-sqs

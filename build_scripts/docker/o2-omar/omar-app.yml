@@ -43,13 +43,13 @@ omar:
     footprints:
       baseUrl: http://${WMSURL}/footprints/getFootprints
     stagerApp:
-      baseUrl: http://${STAGERURL}:${STAGERPORT}
+      baseUrl: http://${STAGERURL}
     downloadApp:
       baseUrl: http://${DOWNLOADURL}
     kmlApp:
       baseUrl: http://${KMLURL}/
     predio:
-      baseUrl: http://${PREDIOURL}:${PREDIOPORT}/predio/
+      baseUrl: http://${PREDIOURL}/predio/
       enabled: ${PREDIOENABLED}
     twofishes:
       baseUrl: http://${TWOFISHURL}/twofish
@@ -64,10 +64,10 @@ omar:
       baseUrl: http://${WMTSURL}/wmtsApp/index
       enabled: ${WMTSENABLED}
     piwikApp:
-      baseUrl: http://${PIWIKURL}:${PWIKPORT}/piwik/
+      baseUrl: http://${PIWIKURL}/piwik/
       enabled: ${PWIKENABLED}
     apiApp:
-      baseUrl: http://${APIURL}:${APIPORT}/api
+      baseUrl: http://${APIURL}/api
       enabled: ${APIENABLED}
     misc:
       icons:

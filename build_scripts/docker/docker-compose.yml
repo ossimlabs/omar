@@ -92,9 +92,9 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSSERVER: 192.168.99.100/o2-wfs
+      WFSSERVER: ${DOCKER_HOST_IP}/o2-wfs
       WFSPORT:
-      WMSSERVER: 192.168.99.100/o2-wms
+      WMSSERVER: ${DOCKER_HOST_IP}/o2-wms
       WMSPORT:
     ports:
       - "4999:8080"
@@ -121,7 +121,7 @@ services:
       # Modify the path below to reflect your
       # AWS credentials location. Example:
       #- /Users/jdoe/.aws:/root/.aws
-      - /Users/adrake/.aws:/root/.aws
+      - /Users/<username>/.aws:/root/.aws
     ports:
       - "5000:8080"
     image: ossimlabs/o2-sqs
@@ -182,7 +182,7 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: docker.local
+      JPIPSERVERURL: ${DOCKER_HOST_IP}
       JPIPSERVERPORT: :5004
     volumes:
       # Mount the the host local data directory to the container
@@ -216,8 +216,8 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WMSURL: docker.local
-      WMSPORT: 4997
+      WMSURL: ${DOCKER_HOST_IP}/o2-superoverlay
+      WMSPORT:
     ports:
       - "5009:8080"
     image: ossimlabs/o2-superoverlay
@@ -249,9 +249,9 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSURL: 192.168.99.100/o2-wfs
+      WFSURL: ${DOCKER_HOST_IP}/o2-wfs
       WFSPORT:
-      WMSURL: 192.168.99.100/o2-wms
+      WMSURL: ${DOCKER_HOST_IP}/o2-wms
       WMSPORT:
     ports:
       - "5012:8080"
@@ -275,35 +275,35 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      WFSURL: 192.168.99.100/o2-wfs
+      WFSURL: ${DOCKER_HOST_IP}/o2-wfs
       WFSPORT:
-      WMSURL: 192.168.99.100/o2-wms
+      WMSURL: ${DOCKER_HOST_IP}/o2-wms
       WMSPORT:
-      STAGERURL: 192.168.99.100/o2-stager
+      STAGERURL: ${DOCKER_HOST_IP}/o2-stager
       STAGERPORT:
-      DOWNLOADURL: 192.168.99.100/o2-download
+      DOWNLOADURL: ${DOCKER_HOST_IP}/o2-download
       DOWNLOADPORT:
-      KMLURL: 192.168.99.100/o2-superoverlay
+      KMLURL: ${DOCKER_HOST_IP}/o2-superoverlay
       KMLPORT:
-      PREDIOURL: docker.local
-      PREDIOPORT: 9999
+      PREDIOURL: ${DOCKER_HOST_IP}/o2-predio
+      PREDIOPORT:
       PREDIOENABLED: "false"
-      TWOFISHURL: 192.168.99.100/twofishes
+      TWOFISHURL: ${DOCKER_HOST_IP}/twofishes
       TWOFISHPORT:
-      SWIPEURL: 192.168.99.100/swipe
+      SWIPEURL: ${DOCKER_HOST_IP}/o2-swipe/swipe/index
       SWIPEPORT:
-      SWIPEENABLED: "false"
-      JPIPURL: docker.local
-      JPIPPORT: 9999
-      JPIPENABLED: "false"
-      WMTSURL: 192.168.99.100/o2-wmts
+      SWIPEENABLED: "true"
+      JPIPURL:
+      JPIPPORT:
+      JPIPENABLED: "true"
+      WMTSURL: ${DOCKER_HOST_IP}/o2-wmts
       WMTSPORT:
       WMTSENABLED: "true"
-      PWIKURL: docker.local
-      PWIKPORT: 9999
-      PWIKENABLED: "false"
-      APIURL: docker.local
-      APIPORT: 9999
+      PWIKURL:
+      PWIKPORT:
+      PWIKENABLED: "true"
+      APIURL:
+      APIPORT:
       APIENABLED: "false"
       BANNERCOLOR: green
       BANNERCLASSIFICATION: Unclassified
@@ -318,3 +318,4 @@ services:
       - o2-wms
       - o2-wfs
       - o2-stager
+      - o2-twofishes

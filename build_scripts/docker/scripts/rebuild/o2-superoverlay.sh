@@ -6,4 +6,4 @@ docker rm o2-superoverlay
 echo "Removing o2-superoverlay image..."
 docker rmi ossimlabs/o2-superoverlay
 echo "Running o2-superoverlay with docker-compose..."
-docker-compose run --service-ports --name o2-superoverlay o2-superoverlay
+docker-compose --file ../../docker-compose.yml run -d --service-ports --name o2-superoverlay o2-superoverlay
