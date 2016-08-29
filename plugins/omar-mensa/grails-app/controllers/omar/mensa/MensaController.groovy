@@ -21,7 +21,7 @@ class MensaController {
     static allowedMethods = [
             index: ['GET', 'POST'],
             imageDistance: 'POST',
-            iptsToGrd: 'POST'
+            imagePointsToGround: 'POST'
     ]
 
     def index() { }
@@ -45,8 +45,6 @@ class MensaController {
         def requestParams = params - params.subMap( ['controller', 'action'] )
         def cmd = new DistanceCommand()
         if(jsonData) requestParams << jsonData
-        println jsonData
-        println "*"*40
 
         // get map from JSON and merge into parameters
         if(jsonData) requestParams << jsonData
@@ -67,16 +65,20 @@ class MensaController {
                     defaultValue = """{
    "filename": "<Path to File>",
    "entryId": 0,
-   "includePositionError":false,
+   "pqe" : {
+       "includePositionError":false,
+       "probabilityLevel" : 0.9,
+       "ellipsePointType" : none,
+   },
    "ipts": [
            {"x":0.0,"y":0.0},
            {"x":1.0,"y":1.0}
            ]
-    }""",
+}""",
                    paramType = 'body',
                    dataType = 'string')
     ])
-    def iptsToGrd()
+    def imagePointsToGround()
     {
         def jsonData = request.JSON?request.JSON as HashMap:null
         def requestParams = params - params.subMap( ['controller', 'action'] )
@@ -87,7 +89,6 @@ class MensaController {
         BindUtil.fixParamNames( IptsToGrdCommand, requestParams )
         bindData( cmd, requestParams )
         HashMap result = imageGeometryService.iptsToGrd(cmd)
-
         response.status = result.status
         render contentType: "application/json", text: result as JSON
     }
