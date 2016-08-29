@@ -11,9 +11,12 @@ import joms.oms.MapProjection
 import joms.oms.ossimEcefPoint
 import joms.oms.ossimDpt
 import joms.oms.ossimGpt
+import omar.oms.IptsToGrdCommand
 
 @Transactional
 class MensaService {
+
+    def imageGeometryService
 
     def calculateImageDistance(DistanceCommand cmd)
     {
@@ -128,7 +131,7 @@ class MensaService {
 
                 result.data.gdist = gdist
                 result.data.distance = distance
-                if(coordinates.size() == 2) result.data.azimuth = daArray[1]*(180.0/Math.PI)
+                if(coordinates.size() == 2) result.data.azimuth = Math.toDegrees(daArray[1])
             }
             imageSpaceModel.delete()
             mapProjection?.delete()
@@ -140,6 +143,35 @@ class MensaService {
         ecefPoint.delete()
         geodeticEvaluator.delete()
         if(lastGroundPoint) lastGroundPoint.delete();
+
+        result
+    }
+    def imagePointsToGround(IptsToGrdCommand cmd)
+    {
+        HashMap result = [status:HttpStatus.OK, statusMessage: ""]
+        if(cmd.ipts instanceof String)
+        {
+          try{
+              def geom = Geometry.fromWKT(cmd.ipts);
+              if(geom)
+              {
+                  def coordinates = geom.coordinates;
+                  cmd.ipts = []
+                  coordinates.each{pt->
+                      cmd.ipts << [x:pt.x,y:pt.y]
+                  }
+              }
+          }
+          catch(e)
+          {
+              result.statusMessage = e.toString()
+              result.status = HttpStatus.INTERNAL_SERVER_ERROR
+          }
+        }
+        if(result.status == HttpStatus.OK)
+        {
+            result = imageGeometryService.iptsToGrd(cmd)
+        }
 
         result
     }

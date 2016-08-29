@@ -11,7 +11,7 @@ class IptsToGrdCommand implements Validateable
 {
    String filename
    Integer entryId = 0
-   ArrayList ipts
+   def ipts
    def pqe = [
            includePositionError:false,
            ellipsePointType:"none", // can be "none" or "array", future will allow for WKT types
