@@ -144,15 +144,38 @@ class ImageGeometryService {
                         if(pqe)
                         {
 
-                            if(numPnts)
+                            if(numPnts&&cmd.pqe?.ellipsePointType)
                             {
-                                if(cmd.pqe?.ellipsePointType == "array")
+                                switch(cmd.pqe?.ellipsePointType?.toLowerCase())
                                 {
-                                    pqe.ellPts = []
-                                    for(int i = 0; i < numPnts; i++)
-                                    {
-                                        pqe.ellPts << [x: ellSamp[i], y: ellLine[i]]
-                                    }
+                                    case "array":
+                                        pqe.ellPts = []
+                                        for(int i = 0; i < numPnts; i++)
+                                        {
+                                            pqe.ellPts << [x: ellSamp[i], y: ellLine[i]]
+                                        }
+                                        break
+
+                                    case "polygon":
+                                        pqe.ellPts = "POLYGON(("
+                                        Integer nPointMinus1 = numPnts-1
+                                        for(int i = 0; i < nPointMinus1; i++)
+                                        {
+                                            pqe.ellPts+="${ellSamp[i]} ${ellLine[i]},".toString()
+                                        }
+                                        pqe.ellPts+="${ellSamp[nPointMinus1]} ${ellLine[nPointMinus1]}))".toString()
+                                        break
+                                    case "linestring":
+                                        pqe.ellPts = "LINESTRING("
+                                        Integer nPointMinus1 = numPnts-1
+                                        for(int i = 0; i < nPointMinus1; i++)
+                                        {
+                                            pqe.ellPts+="${ellSamp[i]} ${ellLine[i]},".toString()
+                                        }
+                                        pqe.ellPts +="${ellSamp[nPointMinus1]} ${ellLine[nPointMinus1]})".toString()
+                                        break
+                                    default:
+                                        break
                                 }
                             }
 
@@ -190,143 +213,6 @@ class ImageGeometryService {
         }
         result
     }
-
-
-    // The following code is cut from OLDMAR distribution and will be refactored once we are ready to add error
-    // calculation in O2
-    //
-//    /**
-//     * @brief Single-ray projection with RPC error propagation
-//     * @param filename
-//     * @param imgPt
-//     * @param probLev probability level (.5,.9,.95)
-//     * @param angInc angular increment (deg) for image space ellipse points
-//     * @param entryId
-//     * @return
-//     */
-//    def imageSpaceToGroundSpace(def filename, def imgPt, def probLev, def angInc, def entryId)
-//    {
-//        def result = [];
-//        def ellPts = [];
-//
-//        def imageSpaceModel = new ImageModel()
-//        def geodeticEvaluator = new GeodeticEvaluator()
-//        def imagePoint = new ossimDpt(imgPt.x as double, imgPt.y as double)
-//        def groundPoint = new ossimGpt()
-//        boolean errorPropAvailable = false
-//
-//        boolean surfaceInfoAvailable = false
-//        def accuracyInfo = new ossimElevationAccuracyInfo()
-//        def typeString   = new ossimString()
-//        String projType
-//
-//        int numPnts = 360/angInc + 1
-//        double [] ellSamp = new double[numPnts]
-//        double [] ellLine = new double[numPnts]
-//        double [] pqeArray = new double[6]
-//        String hgtMSL
-//        String hgtHAE
-//
-//        if ( imageSpaceModel.setModelFromFile(filename, entryId) )
-//        {
-//            // Perform projection
-//            imageSpaceModel.imageToGround(imagePoint, groundPoint)
-//            if(groundPoint.isHgtNan())
-//            {
-//
-//                Double ellipsHeight =  geodeticEvaluator.getHeightEllipsoid(groundPoint)
-//                if(!ellipsHeight.naN)
-//                {
-//                    def hgtM = geodeticEvaluator.getHeightMSL(groundPoint)
-//                    def hgtE   = ellipsHeight
-//                    groundPoint.height = ellipsHeight
-//                    hgtHAE = Double.toString(hgtE)
-//                    hgtMSL = Double.toString(hgtM)
-//                }
-//                else
-//                {
-//                    hgtHAE = "---";
-//                    hgtMSL = "---";
-//                    groundPoint.height = 0.0
-//                }
-//            }
-//            else
-//            {
-//                def hgtE = groundPoint.height()
-//                def hgtM = geodeticEvaluator.getHeightMSL(groundPoint)
-//                hgtHAE = Double.toString(hgtE)
-//                hgtMSL = Double.toString(hgtM)
-//            }
-//
-//
-//            // Get projection info
-//            typeString = imageSpaceModel.getType()
-//            projType = typeString
-//            projType = projType.minus("ossim")
-//
-//            // Perform error propagation
-//            errorPropAvailable =
-//                    imageSpaceModel.imageToGroundErrorPropagation(groundPoint,
-//                            probLev as double,
-//                            angInc as double,
-//                            pqeArray,
-//                            ellSamp,
-//                            ellLine)
-//        }
-//
-//        // Get surface info
-//        surfaceInfoAvailable = imageSpaceModel.getProjSurfaceInfo(groundPoint, accuracyInfo)
-//        String info
-//        info = accuracyInfo.surfaceName
-//        accuracyInfo.delete()
-//        accuracyInfo = null
-//        if (!surfaceInfoAvailable)
-//        {
-//            info = "NO SURFACE INFO"
-//        }
-//
-//        if (errorPropAvailable)
-//        {
-//            for(int i = 0; i < numPnts; i++){
-//                ellPts << [xe: ellSamp[i], ye: ellLine[i]]
-//            }
-//
-//            result = [x:      imgPt.x,
-//                      y:      imgPt.y,
-//                      lat:    groundPoint.latd(),
-//                      lon:    groundPoint.lond(),
-//                      hgt:    hgtHAE,
-//                      type:   projType,
-//                      hgtMsl: hgtMSL,
-//                      sInfo:  info,
-//                      CE:     pqeArray[0],
-//                      LE:     pqeArray[1],
-//                      SMA:    pqeArray[2],
-//                      SMI:    pqeArray[3],
-//                      AZ:     Math.toDegrees(pqeArray[4]),
-//                      lvl:    probLev,
-//                      nELL:   pqeArray[5]]
-//        }
-//        else
-//        {
-//            result = [x:      imgPt.x,
-//                      y:      imgPt.y,
-//                      lat:    groundPoint.latd(),
-//                      lon:    groundPoint.lond(),
-//                      hgt:    hgtHAE,
-//                      type:   projType,
-//                      hgtMsl: hgtMSL,
-//                      sInfo:  info];
-//        }
-//
-//        imageSpaceModel.delete()
-//        geodeticEvaluator.delete()
-//        groundPoint.delete();
-//        groundPoint = null;
-//
-//        [ellpar: result, ellpts: ellPts]
-//    }
-
 
     /**
      * @param filename

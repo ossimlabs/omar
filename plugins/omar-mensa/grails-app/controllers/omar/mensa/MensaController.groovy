@@ -68,7 +68,7 @@ class MensaController {
    "pqe" : {
        "includePositionError":false,
        "probabilityLevel" : 0.9,
-       "ellipsePointType" : none,
+       "ellipsePointType" : "none"
    },
    "ipts": [
            {"x":0.0,"y":0.0},
