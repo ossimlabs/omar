@@ -28,7 +28,7 @@ class ArchiveService {
         {
             try
             {
-                if ((cmd.type.toLowerCase() == "download") || (cmd.type == null))
+                if ((cmd.type?.toLowerCase() == "download") || (cmd.type == null))
                 {
                     if((cmd.archiveOptions["type"].toString().toLowerCase() == "zip") || (cmd.archiveOptions["type"] == null))
                     {
