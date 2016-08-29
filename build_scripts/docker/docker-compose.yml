@@ -10,7 +10,7 @@ services:
       - "80:80"
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
   o2-base:
     build: ./o2-base
     container_name: o2-base
@@ -37,7 +37,7 @@ services:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "4997:8080"
     links:
@@ -78,7 +78,7 @@ services:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5013:8080"
     links:
@@ -148,7 +148,7 @@ services:
       ADDRASTERENDPOINTPORT: :8080
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5001:8080"
     links:
@@ -170,7 +170,7 @@ services:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5002:8080"
     links:
@@ -194,7 +194,7 @@ services:
       JPIPSERVERPORT: :5004
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5003:8080"
     image: ossimlabs/o2-jpip
@@ -209,7 +209,7 @@ services:
       JPIPSERVERPORT: 8080
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5004:8080"
     image: ossimlabs/o2-jpip-server
@@ -244,7 +244,7 @@ services:
       DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5011:8080"
     image: ossimlabs/o2-download
