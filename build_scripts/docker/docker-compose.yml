@@ -3,6 +3,8 @@ services:
   o2-web-proxy:
     build: ./o2-web-proxy
     container_name: o2-web-proxy
+    environment:
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     image: ossimlabs/o2-web-proxy
     ports:
       - "80:80"
@@ -32,6 +34,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     volumes:
       # Mount the the host local data directory to the container
       - /Users/Shared/data:/data
@@ -53,6 +56,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     ports:
       - "4998:8080"
     links:
@@ -71,6 +75,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     volumes:
       # Mount the the host local data directory to the container
       - /Users/Shared/data:/data
@@ -138,6 +143,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
       ADDRASTERENDPOINTURL: o2-stager
       ADDRASTERENDPOINTPORT: :8080
     volumes:
@@ -161,6 +167,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     volumes:
       # Mount the the host local data directory to the container
       - /Users/Shared/data:/data
@@ -181,6 +188,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
       JPIPCACHEDIR: /data/jpip-cache
       JPIPSERVERURL: ${DOCKER_HOST_IP}
       JPIPSERVERPORT: :5004
@@ -216,6 +224,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
       WMSURL: ${DOCKER_HOST_IP}/o2-superoverlay
       WMSPORT:
     ports:
@@ -232,6 +241,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
     volumes:
       # Mount the the host local data directory to the container
       - /Users/Shared/data:/data
@@ -249,6 +259,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
       WFSURL: ${DOCKER_HOST_IP}/o2-wfs
       WFSPORT:
       WMSURL: ${DOCKER_HOST_IP}/o2-wms
@@ -275,6 +286,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
       WFSURL: ${DOCKER_HOST_IP}/o2-wfs
       WFSPORT:
       WMSURL: ${DOCKER_HOST_IP}/o2-wms
