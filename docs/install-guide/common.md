@@ -609,12 +609,12 @@ INFO: Creation of SecureRandom instance for session ID generation using [SHA1PRN
 To resolve this issue you can either use a non-blocking random generator by passing `-Djava.security.egd=file:/dev/./urandom` as a java argument to the JVM.  
 
 If you are running as a docker container you can add the following to the docker run command:
- 
+
  `docker run -v /dev/urandom:/dev/random`
 
 without having to modify the instance the docker daemon is running on.
 
-You can also install an RPM called ***haveged***.  For RPM based systems you can isntall using the command:
+You can also install an RPM called ***haveged***.  For RPM based systems you can install using the command:
 
 ```
 yum install haveged
