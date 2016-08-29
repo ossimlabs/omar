@@ -51,6 +51,6 @@ wfs:
 
 ---
 grails:
-  serverURL: http://192.168.99.100/o2-wcs
+  serverURL: http://${DOCKER_HOST_IP}/o2-wcs
   assets:
-    url: http://192.168.99.100/o2-wcs/assets/
+    url: http://${DOCKER_HOST_IP}/o2-wcs/assets/

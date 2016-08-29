@@ -25,6 +25,6 @@ omar:
 
 ---
 grails:
-  serverURL: http://192.168.99.100/o2-wmts
+  serverURL: http://${DOCKER_HOST_IP}/o2-wmts
   assets:
-    url: http://192.168.99.100/o2-wmts/assets/
+    url: http://${DOCKER_HOST_IP}/o2-wmts/assets/

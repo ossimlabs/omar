@@ -17,6 +17,6 @@ omar:
 
 ---
 grails:
-  serverURL: http://192.168.99.100/o2-sqs
+  serverURL: http://${DOCKER_HOST_IP}/o2-sqs
   assets:
-    url: http://192.168.99.100/o2-sqs/assets/
+    url: http://${DOCKER_HOST_IP}/o2-sqs/assets/

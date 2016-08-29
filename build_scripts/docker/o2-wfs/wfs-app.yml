@@ -153,6 +153,6 @@ wms:
 
 ---
 grails:
-  serverURL: http://192.168.99.100/o2-wfs
+  serverURL: http://${DOCKER_HOST_IP}/o2-wfs
   assets:
-    url: http://192.168.99.100/o2-wfs/assets/
+    url: http://${DOCKER_HOST_IP}/o2-wfs/assets/
