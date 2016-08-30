@@ -11,6 +11,6 @@ class DistanceCommand implements Validateable
 {
    String filename
    Integer entryId
-   String wkt
+   String pointList
 
 }

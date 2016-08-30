@@ -4,6 +4,7 @@ import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiImplicitParam
 import com.wordnik.swagger.annotations.ApiImplicitParams
 import com.wordnik.swagger.annotations.ApiOperation
+import omar.oms.GrdToIptsCommand
 import omar.oms.IptsToGrdCommand
 import grails.converters.JSON
 import omar.core.BindUtil
@@ -20,20 +21,40 @@ class MensaController {
     static allowedMethods = [
             index: ['GET', 'POST'],
             imageDistance: 'POST',
-            imagePointsToGround: 'POST'
+            imagePointsToGround: 'POST',
+            groundToImagePoints: 'POST'
     ]
 
     def index() { }
     @ApiOperation(value = "Compute distance using a WKT format polygon in image space",
             consumes= 'application/json',
-            produces='application/json', httpMethod="POST")
+            produces='application/json', httpMethod="POST",
+            notes = """
+    <ul>
+        <li>
+            <b>filename</b><p/>
+            Is the filename used for the imageToGround calculation.  This is typically a path to an image file.
+        </li>
+        <br>
+        <li>
+            <b>entryId</b><p/>Is the entry of the image.  Images can have multiple data entries and this is used to identify
+            which entry we are currenlty using for this image
+        </li>
+        <br>
+        <li>
+        <b>pointList</b><p/>
+        For this method we can only accept <b>pointList</b> to be of type WKT LINESTRING or POLYGON string.
+        </li>
+        <br>
+    </ul>
+""")
     @ApiImplicitParams([
             @ApiImplicitParam(name = 'body',
                     value = "General Message for querying recommendations",
                     defaultValue = """{
    "filename": "<Path to File>",
    "entryId": 0,
-   "wkt": ""
+   "pointList": ""
     }""",
                     paramType = 'body',
                     dataType = 'string')
@@ -56,8 +77,8 @@ class MensaController {
     }
 
     @ApiOperation(value = "Convert Image Points to Ground coordinates",
-                  consumes= 'application/json',
-                  produces='application/json', httpMethod="POST",
+            consumes= 'application/json',
+            produces='application/json', httpMethod="POST",
             notes = """
     <ul>
         <li>
@@ -71,7 +92,7 @@ class MensaController {
         </li>
         <br>
         <li>
-        <b>imagePoints</b><p/>
+        <b>pointList</b><p/>
         This can either be JSON array of image points to convert to ground lat, lon, height or could be formatted as a WKT MULTIPOINT string.
 
         If the service detects the input is a string and not a JSON array
@@ -118,7 +139,7 @@ class MensaController {
                     defaultValue = """{
    "filename": "<Path to File>",
    "entryId": 0,
-   "imagePoints": [
+   "pointList": [
            {"x":0.0,"y":0.0},
            {"x":1.0,"y":1.0}
            ],
@@ -127,8 +148,8 @@ class MensaController {
    "pqeEllipsePointType" : "none",
    "pqeEllipseAngularIncrement": 10
 }""",
-                   paramType = 'body',
-                   dataType = 'string')
+                    paramType = 'body',
+                    dataType = 'string')
     ])
     def imagePointsToGround()
     {
@@ -144,4 +165,63 @@ class MensaController {
         response.status = result.status
         render contentType: "application/json", text: result as JSON
     }
+
+    @ApiOperation(value = "Convert Image Points to Ground coordinates",
+            consumes= 'application/json',
+            produces='application/json', httpMethod="POST",
+            notes = """
+    <ul>
+        <li>
+            <b>filename</b><p/>
+            Is the filename used for the imageToGround calculation.  This is typically a path to an image file.
+        </li>
+        <br>
+        <li>
+            <b>entryId</b><p/>Is the entry of the image.  Images can have multiple data entries and this is used to identify
+            which entry we are currenlty using for this image
+        </li>
+        <br>
+        <li>
+        <b>pointList</b><p/>
+        This can either be JSON array of ground points lat, lon, and optional height or could be formatted as a WKT MULTIPOINT string.
+
+        If the service detects the input is a string and not a JSON array
+        then it will try to convert as a WKT string and then grab all coordinates.
+        Typical WKT string definitions would be MULTIPOINT(1 1, 2 2, ......)<br><br>
+        You can also specify the elevation in the z coordinate by doing MULTIPOINT(1 1 1, 2 2 2)<br><br>
+        If the list is formatted as a JSON array the service will assume that the array will have elements formatted in the form of a comma separated list of values
+        [{"lat":,"lon":,"hgt":}, {"lat":,"lon":,"hgt":}]
+        </li>
+        <br>
+        </ul>
+    """)
+    @ApiImplicitParams([
+            @ApiImplicitParam(name = 'body',
+                    value = "General Message for querying recommendations",
+                    defaultValue = """{
+   "filename": "<Path to File>",
+   "entryId": 0,
+   "pointList": [
+           {"lat":0.0,"lon":0.0,hgt:0.0},
+           {"lat":1.0,"lon":1.0}
+           ],
+}""",
+                    paramType = 'body',
+                    dataType = 'string')
+    ])
+    def groundToImagePoints()
+    {
+        def jsonData = request.JSON?request.JSON as HashMap:null
+        def requestParams = params - params.subMap( ['controller', 'action'] )
+        def cmd = new GrdToIptsCommand()
+        if(jsonData) requestParams << jsonData
+        // get map from JSON and merge into parameters
+        if(jsonData) requestParams << jsonData
+        BindUtil.fixParamNames( GrdToIptsCommand, requestParams )
+        bindData( cmd, requestParams )
+        HashMap result = mensaService.groundToImagePoints(cmd)
+        response.status = result.status
+        render contentType: "application/json", text: result as JSON
+    }
+
 }

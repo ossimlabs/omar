@@ -25,11 +25,11 @@ class ImageGeometryService {
     {
         HashMap result = [:]
         Boolean errorPropAvailable = imageSpaceModel.imageToGroundErrorPropagation(gpt,
-                                probabilityLevel,
-                                angInc,
-                                pqeArray,
-                                ellSamp,
-                                ellLine)
+                probabilityLevel,
+                angInc,
+                pqeArray,
+                ellSamp,
+                ellLine)
         def typeString = new ossimString()
         String projType
         Double nPoints = ellSamp.size()
@@ -77,7 +77,7 @@ class ImageGeometryService {
      * @param entryId The entry id of the file to use as input
      * @return
      */
-    def iptsToGrd(IptsToGrdCommand cmd)//def filename, def pointList, def entryId)
+    def imagePointsToGround(IptsToGrdCommand cmd)//def filename, def pointList, def entryId)
     {
         def result = [status:HttpStatus.OK,
                       statusMessage:"",
@@ -97,7 +97,7 @@ class ImageGeometryService {
         {
             if ( imageSpaceModel.setModelFromFile(cmd.filename, cmd.entryId) )
             {
-                cmd.imagePoints.each{pt->
+                cmd.pointList.each{pt->
                     dpt.x = pt.x as double
                     dpt.y = pt.y as double
                     imageSpaceModel.imageToGround(dpt,
@@ -135,13 +135,13 @@ class ImageGeometryService {
                     if(cmd.pqeIncludePositionError)
                     {
                         HashMap pqe = getPositionError(imageSpaceModel,
-                                                        accuracyInfo,
-                                                        gpt,
-                                                        cmd.pqeProbabilityLevel?:0.9,
-                                                        angInc,
-                                                        pqeArray,
-                                                        ellSamp,
-                                                        ellLine)
+                                accuracyInfo,
+                                gpt,
+                                cmd.pqeProbabilityLevel?:0.9,
+                                angInc,
+                                pqeArray,
+                                ellSamp,
+                                ellLine)
                         if(pqe)
                         {
 
@@ -221,45 +221,71 @@ class ImageGeometryService {
      * @param entryId
      * @return
      */
-
-    /*
-    def groundSpaceListToImageSpace(def filename, def pointList, def entryId)
+    def groundToImagePoints(GrdToIptsCommand cmd)
     {
-       def result = [];
-       def imageSpaceModel = new ImageModel()
-       def imagePoint = new ossimDpt(0.0,0.0);
-       def groundPoint = new ossimGpt()
-       if ( imageSpaceModel.setModelFromFile(filename, entryId) )
-       {
-          pointList.each{pt->
-             groundPoint.makeNan();
-             groundPoint.latd = pt.lat as double;
-             groundPoint.lond = pt.lon as double;
-             if(pt.hgt)
-             {
-                groundPoint.height = pt.hgt;
-             }
-             imageSpaceModel.groundToImage(groundPoint,
-                     imagePoint) ;
-             if(imagePoint.hasNans())
-             {
-                imagePoint.x = 0;
-                imagePoint.y = 0;
-             }
-             if(groundPoint.isHgtNan())
-             {
-                groundPoint.height = 0.0;
-             }
-             result.add([x:imagePoint.x,
-                         y:imagePoint.y,
-                         lat:groundPoint.latd(),
-                         lon:groundPoint.lond(),
-                         hgt:groundPoint.height()]);
-          }
-       }
+        def result = [status:HttpStatus.OK,
+                      statusMessage:"",
+                      data:[]];
+        def imageSpaceModel = new ImageModel()
+        def imagePoint = new ossimDpt(0.0,0.0);
+        def groundPoint = new ossimGpt()
+        def geodeticEvaluator = new GeodeticEvaluator()
+        try{
+            if ( imageSpaceModel.setModelFromFile(cmd.filename, cmd.entryId) )
+            {
+                cmd.pointList.each{pt->
+                    groundPoint.makeNan();
+                    groundPoint.latd = pt.lat as double;
+                    groundPoint.lond = pt.lon as double;
+                    if(!pt.hgt)
+                    {
+                        pt.hgt = geodeticEvaluator.getHeightEllipsoid(groundPoint)
+                        if(pt.hgt?.naN)
+                        {
+                            pt.hgt=0.0
+                        }
+                    }
+                    if(pt.hgt)
+                    {
+                        groundPoint.height =  pt.hgt
 
-       result;
+                    }
+                    imageSpaceModel.groundToImage(groundPoint,
+                            imagePoint) ;
+                    if(imagePoint.hasNans())
+                    {
+                        imagePoint.x = 0;
+                        imagePoint.y = 0;
+                    }
+                    if(groundPoint.isHgtNan())
+                    {
+                        groundPoint.height = 0.0;
+                    }
+                    result.data<<([x:imagePoint.x,
+                                   y:imagePoint.y,
+                                   lat:groundPoint.latd(),
+                                   lon:groundPoint.lond(),
+                                   hgt:groundPoint.height()]);
+                }
+            }
+            else
+            {
+                result.status = HttpStatus.NOT_FOUND
+                result.statusMessage = "Unable to set Model from file ${cmd.filename}"
+            }
+        }
+        catch(e)
+        {
+            result.status = HttpStatus.INTERNAL_SERVER_ERROR
+            result.statusMessage = e.toString()
+        }
+        finally{
+            imagePoint?.delete()
+            groundPoint?.delete()
+            imageSpaceModel?.delete()
+            geodeticEvaluator?.delete()
+        }
+        result;
     }
-    */
 }
 

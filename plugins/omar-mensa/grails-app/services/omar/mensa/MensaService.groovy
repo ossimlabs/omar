@@ -11,6 +11,7 @@ import joms.oms.MapProjection
 import joms.oms.ossimEcefPoint
 import joms.oms.ossimDpt
 import joms.oms.ossimGpt
+import omar.oms.GrdToIptsCommand
 import omar.oms.IptsToGrdCommand
 
 @Transactional
@@ -37,8 +38,9 @@ class MensaService {
         def geodeticEvaluator = new GeodeticEvaluator()
         double [] daArray = new double[3]
 
+
         try{
-            geom = Geometry.fromWKT(cmd.wkt);
+            geom = Geometry.fromWKT(cmd.pointList);
         }
         catch(def e)
         {
@@ -57,8 +59,6 @@ class MensaService {
             String geomType = geom.geometryType.toUpperCase()
 
 
-            println "GEOMETRY TYPE === ${geom.geometryType}"
-            println "N GEOMETRIES  === ${geom.numGeometries}"
             if( (geomType != "POLYGON") && (geomType != "LINESTRING"))
             {
                 result.status = HttpStatus.BAD_REQUEST
@@ -133,6 +133,11 @@ class MensaService {
                 result.data.distance = distance
                 if(coordinates.size() == 2) result.data.azimuth = Math.toDegrees(daArray[1])
             }
+            else
+            {
+                result.status = HttpStatus.NOT_FOUND
+                result.statusMessage = "Unable to set Model from file ${cmd.filename}"
+            }
             imageSpaceModel.delete()
             mapProjection?.delete()
             mapProjection = null
@@ -149,28 +154,59 @@ class MensaService {
     def imagePointsToGround(IptsToGrdCommand cmd)
     {
         HashMap result = [status:HttpStatus.OK, statusMessage: ""]
-        if(cmd.imagePoints instanceof String)
+        if(cmd.pointList instanceof String)
         {
-          try{
-              def geom = Geometry.fromWKT(cmd.imagePoints);
-              if(geom)
-              {
-                  def coordinates = geom.coordinates;
-                  cmd.imagePoints = []
-                  coordinates.each{pt->
-                      cmd.imagePoints << [x:pt.x,y:pt.y]
-                  }
-              }
-          }
-          catch(e)
-          {
-              result.statusMessage = e.toString()
-              result.status = HttpStatus.INTERNAL_SERVER_ERROR
-          }
+            try{
+                def geom = Geometry.fromWKT(cmd.pointList);
+                if(geom)
+                {
+                    def coordinates = geom.coordinates;
+                    cmd.pointList = []
+                    coordinates.each{pt->
+                        cmd.pointList << [x:pt.x,y:pt.y]
+                    }
+                }
+            }
+            catch(e)
+            {
+                result.statusMessage = e.toString()
+                result.status = HttpStatus.INTERNAL_SERVER_ERROR
+            }
         }
         if(result.status == HttpStatus.OK)
         {
-            result = imageGeometryService.iptsToGrd(cmd)
+            result = imageGeometryService.imagePointsToGround(cmd)
+        }
+
+        result
+    }
+    def groundToImagePoints(GrdToIptsCommand cmd)
+    {
+        HashMap result = [status:HttpStatus.OK, statusMessage: ""]
+        if(cmd.pointList instanceof String)
+        {
+            try{
+                def geom = Geometry.fromWKT(cmd.pointList);
+                if(geom)
+                {
+                    def coordinates = geom.coordinates;
+                    cmd.pointList = []
+                    coordinates.each{pt->
+                        HashMap record = [lon:pt.x,lat:pt.y]
+                        if(pt.z&&!pt.z.naN) record.hgt = pt.z
+                        cmd.pointList << record
+                    }
+                }
+            }
+            catch(e)
+            {
+                result.statusMessage = e.toString()
+                result.status = HttpStatus.INTERNAL_SERVER_ERROR
+            }
+        }
+        if(result.status == HttpStatus.OK)
+        {
+            result = imageGeometryService.groundToImagePoints(cmd)
         }
 
         result
