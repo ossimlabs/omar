@@ -97,6 +97,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      DOCKER_HOST_IP: ${DOCKER_HOST_IP}
       WFSSERVER: ${DOCKER_HOST_IP}/o2-wfs
       WFSPORT:
       WMSSERVER: ${DOCKER_HOST_IP}/o2-wms
