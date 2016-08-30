@@ -88,15 +88,16 @@ class ImageGeometryService {
         def dpt = new ossimDpt(0.0,0.0);
         def gpt = new ossimGpt()
         double [] pqeArray = new double[6]
-        Double angInc = 10
+        Double angInc = cmd.pqeEllipseAngularIncrement?:10
         int numPnts = 360/angInc + 1
+
         double [] ellSamp = new double[numPnts]
         double [] ellLine = new double[numPnts]
         try
         {
             if ( imageSpaceModel.setModelFromFile(cmd.filename, cmd.entryId) )
             {
-                cmd.ipts.each{pt->
+                cmd.imagePoints.each{pt->
                     dpt.x = pt.x as double
                     dpt.y = pt.y as double
                     imageSpaceModel.imageToGround(dpt,
@@ -131,12 +132,12 @@ class ImageGeometryService {
                                       hgt:gpt.height,
                                       hgtMsl:hgtMsl]
 
-                    if(cmd.pqe?.includePositionError)
+                    if(cmd.pqeIncludePositionError)
                     {
                         HashMap pqe = getPositionError(imageSpaceModel,
                                                         accuracyInfo,
                                                         gpt,
-                                                        cmd.pqe?.probabilityLevel?:0.9,
+                                                        cmd.pqeProbabilityLevel?:0.9,
                                                         angInc,
                                                         pqeArray,
                                                         ellSamp,
@@ -144,9 +145,9 @@ class ImageGeometryService {
                         if(pqe)
                         {
 
-                            if(numPnts&&cmd.pqe?.ellipsePointType)
+                            if(numPnts&&cmd.pqeEllipsePointType)
                             {
-                                switch(cmd.pqe?.ellipsePointType?.toLowerCase())
+                                switch(cmd.pqeEllipsePointType?.toLowerCase())
                                 {
                                     case "array":
                                         pqe.ellPts = []

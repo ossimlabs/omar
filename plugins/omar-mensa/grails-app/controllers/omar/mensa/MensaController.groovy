@@ -5,7 +5,6 @@ import com.wordnik.swagger.annotations.ApiImplicitParam
 import com.wordnik.swagger.annotations.ApiImplicitParams
 import com.wordnik.swagger.annotations.ApiOperation
 import omar.oms.IptsToGrdCommand
-import omar.oms.ImageGeometryService
 import grails.converters.JSON
 import omar.core.BindUtil
 
@@ -72,20 +71,31 @@ class MensaController {
         </li>
         <br>
         <li>
-        <b>includePositionError</b><p/>
+        <b>imagePoints</b><p/>
+        This can either be JSON array of image points to convert to ground lat, lon, height or could be formatted as a WKT MULTIPOINT string.
+
+        If the service detects the input is a string and not a JSON array
+        then it will try to convert as a WKT string and then grab all coordinates.
+        Typical WKT string definitions would be MULTIPOINT(1 1, 2 2, ......)<br><br>
+        If the list is formatted as a JSON array the service will assume that the array will have elements formatted in the form of a comma separated list of values
+        [{x:,y:}, {x:,y:}
+        </li>
+        <br>
+        <li>
+        <b>pqeIncludePositionError</b><p/>
         If this value is true it will include the position quality information.  This will identify the horizontal and
         vertical error for each image point and give you the azimuth and radial distance for the semi major and semi minor values.
         </li>
         <br>
         <li>
-        <b>probabilityLevel</b><p/>
+        <b>pqeProbabilityLevel</b><p/>
         This is used to identify the probability level.  Typical values are 0.5, 0.90, and 0.95.  If the value is 0.5
         you are saying that there is a 50% confidence that the point is within the elliptical error identified by the Circular error (CE)
         and the Linear error (LE)
         </li>
         <br>
         <li>
-        <b>ellipsePointType</b><p/>
+        <b>pqeEllipsePointType</b><p/>
         This is used to allow the algorithm to calculate the points by sampling around a 360 degree
         circle defined by the semi major and minor axis.<br>
         The possible value can be <b>none</b>, <b>array</b>, <b>linestring</b>, or <b>polygon</b>. The <b>linestring</b> and <b>polygon</b> will return the points formatted in WKT
@@ -94,14 +104,10 @@ class MensaController {
         </li>
         <br>
         <li>
-        <b>ipts</b><p/>
-        This can either be JSON array of image points to convert to ground lat, lon, height or could be formatted as a WKT MULTIPOINT string.
-
-        If the service detects the input is a string and not a JSON array
-        then it will try to convert as a WKT string and then grab all coordinates.
-        Typical WKT string definitions would be MULTIPOINT(1 1, 2 2, ......)<br><br>
-        If the list is formatted as a JSON array the service will assume that the array will have elements formatted in the form of a comma separated list of values
-        [{x:,y:}, {x:,y:}
+        <li>
+        <b>pqeEllipseAngularIncrement</b><p/>
+        This is Used to estimate the circle and create a geometry of type defined by <b>pqeEllipsePointType</b>.
+        The default estimate is a 10 degree increment.
         </li>
         <br>
         </ul>
@@ -112,15 +118,14 @@ class MensaController {
                     defaultValue = """{
    "filename": "<Path to File>",
    "entryId": 0,
-   "pqe" : {
-       "includePositionError":false,
-       "probabilityLevel" : 0.9,
-       "ellipsePointType" : "none"
-   },
-   "ipts": [
+   "imagePoints": [
            {"x":0.0,"y":0.0},
            {"x":1.0,"y":1.0}
-           ]
+           ],
+   "pqeIncludePositionError":false,
+   "pqeProbabilityLevel" : 0.9,
+   "pqeEllipsePointType" : "none",
+   "pqeEllipseAngularIncrement": 10
 }""",
                    paramType = 'body',
                    dataType = 'string')

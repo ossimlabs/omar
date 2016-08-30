@@ -149,16 +149,16 @@ class MensaService {
     def imagePointsToGround(IptsToGrdCommand cmd)
     {
         HashMap result = [status:HttpStatus.OK, statusMessage: ""]
-        if(cmd.ipts instanceof String)
+        if(cmd.imagePoints instanceof String)
         {
           try{
-              def geom = Geometry.fromWKT(cmd.ipts);
+              def geom = Geometry.fromWKT(cmd.imagePoints);
               if(geom)
               {
                   def coordinates = geom.coordinates;
-                  cmd.ipts = []
+                  cmd.imagePoints = []
                   coordinates.each{pt->
-                      cmd.ipts << [x:pt.x,y:pt.y]
+                      cmd.imagePoints << [x:pt.x,y:pt.y]
                   }
               }
           }
