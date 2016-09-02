@@ -16,6 +16,7 @@ import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 import groovy.xml.StreamingMarkupBuilder
 
+import geoscript.layer.io.CsvWriter
 @Transactional( readOnly = true )
 class WebFeatureService
 {
@@ -496,6 +497,21 @@ class WebFeatureService
           result.status = HttpStatus.INTERNAL_SERVER_ERROR
         }
         break;
+      case 'CSV':
+        try
+        {
+          def buffer = getFeatureCsv( wfsParams )
+          result.contentType = 'text/csv'
+          result.buffer = buffer
+        }
+        catch ( e )
+        {
+          e.printStackTrace()
+          result.contentType = "plain/text"
+          result.buffer = "${e}"
+          result.status = HttpStatus.INTERNAL_SERVER_ERROR
+        }
+        break;
       default:
         try
         {
@@ -585,6 +601,34 @@ class WebFeatureService
         return new File(fields?.filename).name
       }
       result = ExportKml.toKMLString(layer, nameClosure)
+
+      workspace.close()
+    }
+
+
+    result
+  }
+
+  private def getFeatureCsv(GetFeatureRequest wfsParams)
+  {
+    def layerInfo = geoscriptService.findLayerInfo( wfsParams )
+    def result
+
+
+    def options = geoscriptService.parseOptions( wfsParams )
+
+    //println options
+    def writer = new CsvWriter()
+    Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { workspace ->
+      def layer = workspace[layerInfo.name]
+      def count = layer.count( wfsParams.filter ?: Filter.PASS )//wfsParams.filter )
+      def nameClosure = {fields->
+
+        if((fields.title!=null) && (fields.title.trim()!="")) return fields.title?.trim()
+
+        return new File(fields?.filename).name
+      }
+      result = writer.write(layer)
 
       workspace.close()
     }
