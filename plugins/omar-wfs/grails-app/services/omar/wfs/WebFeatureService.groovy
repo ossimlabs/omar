@@ -23,78 +23,78 @@ class WebFeatureService
   def geoscriptService
 
   static final Map<String, String> typeMappings = [
-      'Double': 'xsd:double',
-      'Integer': 'xsd:int',
-      'Long': 'xsd:long',
-      'Polygon': 'gml:PolygonPropertyType',
-      'MultiPolygon': 'gml:MultiPolygonPropertyType',
-      'MultiLineString': 'gml:MultiLineStringPropertyType',
-      'String': 'xsd:string',
-      'java.lang.Boolean': 'xsd:boolean',
-      'java.math.BigDecimal': 'xsd:decimal',
-      'java.sql.Timestamp': 'xsd:dateTime'
+          'Double': 'xsd:double',
+          'Integer': 'xsd:int',
+          'Long': 'xsd:long',
+          'Polygon': 'gml:PolygonPropertyType',
+          'MultiPolygon': 'gml:MultiPolygonPropertyType',
+          'MultiLineString': 'gml:MultiLineStringPropertyType',
+          'String': 'xsd:string',
+          'java.lang.Boolean': 'xsd:boolean',
+          'java.math.BigDecimal': 'xsd:decimal',
+          'java.sql.Timestamp': 'xsd:dateTime'
   ]
 
 
   static final Map<String, String> ogcNamespacesByPrefix = [
-      // These are OGC/XML specs
-      gml: "http://www.opengis.net/gml",
-      ogc: "http://www.opengis.net/ogc",
-      ows: "http://www.opengis.net/ows",
-      wfs: "http://www.opengis.net/wfs",
-      xlink: "http://www.w3.org/1999/xlink",
-      xs: "http://www.w3.org/2001/XMLSchema",
-      xsi: "http://www.w3.org/2001/XMLSchema-instance",
+          // These are OGC/XML specs
+          gml: "http://www.opengis.net/gml",
+          ogc: "http://www.opengis.net/ogc",
+          ows: "http://www.opengis.net/ows",
+          wfs: "http://www.opengis.net/wfs",
+          xlink: "http://www.w3.org/1999/xlink",
+          xs: "http://www.w3.org/2001/XMLSchema",
+          xsi: "http://www.w3.org/2001/XMLSchema-instance",
   ]
 
   static final List<String> outputFormats = [
-      'text/xml; subtype=gml/3.1.1',
-      'GML2',
-      'KML',
-      'SHAPE-ZIP',
-      'application/gml+xml; version=3.2',
-      'application/json',
-      'application/vnd.google-earth.kml xml',
-      'application/vnd.google-earth.kml+xml',
-      'csv',
-      'gml3',
-      'gml32',
-      'json',
-      'text/xml; subtype=gml/2.1.2',
-      'text/xml; subtype=gml/3.2'
+          'text/xml; subtype=gml/3.1.1',
+          'GML2',
+          'KML',
+          'SHAPE-ZIP',
+          'application/gml+xml; version=3.2',
+          'application/json',
+          'application/vnd.google-earth.kml xml',
+          'application/vnd.google-earth.kml+xml',
+          'csv',
+          'gml3',
+          'gml32',
+          'json',
+          'text/xml; subtype=gml/2.1.2',
+          'text/xml; subtype=gml/3.2'
   ]
 
   static final List<String> geometryOperands = [
-      'gml:Envelope',
-      'gml:Point',
-      'gml:LineString',
-      'gml:Polygon'
+          'gml:Envelope',
+          'gml:Point',
+          'gml:LineString',
+          'gml:Polygon'
   ]
 
   static final List<String> spatialOperators = [
-      "Disjoint",
-      "Equals",
-      "DWithin",
-      "Beyond",
-      "Intersects",
-      "Touches",
-      "Crosses",
-      "Within",
-      "Contains",
-      "Overlaps",
-      "BBOX"
+          "Disjoint",
+          "Equals",
+          "DWithin",
+          "Beyond",
+          "Intersects",
+          "Touches",
+          "Crosses",
+          "Within",
+          "Contains",
+          "Overlaps",
+          "BBOX"
   ]
 
   static final List<String> comparisonOperators = [
-      'LessThan',
-      'GreaterThan',
-      'LessThanEqualTo',
-      'GreaterThanEqualTo',
-      'EqualTo',
-      'NotEqualTo',
-      'Like',
-      'Between',
-      'NullCheck'
+          'LessThan',
+          'GreaterThan',
+          'LessThanEqualTo',
+          'GreaterThanEqualTo',
+          'EqualTo',
+          'NotEqualTo',
+          'Like',
+          'Between',
+          'NullCheck'
   ]
 
   def getCapabilities(GetCapabilitiesRequest wfsParams)
@@ -112,7 +112,7 @@ class WebFeatureService
         mkp.declareNamespace( ogcNamespacesByPrefix )
         mkp.declareNamespace( featureTypeNamespacesByPrefix )
         wfs.WFS_Capabilities( version: "1.1.0", xmlns: "http://www.opengis.net/wfs",
-            'xsi:schemaLocation': "http://www.opengis.net/wfs ${wfsSchemaLocation}"
+                'xsi:schemaLocation': "http://www.opengis.net/wfs ${wfsSchemaLocation}"
         ) {
           ows.ServiceIdentification {
             ows.Title( 'O2 WFS Server' ) // Put in config
@@ -356,9 +356,9 @@ class WebFeatureService
     def x = {
       mkp.xmlDeclaration()
       mkp.declareNamespace(
-          gml: 'http://www.opengis.net/gml',
-          "${prefix}": schema.uri,
-          xsd: 'http://www.w3.org/2001/XMLSchema'
+              gml: 'http://www.opengis.net/gml',
+              "${prefix}": schema.uri,
+              xsd: 'http://www.w3.org/2001/XMLSchema'
       )
       xsd.schema( elementFormDefault: 'qualified', targetNamespace: schema.uri ) {
         xsd.import( namespace: 'http://www.opengis.net/gml', schemaLocation: "${schemaLocation}/schemas/gml/3.1.1/base/gml.xsd" )
@@ -369,8 +369,8 @@ class WebFeatureService
                 schema.fields.each { field ->
                   def descr = schema.featureType.getDescriptor( field.name )
                   xsd.element( maxOccurs: "${descr.maxOccurs}", minOccurs: "${descr.minOccurs}",
-                      name: "${field.name}", nillable: "${descr.nillable}",
-                      type: "${typeMappings.get( field.typ, field.typ )}" )
+                          name: "${field.name}", nillable: "${descr.nillable}",
+                          type: "${typeMappings.get( field.typ, field.typ )}" )
                 }
               }
             }
@@ -388,13 +388,13 @@ class WebFeatureService
   private def generateHitCount(def hitCount, def namespaceInfo)
   {
     def namespaces = [
-        gml: "http://www.opengis.net/gml",
-        ogc: "http://www.opengis.net/ogc",
-        ows: "http://www.opengis.net/ows",
-        wfs: "http://www.opengis.net/wfs",
-        xlink: "http://www.w3.org/1999/xlink",
-        xs: "http://www.w3.org/2001/XMLSchema",
-        xsi: "http://www.w3.org/2001/XMLSchema-instance",
+            gml: "http://www.opengis.net/gml",
+            ogc: "http://www.opengis.net/ogc",
+            ows: "http://www.opengis.net/ows",
+            wfs: "http://www.opengis.net/wfs",
+            xlink: "http://www.w3.org/1999/xlink",
+            xs: "http://www.w3.org/2001/XMLSchema",
+            xsi: "http://www.w3.org/2001/XMLSchema-instance",
     ]
 
     namespaces[namespaceInfo.prefix] = namespaceInfo.uri
@@ -403,9 +403,9 @@ class WebFeatureService
       mkp.xmlDeclaration()
       mkp.declareNamespace( namespaces )
       wfs.FeatureCollection(
-          numberOfFeatures: hitCount,
-          timeStamp: new Date().format( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone( 'GMT' ) ),
-          'xsi:schemaLocation': "http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd"
+              numberOfFeatures: hitCount,
+              timeStamp: new Date().format( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone( 'GMT' ) ),
+              'xsi:schemaLocation': "http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd"
       )
     }
 
@@ -453,49 +453,63 @@ class WebFeatureService
 
     switch ( wfsParams?.outputFormat?.toUpperCase() )
     {
-    case 'GML3':
-      try
-      {
-        def buffer = getFeatureGML3( wfsParams )
-        result.contentType = 'text/xml'
-        result.buffer = buffer
-      }
-      catch ( e )
-      {
-        result.contentType = "plain/text"
-        result.buffer = "${e}"
-        result.status = HttpStatus.INTERNAL_SERVER_ERROR
-      }
-      break
-    case 'JSON':
-    case 'GEOJSON':
-      try
-      {
-        def buffer = getFeatureJSON( wfsParams )
-        result.contentType = 'application/json'
-        result.buffer = buffer
-      }
-      catch ( e )
-      {
-        result.contentType = "plain/text"
-        result.buffer = "${e}"
-        result.status = HttpStatus.INTERNAL_SERVER_ERROR
-      }
-      break
-    default:
-      try
-      {
-        def buffer = getFeatureGML3( wfsParams )
-        result.contentType = 'text/xml'
-        result.buffer = buffer
-      }
-      catch ( e )
-      {
-        result.contentType = "plain/text"
-        result.buffer = "${e}"
-        result.status = HttpStatus.INTERNAL_SERVER_ERROR
-      }
-      break
+      case 'GML3':
+        try
+        {
+          def buffer = getFeatureGML3( wfsParams )
+          result.contentType = 'text/xml'
+          result.buffer = buffer
+        }
+        catch ( e )
+        {
+          result.contentType = "plain/text"
+          result.buffer = "${e}"
+          result.status = HttpStatus.INTERNAL_SERVER_ERROR
+        }
+        break
+      case 'JSON':
+      case 'GEOJSON':
+        try
+        {
+          def buffer = getFeatureJSON( wfsParams )
+          result.contentType = 'application/json'
+          result.buffer = buffer
+        }
+        catch ( e )
+        {
+          result.contentType = "plain/text"
+          result.buffer = "${e}"
+          result.status = HttpStatus.INTERNAL_SERVER_ERROR                     }
+        break
+      case 'KML':
+        try
+        {
+          def buffer = getFeatureKML( wfsParams )
+          result.contentType = 'application/vnd.google-earth.kml+xml'
+          result.buffer = buffer
+        }
+        catch ( e )
+        {
+          e.printStackTrace()
+          result.contentType = "plain/text"
+          result.buffer = "${e}"
+          result.status = HttpStatus.INTERNAL_SERVER_ERROR
+        }
+        break;
+      default:
+        try
+        {
+          def buffer = getFeatureGML3( wfsParams )
+          result.contentType = 'text/xml'
+          result.buffer = buffer
+        }
+        catch ( e )
+        {
+          result.contentType = "plain/text"
+          result.buffer = "${e}"
+          result.status = HttpStatus.INTERNAL_SERVER_ERROR
+        }
+        break
     }
 
     result
@@ -510,7 +524,7 @@ class WebFeatureService
     def options = geoscriptService.parseOptions( wfsParams )
 
     //println options
-
+    println layerInfo.workspaceInfo.workspaceParams
     Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { workspace ->
       def layer = workspace[layerInfo.name]
       def count = layer.count( wfsParams.filter ?: Filter.PASS )//wfsParams.filter )
@@ -520,35 +534,63 @@ class WebFeatureService
       def features = layer.collectFromFeature( options ) { feature ->
         switch ( wfsParams?.outputFormat?.toUpperCase() )
         {
-        case 'GML3':
-          return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
-          break
-        case 'GEOJSON':
-        case 'JSON':
-          return new JsonSlurper().parseText( feature.geoJSON )
-          break
-        default:
-          return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
+          case 'GML3':
+            return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
+            break
+          case 'GEOJSON':
+          case 'JSON':
+            return new JsonSlurper().parseText( feature.geoJSON )
+            break
+          default:
+            return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: prefix )
         }
       }
 
       results = [
-          crs: [
-              properties: [
-                  name: "urn:ogc:def:crs:${layer.proj.id}"
+              crs: [
+                      properties: [
+                              name: "urn:ogc:def:crs:${layer.proj.id}"
+                      ],
+                      type: "name"
               ],
-              type: "name"
-          ],
-          totalFeatures: count,
-          features: features,
+              totalFeatures: count,
+              features: features,
 //          features: [],
-          type: "FeatureCollection"
+              type: "FeatureCollection"
       ]
 
       workspace.close()
     }
 
     return JsonOutput.toJson( results )
+  }
+
+  private def getFeatureKML(GetFeatureRequest wfsParams)
+  {
+    def layerInfo = geoscriptService.findLayerInfo( wfsParams )
+    def result
+
+
+    def options = geoscriptService.parseOptions( wfsParams )
+
+    //println options
+
+    Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { workspace ->
+      def layer = workspace[layerInfo.name]
+      def count = layer.count( wfsParams.filter ?: Filter.PASS )//wfsParams.filter )
+      def nameClosure = {fields->
+
+        if((fields.title!=null) && (fields.title.trim()!="")) return fields.title?.trim()
+
+        return new File(fields?.filename).name
+      }
+      result = ExportKml.toKMLString(layer, nameClosure)
+
+      workspace.close()
+    }
+
+
+    result
   }
 
   private def getFeatureGML3(GetFeatureRequest wfsParams)
@@ -572,27 +614,27 @@ class WebFeatureService
       def namespaceInfo = layerInfo?.workspaceInfo?.namespaceInfo
 
       def schemaLocations = [
-          namespaceInfo.uri,
-          grailsLinkGenerator.link( absolute: true, uri: '/wfs', params: [
-              service: 'WFS', version: wfsParams.version, request: 'DescribeFeatureType', typeName: wfsParams.typeName
-          ] ),
-          "http://www.opengis.net/wfs",
-          grailsLinkGenerator.link( absolute: true, uri: '/schemas/wfs/1.1.0/wfs.xsd' )
+              namespaceInfo.uri,
+              grailsLinkGenerator.link( absolute: true, uri: '/wfs', params: [
+                      service: 'WFS', version: wfsParams.version, request: 'DescribeFeatureType', typeName: wfsParams.typeName
+              ] ),
+              "http://www.opengis.net/wfs",
+              grailsLinkGenerator.link( absolute: true, uri: '/schemas/wfs/1.1.0/wfs.xsd' )
       ]
 
 //      def features = layer.getFeatures( options )
       def features = layer.collectFromFeature( options ) { feature ->
         switch ( wfsParams?.outputFormat?.toUpperCase() )
         {
-        case 'GML3':
-          return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
-          break
-        case 'GEOJSON':
-        case 'JSON':
-          return new JsonSlurper().parseText( feature.geoJSON )
-          break
-        default:
-          return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
+          case 'GML3':
+            return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
+            break
+          case 'GEOJSON':
+          case 'JSON':
+            return new JsonSlurper().parseText( feature.geoJSON )
+            break
+          default:
+            return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
         }
       }
 
@@ -602,19 +644,19 @@ class WebFeatureService
         mkp.declareNamespace( "${namespaceInfo.prefix}": namespaceInfo.uri )
 
         wfs.FeatureCollection(
-            numberOfFeatures: count,
-            timeStamp: new Date().format( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone( 'GMT' ) ),
-            'xsi:schemaLocation': schemaLocations.join( ' ' ),
-            numberMatched: matched,
-            startIndex: wfsParams.startIndex ?: '0'
+                numberOfFeatures: count,
+                timeStamp: new Date().format( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZone.getTimeZone( 'GMT' ) ),
+                'xsi:schemaLocation': schemaLocations.join( ' ' ),
+                numberMatched: matched,
+                startIndex: wfsParams.startIndex ?: '0'
         ) {
           if ( !( wfsParams?.resultType?.toLowerCase() == 'hits' ) )
           {
             gml.featureMembers {
               features?.each { feature ->
                 mkp.yieldUnescaped(
-                    // writer.write( feature, 3, false, false, false, namespaceInfo.prefix )
-                    feature
+                        // writer.write( feature, 3, false, false, false, namespaceInfo.prefix )
+                        feature
                 )
               }
             }
