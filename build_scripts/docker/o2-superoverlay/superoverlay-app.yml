@@ -55,6 +55,6 @@ omar:
 
 ---
 grails:
-  serverURL: http://192.168.99.100/o2-superoverlay
+  serverURL: http://${DOCKER_HOST_IP}/o2-superoverlay
   assets:
-    url: http://192.168.99.100/o2-superoverlay/assets/
+    url: http://${DOCKER_HOST_IP}/o2-superoverlay/assets/

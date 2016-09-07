@@ -14,7 +14,8 @@ ENV DBUSER=${DBUSER}\
     DBPASS=${DBPASS}\
     DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
-    DBNAME=${DBNAME}
+    DBNAME=${DBNAME}\
+    DOCKER_HOST_IP=${DOCKER_HOST_IP}
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/stager-app/stager-app.sh"]

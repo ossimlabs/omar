@@ -19,10 +19,11 @@ RUN yum -y install java-1.8.0-openjdk-devel && \
   yum -y install o2-wfs-app && yum clean all
 ADD wfs-app.yml /usr/share/omar/wfs-app/wfs-app.yml
 ENV DBHOST=${DBHOST}\
-    DBPORT=${DBPORT}
-    # DBUSER=${DBUSER}\
-    # DBPASS=${DBPASS}\
-    # DBNAME=${DBNAME}
+    DBPORT=${DBPORT}\
+    DOCKER_HOST_IP=${DOCKER_HOST_IP}\
+    DBUSER=${DBUSER}\
+    DBPASS=${DBPASS}\
+    DBNAME=${DBNAME}
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wfs-app/wfs-app.sh"]

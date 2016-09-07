@@ -6,4 +6,4 @@ docker rm o2-web-proxy
 echo "Removing o2-web-proxy image..."
 docker rmi ossimlabs/o2-web-proxy
 echo "Running o2-web-proxy with docker-compose..."
-docker-compose --file ../../docker-compose.yml run -d --service-ports --name o2-web-proxy o2-web-proxy
+docker-compose --file ../../docker-compose-local.yml run -d --service-ports --name o2-web-proxy o2-web-proxy
