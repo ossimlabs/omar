@@ -69,6 +69,9 @@ dependencies {
 }
 
 assets {
-    minifyJs = true
-    minifyCss = true
+  minifyJs = true
+  minifyCss = true
+  includes = ["fonts/*"]
+  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
+      '.grunt/**', '**/locale/**', '**/intro.unminified.js**', '**/outro.unminified.js**']
 }
