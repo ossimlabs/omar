@@ -10,6 +10,7 @@ services:
       - "80:80"
     volumes:
       - /Users/Shared/data:/data
+    restart: always
   # o2-base:
   #  #build: ./o2-base
   #   container_name: o2-base
@@ -26,6 +27,7 @@ services:
     #   - "/Users/Shared/db:/var/lib/postgresql/data"
     ports:
       - "4990:5432"
+    restart: always
   o2-stager:
    #build: ./o2-stager
     image: ossimlabs/o2-stager
@@ -47,6 +49,7 @@ services:
       #- o2-base
       - o2-db
       - o2-web-proxy
+    restart: always
   o2-wms:
     #build: ./o2-wms
     image: ossimlabs/o2-wms
@@ -66,6 +69,7 @@ services:
       - o2-db
       - o2-stager
       - o2-web-proxy
+    restart: always
   o2-wfs:
     #build: ./o2-wfs
     image: ossimlabs/o2-wfs
@@ -85,6 +89,7 @@ services:
       - o2-stager
       #- o2-wms
       - o2-web-proxy
+    restart: always
   # o2-wcs:
   #   #build: ./o2-wcs
   #   image: ossimlabs/o2-wcs
@@ -159,6 +164,7 @@ services:
       # - o2-wfs
       - o2-stager
       - o2-web-proxy
+    restart: always
   o2-wmts:
     #build: ./o2-wmts
     image: ossimlabs/o2-wmts
@@ -180,6 +186,7 @@ services:
       #- o2-base
       - o2-db
       - o2-web-proxy
+    restart: always
   o2-sqs:
     #build: ./o2-sqs
     image: ossimlabs/o2-sqs
@@ -207,6 +214,7 @@ services:
       - o2-stager
       - o2-avro
       - o2-web-proxy
+    restart: always
   o2-avro:
     #build: ./o2-avro
     image: ossimlabs/o2-avro
@@ -230,6 +238,7 @@ services:
       - o2-db
       - o2-stager
       - o2-web-proxy
+    restart: always
   o2-jpip:
     #build: ./o2-jpip
     image: ossimlabs/o2-jpip
@@ -252,6 +261,7 @@ services:
     depends_on:
       #- o2-base
       - o2-web-proxy
+    restart: always
   o2-jpip-server:
     #build: ./o2-jpip-server
     image: ossimlabs/o2-jpip-server
@@ -268,6 +278,7 @@ services:
       - "5004:8080"
     #depends_on:
       #- o2-base
+    restart: always
   o2-superoverlay:
     #build: ./o2-superoverlay
     image: ossimlabs/o2-superoverlay
@@ -286,6 +297,7 @@ services:
     depends_on:
       #- o2-base
       - o2-web-proxy
+    restart: always
   o2-download:
     #build: ./o2-download
     image: ossimlabs/o2-download
@@ -305,6 +317,7 @@ services:
     depends_on:
       #- o2-base
       - o2-web-proxy
+    restart: always
   o2-swipe:
     #build: ./o2-swipe
     image: ossimlabs/o2-swipe
@@ -327,9 +340,11 @@ services:
       - o2-db
       - o2-stager
       - o2-web-proxy
+    restart: always
   o2-twofishes:
     #build: ./twofishes
     image: ossimlabs/twofishes
     container_name: twofishes
     ports:
       - "5006:8081"
+    restart: always
