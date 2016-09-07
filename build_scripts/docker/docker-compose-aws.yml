@@ -9,7 +9,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /Users/Shared/data:/data
+      - /data:/data
     restart: always
   # o2-base:
   #  #build: ./o2-base
@@ -40,7 +40,7 @@ services:
       DBPASS: abc123
       DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
     volumes:
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5002:8080"
     links:
@@ -62,7 +62,7 @@ services:
       DBPASS: abc123
       DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
     volumes:
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "4997:8080"
     depends_on:
@@ -102,7 +102,7 @@ services:
   #     DBPASS: abc123
   #     DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
   #   volumes:
-  #     - /Users/Shared/data:/data
+  #     - /data:/data
   #   ports:
   #     - "5013:8080"
   #   depends_on:
@@ -230,7 +230,7 @@ services:
       ADDRASTERENDPOINTPORT: :8080
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5001:8080"
     depends_on:
@@ -255,7 +255,7 @@ services:
       JPIPSERVERPORT: :5004
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5003:8080"
     depends_on:
@@ -273,7 +273,7 @@ services:
       DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5004:8080"
     #depends_on:
@@ -311,7 +311,7 @@ services:
       DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
     volumes:
       # Mount the the host local data directory to the container
-      - /Users/Shared/data:/data
+      - /data:/data
     ports:
       - "5011:8080"
     depends_on:
