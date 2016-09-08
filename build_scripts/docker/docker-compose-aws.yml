@@ -157,7 +157,7 @@ services:
       BANNERCLASSIFICATION: Unclassified
     ports:
       - "5010:8080"
-    depends_on:
+    # depends_on:
       # - o2-base
       # - o2-db
       # - o2-wms
