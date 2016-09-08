@@ -267,10 +267,24 @@ body {
     padding: 20px 30px;
     /*overflow: scroll;*/
 }
-.yamm .dropdown.yamm-fw .dropdown-menu {
+.yamm .dropdown.yamm-fw .dropdown-menu{
     left: 0;
     right: 0;
 }
+
+.nav-download .dropdown-menu a{
+  text-align: center;
+}
+
+
+.nav-download .dropdown-menu{
+  min-width: 135px;
+}
+
+/*.navbar-default .navbar-nav > .nav-download{
+  border-left: 1px solid #CCC;
+}*/
+
 
 .rotate-north {
     top: 65px;

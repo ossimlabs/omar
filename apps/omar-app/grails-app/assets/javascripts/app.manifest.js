@@ -60,6 +60,7 @@
 //= <--Download-->
 //= require omar/download/fileDownload.js
 //= require omar/download/download.controller.js
+//= require omar/download/wfsOutputDl.controller.js
 
 //= <--Filter-->
 //= require omar/filter/filter.controller.js
