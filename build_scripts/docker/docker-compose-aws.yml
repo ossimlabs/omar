@@ -161,28 +161,28 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
-  o2-wmts:
-    build: ./o2-wmts
-    image: ossimlabs/o2-wmts
-    container_name: o2-wmts
-    environment:
-      DBHOST: o2-db
-      DBPORT: :5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
-      WFSSERVER: oc2s-docker-test-01.rbtcloud.com/o2-wfs
-      WFSPORT:
-      WMSSERVER: oc2s-docker-test-01.rbtcloud.com/o2-wms
-      WMSPORT:
-    ports:
-      - "4999:8080"
-    depends_on:
-      #- o2-base
-      - o2-db
-      - o2-web-proxy
-    restart: always
+  # o2-wmts:
+  #   build: ./o2-wmts
+  #   image: ossimlabs/o2-wmts
+  #   container_name: o2-wmts
+  #   environment:
+  #     DBHOST: o2-db
+  #     DBPORT: :5432
+  #     DBNAME: omar_prod
+  #     DBUSER: postgres_user
+  #     DBPASS: abc123
+  #     DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+  #     WFSSERVER: oc2s-docker-test-01.rbtcloud.com/o2-wfs
+  #     WFSPORT:
+  #     WMSSERVER: oc2s-docker-test-01.rbtcloud.com/o2-wms
+  #     WMSPORT:
+  #   ports:
+  #     - "4999:8080"
+  #   depends_on:
+  #     # - o2-base
+  #     # - o2-db
+  #     # - o2-web-proxy
+  #   restart: always
   o2-sqs:
     build: ./o2-sqs
     image: ossimlabs/o2-sqs
@@ -211,136 +211,136 @@ services:
     #   - o2-avro
     #   - o2-web-proxy
     restart: always
-  o2-avro:
-    build: ./o2-avro
-    image: ossimlabs/o2-avro
-    container_name: o2-avro
-    environment:
-      DBHOST: o2-db
-      DBPORT: :5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
-      ADDRASTERENDPOINTURL: o2-stager
-      ADDRASTERENDPOINTPORT: :8080
-    volumes:
-      # Mount the the host local data directory to the container
-      - /data:/data
-    ports:
-      - "5001:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-stager
-    #   - o2-web-proxy
-    restart: always
-  o2-jpip:
-    build: ./o2-jpip
-    image: ossimlabs/o2-jpip
-    container_name: o2-jpip
-    environment:
-      DBHOST: o2-db
-      DBPORT: :5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
-      JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: oc2s-docker-test-01.rbtcloud.com
-      JPIPSERVERPORT: :5004
-    volumes:
-      # Mount the the host local data directory to the container
-      - /data:/data
-    ports:
-      - "5003:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
-    restart: always
-  o2-jpip-server:
-    build: ./o2-jpip-server
-    image: ossimlabs/o2-jpip-server
-    container_name: o2-jpip-server
-    environment:
-      JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: localhost
-      JPIPSERVERPORT: 8080
-      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
-    volumes:
-      # Mount the the host local data directory to the container
-      - /data:/data
-    ports:
-      - "5004:8080"
-    #depends_on:
-      #- o2-base
-    restart: always
-  o2-superoverlay:
-    build: ./o2-superoverlay
-    image: ossimlabs/o2-superoverlay
-    container_name: o2-superoverlay
-    environment:
-      DBHOST: o2-db
-      DBPORT: :5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
-      WMSURL: oc2s-docker-test-01.rbtcloud.com/o2-superoverlay
-      WMSPORT:
-    ports:
-      - "5009:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
-    restart: always
-  o2-download:
-    build: ./o2-download
-    image: ossimlabs/o2-download
-    container_name: o2-download
-    environment:
-      DBHOST: o2-db
-      DBPORT: :5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
-    volumes:
-      # Mount the the host local data directory to the container
-      - /data:/data
-    ports:
-      - "5011:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
-    restart: always
-  o2-swipe:
-    build: ./o2-swipe
-    image: ossimlabs/o2-swipe
-    container_name: o2-swipe
-    environment:
-      DBHOST: o2-db
-      DBPORT: :5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
-      WFSURL: oc2s-docker-test-01.rbtcloud.com/o2-wfs
-      WFSPORT:
-      WMSURL: oc2s-docker-test-01.rbtcloud.com/o2-wms
-      WMSPORT:
-    ports:
-      - "5012:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-stager
-    #   - o2-web-proxy
-    restart: always
-  o2-twofishes:
-    #build: ./twofishes
-    image: ossimlabs/twofishes
-    container_name: twofishes
-    ports:
-      - "5006:8081"
-    restart: always
+  # o2-avro:
+  #   build: ./o2-avro
+  #   image: ossimlabs/o2-avro
+  #   container_name: o2-avro
+  #   environment:
+  #     DBHOST: o2-db
+  #     DBPORT: :5432
+  #     DBNAME: omar_prod
+  #     DBUSER: postgres_user
+  #     DBPASS: abc123
+  #     DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+  #     ADDRASTERENDPOINTURL: o2-stager
+  #     ADDRASTERENDPOINTPORT: :8080
+  #   volumes:
+  #     # Mount the the host local data directory to the container
+  #     - /data:/data
+  #   ports:
+  #     - "5001:8080"
+  #   # depends_on:
+  #   #   - o2-base
+  #   #   - o2-db
+  #   #   - o2-stager
+  #   #   - o2-web-proxy
+  #   restart: always
+  # o2-jpip:
+  #   build: ./o2-jpip
+  #   image: ossimlabs/o2-jpip
+  #   container_name: o2-jpip
+  #   environment:
+  #     DBHOST: o2-db
+  #     DBPORT: :5432
+  #     DBNAME: omar_prod
+  #     DBUSER: postgres_user
+  #     DBPASS: abc123
+  #     DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+  #     JPIPCACHEDIR: /data/jpip-cache
+  #     JPIPSERVERURL: oc2s-docker-test-01.rbtcloud.com
+  #     JPIPSERVERPORT: :5004
+  #   volumes:
+  #     # Mount the the host local data directory to the container
+  #     - /data:/data
+  #   ports:
+  #     - "5003:8080"
+  #   # depends_on:
+  #   #   - o2-base
+  #   #   - o2-web-proxy
+  #   restart: always
+  # o2-jpip-server:
+  #   build: ./o2-jpip-server
+  #   image: ossimlabs/o2-jpip-server
+  #   container_name: o2-jpip-server
+  #   environment:
+  #     JPIPCACHEDIR: /data/jpip-cache
+  #     JPIPSERVERURL: localhost
+  #     JPIPSERVERPORT: 8080
+  #     DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+  #   volumes:
+  #     # Mount the the host local data directory to the container
+  #     - /data:/data
+  #   ports:
+  #     - "5004:8080"
+  #   #depends_on:
+  #     #- o2-base
+  #   restart: always
+  # o2-superoverlay:
+  #   build: ./o2-superoverlay
+  #   image: ossimlabs/o2-superoverlay
+  #   container_name: o2-superoverlay
+  #   environment:
+  #     DBHOST: o2-db
+  #     DBPORT: :5432
+  #     DBNAME: omar_prod
+  #     DBUSER: postgres_user
+  #     DBPASS: abc123
+  #     DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+  #     WMSURL: oc2s-docker-test-01.rbtcloud.com/o2-superoverlay
+  #     WMSPORT:
+  #   ports:
+  #     - "5009:8080"
+  #   # depends_on:
+  #   #   - o2-base
+  #   #   - o2-web-proxy
+  #   restart: always
+  # o2-download:
+  #   build: ./o2-download
+  #   image: ossimlabs/o2-download
+  #   container_name: o2-download
+  #   environment:
+  #     DBHOST: o2-db
+  #     DBPORT: :5432
+  #     DBNAME: omar_prod
+  #     DBUSER: postgres_user
+  #     DBPASS: abc123
+  #     DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+  #   volumes:
+  #     # Mount the the host local data directory to the container
+  #     - /data:/data
+  #   ports:
+  #     - "5011:8080"
+  #   # depends_on:
+  #   #   - o2-base
+  #   #   - o2-web-proxy
+  #   restart: always
+  # o2-swipe:
+  #   build: ./o2-swipe
+  #   image: ossimlabs/o2-swipe
+  #   container_name: o2-swipe
+  #   environment:
+  #     DBHOST: o2-db
+  #     DBPORT: :5432
+  #     DBNAME: omar_prod
+  #     DBUSER: postgres_user
+  #     DBPASS: abc123
+  #     DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+  #     WFSURL: oc2s-docker-test-01.rbtcloud.com/o2-wfs
+  #     WFSPORT:
+  #     WMSURL: oc2s-docker-test-01.rbtcloud.com/o2-wms
+  #     WMSPORT:
+  #   ports:
+  #     - "5012:8080"
+  #   # depends_on:
+  #   #   - o2-base
+  #   #   - o2-db
+  #   #   - o2-stager
+  #   #   - o2-web-proxy
+  #   restart: always
+  # o2-twofishes:
+  #   #build: ./twofishes
+  #   image: ossimlabs/twofishes
+  #   container_name: twofishes
+  #   ports:
+  #     - "5006:8081"
+  #   restart: always
