@@ -45,11 +45,11 @@ class HttpUtils
       tempShellCommand = tempShellCommand.replaceFirst("<source>", sourceURI)
       tempShellCommand = tempShellCommand.replaceFirst("<destination>", destination)
 
-      println "EXECUTING: ${tempShellCommand}"
+//      println "EXECUTING: ${tempShellCommand}"
       def shellProcess = tempShellCommand.execute()
       shellProcess.consumeProcessOutput(new NullOutputStream(), new NullOutputStream())
       shellProcess.waitFor()
-        println "DONE!!!!!!!!!!!!"
+//        println "DONE!!!!!!!!!!!!"
       // if we are non zero return then throw exception
       if(shellProcess.exitValue())
       {

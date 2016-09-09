@@ -47,7 +47,7 @@ class AvroMessageIndexJob {
                 {
                   log.info "DOWNLOADING: ${sourceURI} to ${fullPathLocation}"
                   String commandString = OmarAvroUtils.avroConfig.download?.command
-                  println "COMMAND STRING === ${commandString}"
+                  //println "COMMAND STRING === ${commandString}"
                   if(!commandString)
                   {
                     HttpUtils.downloadURI(fullPathLocation.toString(), sourceURI)
