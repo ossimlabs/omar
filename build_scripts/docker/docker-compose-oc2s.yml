@@ -178,7 +178,7 @@ services:
       WMSPORT:
     ports:
       - "4999:8080"
-    # depends_on:
+    depends_on:
       # - o2-base
       # - o2-db
       # - o2-web-proxy
@@ -337,6 +337,14 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
+  o2-mensa:
+    build: ./o2-mensa
+    image: ossimlabs/o2-mensa
+    container_name: o2-mensa
+    environment:
+      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+    ports:
+      - "5013:8080"
   o2-twofishes:
     #build: ./twofishes
     image: ossimlabs/twofishes
