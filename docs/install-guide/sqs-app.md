@@ -54,7 +54,6 @@ omar:
         type: "post"
         post:
             urlEndPoint: "http://192.168.2.200/avro-app/avro/addMessage"
-            field: message
 
 endpoints:
   health:
@@ -73,7 +72,6 @@ grails:
 * **pollingIntervalSeconds** this can be any value and defines the number of second to *SLEEP* the background process between each call to the read request.  By default it will keep calling the read request until no messages are found.  After no messages are found the backgroun process will then *SLEEP* for **pollingIntervalSeconds**.
 * **destination.type** This value can be either "post" or "stdout".   If the value is a post then it expects the **post** entry to be defined.  If the type is stdout then all message payload/message body are printed to standard out.
 * **destination.post.urlEndPoint** Defines the url to post the message to.  The example here was taken from the ossim-vagrant implementation
-* **destination.post.field** Defines the post field to put the message payload.
 
 ## AWS Credentials
 
