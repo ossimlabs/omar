@@ -343,6 +343,8 @@ services:
     container_name: o2-mensa
     environment:
       DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+    volumes:
+      - /data:/data
     ports:
       - "5014:8080"
     # depends_on:
