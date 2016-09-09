@@ -8,6 +8,6 @@ endpoints:
 
 ---
 grails:
-  serverURL: http://${DOCKER_HOST_IP}/mensa-app
+  serverURL: http://${DOCKER_HOST_IP}/o2-mensa
   assets:
-    url: http://${DOCKER_HOST_IP}/mensa-app/assets/
+    url: http://${DOCKER_HOST_IP}/o2-mensa/assets/
