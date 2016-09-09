@@ -15,6 +15,6 @@ environments:
 
 ---
 grails:
-  serverURL: http://192.168.99.100/o2-download
+  serverURL: http://${DOCKER_HOST_IP}/o2-download
   assets:
-    url: http://192.168.99.100/o2-download/assets/
+    url: http://${DOCKER_HOST_IP}/o2-download/assets/

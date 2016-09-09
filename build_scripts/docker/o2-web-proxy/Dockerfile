@@ -16,6 +16,8 @@ COPY reverse-proxy.conf /etc/httpd/conf.d/reverse-proxy.conf
 ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 
+ENV DOCKER_HOST_IP=${DOCKER_HOST_IP}
+
 CMD ["/run-httpd.sh"]
 
 EXPOSE 80

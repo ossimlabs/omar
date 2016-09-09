@@ -23,7 +23,8 @@ ENV DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
     DBUSER=${DBUSER}\
     DBPASS=${DBPASS}\
-    DBNAME=${DBNAME}
+    DBNAME=${DBNAME}\
+    DOCKER_HOST_IP=${DOCKER_HOST_IP}
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wms-app/wms-app.sh"]
