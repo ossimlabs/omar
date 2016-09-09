@@ -123,6 +123,7 @@ O2 RPM list from the yum repo:
 * **o2-sqs-app** SQS Reader Services
 * **o2-avro-app** AVRO Payload ingest for NITF avro schema
 * **o2-download-app** Takes multiple images or image groups specified in a JSON and return a zip archive
+* **o2-mensa-app** Takes image points and the image file associated with those image points and do different forms of measurements.
 
 ##Setup EPEL
 
