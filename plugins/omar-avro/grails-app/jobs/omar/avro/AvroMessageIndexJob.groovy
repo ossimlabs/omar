@@ -46,7 +46,16 @@ class AvroMessageIndexJob {
                 if(!fullPathLocation.exists())
                 {
                   log.info "DOWNLOADING: ${sourceURI} to ${fullPathLocation}"
-                  HttpUtils.downloadURI(fullPathLocation.toString(), sourceURI)
+                  String commandString = OmarAvroUtils.avroConfig.download?.command
+                  println "COMMAND STRING === ${commandString}"
+                  if(!commandString)
+                  {
+                    HttpUtils.downloadURI(fullPathLocation.toString(), sourceURI)
+                  }
+                  else
+                  {
+                    HttpUtils.downloadURIShell(commandString, fullPathLocation.toString(), sourceURI)
+                  }
                   log.info "DOWNLOADED: ${sourceURI} to ${fullPathLocation}"
                   avroService.updatePayloadStatus(messageId, ProcessStatus.FINISHED, "DOWNLOADED: ${sourceURI} to ${fullPathLocation}")
                 }
@@ -66,7 +75,7 @@ class AvroMessageIndexJob {
                   fullPathLocation?.delete()                  
                 }
                 avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "Unable to Download: ${sourceURI} to ${fullPathLocation} With error: ${e}")
-                message = null
+                messageRecord = null
               }
             }
             else

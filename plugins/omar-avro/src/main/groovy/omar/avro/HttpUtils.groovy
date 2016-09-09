@@ -38,6 +38,26 @@ class HttpUtils
          output.write(buffer, 0, count);
       }
    }
+   static void downloadURIShell(String shellCommand, String destination, String sourceURI)
+   {
+      String tempShellCommand = shellCommand
+
+      tempShellCommand = tempShellCommand.replaceFirst("<source>", sourceURI)
+      tempShellCommand = tempShellCommand.replaceFirst("<destination>", destination)
+
+      println "EXECUTING: ${tempShellCommand}"
+      def shellProcess = tempShellCommand.execute()
+      shellProcess.consumeProcessOutput(new NullOutputStream(), new NullOutputStream())
+      shellProcess.waitFor()
+        println "DONE!!!!!!!!!!!!"
+      // if we are non zero return then throw exception
+      if(shellProcess.exitValue())
+      {
+         throw new Exception("Unable to execute command ${tempShellCommand}")
+      }
+
+   }
+
    static HashMap postMessage(String url, HashMap params)//String field, String message)
    {
       def result = [status:200,message:""]
