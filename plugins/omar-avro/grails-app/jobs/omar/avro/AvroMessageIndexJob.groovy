@@ -18,12 +18,13 @@ class AvroMessageIndexJob {
         String messageId = messageRecord.messageId
 
         log.info "Processing Message with ID: ${messageRecord.messageId}"
-        def slurper = new groovy.json.JsonSlurper()
         try {
           def jsonObj
           try{
-            jsonObj = slurper.parseText(messageRecord.message)
-          } 
+            jsonObj = avroService.convertMessageToJsonWithSubField(messageRecord.message)
+
+            // actual image information is in a subfield of the root JSON object
+          }
           catch(e)
           {
             avroService.updatePayloadStatus(messageId, ProcessStatus.FAILED, "Unable to parse message.  Not a valid JSON format")

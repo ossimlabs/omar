@@ -144,10 +144,7 @@ class AvroController {
       if(jsonData) requestParams << jsonData
       BindUtil.fixParamNames( IndexMessageCommand, requestParams )
       bindData( cmd, requestParams )
-      if(!cmd.message&&jsonData)
-      {
-         cmd.message = request.JSON
-      }
+      cmd.message = request.JSON
       HashMap result = avroService.addMessage(cmd)
 
       response.status = result.statusCode
