@@ -16,7 +16,6 @@ if [ "$1" == "local" ] || [ "$1" == "oc2s" ]; then
 
     fi
 
-
   else
 
     echo "Usage: ./compose.sh < local | oc2s > < up | down >"

@@ -1,7 +1,7 @@
 version: '2'
 services:
   o2-web-proxy:
-    #build: ./o2-web-proxy
+    build: ./o2-web-proxy
     image: ossimlabs/o2-web-proxy
     container_name: o2-web-proxy
     environment:
@@ -12,7 +12,7 @@ services:
       - /data:/data
     restart: always
   # o2-base:
-  #  #build: ./o2-base
+  #   build: ./o2-base
   #   container_name: o2-base
   #   image: ossimlabs/o2-base
   o2-db:
@@ -178,7 +178,7 @@ services:
       WMSPORT:
     ports:
       - "4999:8080"
-    depends_on:
+    # depends_on:
       # - o2-base
       # - o2-db
       # - o2-web-proxy
@@ -344,7 +344,10 @@ services:
     environment:
       DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
     ports:
-      - "5013:8080"
+      - "5014:8080"
+    depends_on:
+      # - o2-base
+      - o2-web-proxy
   o2-twofishes:
     #build: ./twofishes
     image: ossimlabs/twofishes
