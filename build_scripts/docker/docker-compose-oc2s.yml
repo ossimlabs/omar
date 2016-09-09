@@ -345,9 +345,9 @@ services:
       DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
     ports:
       - "5014:8080"
-    depends_on:
-      # - o2-base
-      - o2-web-proxy
+    # depends_on:
+    #   - o2-base
+    #   - o2-web-proxy
   o2-twofishes:
     #build: ./twofishes
     image: ossimlabs/twofishes
