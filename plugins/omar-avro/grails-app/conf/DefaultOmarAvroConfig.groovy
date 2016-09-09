@@ -5,6 +5,7 @@ avro{
   imageIdField="Image_Id"
   createDirectoryRetry="3"
   createDirectoryRetryWaitInMillis="100"
+  jsonSubFieldPath=""
   download{
     directory="/data"
 
