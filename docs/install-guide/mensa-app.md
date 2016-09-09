@@ -23,11 +23,11 @@ The installation sets up
 
 **Assumptions**:
 
-* SQS Service IP location is 192.168.2.113 on port 8080
+* Mensa Service IP location is 192.168.2.113 on port 8080
 * Proxy server is running under the location 192.168.2.200
 * Proxy pass entry `ProxyPass /mensa-app http://192.168.2.113:8080`
 
-The assumptions here has the root URL for the Stager service reachable via the proxy by using IP http://192.168.2.200/mensa-app and this is proxied to the root IP of the mensa-app service located at http://192.168.2.113:8080. **Note: please change the IP's and ports for your setup accordingly**.
+The assumptions here has the root URL for the Mensa service reachable via the proxy by using IP http://192.168.2.200/mensa-app and this is proxied to the root IP of the mensa-app service located at http://192.168.2.113:8080. **Note: please change the IP's and ports for your setup accordingly**.
 
 
 The configuration file is a yaml formatted config file.  For now create a file called mensa-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document.
@@ -54,9 +54,9 @@ grails:
     url: http://192.168.2.200/mensa-app/assets/
 ```
 
-* **endpoints** allows one to setup endpoints.  To support the additional .../health path you can enable by using the endpoints definition 
+* **endpoints** allows one to setup endpoints.  To support the additional .../health path you can enable by using the endpoints definition
 
- 
+
 ##Executing
 
 To run the service on systems that use the init.d you can issue the command.
@@ -94,4 +94,3 @@ which returns the health of your sytem and should have the value with items simi
 ##Examples
 
 The mensa service comes with a **Swagger** api definition that is reachable with the endpoint: `http://192.168.2.200/mensa-app/api`.  Please refer to this documentation on how to use the service.
-

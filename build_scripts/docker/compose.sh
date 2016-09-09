@@ -1,20 +1,29 @@
 #!/bin/bash
 
-if [ "$1" == "local" ] || [ "$1" == "aws" ]; then
+if [ "$1" == "local" ] || [ "$1" == "oc2s" ]; then
 
   if [ "$2" == "up" ] || [ "$2" == "down" ]; then
+
+    if [ "$1" == "local" ]; then
 
     echo "Running docker-compose $2 using $1 settings..."
     docker-compose --file=docker-compose-$1.yml $2 #-d
 
+    elif [ "$1" == "oc2s" ]; then
+
+    echo "Running docker-compose $2 using $1 settings..."
+    sudo docker-compose --file=docker-compose-$1.yml $2 #-d
+
+    fi
+
   else
 
-    echo "Error. Please use up or down as the second argument."
+    echo "Usage: ./compose.sh < local | oc2s > < up | down >"
 
   fi
 
 else
 
-  echo "Error. Please use local or aws as the first argument."
+  echo "Usage: ./compose.sh < local | oc2s > < up | down >"
 
 fi

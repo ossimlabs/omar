@@ -1,7 +1,7 @@
 version: '2'
 services:
   o2-web-proxy:
-   #build: ./o2-web-proxy
+    build: ./o2-web-proxy
     image: ossimlabs/o2-web-proxy
     container_name: o2-web-proxy
     environment:
@@ -16,7 +16,7 @@ services:
   #   container_name: o2-base
   #   image: ossimlabs/o2-base
   o2-db:
-   #build: ./o2-db
+    build: ./o2-db
     image: ossimlabs/o2-db
     container_name: o2-db
     environment:
@@ -29,7 +29,7 @@ services:
       - "4990:5432"
     restart: always
   o2-stager:
-   #build: ./o2-stager
+    build: ./o2-stager
     image: ossimlabs/o2-stager
     container_name: o2-stager
     environment:
@@ -51,7 +51,7 @@ services:
       - o2-web-proxy
     restart: always
   o2-wms:
-    #build: ./o2-wms
+    build: ./o2-wms
     image: ossimlabs/o2-wms
     container_name: o2-wms
     environment:
@@ -71,7 +71,7 @@ services:
       - o2-web-proxy
     restart: always
   o2-wfs:
-    #build: ./o2-wfs
+    build: ./o2-wfs
     image: ossimlabs/o2-wfs
     container_name: o2-wfs
     environment:
@@ -91,7 +91,7 @@ services:
       - o2-web-proxy
     restart: always
   # o2-wcs:
-  #   #build: ./o2-wcs
+  #   build: ./o2-wcs
   #   image: ossimlabs/o2-wcs
   #   container_name: o2-wcs
   #   environment:
@@ -113,7 +113,7 @@ services:
   #     #- o2-wfs
   #     - o2-web-proxy
   o2-omar:
-    #build: ./o2-omar
+    build: ./o2-omar
     image: ossimlabs/o2-omar
     container_name: o2-omar
     environment:
@@ -166,7 +166,7 @@ services:
       - o2-web-proxy
     restart: always
   o2-wmts:
-    #build: ./o2-wmts
+    build: ./o2-wmts
     image: ossimlabs/o2-wmts
     container_name: o2-wmts
     environment:
@@ -188,7 +188,7 @@ services:
       - o2-web-proxy
     restart: always
   o2-sqs:
-    #build: ./o2-sqs
+    build: ./o2-sqs
     image: ossimlabs/o2-sqs
     container_name: o2-sqs
     environment:
@@ -205,8 +205,8 @@ services:
     volumes:
       # Modify the path below to reflect your
       # AWS credentials location. Example:
-      - /Users/adrake/.aws:/root/.aws
-      #- /Users/<username>/.aws:/root/.aws
+      #- /Users/jdoe/.aws:/root/.aws
+      - /Users/<username>/.aws:/root/.aws
     ports:
       - "5000:8080"
     depends_on:
@@ -216,7 +216,7 @@ services:
       - o2-web-proxy
     restart: always
   o2-avro:
-    #build: ./o2-avro
+    build: ./o2-avro
     image: ossimlabs/o2-avro
     container_name: o2-avro
     environment:
@@ -240,7 +240,7 @@ services:
       - o2-web-proxy
     restart: always
   o2-jpip:
-    #build: ./o2-jpip
+    build: ./o2-jpip
     image: ossimlabs/o2-jpip
     container_name: o2-jpip
     environment:
@@ -263,7 +263,7 @@ services:
       - o2-web-proxy
     restart: always
   o2-jpip-server:
-    #build: ./o2-jpip-server
+    build: ./o2-jpip-server
     image: ossimlabs/o2-jpip-server
     container_name: o2-jpip-server
     environment:
@@ -280,7 +280,7 @@ services:
       #- o2-base
     restart: always
   o2-superoverlay:
-    #build: ./o2-superoverlay
+    build: ./o2-superoverlay
     image: ossimlabs/o2-superoverlay
     container_name: o2-superoverlay
     environment:
@@ -299,7 +299,7 @@ services:
       - o2-web-proxy
     restart: always
   o2-download:
-    #build: ./o2-download
+    build: ./o2-download
     image: ossimlabs/o2-download
     container_name: o2-download
     environment:
@@ -319,7 +319,7 @@ services:
       - o2-web-proxy
     restart: always
   o2-swipe:
-    #build: ./o2-swipe
+    build: ./o2-swipe
     image: ossimlabs/o2-swipe
     container_name: o2-swipe
     environment:
