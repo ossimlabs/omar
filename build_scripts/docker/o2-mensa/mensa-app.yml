@@ -1,0 +1,13 @@
+server:
+  contextPath:
+  port: 8080
+
+endpoints:
+  health:
+    enabled: true
+
+---
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/mensa-app
+  assets:
+    url: http://${DOCKER_HOST_IP}/mensa-app/assets/
