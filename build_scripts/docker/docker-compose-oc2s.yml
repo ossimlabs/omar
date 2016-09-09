@@ -161,28 +161,28 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
-  # o2-wmts:
-  #   build: ./o2-wmts
-  #   image: ossimlabs/o2-wmts
-  #   container_name: o2-wmts
-  #   environment:
-  #     DBHOST: o2-db
-  #     DBPORT: :5432
-  #     DBNAME: omar_prod
-  #     DBUSER: postgres_user
-  #     DBPASS: abc123
-  #     DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
-  #     WFSSERVER: oc2s-docker-test-01.rbtcloud.com/o2-wfs
-  #     WFSPORT:
-  #     WMSSERVER: oc2s-docker-test-01.rbtcloud.com/o2-wms
-  #     WMSPORT:
-  #   ports:
-  #     - "4999:8080"
-  #   depends_on:
-  #     # - o2-base
-  #     # - o2-db
-  #     # - o2-web-proxy
-  #   restart: always
+  o2-wmts:
+    build: ./o2-wmts
+    image: ossimlabs/o2-wmts
+    container_name: o2-wmts
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+      WFSSERVER: oc2s-docker-test-01.rbtcloud.com/o2-wfs
+      WFSPORT:
+      WMSSERVER: oc2s-docker-test-01.rbtcloud.com/o2-wms
+      WMSPORT:
+    ports:
+      - "4999:8080"
+    # depends_on:
+      # - o2-base
+      # - o2-db
+      # - o2-web-proxy
+    restart: always
   o2-sqs:
     build: ./o2-sqs
     image: ossimlabs/o2-sqs
