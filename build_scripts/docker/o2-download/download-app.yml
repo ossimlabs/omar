@@ -13,6 +13,10 @@ environments:
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
       url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
 
+endpoints:
+  health:
+    enabled: true
+
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-download

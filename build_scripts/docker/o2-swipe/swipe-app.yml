@@ -20,6 +20,10 @@ swipe:
     wms:
       baseUrl: http://${WMSURL}/wms?
 
+endpoints:
+  health:
+    enabled: true
+
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-swipe
