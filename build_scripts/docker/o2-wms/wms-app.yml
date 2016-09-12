@@ -151,6 +151,10 @@ wms:
         filter: file_type='unspecified'
         color: white
 
+endpoints:
+  health:
+    enabled: true
+
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-wms
