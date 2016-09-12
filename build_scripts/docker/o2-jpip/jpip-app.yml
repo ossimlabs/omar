@@ -25,6 +25,10 @@ omar:
       ip:    ${JPIPSERVERURL}
       url:   jpip://${JPIPSERVERURL}:${JPIPSERVERPORT}
 
+endpoints:
+  health:
+    enabled: true
+
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-jpip
