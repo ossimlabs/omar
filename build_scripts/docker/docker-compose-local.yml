@@ -201,7 +201,7 @@ services:
     volumes:
       # Modify the path below to reflect your
       # AWS credentials location. Example:
-      - /Users/<YOURUSERNAME>/.aws:/root/.aws
+      - /Users/<YourUserName>/.aws:/root/.aws
     ports:
       - "5000:8080"
     # depends_on:
