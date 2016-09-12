@@ -9,7 +9,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /data:/data
+      - /Users/Shared/data:/data
     restart: always
   # o2-base:
   #   build: ./o2-base
@@ -38,7 +38,7 @@ services:
       DBPASS: abc123
       DOCKER_HOST_IP: 192.168.99.100
     volumes:
-      - /data:/data
+      - /Users/Shared/data:/data
     ports:
       - "5002:8080"
     # depends_on:
@@ -58,7 +58,7 @@ services:
       DBPASS: abc123
       DOCKER_HOST_IP: 192.168.99.100
     volumes:
-      - /data:/data
+      - /Users/Shared/data:/data
     ports:
       - "4997:8080"
     # depends_on:
@@ -98,7 +98,7 @@ services:
   #     DBPASS: abc123
   #     DOCKER_HOST_IP: 192.168.99.100
   #   volumes:
-  #     - /data:/data
+  #     - /Users/Shared/data:/data
   #   ports:
   #     - "5013:8080"
   #   depends_on:
@@ -201,8 +201,7 @@ services:
     volumes:
       # Modify the path below to reflect your
       # AWS credentials location. Example:
-      #- /Users/jdoe/.aws:/root/.aws
-      - /home/ec2-user/.aws:/root/.aws
+      - /Users/<YOURUSERNAME>/.aws:/root/.aws
     ports:
       - "5000:8080"
     # depends_on:
@@ -226,7 +225,7 @@ services:
       ADDRASTERENDPOINTPORT: :8080
     volumes:
       # Mount the the host local data directory to the container
-      - /data:/data
+      - /Users/Shared/data:/data
     ports:
       - "5001:8080"
     # depends_on:
@@ -251,7 +250,7 @@ services:
       JPIPSERVERPORT: :5004
     volumes:
       # Mount the the host local data directory to the container
-      - /data:/data
+      - /Users/Shared/data:/data
     ports:
       - "5003:8080"
     # depends_on:
@@ -269,7 +268,7 @@ services:
       DOCKER_HOST_IP: 192.168.99.100
     volumes:
       # Mount the the host local data directory to the container
-      - /data:/data
+      - /Users/Shared/data:/data
     ports:
       - "5004:8080"
     #depends_on:
@@ -307,7 +306,7 @@ services:
       DOCKER_HOST_IP: 192.168.99.100
     volumes:
       # Mount the the host local data directory to the container
-      - /data:/data
+      - /Users/Shared/data:/data
     ports:
       - "5011:8080"
     # depends_on:
@@ -344,7 +343,7 @@ services:
     environment:
       DOCKER_HOST_IP: 192.168.99.100
     volumes:
-      - /data:/data
+      - /Users/Shared/data:/data
     ports:
       - "5014:8080"
     # depends_on:
