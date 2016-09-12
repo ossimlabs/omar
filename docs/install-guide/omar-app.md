@@ -110,6 +110,10 @@ omar:
       icons:
         green-marker: search_marker_green.png
 
+endpoints:
+  health:
+    enabled: true
+
 classificationBanner:
   backgroundColor: green
   classificationType: Unclassified

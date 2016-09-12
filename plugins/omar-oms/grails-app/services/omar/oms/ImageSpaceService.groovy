@@ -1,5 +1,6 @@
 package omar.oms
 
+import groovy.json.JsonSlurper
 import omar.core.HttpStatus
 
 import java.awt.Color
@@ -144,12 +145,17 @@ class ImageSpaceService
               cut_bbox_xywh: [cmd.x * cmd.tileSize, cmd.y * cmd.tileSize, cmd.tileSize, cmd.tileSize].join( ',' ),
               'image0.file': cmd.filename,
               'image0.entry': cmd.entry as String,
-              operation: 'chip',
-              rrds: "${rrds}".toString(),
-              scale_2_8_bit: 'true',
-              'hist_op': 'auto-minmax',
+              "operation":"chip",
+              "scale_2_8_bit":"true",
+              "rrds":"${rrds}".toString(),
+              'hist_op': cmd.histOp?:'auto-minmax',
               three_band_out: "true"
       ]
+
+      if(cmd.bands)
+      {
+        opts.bands = cmd.bands
+      }
 
       def hints = [
               transparent: cmd.format == 'png',

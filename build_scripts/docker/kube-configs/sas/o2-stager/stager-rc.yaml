@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: o2-stager
+  labels:
+    app: o2-stager
+    name: o2-stager
+spec:
+  replicas: 1
+  selector:
+    app: o2-stager
+  template:
+    metadata:
+      name: o2-stager
+      labels:
+        app: o2-stager
+    spec:
+      containers:
+      - name: o2-stager
+        env:
+        - name: DBHOST
+          value: o2-db
+        - name: DBPORT
+          value: :5432
+        - name: DBNAME
+          value: omar_prod
+        - name: DBUSER
+          value: postgres_user
+        - name: DBPASS
+          value: abc123
+        image: radiantbluetechnologies/o2-stager
+        ports:
+        - containerPort: 8080
+          name: javaport
+      - name: o2-db
+        env:
+        - name:  POSTGRES_PASSWORD
+          value: abc123
+        - name: POSTGRES_USER
+          value: postgres_user
+        - name: POSTGRES_DB
+          value: omar_prod
+        image: radiantbluetechnologies/o2-db
+        ports:
+        - containerPort: 5432
+          name: postgresport

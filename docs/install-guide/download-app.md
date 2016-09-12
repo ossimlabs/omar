@@ -39,21 +39,25 @@ server:
   contextPath:
   port: 8080
 
- environments:
-   production:
-     dataSource:
-       pooled: true
-       jmxExport: true
-       driverClassName: org.postgresql.Driver
-       username: {{ salt['pillar.get']('ossim:database:username')}}
-       password: {{ salt['pillar.get']('ossim:database:password')}}
-       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-       url: {{ salt['pillar.get']('ossim:database:connection')}}
+environments:
+  production:
+    dataSource:
+      pooled: true
+      jmxExport: true
+      driverClassName: org.postgresql.Driver
+      username: postgres
+      password:
+      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+      url: jdbc:postgresql://192.168.2.100:5432/omardb-prod
+
+endpoints:
+  health:
+    enabled: true
 ---
 grails:
-  serverURL: {{ salt['pillar.get']('ossim:download-app:serverURL')}}
+  serverURL: http://192.168.2.200/download-app
   assets:
-    url: {{ salt['pillar.get']('ossim:download-app:assetsURL')}}
+    url: http://192.168.2.200/download-app/assets/
     
 ```
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).

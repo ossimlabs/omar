@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: sqs
+  labels:
+    app: sqs
+    name: sqs
+spec:
+  replicas: 1
+  selector:
+    app: sqs
+  template:
+    metadata:
+      name: sqs
+      labels:
+        app: sqs
+    spec:
+      containers:
+      - name: o2-sqs
+        env:
+        - name: AWSDNS
+          value: sqs.us-east-1.amazonaws.com
+        - name: AWSQUEUEPATH
+          value: 433455360279:queue_oc2s
+        - name: WAIT_TIME_SECONDS
+          value: "20"
+        - name: NUMBER_OF_MESSAGES
+          value: "1"
+        - name: POLLING_INTERVAL_SECONDS
+          value: "10"
+        - name: DESTINATION_TYPE
+          value: stdout
+        - name: DESTINATION_POST_END_POINT
+          value: o2-avro
+        - name: DESTINATION_POST_END_POINT_PORT
+          value: :8080
+        - name: DESTINATION_POST_FIELD
+          value: message
+        image: radiantbluetechnologies/o2-sqs
+        ports:
+        - containerPort: 8080
+          name: javaport

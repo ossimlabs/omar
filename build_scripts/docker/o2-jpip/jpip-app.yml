@@ -24,3 +24,9 @@ omar:
       cache: ${JPIPCACHEDIR}
       ip:    ${JPIPSERVERURL}
       url:   jpip://${JPIPSERVERURL}:${JPIPSERVERPORT}
+
+---
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-jpip
+  assets:
+    url: http://${DOCKER_HOST_IP}/o2-jpip/assets/

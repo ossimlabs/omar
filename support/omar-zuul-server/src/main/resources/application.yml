@@ -1,0 +1,26 @@
+# eureka:
+#   client:
+#     serviceUrl:
+#       defaultZone: http://localhost:8761/eureka/
+# ---
+# spring:
+#   profiles: production
+# eureka:
+#   client:
+#     serviceUrl:
+#       defaultZone: http://omar-eureka-server:8761/eureka/
+---
+server:
+  port: 8765
+zuul:
+  ignoredServices: "*"
+  add-proxy-headers: true
+  routes:
+#    message-client:
+#      path: /message-client/**
+#      serviceId: message-client
+#      strip-prefix: false
+#    message-server:
+#      path: /message-server/**
+#      serviceId: message-server
+#      strip-prefix: false

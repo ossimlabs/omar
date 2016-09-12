@@ -52,18 +52,43 @@ class AvroService {
 
     result
   }
+  def convertMessageToJsonWithSubField(String message)
+  {
+    JsonSlurper slurper = new JsonSlurper()
+    def result
+
+    result = slurper.parseText(message)
+
+    if(OmarAvroUtils.avroConfig.jsonSubFieldPath)
+    {
+      OmarAvroUtils.avroConfig.jsonSubFieldPath.split("\\.").each{field->
+        if(result."${field}" instanceof String)
+        {
+          result = slurper.parseText(result."${field}")
+        }
+        else
+        {
+          result = result."${field}"
+        }
+      }
+    }
+
+    result
+  }
   File getFullPathFromMessage(String message)
   {
     File result
-    JsonSlurper slurper = new JsonSlurper()
     if(message)
     {
-      def jsonObj = slurper.parseText(message)
-      String suffix = AvroMessageUtils.getDestinationSuffixFromMessage(jsonObj)
-      String prefixPath = "${OmarAvroUtils.avroConfig.download.directory}"
+      def jsonObj = convertMessageToJsonWithSubField(message)
 
-      result = new File(prefixPath, suffix)
+      if(jsonObj)
+      {
+        String suffix = AvroMessageUtils.getDestinationSuffixFromMessage(jsonObj)
+        String prefixPath = "${OmarAvroUtils.avroConfig.download.directory}"
 
+        result = new File(prefixPath, suffix)
+      }
     }
 
     result
@@ -442,7 +467,7 @@ class AvroService {
     }
     catch(e)
     {
-      e.printStackTrace()
+     // e.printStackTrace()
       result.status = HttpStatus.ERROR
       result.statusCode = HttpStatus.BAD_REQUEST
       result.message = e.toString()

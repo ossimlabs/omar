@@ -2,16 +2,16 @@ server:
   contextPath:
   port: 8080
 
-environments:
-  production:
-    dataSource:
-      pooled: true
-      jmxExport: true
-      driverClassName: org.postgresql.Driver
-      username: ${DBUSER}
-      password: ${DBPASS}
-      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
+# environments:
+#   production:
+#     dataSource:
+#       pooled: true
+#       jmxExport: true
+#       driverClassName: org.postgresql.Driver
+#       username: ${DBUSER}
+#       password: ${DBPASS}
+#       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+#       url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
 
 ---
 
@@ -152,7 +152,7 @@ wms:
         color: white
 
 ---
-# grails:
-#   serverURL: http://192.168.2.200/wfs-app
-#   assets:
-#     url: http://192.168.2.200/wfs-app/assets/
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-wfs
+  assets:
+    url: http://${DOCKER_HOST_IP}/o2-wfs/assets/

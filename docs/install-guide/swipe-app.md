@@ -59,6 +59,10 @@ swipe:
       baseUrl: http://192.168.2.200/wfs-app/wfs?
     wms:
       baseUrl: http://192.168.2.200/wms-app/wms?
+
+endpoints:
+  health:
+    enabled: true
 ---
 grails:
   serverURL: http://192.168.2.200/swipe-app

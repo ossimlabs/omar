@@ -20,7 +20,11 @@ import com.amazonaws.services.sqs.model.DeleteMessageBatchRequestEntry
 import com.amazonaws.services.sqs.model.ChangeMessageVisibilityRequest
 import org.apache.commons.codec.digest.DigestUtils
 import groovyx.net.http.HTTPBuilder
-import static groovyx.net.http.ContentType.URLENC
+import groovyx.net.http.ContentType
+import groovyx.net.http.Method
+import groovyx.net.http.RESTClient
+
+import groovy.json.JsonSlurper
 
 //import grails.transaction.Transactional
 
@@ -30,9 +34,9 @@ class SqsService {
    AmazonSQSClient sqs
    static Boolean checkMd5(String messageBodyMd5, String message)
    {
-     String md5Check =  DigestUtils.md5Hex (message);
-        
-     md5Check == messageBodyMd5
+      String md5Check =  DigestUtils.md5Hex (message);
+
+      md5Check == messageBodyMd5
 
    }
    synchronized def getSqs()
@@ -40,38 +44,49 @@ class SqsService {
       if(!sqs) sqs = new AmazonSQSClient()
       sqs
    }
-   def postMessage(String url, String field, String message)
+   def postMessage(String url, String message)
    {
       URL tempUrl = new URL(url)
       String host
       if(tempUrl.port> 0)
       {
-        host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()      
-      } 
+         host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()
+      }
       else
       {
-        host = "${tempUrl.protocol}://${tempUrl.host}".toString()            
+         host = "${tempUrl.protocol}://${tempUrl.host}".toString()
       }
       String path = tempUrl.path
 
 
+      // Validate Message
+      def jsonSlurper = new JsonSlurper()
+      def jsonObj = jsonSlurper.parseText(message)
+
+      // now post the message
+//      println "POSTING MESSAGE ${jsonObj}"
       def result = [status:200,message:""]
       try{
-        def http = new HTTPBuilder( host )
-        def postBody = ["${field}": message] 
-
-        http.post( path: path, body: postBody,
-           requestContentType: URLENC ) { resp ->
-              result.message = resp.statusLine
-              result.status = resp.statusLine.statusCode 
-           }
+         def http = new HTTPBuilder( host )
+         http.request (Method.POST, ContentType.JSON) { req ->
+            uri.path = path
+            body = jsonObj.toString()
+            response.success = { resp, json ->
+               result.message = response.statusLine
+               result.status  = resp.statusLine.statusCode
+            }
+            response.failure = { resp, json ->
+               result.message = response.statusLine
+               result.status  = resp.statusLine.statusCode
+            }
+         }
       }
       catch(e)
       {
-        result.status = 400
-        result.message = e.toString()
+         result.status = 400
+         result.message = e.toString()
       }
-      
+
       result
    }
    def deleteMessages(String queue, def messages)
@@ -86,25 +101,25 @@ class SqsService {
 
       if(deleteList)
       {
-         sqs.deleteMessageBatch( 
-                         new DeleteMessageBatchRequest(queue , 
-                               deleteList as List<DeleteMessageBatchRequestEntry>)
-                       )
+         sqs.deleteMessageBatch(
+                 new DeleteMessageBatchRequest(queue ,
+                         deleteList as List<DeleteMessageBatchRequestEntry>)
+         )
       }
    }
    def receiveMessages() {
       log.trace "receiveMessages: Entered........"
       def config = SqsUtils.sqsConfig
 
-      def messages 
+      def messages
       try{
-        def sqs = getSqs()
-        ReceiveMessageRequest receiveMessageRequest = 
-                new ReceiveMessageRequest()
-                 .withQueueUrl(config.reader.queue)
-                 .withWaitTimeSeconds(config.reader.waitTimeSeconds)
-                 .withMaxNumberOfMessages(config.reader.maxNumberOfMessages)
-        messages = sqs.receiveMessage(receiveMessageRequest).messages
+         def sqs = getSqs()
+         ReceiveMessageRequest receiveMessageRequest =
+                 new ReceiveMessageRequest()
+                         .withQueueUrl(config.reader.queue)
+                         .withWaitTimeSeconds(config.reader.waitTimeSeconds)
+                         .withMaxNumberOfMessages(config.reader.maxNumberOfMessages)
+         messages = sqs.receiveMessage(receiveMessageRequest).messages
       }
       catch(e)
       {

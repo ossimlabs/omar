@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: omar-zuul-server
+  cloud:
+    config:
+      uri: http://localhost:8888
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/      
+---
+spring:
+  profiles: production
+  cloud:
+    config:
+      uri: http://omar-config-server:8888
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://omar-eureka-server:8761/eureka/

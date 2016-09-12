@@ -123,6 +123,7 @@ O2 RPM list from the yum repo:
 * **o2-sqs-app** SQS Reader Services
 * **o2-avro-app** AVRO Payload ingest for NITF avro schema
 * **o2-download-app** Takes multiple images or image groups specified in a JSON and return a zip archive
+* **o2-mensa-app** Takes image points and the image file associated with those image points and do different forms of measurements.
 
 ##Setup EPEL
 
@@ -513,6 +514,19 @@ grails:
 * **grails.serverURL** point to the root location of the wmts-app server. The example goes directly to the service via 8080.  If a proxy is used then you must add the proxy end point.
 * **assets url** This is the url to the assets location.  Just add the **/assets/** path to the serverURL.
 
+## Common Endpoints Enable/Disable
+
+All the services that start with an application yaml file definition now has top have certain endpoints enabled before you can reach them.  If you need access to the **/heatlh** endpoint then it must be enabled.  Add an entry to the applicaitons YAML file defintion for getting the health of the service.
+
+```
+endpoints:
+  health:
+    enabled: true
+```
+
+This will enable the endpoint .../health to be accessed and should return a JSON formatted string describing the status of the service.
+
+For a complete list of endpoints please visit the spring boot page found at: [Spring Boot Endpoints](http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html).
 ## Common Database
 
 We typically use a common database server to store any service specific table data.  Not all services use this common setting but will be repeated in the services that use it.  Within this installation we have tested against a Postgres database server.  All services, with exception to the jpip-server that does not have an external configuration, will have a common configuration entry in their yaml file that contains an entry of the form:
@@ -596,12 +610,12 @@ INFO: Creation of SecureRandom instance for session ID generation using [SHA1PRN
 To resolve this issue you can either use a non-blocking random generator by passing `-Djava.security.egd=file:/dev/./urandom` as a java argument to the JVM.  
 
 If you are running as a docker container you can add the following to the docker run command:
- 
+
  `docker run -v /dev/urandom:/dev/random`
 
 without having to modify the instance the docker daemon is running on.
 
-You can also install an RPM called ***haveged***.  For RPM based systems you can isntall using the command:
+You can also install an RPM called ***haveged***.  For RPM based systems you can install using the command:
 
 ```
 yum install haveged

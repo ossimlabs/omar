@@ -13,19 +13,13 @@ environments:
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
       url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
 
-<<<<<<< HEAD:build_scripts/docker/wmts-app/wmts-app.yml
-omar:
-  wmts:
-    wfsUrl: http://${WFSSERVER}${WFSPORT}/wfs
-    wmsUrl: http://${WMSSERVER}${WMSPORT}/wms
-    oldmarWmsFlag: false
-    footprints:
-      url: http://${FOOTPRINTS}${FOOTPRINTSPORT}/footprints/getFootprints
-      layers: "omar:raster_entry"
-      styles: "byFileType"
-=======
 quartz:
   jdbcStore: false
   threadPool:
     threadCount: 4
->>>>>>> dev:build_scripts/docker/o2-stager/stager-app.yml
+
+---
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-stager
+  assets:
+    url: http://${DOCKER_HOST_IP}/o2-stager/assets/

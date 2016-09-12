@@ -12,3 +12,9 @@ environments:
       password: ${DBPASS}
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
       url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
+
+---
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-download
+  assets:
+    url: http://${DOCKER_HOST_IP}/o2-download/assets/

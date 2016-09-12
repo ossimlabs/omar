@@ -37,8 +37,7 @@ class SqsReaderJob {
                   break
                 case "post":
                   String url = config.reader.destination.post.urlEndPoint
-                  String field = config.reader.destination.post.field
-                  def result = sqsService.postMessage(url, field, message.body)
+                  def result = sqsService.postMessage(url, message.body)
                  log.info "Posting message to ${url}"
                  // is a 200 range response
                  //

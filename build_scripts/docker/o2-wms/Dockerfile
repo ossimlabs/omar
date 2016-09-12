@@ -16,14 +16,15 @@ LABEL com.radiantblue.version="0.1"\
 RUN yum -y install o2-wms-app && \
   yum -y install ossim && yum -y install ossim-kakadu-plugin && \
   yum -y install ossim-jpeg12-plugin && yum -y install ossim-sqlite-plugin && \
-  yum -y install ossim-hdf5-plugin && yum -y install ossim-geopdf-plugin && \
+  yum -y install ossim-geopdf-plugin && \
   yum -y install ossim-png-plugin && yum -y install ossim-gdal-plugin.x86_64
 ADD wms-app.yml /usr/share/omar/wms-app/wms-app.yml
 ENV DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
     DBUSER=${DBUSER}\
     DBPASS=${DBPASS}\
-    DBNAME=${DBNAME}
+    DBNAME=${DBNAME}\
+    DOCKER_HOST_IP=${DOCKER_HOST_IP}
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wms-app/wms-app.sh"]

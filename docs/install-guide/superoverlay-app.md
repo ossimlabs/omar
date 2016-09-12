@@ -91,6 +91,10 @@ omar:
   superOverlay:
     wmsUrl: http://192.168.2.200/wms-app/wms/getMap
 
+endpoints:
+  health:
+    enabled: true
+
 ---
 grails:
   serverURL: http://192.168.2.200/superoverlay-app

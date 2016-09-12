@@ -1,12 +1,17 @@
 avro{
-  sourceUriField="S3_URI_Nitf"
-  dateField="Observation_Date"
+  sourceUriField="URL"
+  dateField="Observation_Date_Time"
   dateFieldFormat="yyyyMMddHHmmss"
   imageIdField="Image_Id"
   createDirectoryRetry="3"
   createDirectoryRetryWaitInMillis="100"
+  jsonSubFieldPath=""
   download{
     directory="/data"
+
+    // if specified will replace string <source> and <destination>
+    // example: wget --no-check-certificate -O <destination> "<source>"
+    command=""
   }
   destination{
     type="post"

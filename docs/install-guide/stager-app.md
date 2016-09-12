@@ -76,6 +76,9 @@ quartz:
   threadPool:
     threadCount: 4
 
+endpoints:
+  health:
+    enabled: true
 ---
 grails:
   serverURL: http://192.168.2.200/stager-app

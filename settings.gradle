@@ -4,6 +4,7 @@ include 'omar-core',
 		'omar-openlayers',
 		'omar-geoscript',
 		'omar-jpip',
+		'omar-mensa',
 		'omar-wms',
 		'omar-wmts',
 		'omar-wfs',
@@ -26,6 +27,7 @@ include 'omar-core',
 		'wms-app',
 		'all-app',
 		'wmts-app',
+		'mensa-app',
 		'opir-app',
 		'pki-app',
 		'swipe-app',
@@ -38,6 +40,7 @@ include 'omar-core',
 project(':omar-core').projectDir = 'plugins/omar-core' as File
 project(':omar-geoscript').projectDir = 'plugins/omar-geoscript' as File
 project(':omar-jpip').projectDir = 'plugins/omar-jpip' as File
+project(':omar-mensa').projectDir = 'plugins/omar-mensa' as File
 project(':omar-openlayers').projectDir = 'plugins/omar-openlayers' as File
 project(':omar-wfs').projectDir = 'plugins/omar-wfs' as File
 project(':omar-wms').projectDir = 'plugins/omar-wms' as File
@@ -69,6 +72,7 @@ project(':predio-app').projectDir = 'apps/predio-app' as File
 project(':opir-app').projectDir = 'apps/opir-app' as File
 project(':ossimtools-app').projectDir = 'apps/ossimtools-app' as File
 project(':jpip-app').projectDir = 'apps/jpip-app' as File
+project(':mensa-app').projectDir = 'apps/mensa-app' as File
 project(':avro-app').projectDir = 'apps/avro-app' as File
 project(':download-app').projectDir = 'apps/download-app' as File
 project(':wcs-app').projectDir = 'apps/wcs-app' as File

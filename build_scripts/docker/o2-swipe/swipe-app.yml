@@ -16,12 +16,12 @@ environments:
 swipe:
   app:
     wfs:
-      baseUrl: http://${WFSURL}:${WFSPORT}/wfs?
+      baseUrl: http://${WFSURL}/wfs?
     wms:
-      baseUrl: http://${WMSURL}:${WMSPORT}/wms?
+      baseUrl: http://${WMSURL}/wms?
 
 ---
 grails:
-  serverURL: http://localhost:8080
+  serverURL: http://${DOCKER_HOST_IP}/o2-swipe
   assets:
-    url: http://localhost:8080/assets/
+    url: http://${DOCKER_HOST_IP}/o2-swipe/assets/

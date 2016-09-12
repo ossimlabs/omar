@@ -10,7 +10,7 @@ import groovy.transform.ToString
 class GetThumbnailCommand implements Validateable
 {
   String filename
-  Integer entry
-  Integer size
-  String format
+  Integer entry=0
+  Integer size=128
+  String format="jpeg"
 }

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: o2-avro-rc
+  name: o2-avro-rc
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app: o2-avro

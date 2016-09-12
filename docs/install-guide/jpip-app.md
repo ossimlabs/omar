@@ -23,7 +23,7 @@ The installation sets up
 
 * JPIP Service IP location is 192.168.2.107 on port 8080
 * Proxy server is running under the location 192.168.2.200
-* Proxy pass entry `ProxyPass /swipe-app http://192.168.2.107:8080`
+* Proxy pass entry `ProxyPass /jpip-app http://192.168.2.107:8080`
 * Postgres database accessible via the IP and port 192.168.2.100:5432 with a database named omardb-prod.  The database can be any name you want as long as you specify it in the configuration.  If the database name or the IP and port information changes please replace in the YAML config file example
 
 The assumptions here has the root URL for the JPIP service reachable via the proxy by using IP http://192.168.2.200/jpip-app and this is proxied to the root IP of the jpip-app service located at http://192.168.2.107:8080. **Note: please change the IP's and ports for your setup accordingly**.
@@ -64,6 +64,9 @@ omar:
       ip:    <ip>
       url:   jpip://<ip>:<port>
 
+endpoints:
+  health:
+    enabled: true
 ---
 grails:
   serverURL: http://192.168.2.200/jpip-app
