@@ -1,0 +1,50 @@
+version: '2'
+services:
+  omar-config-server:
+    build: omar-config-server
+    container_name: omar-config-server
+    image: ossimlabs/omar-config-server
+    volumes:
+      - /dev/urandom:/dev/random
+    ports:
+      - "8888:8888"
+  omar-eureka-server:
+     build: omar-eureka-server
+     container_name: omar-eureka-server
+     image: ossimlabs/omar-eureka-server
+     volumes:
+       - /dev/urandom:/dev/random
+     ports:
+       - "8761:8761"
+  omar-zuul-server:
+     build: omar-zuul-server
+     container_name: omar-zuul-server
+     image: ossimlabs/omar-zuul-server
+     volumes:
+       - /dev/urandom:/dev/random
+     ports:
+       - "8765:8765"
+  # message-server:
+  #   build: message-server
+  #   # container_name: message-server
+  #   image: ossimlabs/message-server
+  #   # ports:
+  #   #   - "8080:8080"
+  # message-server-0:
+  #   build: message-server
+  #   container_name: message-server-0
+  #   image: ossimlabs/message-server
+  #   ports:
+  #     - "8080:8080"
+  # message-server-1:
+  #   build: message-server
+  #   container_name: message-server-1
+  #   image: ossimlabs/message-server
+  #   ports:
+  #     - "8081:8080"
+  # message-client:
+  #   build: message-client
+  #   container_name: message-client
+  #   image: ossimlabs/message-client
+  #   ports:
+  #     - "9999:8080"
