@@ -132,6 +132,8 @@ omar:
     imageIdField: "Image_Id"
     download:
       directory: "/data/s3"
+      # for external commands the replacement keys are <source> and <destination>
+#      command: ""
     destination:
       type: "post"
       post:
