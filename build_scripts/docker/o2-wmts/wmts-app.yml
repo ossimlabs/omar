@@ -23,6 +23,10 @@ omar:
       layers: "omar:raster_entry"
       styles: "byFileType"
 
+endpoints:
+  health:
+    enabled: true
+
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-wmts

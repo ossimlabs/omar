@@ -34,6 +34,10 @@ omar:
           overviewType: "ossim_tiff_box"
           filename: ""
 
+endpoints:
+  health:
+    enabled: true
+
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-avro
