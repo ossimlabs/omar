@@ -22,6 +22,8 @@ pages:
   - 'Mensa Service': 'install-guide/mensa-app.md'
 - Docker:
   - 'Docker Common Instructions': 'docker-install/docker-common.md'
+  - 'SQS Service (Docker)': 'docker-install/docker-sqs-app.md'
+  - 'AVRO Service (Docker)': 'docker-install/docker-avro-app.md'
   - 'Stager Service (Docker)': 'docker-install/docker-stager-app.md'
   - 'SQS Service (Docker)': 'docker-install/docker-sqs-app.md'
   - 'WMS Service (Docker)': 'docker-install/docker-wms-app.md'

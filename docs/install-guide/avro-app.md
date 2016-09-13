@@ -23,6 +23,9 @@ The installation sets up
 
 ##Configuration
 
+<<<<<<< HEAD
+The configuration file is a yaml formatted config file.   For now, create a file called avro-app.yaml.  At the time of writing of this document we do not create this config file for this is usually a site specific configuration and is up to the installer to setup the document.
+=======
 **Assumptions**:
 
 * AVRO Service IP location is 192.168.2.110 on port 8080
@@ -33,6 +36,7 @@ The installation sets up
 The assumptions here has the root URL for the Swipe service reachable via the proxy by using IP http://192.168.2.200/avro-app and this is proxied to the root IP of the avro-app service located at http://192.168.2.106:8080. **Note: please change the IP's and ports for your setup accordingly**.
 
 The configuration file is a yaml formatted config file.   For now create a file called avro-app.yaml.  At the time of writting this document we do not create this config file for this is usually site specific configuration and is up to the installer to setup the document.
+>>>>>>> dev
 
 ```bash
 sudo vi /usr/share/omar/avro-app/avro-app.yml
@@ -55,7 +59,11 @@ environments:
       username: postgres
       password:
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+<<<<<<< HEAD
+      url: jdbc:postgresql://<ip>:<port>/omardb-prod
+=======
       url: jdbc:postgresql://192.168.2.100:5432/omardb-prod
+>>>>>>> dev
 
 omar:
   avro:
