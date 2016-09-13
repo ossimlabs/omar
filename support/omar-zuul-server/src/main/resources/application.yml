@@ -16,11 +16,11 @@ zuul:
   ignoredServices: "*"
   add-proxy-headers: true
   routes:
-#    message-client:
-#      path: /message-client/**
-#      serviceId: message-client
-#      strip-prefix: false
-#    message-server:
-#      path: /message-server/**
-#      serviceId: message-server
-#      strip-prefix: false
+    all-app:
+      path: /all-app/**
+      serviceId: omar-all-app
+      strip-prefix: false
+    omar-app:
+      path: /omar/**
+      serviceId: omar-gui-app
+      strip-prefix: false
