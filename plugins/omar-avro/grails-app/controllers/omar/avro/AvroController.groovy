@@ -136,6 +136,8 @@ class AvroController {
    ])
    def addMessage()
    {
+      println "REQUEST ========================= ${params}"
+
       def jsonData = request.JSON?request.JSON as HashMap:null
       def requestParams = params - params.subMap( ['controller', 'action'] )
       def cmd = new IndexMessageCommand()

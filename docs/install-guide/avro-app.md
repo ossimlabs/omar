@@ -63,6 +63,7 @@ omar:
     dateField: "Observation_Date"
     dateFieldFormat: "yyyyMMddHHmmss"
     imageIdField: "Image_Id"
+    jsonSubFieldPath: "Message"
     download:
       directory: "/data/s3"
       command: ""
@@ -87,6 +88,7 @@ endpoints:
 * **dateField (optional)** Is the date field in the JSON Avro Record.  This field is optional and is used as a way to encode the **directory** for storing the image.  If this is not given then the directory suffix will be the path of the **sourceUriField**
 * **dateFieldFormat** Is the format of the date field.
 * **imageIdField** Is the image Id field used to identify the image
+* **jsonSubFieldPath** Allows one to specify a path separated by "." to the submessage to where all the image information resides.  For example, if you pass a Message wrapped within the SNS notification it will be a subfield of the SNS message.  This allows one to specify a path to the message to be handled.
 * **download** This is the download specifications
  * **directory** This is the directory prefix where the file will be downloaded.  For example,   if we have the **sourceUriField** given as http://\<IP>/\<path>/\<to>/\<image>/foo.tif and the date field content has for a value of 20090215011010  with a dateField format the directory structure will be \<yyyy>/\<mm>/\<dd>/\<hh> where **yyyy** is a 4 character year and the **mm** is the two character month and the **dd** is the two character day and the **hh** is a two character hour.  If the datefield is not specified then we use the path in the URI as a suffix to the local directory defined in the **directory** field above: /data/s3/\<path>/\<to>/\<image>/foo.tif
  * **command** If you do not want the standard HTTP connect to be used in java then you can pass a shell command: ex. wget -O \<destination> \<source> we use where the source and destination are replaced internally with the proper values.

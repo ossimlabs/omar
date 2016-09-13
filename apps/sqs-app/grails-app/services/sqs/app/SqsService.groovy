@@ -23,6 +23,15 @@ import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.ContentType
 import groovyx.net.http.Method
 import groovyx.net.http.RESTClient
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 
 import groovy.json.JsonSlurper
 
@@ -46,43 +55,25 @@ class SqsService {
    }
    def postMessage(String url, String message)
    {
-      URL tempUrl = new URL(url)
-      String host
-      if(tempUrl.port> 0)
-      {
-         host = "${tempUrl.protocol}://${tempUrl.host}:${tempUrl.port}".toString()
-      }
-      else
-      {
-         host = "${tempUrl.protocol}://${tempUrl.host}".toString()
-      }
-      String path = tempUrl.path
-
-
-      // Validate Message
-      def jsonSlurper = new JsonSlurper()
-      def jsonObj = jsonSlurper.parseText(message)
-
-      // now post the message
-//      println "POSTING MESSAGE ${jsonObj}"
       def result = [status:200,message:""]
       try{
-         def http = new HTTPBuilder( host )
-         http.request (Method.POST, ContentType.JSON) { req ->
-            uri.path = path
-            body = jsonObj.toString()
-            response.success = { resp, json ->
-               result.message = response.statusLine
-               result.status  = resp.statusLine.statusCode
-            }
-            response.failure = { resp, json ->
-               result.message = response.statusLine
-               result.status  = resp.statusLine.statusCode
-            }
+         HttpPost post = new HttpPost(url);
+         post.addHeader("Content-Type", "application/json");
+         StringEntity entity = new StringEntity(message);
+         post.setEntity(entity);
+         HttpClient client = new DefaultHttpClient();
+
+         HttpResponse response = client.execute(post);
+
+         if(response)
+         {
+            result.message = response?.statusLine
+            result.status = response.statusLine?.statusCode
          }
       }
       catch(e)
       {
+         log.debug "${e}"
          result.status = 400
          result.message = e.toString()
       }

@@ -23,6 +23,7 @@ class AvroMessageIndexJob {
           try{
             jsonObj = avroService.convertMessageToJsonWithSubField(messageRecord.message)
 
+            println jsonObj
             // actual image information is in a subfield of the root JSON object
           }
           catch(e)
