@@ -116,7 +116,7 @@ services:
       SWIPEURL: 192.168.99.100/o2-swipe/swipe/index
       SWIPEPORT:
       SWIPEENABLED: "true"
-      JPIPURL:
+      JPIPURL: 192.168.99.100/o2-jpip/jpip
       JPIPPORT:
       JPIPENABLED: "true"
       WMTSURL: 192.168.99.100/o2-wmts
