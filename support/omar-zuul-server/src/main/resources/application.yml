@@ -14,13 +14,13 @@ server:
   port: 8765
 zuul:
   ignoredServices: "*"
-  add-proxy-headers: true
+  # add-proxy-headers: true
   routes:
     all-app:
-      path: /all-app/**
-      serviceId: omar-all-app
-      strip-prefix: false
+      path: /o2-services/**
+      serviceId: o2-services
+      //strip-prefix: false
     omar-app:
-      path: /omar/**
-      serviceId: omar-gui-app
-      strip-prefix: false
+      path: /o2-omar/**
+      serviceId: o2-omar
+      //strip-prefix: false

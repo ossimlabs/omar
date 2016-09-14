@@ -97,5 +97,6 @@ dependencies {
   compile "org.grails.plugins:grails3-cors-interceptor:1.1.0"
 
   compile "org.springframework.cloud:spring-cloud-starter-config"
+  compile "org.springframework.cloud:spring-cloud-starter-eureka"
+  
 }
-

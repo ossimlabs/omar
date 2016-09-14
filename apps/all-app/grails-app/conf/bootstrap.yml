@@ -1,6 +1,6 @@
 spring:
   application:
-    name: omar-all-app
+    name: o2-services
   cloud:
     config:
       uri: http://localhost:8888

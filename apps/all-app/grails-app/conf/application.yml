@@ -13,7 +13,7 @@ spring:
         template:
             check-template-location: false
 server:
-    port: 8081 
+    port: 8081
 
 ---
 grails:
@@ -76,6 +76,7 @@ hibernate:
         region.factory_class: 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
 
 endpoints:
+    enabled: true
     jmx:
         unique-names: true
 
@@ -320,14 +321,14 @@ wfs:
           - features
         datastoreId: omardb-1.8.20-prod
 
-      - name: opir_raster_entry
-        title: opir_raster_entry
-        description: ''
-        keywords:
-          - omar
-          - opir_raster_entry
-          - features
-        datastoreId: omardb-1.8.20-prod
+      # - name: opir_raster_entry
+      #   title: opir_raster_entry
+      #   description: ''
+      #   keywords:
+      #     - omar
+      #     - opir_raster_entry
+      #     - features
+      #   datastoreId: omardb-1.8.20-prod
 
       - name: video_data_set
         title: video_data_set

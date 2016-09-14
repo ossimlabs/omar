@@ -2,6 +2,8 @@ version: '2'
 services:
   omar-config-server:
     build: omar-config-server
+    # networks:
+    #   - docker_default
     container_name: omar-config-server
     image: ossimlabs/omar-config-server
     volumes:
@@ -10,6 +12,8 @@ services:
       - "8888:8888"
   omar-eureka-server:
      build: omar-eureka-server
+    #  networks:
+    #    - docker_default
      container_name: omar-eureka-server
      image: ossimlabs/omar-eureka-server
      volumes:
@@ -18,6 +22,8 @@ services:
        - "8761:8761"
   omar-zuul-server:
      build: omar-zuul-server
+    #  networks:
+    #    - docker_default
      container_name: omar-zuul-server
      image: ossimlabs/omar-zuul-server
      volumes:
@@ -48,3 +54,7 @@ services:
   #   image: ossimlabs/message-client
   #   ports:
   #     - "9999:8080"
+networks:
+  default:
+    external:
+      name: docker_default
