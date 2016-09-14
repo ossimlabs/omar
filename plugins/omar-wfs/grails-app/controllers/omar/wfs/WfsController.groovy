@@ -170,6 +170,8 @@ class WfsController
     def results = webFeatureService.getFeature( wfsParams )
     if(results.status != null) response.status = results.status
 
+    if(results.filename) response.setHeader("Content-Disposition", "attachment;filename=${results.filename}");
+
     render contentType: results.contentType, text: results.buffer
   }
 }
