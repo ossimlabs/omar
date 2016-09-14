@@ -482,7 +482,8 @@ class WebFeatureService
         {
           result.contentType = "plain/text"
           result.buffer = "${e}"
-          result.status = HttpStatus.INTERNAL_SERVER_ERROR                     }
+          result.status = HttpStatus.INTERNAL_SERVER_ERROR
+        }
         break
       case 'KML':
         try
