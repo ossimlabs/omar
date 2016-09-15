@@ -5,7 +5,7 @@ services:
   #   image: ossimlabs/o2-web-proxy
   #   container_name: o2-web-proxy
   #   environment:
-  #     DOCKER_HOST_IP: 192.168.0.3
+  #     DOCKER_HOST_IP: localhost
   #   ports:
   #     - "80:80"
   #   volumes:
@@ -36,7 +36,7 @@ services:
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
-  #     DOCKER_HOST_IP: 192.168.0.3
+  #     DOCKER_HOST_IP: localhost
   #   volumes:
   #     - /Users/Shared/data:/data
   #   ports:
@@ -56,7 +56,7 @@ services:
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
-  #     DOCKER_HOST_IP: 192.168.0.3
+  #     DOCKER_HOST_IP: localhost
   #   volumes:
   #     - /Users/Shared/data:/data
   #   ports:
@@ -66,26 +66,29 @@ services:
   #   #   - o2-stager
   #   #   - o2-web-proxy
   #   restart: always
-  # o2-wfs:
-  #   #build: ./o2-wfs
-  #   image: ossimlabs/o2-wfs
-  #   container_name: o2-wfs
-  #   environment:
-  #     DBHOST: o2-db
-  #     DBPORT: :5432
-  #     DBNAME: omar_prod
-  #     DBUSER: postgres_user
-  #     DBPASS: abc123
-  #     DOCKER_HOST_IP: 192.168.0.3
-  #   ports:
-  #     - "4998:8080"
-  #   # depends_on:
-  #   #   - o2-base
-  #   #   - o2-db
-  #   #   - o2-stager
-  #   #   - o2-wms
-  #   #   - o2-web-proxy
-  #   restart: always
+  o2-wfs:
+    build: ./o2-wfs
+    image: ossimlabs/o2-wfs
+    container_name: o2-wfs
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: localhost
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users:/Users
+    ports:
+      - "4998:8080"
+    # depends_on:
+    #   - o2-base
+    #   - o2-db
+    #   - o2-stager
+    #   - o2-wms
+    #   - o2-web-proxy
+    restart: always
   # # o2-wcs:
   # #   build: ./o2-wcs
   # #   image: ossimlabs/o2-wcs
@@ -96,7 +99,7 @@ services:
   # #     DBNAME: omar_prod
   # #     DBUSER: postgres_user
   # #     DBPASS: abc123
-  # #     DOCKER_HOST_IP: 192.168.0.3
+  # #     DOCKER_HOST_IP: localhost
   # #   volumes:
   # #     - /Users/Shared/data:/data
   # #   ports:
@@ -118,29 +121,29 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: 192.168.0.3
-      WFSURL: 192.168.0.3/o2-wfs
+      DOCKER_HOST_IP: localhost
+      WFSURL: localhost/o2-wfs
       WFSPORT:
-      WMSURL: 192.168.0.3/o2-wms
+      WMSURL: localhost/o2-wms
       WMSPORT:
-      STAGERURL: 192.168.0.3/o2-stager
+      STAGERURL: localhost/o2-stager
       STAGERPORT:
-      DOWNLOADURL: 192.168.0.3/o2-download
+      DOWNLOADURL: localhost/o2-download
       DOWNLOADPORT:
-      KMLURL: 192.168.0.3/o2-superoverlay
+      KMLURL: localhost/o2-superoverlay
       KMLPORT:
-      PREDIOURL: 192.168.0.3/o2-predio
+      PREDIOURL: localhost/o2-predio
       PREDIOPORT:
       PREDIOENABLED: "false"
-      TWOFISHURL: 192.168.0.3/twofishes
+      TWOFISHURL: localhost/twofishes
       TWOFISHPORT:
-      SWIPEURL: 192.168.0.3/o2-swipe/swipe/index
+      SWIPEURL: localhost/o2-swipe/swipe/index
       SWIPEPORT:
       SWIPEENABLED: "true"
       JPIPURL:
       JPIPPORT:
       JPIPENABLED: "true"
-      WMTSURL: 192.168.0.3/o2-wmts
+      WMTSURL: localhost/o2-wmts
       WMTSPORT:
       WMTSENABLED: "true"
       PWIKURL:
@@ -174,10 +177,10 @@ services:
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
-  #     DOCKER_HOST_IP: 192.168.0.3
-  #     WFSSERVER: 192.168.0.3/o2-wfs
+  #     DOCKER_HOST_IP: localhost
+  #     WFSSERVER: localhost/o2-wfs
   #     WFSPORT:
-  #     WMSSERVER: 192.168.0.3/o2-wms
+  #     WMSSERVER: localhost/o2-wms
   #     WMSPORT:
   #   ports:
   #     - "4999:8080"
@@ -200,7 +203,7 @@ services:
   # #     DESTINATION_POST_END_POINT: o2-avro
   # #     DESTINATION_POST_END_POINT_PORT: :8080
   # #     DESTINATION_POST_FIELD: message
-  # #     DOCKER_HOST_IP: 192.168.0.3
+  # #     DOCKER_HOST_IP: localhost
   # #   volumes:
   # #     # Modify the path below to reflect your
   # #     # AWS credentials location. Example:
@@ -223,7 +226,7 @@ services:
   # #     DBNAME: omar_prod
   # #     DBUSER: postgres_user
   # #     DBPASS: abc123
-  # #     DOCKER_HOST_IP: 192.168.0.3
+  # #     DOCKER_HOST_IP: localhost
   # #     ADDRASTERENDPOINTURL: o2-stager
   # #     ADDRASTERENDPOINTPORT: :8080
   # #   volumes:
@@ -247,9 +250,9 @@ services:
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
-  #     DOCKER_HOST_IP: 192.168.0.3
+  #     DOCKER_HOST_IP: localhost
   #     JPIPCACHEDIR: /data/jpip-cache
-  #     JPIPSERVERURL: 192.168.0.3
+  #     JPIPSERVERURL: localhost
   #     JPIPSERVERPORT: :5004
   #   volumes:
   #     # Mount the the host local data directory to the container
@@ -266,9 +269,9 @@ services:
   #   container_name: o2-jpip-server
   #   environment:
   #     JPIPCACHEDIR: /data/jpip-cache
-  #     JPIPSERVERURL: 192.168.0.3
+  #     JPIPSERVERURL: localhost
   #     JPIPSERVERPORT: 8080
-  #     DOCKER_HOST_IP: 192.168.0.3
+  #     DOCKER_HOST_IP: localhost
   #   volumes:
   #     # Mount the the host local data directory to the container
   #     - /Users/Shared/data:/data
@@ -287,8 +290,8 @@ services:
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
-  #     DOCKER_HOST_IP: 192.168.0.3
-  #     WMSURL: 192.168.0.3/o2-superoverlay
+  #     DOCKER_HOST_IP: localhost
+  #     WMSURL: localhost/o2-superoverlay
   #     WMSPORT:
   #   ports:
   #     - "5009:8080"
@@ -306,7 +309,7 @@ services:
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
-  #     DOCKER_HOST_IP: 192.168.0.3
+  #     DOCKER_HOST_IP: localhost
   #   volumes:
   #     # Mount the the host local data directory to the container
   #     - /Users/Shared/data:/data
@@ -326,10 +329,10 @@ services:
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
-  #     DOCKER_HOST_IP: 192.168.0.3
-  #     WFSURL: 192.168.0.3/o2-wfs
+  #     DOCKER_HOST_IP: localhost
+  #     WFSURL: localhost/o2-wfs
   #     WFSPORT:
-  #     WMSURL: 192.168.0.3/o2-wms
+  #     WMSURL: localhost/o2-wms
   #     WMSPORT:
   #   ports:
   #     - "5012:8080"
@@ -339,16 +342,17 @@ services:
   #   #   - o2-stager
   #   #   - o2-web-proxy
   #   restart: always
-  # o2-mensa:
-  #   build: ./o2-mensa
-  #   image: ossimlabs/o2-mensa
-  #   container_name: o2-mensa
-  #   environment:
-  #     DOCKER_HOST_IP: 192.168.0.3
-  #   # volumes:
-  #   #   - /Users/Shared/data:/data
-  #   ports:
-  #     - "5014:8080"
+  o2-mensa:
+    build: ./o2-mensa
+    image: ossimlabs/o2-mensa
+    container_name: o2-mensa
+    environment:
+      DOCKER_HOST_IP: localhost
+    volumes:
+      # Mount the the host local data directory to the container
+      - /Users:/Users
+    ports:
+      - "5014:8080"
     # depends_on:
     #   - o2-base
     #   - o2-web-proxy

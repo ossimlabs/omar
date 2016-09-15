@@ -65,7 +65,7 @@ spring:
             check-template-location: false
 # Spring Actuator Endpoints are Disabled by Default
 endpoints:
-    enabled: false
+    enabled: true
     jmx:
         enabled: true
 

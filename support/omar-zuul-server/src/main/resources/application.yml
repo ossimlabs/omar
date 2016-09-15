@@ -16,9 +16,9 @@ zuul:
   ignoredServices: "*"
   # add-proxy-headers: true
   routes:
-    all-app:
-      path: /o2-services/**
-      serviceId: o2-services
+    o2-wfs:
+      path: /o2-wfs/**
+      serviceId: o2-wfs
       //strip-prefix: false
     omar-app:
       path: /o2-omar/**
