@@ -218,8 +218,8 @@
                 document.getElementById( "dd" ).innerHTML = coord[1].toFixed( 6 ) + ', ' + coord[0].toFixed( 6 );
 
                 // Get DMS
-                var dmsPoint = new GeoPoint( coord[1], coord[0] );
-                document.getElementById( "dms" ).innerHTML = dmsPoint.getLonDeg() + ', ' + dmsPoint.getLatDeg();
+                var dmsPoint = new GeoPoint( coord[0], coord[1] );
+                document.getElementById( "dms" ).innerHTML = dmsPoint.getLatDeg() + ', ' + dmsPoint.getLonDeg();
 
                 // Get MGRS
                 var mgrsPoint = mgrs.forward( coord, 5 ); // 1m accuracy
