@@ -26,6 +26,9 @@ ol.control.LayerSwitcher = function(opt_options) {
 
     var button = document.createElement('button');
     button.setAttribute('title', tipLabel);
+    var span = document.createElement('span');
+    span.className = 'glyphicon glyphicon-menu-hamburger';
+    button.appendChild(span);
     element.appendChild(button);
 
     this.panel = document.createElement('div');
