@@ -50,10 +50,10 @@
             }
 
             vm.wmtsAppEnabled = AppO2.APP_CONFIG.params.wmtsApp.enabled;
-            console.log('WMTS enabled: ', vm.wmtsAppEnabled);
+            //console.log('WMTS enabled: ', vm.wmtsAppEnabled);
             if (vm.wmtsAppEnabled) {
                 vm.wmtsAppLink = AppO2.APP_CONFIG.params.wmtsApp.baseUrl;
-                console.log('vm.wmtsAppLink in HomeController', vm.wmtsAppLink);
+              //console.log('vm.wmtsAppLink in HomeController', vm.wmtsAppLink);
             }
 
             //var twofishProxy = APP_CONFIG.services.twofishes.proxy;

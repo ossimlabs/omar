@@ -353,7 +353,7 @@
 
         vm.cancel = function ()
         {
-            console.log( 'closing...' );
+            //console.log( 'closing...' );
             $uibModalInstance.close( 'paramObj' );
         };
 
