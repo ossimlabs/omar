@@ -27,7 +27,7 @@ ENV DBHOST=${DBHOST}\
     DOCKER_HOST_IP=${DOCKER_HOST_IP}
 
 RUN rm -f /usr/share/omar/wms-app/wms-app.jar && \
-    ln -s /Users/sbortman/IdeaProjects/omar/apps/wms-app/build/libs/wms-app-1.0.0.jar /usr/share/omar/wms-app/wms-app.jar
+    ln -s ${O2_DEV_HOME}/apps/wms-app/build/libs/wms-app-1.0.0.jar /usr/share/omar/wms-app/wms-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wms-app/wms-app.sh"]

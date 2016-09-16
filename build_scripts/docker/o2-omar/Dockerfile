@@ -55,7 +55,7 @@ ENV DBHOST=${DBHOST}\
     BANNERCLASSIFICATION=${BANNERCLASSIFICATION}
 
 RUN rm /usr/share/omar/omar-app/omar-app.jar && \
-    ln -s /Users/sbortman/IdeaProjects/omar/apps/omar-app/build/libs/omar-app-1.0.0.jar /usr/share/omar/omar-app/omar-app.jar
+    ln -s ${O2_DEV_HOME}/apps/omar-app/build/libs/omar-app-1.0.0.jar /usr/share/omar/omar-app/omar-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/omar-app/omar-app.sh"]
