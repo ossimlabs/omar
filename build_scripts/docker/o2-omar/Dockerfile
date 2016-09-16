@@ -3,7 +3,7 @@
 # one to quickly discover new assets and display
 # them using common OGC services.
 
-FROM ossimlabs/o2-base-all
+FROM ossimlabs/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The OMAR Web \
@@ -13,7 +13,7 @@ LABEL com.radiantblue.version="0.1"\
       using common OGC services."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-# RUN yum -y install o2-omar-app && yum -y clean all
+RUN yum -y install o2-omar-app && yum -y clean all
 ADD omar-app.yml /usr/share/omar/omar-app/omar-app.yml
 ENV DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
@@ -53,6 +53,7 @@ ENV DBHOST=${DBHOST}\
     APIENABLED=${APIENABLED}\
     BANNERCOLOR=${BANNERCOLOR}\
     BANNERCLASSIFICATION=${BANNERCLASSIFICATION}
+
 RUN rm /usr/share/omar/omar-app/omar-app.jar && \
     ln -s /Users/sbortman/IdeaProjects/omar/apps/omar-app/build/libs/omar-app-1.0.0.jar /usr/share/omar/omar-app/omar-app.jar
 

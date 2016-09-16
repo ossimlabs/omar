@@ -16,9 +16,17 @@ zuul:
   ignoredServices: "*"
   # add-proxy-headers: true
   routes:
+    o2-mensa:
+      path: /o2-mensa/**
+      serviceId: o2-mensa
+      //strip-prefix: false
     o2-wfs:
       path: /o2-wfs/**
       serviceId: o2-wfs
+      //strip-prefix: false
+    o2-wms:
+      path: /o2-wms/**
+      serviceId: o2-wms
       //strip-prefix: false
     omar-app:
       path: /o2-omar/**
