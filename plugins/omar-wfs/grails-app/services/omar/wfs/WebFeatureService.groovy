@@ -459,6 +459,7 @@ class WebFeatureService
         {
           def buffer = getFeatureGML3( wfsParams )
           result.contentType = 'text/xml'
+          result.filename = "wfs.xml"
           result.buffer = buffer
         }
         catch ( e )
@@ -475,18 +476,21 @@ class WebFeatureService
           def buffer = getFeatureJSON( wfsParams )
           result.contentType = 'application/json'
           result.buffer = buffer
+          result.filename = "wfs.json"
         }
         catch ( e )
         {
           result.contentType = "plain/text"
           result.buffer = "${e}"
-          result.status = HttpStatus.INTERNAL_SERVER_ERROR                     }
+          result.status = HttpStatus.INTERNAL_SERVER_ERROR
+        }
         break
       case 'KML':
         try
         {
           def buffer = getFeatureKML( wfsParams )
           result.contentType = 'application/vnd.google-earth.kml+xml'
+          result.filename = "wfs.kml"
           result.buffer = buffer
         }
         catch ( e )
@@ -502,6 +506,7 @@ class WebFeatureService
         {
           def buffer = getFeatureCsv( wfsParams )
           result.contentType = 'text/csv'
+          result.filename = "wfs.csv"
           result.buffer = buffer
         }
         catch ( e )
@@ -517,6 +522,7 @@ class WebFeatureService
         {
           def buffer = getFeatureGML3( wfsParams )
           result.contentType = 'text/xml'
+          result.filename = "wfs.xml"
           result.buffer = buffer
         }
         catch ( e )
