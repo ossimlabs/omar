@@ -51,8 +51,9 @@
 // <--List-->
 //= require omar/list/list.controller.js
 
-// <--Map-->
+// <--Maps-->
 //= require omar/mapOrtho/map.ortho.controller.js
+//= require omar/mapImage/map.image.controller.js
 
 //= <--WFS-->
 //= require omar/wfs/wfs.controller.js
