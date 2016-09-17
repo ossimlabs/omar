@@ -290,11 +290,17 @@
                 crossOrigin: crossOrigin
             } );
             var interactions = ol.interaction.defaults({altShiftDragRotate:true});
+
+            // create full screen control
+            var span = document.createElement('span');
+            span.className = 'glyphicon glyphicon-fullscreen';
+            var fullScreenControl = new ol.control.FullScreen({ label: span });
+
             map = new ol.Map( {
                 controls: ol.control.defaults().extend( [
                     new RotateNorthControl(),
                     new RotateUpControl(),
-                    new ol.control.FullScreen()
+                    fullScreenControl
                 ] ),
                 //interactions: ol.interaction.defaults().extend([
                 //    new ol.interaction.DragRotateAndZoom()

@@ -284,6 +284,11 @@
         //AppO2.APP_CONFIG.params.baseMaps.layerList.map(addBaseMapLayers);
         AppO2.APP_CONFIG.openlayers.baseMaps.map( addBaseMapLayers );
 
+        // create full screen control
+        var span = document.createElement('span');
+        span.className = 'glyphicon glyphicon-fullscreen';
+        var fullScreenControl = new ol.control.FullScreen({ label: span });
+
         mapOrtho = new ol.Map( {
             layers: [
                 baseMapGroup,
@@ -297,7 +302,7 @@
                 } )
             ],
             controls: ol.control.defaults().extend( [
-                new ol.control.FullScreen(),
+                fullScreenControl,
                 new ol.control.ScaleLine()
             ] ).extend( [mousePositionControl] ),
             interactions: interactions,
