@@ -308,6 +308,7 @@
                         source: source2
                     } )*/
                 ],
+                logo: false,
                 target: 'imageMap',
                 view: new ol.View( {
                     projection: proj,
