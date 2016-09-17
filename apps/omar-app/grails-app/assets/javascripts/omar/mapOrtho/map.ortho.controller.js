@@ -301,6 +301,7 @@
                 new ol.control.ScaleLine()
             ] ).extend( [mousePositionControl] ),
             interactions: interactions,
+            logo: false,
             target: document.getElementById( 'mapOrtho' ),
             view: mapOrthoView
         } );

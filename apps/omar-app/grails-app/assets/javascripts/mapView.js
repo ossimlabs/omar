@@ -57,6 +57,7 @@ var MapView = (function ()
                 } )
             ] ),
             layers: layers,
+            logo: false,
             target: 'map',
             view: new ol.View( {
                 projection: 'EPSG:4326',
