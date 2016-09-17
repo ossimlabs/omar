@@ -38,7 +38,7 @@ RUN yum -y install o2-mensa-app \
 ADD mensa-app.yml /usr/share/omar/mensa-app/mensa-app.yml
 
 RUN rm -f /usr/share/omar/mensa-app/mensa-app.jar && \
-    ln -s ${O2_DEV_HOME}/apps/mensa-app/build/libs/mensa-app-1.0.0.jar /usr/share/omar/mensa-app/mensa-app.jar
+    ln -s /Users/sbortman/IdeaProjects/omar/apps/mensa-app/build/libs/mensa-app-1.0.0.jar /usr/share/omar/mensa-app/mensa-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/mensa-app/mensa-app.sh"]

@@ -26,7 +26,7 @@ ENV DBHOST=${DBHOST}\
     DBNAME=${DBNAME}
 
 RUN rm /usr/share/omar/wfs-app/wfs-app.jar && \
-    ln -s ${O2_DEV_HOME}/apps/wfs-app/build/libs/wfs-app-1.0.0.jar /usr/share/omar/wfs-app/wfs-app.jar
+    ln -s /Users/sbortman/IdeaProjects/omar/apps/wfs-app/build/libs/wfs-app-1.0.0.jar /usr/share/omar/wfs-app/wfs-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wfs-app/wfs-app.sh"]
