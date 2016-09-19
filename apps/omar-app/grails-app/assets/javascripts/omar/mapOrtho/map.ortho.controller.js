@@ -209,25 +209,20 @@
             name: imageLayerIds
         } );
 
-
+ 
         var mousePositionControl = new ol.control.MousePosition( {
-            coordinateFormat: function ( coord )
-            {
-
-                // Get DD
-                document.getElementById( "dd" ).innerHTML = coord[1].toFixed( 6 ) + ', ' + coord[0].toFixed( 6 );
-
-                // Get DMS
-                var dmsPoint = new GeoPoint( coord[0], coord[1] );
-                document.getElementById( "dms" ).innerHTML = dmsPoint.getLatDeg() + ', ' + dmsPoint.getLonDeg();
-
-                // Get MGRS
-                var mgrsPoint = mgrs.forward( coord, 5 ); // 1m accuracy
-                document.getElementById( "mgrs" ).innerHTML = mgrsPoint;
-
-                // Get DD
-                //return ol.coordinate.format(coord, coordTemplate, 4);
-
+            coordinateFormat: function ( coord ) {
+                var html = "";
+                var point = new GeoPoint( coord[0], coord[1] );
+                switch(mousePositionControl.coordFormat) {
+                    // dd
+                    case 0: html = coord[1].toFixed( 6 ) + ', ' + coord[0].toFixed( 6 ); break;
+                    // dms
+                    case 1: html = point.getLatDeg() + ', ' + point.getLonDeg(); break;
+                    // mgrs 
+                    case 2: html = mgrs.forward( coord, 5 ); break;
+                }
+                document.getElementById( 'mouseCoords').innerHTML = html;
             },
             projection: 'EPSG:4326',
             // comment the following two lines to have the mouse position
@@ -236,6 +231,11 @@
             //target: document.getElementById('mouse-position'),
             undefinedHTML: '&nbsp;'
         } );
+	mousePositionControl.coordFormat = 0;
+        $(mousePositionControl.element).click(function() {
+            mousePositionControl.coordFormat = mousePositionControl.coordFormat >= 2 ? 0 : mousePositionControl.coordFormat + 1;
+        });
+
 
         var interactions = ol.interaction.defaults( {altShiftDragRotate: true} );
 
