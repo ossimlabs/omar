@@ -311,7 +311,27 @@
             view: mapOrthoView
         } );
 
+        setupContextDialog();
+
         setupPopupLayer();
+
+        function setupContextDialog() {
+            mapOrtho.getViewport().addEventListener("contextmenu",
+                function (event) {
+                    event.preventDefault();
+                    var pixel = [event.layerX, event.layerY];
+                    var coord = mapOrtho.getCoordinateFromPixel(pixel);
+                    if (coord) {
+                        var point = new GeoPoint(coord[0], coord[1]);
+                        var dd = point.getLatDec().toFixed(6) + ', ' + point.getLonDec();
+                        var dms = point.getLatDeg() + ' ' + dmsPoint.getLonDeg();
+                        var mgrsPoint = mgrs.forward(coord, 5);                
+                        $('#contextMenuDialog .modal-body').html(dd + " // " + dms + " // " + mgrsPoint);
+                        $('#contextMenuDialog').modal('show');
+                    }
+                }
+            );
+        }
 
         function setupPopupLayer()
         {
