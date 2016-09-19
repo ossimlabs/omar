@@ -91,7 +91,6 @@
         };
         ol.inherits(RotateUpControl, ol.control.Control);
 
-
         var ImageSpace = function(opt_options) {
             var options = opt_options || {};
 
@@ -208,13 +207,6 @@
         ol.inherits(ImageSpace, ol.source.TileImage);
 
         this.initImageSpaceMap = function(params) {
-            // This server does not support CORS, and so is incompatible with WebGL.
-            //var imgWidth = 8001;
-            //var imgHeight = 6943;
-            //var url = 'http://mapy.mzk.cz/AA22/0103/';
-            //var crossOrigin = undefined;
-
-            //console.log( 'params', params );
 
             filename = params.filename;
             entry = params.entry;
