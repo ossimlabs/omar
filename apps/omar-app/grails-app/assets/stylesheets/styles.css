@@ -151,28 +151,18 @@ body {
     height: 90%;
 }
 
-/* class for #dd #dms and #mgrs*/
+/* class for #mouseCoords*/
 #mapOrtho .map-cord-div{
     position: absolute;
     bottom: 5px;
+    cursor: pointer;
     z-index: 1;
     font-size: .7em;
     color: #fff;
     background-color: rgba(0,60,136,0.5);
+    left: 45%;
     padding: 2px 10px;
     border-radius: 5px;
-}
-
-#dd{
-    left: 45%;
-}
-
-#dms{
-    left: 25%;
-}
-
-#mgrs{
-    left: 62%;
 }
 
 #mapDownloadButton{

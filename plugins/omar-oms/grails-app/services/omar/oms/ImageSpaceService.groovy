@@ -134,7 +134,9 @@ class ImageSpaceService
   def getTile(GetTileCommand cmd)
   {
     def imageInfo = readImageInfo( cmd.filename as File )
-    def result = [status:HttpStatus.NOT_FOUND, contentType: "plane/text", buffer: "Unable to service tile".bytes]
+    def result = [status:HttpStatus.NOT_FOUND,
+                  contentType: "plane/text",
+                  buffer: "Unable to service tile".bytes]
     def imageEntry = imageInfo.images[cmd.entry]
     def indexOffset = findIndexOffset( imageEntry)
 
@@ -166,10 +168,17 @@ class ImageSpaceService
       ]
 
       //println opts
-      runChipper( opts, hints )
-      result = [status: HttpStatus.OK,
-                contentType: "image/${hints.type}",
-                buffer: hints.ostream.toByteArray()]
+      def chipperResults = runChipper( opts, hints )
+      if(chipperResults.status == HttpStatus.OK)
+      {
+        result = [status: HttpStatus.OK,
+                  contentType: "image/${hints.type}",
+                  buffer: hints.ostream.toByteArray()]
+      }
+      else
+      {
+        result = chipperResults
+      }
     }
 
     result
@@ -177,52 +186,99 @@ class ImageSpaceService
 
   def runChipper(def opts, def hints)
   {
-    def chipper = new Chipper()
-    def numBands = ( hints.transparent ) ? 4 : 3
-    def buffer = new byte[hints.width * hints.height * numBands]
+    HashMap result = [status:HttpStatus.NOT_FOUND,
+                      contentType: "plane/text",
+                      buffer: "Unable to service tile".bytes]
+    try{
+      def chipper = new Chipper()
+      def numBands
+      def buffer
 
-//    println buffer.size()
-
-    if ( chipper.initialize( opts ) )
-    {
-      if ( chipper.getChip( buffer, hints.transparent ) > 1 )
+      def bandsArray = opts?.bands?.split(",")
+      Boolean transparent = hints?.transparent
+      if((bandsArray.size() == 3) || (bandsArray.size() == 1))
       {
-//        println 'getChip: good'
+        numBands = bandsArray.size();
       }
       else
       {
+        numBands = 1
+        opts?.bands = "1" // default to one band if problems
 
-        //println "getChip: bad ${opts}"
+        // need error exception for the response code
+        //
       }
+      //if(hints.transparent) ++numBands
+      if(numBands == 1)
+      {
+//        transparent = false
+      }
+      else
+      {
+        result.buffer = "When chippping, band selection can only be 1 or 3 band".bytes
+      }
+
+      if(transparent) ++numBands
+      opts.three_band_out = (numBands >= 3).toString()
+
+      buffer   = new byte[hints.width * hints.height * numBands]
+//    println buffer.size()
+
+      if ( chipper.initialize( opts ) )
+      {
+        if ( chipper.getChip( buffer, buffer.length, transparent ) > 1 )
+        {
+          result.status = HttpStatus.OK
+          result.buffer = null
+          result.contentType = null
+//        println 'getChip: good'
+        }
+        else
+        {
+//        println "getChip: bad ${opts}"
+        }
+      }
+      else
+      {
+//      println "initialize: bad ${opts}"
+      }
+      chipper?.delete()
+
+      def dataBuffer = new DataBufferByte( buffer, buffer.size() )
+
+      def sampleModel = new PixelInterleavedSampleModel(
+              DataBuffer.TYPE_BYTE,
+              hints.width,                      // width
+              hints.height,                     // height
+              numBands,                         // pixelStride
+              hints.width * numBands,           // scanlineStride
+              ( 0..<numBands ) as int[]         // band offsets
+      )
+
+      def cs = ColorSpace.getInstance( ColorSpace.CS_sRGB )
+      if(numBands <= 2)
+      {
+//      println "SETTING TO THE GRAY!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        cs = ColorSpace.getInstance(ColorSpace.CS_GRAY)
+      }
+
+//    println "Components === ${cs.numComponents}"
+      def mask = ( ( 0..<sampleModel.numBands ).collect { 8 } ) as int[]
+
+      def colorModel = new ComponentColorModel( cs, mask,
+              hints.transparent, false, ( hints.transparent ) ? Transparency.TRANSLUCENT : Transparency.OPAQUE,
+              DataBuffer.TYPE_BYTE )
+//      println colorModel
+      def raster = Raster.createRaster( sampleModel, dataBuffer, new Point( 0, 0 ) )
+      def image = new BufferedImage( colorModel, raster, false, null )
+
+      ImageIO.write( image, hints.type, hints.ostream )
     }
-    else
+    catch(e)
     {
-      println "initialize: bad ${opts}"
+      log.error (e.toString)
+      // e.printStackTrace()
     }
-    chipper?.delete()
-
-    def dataBuffer = new DataBufferByte( buffer, buffer.size() )
-
-    def sampleModel = new PixelInterleavedSampleModel(
-        DataBuffer.TYPE_BYTE,
-        hints.width,                      // width
-        hints.height,                     // height
-        numBands,                         // pixelStride
-        hints.width * numBands,           // scanlineStride
-        ( 0..<numBands ) as int[]         // band offsets
-    )
-
-    def cs = ColorSpace.getInstance( ColorSpace.CS_sRGB )
-    def mask = ( ( 0..<sampleModel.numBands ).collect { 8 } ) as int[]
-
-    def colorModel = new ComponentColorModel( cs, mask,
-        hints.transparent, false, ( hints.transparent ) ? Transparency.TRANSLUCENT : Transparency.OPAQUE,
-        DataBuffer.TYPE_BYTE )
-
-    def raster = Raster.createRaster( sampleModel, dataBuffer, new Point( 0, 0 ) )
-    def image = new BufferedImage( colorModel, raster, false, null )
-
-    ImageIO.write( image, hints.type, hints.ostream )
   }
 
 
