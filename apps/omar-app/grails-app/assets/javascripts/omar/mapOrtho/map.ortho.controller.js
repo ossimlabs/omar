@@ -323,7 +323,7 @@
                     var coord = mapOrtho.getCoordinateFromPixel(pixel);
                     if (coord) {
                         var point = new GeoPoint(coord[0], coord[1]);
-                        var ddPoint = point.getLatDec().toFixed(6) + ', ' + point.getLonDec();
+                        var ddPoint = point.getLatDec().toFixed(6) + ', ' + point.getLonDec().toFixed(6);
                         var dmsPoint = point.getLatDeg() + ' ' + point.getLonDeg();
                         var mgrsPoint = mgrs.forward(coord, 5);                
                         $('#contextMenuDialog .modal-body').html(ddPoint + " // " + dmsPoint + " // " + mgrsPoint);
