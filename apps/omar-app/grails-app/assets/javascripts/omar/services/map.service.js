@@ -182,6 +182,7 @@
                     //new ol.control.FullScreen(),
                     new ol.control.ScaleLine()
                 ] ),
+                logo: false,
                 overlays: [overlay],
                 target: 'map',
                 view: mapView
