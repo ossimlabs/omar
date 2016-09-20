@@ -232,7 +232,7 @@
             undefinedHTML: '&nbsp;'
         } );
 	mousePositionControl.coordFormat = 0;
-        $(mousePositionControl.element).click(function() {
+        $('#mouseCoords').click(function() {
             mousePositionControl.coordFormat = mousePositionControl.coordFormat >= 2 ? 0 : mousePositionControl.coordFormat + 1;
         });
 
