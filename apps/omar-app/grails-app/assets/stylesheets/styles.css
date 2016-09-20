@@ -142,15 +142,13 @@ body {
 }
 
 #imageMap {
-    /*height: 300px;*/
     width: 100%;
-    height: 60%;
+    height: 90%;
 }
 
 #mapOrtho {
-    /*height: 300px;*/
     width: 100%;
-    height: 60%;
+    height: 90%;
 }
 
 /* class for #mouseCoords*/
@@ -170,7 +168,7 @@ body {
 #mapDownloadButton{
     position: absolute;
     z-index: 1;
-    right: 0.5em;
+    right: 1.0em;
     bottom: 5px;
     margin-right: 10px;
 }
