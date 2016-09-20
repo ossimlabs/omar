@@ -1,0 +1,28 @@
+defaultLocation: "48.8584, 2.2945"
+
+libraries:
+    o2:
+        label: "O2"
+        layerType: "wms"
+        name: "o2"
+        sensors:
+            - description: "Commercial: Multispectral"
+              name: "msi"
+            - description: "Commercial: Panchromatic"
+              name: "vis"
+        queryUrl: "http://${WFSURL}/wfs"
+        viewUrl: "http://${WMSURL}/wms"
+
+networkSpecific:
+    dialogs:
+        enabled: true
+    layers:
+        enabled: true
+
+securityClassification: "UNCLASSIFIED"
+
+---
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/tlv
+  assets:
+    url: http://${DOCKER_HOST_IP}/tlv/assets/
