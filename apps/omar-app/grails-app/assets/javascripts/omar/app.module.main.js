@@ -9,7 +9,8 @@
       'toastr',
       'mgcrea.ngStrap.timepicker',
       'slickCarousel',
-      'toggle-switch'])
+      'toggle-switch',
+      'angular-clipboard'])
     .config(['$stateProvider', '$urlRouterProvider',
 
       function ($stateProvider, $urlRouterProvider) {
