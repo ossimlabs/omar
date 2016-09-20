@@ -22,6 +22,7 @@
 //= require webjars/slick-carousel/1.5.9/slick/slick.js
 //= require webjars/angular-slick-carousel/3.0.10/dist/angular-slick.js
 //= require webjars/angular-toggle-switch/1.3.0/angular-toggle-switch.js
+//= require webjars/angular-clipboard/1.4.2/angular-clipboard.js
 
 // <--Core-->
 //= require omar/core/OpenLayersLite-formats.js

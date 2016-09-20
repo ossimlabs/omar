@@ -264,6 +264,21 @@
 
         };
 
+        vm.imageLinkModal = function(imageLink)
+        {
+          var modalInstance = $uibModal.open({
+              templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-link.partial.html',
+              controller: ['$uibModalInstance', '$scope', 'imageLink', ImageLinkModalController],
+              controllerAs: 'vm',
+              resolve: {
+                  imageLink: function ()
+                  {
+                      return imageLink;
+                  },
+              }
+          })
+        };
+
         vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
         vm.logRatingToPio = function ( imageId )
         {
@@ -381,5 +396,26 @@
             } );
 
         } );
+    }
+
+    function ImageLinkModalController( $uibModalInstance, $scope, imageLink )
+    {
+      var vm = this;
+
+      vm.imageLink = imageLink;
+
+      $scope.supported = false;
+
+      $scope.success = function () {
+        console.log('Copied!');
+      };
+
+      $scope.fail = function (err) {
+        console.error('Error!', err);
+      };
+
+      vm.close = function () {
+        $uibModalInstance.close();
+      };
     }
 })();
