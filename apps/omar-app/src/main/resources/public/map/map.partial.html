@@ -701,12 +701,18 @@
                            tooltip-placement="right"
                            uib-tooltip="Download KML superoverlay"></i>&nbsp;&nbsp;
                       </a>
-                      <a ng-href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body={{list.o2baseUrl}}/#/mapOrtho?layers={{image.properties.id}}" target="_blank">
-                        <i class="fa fa-envelope fa-border text-primary"
-                           style="cursor: pointer;"
-                           tooltip-placement="right"
-                           uib-tooltip="E-mail a link to this image"></i>&nbsp;&nbsp;
-                      </a>
+                      <!--<a ng-href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body={{list.o2baseUrl}}/#/mapOrtho?layers={{image.properties.id}}" target="_blank">
+                          <i class="fa fa-envelope fa-border text-primary"
+                             style="cursor: pointer;"
+                             tooltip-placement="right"
+                             uib-tooltip="E-mail a link to this image"></i>&nbsp;&nbsp;
+                      </a>-->
+                      <a ng-href="" target="_blank" ng-click="list.imageLinkModal(list.o2baseUrl + '/#/mapOrtho?layers=' + image.properties.id)">
+                          <i class="fa fa-share-alt fa-border text-primary"
+                             style="cursor: pointer;"
+                             tooltip-placement="right"
+                             uib-tooltip="Share a link to this image"></i>
+                      </a>&nbsp;&nbsp;
                       <span ng-controller="DownloadController as download">
                         <a ng-href="" target="_blank" ng-click="download.downloadFiles(image.properties.id)">
                           <i class="fa fa-download fa-border text-primary"
