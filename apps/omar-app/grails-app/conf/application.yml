@@ -46,7 +46,6 @@ environments:
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
 ---
----
 grails:
     profile: web
     codegen:
@@ -160,19 +159,19 @@ omar:
           visible: true
   app:
     wfs:
-      baseUrl: http://localhost:8081/wfs?
+      baseUrl: http://localhost:80/o2-wfs/wfs?
       enabled: true
       proxy: /proxy/index?url=
     wms:
-      baseUrl: http://localhost:8081/wms?
+      baseUrl: http://localhost:80/o2-wms/wms?
       enabled: true
     imageSpace:
-      baseUrl: http://localhost:8081/imageSpace
+      baseUrl: http://localhost:80/o2-wms/imageSpace
       enabled: true
     thumbnails:
-      baseUrl: http://localhost:8081/imageSpace/getThumbnail
+      baseUrl: http://localhost:80/o2-wms/imageSpace/getThumbnail
     footprints:
-      baseUrl: http://localhost:8081/footprints/getFootprints
+      baseUrl: http://localhost:80/o2-wms/footprints/getFootprints
     stagerApp:
       baseUrl: http://localhost:8081
     downloadApp:
