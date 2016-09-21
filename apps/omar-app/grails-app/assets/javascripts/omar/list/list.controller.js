@@ -2,10 +2,10 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', 'clipboardService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', ListController]);
+        .controller('ListController', ['wfsService', 'shareService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', ListController]);
 
 
-    function ListController(wfsService, clipboardService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http) {
+    function ListController(wfsService, shareService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -181,6 +181,10 @@
 
         };
 
+        vm.shareModal = function (imageLink) {
+          shareService.imageLinkModal(imageLink)
+        }
+
         // We need an $on event here to listen for changes to the
         // wfs.spatial and wfs.attr filters
         $scope.$on('spatialObj.updated', function(event, filter) {
@@ -216,7 +220,7 @@
             var modalInstance = $uibModal.open({
                 size: 'lg',
                 templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-card.partial.html',
-                controller: ['$uibModalInstance', 'imageSpaceService', 'beNumberService', '$scope', 'imageObj', ImageModalController],
+                controller: ['shareService', '$uibModalInstance', 'imageSpaceService', 'beNumberService', '$scope', 'imageObj', ImageModalController],
                 controllerAs: 'vm',
                 resolve: {
                     imageObj: function() {
@@ -232,21 +236,6 @@
                 //console.log('Modal dismissed at: ' + new Date());
             });
 
-        };
-
-        vm.imageLinkModal = function(imageLink)
-        {
-          var modalInstance = $uibModal.open({
-              templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-link.partial.html',
-              controller: ['clipboardService', '$uibModalInstance', 'imageLink', ImageLinkModalController],
-              controllerAs: 'vm',
-              resolve: {
-                  imageLink: function ()
-                  {
-                      return imageLink;
-                  },
-              }
-          })
         };
 
         vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
@@ -280,7 +269,7 @@
     }
 
     // Handles the selected image modal obj
-    function ImageModalController($uibModalInstance, imageSpaceService, beNumberService, $scope, imageObj) {
+    function ImageModalController(shareService, $uibModalInstance, imageSpaceService, beNumberService, $scope, imageObj) {
 
         var vm = this;
         vm.beData = [];
@@ -340,6 +329,10 @@
             $uibModalInstance.dismiss('cancel');
         };
 
+        vm.shareModal = function (imageLink) {
+          shareService.imageLinkModal(imageLink)
+        }
+
         $uibModalInstance.opened.then(function() {
             setTimeout(function() {
                 imageSpaceService.initImageSpaceMap(imageSpaceObj);
@@ -356,14 +349,4 @@
         });
     }
 
-    function ImageLinkModalController(clipboardService, $uibModalInstance, imageLink)
-    {
-      var vm = this;
-
-      vm.imageLink = imageLink;
-
-      vm.close = function () {
-        $uibModalInstance.close();
-      };
-    }
 })();
