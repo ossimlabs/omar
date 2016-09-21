@@ -188,7 +188,7 @@ class ImageSpaceService
   {
     HashMap result = [status:HttpStatus.NOT_FOUND,
                       contentType: "plane/text",
-                      buffer: "Unable to service tile".byt
+                      buffer: "Unable to service tile".bytes]
       def chipper = new Chipper()
       def numBands
       def buffer
@@ -232,6 +232,7 @@ class ImageSpaceService
       buffer   = new byte[hints.width * hints.height * numBands]
 //    println buffer.size()
 //println "INITIALIZING ${opts}"
+    try{
       if ( chipper.initialize( opts ) )
       {
         if ( chipper.getChip( buffer, buffer.length, transparent ) > 1 )
