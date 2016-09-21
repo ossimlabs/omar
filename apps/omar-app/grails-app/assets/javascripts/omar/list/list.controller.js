@@ -2,10 +2,10 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', ListController]);
+        .controller('ListController', ['wfsService', 'clipboardService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', ListController]);
 
 
-    function ListController(wfsService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http) {
+    function ListController(wfsService, clipboardService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -238,7 +238,7 @@
         {
           var modalInstance = $uibModal.open({
               templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-link.partial.html',
-              controller: ['$uibModalInstance', '$scope', 'imageLink', ImageLinkModalController],
+              controller: ['clipboardService', '$uibModalInstance', 'imageLink', ImageLinkModalController],
               controllerAs: 'vm',
               resolve: {
                   imageLink: function ()
@@ -356,21 +356,11 @@
         });
     }
 
-    function ImageLinkModalController( $uibModalInstance, $scope, imageLink )
+    function ImageLinkModalController(clipboardService, $uibModalInstance, imageLink)
     {
       var vm = this;
 
       vm.imageLink = imageLink;
-
-      $scope.supported = false;
-
-      $scope.success = function () {
-        console.log('Copied!');
-      };
-
-      $scope.fail = function (err) {
-        console.error('Error!', err);
-      };
 
       vm.close = function () {
         $uibModalInstance.close();

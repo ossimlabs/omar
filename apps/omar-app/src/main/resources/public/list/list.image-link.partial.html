@@ -10,8 +10,11 @@
         <i class="fa fa-envelope"
            style="cursor: pointer;"></i>&nbsp;Email Link&nbsp;&nbsp;
   </a>&nbsp;&nbsp;
-  <button class="btn btn-primary" clipboard supported="supported" text="vm.imageLink" on-copied="success()" on-error="fail(err)">
-    <i class="fa fa-clipboard" aria-hidden="true"></i>&nbsp;Copy Link
-  </button>&nbsp;&nbsp;
+
+    <a class="btn btn-primary" ng-href="" ng-click="copyToClipboard(vm.imageLink)" target="_blank">
+          <i class="fa fa-clipboard"
+             style="cursor: pointer;"></i>&nbsp;Copy Link&nbsp;&nbsp;
+    </a>&nbsp;&nbsp;
+
   <button class="btn btn-warning" type="button" ng-click="vm.close()">Close</button>
 </div>
