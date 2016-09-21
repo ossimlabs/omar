@@ -1,0 +1,20 @@
+<div ng-controller="MapImageController as image">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="imageMap" class="map">
+          <div id="mapDownloadButton" ng-controller="DownloadController as download">
+            <a ng-href="" target="_blank" ng-click="download.downloadFiles(image.properties.id)">
+              <i class="fa fa-download fa-border text-primary" tooltip-placement="left-bottom" uib-tooltip="Download and archive files"></i>
+            </a>
+          </div>
+          <div id="popup"></div>
+          <div id="dd" class="map-cord-div"></div>
+          <div id="dms" class="map-cord-div"></div>
+          <div id="mgrs" class="map-cord-div"></div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

@@ -357,3 +357,19 @@ services:
     ports:
       - "5006:8081"
     restart: always
+  o2-tlv:
+    build: ./tlv
+    image: ossimlabs/tlv
+    container_name: tlv
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: tlv_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: oc2s-docker-test-01.rbtcloud.com
+      WFSURL: oc2s-docker-test-01.rbtcloud.com/o2-wfs
+      WMSURL: oc2s-docker-test-01.rbtcloud.com/o2-wms
+    ports:
+      - "5015:8080"
+    restart: always

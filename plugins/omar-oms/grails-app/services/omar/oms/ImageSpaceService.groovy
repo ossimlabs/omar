@@ -189,24 +189,32 @@ class ImageSpaceService
     HashMap result = [status:HttpStatus.NOT_FOUND,
                       contentType: "plane/text",
                       buffer: "Unable to service tile".bytes]
-    try{
       def chipper = new Chipper()
       def numBands
       def buffer
 
       def bandsArray = opts?.bands?.split(",")
+
       Boolean transparent = hints?.transparent
-      if((bandsArray.size() == 3) || (bandsArray.size() == 1))
+      if(bandsArray)
       {
-        numBands = bandsArray.size();
+        if((bandsArray.size() == 3) || (bandsArray.size() == 1))
+        {
+          numBands = bandsArray.size();
+        }
+        else
+        {
+          numBands = 1
+          opts?.bands = "1" // default to one band if problems
+
+          // need error exception for the response code
+          //
+        }
       }
       else
       {
-        numBands = 1
-        opts?.bands = "1" // default to one band if problems
-
-        // need error exception for the response code
-        //
+        opts.three_band_out = true
+        numBands = 3
       }
       //if(hints.transparent) ++numBands
       if(numBands == 1)
@@ -223,7 +231,8 @@ class ImageSpaceService
 
       buffer   = new byte[hints.width * hints.height * numBands]
 //    println buffer.size()
-
+//println "INITIALIZING ${opts}"
+    try{
       if ( chipper.initialize( opts ) )
       {
         if ( chipper.getChip( buffer, buffer.length, transparent ) > 1 )
@@ -231,16 +240,16 @@ class ImageSpaceService
           result.status = HttpStatus.OK
           result.buffer = null
           result.contentType = null
-//        println 'getChip: good'
+        //println 'getChip: good'
         }
         else
         {
-//        println "getChip: bad ${opts}"
+        //println "getChip: bad ${opts}"
         }
       }
       else
       {
-//      println "initialize: bad ${opts}"
+  //    println "initialize: bad ${opts}"
       }
       chipper?.delete()
 
@@ -271,14 +280,17 @@ class ImageSpaceService
 //      println colorModel
       def raster = Raster.createRaster( sampleModel, dataBuffer, new Point( 0, 0 ) )
       def image = new BufferedImage( colorModel, raster, false, null )
-
       ImageIO.write( image, hints.type, hints.ostream )
     }
     catch(e)
     {
-      log.error (e.toString)
-      // e.printStackTrace()
+      log.error (e.message)
+      //e.printStackTrace()
+      result = [status:HttpStatus.INTERNAL_SERVER_ERROR,
+                        contentType: "plane/text",
+                        buffer: "${e.message}".bytes]
     }
+    result
   }
 
 

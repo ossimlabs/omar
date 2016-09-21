@@ -1,72 +1,26 @@
 <div ng-controller="MapOrthoController as ortho">
     <div class="container-fluid">
         <div class="row">
-            <!-- TODO: style in styles.css w/media queries for the map height-->
             <div class="col-md-12">
                 <div id="mapOrtho" class="map">
-                  <div id="mapDownloadButton" ng-controller="DownloadController as download">
-                      <a ng-href="" target="_blank" ng-click="download.downloadFiles(image.properties.id)">
-                          <i class="fa fa-download fa-border text-primary"
-                             tooltip-placement="left-bottom"
-                             uib-tooltip="Download and archive files"></i>
-                      </a>
-                  </div>
+                    <div id="mapDownloadButton" ng-controller="DownloadController as download">
+                        <a ng-href="" target="_blank" ng-click="download.downloadFiles(image.properties.id)">
+                            <i class="fa fa-download fa-border text-primary" tooltip-placement="left-bottom" uib-tooltip="Download and archive files"></i>
+                        </a>
+                    </div>
                     <div id="popup"></div>
-                    <div id="dd" class="map-cord-div"></div>
-                    <div id="dms" class="map-cord-div"></div>
-                    <div id="mgrs" class="map-cord-div"></div>
+                    <div id="mouseCoords" class="map-cord-div"></div>
                 </div>
             </div>
         </div>
-        <br>
-        <div ng-show="{{ortho.pioAppEnabled}}" class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <h6>Recommended Images</h6>
-                        <div class="text-center text-muted"
-                             ng-if="ortho.loading"><h4>Loading recommended images, please wait...</h4></div>
-                        <slick style="height: 170px" ng-if="ortho.recommendedImages.length"
-                               slides-to-show=8
-                               slides-to-scroll=1 dots="true" infinite="false">
-                            <div ng-repeat="image in ortho.recommendedImages">
-                                <img style="height: 100px; width: 100px; border-radius: 10px;"
-                                     ng-click="ortho.switchMapImage(image.properties.id);"
-                                     ng-src="{{thumbnails.baseUrl}}?filename={{image.properties.filename}}&entry={{image.properties.entry_id}}&size=100&format=jpeg"
-                                     tooltip-placement="bottom"
-                                     uib-tooltip="{{image.properties.title}}"
-                                     alt="Some text here...">
-                                <div class="text-left">
-                                    <p>
-                                        <small>
-                                            <!--<strong>Image ID:&nbsp;</strong>-->
-                                            <!--<span class="text-success">-->
-                                            <!--<span ng-show="!image.properties.title">Unknown</span>-->
-                                            <!--{{image.properties.title}}</span><br>-->
-                                            <!--</span>-->
-                                            <strong>Acquired:&nbsp;</strong>
-                                            <span class="text-success" style="font-size: 12px">
-                                                <span ng-show="!image.properties.acquisition_date">Unknown</span>
-                                                {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}<br>
-                                            </span>
-
-                                            <strong>Mission:&nbsp;</strong>
-                                            <span class="text-success">
-                                                <span ng-show="!image.properties.mission_id">Unknown</span>
-                                                {{image.properties.mission_id}}</span><br>
-                                            </span>
-
-                                            <strong>Sensor:&nbsp;</strong>
-                                            <span class="text-success">
-                                                <span ng-show="!image.properties.sensor_id">Unknown</span>
-                                                {{image.properties.sensor_id}}
-                                            </span>
-
-                                        </small>
-                                    </p>
-                                </div>
-                            </div>
-                        </slick>
+        <!-- right-click context menu -->
+        <div class = "modal" id = "contextMenuDialog" role = "dialog" tabindex = "-1">
+            <div class = "modal-dialog">
+                <div class = "modal-content">
+                    <div class = "modal-header"><h4>You Clicked Here:</h4></div>
+                    <div align = "center" class = "modal-body"></div>
+                    <div class = "modal-footer">
+                        <button type = "button" class = "btn btn-warning" data-dismiss = "modal">Close</button>
                     </div>
                 </div>
             </div>

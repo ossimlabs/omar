@@ -22,6 +22,7 @@
 //= require webjars/slick-carousel/1.5.9/slick/slick.js
 //= require webjars/angular-slick-carousel/3.0.10/dist/angular-slick.js
 //= require webjars/angular-toggle-switch/1.3.0/angular-toggle-switch.js
+//= require webjars/angular-clipboard/1.4.2/angular-clipboard.js
 
 // <--Core-->
 //= require omar/core/OpenLayersLite-formats.js
@@ -38,6 +39,7 @@
 //= require omar/services/image-space.service.js
 //= require omar/services/jpip.service.js
 //= require omar/services/be-number.service.js
+//= require omar/services/clipboard.service.js
 
 // <--Nav-->
 //= require omar/nav/nav.controller.js
@@ -51,8 +53,9 @@
 // <--List-->
 //= require omar/list/list.controller.js
 
-// <--Map-->
+// <--Maps-->
 //= require omar/mapOrtho/map.ortho.controller.js
+//= require omar/mapImage/map.image.controller.js
 
 //= <--WFS-->
 //= require omar/wfs/wfs.controller.js
