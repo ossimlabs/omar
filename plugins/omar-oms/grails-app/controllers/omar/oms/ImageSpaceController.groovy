@@ -58,7 +58,6 @@ class ImageSpaceController
 
     BindUtil.fixParamNames( GetTileCommand, params )
     bindData( cmd, params )
-
     def outputStream = null
     try
     {
@@ -76,7 +75,7 @@ class ImageSpaceController
     catch ( e )
     {
        response.status = HttpStatus.INTERNAL_SERVER_ERROR
-       log.debug(e.toString())
+       log.debug(e.message)
     }
     finally{
        if(outputStream!=null)
@@ -86,7 +85,7 @@ class ImageSpaceController
           }
           catch(e)
           {
-             log.debug(e.toString())
+             log.debug(e.message)
           }
        }
     }
@@ -129,7 +128,7 @@ class ImageSpaceController
     catch ( e )
     {
        response.status = HttpStatus.INTERNAL_SERVER_ERROR
-       log.debug(e.toString())
+       log.debug(e.message)
     }
     finally{
        if(outputStream!=null)
@@ -139,7 +138,7 @@ class ImageSpaceController
           }
           catch(e)
           {
-             log.debug(e.toString())
+             log.debug(e.message)
           }
        }
     }
@@ -190,11 +189,12 @@ class ImageSpaceController
          {
           outputStream << result.buffer
          }
+
      }
      catch(e)
      {
        response.status = HttpStatus.INTERNAL_SERVER_ERROR
-       log.error(e.toString())
+       log.error(e.message)
      }
      finally
      {
@@ -205,7 +205,7 @@ class ImageSpaceController
           }
           catch(e)
           {
-             log.debug(e.toString())
+             log.debug(e.message)
           }
        }
      }

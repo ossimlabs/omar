@@ -26,7 +26,7 @@
             vm.loading = true;
 
             vm.baseUrl = AppO2.APP_CONFIG.serverURL;
-            console.log('AppO2.APP_CONFIG.params: ', AppO2.APP_CONFIG.params)
+            //console.log('AppO2.APP_CONFIG.params: ', AppO2.APP_CONFIG.params)
 
             vm.swipeAppEnabled = AppO2.APP_CONFIG.params.swipeApp.enabled;
             //console.log('Swipe enabled: ', vm.swipeAppEnabled);
@@ -50,10 +50,10 @@
             }
 
             vm.wmtsAppEnabled = AppO2.APP_CONFIG.params.wmtsApp.enabled;
-            console.log('WMTS enabled: ', vm.wmtsAppEnabled);
+            //console.log('WMTS enabled: ', vm.wmtsAppEnabled);
             if (vm.wmtsAppEnabled) {
                 vm.wmtsAppLink = AppO2.APP_CONFIG.params.wmtsApp.baseUrl;
-                console.log('vm.wmtsAppLink in HomeController', vm.wmtsAppLink);
+              //console.log('vm.wmtsAppLink in HomeController', vm.wmtsAppLink);
             }
 
             //var twofishProxy = APP_CONFIG.services.twofishes.proxy;
@@ -199,7 +199,7 @@
                 //TODO: need to change state and pass the lat/lon
             }
 
-            // ################################
+        // ################################
         // Regular expression for the input types
         var dRegExp = /^\s*(\-?\d{1,2})\s*\u00B0?\s*([NnSs])?\s*\,?\s*(\-?\d{1,3})\s*\u00B0?\s*([WwEe])?\s*$/;
         var ddRegExp = /^\s*(\-?\d{1,2}\.\d*)\s*\u00B0?\s*([NnSs])?\s*\,?\s*(\-?\d{1,3}\.\d*)\s*\u00B0?\s*([WwEe])?\s*$/;
@@ -452,165 +452,6 @@
 
             return dd;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // ###############################################
-            function pioExecute() {
-
-               // TODO: Follow up on moving this to a PIO service...
-                vm.getTrendingPio = function(){
-
-                    //console.log('showPopularItems firing...');
-                    var pioUrl = AppO2.APP_CONFIG.params.predio.baseUrl + 'getPopularItems';
-                    $http({
-                        method: 'GET',
-                        url: pioUrl
-                    })
-                    .then(function(response) {
-                        var data;
-                        data = response;  // callback response from Predictive IO service
-                        //console.log(data);
-                        //formatTrendingList(data);
-                        wfsService.executeWfsTrendingThumbs(data);
-                    });
-
-                };
-                vm.getTrendingPio(); // get the top 10 trending images on page load and throw them into the carousel
-
-                vm.trendingImages = {};
-
-                $scope.$on('wfsTrendingThumb: updated', function(event, data) {
-
-                    $scope.$apply(function(){
-
-                        vm.trendingImages = data;
-                        console.log('vm.trendingImages: ', vm.trendingImages);
-                        vm.loading = false;
-
-                    });
-
-                });
-
-            }
-
-            vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
-            //console.log('PIO enabled: ', vm.pioAppEnabled);
-            if (vm.pioAppEnabled) {
-                //console.log('pioAppEnabled: ', vm.pioAppEnabled);
-                pioExecute();
-            }
-
-            // // TODO: Follow up on moving this to a PIO service...
-            // vm.getTrendingPio = function(){
-
-            //     //console.log('showPopularItems firing...');
-            //     var pioUrl = AppO2.APP_CONFIG.clientParams.predio.baseUrl + 'getPopularItems';
-            //     $http({
-            //         method: 'GET',
-            //         url: pioUrl
-            //     })
-            //     .then(function(response) {
-            //         var data;
-            //         data = response;  // callback response from Predictive IO service
-            //         //console.log(data);
-            //         //formatTrendingList(data);
-            //         wfsService.executeWfsTrendingThumbs(data);
-            //     });
-
-            // };
-            // vm.getTrendingPio(); // get the top 10 trending images on page load and throw them into the carousel
-
-            // vm.trendingImages = {};
-
-            // $scope.$on('wfsTrendingThumb: updated', function(event, data) {
-
-            //     $scope.$apply(function(){
-
-            //         vm.trendingImages = data;
-            //         console.log('vm.trendingImages: ', vm.trendingImages);
-            //         vm.loading = false;
-
-            //     });
-
-            // });
-
-            //function formatTrendingList(trendData) {
-            //
-            //    var wfsImagesList = [];
-            //    trendData.data.itemScores.filter(function(el){
-            //
-            //        console.log(el);
-            //        wfsImagesList.push(el.item);
-            //
-            //    });
-            //
-            //
-            //    var wfsImageString = wfsImagesList.join(",");
-            //
-            //    // TODO: Move this $http to the wfs.service.js
-            //    var wfsRequest = {
-            //        typeName: 'omar:raster_entry',
-            //        namespace: 'http://omar.ossim.org',
-            //        version: '1.1.0',
-            //        outputFormat: 'JSON',
-            //        cql: '',
-            //    };
-            //
-            //    wfsRequest.cql = 'id in(' + wfsImageString + ')';
-            //
-            //    var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-            //
-            //    var wfsUrl = wfsRequestUrl +
-            //        "service=WFS" +
-            //        "&version=" + wfsRequest.version +
-            //        "&request=GetFeature" +
-            //        "&typeName=" + wfsRequest.typeName +
-            //        "&filter=" + wfsRequest.cql +
-            //        "&outputFormat=" + wfsRequest.outputFormat;
-            //
-            //    var url = encodeURI(wfsUrl);
-            //
-            //    $http({
-            //        method: 'GET',
-            //        url: url
-            //    })
-            //    .then(function(response) {
-            //        var data;
-            //        data = response.data.features;
-            //        console.log('data from wfs', data);
-            //        vm.trendingImages = data;
-            //    });
-            //
-            //}
-
-
-            vm.imageClick = function(imageId){
-                console.log('imageClick imageId: ', imageId);
-                $state.go('mapOrtho', {layers: imageId});
-            };
 
         }
 

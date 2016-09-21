@@ -39,6 +39,7 @@
 //= require omar/services/image-space.service.js
 //= require omar/services/jpip.service.js
 //= require omar/services/be-number.service.js
+//= require omar/services/clipboard.service.js
 
 // <--Nav-->
 //= require omar/nav/nav.controller.js
@@ -52,8 +53,9 @@
 // <--List-->
 //= require omar/list/list.controller.js
 
-// <--Map-->
+// <--Maps-->
 //= require omar/mapOrtho/map.ortho.controller.js
+//= require omar/mapImage/map.image.controller.js
 
 //= <--WFS-->
 //= require omar/wfs/wfs.controller.js
