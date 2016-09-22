@@ -40,6 +40,7 @@
 //= require omar/services/jpip.service.js
 //= require omar/services/be-number.service.js
 //= require omar/services/clipboard.service.js
+//= require omar/services/share.service.js
 
 // <--Nav-->
 //= require omar/nav/nav.controller.js

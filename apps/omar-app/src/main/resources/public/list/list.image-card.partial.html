@@ -7,9 +7,12 @@
       </h5>
     </div>
     <div class="col-md-3 text-right">
-      <a ng-href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body={{vm.o2baseUrlModal}}/#{{vm.o2contextPathModal}}/mapOrtho?layers={{vm.selectedImage.properties.id}}" target="_blank">
-        <i class="fa fa-envelope fa-2x" style="cursor: pointer;" tooltip-placement="bottom" uib-tooltip="Share this image via e-mail"></i>&nbsp;&nbsp;
-      </a>
+      <a ng-href="" target="_blank" ng-click="vm.shareModal(vm.o2baseUrlModal + '/#' + vm.o2contextPathModal + '/mapOrtho?layers=' + vm.selectedImage.properties.id)">
+        <i class="fa fa-share-alt fa-2x"
+         style="cursor: pointer;"
+         tooltip-placement="left-bottom"
+         uib-tooltip="Share a link to this image"></i>
+      </a>&nbsp;&nbsp;
       <i class="fa fa-close fa-2x" ng-click="$close()" style="cursor: pointer;" tooltip-placement="bottom" uib-tooltip="Close image view"></i>
     </div>
   </div>
