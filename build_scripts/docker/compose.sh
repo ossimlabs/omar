@@ -29,7 +29,7 @@ if [ -a $file ]; then
     # elif [ "$1" == "oc2s" ]; then
     #
     # echo "Running docker-compose $2 using $1 settings..."
-    $3 docker-compose --file=docker-compose-$1.yml $2 #-d
+    $3 docker-compose --file=docker-compose-$1.yml $2 -d
     #
     # fi
     if [ $? -ne 0 ]; then
