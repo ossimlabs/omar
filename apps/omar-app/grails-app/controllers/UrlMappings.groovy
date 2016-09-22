@@ -7,10 +7,11 @@ class UrlMappings {
             }
         }
 
-        "/" {
-            action = 'index'
-            controller = 'omar'
-        }
+        // "/" {
+        //     action = 'index'
+        //     controller = 'omar'
+        // }
+
         "500"(view:'/error')
         "404"(view:'/notFound')
     }
