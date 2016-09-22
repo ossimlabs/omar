@@ -32,7 +32,9 @@ if [ -a $file ]; then
     $3 docker-compose --file=docker-compose-$1.yml $2 #-d
     #
     # fi
-
+    if [ $? -ne 0 ]; then
+      echo "Ignoring errors..."
+    fi
   else
     display_usage
     exit 1
