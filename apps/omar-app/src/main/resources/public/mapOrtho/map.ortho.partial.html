@@ -3,9 +3,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="mapOrtho" class="map">
-                    <div id="mapDownloadButton" ng-controller="DownloadController as download">
+                    <div id="orthoShareButton" class="mapOrthoLinkBtns">
+                        <a ng-href="" target="_blank" ng-click="ortho.shareModal(ortho.baseServerUrl + '/omar/#/?layers=' + image.properties.id)">
+                          <i class="fa fa-share-alt fa-border text-primary"
+                            tooltip-placement="left-bottom"
+                            uib-tooltip="Share a link to this image"></i>
+                         </a>&nbsp;&nbsp;
+                    </div>
+                    <div id="mapDownloadButton" class="mapOrthoLinkBtns" ng-controller="DownloadController as download">
                         <a ng-href="" target="_blank" ng-click="download.downloadFiles(image.properties.id)">
-                            <i class="fa fa-download fa-border text-primary" tooltip-placement="left-bottom" uib-tooltip="Download and archive files"></i>
+                            <i class="fa fa-download fa-border text-primary"
+                               tooltip-placement="left-bottom"
+                               uib-tooltip="Download and archive files"></i>
                         </a>
                     </div>
                     <div id="popup"></div>
@@ -14,13 +23,14 @@
             </div>
         </div>
         <!-- right-click context menu -->
-        <div class = "modal" id = "contextMenuDialog" role = "dialog" tabindex = "-1">
-            <div class = "modal-dialog">
-                <div class = "modal-content">
-                    <div class = "modal-header"><h4>You Clicked Here:</h4></div>
-                    <div align = "center" class = "modal-body"></div>
-                    <div class = "modal-footer">
-                        <button type = "button" class = "btn btn-warning" data-dismiss = "modal">Close</button>
+        <div class="modal" id="contextMenuDialog" role="dialog" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>You Clicked Here:</h4></div>
+                    <div align="center" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

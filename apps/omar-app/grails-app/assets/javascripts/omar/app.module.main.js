@@ -7,7 +7,7 @@
       'ui.bootstrap',
       'angularSpinner',
       'toastr',
-      'mgcrea.ngStrap.timepicker',
+      'mgcrea.ngStrap',
       'slickCarousel',
       'toggle-switch',
       'angular-clipboard'])

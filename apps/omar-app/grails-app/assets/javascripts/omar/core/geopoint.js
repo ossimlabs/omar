@@ -1,45 +1,32 @@
 GeoPoint = function(lon, lat) {
-
-
     switch (typeof(lon)) {
-
         case 'number':
-
-            this.lonDeg = this.dec2deg(lon, this.MAX_LON);
             this.lonDec = lon;
+            this.lonDeg = this.dec2deg(lon, this.MAX_LON, false);
+            this.lonDegCard = this.dec2deg(lon, this.MAX_LON, true);
 
             break;
-
         case 'string':
-
-            if (this.decode(lon)) {
-                this.lonDeg = lon;
-            }
-
+            if (this.decode(lon)) { this.lonDeg = lon; }
             this.lonDec = this.deg2dec(lon, this.MAX_LON);
+            this.lonDegCard = this.dec2deg(this.lonDec, this.MAX_LON, true);
 
             break;
     }
 
     switch (typeof(lat)) {
-
         case 'number':
-
-            this.latDeg = this.dec2deg(lat, this.MAX_LAT);
             this.latDec = lat;
+            this.latDeg = this.dec2deg(lat, this.MAX_LAT, false);
+            this.latDegCard = this.dec2deg(lat, this.MAX_LAT, true);
 
             break;
-
         case 'string':
-
-            if (this.decode(lat)) {
-                this.latDeg = lat;
-            }
-
+            if (this.decode(lat)) { this.latDeg = lat; }
             this.latDec = this.deg2dec(lat, this.MAX_LAT);
+            this.latDegCard = this.dec2deg(this.latDec, this.MAX_LAT, true);
 
             break;
-
     }
 };
 
@@ -61,34 +48,45 @@ GeoPoint.prototype = {
     lonDeg: NaN,
     latDeg: NaN,
 
-    dec2deg: function(value, max) {
-
+    dec2deg: function(value, max, cardinal) {
         var sign = value < 0 ? -1 : 1;
 
         var abs = Math.abs(Math.round(value * 1000000));
 
-        if (abs > (max * 1000000)) {
-            return NaN;
-        }
-
+        if (abs > (max * 1000000)) { return NaN; }
         var dec = abs % 1000000 / 1000000;
-        var deg = Math.floor(abs / 1000000) * sign;
+
+        var deg = Math.floor(abs / 1000000);
+        if (deg < 10) { deg = "0" + deg; }
+        if (max == this.MAX_LON && deg < 100) { deg = "0" + deg; }
+
         var min = Math.floor(dec * 60);
+        if (min < 10) { min = "0" + min; }
+
         var sec = (dec - min / 60) * 3600;
+        sec = sec.toFixed(2);
+        if (sec < 10) { sec = "0" + sec; }
 
         var result = "";
-
         result += deg;
         result += this.CHAR_DEG;
         result += this.CHAR_SEP;
         result += min;
         result += this.CHAR_MIN;
         result += this.CHAR_SEP;
-        result += sec.toFixed(2);
+        result += sec;
         result += this.CHAR_SEC;
+        if (cardinal) {
+            var direction;
+            switch (max) {
+                case this.MAX_LAT: direction = sign == -1 ? "S" : "N"; break;
+                case this.MAX_LON: direction = sign == -1 ? "W" : "E"; break;
+            }
+            result += " " + direction;
+        }
+        else { result = (sign < 0 ? "-" : "") + result; }
 
         return result;
-
     },
 
     deg2dec: function(value) {
@@ -130,23 +128,10 @@ GeoPoint.prototype = {
         return value.match(new RegExp(pattern));
     },
 
-    getLonDec: function() {
-        return this.lonDec;
-    },
-
-    getLatDec: function() {
-        return this.latDec;
-    },
-
-    getLonDeg: function() {
-        return this.lonDeg;
-    },
-
-    getLatDeg: function() {
-        return this.latDeg;
-    }
-
+    getLatDec: function() { return this.latDec; },
+    getLatDeg: function() { return this.latDeg; },
+    getLatDegCard: function() { return this.latDegCard; },
+    getLonDec: function() { return this.lonDec; },
+    getLonDeg: function() { return this.lonDeg; },
+    getLonDegCard: function() { return this.lonDegCard; }
 };
-
-
-
