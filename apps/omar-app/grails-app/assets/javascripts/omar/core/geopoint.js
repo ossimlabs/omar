@@ -124,8 +124,8 @@ GeoPoint.prototype = {
 
     getLatDec: function() { return this.latDec; },
     getLatDeg: function() { return this.latDeg; },
-    getLatDegCard: function() {return this.latDegCard; },
+    getLatDegCard: function() { return this.latDegCard; },
     getLonDec: function() { return this.lonDec; },
-    getLonDeg: function() { return this.lonDeg; }
+    getLonDeg: function() { return this.lonDeg; },
     getLonDegCard: function() { return this.lonDegCard; }
 };
