@@ -202,7 +202,7 @@ services:
       # Modify the path below to reflect your
       # AWS credentials location. Example:
       #- /Users/jdoe/.aws:/root/.aws
-      - /home/ec2-user/.aws:/root/.aws
+      - /home/jenkins/.aws:/root/.aws
     ports:
       - "5000:8080"
     # depends_on:
