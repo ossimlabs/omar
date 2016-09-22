@@ -121,9 +121,9 @@ grails:
                 scriptlets: html
                 taglib: none
                 staticparts: none
-endpoints:
-    jmx:
-        unique-names: true
+#endpoints:
+#    jmx:
+#        unique-names: true
 
 ---
 # Client params
