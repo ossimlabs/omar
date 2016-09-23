@@ -15,10 +15,11 @@ environments:
 
 omar:
   avro:
-    sourceUriField: "S3_URI_Nitf"
-    dateField: "Observation_Date"
+    sourceUriField: "URL"
+    dateField: "Observation_Date_Time"
     dateFieldFormat: "yyyyMMddHHmmss"
     imageIdField: "Image_Id"
+    jsonSubFieldPath: "Message"
     download:
       directory: "/data/s3"
     destination:
