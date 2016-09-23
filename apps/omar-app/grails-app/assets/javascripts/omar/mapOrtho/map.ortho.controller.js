@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'beNumberService', MapOrthoController]);
+        .controller('MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'shareService', 'beNumberService', MapOrthoController]);
 
-    function MapOrthoController($scope, $state, $stateParams, $http, $location, beNumberService) {
+    function MapOrthoController($scope, $state, $stateParams, $http, $location, shareService, beNumberService) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -18,6 +18,10 @@
         vm.loading = true;
 
         vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
+
+        vm.shareModal = function (imageLink) {
+          shareService.imageLinkModal(imageLink)
+        }
 
         var mapOrtho,
             mapOrthoView,
