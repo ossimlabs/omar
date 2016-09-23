@@ -1,10 +1,10 @@
 (function() {
     'use strict';
     angular
-        .module('omarApp')
-        .controller('MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'shareService', 'beNumberService', MapOrthoController]);
+        .module( 'omarApp' )
+        .controller( 'MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'downloadService', 'shareService', 'beNumberService', MapOrthoController]);
 
-    function MapOrthoController($scope, $state, $stateParams, $http, $location, shareService, beNumberService) {
+    function MapOrthoController( $scope, $state, $stateParams, $http, $location, downloadService, shareService, beNumberService ) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -14,14 +14,6 @@
 
         /* jshint validthis: true */
         var vm = this;
-
-        vm.loading = true;
-
-        vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
-
-        vm.shareModal = function (imageLink) {
-          shareService.imageLinkModal(imageLink)
-        }
 
         var mapOrtho,
             mapOrthoView,
@@ -36,7 +28,19 @@
             namespace: 'http://omar.ossim.org',
             version: '1.1.0',
             outputFormat: 'JSON',
-            cql: '',
+            cql: ''
+        };
+
+        vm.loading = true;
+
+        vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
+
+        vm.shareModal = function( imageLink ) {
+          shareService.imageLinkModal( imageLink );
+        };
+
+        vm.archiveDownload = function( imageId ) {
+          downloadService.downloadFiles( imageId );
         };
 
         imageLayerIds = $stateParams.layers.split(",");

@@ -2,10 +2,10 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', 'shareService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', ListController]);
+        .controller('ListController', ['wfsService', 'shareService', 'downloadService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', ListController]);
 
 
-    function ListController(wfsService, shareService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http) {
+    function ListController(wfsService, shareService, downloadService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -18,12 +18,13 @@
 
         //vm.thumbPath = '/o2/imageSpace/getThumbnail?';
         vm.thumbPath = AppO2.APP_CONFIG.params.thumbnails.baseUrl;
-        vm.thumbFilename = 'filename='; // parameter provided by image.properties.filename
-        vm.thumbEntry = '&entry='; // parameter provided by image.properties.entry_id
+        vm.thumbFilename = 'filename='; // Parameter provided by image.properties.filename
+        vm.thumbEntry = '&entry='; // Parameter provided by image.properties.entry_id
         vm.thumbSize = '&size=100';
         vm.thumbFormat = '&format=jpeg';
 
-        vm.thumbBorder = function(imageType) {
+        vm.thumbBorder = function( imageType ) {
+
             //console.log(imageType);
 
             var border = {
@@ -181,9 +182,13 @@
 
         };
 
-        vm.shareModal = function (imageLink) {
-          shareService.imageLinkModal(imageLink)
-        }
+        vm.shareModal = function( imageLink ) {
+          shareService.imageLinkModal( imageLink );
+        };
+
+        vm.archiveDownload = function( imageId ) {
+          downloadService.downloadFiles( imageId );
+        };
 
         // We need an $on event here to listen for changes to the
         // wfs.spatial and wfs.attr filters
