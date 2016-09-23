@@ -522,7 +522,7 @@
         </li>
         <li class="dropdown nav-download">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <span class="fa fa-download" aria-hidden="true"></span>&nbsp;Downloads
+            <span class="fa fa-download" aria-hidden="true"></span>&nbsp;Exports
             <span class="caret"></span>
           </a>
             <ul class="dropdown-menu" ng-controller="WFSOutputDlController as wfsOutputDownload">
@@ -710,14 +710,12 @@
                          tooltip-placement="right"
                          uib-tooltip="Share a link to this image"></i>
                       </a>&nbsp;&nbsp;
-                      <span ng-controller="DownloadController as download">
-                        <a ng-href="" target="_blank" ng-click="download.downloadFiles(image.properties.id)">
-                          <i class="fa fa-download fa-border text-primary"
-                            style="cursor: pointer;"
-                            tooltip-placement="right"
-                            uib-tooltip="Download and archive files"></i>&nbsp;&nbsp;
-                        </a>
-                      </span>
+                      <a ng-href="" target="_blank" ng-click="list.archiveDownload(image.properties.id)">
+                        <i class="fa fa-download fa-border text-primary"
+                          style="cursor: pointer;"
+                          tooltip-placement="right"
+                          uib-tooltip="Download and archive files"></i>&nbsp;&nbsp;
+                      </a>
                       <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream($event, image.properties.filename, image.properties.entry_id, 'chip', $index, 'stream');">
                         <i class="fa fa-file-image-o fa-border text-primary"
                          style="cursor: pointer;"

@@ -1,34 +1,31 @@
 (function() {
     'use strict';
     angular
-        .module('omarApp')
-        .service('shareService', ['clipboardService', '$uibModal', '$rootScope', shareService]);
+        .module( 'omarApp' )
+        .service( 'shareService', ['clipboardService', '$uibModal', shareService]);
 
-    function shareService(clipboardService, $uibModal, $rootScope) {
-      var vm = this;
+    function shareService( clipboardService, $uibModal ) {
 
-      vm.imageLinkModal = function(imageLink) {
-        var modalInstance = $uibModal.open({
+      this.imageLinkModal = function( imageLink ) {
+        var modalInstance = $uibModal.open( {
           templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-link.partial.html',
           controller: ['clipboardService', '$uibModalInstance', 'imageLink', ImageLinkModalController],
           controllerAs: 'vm',
           resolve: {
-            imageLink: function () {
+            imageLink: function() {
               return imageLink;
-            },
+            }
           }
-        })
+        });
       };
     }
 
-    function ImageLinkModalController(clipboardService, $uibModalInstance, imageLink) {
-      var vm = this;
+    function ImageLinkModalController( clipboardService, $uibModalInstance, imageLink ) {
 
-      vm.imageLink = imageLink;
+      this.imageLink = imageLink;
 
-      vm.close = function () {
+      this.close = function() {
         $uibModalInstance.close();
       };
     }
-
-}());
+}() );

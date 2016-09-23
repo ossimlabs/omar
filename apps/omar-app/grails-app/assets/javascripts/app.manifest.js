@@ -30,6 +30,7 @@
 //= require omar/core/ol3-layerswitcher.js
 //= require omar/core/geopoint.js
 //= require omar/core/mgrs.js
+//= require omar/core/fileDownload.js
 //= require omar/app.module.main.js
 
 // <--Services-->
@@ -41,6 +42,7 @@
 //= require omar/services/be-number.service.js
 //= require omar/services/clipboard.service.js
 //= require omar/services/share.service.js
+//= require omar/services/download.service.js
 
 // <--Nav-->
 //= require omar/nav/nav.controller.js
@@ -61,10 +63,8 @@
 //= <--WFS-->
 //= require omar/wfs/wfs.controller.js
 
-//= <--Download-->
-//= require omar/download/fileDownload.js
-//= require omar/download/download.controller.js
-//= require omar/download/wfsOutputDl.controller.js
+//= <--Exports-->
+//= require omar/exports/wfsFilesExport.controller.js
 
 //= <--Filter-->
 //= require omar/filter/filter.controller.js
