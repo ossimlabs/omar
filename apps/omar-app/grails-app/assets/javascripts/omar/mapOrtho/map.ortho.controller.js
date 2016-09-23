@@ -1,10 +1,10 @@
 (function() {
     'use strict';
     angular
-        .module('omarApp')
-        .controller('MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'beNumberService', MapOrthoController]);
+        .module( 'omarApp' )
+        .controller( 'MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'downloadService', 'shareService', 'beNumberService', MapOrthoController]);
 
-    function MapOrthoController($scope, $state, $stateParams, $http, $location, beNumberService) {
+    function MapOrthoController( $scope, $state, $stateParams, $http, $location, downloadService, shareService, beNumberService ) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -14,10 +14,6 @@
 
         /* jshint validthis: true */
         var vm = this;
-
-        vm.loading = true;
-
-        vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
 
         var mapOrtho,
             mapOrthoView,
@@ -32,7 +28,19 @@
             namespace: 'http://omar.ossim.org',
             version: '1.1.0',
             outputFormat: 'JSON',
-            cql: '',
+            cql: ''
+        };
+
+        vm.loading = true;
+
+        vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
+
+        vm.shareModal = function( imageLink ) {
+          shareService.imageLinkModal( imageLink );
+        };
+
+        vm.archiveDownload = function( imageId ) {
+          downloadService.downloadFiles( imageId );
         };
 
         imageLayerIds = $stateParams.layers.split(",");
@@ -202,10 +210,12 @@
                 switch(mousePositionControl.coordFormat) {
                     // dd
                     case 0: html = coord[1].toFixed( 6 ) + ', ' + coord[0].toFixed( 6 ); break;
-                    // dms
-                    case 1: html = point.getLatDeg() + ', ' + point.getLonDeg(); break;
+                    // dms w/cardinal direction
+                    case 1: html = point.getLatDegCard() + ', ' + point.getLonDegCard(); break;
+                    // dms w/o cardinal direction
+                    case 2: html = point.getLatDeg() + ', ' + point.getLonDeg(); break;
                     // mgrs
-                    case 2: html = mgrs.forward( coord, 5 ); break;
+                    case 3: html = mgrs.forward( coord, 5 ); break;
                 }
                 document.getElementById( 'mouseCoords').innerHTML = html;
             },
@@ -218,7 +228,7 @@
         } );
 	mousePositionControl.coordFormat = 0;
         $('#mouseCoords').click(function() {
-            mousePositionControl.coordFormat = mousePositionControl.coordFormat >= 2 ? 0 : mousePositionControl.coordFormat + 1;
+            mousePositionControl.coordFormat = mousePositionControl.coordFormat >= 3 ? 0 : mousePositionControl.coordFormat + 1;
         });
 
         var interactions = ol.interaction.defaults({
@@ -309,7 +319,7 @@
                     if (coord) {
                         var point = new GeoPoint(coord[0], coord[1]);
                         var ddPoint = point.getLatDec().toFixed(6) + ', ' + point.getLonDec().toFixed(6);
-                        var dmsPoint = point.getLatDeg() + ' ' + point.getLonDeg();
+                        var dmsPoint = point.getLatDegCard() + ' ' + point.getLonDegCard();
                         var mgrsPoint = mgrs.forward(coord, 5);
                         $('#contextMenuDialog .modal-body').html(ddPoint + " // " + dmsPoint + " // " + mgrsPoint);
                         $('#contextMenuDialog').modal('show');

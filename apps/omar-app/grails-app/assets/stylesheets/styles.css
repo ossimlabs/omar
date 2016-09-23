@@ -174,14 +174,23 @@ body {
     margin-right: 10px;
 }
 
-#mapDownloadButton i{
+
+#orthoShareButton{
+    position: absolute;
+    z-index: 1;
+    right: 3.0em;
+    bottom: 5px;
+    margin-right: 10px;
+}
+
+.mapOrthoLinkBtns i{
     background-color: rgba(0,60,136,0.5);
     color: white;
     font-size: 1em;
 }
 
 
-#mapDownloadButton a{
+.mapOrthoLinkBtns a{
     text-decoration: none;
     cursor: pointer;
 }
@@ -267,7 +276,7 @@ body {
 
 
 .nav-download .dropdown-menu{
-  min-width: 135px;
+  min-width: 112px;
 }
 
 /*.navbar-default .navbar-nav > .nav-download{
