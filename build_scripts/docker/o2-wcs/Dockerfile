@@ -25,5 +25,8 @@ ENV DBHOST=${DBHOST}\
     DBNAME=${DBNAME}\
     DOCKER_HOST_IP=${DOCKER_HOST_IP}
 
+RUN rm -f /usr/share/omar/wcs-app/wcs-app.jar && \
+    ln -s /Users/sbortman/IdeaProjects/omar/apps/wcs-app/build/libs/wcs-app-1.0.0.jar /usr/share/omar/wcs-app/wcs-app.jar
+
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wcs-app/wcs-app.sh"]
