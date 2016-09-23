@@ -17,5 +17,8 @@ ENV DBUSER=${DBUSER}\
     DBNAME=${DBNAME}\
     DOCKER_HOST_IP=${DOCKER_HOST_IP}
 
+RUN rm -f /usr/share/omar/stager-app/stager-app.jar && \
+      ln -s /Users/sbortman/IdeaProjects/omar/apps/stager-app/build/libs/stager-app-1.0.0.jar /usr/share/omar/stager-app/stager-app.jar
+
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/stager-app/stager-app.sh"]
