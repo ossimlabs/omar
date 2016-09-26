@@ -46,6 +46,8 @@ services:
     #   - o2-db
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-db
   o2-wms:
     #build: ./o2-wms
     image: ossimlabs/o2-wms
@@ -66,6 +68,8 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-db
   o2-wfs:
     #build: ./o2-wfs
     image: ossimlabs/o2-wfs
@@ -86,6 +90,8 @@ services:
     #   - o2-wms
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-db
   # o2-wcs:
   #   #build: ./o2-wcs
   #   image: ossimlabs/o2-wcs
@@ -161,6 +167,11 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-wfs
+      - o2-wms
+      - o2-wmts
+      - o2-swipe
   o2-wmts:
     #build: ./o2-wmts
     image: ossimlabs/o2-wmts
@@ -183,6 +194,10 @@ services:
       # - o2-db
       # - o2-web-proxy
     restart: always
+    links:
+      - o2-wfs
+      - o2-wms
+
   o2-sqs:
     #build: ./o2-sqs
     image: ossimlabs/o2-sqs
@@ -211,6 +226,8 @@ services:
     #   - o2-avro
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-avro
   o2-avro:
     #build: ./o2-avro
     image: ossimlabs/o2-avro
@@ -235,6 +252,9 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-db
+      - o2-stager
   o2-jpip:
     #build: ./o2-jpip
     image: ossimlabs/o2-jpip
@@ -258,6 +278,9 @@ services:
     #   - o2-base
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-db
+      - o2-jpip-server
   o2-jpip-server:
     #build: ./o2-jpip-server
     image: ossimlabs/o2-jpip-server
@@ -294,6 +317,8 @@ services:
     #   - o2-base
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-db
   o2-download:
     #build: ./o2-download
     image: ossimlabs/o2-download
@@ -314,6 +339,8 @@ services:
     #   - o2-base
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-db
   o2-swipe:
     #build: ./o2-swipe
     image: ossimlabs/o2-swipe
@@ -337,6 +364,10 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
+    links:
+      - o2-db
+      - o2-wfs
+      - o2-wms
   o2-mensa:
     #build: ./o2-mensa
     image: ossimlabs/o2-mensa
@@ -373,3 +404,6 @@ services:
     ports:
       - "5015:8080"
     restart: always
+    links:
+      - o2-wfs
+      - o2-wms
