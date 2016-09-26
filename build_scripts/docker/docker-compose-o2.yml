@@ -46,8 +46,8 @@ services:
     #   - o2-db
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-db
+    # depends_on:
+    #   - o2-db
   o2-wms:
     #build: ./o2-wms
     image: ossimlabs/o2-wms
@@ -68,8 +68,8 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-db
+    # depends_on:
+    #   - o2-db
   o2-wfs:
     #build: ./o2-wfs
     image: ossimlabs/o2-wfs
@@ -90,8 +90,8 @@ services:
     #   - o2-wms
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-db
+    # depends_on:
+    #   - o2-db
   # o2-wcs:
   #   #build: ./o2-wcs
   #   image: ossimlabs/o2-wcs
@@ -167,11 +167,11 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-wfs
-      - o2-wms
-      - o2-wmts
-      - o2-swipe
+    # depends_on:
+    #   - o2-wfs
+    #   - o2-wms
+    #   - o2-wmts
+    #   - o2-swipe
   o2-wmts:
     #build: ./o2-wmts
     image: ossimlabs/o2-wmts
@@ -194,9 +194,9 @@ services:
       # - o2-db
       # - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-wfs
-      - o2-wms
+    # depends_on:
+    #   - o2-wfs
+    #   - o2-wms
 
   o2-sqs:
     #build: ./o2-sqs
@@ -207,7 +207,7 @@ services:
       AWSQUEUEPATH: 320588532383/avro-tst
       WAIT_TIME_SECONDS: 20
       NUMBER_OF_MESSAGES: 1
-      POLLING_INTERVAL_SECONDS: 10
+      POLgG_INTERVAL_SECONDS: 10
       DESTINATION_TYPE: post
       DESTINATION_POST_END_POINT: o2-avro
       DESTINATION_POST_END_POINT_PORT: :8080
@@ -226,8 +226,8 @@ services:
     #   - o2-avro
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-avro
+    # depends_on:
+    #   - o2-avro
   o2-avro:
     #build: ./o2-avro
     image: ossimlabs/o2-avro
@@ -252,9 +252,9 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-db
-      - o2-stager
+    # depends_on:
+    #   - o2-db
+    #   - o2-stager
   o2-jpip:
     #build: ./o2-jpip
     image: ossimlabs/o2-jpip
@@ -278,9 +278,6 @@ services:
     #   - o2-base
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-db
-      - o2-jpip-server
   o2-jpip-server:
     #build: ./o2-jpip-server
     image: ossimlabs/o2-jpip-server
@@ -295,8 +292,6 @@ services:
       - /data:/data
     ports:
       - "5004:8080"
-    #depends_on:
-      #- o2-base
     restart: always
   o2-superoverlay:
     #build: ./o2-superoverlay
@@ -317,8 +312,8 @@ services:
     #   - o2-base
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-db
+    # depends_on:
+    #   - o2-db
   o2-download:
     #build: ./o2-download
     image: ossimlabs/o2-download
@@ -339,8 +334,8 @@ services:
     #   - o2-base
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-db
+    # depends_on:
+    #   - o2-db
   o2-swipe:
     #build: ./o2-swipe
     image: ossimlabs/o2-swipe
@@ -364,10 +359,10 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
-    depends_on:
-      - o2-db
-      - o2-wfs
-      - o2-wms
+    # depends_on:
+    #   - o2-db
+    #   - o2-wfs
+    #   - o2-wms
   o2-mensa:
     #build: ./o2-mensa
     image: ossimlabs/o2-mensa
@@ -404,6 +399,6 @@ services:
     ports:
       - "5015:8080"
     restart: always
-    depends_on:
-      - o2-wfs
-      - o2-wms
+    # depends_on:
+    #   - o2-wfs
+    #   - o2-wms
