@@ -584,7 +584,7 @@
               </ul>
             </li>
           </ul>
-          <p class="navbar-text pull-right">&nbsp;&nbsp;Images:&nbsp;&nbsp;
+          <p class="navbar-text pull-right">&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="label label-primary">{{list.wfsData.length}}</span>
           </p>
         </div><!-- /.navbar-collapse -->
@@ -693,7 +693,7 @@
                          uib-tooltip="View rectified image"></i>&nbsp;&nbsp;
                       </a>
                       <a href="{{list.o2baseUrl}}/#/mapImage?filename={{image.properties.filename}}&entry_id={{image.properties.entry_id}}&width={{image.properties.width}}&height={{image.properties.height}}" target="_blank">
-                        <i class="fa fa-file-image-o fa-border text-primary"
+                        <i class="fa fa-desktop fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
                          uib-tooltip="View raw image"></i>&nbsp;&nbsp;
@@ -702,31 +702,31 @@
                         <i class="fa fa-map fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
-                         uib-tooltip="Download KML superoverlay"></i>&nbsp;&nbsp;
+                         uib-tooltip="Download KML"></i>&nbsp;&nbsp;
                       </a>
                       <a ng-href="" target="_blank" ng-click="list.shareModal(list.o2baseUrl + '/#/mapOrtho?layers=' + image.properties.id)">
                         <i class="fa fa-share-alt fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
-                         uib-tooltip="Share a link to this image"></i>
+                         uib-tooltip="Share link"></i>
                       </a>&nbsp;&nbsp;
                       <a ng-href="" target="_blank" ng-click="list.archiveDownload(image.properties.id)">
                         <i class="fa fa-download fa-border text-primary"
                           style="cursor: pointer;"
                           tooltip-placement="right"
-                          uib-tooltip="Download and archive files"></i>&nbsp;&nbsp;
+                          uib-tooltip="Download"></i>&nbsp;&nbsp;
                       </a>
                       <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream($event, image.properties.filename, image.properties.entry_id, 'chip', $index, 'stream');">
                         <i class="fa fa-file-image-o fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="top"
-                         uib-tooltip="JPIP image space stream link"></i>
+                         uib-tooltip="JPIP image"></i>
                       </a>&nbsp;
                       <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream($event, image.properties.filename, image.properties.entry_id, '4326', $index, 'ortho');">
                         <i class="fa fa-image fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="top"
-                         uib-tooltip="JPIP ortho (4326) stream link"></i>
+                         uib-tooltip="JPIP ortho"></i>
                       </a>
                     </p>
                   </div>
