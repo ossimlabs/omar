@@ -11,6 +11,10 @@ pushd `dirname $0` > /dev/null
 export SCRIPT_DIR=`pwd -P`
 popd >/dev/null
 
+if [ ! -d $JPIP_DATA_DIR ] ; then
+mkdir -p $JPIP_DATA_DIR
+fi
+
 #Set working directory
 pushd $JPIP_DATA_DIR
 if [ -z $PROGRAM_PID ]; then
