@@ -13,9 +13,8 @@
     var imageSpaceObj = {};
 
     //Used by band selection
+    var bands;
     var bandNum;
-
-    console.log( imageSpaceService );
 
     vm.archiveDownload = function( imageId ) {
       downloadService.downloadFiles( imageId );
@@ -65,15 +64,31 @@
       $scope.bandValues.push( { 'key': bandNum, 'value': bandNum } );
     }
 
-    $scope.rgbValues = { red: $scope.bandValues[0].value,
-                         green: $scope.bandValues[1].value,
-                         blue: $scope.bandValues[2].value };
+    $scope.grayValue = $scope.bandValues[0].value;
+    $scope.enableBandType = true;
 
     $scope.bandTypeItem = $scope.bandTypeValues[0];
     $scope.grayImageItem = $scope.bandValues[0];
     $scope.redImageItem = $scope.bandValues[0];
-    $scope.greenImageItem = $scope.bandValues[1];
-    $scope.blueImageItem = $scope.bandValues[2];
+
+    if ( $stateParams.bands >= 3 ) {
+
+      $scope.greenImageItem = $scope.bandValues[1];
+      $scope.blueImageItem = $scope.bandValues[2];
+
+      $scope.rgbValues = { red: $scope.bandValues[0].value,
+                           green: $scope.bandValues[1].value,
+                           blue: $scope.bandValues[2].value };
+    }else {
+      $scope.enableBandType = false;
+      $scope.greenImageItem = $scope.bandValues[0];
+      $scope.blueImageItem = $scope.bandValues[0];
+      $scope.rgbValues = { red: $scope.bandValues[0].value,
+                           green: $scope.bandValues[0].value,
+                           blue: $scope.bandValues[0].value };
+
+      //$( '#bandTypeItem' ).prop( 'disabled' );
+    }
 
     $scope.showBands =  function( bandType ) {
       switch ( bandType.toUpperCase() ){
@@ -88,25 +103,33 @@
         default:
           $( '#gray-image-space-bands' ).hide();
           $( '#rgb-image-space-bands' ).hide();
+          bands = '';
         break;
       }
 
       $scope.onBandSelect = function( selectedValue, selectedBand ) {
-        var bands;
 
         switch ( selectedBand.toUpperCase() ){
           case 'RED':
             $scope.rgbValues.red = selectedValue;
+            bands = $scope.rgbValues.red + ',' + $scope.rgbValues.green + ',' + $scope.rgbValues.blue;
           break;
           case 'GREEN':
             $scope.rgbValues.green = selectedValue;
+            bands = $scope.rgbValues.red + ',' + $scope.rgbValues.green + ',' + $scope.rgbValues.blue;
           break;
           case 'BLUE':
             $scope.rgbValues.blue = selectedValue;
+            bands = $scope.rgbValues.red + ',' + $scope.rgbValues.green + ',' + $scope.rgbValues.blue;
+          break;
+          case 'GRAY':
+            $scope.grayValue = selectedValue;
+            bands = $scope.grayValue;
+          break;
+          default:
+            bands = '';
           break;
         }
-
-        bands = $scope.rgbValues.red + ',' + $scope.rgbValues.green + ',' + $scope.rgbValues.blue;
 
         console.log( bands );
       };
