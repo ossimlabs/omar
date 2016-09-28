@@ -61,7 +61,7 @@
         <div id="image-space-bands">
           <div id="gray-image-space-bands" class="image-bands">
             <label for="male">Band:&nbsp;</label>
-            <ui-select id="grayImageItem" ng-model="grayImageItem" theme="bootstrap">
+            <ui-select id="grayImageItem" ng-model="grayImageItem" on-select="onBandSelect($select.selected.value)" themetheme="bootstrap">
               <ui-select-match>
                   <span ng-bind="$select.selected.value"></span>
               </ui-select-match>
@@ -73,7 +73,7 @@
           <div id="rgb-image-space-bands" class="image-bands">
             <div id="redImageBand" class="image-band-div">
               <label>Red:&nbsp;</label>
-              <ui-select id="redImageItem" ng-model="redImageItem" theme="bootstrap">
+              <ui-select id="redImageItem" ng-model="redImageItem" on-select="onBandSelect($select.selected.value, 'red')" theme="bootstrap">
                 <ui-select-match>
                     <span ng-bind="$select.selected.value"></span>
                 </ui-select-match>
@@ -84,7 +84,7 @@
             </div>
             <div id="greenImageBand" class="image-band-div">
               <label>Green:&nbsp;</label>
-              <ui-select id="greenImageItem" ng-model="greenImageItem" theme="bootstrap">
+              <ui-select id="greenImageItem" ng-model="greenImageItem" on-select="onBandSelect($select.selected.value, 'green')" theme="bootstrap">
                 <ui-select-match>
                     <span ng-bind="$select.selected.value"></span>
                 </ui-select-match>
@@ -95,7 +95,7 @@
             </div>
             <div id="blueImageBand" class="image-band-div">
               <label>Blue:&nbsp;</label>
-              <ui-select id="blueImageItem" ng-model="blueImageItem" theme="bootstrap">
+              <ui-select id="blueImageItem" ng-model="blueImageItem" on-select="onBandSelect($select.selected.value, 'blue')" theme="bootstrap">
                 <ui-select-match>
                     <span ng-bind="$select.selected.value"></span>
                 </ui-select-match>

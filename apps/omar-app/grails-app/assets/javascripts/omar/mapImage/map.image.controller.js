@@ -12,7 +12,7 @@
 
     var imageSpaceObj = {};
 
-    //used
+    //Used by band selection
     var bandNum;
 
     vm.archiveDownload = function( imageId ) {
@@ -62,6 +62,10 @@
       $scope.bandValues.push( { 'key': bandNum, 'value': bandNum } );
     }
 
+    $scope.rgbValues = { red: $scope.bandValues[0].value,
+                         green: $scope.bandValues[1].value,
+                         blue: $scope.bandValues[2].value };
+
     $scope.bandTypeItem = $scope.bandTypeValues[1];
     $scope.grayImageItem = $scope.bandValues[0];
     $scope.redImageItem = $scope.bandValues[0];
@@ -77,6 +81,26 @@
         $( '#gray-image-space-bands' ).show();
         $( '#rgb-image-space-bands' ).hide();
       }
+
+      $scope.onBandSelect = function( selectedValue, selectedBand ) {
+        var bands;
+
+        switch ( selectedBand.toUpperCase() ){
+          case 'RED':
+            $scope.rgbValues.red = selectedValue;
+          break;
+          case 'GREEN':
+            $scope.rgbValues.green = selectedValue;
+          break;
+          case 'BLUE':
+            $scope.rgbValues.blue = selectedValue;
+          break;
+        }
+
+        bands = $scope.rgbValues.red + ',' + $scope.rgbValues.green + ',' + $scope.rgbValues.blue;
+
+        console.log( bands );
+      };
 
     };
 
