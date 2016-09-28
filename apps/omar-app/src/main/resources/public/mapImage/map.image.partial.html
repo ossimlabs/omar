@@ -61,7 +61,7 @@
         <div id="image-space-bands">
           <div id="gray-image-space-bands" class="image-bands">
             <label for="male">Band:&nbsp;</label>
-            <ui-select id="grayImageItem" ng-model="grayImageItem" on-select="onBandSelect($select.selected.value)" themetheme="bootstrap">
+            <ui-select id="grayImageItem" ng-model="grayImageItem" on-select="onBandSelect($select.selected.value, 'gray')" themetheme="bootstrap">
               <ui-select-match>
                   <span ng-bind="$select.selected.value"></span>
               </ui-select-match>
