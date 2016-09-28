@@ -49,7 +49,11 @@
         <hr>
         <p>Band Selection</p>
           <div id="band-type" class="image-bands">
-            <ui-select id="bandTypeItem" ng-model="bandTypeItem" on-select="showBands($select.selected.value)" theme="bootstrap">
+            <ui-select id="bandTypeItem"
+                ng-model="bandTypeItem"
+                on-select="showBands($select.selected.value)"
+                ng-disabled="enableBandType != true"
+                theme="bootstrap">
               <ui-select-match>
                   <span ng-bind="$select.selected.value"></span>
               </ui-select-match>
