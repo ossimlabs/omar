@@ -19,16 +19,16 @@ zuul:
     o2-mensa:
       path: /o2-mensa/**
       serviceId: o2-mensa
-      //strip-prefix: false
+      strip-prefix: false
     o2-wfs:
       path: /o2-wfs/**
       serviceId: o2-wfs
-      //strip-prefix: false
+      strip-prefix: false
     o2-wms:
       path: /o2-wms/**
       serviceId: o2-wms
-      //strip-prefix: false
+      strip-prefix: false
     omar-app:
       path: /o2-omar/**
       serviceId: o2-omar
-      //strip-prefix: false
+      strip-prefix: false

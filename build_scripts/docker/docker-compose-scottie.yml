@@ -1,7 +1,7 @@
 version: '2'
 services:
   o2-web-proxy:
-  #  build: ./o2-web-proxy
+    build: ./o2-web-proxy
     image: ossimlabs/o2-web-proxy
     container_name: o2-web-proxy
     environment:

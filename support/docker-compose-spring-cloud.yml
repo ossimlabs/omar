@@ -8,6 +8,7 @@ services:
     image: ossimlabs/omar-config-server
     volumes:
       - /dev/urandom:/dev/random
+      - /home:/home
     ports:
       - "8888:8888"
   omar-eureka-server:
@@ -17,6 +18,7 @@ services:
      container_name: omar-eureka-server
      image: ossimlabs/omar-eureka-server
      volumes:
+       - /home:/home
        - /dev/urandom:/dev/random
      ports:
        - "8761:8761"
@@ -27,6 +29,7 @@ services:
      container_name: omar-zuul-server
      image: ossimlabs/omar-zuul-server
      volumes:
+       - /home:/home
        - /dev/urandom:/dev/random
      ports:
        - "8765:8765"
