@@ -16,7 +16,7 @@
     var url;
     var twofishProxy = AppO2.APP_CONFIG.params.twofishes.proxy;
 
-    vm.placeholder = 'Search...';
+    vm.placeholder = 'Search O2 Map';
     vm.baseUrl = AppO2.APP_CONFIG.serverURL;
 
     // cache DOM
@@ -46,12 +46,12 @@
      * @function clearSearch
      * @memberof Search
      */
-    function clearSearch() {
-      $searchInput.val('');
-
-      //Map.clearLayerSource(Map.searchLayerVector);
-
-    }
+    // function clearSearch() {
+    //   $searchInput.val('');
+    //
+    //   //Map.clearLayerSource(Map.searchLayerVector);
+    //
+    // }
 
     // function changeSearchType() {
     //
@@ -82,7 +82,7 @@
      */
     function searchByPlace() {
 
-      $searchInput.val('');
+      //$searchInput.val('');
 
       $searchInput.autocomplete('enable');
 
@@ -113,12 +113,14 @@
             };
           },
         onSelect: function (suggestion) {
-            //console.log('You selected: ' + suggestion.value + ', \n' + suggestion.lat + ', \n' + suggestion.lng);
+
+            //console.log('You selected: ' + suggestion.value +
+            //', \n' + suggestion.lat + ', \n' + suggestion.lng);
             //console.log('suggestion', suggestion);
             var sug;
             if (suggestion.bounds === undefined) {
 
-              console.log('bounds is undefined!');
+              //console.log('bounds is undefined!');
 
               // Map.zoomTo(suggestion.lat, suggestion.lng);
               // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
