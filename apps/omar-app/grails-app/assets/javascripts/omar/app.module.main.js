@@ -10,7 +10,8 @@
       'mgcrea.ngStrap',
       'slickCarousel',
       'toggle-switch',
-      'angular-clipboard'])
+      'angular-clipboard',
+      'ui.select'])
     .config(['$stateProvider', '$urlRouterProvider',
 
       function ($stateProvider, $urlRouterProvider) {
@@ -37,7 +38,7 @@
                   templateUrl: AppO2.APP_CONFIG.serverURL + '/mapOrtho/map.ortho.partial.html'
                 })
                 .state('mapImage', {
-                  url: '/mapImage?filename=&entry_id=&width=&height',
+                  url: '/mapImage?filename=&entry_id=&width=&height&bands=',
                   templateUrl: AppO2.APP_CONFIG.serverURL + '/mapImage/map.image.partial.html'
                 })
                 .state('wfs', {
