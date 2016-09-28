@@ -386,6 +386,7 @@ body {
     float: right;
 }
 
+#gray-image-space-bands,
 #rgb-image-space-bands{
     display: none;
 }
