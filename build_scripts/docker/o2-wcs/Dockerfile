@@ -12,7 +12,6 @@ RUN yum -y install o2-wcs-app \
     && yum -y install ossim-kakadu-plugin \
     && yum -y install ossim-jpeg12-plugin \
     && yum -y install ossim-sqlite-plugin \
-    && yum -y install ossim-hdf5-plugin \
     && yum -y install ossim-geopdf-plugin \
     && yum -y install ossim-png-plugin \
     && yum -y install install ossim-gdal-plugin.x86_64 \

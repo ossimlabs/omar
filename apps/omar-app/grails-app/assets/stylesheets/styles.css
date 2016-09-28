@@ -141,9 +141,14 @@ body {
     text-decoration: none;
 }
 
-#imageMap {
-    width: 100%;
-    height: 90%;
+.imageMapModal {
+  width: 100%;
+  height: 60%;
+}
+
+.imageMap {
+  width: 100%;
+  height: 90%;
 }
 
 #mapOrtho {
@@ -276,7 +281,7 @@ body {
 
 
 .nav-download .dropdown-menu{
-  min-width: 135px;
+  min-width: 112px;
 }
 
 /*.navbar-default .navbar-nav > .nav-download{
