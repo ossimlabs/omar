@@ -5,13 +5,13 @@ function runCommand()
   echo $*
   eval $*
   if [ $? != 0 ] ; then 
-    echo "ERROR: Failed while executing command: <$1>."
+    echo "ERROR: Failed while executing command: <$*>."
     echo; exit 1;
   fi
 }
 
 if [ -z $S3_DELIVERY_BUCKET ]; then
-  S3_DELIVERY_BUCKET="s3://o2-delivery"
+  S3_DELIVERY_BUCKET="s3://o2-delivery/temp"
   echo "WARNING: No URL specified for S3 delivery bucket. Defaulting S3_DELIVERY_BUCKET = <$S3_DELIVERY_BUCKET>"
   echo;
 fi
