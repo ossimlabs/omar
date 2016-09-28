@@ -369,6 +369,29 @@ body {
     color:black !important;
 }
 
+#grayImageItem,
+#redImageItem,
+#greenImageItem,
+#blueImageItem {
+    display: inline-block;
+    vertical-align: middle;
+    width: 60px;
+    float: right;
+}
+
+#rgb-image-space-bands{
+    display: none;
+}
+
+.image-bands {
+    width: 110px;
+}
+
+ .image-band-div{
+   margin-top: 10px;
+   height: 50px;
+ }
+
 #mapOrtho:-moz-full-screen {
     height: 100%;
 }

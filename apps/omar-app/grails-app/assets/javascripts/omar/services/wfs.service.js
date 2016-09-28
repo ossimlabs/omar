@@ -7,11 +7,11 @@
         function wfsService ($rootScope, $http, $timeout) {
 
             // #################################################################################
-            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It 
+            // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
             // provides access to various client params in application.yml
             // #################################################################################
             //console.log('AppO2.APP_CONFIG in wfsService: ', AppO2.APP_CONFIG);
-            
+
             //var wfsClient;
             //wfsClient = new OGC.WFS.Client(APP_CONFIG.services.omar.wfsUrl);
             //console.log(APP_CONFIG.services.omar.wfsUrl);
@@ -183,7 +183,7 @@
                 wfsRequest.cql = 'id in(' + wfsImageString + ')';
 
                 //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-                var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl;;
+                var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl;
 
                 // TODO: Refactor and use string from other wfs method
                 var wfsUrl = wfsRequestUrl +
