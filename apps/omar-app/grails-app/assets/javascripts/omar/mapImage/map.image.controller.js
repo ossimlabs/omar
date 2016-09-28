@@ -64,17 +64,31 @@
       $scope.bandValues.push( { 'key': bandNum, 'value': bandNum } );
     }
 
-    $scope.rgbValues = { red: $scope.bandValues[0].value,
-                         green: $scope.bandValues[1].value,
-                         blue: $scope.bandValues[2].value };
-
     $scope.grayValue = $scope.bandValues[0].value;
+    $scope.enableBandType = true;
 
     $scope.bandTypeItem = $scope.bandTypeValues[0];
     $scope.grayImageItem = $scope.bandValues[0];
     $scope.redImageItem = $scope.bandValues[0];
-    $scope.greenImageItem = $scope.bandValues[1];
-    $scope.blueImageItem = $scope.bandValues[2];
+
+    if ( $stateParams.bands >= 3 ) {
+
+      $scope.greenImageItem = $scope.bandValues[1];
+      $scope.blueImageItem = $scope.bandValues[2];
+
+      $scope.rgbValues = { red: $scope.bandValues[0].value,
+                           green: $scope.bandValues[1].value,
+                           blue: $scope.bandValues[2].value };
+    }else {
+      $scope.enableBandType = false;
+      $scope.greenImageItem = $scope.bandValues[0];
+      $scope.blueImageItem = $scope.bandValues[0];
+      $scope.rgbValues = { red: $scope.bandValues[0].value,
+                           green: $scope.bandValues[0].value,
+                           blue: $scope.bandValues[0].value };
+
+      //$( '#bandTypeItem' ).prop( 'disabled' );
+    }
 
     $scope.showBands =  function( bandType ) {
       switch ( bandType.toUpperCase() ){
