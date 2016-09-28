@@ -24,528 +24,528 @@
         <div class="col-sm-7">
           <ul class="nav navbar-nav navbar-right" ng-controller="FilterController as filter">
             <p class="navbar-text">Filters</p>
-              <li class="dropdown">
-                <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
-                  &nbsp;Spatial<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <div class="yamm-content">
-                      <div ng-click="$event.stopPropagation();" style="padding-bottom: 0px;" class="yamm-content">
-                        <div class="row">
-                          <p class="text-center">Select a spatial filter from the items below</p>
-                        </div>
-                        <form class="form">
-                          <div class="row">
-                            <div class="col-md-8">
-                              <h4>Map Viewport</h4>
-                            </div>
-                            <div class="col-md-2">
-                              <toggle-switch
-                                ng-model="filter.viewPortSpatial"
-                                ng-change="filter.byViewPort(filter.viewPortSpatial)">
-                              </toggle-switch>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12"><small class="text-muted">This filter is on by default.  It constrains the
-                              query to the boundaries of the current map extent</small>
-                            </div>
-                            <hr>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-8">
-                              <h4>Point</h4>
-                            </div>
-                            <div class="col-md-2">
-                              <toggle-switch
-                                ng-model="filter.pointSpatial"
-                                ng-change="filter.byPointer(filter.pointSpatial);">
-                              </toggle-switch>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12"><small class="text-muted">Single clicking on the map
-                              will return a potential list of images at that location</small>
-                            </div>
-                            <hr>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-8">
-                              <h4>Polygon</h4>
-                            </div>
-                            <div class="col-md-2">
-                              <toggle-switch
-                                ng-model="filter.polygonSpatial"
-                                ng-change="filter.byPolygon(filter.polygonSpatial)">
-                              </toggle-switch>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12"><small class="text-muted">Left-click and hold with the
-                              ALT key to create a box that will return a potential list of images
-                              </small>
-                            </div>
-                            <hr>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                 aria-expanded="false"><span class="fa fa-clock-o" aria-hidden="true"></span>
-                 &nbsp;Temporal<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li>
+            <li class="dropdown">
+              <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
+                &nbsp;Spatial<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <div class="yamm-content">
                     <div ng-click="$event.stopPropagation();" style="padding-bottom: 0px;" class="yamm-content">
                       <div class="row">
-                        <p>Select a date type and duration filter from the select boxes below</p>
+                        <p class="text-center">Select a spatial filter from the items below</p>
                       </div>
                       <form class="form">
                         <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="temporalTypeFilter">Date Type</label>
-                              <select ng-model="filter.currentDateType"
-                                ng-options="type.label for type in filter.dateTypes"
-                                ng-change="filter.updateFilterString()"
-                                id="temporalTypeFilter"
-                                class="form-control">
-                              </select>
-                            </div>
+                          <div class="col-md-8">
+                            <h4>Map Viewport</h4>
                           </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="temporalDuration">Duration</label>
-                              <select ng-model="filter.currentTemporalDuration"
-                                ng-options="duration.label for duration in filter.temporalDurations"
-                                ng-change="filter.updateFilterString()"
-                                id="temporalDuration"
-                                class="form-control">
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row" ng-show="filter.customDateRangeVisible">
-                          <div class="col-md-12">
-                            <label class="">Custom Dates</label>
+                          <div class="col-md-2">
+                            <toggle-switch
+                              ng-model="filter.viewPortSpatial"
+                              ng-change="filter.byViewPort(filter.viewPortSpatial)">
+                            </toggle-switch>
                           </div>
                         </div>
                         <div class="row">
-                          <div class="row" ng-show="filter.customDateRangeVisible">
-                            <div class="col-md-6"><p class="text-center">Start Time & Date</p></div>
-                            <div class="col-md-6"><p class="text-center">End Time & Date</p></div>
+                          <div class="col-md-12"><small class="text-muted">This filter is on by default.  It constrains the
+                            query to the boundaries of the current map extent</small>
                           </div>
-                          <div class="row" ng-show="filter.customDateRangeVisible">
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <input type="text" class="form-control"
-                                 ng-model="filter.startDate"
-                                 ng-change="filter.updateFilterString();"
-                                 data-time-format="HH:mm:ss a"
-                                 data-autoclose="false"
-                                 data-minute-step="1"
-                                 data-second-step="1"
-                                 placeholder="Time" bs-timepicker>
-                              </div>
-                              <div style="display:inline-block;">
-                                <uib-datepicker
-                                  ng-model="filter.startDate"
-                                  ng-change="filter.updateFilterString();"
-                                  show-weeks="false"
-                                  class="well well-sm">
-                                </uib-datepicker>
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <input type="text" size="8" class="form-control"
-                                 ng-model="filter.endDate"
-                                 data-time-format="HH:mm:ss a"
-                                 data-autoclose="0" placeholder="Time" bs-timepicker>
-                              </div>
-                              <div style="display:inline-block;">
-                                <uib-datepicker
-                                  ng-model="filter.endDate"
-                                  ng-change="filter.updateFilterString();"
-                                  show-weeks="false"
-                                  class="well well-sm">
-                                </uib-datepicker>
-                              </div>
-                            </div>
+                          <hr>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-8">
+                            <h4>Point</h4>
                           </div>
+                          <div class="col-md-2">
+                            <toggle-switch
+                              ng-model="filter.pointSpatial"
+                              ng-change="filter.byPointer(filter.pointSpatial);">
+                            </toggle-switch>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12"><small class="text-muted">Single clicking on the map
+                            will return a potential list of images at that location</small>
+                          </div>
+                          <hr>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-8">
+                            <h4>Polygon</h4>
+                          </div>
+                          <div class="col-md-2">
+                            <toggle-switch
+                              ng-model="filter.polygonSpatial"
+                              ng-change="filter.byPolygon(filter.polygonSpatial)">
+                            </toggle-switch>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12"><small class="text-muted">Left-click and hold with the
+                            ALT key to create a box that will return a potential list of images
+                            </small>
+                          </div>
+                          <hr>
                         </div>
                       </form>
                     </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
-                    &nbsp;Keywords
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li class="yamm-content">
-                    <div id="keywords">
-                      <form>
-                        <div class="row">
-                          <p class="text-center">Toggle the switch for a keyword parameter below to use it
-                            as a filter</p>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Image ID</h4>
-                          </div>
-                          <div class="col-md-6">
-                            <input ng-model="filter.imageId"
-                             ng-disabled="!filter.imageIdCheck" class="form-control"
-                             id="imageIdInput"
-                             vaule="{{filter.imageId}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.imageIdCheck"
-                              class="switch-success">
-                            </toggle-switch>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false"><span class="fa fa-clock-o" aria-hidden="true"></span>
+               &nbsp;Temporal<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <div ng-click="$event.stopPropagation();" style="padding-bottom: 0px;" class="yamm-content">
+                    <div class="row">
+                      <p>Select a date type and duration filter from the select boxes below</p>
+                    </div>
+                    <form class="form">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="temporalTypeFilter">Date Type</label>
+                            <select ng-model="filter.currentDateType"
+                              ng-options="type.label for type in filter.dateTypes"
+                              ng-change="filter.updateFilterString()"
+                              id="temporalTypeFilter"
+                              class="form-control">
+                            </select>
                           </div>
                         </div>
-                        <br>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Mission</h4>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="temporalDuration">Duration</label>
+                            <select ng-model="filter.currentTemporalDuration"
+                              ng-options="duration.label for duration in filter.temporalDurations"
+                              ng-change="filter.updateFilterString()"
+                              id="temporalDuration"
+                              class="form-control">
+                            </select>
                           </div>
+                        </div>
+                      </div>
+                      <div class="row" ng-show="filter.customDateRangeVisible">
+                        <div class="col-md-12">
+                          <label class="">Custom Dates</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row" ng-show="filter.customDateRangeVisible">
+                          <div class="col-md-6"><p class="text-center">Start Time & Date</p></div>
+                          <div class="col-md-6"><p class="text-center">End Time & Date</p></div>
+                        </div>
+                        <div class="row" ng-show="filter.customDateRangeVisible">
                           <div class="col-md-6">
-                            <input ng-model="filter.missionId"
-                             ng-disabled="!filter.missionIdCheck" class="form-control"
-                             id="missionIdInput"
-                             value="{{filter.missionId}}">
-                          </div>
-                            <div class="col-md-2">
-                              <toggle-switch
-                                ng-model="filter.missionIdCheck"
-                                class="switch-success">
-                              </toggle-switch>
+                            <div class="form-group">
+                              <input type="text" class="form-control"
+                               ng-model="filter.startDate"
+                               ng-change="filter.updateFilterString();"
+                               data-time-format="HH:mm:ss a"
+                               data-autoclose="false"
+                               data-minute-step="1"
+                               data-second-step="1"
+                               placeholder="Time" bs-timepicker>
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Sensor</h4>
+                            <div style="display:inline-block;">
+                              <uib-datepicker
+                                ng-model="filter.startDate"
+                                ng-change="filter.updateFilterString();"
+                                show-weeks="false"
+                                class="well well-sm">
+                              </uib-datepicker>
+                            </div>
                           </div>
                           <div class="col-md-6">
-                            <input ng-model="filter.sensorId"
-                             ng-disabled="!filter.sensorIdCheck" class="form-control"
-                             id="sensorIdInput"
-                             value="{{filter.sensorId}}">
+                            <div class="form-group">
+                              <input type="text" size="8" class="form-control"
+                               ng-model="filter.endDate"
+                               data-time-format="HH:mm:ss a"
+                               data-autoclose="0" placeholder="Time" bs-timepicker>
+                            </div>
+                            <div style="display:inline-block;">
+                              <uib-datepicker
+                                ng-model="filter.endDate"
+                                ng-change="filter.updateFilterString();"
+                                show-weeks="false"
+                                class="well well-sm">
+                              </uib-datepicker>
+                            </div>
                           </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                 aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
+                  &nbsp;Keywords
+                  <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class="yamm-content">
+                  <div id="keywords">
+                    <form>
+                      <div class="row">
+                        <p class="text-center">Toggle the switch for a keyword parameter below to use it
+                          as a filter</p>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Image ID</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <input ng-model="filter.imageId"
+                           ng-disabled="!filter.imageIdCheck" class="form-control"
+                           id="imageIdInput"
+                           vaule="{{filter.imageId}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.imageIdCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Mission</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <input ng-model="filter.missionId"
+                           ng-disabled="!filter.missionIdCheck" class="form-control"
+                           id="missionIdInput"
+                           value="{{filter.missionId}}">
+                        </div>
                           <div class="col-md-2">
                             <toggle-switch
-                              ng-model="filter.sensorIdCheck"
+                              ng-model="filter.missionIdCheck"
                               class="switch-success">
                             </toggle-switch>
                           </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Sensor</h4>
                         </div>
-                        <br>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>BE Num.</h4>
-                          </div>
-                          <div class="col-md-6">
-                            <input ng-model="filter.beNumber"
-                             ng-disabled="!filter.beNumberCheck" class="form-control"
-                             id="beNumberInput"
-                             value="{{filter.beNumber}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.beNumberCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
+                        <div class="col-md-6">
+                          <input ng-model="filter.sensorId"
+                           ng-disabled="!filter.sensorIdCheck" class="form-control"
+                           id="sensorIdInput"
+                           value="{{filter.sensorId}}">
                         </div>
-                        <br>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Target ID</h4>
-                          </div>
-                          <div class="col-md-6">
-                            <input ng-model="filter.targetId"
-                             ng-disabled="!filter.targetIdCheck" class="form-control"
-                             id="targetIdInput"
-                             value="{{filter.targetId}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.targetIdCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.sensorIdCheck"
+                            class="switch-success">
+                          </toggle-switch>
                         </div>
-                        <br>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>WAC ID</h4>
-                          </div>
-                          <div class="col-md-6">
-                          <input ng-model="filter.wacNumber"
-                           ng-disabled="!filter.wacNumberCheck" class="form-control"
-                           id="wacNumberInput"
-                           value="{{filter.wacNumber}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.wacNumberCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>BE Num.</h4>
                         </div>
-                        <br>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>File Name</h4>
-                          </div>
-                          <div class="col-md-6">
-                            <input ng-model="filter.filename"
-                             ng-disabled="!filter.filenameCheck"class="form-control" id="filenameInput"
-                             value="{{filter.filename}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.filenameCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
+                        <div class="col-md-6">
+                          <input ng-model="filter.beNumber"
+                           ng-disabled="!filter.beNumberCheck" class="form-control"
+                           id="beNumberInput"
+                           value="{{filter.beNumber}}">
                         </div>
-                        <br>
-                        <div class="row text-center">
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.beNumberCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Target ID</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <input ng-model="filter.targetId"
+                           ng-disabled="!filter.targetIdCheck" class="form-control"
+                           id="targetIdInput"
+                           value="{{filter.targetId}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.targetIdCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>WAC ID</h4>
+                        </div>
+                        <div class="col-md-6">
+                        <input ng-model="filter.wacNumber"
+                         ng-disabled="!filter.wacNumberCheck" class="form-control"
+                         id="wacNumberInput"
+                         value="{{filter.wacNumber}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.wacNumberCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>File Name</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <input ng-model="filter.filename"
+                           ng-disabled="!filter.filenameCheck"class="form-control" id="filenameInput"
+                           value="{{filter.filename}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.filenameCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row text-center">
+                        <button class="btn btn-primary" type="button"
+                          ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
+                        </button>
+                        <button class="btn btn-warning" type="button"
+                          ng-click="filter.initKeywords();">Reset
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false"><span class="fa fa-sliders" aria-hidden="true"></span>
+                &nbsp;Ranges
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class="yamm-content">
+                  <div class="ranges">
+                    <form>
+                      <div class="row">
+                        <p class="text-center">Toggle the switch for a range parameter below to use it as a
+                          filter</p>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 col-md-offset-3 text-center">
+                          <label class="label label-primary">Minimum</label>
+                        </div>
+                        <div class="col-md-2 text-center">
+                          <label class="label label-primary">Maximum</label>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Predicted NIIRS</h4>
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.predNiirsMin"
+                           ng-disabled="!filter.predNiirsCheck" class="form-control" id="niirsMin"
+                           placeholder="0.0" value="{{filter.predNiirsMin}}">
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.predNiirsMax"
+                           ng-disabled="!filter.predNiirsCheck" class="form-control" id="niirsMax"
+                           placeholder="9.0" value="{{filter.predNiirsMax}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.predNiirsCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-10">
+                          <small class="text-muted">Valid ranges  0.0 to 9.0</small>
+                          <hr>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Azimuth</h4>
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.azimuthMin"
+                           ng-disabled="!filter.azimuthCheck" class="form-control" id="azimuthMin"
+                           placeholder="0.0" value="{{filter.azimuthMin}}">
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.azimuthMax"
+                           ng-disabled="!filter.azimuthCheck" class="form-control" id="azimuthMax"
+                           placeholder="0.0" value="{{filter.azimuthMax}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.azimuthCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-10">
+                          <small class="text-muted">Valid ranges 0 to 360 degrees</small>
+                          <hr>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Graze/Elevation</h4>
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.grazeElevMin"
+                           ng-disabled="!filter.grazeElevCheck" class="form-control" id="grazeElevMin"
+                           placeholder="0.0" value="{{filter.grazeElevMin}}">
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.grazeElevMax"
+                           ng-disabled="!filter.grazeElevCheck" class="form-control"
+                           id="grazeElevMax"
+                           placeholder="90.0" value="{{filter.grazeElevMax}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.grazeElevCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-10">
+                          <small class="text-muted">Valid ranges 0 to 90 degrees</small>
+                          <hr>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Sun Azimuth</h4>
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.sunAzimuthMin"
+                           ng-disabled="!filter.sunAzimuthCheck" class="form-control" id="sunAzimuthMin"
+                           placeholder="0.0" value="{{filter.sunAzimuthMin}}">
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.sunAzimuthMax"
+                           ng-disabled="!filter.sunAzimuthCheck" class="form-control"
+                           id="sunAzimuthMax" placeholder="9.0" value="{{filter.sunAzimuthMax}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.sunAzimuthCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-10">
+                          <small class="text-muted">Valid ranges 0 to 360 degrees</small>
+                          <hr>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Sun Elevation</h4>
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.sunElevationMin"
+                           ng-disabled="!filter.sunElevationCheck" class="form-control"
+                           id="sunElevationMin" placeholder="0.0" value="{{filter.sunElevationMin}}">
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.sunElevationMax"
+                           ng-disabled="!filter.sunElevationCheck" class="form-control"
+                           id="sunElevationMax" placeholder="90.0" value="{{filter.sunElevationMax}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.sunElevationCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-10">
+                          <small class="text-muted">Valid ranges -90 to 90 degrees</small>
+                          <hr>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Cloud Cover</h4>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-2">
+                          <input ng-model="filter.cloudCover"
+                           ng-disabled="!filter.cloudCoverCheck" class="form-control" id="cloudCover"
+                           placeholder="10.0">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.cloudCoverCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-10">
+                          <small class="text-muted">Valid ranges 0 to 100%</small>
+                          <hr>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="text-center">
                           <button class="btn btn-primary" type="button"
                             ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
                           </button>
                           <button class="btn btn-warning" type="button"
-                            ng-click="filter.initKeywords();">Reset
+                            ng-click="filter.initRanges();">Reset
                           </button>
                         </div>
-                      </form>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false"><span class="fa fa-sliders" aria-hidden="true"></span>
-                  &nbsp;Ranges
-                  <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li class="yamm-content">
-                    <div class="ranges">
-                      <form>
-                        <div class="row">
-                          <p class="text-center">Toggle the switch for a range parameter below to use it as a
-                            filter</p>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 col-md-offset-3 text-center">
-                            <label class="label label-primary">Minimum</label>
-                          </div>
-                          <div class="col-md-2 text-center">
-                            <label class="label label-primary">Maximum</label>
-                          </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Predicted NIIRS</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.predNiirsMin"
-                             ng-disabled="!filter.predNiirsCheck" class="form-control" id="niirsMin"
-                             placeholder="0.0" value="{{filter.predNiirsMin}}">
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.predNiirsMax"
-                             ng-disabled="!filter.predNiirsCheck" class="form-control" id="niirsMax"
-                             placeholder="9.0" value="{{filter.predNiirsMax}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.predNiirsCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <small class="text-muted">Valid ranges  0.0 to 9.0</small>
-                            <hr>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Azimuth</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.azimuthMin"
-                             ng-disabled="!filter.azimuthCheck" class="form-control" id="azimuthMin"
-                             placeholder="0.0" value="{{filter.azimuthMin}}">
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.azimuthMax"
-                             ng-disabled="!filter.azimuthCheck" class="form-control" id="azimuthMax"
-                             placeholder="0.0" value="{{filter.azimuthMax}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.azimuthCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <small class="text-muted">Valid ranges 0 to 360 degrees</small>
-                            <hr>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Graze/Elevation</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.grazeElevMin"
-                             ng-disabled="!filter.grazeElevCheck" class="form-control" id="grazeElevMin"
-                             placeholder="0.0" value="{{filter.grazeElevMin}}">
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.grazeElevMax"
-                             ng-disabled="!filter.grazeElevCheck" class="form-control"
-                             id="grazeElevMax"
-                             placeholder="90.0" value="{{filter.grazeElevMax}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.grazeElevCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <small class="text-muted">Valid ranges 0 to 90 degrees</small>
-                            <hr>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Sun Azimuth</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.sunAzimuthMin"
-                             ng-disabled="!filter.sunAzimuthCheck" class="form-control" id="sunAzimuthMin"
-                             placeholder="0.0" value="{{filter.sunAzimuthMin}}">
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.sunAzimuthMax"
-                             ng-disabled="!filter.sunAzimuthCheck" class="form-control"
-                             id="sunAzimuthMax" placeholder="9.0" value="{{filter.sunAzimuthMax}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.sunAzimuthCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <small class="text-muted">Valid ranges 0 to 360 degrees</small>
-                            <hr>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Sun Elevation</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.sunElevationMin"
-                             ng-disabled="!filter.sunElevationCheck" class="form-control"
-                             id="sunElevationMin" placeholder="0.0" value="{{filter.sunElevationMin}}">
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.sunElevationMax"
-                             ng-disabled="!filter.sunElevationCheck" class="form-control"
-                             id="sunElevationMax" placeholder="90.0" value="{{filter.sunElevationMax}}">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.sunElevationCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <small class="text-muted">Valid ranges -90 to 90 degrees</small>
-                            <hr>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h4>Cloud Cover</h4>
-                          </div>
-                          <div class="col-md-2">
-                          </div>
-                          <div class="col-md-2">
-                            <input ng-model="filter.cloudCover"
-                             ng-disabled="!filter.cloudCoverCheck" class="form-control" id="cloudCover"
-                             placeholder="10.0">
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.cloudCoverCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <small class="text-muted">Valid ranges 0 to 100%</small>
-                            <hr>
-                          </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                          <div class="text-center">
-                            <button class="btn btn-primary" type="button"
-                              ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
-                            </button>
-                            <button class="btn btn-warning" type="button"
-                              ng-click="filter.initRanges();">Reset
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="dropdown nav-download">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span class="fa fa-download" aria-hidden="true"></span>&nbsp;Exports
-                  <span class="caret"></span>
-                </a>
-                  <ul class="dropdown-menu" ng-controller="WFSOutputDlController as wfsOutputDownload">
-                    <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('JSON')">JSON</a></li>
-                    <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('KML')">KML</a></li>
-                    <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('CSV')">CSV</a></li>
-                    <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML2')">GML2</a></li>
-                    <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML3')">GML3</a></li>
-                    <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML32')">GML32</a></li>
-                  </ul>
+                      </div>
+                    </form>
+                  </div>
                 </li>
+              </ul>
+            </li>
+            <li class="dropdown nav-download">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="fa fa-download" aria-hidden="true"></span>&nbsp;Exports
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" ng-controller="WFSOutputDlController as wfsOutputDownload">
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('JSON')">JSON</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('KML')">KML</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('CSV')">CSV</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML2')">GML2</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML3')">GML3</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML32')">GML32</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -708,7 +708,7 @@
                          uib-tooltip="View rectified image"></i>&nbsp;&nbsp;
                       </a>
                       <a href="{{list.o2baseUrl}}/#/mapImage?filename={{image.properties.filename}}&entry_id={{image.properties.entry_id}}&width={{image.properties.width}}&height={{image.properties.height}}&bands={{image.properties.number_of_bands}}" target="_blank">
-                        <i class="fa fa-file-image-o fa-border text-primary"
+                        <i class="fa fa-desktop fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
                          uib-tooltip="View raw image"></i>&nbsp;&nbsp;
