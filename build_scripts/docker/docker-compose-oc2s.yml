@@ -137,7 +137,7 @@ services:
       SWIPEURL: oc2s-docker-test-01.rbtcloud.com/o2-swipe/swipe/index
       SWIPEPORT:
       SWIPEENABLED: "true"
-      JPIPURL: http://oc2s-docker-test-01.rbtcloud.com/o2-jpip/jpip
+      JPIPURL: http://oc2s-docker-test-01.rbtcloud.com/o2-jpip
       JPIPPORT:
       JPIPENABLED: "true"
       WMTSURL: oc2s-docker-test-01.rbtcloud.com/o2-wmts
