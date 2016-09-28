@@ -2,7 +2,7 @@
 
 function runCommand() 
 {
-  sudo $1
+  $*
   if [ $? != 0 ] ; then 
     echo "ERROR: Failed while executing command: <$1>."
     echo; exit 1;
@@ -29,14 +29,18 @@ for app in ${O2_APPS[@]} ; do
    if [ $exists != "0" ]; then
       
       # Export the image to local tar file
-      tarfile="${app}-${TAG}.tar"
+      tarfile="${app}-${TAG}.tgz"
       echo "Exporting docker image ${imagename} to $tarfile"
-      runCommand "docker save ${imagename} -o $tarfile"
+      runCommand "docker save ${imagename} \| gzip \> $tarfile"
    
       # upload the tar file to S3
       echo "Uploading $tarfile to $S3_DELIVERY_BUCKET"
       runCommand "aws s3 cp $tarfile $S3_DELIVERY_BUCKET/"
       echo "SUCCESS: Image <${imagename}> successfully exported and archived. "
+      
+      # Whack the local tar file:
+      runCommand "rm $tarfile"
+      
    else
       echo "Skipping export of missing image ${imagename}."
    fi
