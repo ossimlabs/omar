@@ -141,9 +141,14 @@ body {
     text-decoration: none;
 }
 
-#imageMap {
-    width: 100%;
-    height: 90%;
+.imageMapModal {
+  width: 100%;
+  height: 60%;
+}
+
+.imageMap {
+  width: 100%;
+  height: 90%;
 }
 
 #mapOrtho {
