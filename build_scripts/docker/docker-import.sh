@@ -14,19 +14,20 @@
 #
 #=================================================================================
 
-local_dir=$1
+arg_path=$1
+
 # Assigns O2_APPS, TAG and functions:
 . docker-common.sh
 
-if [ -z ${local_dir} ]; then
+if [ -z ${arg_path} ]; then
   s3_bucket=${S3_DELIVERY_BUCKET}
   tarfilepath=image_import
-elif [[ ${local_dir} == *"s3://"* ]]; then
-  s3_bucket=${local_dir}
+elif [[ ${arg_path} == *"s3://"* ]]; then
+  s3_bucket=${arg_path}
   tarfilepath=image_import
 else
   s3_bucket=""
-  tarfilepath=${local_dir}  
+  tarfilepath=${arg_path}  
   echo "Accessing image archives from local filesystem at <${tarfilepath}>." 
 fi
 
