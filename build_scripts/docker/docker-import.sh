@@ -1,47 +1,48 @@
 #!/bin/bash
 
-function runCommand() 
-{
-  $1
-  if [ $? != 0 ] ; then 
-    echo "ERROR: Failed while executing command: <$1>."
-    echo; exit 1;
-  fi
-}
+#=================================================================================
+#
+# This script copies O2 docker container images from an S3 bucket to the
+# local machine, and loading these into the docker instance. The image TAR
+# files are expected to be at the S3 bucket specified in the 
+# $S3_DELIVERY_BUCKET environment variable. The images are loaded but the 
+# containers are not launched.
+#
+#=================================================================================
 
-if [ -z $S3_DELIVERY_BUCKET ]; then
-  S3_DELIVERY_BUCKET="s3://o2-delivery"
-  echo "WARNING: No URL specified for S3 delivery bucket. Defaulting S3_DELIVERY_BUCKET = <$S3_DELIVERY_BUCKET>"
-  echo;
-fi
-
-# Assigns O2_APPS and TAG:
+# Assigns O2_APPS, TAG and functions:
 . docker-common.sh
 
-runCommand "mkdir -p image_import"
-runCommand "rm -rf image_import/*.tar"
+runCommand mkdir -p image_import
+# runCommand rm -rf image_import/*.tgz
 pushd image_import
 
 for app in ${O2_APPS[@]} ; do
       
    # downloading the tar file from S3
-   tarfile="${app}-${TAG}.tar"
-   aws s3 cp $S3_DELIVERY_BUCKET/$tarfile $tarfile 
-   if [ $? != 0 ] ; then    else
-      echo "Skipping import of missing image <${tarfile}>."
+   getTarFileName ${app} ${TAG}
+   aws s3 cp $S3_DELIVERY_BUCKET/$tarfilename $tarfilename 
+   if [ $? != 0 ] ; then
+      echo "Skipping import of missing image <$tarfilename>."
    else
       # Run the import and verify image is available:
-      echo "Importing docker image ${imagename} from $tarfile"
-      runCommand "docker load -i $tarfile"
+      echo "Importing docker image $imagename from $tarfilename"
+      runCommand docker load -i $tarfilename
 
-   imagename="ossimlabs/${app}:${TAG}"
-   exists=$(docker images | grep -c -e "$app[ ]\{2,\}${TAG}") 
-   if [ $exists == "0" ]; then
-      echo "WARNING: Image <${imagename}> does not show in docker images list. "
-      echo "That service will not be available."
-   else
-      echo "SUCCESS: Image <${imagename}> successfully imported. "
+      getImageName ${app} ${TAG}
+      exists=$(docker images | grep -c -e "$app[ ]\{2,\}${TAG}") 
+      if [ $exists == "0" ]; then
+         echo "WARNING: Image <$imagename> does not show in docker images list. "
+         echo "That service will not be available."
+      else
+         echo "SUCCESS: Image <$imagename> successfully imported. "
+      fi
    fi
-   
 done
 popd
+
+echo "Available Docker Images:"
+docker images
+echo
+
+echo "Image TAR files in $PWD/image_import can be deleted."; echo
