@@ -15,6 +15,8 @@
     //Used by band selection
     var bandNum;
 
+    console.log( imageSpaceService );
+
     vm.archiveDownload = function( imageId ) {
       downloadService.downloadFiles( imageId );
     };
@@ -54,8 +56,9 @@
 
     $scope.bandValues = [];
     $scope.bandTypeValues = [
-      { 'key': 0, 'value': 'Color' },
-      { 'key': 1, 'value': 'Gray' }
+      { 'key': 0, 'value': 'Default' },
+      { 'key': 1, 'value': 'Color' },
+      { 'key': 2, 'value': 'Gray' }
     ];
 
     for ( bandNum = 0; bandNum < $stateParams.bands; bandNum++ ) {
@@ -66,20 +69,26 @@
                          green: $scope.bandValues[1].value,
                          blue: $scope.bandValues[2].value };
 
-    $scope.bandTypeItem = $scope.bandTypeValues[1];
+    $scope.bandTypeItem = $scope.bandTypeValues[0];
     $scope.grayImageItem = $scope.bandValues[0];
     $scope.redImageItem = $scope.bandValues[0];
     $scope.greenImageItem = $scope.bandValues[1];
     $scope.blueImageItem = $scope.bandValues[2];
 
     $scope.showBands =  function( bandType ) {
-      if ( bandType.toUpperCase() == 'COLOR' ) {
-        $( '#rgb-image-space-bands' ).show();
-        $( '#gray-image-space-bands' ).hide();
-
-      }else {
-        $( '#gray-image-space-bands' ).show();
-        $( '#rgb-image-space-bands' ).hide();
+      switch ( bandType.toUpperCase() ){
+        case 'COLOR':
+          $( '#rgb-image-space-bands' ).show();
+          $( '#gray-image-space-bands' ).hide();
+        break;
+        case 'GRAY':
+          $( '#gray-image-space-bands' ).show();
+          $( '#rgb-image-space-bands' ).hide();
+        break;
+        default:
+          $( '#gray-image-space-bands' ).hide();
+          $( '#rgb-image-space-bands' ).hide();
+        break;
       }
 
       $scope.onBandSelect = function( selectedValue, selectedBand ) {
