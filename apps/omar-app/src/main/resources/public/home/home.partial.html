@@ -6,29 +6,9 @@
     <div class="col-md-8 col-md-offset-2">
       <h1>{{home.title}}</h1>
     </div>
-    <div class="col-md-6 col-md-offset-3">
+    <!-- <div class="col-md-6 col-md-offset-3">
       <h2>{{home.titleMessage}}</h2>
-      <form id="searchForm" role="search">
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-btn">
-              <select id="searchSelect" class="form-control selectpicker" data-style="btn-primary">
-                <option data-icon="glyphicon-map-marker" value="place">&nbsp;&nbsp;Place&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                <option data-icon="glyphicon glyphicon-screenshot" value="coordinate">&nbsp;&nbsp;Coordinate&nbsp;&nbsp;</option>
-              </select>
-            </div>
-            <input id="searchInput" class="form-control" type="text" placeholder="" value=""  autofocus>
-            <div class="input-group-btn">
-              <button ng-click="home.cycleRegExs()" id="searchButton" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
-              <!--<button id="clearSearchButton" class="btn btn-primary" type="button"><span-->
-              <!--class="glyphicon glyphicon-remove"></span></button>-->
-              <!--<button id="filterSearchButton" class="btn btn-info" type="button"><span-->
-              <!--class="glyphicon glyphicon-filter"></span></button>-->
-            </div>
-          </div><!-- /.input-group -->
-        </div><!-- /.form-group -->
-      </form>
-    </div>
+    </div> -->
   </div>
   <div class="container">
     <div class="row">
@@ -82,9 +62,8 @@
           <div><span class="fa fa-th fa-3x text-info"></span></div>
           <br>
           <br>
-          <br>
-          <br>
           <p>The WMTS viewer displays various Web Map Tile Service data sets</p>
+          <br>
           <a type="button" class="btn btn-success" ng-href="{{home.wmtsAppLink}}" target="_blank">View</a>
         </div>
       </div>
@@ -92,7 +71,6 @@
         <div class="text-center well">
           <h2>API</h2>
           <div><span class="fa fa-code fa-3x text-info"></span></div>
-          <br>
           <br>
           <p>The REST APIs provide programmatic access to the O2 platform.  See examples of how to query the
             WFS, WMS, Image space services and more through standard OGC protocols</p>

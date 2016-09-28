@@ -60,7 +60,7 @@
             var twofishProxy = AppO2.APP_CONFIG.params.twofishes.proxy;
             //console.log('twofisthProxy: ', twofishProxy);
 
-            vm.title = 'Search for imagery';
+            vm.title = 'Image Discovery and Analysis';
             vm.titleMessage = 'Find by place name or coordinates';
 
             // // initialize the selectpicker element
