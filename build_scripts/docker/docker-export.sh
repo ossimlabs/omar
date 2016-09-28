@@ -25,7 +25,7 @@ pushd image_export
 
 for app in ${O2_APPS[@]} ; do
    imagename="ossimlabs/${app}:${TAG}"
-   exists=$(sudo docker images | grep -c -e "$app[ ]\{2,\}${TAG}") 
+   exists=$( docker images | grep -c -e "$app[ ]\{2,\}${TAG}") 
    
    if [ $exists != "0" ]; then
       
