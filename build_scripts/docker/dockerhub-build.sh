@@ -10,7 +10,7 @@ for app in ${O2_APPS[@]} ; do
      popd
      exit 1
    fi
-   docker push ossimlabs/${app}:${tag}
+   docker push ossimlabs/${app}:${TAG}
    if [ $? -ne 0 ]; then
      echo; echo "ERROR: Pushing container ${app} with tag ${TAG}"
      popd
