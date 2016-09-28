@@ -184,7 +184,7 @@ omar:
       baseUrl: http://localhost:8081/predio/
       enabled: false
     twofishes:
-      baseUrl: oc2s-docker-test-01.rbtcloud.com/twofish
+      baseUrl: http://o2.radiantbluecloud.com/twofishes
       proxy: /twoFishesProxy
     swipeApp:
       baseUrl: http://localhost:8081/swipe

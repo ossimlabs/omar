@@ -52,6 +52,7 @@
 
 // <--Map-->
 //= require omar/map/map.controller.js
+//= require omar/search/search.controller.js
 
 // <--List-->
 //= require omar/list/list.controller.js
