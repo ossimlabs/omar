@@ -25,7 +25,7 @@ popd >/dev/null
 . $SCRIPT_DIR/docker-common.sh
 
 if [ -z ${arg_path} ]; then
-  s3_bucket=${S3_DELIVERY_BUCKET}
+  s3_bucket=${S3_DELIVERY_BUCKET}/docker
   tarfilepath=image_import
 elif [[ ${arg_path} == *"s3://"* ]]; then
   s3_bucket=${arg_path}

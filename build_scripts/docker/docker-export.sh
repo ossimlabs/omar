@@ -27,7 +27,7 @@ popd >/dev/null
 . $SCRIPT_DIR/docker-common.sh
 
 if [ -z ${s3_bucket} ]; then
-  s3_bucket=${S3_DELIVERY_BUCKET}
+  s3_bucket=${S3_DELIVERY_BUCKET}/docker
 fi
 
 echo "Using S3 bucket=<${s3_bucket}>"
