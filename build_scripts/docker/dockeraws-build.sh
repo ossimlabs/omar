@@ -33,24 +33,26 @@ eval `aws ecr get-login --region us-east-1`
 
 for app in ${O2_APPS[@]} ; do
    echo "Building ${app} docker image"
-   pushd ${app}
-   getImageName ${app} ${TAG}
-   docker rmi ${imagename}
-   cp Dockerfile Dockerfile.back
-   sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:latest/" Dockerfile
-   docker build -t ${imagename} .
-   mv Dockerfile.back Dockerfile
-   
-   if [ $? -ne 0 ]; then
-     echo; echo "ERROR: Building container ${app} with tag ${TAG}"
+   if [ "${app}" ne "os-db" ] ; then
+     pushd ${app}
+     getImageName ${app} ${TAG}
+     docker rmi ${imagename}
+     cp Dockerfile Dockerfile.back
+     sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:latest/" Dockerfile
+     docker build -t ${imagename} .
+     mv Dockerfile.back Dockerfile
+     
+     if [ $? -ne 0 ]; then
+       echo; echo "ERROR: Building container ${app} with tag ${TAG}"
+       popd
+       exit 1
+     fi
+     docker push $imagename
+     if [ $? -ne 0 ]; then
+       echo; echo "ERROR: Pushing container ${app} with tag ${TAG}"
+       popd
+       exit 1
+     fi
      popd
-     exit 1
    fi
-   docker push $imagename
-   if [ $? -ne 0 ]; then
-     echo; echo "ERROR: Pushing container ${app} with tag ${TAG}"
-     popd
-     exit 1
-   fi
-   popd
 done
