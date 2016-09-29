@@ -7,8 +7,12 @@
 #
 #=================================================================================
 
-# Assigns O2_APPS, TAG and functions:
-. docker-common.sh
+pushd `dirname $0` >/dev/null
+export SCRIPT_DIR=`pwd -P`
+popd >/dev/null
+
+# Assigns O2_APPS and TAG and functions:
+. $SCRIPT_DIR/docker-common.sh
 
 for app in ${O2_APPS[@]} ; do
    echo "Building ${app} docker image"

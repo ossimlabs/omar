@@ -1,5 +1,12 @@
 #!/bin/bash
-. docker-common.sh
+
+# Locates script dir to find docker-common.sh
+pushd `dirname $0` >/dev/null
+export SCRIPT_DIR=`pwd -P`
+popd >/dev/null
+
+# Assigns O2_APPS and TAG and functions:
+. $SCRIPT_DIR/docker-common.sh
 
 containers=($(docker ps -q))
 for container in ${containers[@]} ; do
