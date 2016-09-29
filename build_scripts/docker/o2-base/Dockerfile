@@ -5,6 +5,7 @@
 # There isn't a command to run it is meant to serve as
 # a beginning for the rest of the o2 apps.
 FROM centos:latest
+ARG DOCKER_REGISTRY_URI
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="A base image to \
