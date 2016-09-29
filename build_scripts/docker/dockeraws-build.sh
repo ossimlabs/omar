@@ -54,5 +54,5 @@ for app in ${O2_APPS[@]} ; do
        exit 1
      fi
      popd
-     fig
+   fi
 done
