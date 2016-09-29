@@ -33,7 +33,7 @@ eval `aws ecr get-login --region us-east-1`
 
 for app in ${O2_APPS[@]} ; do
    echo "Building ${app} docker image"
-   if [ "${app}" ne "os-db" ] ; then
+   if [ "${app}" != "os-db" ] ; then
      pushd ${app}
      getImageName ${app} ${TAG}
      docker rmi ${imagename}
@@ -54,5 +54,5 @@ for app in ${O2_APPS[@]} ; do
        exit 1
      fi
      popd
-   fi
+     fig
 done
