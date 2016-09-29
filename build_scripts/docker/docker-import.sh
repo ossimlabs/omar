@@ -16,8 +16,13 @@
 
 arg_path=$1
 
-# Assigns O2_APPS, TAG and functions:
-. docker-common.sh
+# Locates script dir to find docker-common.sh
+pushd `dirname $0` >/dev/null
+export SCRIPT_DIR=`pwd -P`
+popd >/dev/null
+
+# Assigns O2_APPS and TAG and functions:
+. $SCRIPT_DIR/docker-common.sh
 
 if [ -z ${arg_path} ]; then
   s3_bucket=${S3_DELIVERY_BUCKET}
@@ -39,10 +44,12 @@ if [ ${s3_bucket} ]; then
 fi
 
 # TODO: Need to assign array var here to represent full collection of tarfiles in
-# archive bucket/dir, not just o2-*
+# archive bucket/dir, not just o2-*. For the meantime, explicitely specify 
+# supplementals:
+O2_APPS+=( centos twofishes )
 for app in ${O2_APPS[@]} ; do
    
-   getTarFileName ${app} ${TAG}
+   tarfilename="${app}.tgz"
    if [ ${s3_bucket} ]; then
       # downloading the tar file from S3 to local FS
       aws s3 sync ${s3_bucket}/${tarfilename} ${tarfilepath}/${tarfilename}
@@ -66,6 +73,7 @@ for app in ${O2_APPS[@]} ; do
       fi
    fi
 done
+
 
 echo "Available Docker Images:"
 docker images

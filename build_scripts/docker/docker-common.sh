@@ -34,16 +34,11 @@ if [ -z $S3_DELIVERY_BUCKET ]; then
   echo;
 fi
 
-function getTarFileName {
-   tarfilename="$1-$2.tgz"
-}
-
 function getImageName {
    imagename="${DOCKER_REGISTRY_URI}/$1:$2"
 }
 
-function runCommand() 
-{
+function runCommand {
   echo $*
   eval $*
   if [ $? != 0 ] ; then 
