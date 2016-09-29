@@ -2,7 +2,7 @@ version: '2'
 services:
   o2-web-proxy:
     #build: ./o2-web-proxy
-    image: ossimlabs/o2-web-proxy
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-web-proxy
     container_name: o2-web-proxy
     environment:
       DOCKER_HOST_IP: o2.radiantbluecloud.com
@@ -14,10 +14,10 @@ services:
   # o2-base:
   #   #build: ./o2-base
   #   container_name: o2-base
-  #   image: ossimlabs/o2-base
+  #   image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-base
   o2-db:
     #build: ./o2-db
-    image: ossimlabs/o2-db
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-db
     container_name: o2-db
     environment:
       POSTGRES_USER: postgres_user
@@ -28,7 +28,7 @@ services:
     restart: always
   o2-stager:
     #build: ./o2-stager
-    image: ossimlabs/o2-stager
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-stager
     container_name: o2-stager
     environment:
       DBHOST: o2-db
@@ -50,7 +50,7 @@ services:
     #   - o2-db
   o2-wms:
     #build: ./o2-wms
-    image: ossimlabs/o2-wms
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-wms
     container_name: o2-wms
     environment:
       DBHOST: o2-db
@@ -72,7 +72,7 @@ services:
     #   - o2-db
   o2-wfs:
     #build: ./o2-wfs
-    image: ossimlabs/o2-wfs
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-wfs
     container_name: o2-wfs
     environment:
       DBHOST: o2-db
@@ -94,7 +94,7 @@ services:
     #   - o2-db
   # o2-wcs:
   #   #build: ./o2-wcs
-  #   image: ossimlabs/o2-wcs
+  #   image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-wcs
   #   container_name: o2-wcs
   #   environment:
   #     DBHOST: o2-db
@@ -116,7 +116,7 @@ services:
   #     - o2-web-proxy
   o2-omar:
     #build: ./o2-omar
-    image: ossimlabs/o2-omar
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-omar
     container_name: o2-omar
     environment:
       DBHOST: o2-db
@@ -174,7 +174,7 @@ services:
     #   - o2-swipe
   o2-wmts:
     #build: ./o2-wmts
-    image: ossimlabs/o2-wmts
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-wmts
     container_name: o2-wmts
     environment:
       DBHOST: o2-db
@@ -200,7 +200,7 @@ services:
 
   o2-sqs:
     #build: ./o2-sqs
-    image: ossimlabs/o2-sqs
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-sqs
     container_name: o2-sqs
     environment:
       AWSDNS: sqs.us-east-1.amazonaws.com
@@ -230,7 +230,7 @@ services:
     #   - o2-avro
   o2-avro:
     #build: ./o2-avro
-    image: ossimlabs/o2-avro
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-avro
     container_name: o2-avro
     environment:
       DBHOST: o2-db
@@ -257,7 +257,7 @@ services:
     #   - o2-stager
   o2-jpip:
     #build: ./o2-jpip
-    image: ossimlabs/o2-jpip
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-jpip
     container_name: o2-jpip
     environment:
       DBHOST: o2-db
@@ -280,7 +280,7 @@ services:
     restart: always
   o2-jpip-server:
     #build: ./o2-jpip-server
-    image: ossimlabs/o2-jpip-server
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-jpip-server
     container_name: o2-jpip-server
     environment:
       JPIPCACHEDIR: /data/jpip-cache
@@ -295,7 +295,7 @@ services:
     restart: always
   o2-superoverlay:
     #build: ./o2-superoverlay
-    image: ossimlabs/o2-superoverlay
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-superoverlay
     container_name: o2-superoverlay
     environment:
       DBHOST: o2-db
@@ -316,7 +316,7 @@ services:
     #   - o2-db
   o2-download:
     #build: ./o2-download
-    image: ossimlabs/o2-download
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-download
     container_name: o2-download
     environment:
       DBHOST: o2-db
@@ -338,7 +338,7 @@ services:
     #   - o2-db
   o2-swipe:
     #build: ./o2-swipe
-    image: ossimlabs/o2-swipe
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-swipe
     container_name: o2-swipe
     environment:
       DBHOST: o2-db
@@ -365,7 +365,7 @@ services:
     #   - o2-wms
   o2-mensa:
     #build: ./o2-mensa
-    image: ossimlabs/o2-mensa
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-mensa
     container_name: o2-mensa
     environment:
       DOCKER_HOST_IP: o2.radiantbluecloud.com
@@ -378,14 +378,14 @@ services:
     #   - o2-web-proxy
   o2-twofishes:
     #build: ./twofishes
-    image: ossimlabs/twofishes
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/twofishes
     container_name: twofishes
     ports:
       - "5006:8081"
     restart: always
   o2-tlv:
     #build: ./tlv
-    image: ossimlabs/tlv
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/tlv
     container_name: tlv
     environment:
       DBHOST: o2-db
