@@ -2,7 +2,7 @@
 # postgres:latest.  It then installs the PostGIS spatial
 # extension for Postgres.  It also adds the postgis
 # extension to the specified database.
-FROM postgres:latest
+FROM postgres:9.5
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="This image conducts \
