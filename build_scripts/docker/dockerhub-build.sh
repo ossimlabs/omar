@@ -15,7 +15,7 @@ for app in ${O2_APPS[@]} ; do
    pushd ${app}
    getImageName ${app} ${TAG}
    docker rmi ${imagename}
-   docker build -t ${imagename} .
+   docker build --build-arg DOCKER_REGISTRY_URI=$DOCKER_REGISTRY_URI -t ${imagename} .
    if [ $? -ne 0 ]; then
      echo; echo "ERROR: Building container ${app} with tag ${TAG}"
      popd
