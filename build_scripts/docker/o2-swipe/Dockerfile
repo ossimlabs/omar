@@ -6,7 +6,6 @@
 # used in the swipe. The WMS chips data displayed
 # in the swipe view.
 
-ARG DOCKER_REGISTRY_URI
 FROM ${DOCKER_REGISTRY_URI}/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\

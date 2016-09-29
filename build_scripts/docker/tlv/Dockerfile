@@ -1,5 +1,3 @@
-ARG DOCKER_REGISTRY_URI
-
 FROM java:8-jdk
 MAINTAINER RadiantBlue Technologies radiantblue.co
 

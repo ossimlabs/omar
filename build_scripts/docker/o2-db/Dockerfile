@@ -2,8 +2,6 @@
 # postgres:latest.  It then installs the PostGIS spatial
 # extension for Postgres.  It also adds the postgis
 # extension to the specified database.
-
-ARG DOCKER_REGISTRY_URI
 FROM postgres:latest
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\

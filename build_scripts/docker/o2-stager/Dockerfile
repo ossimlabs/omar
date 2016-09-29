@@ -1,7 +1,6 @@
 # The stager service currently indexes the data into
 # the OMAR system.
 
-ARG DOCKER_REGISTRY_URI
 FROM ${DOCKER_REGISTRY_URI}/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\

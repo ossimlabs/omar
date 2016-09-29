@@ -1,4 +1,3 @@
-ARG DOCKER_REGISTRY_URI
 FROM ${DOCKER_REGISTRY_URI}/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 RUN yum -y install o2-avro-app && yum clean all
