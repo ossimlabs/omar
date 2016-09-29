@@ -18,7 +18,8 @@ fi
 # o2base must be first for others depend on it
 #
 O2_APPS=("o2-base")
-O2_APPS+=($(ls -d o2-* | sed -e "s/o2-base//g"))
+#O2_APPS+=($(ls -d o2-* | sed -e "s/o2-base//g"))
+O2_APPS+=($(ls -d o2-*))
 O2_APPS+=("tlv")
 
 if [ -z $DOCKER_REGISTRY_URI ] ; then
