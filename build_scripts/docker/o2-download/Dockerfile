@@ -2,7 +2,7 @@
 # images or image groups specified in a
 # JSON and return a zip archive.
 
-FROM ossimlabs/o2-base
+FROM ${DOCKER_REGISTRY_URI}/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="he Download \
