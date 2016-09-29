@@ -1,13 +1,35 @@
 #!/bin/bash
+if [ -z $WORKSPACE ] ; then
+   if [ -z $SCRIPT_DIR ] ; then
+      pushd `dirname $0` >/dev/null
+      export SCRIPT_DIR=`pwd -P`
+   fi
+   if [ -z $OSSIM_DEV_HOME ] ; then
+      pushd $SCRIPT_DIR/../../.. >/dev/null
+      export OSSIM_DEV_HOME=$PWD
+      popd > /dev/null
+   fi
+   popd >/dev/null
 
-O2_APPS=($(ls -d o2-*))
+else
+   export OSSIM_DEV_HOME=$WORKSPACE
+fi
+
+# o2base must be first for others depend on it
+#
+O2_APPS=("o2-base")
+O2_APPS+=($(ls -d o2-* | sed -e "s/o2-base//g"))
 O2_APPS+=("tlv")
+
+if [ -z $DOCKER_REGISTRY_URI ] ; then
+  export DOCKER_REGISTRY_URI="ossimlabs"
+fi
 
 export O2_APPS
 export TAG="latest"
 
 if [ -z $S3_DELIVERY_BUCKET ]; then
-  export S3_DELIVERY_BUCKET="s3://o2-delivery/temp"
+  export S3_DELIVERY_BUCKET="s3://o2-delivery/dev/docker"
   echo "WARNING: No URL specified for S3 delivery bucket. Defaulting S3_DELIVERY_BUCKET = <$S3_DELIVERY_BUCKET>"
   echo;
 fi
@@ -17,7 +39,7 @@ function getTarFileName {
 }
 
 function getImageName {
-   imagename="ossimlabs/$1:$2"
+   imagename="${DOCKER_REGISTRY_URI}/$1:$2"
 }
 
 function runCommand() 

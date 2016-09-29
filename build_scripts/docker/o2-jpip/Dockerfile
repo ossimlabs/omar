@@ -10,7 +10,6 @@
 # does not have a JPIP stream associated with
 # it yet then it will submit the image for background
 # processing and return a STATUS.
-
 FROM ossimlabs/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\

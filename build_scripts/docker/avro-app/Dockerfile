@@ -1,4 +1,4 @@
-FROM radiantbluetechnologies/o2-base
+FROM ossimlabs/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 RUN yum -y install o2-avro-app && yum clean all
 ADD avro-app.yml /usr/share/omar/avro-app/avro-app.yml
