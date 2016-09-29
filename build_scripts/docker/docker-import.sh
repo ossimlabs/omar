@@ -52,7 +52,7 @@ for app in ${O2_APPS[@]} ; do
    tarfilename="${app}.tgz"
    if [ ${s3_bucket} ]; then
       # downloading the tar file from S3 to local FS
-      aws s3 sync ${s3_bucket}/${tarfilename} ${tarfilepath}/${tarfilename}
+      aws s3 sync ${s3_bucket} ${tarfilepath} --exclude \"*\" --include ${tarfilename}
    fi
 
    # Check for the existence of the tar file on FS:

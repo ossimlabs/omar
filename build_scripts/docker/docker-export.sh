@@ -13,6 +13,9 @@
 #
 #=================================================================================
 
+# Uncomment following line to debug script line by line:
+#set -x; trap read debug
+
 s3_bucket=$1
 
 # Locates script dir to find docker-common.sh
@@ -23,7 +26,7 @@ popd >/dev/null
 # Assigns O2_APPS and TAG and functions:
 . $SCRIPT_DIR/docker-common.sh
 
-if [ -z s3_bucket ]; then
+if [ -z ${s3_bucket} ]; then
   s3_bucket=${S3_DELIVERY_BUCKET}
 fi
 
@@ -46,7 +49,7 @@ for app in ${O2_APPS[@]} ; do
    
       # upload the tar file to S3
       echo "Uploading ${tarfilename} to ${s3_bucket}"
-      runCommand aws s3 sync ${tarfilename} ${s3_bucket}/
+      runCommand aws s3 sync . ${s3_bucket} --exclude \"*\" --include ${tarfilename}
       echo "SUCCESS: Image <${imagename}> successfully exported and archived. "
       
       # Whack the local tar file:
