@@ -10,7 +10,7 @@
 # does not have a JPIP stream associated with
 # it yet then it will submit the image for background
 # processing and return a STATUS.
-FROM ${DOCKER_REGISTRY_URI}/o2-base
+FROM ossimlabs/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The JPIP web service \

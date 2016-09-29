@@ -3,7 +3,7 @@
 # one to quickly discover new assets and display
 # them using common OGC services.
 
-FROM ${DOCKER_REGISTRY_URI}/o2-base
+FROM ossimlabs/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The OMAR Web \
