@@ -1,3 +1,4 @@
+ARG DOCKER_REGISTRY_URI
 FROM ${DOCKER_REGISTRY_URI}/o2-base
 RUN yum -y install o2-wmts-app && yum clean all
 ADD wmts-app.yml /usr/share/omar/wmts-app/wmts-app.yml

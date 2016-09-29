@@ -4,6 +4,7 @@
 # allows one to create KML lod nodes to partition
 # the dataset into a hierarchical LOD grid.
 
+ARG DOCKER_REGISTRY_URI
 FROM ${DOCKER_REGISTRY_URI}/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
