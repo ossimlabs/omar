@@ -28,7 +28,10 @@ services:
   #    - "4990:5432"
   #  restart: always
   o2-stager:
-    build: ./o2-stager
+    build: 
+      context: ./o2-stager
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
     image: ossimlabs/o2-stager
     container_name: o2-stager
     environment:
@@ -49,7 +52,10 @@ services:
     #   - o2-web-proxy
     restart: always
   o2-wms:
-    build: ./o2-wms
+    build: 
+      context: ./o2-wms
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
     image: ossimlabs/o2-wms
     container_name: o2-wms
     environment:
@@ -70,7 +76,10 @@ services:
     #   - o2-web-proxy
     restart: always
   o2-wfs:
-    build: ./o2-wfs
+    build: 
+      context: ./o2-wfs
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
     image: ossimlabs/o2-wfs
     container_name: o2-wfs
     environment:
@@ -116,7 +125,10 @@ services:
   #     #- o2-wfs
   #     - o2-web-proxy
   o2-omar:
-    build: ./o2-omar
+    build: 
+      context: ./o2-omar
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
     image: ossimlabs/o2-omar
     container_name: o2-omar
     environment:
@@ -172,7 +184,10 @@ services:
     #   - o2-web-proxy
     restart: always
   o2-wmts:
-    build: ./o2-wmts
+    build: 
+      context: ./o2-wmts
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
     image: ossimlabs/o2-wmts
     container_name: o2-wmts
     environment:
@@ -196,7 +211,10 @@ services:
       # - o2-web-proxy
     restart: always
   # o2-sqs:
-  #   #build: ./o2-sqs
+  #   build: 
+  #     context: ./o2-sqs
+  #     args: 
+  #       - O2_DEV_HOME=$O2_DEV_HOME
   #   image: ossimlabs/o2-sqs
   #   container_name: o2-sqs
   #   environment:
@@ -224,7 +242,10 @@ services:
   #   #   - o2-web-proxy
   #   restart: always
   # o2-avro:
-  #   #build: ./o2-avro
+  #   build: 
+  #     context: ./o2-avro
+  #     args:
+  #       - O2_DEV_HOME=$O2_DEV_HOME
   #   image: ossimlabs/o2-avro
   #   container_name: o2-avro
   #   environment:
@@ -249,7 +270,10 @@ services:
   #   #   - o2-web-proxy
   #   restart: always
   o2-jpip:
-    build: ./o2-jpip
+    build: 
+      context: ./o2-jpip
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
     image: ossimlabs/o2-jpip
     container_name: o2-jpip
     environment:
@@ -291,7 +315,10 @@ services:
   #    #- o2-base
   #  restart: always
   o2-superoverlay:
-    build: ./o2-superoverlay
+    build: 
+      context: ./o2-superoverlay
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
     image: ossimlabs/o2-superoverlay
     container_name: o2-superoverlay
     environment:
@@ -312,7 +339,10 @@ services:
     #   - o2-web-proxy
     restart: always
   o2-download:
-    build: ./o2-download
+    build: 
+      context: ./o2-download
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
     image: ossimlabs/o2-download
     container_name: o2-download
     environment:
@@ -333,7 +363,10 @@ services:
     #   - o2-web-proxy
     restart: always
   o2-swipe:
-    build: ./o2-swipe
+    build: 
+      context: ./o2-swipe
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
     image: ossimlabs/o2-swipe
     container_name: o2-swipe
     environment:
@@ -358,7 +391,10 @@ services:
     #   - o2-web-proxy
     restart: always
   o2-mensa:
-    build: ./o2-mensa
+    build: 
+      context: ./o2-mensa
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
     image: ossimlabs/o2-mensa
     container_name: o2-mensa
     environment:

@@ -37,8 +37,10 @@ RUN yum -y install o2-mensa-app \
   yum -y install ossim-png-plugin && yum -y install ossim-gdal-plugin.x86_64
 ADD mensa-app.yml /usr/share/omar/mensa-app/mensa-app.yml
 
+ARG O2_DEV_HOME
+
 RUN rm -f /usr/share/omar/mensa-app/mensa-app.jar && \
-    ln -s /home/centos/ossimlabs/omar/apps/mensa-app/build/libs/mensa-app-1.0.0.jar /usr/share/omar/mensa-app/mensa-app.jar
+    ln -s $O2_DEV_HOME/apps/mensa-app/build/libs/mensa-app-1.0.0.jar /usr/share/omar/mensa-app/mensa-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/mensa-app/mensa-app.sh"]

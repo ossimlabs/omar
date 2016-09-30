@@ -20,8 +20,10 @@ ENV DBHOST=${DBHOST}\
     DBNAME=${DBNAME}\
     DOCKER_HOST_IP=${DOCKER_HOST_IP}
 
+ARG O2_DEV_HOME
+
 RUN rm -f /usr/share/omar/download-app/download-app.jar && \
-      ln -s /home/centos/ossimlabs/omar/apps/download-app/build/libs/download-app-1.0.0.jar /usr/share/omar/download-app/download-app.jar
+      ln -s $O2_DEV_HOME/apps/download-app/build/libs/download-app-1.0.0.jar /usr/share/omar/download-app/download-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/download-app/download-app.sh"]

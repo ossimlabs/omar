@@ -54,8 +54,10 @@ ENV DBHOST=${DBHOST}\
     BANNERCOLOR=${BANNERCOLOR}\
     BANNERCLASSIFICATION=${BANNERCLASSIFICATION}
 
+ARG O2_DEV_HOME
+
 RUN rm /usr/share/omar/omar-app/omar-app.jar && \
-    ln -s /home/centos/ossimlabs/omar/apps/omar-app/build/libs/omar-app-1.0.0.jar /usr/share/omar/omar-app/omar-app.jar
+    ln -s $O2_DEV_HOME/apps/omar-app/build/libs/omar-app-1.0.0.jar /usr/share/omar/omar-app/omar-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/omar-app/omar-app.sh"]

@@ -38,8 +38,10 @@ ENV DBUSER=${DBUSER}\
     JPIPSERVERURL=${JPIPSERVERURL}\
     JPIPSERVERPORT=${JPIPSERVERPORT}
 
+ARG O2_DEV_HOME
+
 RUN rm -f /usr/share/omar/jpip-app/jpip-app.jar && \
-      ln -s /home/centos/ossimlabs/omar/apps/jpip-app/build/libs/jpip-app-1.0.0.jar /usr/share/omar/jpip-app/jpip-app.jar
+      ln -s $O2_DEV_HOME/apps/jpip-app/build/libs/jpip-app-1.0.0.jar /usr/share/omar/jpip-app/jpip-app.jar
 
 
 EXPOSE 8080

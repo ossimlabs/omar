@@ -32,8 +32,10 @@ ENV AWSDNS=${AWSDNS}\
     DESTINATION_POST_END_POINT_PORT=${DESTINATION_POST_END_POINT_PORT}\
     DESTINATION_POST_FIELD=${DESTINATION_POST_FIELD}
 
+ARG O2_DEV_HOME
+
 RUN rm -f /usr/share/omar/sqs-app/sqs-app.jar && \
-      ln -s /home/centos/ossimlabs/omar/apps/sqs-app/build/libs/sqs-app-1.0.0.jar /usr/share/omar/sqs-app/sqs-app.jar
+      ln -s $O2_DEV_HOME/apps/sqs-app/build/libs/sqs-app-1.0.0.jar /usr/share/omar/sqs-app/sqs-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/sqs-app/sqs-app.sh"]
