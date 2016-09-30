@@ -27,7 +27,12 @@ function createRepositories()
 
 createRepositories O2_APPS
 
-# Create login credentials for docker
+# remove images
+for app in ${O2_APPS[@]} ; do
+  for x in `docker images | grep /${app} | awk '{print \$3}'`; do 
+    docker rmi -f \$x; 
+  done
+done
 
 for app in ${O2_APPS[@]} ; do
    echo "Building ${app} docker image"
@@ -36,7 +41,7 @@ for app in ${O2_APPS[@]} ; do
      getImageName ${app} ${TAG}
      docker rmi ${imagename}
      cp Dockerfile Dockerfile.back
-     sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:latest/" Dockerfile
+     sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_g_URI}\/o2-base\:latest/" Dockerfile
      docker build -t ${imagename} .
      mv Dockerfile.back Dockerfile
      
