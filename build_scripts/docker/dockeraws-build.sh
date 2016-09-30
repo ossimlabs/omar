@@ -39,7 +39,6 @@ for app in ${O2_APPS[@]} ; do
    if [ "${app}" != "o2-db" ] ; then
      pushd ${app}
      getImageName ${app} ${TAG}
-     docker rmi ${imagename}
      cp Dockerfile Dockerfile.back
      sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_g_URI}\/o2-base\:latest/" Dockerfile
      docker build -t ${imagename} .
