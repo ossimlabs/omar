@@ -9,14 +9,21 @@
 # successful upload, the local copies of the TAR files are deleted from the 
 # local machine.
 #
-# Usage: docker-export [s3://<path_to_docker_dir>]
+# Usage: docker-export [-a] [s3://<path_to_docker_dir>]
 #
+# -a   If specified, non O2 images (centos, twofishes) will be saved and
+#      uploaded along with all O2 images.
 #=================================================================================
 
 # Uncomment following line to debug script line by line:
 #set -x; trap read debug
 
-s3_bucket=$1
+if [ "$1" == "-a" ]; then
+  do_all=true
+  s3_bucket=$2
+else
+  s3_bucket=$1
+fi
 
 # Locates script dir to find docker-common.sh
 pushd `dirname $0` >/dev/null
@@ -27,14 +34,21 @@ popd >/dev/null
 . $SCRIPT_DIR/docker-common.sh
 
 if [ -z ${s3_bucket} ]; then
-  s3_bucket=${S3_DELIVERY_BUCKET}/docker
+  s3_bucket=${S3_DELIVERY_BUCKET}
 fi
 
+# Don't forget to append the docker-specific subdir!!
+s3_bucket+="/docker"
 echo "Using S3 bucket=<${s3_bucket}>"
 
 mkdir -p image_export 
-rm -rf image_export/*.tar
+rm -rf image_export/*
 pushd image_export
+
+# Add the large static packages if -a option supplied"
+if [ ${do_all} ]; then
+  O2_APPS+=( centos twofishes )
+fi
 
 for app in ${O2_APPS[@]} ; do
    getImageName ${app} ${TAG}
@@ -59,4 +73,11 @@ for app in ${O2_APPS[@]} ; do
       echo "Skipping export of missing image ${imagename}."
    fi
 done
+
+# delete the temporary tar files:
 popd
+#rm -rf image_export
+
+exit 0
+
+
