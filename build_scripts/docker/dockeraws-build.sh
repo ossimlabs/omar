@@ -7,7 +7,6 @@
 #=================================================================================
 
 # Assigns O2_APPS, TAG and functions:
-export DOCKER_REGISTRY_URI="320588532383.dkr.ecr.us-east-1.amazonaws.com"
 
 . docker-common.sh
 
