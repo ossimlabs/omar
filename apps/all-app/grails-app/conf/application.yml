@@ -168,12 +168,12 @@ wfs:
 #          namespace: http://www.openplans.org/topp
 
       - namespaceId: omar
-        datastoreId: omardb-1.8.20-prod
+        datastoreId: omardb-1.9.0-dev
         datastoreParams:
           dbtype: postgis
           host: localhost
           port: '5432'
-          database: omardb-1.8.20-prod
+          database: omardb-1.9.0-dev
           user: postgres
           passwd: postgres
           'Expose primary keys': 'true'
@@ -319,16 +319,16 @@ wfs:
           - omar
           - raster_entry
           - features
-        datastoreId: omardb-1.8.20-prod
+        datastoreId: omardb-1.9.0-dev
 
-      # - name: opir_raster_entry
-      #   title: opir_raster_entry
-      #   description: ''
-      #   keywords:
-      #     - omar
-      #     - opir_raster_entry
-      #     - features
-      #   datastoreId: omardb-1.8.20-prod
+      - name: opir_raster_entry
+        title: opir_raster_entry
+        description: ''
+        keywords:
+          - omar
+          - opir_raster_entry
+          - features
+        datastoreId: omardb-1.9.0-dev
 
       - name: video_data_set
         title: video_data_set
@@ -337,7 +337,7 @@ wfs:
           - omar
           - video_data_set
           - features
-        datastoreId: omardb-1.8.20-prod
+        datastoreId: omardb-1.9.0-dev
 
 -- grails.serverURL:
 

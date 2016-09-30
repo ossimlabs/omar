@@ -10,7 +10,7 @@ class TwoFishesProxyController
 
     byte[] data = twoFishesURL.bytes
 
-    println new String( data )
+    //println new String( data )
 
     render contentType: 'application/json', file: data
   }
