@@ -28,7 +28,6 @@ function createRepositories()
 createRepositories O2_APPS
 
 # Create login credentials for docker
-eval `aws ecr get-login --region us-east-1`
 
 for app in ${O2_APPS[@]} ; do
    echo "Building ${app} docker image"
