@@ -26,7 +26,16 @@ O2_APPS+=("tlv")
 popd
 
 if [ -z $DOCKER_REGISTRY_URI ] ; then
-  export DOCKER_REGISTRY_URI="ossimlabs"
+  export DOCKER_REGISTRY_URI="320588532383.dkr.ecr.us-east-1.amazonaws.com"
+fi
+
+# Create login credentials for docker
+if [[ "$DOCKER_REGISTRY_URI" =~ .*amazonaws.* ]] ; then
+  eval `aws ecr get-login --region us-east-1`
+  if [ $? != 0 ] ; then
+    echo "Unable to create login credential for amazonaws access"
+    exit 1
+  fi
 fi
 
 export O2_APPS
