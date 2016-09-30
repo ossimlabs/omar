@@ -1,4 +1,4 @@
-<nav style="margin-top: -15px;" class="navbar yamm navbar-default">
+<nav style="margin-top: -15px;" class="navbar yamm navbar-default" ng-controller="MapController as map">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
       data-target="#map-navbar-collapse" aria-expanded="false">
@@ -14,9 +14,10 @@
         <div class="col-sm-5">
           <form id="searchForm" class="searchForm">
             <div class="input-group" ng-controller="SearchController as search">
-              <input id="searchInput" type="text" class="form-control" placeholder="{{search.placeholder}}" autofocus>
+              <input id="searchInput" type="text" ng-model="search.searchInput" class="form-control" placeholder="{{search.placeholder}}" autofocus>
               <span class="input-group-btn">
-                <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                <button class="btn btn-success" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                <button class="btn btn-info" type="button" ng-click="search.resetSearchInput()"><span class="glyphicon glyphicon-remove"></span></button>
               </span>
             </div>
           </form>
@@ -553,7 +554,7 @@
   </div>
 </nav>
 <div style="margin-top: -15px;" class="row">
-  <div class="col-md-8" ng-controller="MapController as map">
+  <div class="col-md-8">
     <div id="map" class="map" params="map.mapParams" map></div>
       <div id="popup" class="ol-popup">
         <div id="popup-content"></div>

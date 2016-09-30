@@ -2,9 +2,9 @@
   'use strict';
   angular
   .module('omarApp')
-  .controller('SearchController', ['$scope', '$state', 'wfsService', '$http', SearchController]);
+  .controller('SearchController', ['$scope', '$state', 'wfsService', '$http', 'stateService', SearchController]);
 
-  function SearchController($scope, $state, wfsService, $http) {
+  function SearchController($scope, $state, wfsService, $http, stateService) {
 
     // #################################################################################
     // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -124,21 +124,32 @@
 
               // Map.zoomTo(suggestion.lat, suggestion.lng);
               // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
-              sug = JSON.stringify(suggestion);
+              //sug = JSON.stringify(suggestion);
 
               //console.log('sug', sug);
-              $state.go('map', { mapParams: sug, maxFeatures: '10' });
+              //$state.go('map', { mapParams: sug, maxFeatures: '10' });
+              console.log('suggestion =>', suggestion);
+              stateService.updateMapState(suggestion);
+
             } else {
 
               // Map.zoomToExt(suggestion);
               // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
-              sug = JSON.stringify(suggestion);
+              //sug = JSON.stringify(suggestion);
 
               //console.log('sug', sug);
-              $state.go('map', { mapParams: sug, maxFeatures: '10' });
+              //$state.go('map', { mapParams: sug, maxFeatures: '10' });
+              console.log('suggestion =>', suggestion);
+              stateService.updateMapState(suggestion);
             }
           }
       });
+
+    }
+
+    vm.resetSearchInput = function() {
+
+      vm.searchInput = "";
 
     }
 

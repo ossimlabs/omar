@@ -35,6 +35,7 @@
 //= require omar/app.module.main.js
 
 // <--Services-->
+//= require omar/services/state.service.js
 //= require omar/services/wfs.service.js
 //= require omar/services/map.service.js
 //= require omar/services/multiple.service.js

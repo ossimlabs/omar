@@ -18,26 +18,41 @@
     /* jshint validthis: true */
     var vm = this;
 
-    // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
     //console.log('$stateParams.mapParams', $stateParams.mapParams);
 
     if ($stateParams.mapParams === 'mapParamsDefaultMap') {
 
       //console.log('Default...');
+      mapService.mapInit(vm.mapParams);
 
     } else {
 
       vm.mapParams = JSON.parse($stateParams.mapParams);
+      mapService.zoomMap(vm.mapParams);
+      console.log('stateParams.mapParams: ', $stateParams.mapParams);
 
     }
 
     //console.log(vm.mapParams);
-    mapService.mapInit(vm.mapParams);
+    //mapService.mapInit(vm.mapParams);
 
     $scope.$on('attrObj.updated', function (event, filter) {
 
       //console.log('$on attrObj filter updated', filter);
       mapService.updateFootPrintLayer(filter);
+
+    });
+
+    $scope.$on('mapState.updated', function(event, params) {
+
+        // Update the DOM (card list)
+        $scope.$apply(function() {
+
+          console.log('We are in the mapState: updated $on');
+          console.log('params => ', params);
+          mapService.zoomMap(params);
+
+        });
 
     });
 

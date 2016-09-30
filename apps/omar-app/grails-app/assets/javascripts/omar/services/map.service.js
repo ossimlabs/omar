@@ -2,15 +2,17 @@
 'use strict';
 angular
   .module('omarApp')
-  .service('mapService', ['wfsService', mapService]);
+  .service('mapService', ['stateService', 'wfsService', mapService]);
 
-function mapService(wfsService) {
+function mapService(stateService, wfsService) {
 
   // #################################################################################
   // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
   // provides access to various client params in application.yml
   // #################################################################################
   // console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
+
+  console.log('stateService.mapState: ', stateService.mapState);
 
   var zoomToLevel = 16;
   var map,
@@ -225,11 +227,13 @@ function mapService(wfsService) {
 
     if (mapParams === undefined) {
 
-      zoomTo(33.3116664, 44.2858655, 4);
+      //zoomTo(33.3116664, 44.2858655, 4);
+      zoomTo(stateService.mapState);
 
     } else if (mapParams !== undefined && mapParams.bounds === undefined) {
 
-        zoomTo(mapParams.lat, mapParams.lng, zoomToLevel, true);
+        //zoomTo(mapParams.lat, mapParams.lng, zoomToLevel, true);
+        zoomTo(stateService.mapState, false);
 
     } else {
 
@@ -238,6 +242,22 @@ function mapService(wfsService) {
     }
 
   };
+
+  this.zoomMap = function(params) {
+
+    console.log('Calling this.zoomMap with: ', params);
+
+    if (params.feature.wkt !== undefined) {
+
+      zoomToExt(params);
+
+    } else {
+
+      zoomTo(params, true);
+
+    }
+
+  }
 
   function updateFootPrints(filter) {
 
@@ -447,26 +467,32 @@ function mapService(wfsService) {
 
   }
 
-  /**
-   * Move and zoom the map to a
-   * certain location via a latitude
-   * and longitude
-   * @function zoomTo
-   * @memberof Map
-   * @param {number} lat - Latitude
-   * @param {number} lon - Longitude
-   */
-  function zoomTo(lat, lon, zoomLevel, marker) {
+  function zoomTo(params, feature) {
 
-      //console.log('zoomTo firing!');
-      //console.log('lat:' + lat + 'lon: ' + lon);
+    //console.log('params: ', params);
+
+    if (!feature) {
+
+      map.getView().setCenter([parseFloat(params.center.lng), parseFloat(params.center.lat)]);
+      map.getView().setZoom(stateService.mapState.zoom);
+
+    } else {
+
       zoomAnimate();
-      map.getView().setCenter([parseFloat(lon), parseFloat(lat)]);
-      map.getView().setZoom(zoomLevel);
+      map.getView().setZoom(12);
+      map.getView().setCenter([parseFloat(params.feature.lng), parseFloat(params.feature.lat)]);
 
-      if (marker) {
-          addMarker(parseFloat(lat), parseFloat(lon), searchLayerVector);
-      }
+      addMarker(parseFloat(params.feature.lat), parseFloat(params.feature.lng), searchLayerVector);
+
+    }
+
+    resetFeatureMapStateObj();
+
+  }
+
+  function resetFeatureMapStateObj() {
+
+    stateService.resetFeatureMapState();
 
   }
 
@@ -479,19 +505,20 @@ function mapService(wfsService) {
    */
   function zoomToExt(inputExtent) {
 
+    console.log('inputExtent: ', inputExtent);
     clearLayerSource(searchLayerVector);
 
     var neFeature = new ol.Feature({
         //geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.ne.lng, inputExtent.bounds.ne.lat],
         // 'EPSG:4326', 'EPSG:3857'))
-        geometry: new ol.geom.Point([inputExtent.bounds.ne.lng, inputExtent.bounds.ne.lat])
+        geometry: new ol.geom.Point([inputExtent.feature.bounds.ne.lng, inputExtent.feature.bounds.ne.lat])
     });
 
     //console.log('neFeature', inputExtent.bounds.ne.lng + ' ' + inputExtent.bounds.ne.lat);
     var swFeature = new ol.Feature({
         //geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.sw.lng, inputExtent.bounds.sw.lat],
         // 'EPSG:4326', 'EPSG:3857'))
-        geometry: new ol.geom.Point([inputExtent.bounds.sw.lng, inputExtent.bounds.sw.lat])
+        geometry: new ol.geom.Point([inputExtent.feature.bounds.sw.lng, inputExtent.feature.bounds.sw.lat])
     });
 
     //console.log('swFeature', inputExtent.bounds.sw.lng + ' ' + inputExtent.bounds.sw.lat);
@@ -499,7 +526,7 @@ function mapService(wfsService) {
 
     var searchItemExtent = searchLayerVector.getSource().getExtent();
 
-    //zoomAnimate();
+    zoomAnimate();
 
     // Moves the map to the extent of the search item
     map.getView().fit(searchItemExtent, map.getSize());
@@ -508,11 +535,12 @@ function mapService(wfsService) {
     searchLayerVector.getSource().clear();
 
     // Add the WKT to the map to illustrate the boundary of the search item
-    if (inputExtent.wkt !== undefined) {
+    if (inputExtent.feature.wkt !== undefined) {
 
+        //console.log('wkt => ',inputExtent.feature.wkt)
         wktFormat = new ol.format.WKT();
         // WKT string is in 4326 so we need to reproject it for the current map
-        searchFeatureWkt = wktFormat.readFeature(inputExtent.wkt, {
+        searchFeatureWkt = wktFormat.readFeature(inputExtent.feature.wkt, {
             dataProjection: 'EPSG:4326',
             featureProjection: 'EPSG:4326'
         });
@@ -524,9 +552,13 @@ function mapService(wfsService) {
 
         // Add a marker to the map if there isn't a wkt
         // present with the search item
-        addMarker(inputExtent.lat, inputExtent.lng, searchLayerVector);
+        console.log('executing else...');
+        addMarker(inputExtent.feature.lat, inputExtent.feature.lng, searchLayerVector);
 
     }
+
+    resetFeatureMapStateObj();
+
   }
 
   function zoomAnimate() {
