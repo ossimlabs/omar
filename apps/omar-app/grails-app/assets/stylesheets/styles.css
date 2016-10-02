@@ -299,6 +299,7 @@ body {
 .rotate-north {
     top: 65px;
     left: .5em;
+    right: auto;
 }
 
 .ol-touch .rotate-north {
@@ -416,8 +417,12 @@ body {
 .ol-viewport{
     border-radius: 10px;
 }
-.ol-rotate {
-    top: 4.5em;
+.ol-rotate, .ol-rotate.ol-hidden {
+    left: .5em;
+    opacity: 1;
+    right: auto;
+    top: 65px;
+    visibility: visible;
 }
 
 .ol-popup {
