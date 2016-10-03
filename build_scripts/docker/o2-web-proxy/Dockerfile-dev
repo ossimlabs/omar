@@ -1,0 +1,11 @@
+# O2 Web Service proxy
+
+FROM ossimlabs/o2-web-proxy
+MAINTAINER RadiantBlue Technologies radiantblue.com
+LABEL com.radiantblue.version="0.1"\
+      com.radiantblue.description="O2 Web Service \
+      proxy development"\
+      com.radiantblue.source=""\
+      com.radiantblue.classification="UNCLASSIFIED"
+
+COPY reverse-proxy-zuul.conf /etc/httpd/conf.d/reverse-proxy.conf

@@ -54,11 +54,6 @@ ENV DBHOST=${DBHOST}\
     BANNERCOLOR=${BANNERCOLOR}\
     BANNERCLASSIFICATION=${BANNERCLASSIFICATION}
 
-ARG O2_DEV_HOME
-
-RUN rm /usr/share/omar/omar-app/omar-app.jar && \
-    ln -s $O2_DEV_HOME/apps/omar-app/build/libs/omar-app-1.0.0.jar /usr/share/omar/omar-app/omar-app.jar
-
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/omar-app/omar-app.sh"]
 #RUN java -server -Xms256m -Xmx1024m -Djava.awt.headless=true -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit -jar /usr/share/omar/omar-app/omar-app-1.0.0.jar --server.contextPath=/o2-omar --spring.config.location=/usr/share/omar/wfs-app/wfs-app.yml
