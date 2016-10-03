@@ -3,14 +3,22 @@
   angular
   .module('omarApp')
   .controller('MapImageController', ['$scope', '$aside', '$state', '$stateParams',
-    '$location', 'toastr', 'imageSpaceService', 'beNumberService', MapImageController]);
+    '$location', 'toastr', 'imageSpaceService', 'beNumberService', 'downloadService', MapImageController]);
 
   function MapImageController($scope, $aside, $state, $stateParams, $location, toastr,
-     imageSpaceService, beNumberService) {
+     imageSpaceService, beNumberService, downloadService) {
 
     var vm = this;
 
     var imageSpaceObj = {};
+
+    //Used by band selection
+    var bands;
+    var bandNum;
+
+    vm.archiveDownload = function( imageId ) {
+      downloadService.downloadFiles( imageId );
+    };
 
     function checkStateParams() {
 
@@ -42,6 +50,85 @@
     }
 
     checkStateParams();
+
+    //Beginning - Band Selections Section
+
+    $scope.bandValues = [];
+    $scope.bandTypeValues = [
+      { 'key': 0, 'value': 'Default' },
+      { 'key': 1, 'value': 'Color' },
+      { 'key': 2, 'value': 'Gray' }
+    ];
+
+    for ( bandNum = 0; bandNum < $stateParams.bands; bandNum++ ) {
+      $scope.bandValues.push( { 'key': bandNum, 'value': bandNum } );
+    }
+
+    $scope.grayValue = $scope.bandValues[0].value;
+    $scope.enableBandType = true;
+
+    $scope.bandTypeItem = $scope.bandTypeValues[0];
+
+    $scope.grayImageItem = $scope.bandValues[0];
+    $scope.redImageItem = $scope.bandValues[0];
+    $scope.greenImageItem = $scope.bandValues[0];
+    $scope.blueImageItem = $scope.bandValues[0];
+
+    $scope.rgbValues = { red: $scope.bandValues[0].value,
+                         green: $scope.bandValues[0].value,
+                         blue: $scope.bandValues[0].value };
+
+    if ( $stateParams.bands < 2 ) {
+      $scope.enableBandType = false;
+    }
+
+    $scope.showBands =  function( bandType ) {
+      switch ( bandType.toUpperCase() ){
+        case 'COLOR':
+          $( '#rgb-image-space-bands' ).show();
+          $( '#gray-image-space-bands' ).hide();
+        break;
+        case 'GRAY':
+          $( '#gray-image-space-bands' ).show();
+          $( '#rgb-image-space-bands' ).hide();
+        break;
+        default:
+          $( '#gray-image-space-bands' ).hide();
+          $( '#rgb-image-space-bands' ).hide();
+          bands = '';
+        break;
+      }
+
+      $scope.onBandSelect = function( selectedValue, selectedBand ) {
+
+        switch ( selectedBand.toUpperCase() ){
+          case 'RED':
+            $scope.rgbValues.red = selectedValue;
+            bands = $scope.rgbValues.red + ',' + $scope.rgbValues.green + ',' + $scope.rgbValues.blue;
+          break;
+          case 'GREEN':
+            $scope.rgbValues.green = selectedValue;
+            bands = $scope.rgbValues.red + ',' + $scope.rgbValues.green + ',' + $scope.rgbValues.blue;
+          break;
+          case 'BLUE':
+            $scope.rgbValues.blue = selectedValue;
+            bands = $scope.rgbValues.red + ',' + $scope.rgbValues.green + ',' + $scope.rgbValues.blue;
+          break;
+          case 'GRAY':
+            $scope.grayValue = selectedValue;
+            bands = $scope.grayValue;
+          break;
+          default:
+            bands = '';
+          break;
+        }
+
+        console.log( bands );
+      };
+
+    };
+
+    //END - Band Selection Section
 
     function loadMapImage() {
 
