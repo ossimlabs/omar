@@ -9,10 +9,8 @@ import omar.stager.OmarStageFile
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
 
-import org.apache.commons.io.FilenameUtils
 
-
-class RasterDataSetService implements ApplicationContextAware// extends DataManagerService {
+class RasterDataSetService implements ApplicationContextAware {
 
 	static transactional = true
 
@@ -227,16 +225,17 @@ def updateRaster(def httpStatusMessage, def params)
 			log.info( httpStatusMessage?.message )
 
 			if (params.deleteFiles.toBoolean()) {
-				def base = FilenameUtils.getBaseName( rasterFile.name )
-				def path = FilenameUtils.getFullPath( rasterFile.name )
+				def files = []
+				rasterFile?.rasterDataSet?.fileObjects.each() { files << new File(it.name) }
+				rasterFile?.rasterDataSet?.rasterEntries.each() {
+                	it.fileObjects.each() { files << new File(it.name) }
+				}
 
-				def his_file = new File("${path}/${base}.his")
-				def img_file = new File(rasterFile.name)
-				def ovr_file = new File("${path}/${base}.ovr")
-				[his_file, img_file, ovr_file].each() {
+				files.each() {
 					def file = it
 					if (file.canWrite()) {
-						file.delete()
+						if (file.isDirectory()) { file.deleteDir() }
+						else { file.delete() }
 						if (!file.exists()) { log.info("Deleted ${file}") }
 						else { log.info("Unable to delete ${file}") }
 					}
