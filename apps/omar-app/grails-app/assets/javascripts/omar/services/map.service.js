@@ -12,8 +12,6 @@ function mapService(stateService, wfsService) {
   // #################################################################################
   // console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
 
-  console.log('stateService.mapState: ', stateService.mapState);
-
   var zoomToLevel = 16;
   var map,
       mapView,
@@ -98,7 +96,7 @@ function mapService(stateService, wfsService) {
       element: container
   }));
 
-  this.mapInit = function(mapParams) {
+  this.mapInit = function() {
 
     mapView = new ol.View({
       center: [0, 0],
@@ -211,10 +209,7 @@ function mapService(stateService, wfsService) {
 
       // Grabs the current value of the attrObj.filter so that the click
       // will also update if there are any temporal, keyword, or range filters
-      console.log(wfsService.attrObj.filter);
       wfsService.updateAttrFilter(wfsService.attrObj.filter);
-
-      //updateFootPrints(mapObj.cql);
 
       var searchPolygon = new ol.Feature({
           geometry: new ol.geom.Polygon.fromExtent(dragBoxExtent)
@@ -225,27 +220,11 @@ function mapService(stateService, wfsService) {
 
     });
 
-    if (mapParams === undefined) {
-
-      //zoomTo(33.3116664, 44.2858655, 4);
-      zoomTo(stateService.mapState);
-
-    } else if (mapParams !== undefined && mapParams.bounds === undefined) {
-
-        //zoomTo(mapParams.lat, mapParams.lng, zoomToLevel, true);
-        zoomTo(stateService.mapState, false);
-
-    } else {
-
-        zoomToExt(mapParams);
-
-    }
+    zoomTo(stateService.mapState, false);
 
   };
 
   this.zoomMap = function(params) {
-
-    console.log('Calling this.zoomMap with: ', params);
 
     if (params.feature.wkt !== undefined) {
 
@@ -261,15 +240,15 @@ function mapService(stateService, wfsService) {
 
   function updateFootPrints(filter) {
 
-      var params = footPrints.getSource().getParams();
-      params.FILTER = filter;
-      footPrints.getSource().updateParams(params);
+    var params = footPrints.getSource().getParams();
+    params.FILTER = filter;
+    footPrints.getSource().updateParams(params);
 
   }
 
   this.updateFootPrintLayer = function(filter) {
 
-      updateFootPrints(filter);
+    updateFootPrints(filter);
 
   };
 
@@ -290,18 +269,18 @@ function mapService(stateService, wfsService) {
 
   this.viewPortFilter = function(status) {
 
-      if (status) {
+    if (status) {
 
-          map.on('moveend', filterByViewPort);
-          filterByViewPort();
+        map.on('moveend', filterByViewPort);
+        filterByViewPort();
 
-      } else {
+    } else {
 
-          // https://groups.google.com/d/msg/ol3-dev/Z4JoCBs-iEY/HSpihl8bcVIJ
-          map.un('moveend', filterByViewPort);
-          clearLayerSource(filterLayerVector);
+        // https://groups.google.com/d/msg/ol3-dev/Z4JoCBs-iEY/HSpihl8bcVIJ
+        map.un('moveend', filterByViewPort);
+        clearLayerSource(filterLayerVector);
 
-      }
+    }
 
   };
 
@@ -315,11 +294,9 @@ function mapService(stateService, wfsService) {
     var coordinate = event.coordinate;
 
     var clickCoordinates = coordinate[0] + ' ' + coordinate[1];
-    //console.log('click coordinates', clickCoordinates);
+
 
     mapObj.cql = "INTERSECTS(" + geomField + ",POINT(" + clickCoordinates + "))";
-
-    //console.log('mapObj.cql: ', mapObj.cql);
 
     // Update the image cards in the list via spatial click coordinates
     wfsService.updateSpatialFilter(mapObj.cql);
@@ -328,20 +305,15 @@ function mapService(stateService, wfsService) {
     // will also update if there are any temporal, keyword, or range filters
     wfsService.updateAttrFilter(wfsService.attrObj.filter);
 
-    //updateFootPrints(mapObj.cql + " AND " +wfsService.attrObj.filter);
-
     addMarker(coordinate[1], coordinate[0], filterLayerVector);
 
   };
 
   this.pointFilter = function(status) {
 
-    //console.log('mapService pointFilter firing... ', status);
-
     if (status) {
 
       map.on('singleclick', filterByPoint);
-      //console.log('point on...');
 
     } else {
 
@@ -349,7 +321,6 @@ function mapService(stateService, wfsService) {
       map.un('singleclick', filterByPoint);
       clearLayerSource(searchLayerVector);
       wfsService.updateAttrFilter(wfsService.attrObj.filter);
-      //console.log('point off...');
 
     }
 
@@ -357,22 +328,18 @@ function mapService(stateService, wfsService) {
 
   this.polygonFilter = function(status) {
 
-    //console.log('mapService polygonFilter firing... ', status);
-
     if (status) {
 
         // Add interaction
         //filterByViewPort();
 
         map.addInteraction(dragBox);
-        //console.log('polygon on...');
 
     } else {
 
         // Remove interaction
         map.removeInteraction(dragBox);
         clearLayerSource(filterLayerVector);
-        //console.log('polygon off...');
 
     }
 
@@ -382,15 +349,12 @@ function mapService(stateService, wfsService) {
 
     clearLayerSource(searchLayerVector);
 
-    //console.log('mapShowImageFootprint firing: ',imageObj);
-    //console.log(geomObj.geometry.coordinates);
 
     var footprintFeature = new ol.Feature({
         geometry: new ol.geom.MultiPolygon(imageObj.geometry.coordinates)
     });
 
     var color = setFootprintColors(imageObj.properties.file_type);
-    //console.log(color);
 
     footprintStyle.getFill().setColor(color);
     footprintStyle.getStroke().setColor(color);
@@ -461,15 +425,11 @@ function mapService(stateService, wfsService) {
     var wkt = "POLYGON((" + minX + " " + minY + ", " + minX + " " + maxY + ", " + maxX + " " + maxY + ", " +
         maxX + " " + minY + ", " + minX + " " + minY + "))";
 
-    //console.log('wkt', wkt);
-
     return wkt;
 
   }
 
   function zoomTo(params, feature) {
-
-    //console.log('params: ', params);
 
     if (!feature) {
 
@@ -496,32 +456,18 @@ function mapService(stateService, wfsService) {
 
   }
 
-  /**
-   * Move and zoom the map to a
-   * certain location via an extent
-   * @function zoomToExt
-   * @memberof Map
-   * @param {obj} inputExtent - inputExtent
-   */
   function zoomToExt(inputExtent) {
 
-    console.log('inputExtent: ', inputExtent);
     clearLayerSource(searchLayerVector);
 
     var neFeature = new ol.Feature({
-        //geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.ne.lng, inputExtent.bounds.ne.lat],
-        // 'EPSG:4326', 'EPSG:3857'))
         geometry: new ol.geom.Point([inputExtent.feature.bounds.ne.lng, inputExtent.feature.bounds.ne.lat])
     });
 
-    //console.log('neFeature', inputExtent.bounds.ne.lng + ' ' + inputExtent.bounds.ne.lat);
     var swFeature = new ol.Feature({
-        //geometry: new ol.geom.Point(ol.proj.transform([inputExtent.bounds.sw.lng, inputExtent.bounds.sw.lat],
-        // 'EPSG:4326', 'EPSG:3857'))
         geometry: new ol.geom.Point([inputExtent.feature.bounds.sw.lng, inputExtent.feature.bounds.sw.lat])
     });
 
-    //console.log('swFeature', inputExtent.bounds.sw.lng + ' ' + inputExtent.bounds.sw.lat);
     searchLayerVector.getSource().addFeatures([neFeature, swFeature]);
 
     var searchItemExtent = searchLayerVector.getSource().getExtent();
@@ -537,23 +483,15 @@ function mapService(stateService, wfsService) {
     // Add the WKT to the map to illustrate the boundary of the search item
     if (inputExtent.feature.wkt !== undefined) {
 
-        //console.log('wkt => ',inputExtent.feature.wkt)
-        wktFormat = new ol.format.WKT();
-        // WKT string is in 4326 so we need to reproject it for the current map
-        searchFeatureWkt = wktFormat.readFeature(inputExtent.feature.wkt, {
-            dataProjection: 'EPSG:4326',
-            featureProjection: 'EPSG:4326'
-        });
+      wktFormat = new ol.format.WKT();
+      // WKT string is in 4326 so we need to reproject it for the current map
+      searchFeatureWkt = wktFormat.readFeature(inputExtent.feature.wkt, {
+          dataProjection: 'EPSG:4326',
+          featureProjection: 'EPSG:4326'
+      });
 
-        searchFeatureWkt.setStyle(wktStyle);
-        searchLayerVector.getSource().addFeatures([searchFeatureWkt]);
-
-    } else {
-
-        // Add a marker to the map if there isn't a wkt
-        // present with the search item
-        console.log('executing else...');
-        addMarker(inputExtent.feature.lat, inputExtent.feature.lng, searchLayerVector);
+      searchFeatureWkt.setStyle(wktStyle);
+      searchLayerVector.getSource().addFeatures([searchFeatureWkt]);
 
     }
 
@@ -580,13 +518,6 @@ function mapService(stateService, wfsService) {
 
   }
 
-  /**
-   * Clear a layer's source, and
-   * remove all features
-   * @function clearLayerSource
-   * @memberof Map
-   * @param {layer} layer - layer
-   */
   function clearLayerSource(layer) {
 
     if (layer.getSource().getFeatures().length >= 1) {
@@ -597,28 +528,16 @@ function mapService(stateService, wfsService) {
 
   }
 
-  /**
-   * Add a marker to the map
-   * at a specified point.  Clears
-   * previous instance of a maker
-   * if they exist before placing
-   * a new one
-   * @function addMarker
-   * @memberof Map
-   * @param {number} lat - Latitude
-   * @param {number} lon - Longitude
-   * @param {layer} layer - layer
-   */
   function addMarker(lat, lon, layer) {
 
-      clearLayerSource(layer);
+    clearLayerSource(layer);
 
-      var centerFeature = new ol.Feature({
-          geometry: new ol.geom.Point([parseFloat(lon), parseFloat(lat)])
-      });
+    var centerFeature = new ol.Feature({
+        geometry: new ol.geom.Point([parseFloat(lon), parseFloat(lat)])
+    });
 
-      centerFeature.setStyle(iconStyle);
-      layer.getSource().addFeatures([centerFeature]);
+    centerFeature.setStyle(iconStyle);
+    layer.getSource().addFeatures([centerFeature]);
 
   }
 
@@ -627,56 +546,56 @@ function mapService(stateService, wfsService) {
     var color = "rgba(255, 255, 50, 0.6)";
 
     switch (imageType) {
-        case "adrg":
-            color = "rgba(50, 111, 111, 0.6)"; // atoll
-            break;
-        case "aaigrid":
-            color = "rgba(255, 192, 203, 0.6)"; // pink
-            break;
-        case "cadrg":
-            color = "rgba(0, 255, 255, 0.6)"; // cyan
-            break;
-        case "ccf":
-            color = "rgba(128, 100, 255, 0.6)"; // light slate blue
-            break;
-        case "cib":
-            color = "rgba(0, 128, 128, 0.6)"; // teal
-            break;
-        case "doqq":
-            color = "rgba(128, 0, 128, 0.6)"; // purple
-            break;
-        case "dted":
-            color = "rgba(0, 255, 0, 0.6)"; // green
-            break;
-        case "imagine_hfa":
-            color = "rgba(211, 211, 211, 0.6)"; // lightGrey
-            break;
-        case "jpeg":
-            color = "rgba(255, 255, 0, 0.6)"; // yellow
-            break;
-        case "jpeg2000":
-            color = "rgba(255, 200, 0, 0.6)"; // orange
-            break;
-        case "landsat7":
-            color = "rgba(255, 0, 255, 0.6)"; // pink
-            break;
-        case "mrsid":
-            color = "rgba(0, 188, 0, 0.6)"; // light green
-            break;
-        case "nitf":
-            color = "rgba(0, 0, 255, 0.6)"; // blue
-            break;
-        case "tiff":
-            color = "rgba(255, 0, 0, 0.6)"; // red
-            break;
-        case "mpeg":
-            color = "rgba(164, 254, 255, 0.6)"; // red
-            break;
-        case "unspecified":
-            color = "rgba(255, 255, 255, 0.6)"; // white
-            break;
-        default:
-            color = "rgba(255, 255, 255, 0.6)"; // white
+      case "adrg":
+          color = "rgba(50, 111, 111, 0.6)"; // atoll
+          break;
+      case "aaigrid":
+          color = "rgba(255, 192, 203, 0.6)"; // pink
+          break;
+      case "cadrg":
+          color = "rgba(0, 255, 255, 0.6)"; // cyan
+          break;
+      case "ccf":
+          color = "rgba(128, 100, 255, 0.6)"; // light slate blue
+          break;
+      case "cib":
+          color = "rgba(0, 128, 128, 0.6)"; // teal
+          break;
+      case "doqq":
+          color = "rgba(128, 0, 128, 0.6)"; // purple
+          break;
+      case "dted":
+          color = "rgba(0, 255, 0, 0.6)"; // green
+          break;
+      case "imagine_hfa":
+          color = "rgba(211, 211, 211, 0.6)"; // lightGrey
+          break;
+      case "jpeg":
+          color = "rgba(255, 255, 0, 0.6)"; // yellow
+          break;
+      case "jpeg2000":
+          color = "rgba(255, 200, 0, 0.6)"; // orange
+          break;
+      case "landsat7":
+          color = "rgba(255, 0, 255, 0.6)"; // pink
+          break;
+      case "mrsid":
+          color = "rgba(0, 188, 0, 0.6)"; // light green
+          break;
+      case "nitf":
+          color = "rgba(0, 0, 255, 0.6)"; // blue
+          break;
+      case "tiff":
+          color = "rgba(255, 0, 0, 0.6)"; // red
+          break;
+      case "mpeg":
+          color = "rgba(164, 254, 255, 0.6)"; // red
+          break;
+      case "unspecified":
+          color = "rgba(255, 255, 255, 0.6)"; // white
+          break;
+      default:
+          color = "rgba(255, 255, 255, 0.6)"; // white
 
     }
 

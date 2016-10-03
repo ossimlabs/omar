@@ -55,7 +55,6 @@ angular
       $rootScope.$broadcast(
           'mapState.updated', _this.mapState
       );
-      console.log('mapState.updated => ', _this.mapState);
 
     }
 
