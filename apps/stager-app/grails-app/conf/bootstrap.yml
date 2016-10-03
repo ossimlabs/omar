@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: o2-stager
+  cloud:
+    config:
+      uri: http://localhost:8888
+---
+spring:
+  profiles: production
+  cloud:
+    config:
+      uri: http://omar-config-server:8888

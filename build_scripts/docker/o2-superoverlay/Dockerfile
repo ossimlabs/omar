@@ -26,5 +26,10 @@ ENV DBHOST=${DBHOST}\
     WMSURL=${WMSURL}\
     WMSPORT=${WMSPORT}
 
+ARG O2_DEV_HOME
+
+RUN rm -f /usr/share/omar/superoverlay-app/superoverlay-app.jar && \
+    ln -s $O2_DEV_HOME/apps/superoverlay-app/build/libs/superoverlay-app-1.0.0.jar /usr/share/omar/superoverlay-app/superoverlay-app.jar
+
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/superoverlay-app/superoverlay-app.sh"]

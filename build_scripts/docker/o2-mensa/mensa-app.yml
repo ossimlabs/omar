@@ -1,9 +1,9 @@
 server:
-  contextPath:
+  # contextPath:
   port: 8080
 
 endpoints:
-  health:
+  # health:
     enabled: true
 
 ---

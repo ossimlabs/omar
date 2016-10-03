@@ -152,7 +152,7 @@ wms:
         color: white
 
 endpoints:
-  health:
+  # health:
     enabled: true
 
 ---

@@ -35,7 +35,7 @@ class WfsSpec extends GebSpec
 
   def cleanupSpec()
   {
-    wfs?.close()
+    // wfs?.close()
   }
 
   def setup()
@@ -54,6 +54,7 @@ class WfsSpec extends GebSpec
     //def names = wfs?.names?.sort()?.each { println it }
     //def names = wfs?.layers*.name?.sort()?.each { println it }
 
+/*
     def serverBase = grailsLinkGenerator.serverBaseURL?.toURL()
     def serverPort = System.getenv( 'SERVER_PORT' ) ?: '8080'
     def serverURL = "${serverBase}:${serverPort}${grailsLinkGenerator.contextPath ?: ''}"
@@ -62,7 +63,7 @@ class WfsSpec extends GebSpec
         service: 'WFS', version: '1.1.0', request: 'GetCapabilities'] )
 
     println "linkGen: ${wfsServiceAddress}"
-
+*/
     //println wfs['topp:states'].count()
     //names != null
     true

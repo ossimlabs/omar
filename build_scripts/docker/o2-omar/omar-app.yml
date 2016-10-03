@@ -1,5 +1,5 @@
 server:
-  contextPath:
+  # contextPath:
   port: 8080
 
 environments:
@@ -78,7 +78,7 @@ classificationBanner:
   classificationType: ${BANNERCLASSIFICATION}
 
 endpoints:
-  health:
+  # health:
     enabled: true
 
 ---

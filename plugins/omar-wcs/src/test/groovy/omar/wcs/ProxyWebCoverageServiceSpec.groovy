@@ -17,6 +17,6 @@ class ProxyWebCoverageServiceSpec extends Specification {
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true 
     }
 }

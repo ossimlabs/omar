@@ -76,6 +76,7 @@ hibernate:
         region.factory_class: 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
 
 endpoints:
+    enabled: true
     jmx:
         unique-names: true
 

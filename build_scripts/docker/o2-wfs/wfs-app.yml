@@ -1,5 +1,5 @@
 server:
-  contextPath:
+  # contextPath:
   port: 8080
 
 # environments:
@@ -152,7 +152,7 @@ wms:
         color: white
 
 endpoints:
-  health:
+  # health:
     enabled: true
 
 ---

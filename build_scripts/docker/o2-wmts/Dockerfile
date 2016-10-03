@@ -35,4 +35,10 @@ ENV DBUSER=${DBUSER}\
     WMSPORT=${WMSPORT}
 
 EXPOSE 8080
+
+ARG O2_DEV_HOME
+
+RUN rm -f /usr/share/omar/wmts-app/wmts-app.jar && \
+    ln -s $O2_DEV_HOME/apps/wmts-app/build/libs/wmts-app-1.0.0.jar /usr/share/omar/wmts-app/wmts-app.jar
+
 CMD ["sh", "/usr/share/omar/wmts-app/wmts-app.sh"]
