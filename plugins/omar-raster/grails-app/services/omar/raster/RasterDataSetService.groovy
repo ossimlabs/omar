@@ -9,8 +9,10 @@ import omar.stager.OmarStageFile
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
 
-class RasterDataSetService implements ApplicationContextAware// extends DataManagerService
-{
+import org.apache.commons.io.FilenameUtils
+
+
+class RasterDataSetService implements ApplicationContextAware// extends DataManagerService {
 
 	static transactional = true
 
@@ -22,8 +24,7 @@ class RasterDataSetService implements ApplicationContextAware// extends DataMana
 	ApplicationContext applicationContext
 
 
-	def deleteFromRepository( Repository repository )
-	{
+	def deleteFromRepository( Repository repository ) {
 		def rasterDataSets = RasterDataSet.findAllByRepository( repository )
 
 		rasterDataSets?.each { it.delete() }
@@ -37,47 +38,34 @@ class RasterDataSetService implements ApplicationContextAware// extends DataMana
 	 *                          header paramters that need to be added to the response.
 	 * @param filename is the file you wish to add to the OMAR tables
 	 */
-	def addRaster( def httpStatusMessage, AddRasterCommand params )
-	{
+	def addRaster( def httpStatusMessage, AddRasterCommand params ) {
 		def filename = params?.filename as File
 		httpStatusMessage?.status = HttpStatus.OK
 		httpStatusMessage?.message = "Added raster ${filename}"
 
-
-		if (!filename?.exists())
-		{
+		if (!filename?.exists()) {
 			httpStatusMessage?.status = HttpStatus.NOT_FOUND
 			httpStatusMessage?.message = "Not Found: ${filename}"
 			log.error(httpStatusMessage?.message)
 		}
-		else if (!filename?.canRead())
-		{
+		else if (!filename?.canRead()) {
 			httpStatusMessage?.status = HttpStatus.FORBIDDEN
 			httpStatusMessage?.message = "Not Readable ${filename}"
 			log.error(httpStatusMessage?.message)
 		}
-		else
-		{
+		else {
 			def xml = dataInfoService.getInfo(params?.filename)
 			def background = false;
 
-			try
-			{
-				background = params?.background
-			}
-			catch (Exception e)
-			{
-				log.error(e)
-			}
+			try { background = params?.background }
+			catch (Exception e) { log.error(e) }
 
-			if (!xml)
-			{
+			if (!xml) {
 				httpStatusMessage?.message = "Unable to get information on file ${filename}"
 				httpStatusMessage?.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
 				log.error(httpStatusMessage?.message)
 			}
-			else if (background)
-			{
+			else if (background) {
 				def result = stagerService.addFileToStage(filename.absolutePath, params.properties)
 
 				httpStatusMessage.status = result.status
@@ -90,64 +78,52 @@ class RasterDataSetService implements ApplicationContextAware// extends DataMana
 				//DataManagerQueueItem.addItem( [ file: "${ filename }", dataManagerAction: "addRaster" ],
 				//		true );
 			}
-			else
-			{
+			else {
 				def parser = parserPool?.borrowObject()
 				def oms = new XmlSlurper(parser)?.parseText(xml)
 				Boolean fileStaged = false
 				parserPool?.returnObject(parser)
 
-				if(params.buildOverviews||params.buildHistograms)
-				{
+				if(params.buildOverviews||params.buildHistograms) {
 					def result = stagerService.stageFileJni([filename:params.filename,
 														 buildOverviews: params.buildOverviews,
 														 buildHistograms:params.buildHistograms,
 														 overviewCompressionType: params.overviewCompressionType,
 														 overviewType: params.overviewType
 					])
-					if(result?.status >= 300)
-					{
-						log.error(result?.message)
-
-					}
+					if(result?.status >= 300) { log.error(result?.message) }
 					httpStatusMessage.status = result.status
 					httpStatusMessage.message = result.message
 				}
-				else
-				{
+				else {
 					def omsInfoParser = applicationContext?.getBean("rasterInfoParser")
 					def repository = ingestService?.findRepositoryForFile(filename)
 					def rasterDataSets = omsInfoParser?.processDataSets(oms, repository)
 
-					if (rasterDataSets?.size() < 1)
-					{
+					if (rasterDataSets?.size() < 1) {
 						httpStatusMessage?.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
 						httpStatusMessage?.message = "Not a raster file: ${filename}"
 						log.error(httpStatusMessage?.message)
 					}
-					else
-					{
+					else {
 						rasterDataSets?.each { rasterDataSet ->
 							def savedRaster = true
-							try
-							{
-								if (rasterDataSet.save())
-								{
+							try {
+								if (rasterDataSet.save()) {
 									//stagerHandler.processSuccessful(filename, xml)
 									httpStatusMessage?.status = HttpStatus.OK
 									log.info(httpStatusMessage?.message)
 									def ids = rasterDataSet?.rasterEntries.collect { it.id }.join(",")
 									httpStatusMessage?.message = "Added raster ${ids}:${filename}"
-								} else
-								{
+								}
+								else {
 									savedRaster = false
 									httpStatusMessage?.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
 									httpStatusMessage?.message = "Unable to save image ${filename}, image probably already exists"
 									log.error(httpStatusMessage?.message)
 								}
 							}
-							catch (Exception e)
-							{
+							catch (Exception e) {
 								httpStatusMessage?.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
 								httpStatusMessage?.message = "Unable to save image ${filename}, image probably already exists\n${e?.message}"
 								log.error(httpStatusMessage?.message)
@@ -158,19 +134,6 @@ class RasterDataSetService implements ApplicationContextAware// extends DataMana
 				}
 			}
 		}
-//			def xml
-//			if ( params?.buildOvrs?.toBoolean() == true )
-//			{
-
-//				xml = StagerUtil.getInfo( params?.filename as File )
-//			}
-//			else
-//			{
-//			}
-
-		// determine if we handle the image and can be indexed
-		//
-//	}
 	}
 
 /*
@@ -251,25 +214,37 @@ def updateRaster(def httpStatusMessage, def params)
 }
 */
 
-	def removeRaster( def httpStatusMessage, def params )
-	{
+	def removeRaster( def httpStatusMessage, def params ) {
 		def status = false
 		def filename = params?.filename as File
 
-		// println filename
-
 		def rasterFile = RasterFile.findByNameAndType( filename.absolutePath, "main" )
-
-		if ( rasterFile )
-		{
+		if ( rasterFile ) {
 			rasterFile?.rasterDataSet?.delete( flush: true )
 			httpStatusMessage?.status = HttpStatus.OK
 			def ids = rasterFile?.rasterDataSet?.rasterEntries?.collect { it?.id }?.join( "," )
 			httpStatusMessage?.message = "removed raster ${ ids }:${ filename }"
 			log.info( httpStatusMessage?.message )
+
+			if (params.deleteFiles.toBoolean()) {
+				def base = FilenameUtils.getBaseName( rasterFile.name )
+				def path = FilenameUtils.getFullPath( rasterFile.name )
+
+				def his_file = new File("${path}/${base}.his")
+				def img_file = new File(rasterFile.name)
+				def ovr_file = new File("${path}/${base}.ovr")
+				[his_file, img_file, ovr_file].each() {
+					def file = it
+					if (file.canWrite()) {
+						file.delete()
+						if (!file.exists()) { log.info("Deleted ${file}") }
+						else { log.info("Unable to delete ${file}") }
+					}
+					else { log.info("Don't have permissions to delete ${file}") }
+				}
+			}
 		}
-		else
-		{
+		else {
 			httpStatusMessage?.status = HttpStatus.NOT_FOUND
 			httpStatusMessage?.message = "Raster file does not exist in the database: ${ filename }"
 			log.error( httpStatusMessage?.message )
@@ -336,8 +311,7 @@ def updateRaster(def httpStatusMessage, def params)
 
 			result.pagination.limit = limit
 		}
-		catch(e)
-		{
+		catch(e) {
 			result.status = HttpStatus.BAD_REQUEST
 			result.message = e.toString()
 			result.remove("results")
@@ -347,21 +321,16 @@ def updateRaster(def httpStatusMessage, def params)
 		result
 	}
 
-	def getRasterFiles(GetRasterFilesCommand cmd)
-	{
-		HashMap result = [
-				results:[]
-		]
+	def getRasterFiles(GetRasterFilesCommand cmd) {
+		HashMap result = [ results:[] ]
 
 		def files = RasterEntry.compositeId(cmd.id)
 
 		RasterEntry entry = files?.get()
 		def fileList = []
-		if(entry)
-		{
+		if(entry) {
 			entry.fileObjects.each{fileObject->
 				fileList << fileObject.name
-
 			}
 			entry?.rasterDataSet?.fileObjects.each{ fileObject->
 				fileList << fileObject.name
