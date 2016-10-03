@@ -22,6 +22,12 @@ RUN rm -rf tlv_master/plugins/network_specific
 RUN mv ossimlabs_tlv/plugins/network_specific tlv_master/plugins/
 RUN rm -rf /app/ossimlabs_tlv
 
+
+# add the application documentation
+WORKDIR /app
+RUN  mv tlv_master/docs/tlv.html tlv_master/time_lapse/grails-app/conf/
+
+
 # install grails
 ENV GRAILS_VERSION 3.1.5
 RUN curl -L -o grails.zip  https://github.com/grails/grails-core/releases/download/v${GRAILS_VERSION}/grails-${GRAILS_VERSION}.zip
@@ -43,9 +49,10 @@ ADD tlv-app.yml .
 ENV SPRING_CONFIG_LOCATION /app/tlv-app.yml
 
 
-# adjust the tlv source code to accomodate deployment
+# adjust the tlv source code to accommodate deployment
 
 # take into account the web proxy path
+RUN sed -i -e 's/\/assets/\/tlv\/assets/g' /app/tlv_master/time_lapse/grails-app/conf/tlv.html
 RUN sed -i -e 's/${request.contextPath}/\/tlv/g' /app/tlv_master/time_lapse/grails-app/views/index.gsp
 
 # force a jar artifact
