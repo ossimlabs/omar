@@ -13,9 +13,13 @@
 server:
   port: 8765
 zuul:
-  ignoredServices: "*"
+  #ignoredServices: "*"
   # add-proxy-headers: true
   routes:
+    o2-stager:
+      path: /o2-stager/**
+      serviceId: o2-stager
+      strip-prefix: false
     o2-mensa:
       path: /o2-mensa/**
       serviceId: o2-mensa
