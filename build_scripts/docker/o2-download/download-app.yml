@@ -22,3 +22,10 @@ grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-download
   assets:
     url: http://${DOCKER_HOST_IP}/o2-download/assets/
+
+spring:
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false
