@@ -8,4 +8,7 @@ LABEL com.radiantblue.version="0.1"\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
 
-COPY reverse-proxy-zuul.conf /etc/httpd/conf.d/reverse-proxy.conf
+ARG O2_DEV_HOME
+
+RUN rm -f /etc/httpd/conf.d/reverse-proxy.conf && \
+    ln -s $O2_DEV_HOME/build_scripts/docker/o2-web-proxy/reverse-proxy-zuul.conf /etc/httpd/conf.d/reverse-proxy.conf
