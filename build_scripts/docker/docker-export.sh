@@ -57,6 +57,7 @@ for app in ${O2_APPS[@]} ; do
    exists=$( docker images | grep -c -e "${app}[ ]\{2,\}${TAG}") 
    if [ ${exists} == "0" ]; then
       runCommand docker pull ${imagename}
+   fi
    
    exists=$( docker images | grep -c -e "${app}[ ]\{2,\}${TAG}") 
    if [ ${exists} != "0" ]; then
@@ -79,9 +80,9 @@ for app in ${O2_APPS[@]} ; do
    fi
 done
 
-# For convenience, upload the import script to the same S3 bucket:
+# For convenience, upload the import and compose script to the same S3 bucket:
 pushd $SCRIPT_DIR
-runCommand tar cvfz docker-scripts.tgz docker-common.sh docker-import.sh docker-compose-template.yml docker-rmi-all.sh
+runCommand tar cvfz docker-scripts.tgz docker-common.sh docker-import.sh docker-compose-no-build.yml docker-rmi-all.sh compose.sh
 runCommand aws s3 cp docker-scripts.tgz ${s3_bucket}/ 
 popd
 
