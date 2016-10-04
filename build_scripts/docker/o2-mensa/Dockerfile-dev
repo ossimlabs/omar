@@ -13,7 +13,7 @@
 # based on the underlying surface elevation
 # used.
 
-FROM ossimlabs/o2-mensa
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-mensa
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The mensuration \

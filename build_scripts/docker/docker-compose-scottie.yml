@@ -2,7 +2,7 @@ version: '2'
 services:
   o2-web-proxy:
     build: ./o2-web-proxy
-    image: ossimlabs/o2-web-proxy
+    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy
     environment:
       DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
     ports:
@@ -14,10 +14,10 @@ services:
     restart: always
   # o2-base:
   #   build: ./o2-base
-  #   image: ossimlabs/o2-base
+  #   image: ${DOCKER_REGISTRY_URI}/o2-base
   #o2-db:
   #  #build: ./o2-db
-  #  image: ossimlabs/o2-db
+  #  image: ${DOCKER_REGISTRY_URI}/o2-db
   #  environment:
   #    POSTGRES_USER: postgres_user
   #    POSTGRES_PASSWORD: abc123
@@ -28,7 +28,7 @@ services:
   o2-stager:
     build:
       context: ./o2-stager
-    image: ossimlabs/o2-stager
+    image: ${DOCKER_REGISTRY_URI}/o2-stager
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -50,7 +50,7 @@ services:
   o2-wms:
     build:
      context: ./o2-wms
-    image: ossimlabs/o2-wms
+    image: ${DOCKER_REGISTRY_URI}/o2-wms
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -72,7 +72,7 @@ services:
   o2-wfs:
     build:
       context: ./o2-wfs
-    image: ossimlabs/o2-wfs
+    image: ${DOCKER_REGISTRY_URI}/o2-wfs
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -94,7 +94,7 @@ services:
     restart: always
 #   # o2-wcs:
 #   #   build: ./o2-wcs
-#   #   image: ossimlabs/o2-wcs
+#   #   image: ${DOCKER_REGISTRY_URI}/o2-wcs
 #   #   environment:
 #   #     DBHOST: o2-db
 #   #     DBPORT: :5432
@@ -117,7 +117,7 @@ services:
   o2-omar:
     build:
       context: ./o2-omar
-    image: ossimlabs/o2-omar
+    image: ${DOCKER_REGISTRY_URI}/o2-omar
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -174,7 +174,7 @@ services:
   o2-wmts:
     build:
       context: ./o2-wmts
-    image: ossimlabs/o2-wmts
+    image: ${DOCKER_REGISTRY_URI}/o2-wmts
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -201,7 +201,7 @@ services:
 #   #     context: ./o2-sqs
 #   #     args:
 #   #       - O2_DEV_HOME=$O2_DEV_HOME
-#   #   image: ossimlabs/o2-sqs
+#   #   image: ${DOCKER_REGISTRY_URI}/o2-sqs
 #   #   environment:
 #   #     AWSDNS: sqs.us-east-1.amazonaws.com
 #   #     AWSQUEUEPATH: 320588532383/avro-tst
@@ -231,7 +231,7 @@ services:
 #   #     context: ./o2-avro
 #   #     args:
 #   #       - O2_DEV_HOME=$O2_DEV_HOME
-#   #   image: ossimlabs/o2-avro
+#   #   image: ${DOCKER_REGISTRY_URI}/o2-avro
 #   #   environment:
 #   #     DBHOST: o2-db
 #   #     DBPORT: :5432
@@ -256,7 +256,7 @@ services:
   o2-jpip:
     build:
       context: ./o2-jpip
-    image: ossimlabs/o2-jpip
+    image: ${DOCKER_REGISTRY_URI}/o2-jpip
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -280,7 +280,7 @@ services:
     restart: always
 #   #o2-jpip-server:
 #   #  #build: ./o2-jpip-server
-#   #  image: ossimlabs/o2-jpip-server
+#   #  image: ${DOCKER_REGISTRY_URI}/o2-jpip-server
 #   #  environment:
 #   #    JPIPCACHEDIR: /data/jpip-cache
 #   #    JPIPSERVERURL: spring-cloud.radiantbluecloud.com
@@ -298,7 +298,7 @@ services:
   o2-superoverlay:
     build:
       context: ./o2-superoverlay
-    image: ossimlabs/o2-superoverlay
+    image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -320,7 +320,7 @@ services:
   o2-download:
     build:
       context: ./o2-download
-    image: ossimlabs/o2-download
+    image: ${DOCKER_REGISTRY_URI}/o2-download
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -344,7 +344,7 @@ services:
 # #      context: ./o2-swipe
 # #      args:
 # #        - O2_DEV_HOME=$O2_DEV_HOME
-#     image: ossimlabs/o2-swipe
+#     image: ${DOCKER_REGISTRY_URI}/o2-swipe
 #     environment:
 #       DBHOST: o2-db
 #       DBPORT: :5432
@@ -369,7 +369,7 @@ services:
   o2-mensa:
     build:
       context: ./o2-mensa
-    image: ossimlabs/o2-mensa
+    image: ${DOCKER_REGISTRY_URI}/o2-mensa
     environment:
       DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
     volumes:
@@ -383,7 +383,7 @@ services:
     #   - o2-web-proxy
   #o2-twofishes:
   #  #build: ./twofishes
-  #  image: ossimlabs/twofishes
+  #  image: ${DOCKER_REGISTRY_URI}/twofishes
   #  ports:
   #    - "5006:8081"
   #  restart: always

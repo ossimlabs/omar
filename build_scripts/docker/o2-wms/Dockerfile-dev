@@ -3,7 +3,7 @@
 # perform all on-the-fly chipping of raw imagery via a
 # WMS GetMap query.
 
-FROM ossimlabs/o2-wms
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-wms
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="WMS Implements \

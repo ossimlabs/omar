@@ -3,7 +3,7 @@
 # one to quickly discover new assets and display
 # them using common OGC services.
 
-FROM ossimlabs/o2-omar
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-omar
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The OMAR Web \

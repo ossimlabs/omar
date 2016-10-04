@@ -27,9 +27,9 @@ function createRepositories()
 
 function deleteImage()
 {
-  REPOSITRY=$1
+  REPOSITORY=$1
   TAG=$2
-  aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}
+  aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}g
 }
 
 createRepositories O2_APPS

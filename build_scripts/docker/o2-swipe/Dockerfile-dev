@@ -6,7 +6,7 @@
 # used in the swipe. The WMS chips data displayed
 # in the swipe view.
 
-FROM ossimlabs/o2-swipe
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-swipe
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The swipe \

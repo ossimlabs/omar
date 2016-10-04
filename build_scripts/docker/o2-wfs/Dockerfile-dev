@@ -2,7 +2,7 @@
 # Service (WFS) supports returning feature information
 # indexed into either the imagery tables or the video tables.
 
-FROM ossimlabs/o2-wfs
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-wfs
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="WFS Implements \
