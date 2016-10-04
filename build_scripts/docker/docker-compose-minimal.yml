@@ -2,7 +2,7 @@ version: '2'
 services:
   # o2-web-proxy:
   #   build: ./o2-web-proxy
-  #   image: ossimlabs/o2-web-proxy
+  #   image: ${DOCKER_REGISTRY_URI}/o2-web-proxy
   #   container_name: o2-web-proxy
   #   environment:
   #     DOCKER_HOST_IP: localhost
@@ -14,10 +14,10 @@ services:
   # o2-base:
   #   # build: ./o2-base
   #   container_name: o2-base
-  #   image: ossimlabs/o2-base
+  #   image: ${DOCKER_REGISTRY_URI}/o2-base
   # o2-db:
   #   #build: ./o2-db
-  #   image: ossimlabs/o2-db
+  #   image: ${DOCKER_REGISTRY_URI}/o2-db
   #   container_name: o2-db
   #   environment:
   #     POSTGRES_USER: postgres_user
@@ -28,7 +28,7 @@ services:
   #   restart: always
   # o2-stager:
   #   #build: ./o2-stager
-  #   image: ossimlabs/o2-stager
+  #   image: ${DOCKER_REGISTRY_URI}/o2-stager
   #   container_name: o2-stager
   #   environment:
   #     DBHOST: o2-db
@@ -48,7 +48,7 @@ services:
   #   restart: always
   o2-wms:
     build: ./o2-wms
-    image: ossimlabs/o2-wms
+    image: ${DOCKER_REGISTRY_URI}/o2-wms
     container_name: o2-wms
     environment:
       DBHOST: o2-db
@@ -69,7 +69,7 @@ services:
     # restart: always
   o2-wfs:
     build: ./o2-wfs
-    image: ossimlabs/o2-wfs
+    image: ${DOCKER_REGISTRY_URI}/o2-wfs
     container_name: o2-wfs
     environment:
       DBHOST: o2-db
@@ -92,7 +92,7 @@ services:
     # restart: always
   # # o2-wcs:
   # #   build: ./o2-wcs
-  # #   image: ossimlabs/o2-wcs
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-wcs
   # #   container_name: o2-wcs
   # #   environment:
   # #     DBHOST: o2-db
@@ -114,7 +114,7 @@ services:
   # #     - o2-web-proxy
   o2-omar:
     build: ./o2-omar
-    image: ossimlabs/o2-omar
+    image: ${DOCKER_REGISTRY_URI}/o2-omar
     container_name: o2-omar
     environment:
       DBHOST: o2-db
@@ -170,7 +170,7 @@ services:
     # restart: always
   # o2-wmts:
   #   #build: ./o2-wmts
-  #   image: ossimlabs/o2-wmts
+  #   image: ${DOCKER_REGISTRY_URI}/o2-wmts
   #   container_name: o2-wmts
   #   environment:
   #     DBHOST: o2-db
@@ -192,7 +192,7 @@ services:
   #   restart: always
   # # o2-sqs:
   # #   #build: ./o2-sqs
-  # #   image: ossimlabs/o2-sqs
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-sqs
   # #   container_name: o2-sqs
   # #   environment:
   # #     AWSDNS: sqs.us-east-1.amazonaws.com
@@ -219,7 +219,7 @@ services:
   # #   restart: always
   # # o2-avro:
   # #   #build: ./o2-avro
-  # #   image: ossimlabs/o2-avro
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-avro
   # #   container_name: o2-avro
   # #   environment:
   # #     DBHOST: o2-db
@@ -243,7 +243,7 @@ services:
   # #   restart: always
   # o2-jpip:
   #   #build: ./o2-jpip
-  #   image: ossimlabs/o2-jpip
+  #   image: ${DOCKER_REGISTRY_URI}/o2-jpip
   #   container_name: o2-jpip
   #   environment:
   #     DBHOST: o2-db
@@ -266,7 +266,7 @@ services:
   #   restart: always
   # o2-jpip-server:
   #   #build: ./o2-jpip-server
-  #   image: ossimlabs/o2-jpip-server
+  #   image: ${DOCKER_REGISTRY_URI}/o2-jpip-server
   #   container_name: o2-jpip-server
   #   environment:
   #     JPIPCACHEDIR: /data/jpip-cache
@@ -283,7 +283,7 @@ services:
   #   restart: always
   # o2-superoverlay:
   #   #build: ./o2-superoverlay
-  #   image: ossimlabs/o2-superoverlay
+  #   image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
   #   container_name: o2-superoverlay
   #   environment:
   #     DBHOST: o2-db
@@ -302,7 +302,7 @@ services:
   #   restart: always
   # o2-download:
   #   #build: ./o2-download
-  #   image: ossimlabs/o2-download
+  #   image: ${DOCKER_REGISTRY_URI}/o2-download
   #   container_name: o2-download
   #   environment:
   #     DBHOST: o2-db
@@ -322,7 +322,7 @@ services:
   #   restart: always
   # o2-swipe:
   #   #build: ./o2-swipe
-  #   image: ossimlabs/o2-swipe
+  #   image: ${DOCKER_REGISTRY_URI}/o2-swipe
   #   container_name: o2-swipe
   #   environment:
   #     DBHOST: o2-db
@@ -345,7 +345,7 @@ services:
   #   restart: always
   o2-mensa:
     build: ./o2-mensa
-    image: ossimlabs/o2-mensa
+    image: ${DOCKER_REGISTRY_URI}/o2-mensa
     container_name: o2-mensa
     environment:
       DOCKER_HOST_IP: localhost
@@ -359,7 +359,7 @@ services:
     #   - o2-web-proxy
   # o2-twofishes:
   #   #build: ./twofishes
-  #   image: ossimlabs/twofishes
+  #   image: ${DOCKER_REGISTRY_URI}/twofishes
   #   container_name: twofishes
   #   ports:
   #     - "5006:8081"

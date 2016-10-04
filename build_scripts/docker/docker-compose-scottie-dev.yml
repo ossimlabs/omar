@@ -4,7 +4,7 @@ services:
     build:
       context: ./o2-web-proxy
       dockerfile: Dockerfile-dev
-    image: ossimlabs/o2-web-proxy-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy-dev
     environment:
       DOCKER_HOST_IP: localhost
     ports:
@@ -17,10 +17,10 @@ services:
   # # o2-base:
   # #   build: ./o2-base
   # #  dockerfile: Dockerfile
-  # #   image: ossimlabs/o2-base
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-base
   # #o2-db:
   # #  #build: ./o2-db
-  # #  image: ossimlabs/o2-db
+  # #  image: ${DOCKER_REGISTRY_URI}/o2-db
   # #  dockerfile: Dockerfile
   # #  environment:
   # #    POSTGRES_USER: postgres_user
@@ -35,7 +35,7 @@ services:
       dockerfile: Dockerfile-dev
       args:
         - O2_DEV_HOME=${O2_DEV_HOME}
-    image: ossimlabs/o2-stager-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-stager-dev
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -60,7 +60,7 @@ services:
       dockerfile: Dockerfile-dev
       args:
         - O2_DEV_HOME=${O2_DEV_HOME}
-    image: ossimlabs/o2-wms-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-wms-dev
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -85,7 +85,7 @@ services:
       dockerfile: Dockerfile-dev
       args:
         - O2_DEV_HOME=${O2_DEV_HOME}
-    image: ossimlabs/o2-wfs-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-wfs-dev
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -108,7 +108,7 @@ services:
     restart: always
   # # o2-wcs:
   # #   build: ./o2-wcs
-  # #   image: ossimlabs/o2-wcs
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-wcs
   # #   dockerfile: Dockerfile-dev
   # #   environment:
   # #     DBHOST: o2-db
@@ -135,7 +135,7 @@ services:
       dockerfile: Dockerfile-dev
       args:
         - O2_DEV_HOME=$O2_DEV_HOME
-    image: ossimlabs/o2-omar-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-omar-dev
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -195,7 +195,7 @@ services:
       dockerfile: Dockerfile-dev
       args:
         - O2_DEV_HOME=$O2_DEV_HOME
-    image: ossimlabs/o2-wmts-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-wmts-dev
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -222,7 +222,7 @@ services:
   # #     context: ./o2-sqs
   # #     args:
   # #       - O2_DEV_HOME=$O2_DEV_HOME
-  # #   image: ossimlabs/o2-sqs-dev
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-sqs-dev
   # #   dockerfile: Dockerfile-dev
   # #   environment:
   # #     AWSDNS: sqs.us-east-1.amazonaws.com
@@ -253,7 +253,7 @@ services:
   # #     context: ./o2-avro
   # #     args:
   # #       - O2_DEV_HOME=$O2_DEV_HOME
-  # #   image: ossimlabs/o2-avro-dev
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-avro-dev
   # #   dockerfile: Dockerfile-dev
   # #   environment:
   # #     DBHOST: o2-db
@@ -282,7 +282,7 @@ services:
       dockerfile: Dockerfile-dev
       args:
         - O2_DEV_HOME=$O2_DEV_HOME
-    image: ossimlabs/o2-jpip-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-jpip-dev
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -306,7 +306,7 @@ services:
     restart: always
   # #o2-jpip-server:
   # #  #build: ./o2-jpip-server
-  # #  image: ossimlabs/o2-jpip-server
+  # #  image: ${DOCKER_REGISTRY_URI}/o2-jpip-server
   # #  dockerfile: Dockerfile
   # #  environment:
   # #    JPIPCACHEDIR: /data/jpip-cache
@@ -328,7 +328,7 @@ services:
       dockerfile: Dockerfile-dev
       args:
         - O2_DEV_HOME=$O2_DEV_HOME
-    image: ossimlabs/o2-superoverlay-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-superoverlay-dev
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -352,7 +352,7 @@ services:
       dockerfile: Dockerfile-dev
       args:
         - O2_DEV_HOME=$O2_DEV_HOME
-    image: ossimlabs/o2-download-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-download-dev
     environment:
       DBHOST: o2-db
       DBPORT: :5432
@@ -376,7 +376,7 @@ services:
   #    context: ./o2-swipe
   #    args:
   #      - O2_DEV_HOME=$O2_DEV_HOME
-  #   image: ossimlabs/o2-swipe-dev
+  #   image: ${DOCKER_REGISTRY_URI}/o2-swipe-dev
   #   dockerfile: Dockerfile-dev
   #   environment:
   #     DBHOST: o2-db
@@ -406,7 +406,7 @@ services:
       dockerfile: Dockerfile-dev
       args:
         - O2_DEV_HOME=$O2_DEV_HOME
-    image: ossimlabs/o2-mensa-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-mensa-dev
     environment:
       DOCKER_HOST_IP: localhost
     volumes:
@@ -420,7 +420,7 @@ services:
     #   - o2-web-proxy
   # #o2-twofishes:
   # #  #build: ./twofishes
-  # #  image: ossimlabs/twofishes
+  # #  image: ${DOCKER_REGISTRY_URI}/twofishes
   # #  dockerfile: Dockerfile
   # #  ports:
   # #    - "5006:8081"

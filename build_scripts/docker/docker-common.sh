@@ -29,25 +29,34 @@ if [ -z $DOCKER_REGISTRY_URI ] ; then
   export DOCKER_REGISTRY_URI="320588532383.dkr.ecr.us-east-1.amazonaws.com"
 fi
 
-echo off
+if [ -z $AWS_CREDENTIALS_PATH ] ; then
+  export AWS_CREDENTIALS_PATH="/home/jenkins/.aws:/root/.aws"
+fi
+
 # Create login credentials for docker
 if [[ "$DOCKER_REGISTRY_URI" =~ .*amazonaws.* ]] ; then
+  echo; echo "Attempting to log into Amazon container registry..."
   eval `aws ecr get-login --region us-east-1`
   if [ $? != 0 ] ; then
     echo "Unable to create login credential for amazonaws access"
     exit 1
   fi
 fi
-echo on
 
 export O2_APPS
 export TAG="latest"
 
 if [ -z $S3_DELIVERY_BUCKET ]; then
   export S3_DELIVERY_BUCKET="s3://o2-delivery/dev"
-  echo "WARNING: No URL specified for S3 delivery bucket. Defaulting S3_DELIVERY_BUCKET = <$S3_DELIVERY_BUCKET>"
-  echo;
 fi
+
+echo 
+echo SCRIPT_DIR=$SCRIPT_DIR
+echo OSSIM_DEV_HOME=$OSSIM_DEV_HOME
+echo DOCKER_REGISTRY_URI=$DOCKER_REGISTRY_URI
+echo AWS_CREDENTIALS_PATH=$AWS_CREDENTIALS_PATH
+echo S3_DELIVERY_BUCKET=$S3_DELIVERY_BUCKET
+echo 
 
 function getImageName {
    imagename="${DOCKER_REGISTRY_URI}/$1:$2"

@@ -2,7 +2,7 @@
 # and the full installation instructions can
 # be found at their location. Twofishes
 # location service is used by the OMAR/O2 UI
-FROM osismlabs/o2-base
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="Twofishes is\
@@ -16,8 +16,8 @@ RUN mkdir twofishes && \
     yum -y install java-1.8.0-openjdk-devel && \
     yum -y install wget && yum -y install unzip && \
     cd /twofishes && \
-    wget https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/server-assembly-0.84.9.jar && \
-    wget https://s3.amazonaws.com/ossimlabs/dependencies/twofishes/2015-03-05.zip && \
+    wget https://s3.amazonaws.com/${DOCKER_REGISTRY_URI}/dependencies/twofishes/server-assembly-0.84.9.jar && \
+    wget https://s3.amazonaws.com/${DOCKER_REGISTRY_URI}/dependencies/twofishes/2015-03-05.zip && \
     unzip 2015-03-05.zip && rm 2015-03-05.zip
 
 # We need to do this because twofishes crashes without it:
