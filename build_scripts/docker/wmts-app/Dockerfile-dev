@@ -1,0 +1,13 @@
+FROM ossimlabs/o2-wmts
+MAINTAINER RadiantBlue Technologies radiantblue.com
+LABEL com.radiantblue.version="0.1"\
+      com.radiantblue.description="WMTS Implements \
+      the OGC WMTS standard.  The WMTS service uses \
+      the JAVA bindings to the OSSIM core library to \
+      perform all on-the-fly chipping of raw imagery \
+      via a WMTS GetTile query."\
+      com.radiantblue.source=""\
+      com.radiantblue.classification="UNCLASSIFIED"
+
+RUN rm -f /usr/share/omar/wmts-app/wmts-app.jar && \
+  ln -s $O2_DEV_HOME/apps/wmts-app/build/libs/wmts-app-1.0.0.jar /usr/share/omar/wmts-app/wmts-app.jar

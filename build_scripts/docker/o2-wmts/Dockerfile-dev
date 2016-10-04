@@ -7,7 +7,7 @@
 # WMS service to chip and return the pixel values that
 # satisfy the WMTS request.
 
-FROM ossimlabs/o2-base
+FROM ossimlabs/o2-wmts
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="WMTS implements the \
@@ -21,19 +21,8 @@ LABEL com.radiantblue.version="0.1"\
       pixel values that satisfy the WMTS request."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install o2-wmts-app && yum clean all
-ADD wmts-app.yml /usr/share/omar/wmts-app/wmts-app.yml
-ENV DBUSER=${DBUSER}\
-    DBPASS=${DBPASS}\
-    DBHOST=${DBHOST}\
-    DBPORT=${DBPORT}\
-    DBNAME=${DBNAME}\
-    DOCKER_HOST_IP=${DOCKER_HOST_IP}\
-    WFSSERVER=${WFSSERVER}\
-    WFSPORT=${WFSPORT}\
-    WMSSERVER=${WMSSERVER}\
-    WMSPORT=${WMSPORT}
 
-EXPOSE 8080
+ARG O2_DEV_HOME
 
-CMD ["sh", "/usr/share/omar/wmts-app/wmts-app.sh"]
+RUN rm -f /usr/share/omar/wmts-app/wmts-app.jar && \
+    ln -s $O2_DEV_HOME/apps/wmts-app/build/libs/wmts-app-1.0.0.jar /usr/share/omar/wmts-app/wmts-app.jar

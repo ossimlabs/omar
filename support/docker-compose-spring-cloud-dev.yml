@@ -3,9 +3,12 @@ services:
   omar-config-server:
     build:
       context: omar-config-server
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
     # networks:
     #   - docker_default
-    image: ossimlabs/omar-config-server
+    image: ossimlabs/omar-config-server-dev
     volumes:
       - /dev/urandom:/dev/random
       - /home:/home
@@ -15,9 +18,12 @@ services:
   omar-eureka-server:
      build:
       context: omar-eureka-server
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
     #  networks:
     #    - docker_default
-     image: ossimlabs/omar-eureka-server
+     image: ossimlabs/omar-eureka-server-dev
      volumes:
        - /home:/home
        - /Users:/Users
@@ -27,9 +33,12 @@ services:
   omar-zuul-server:
      build:
        context: omar-zuul-server
+       dockerfile: Dockerfile-dev
+       args:
+         - O2_DEV_HOME=${O2_DEV_HOME}
     #  networks:
     #    - docker_default
-     image: ossimlabs/omar-zuul-server
+     image: ossimlabs/omar-zuul-server-dev
      volumes:
        - /home:/home
        - /Users:/Users

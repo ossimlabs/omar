@@ -10,7 +10,7 @@
 # does not have a JPIP stream associated with
 # it yet then it will submit the image for background
 # processing and return a STATUS.
-FROM ossimlabs/o2-base
+FROM ossimlabs/o2-jpip
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The JPIP web service \
@@ -25,17 +25,8 @@ LABEL com.radiantblue.version="0.1"\
       for background processing and return a STATUS." \
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install o2-jpip-app && yum -y install ossim-kakadu-plugin && yum clean all
-ADD jpip-app.yml /usr/share/omar/jpip-app/jpip-app.yml
-ENV DBUSER=${DBUSER}\
-    DBPASS=${DBPASS}\
-    DBHOST=${DBHOST}\
-    DBPORT=${DBPORT}\
-    DBNAME=${DBNAME}\
-    DOCKER_HOST_IP=${DOCKER_HOST_IP}\
-    JPIPCACHEDIR=${JPIPCACHEDIR}\
-    JPIPSERVERURL=${JPIPSERVERURL}\
-    JPIPSERVERPORT=${JPIPSERVERPORT}
 
-EXPOSE 8080
-CMD ["sh", "/usr/share/omar/jpip-app/jpip-app.sh"]
+ARG O2_DEV_HOME
+
+RUN rm -f /usr/share/omar/jpip-app/jpip-app.jar && \
+      ln -s $O2_DEV_HOME/apps/jpip-app/build/libs/jpip-app-1.0.0.jar /usr/share/omar/jpip-app/jpip-app.jar

@@ -1,0 +1,15 @@
+# The stager service currently indexes the data into
+# the OMAR system.
+
+FROM ossimlabs/o2-stager
+MAINTAINER RadiantBlue Technologies radiantblue.com
+LABEL com.radiantblue.version="0.1"\
+      com.radiantblue.description="The stager service \
+      currently indexes the data into the OMAR system."\
+      com.radiantblue.source=""\
+      com.radiantblue.classification="UNCLASSIFIED"
+
+ARG O2_DEV_HOME
+
+RUN rm -f /usr/share/omar/stager-app/stager-app.jar && \
+      ln -s $O2_DEV_HOME/apps/stager-app/build/libs/stager-app-1.0.0.jar /usr/share/omar/stager-app/stager-app.jar
