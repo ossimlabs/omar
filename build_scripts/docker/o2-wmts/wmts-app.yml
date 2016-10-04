@@ -32,3 +32,10 @@ grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-wmts
   assets:
     url: http://${DOCKER_HOST_IP}/o2-wmts/assets/
+
+spring:
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false
