@@ -29,6 +29,7 @@ if [ -z $DOCKER_REGISTRY_URI ] ; then
   export DOCKER_REGISTRY_URI="320588532383.dkr.ecr.us-east-1.amazonaws.com"
 fi
 
+echo off
 # Create login credentials for docker
 if [[ "$DOCKER_REGISTRY_URI" =~ .*amazonaws.* ]] ; then
   eval `aws ecr get-login --region us-east-1`
@@ -37,6 +38,7 @@ if [[ "$DOCKER_REGISTRY_URI" =~ .*amazonaws.* ]] ; then
     exit 1
   fi
 fi
+echo on
 
 export O2_APPS
 export TAG="latest"
