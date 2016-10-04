@@ -102,7 +102,7 @@ class RasterDataSetController
 
 	@ApiOperation( value = "Remove a Raster from the database", produces = 'text/plain', httpMethod = 'POST' )
 	@ApiImplicitParams([
-			@ApiImplicitParam( name = 'deleteFiles', value = 'Delete image file as well as supporting .his and .ovr files', allowableValues="[true,false]", defaultValue="false", dataType = "boolean",  required = false),
+			@ApiImplicitParam( name = 'deleteFiles', value = 'Delete the image file and all support files linked to it in the database (e.g. his, ovr, etc.)', allowableValues="[true,false]", defaultValue="false", dataType = "boolean",  required = false),
 			@ApiImplicitParam( name = 'filename', value = 'Path to file to remove', dataType = 'string', required = true ),
 	])
 	def removeRaster()

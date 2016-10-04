@@ -10,11 +10,11 @@
 
 . docker-common.sh
 
-
+export AWS_REGION=us-east-1
 function createRepositories()
 {
     repositories=$1[@]
-    currentRepositories=`aws ecr describe-repositories --region us-east-1`
+    currentRepositories=`aws ecr describe-repositories --region ${AWS_REGION}`
     a=("${!repositories}")
     for i in "${a[@]}" ; do
        repoCheck=`echo $currentRepositories | grep $i`
@@ -23,6 +23,13 @@ function createRepositories()
        fi
     done
 
+}
+
+function deleteImage()
+{
+  REPOSITORY=$1
+  TAG=$2
+  aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}g
 }
 
 createRepositories O2_APPS
@@ -49,6 +56,8 @@ for app in ${O2_APPS[@]} ; do
        popd
        exit 1
      fi
+     deleteImage ${app} ${TAG}
+
      docker push ${imagename}
      if [ $? -ne 0 ]; then
        echo; echo "ERROR: Pushing container ${app} with tag ${TAG}"
