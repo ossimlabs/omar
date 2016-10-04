@@ -4,7 +4,7 @@ services:
     build: ./o2-web-proxy
     image: ossimlabs/o2-web-proxy
     environment:
-      DOCKER_HOST_IP: localhost
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
     ports:
       - "80:80"
     volumes:
@@ -35,7 +35,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: localhost
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
     volumes:
     #  - /Users/Shared/data:/data
       - /home:/home
@@ -57,7 +57,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: localhost
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
     volumes:
     #  - /Users/Shared/data:/data
       - /home:/home
@@ -79,7 +79,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: localhost
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
     volumes:
     #  - /Users/Shared/data:/data
       - /home:/home
@@ -101,7 +101,7 @@ services:
 #   #     DBNAME: omar_prod
 #   #     DBUSER: postgres_user
 #   #     DBPASS: abc123
-#   #     DOCKER_HOST_IP: localhost
+#   #     DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
 #   #   volumes:
 #   #     - /Users/Shared/data:/data
 #   #    - /home:/home
@@ -124,29 +124,29 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: localhost
-      WFSURL: localhost/o2-wfs
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+      WFSURL: spring-cloud.radiantbluecloud.com/o2-wfs
       WFSPORT:
-      WMSURL: localhost/o2-wms
+      WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
       WMSPORT:
-      STAGERURL: localhost/o2-stager
+      STAGERURL: spring-cloud.radiantbluecloud.com/o2-stager
       STAGERPORT:
-      DOWNLOADURL: localhost/o2-download
+      DOWNLOADURL: spring-cloud.radiantbluecloud.com/o2-download
       DOWNLOADPORT:
-      KMLURL: localhost/o2-superoverlay
+      KMLURL: spring-cloud.radiantbluecloud.com/o2-superoverlay
       KMLPORT:
-      PREDIOURL: localhost/o2-predio
+      PREDIOURL: spring-cloud.radiantbluecloud.com/o2-predio
       PREDIOPORT:
       PREDIOENABLED: "false"
-      TWOFISHURL: localhost/twofishes
+      TWOFISHURL: spring-cloud.radiantbluecloud.com/twofishes
       TWOFISHPORT:
-      SWIPEURL: localhost/o2-swipe/swipe/index
+      SWIPEURL: spring-cloud.radiantbluecloud.com/o2-swipe/swipe/index
       SWIPEPORT:
       SWIPEENABLED: "true"
       JPIPURL:
       JPIPPORT:
       JPIPENABLED: "true"
-      WMTSURL: localhost/o2-wmts
+      WMTSURL: spring-cloud.radiantbluecloud.com/o2-wmts
       WMTSPORT:
       WMTSENABLED: "true"
       PWIKURL:
@@ -181,10 +181,10 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: localhost
-      WFSSERVER: localhost/o2-wfs
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+      WFSSERVER: spring-cloud.radiantbluecloud.com/o2-wfs
       WFSPORT:
-      WMSSERVER: localhost/o2-wms
+      WMSSERVER: spring-cloud.radiantbluecloud.com/o2-wms
       WMSPORT:
     volumes:
       - /home:/home
@@ -212,7 +212,7 @@ services:
 #   #     DESTINATION_POST_END_POINT: o2-avro
 #   #     DESTINATION_POST_END_POINT_PORT: :8080
 #   #     DESTINATION_POST_FIELD: message
-#   #     DOCKER_HOST_IP: localhost
+#   #     DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
 #   #   volumes:
 #   #     # Modify the path below to reflect your
 #   #     # AWS credentials location. Example:
@@ -238,7 +238,7 @@ services:
 #   #     DBNAME: omar_prod
 #   #     DBUSER: postgres_user
 #   #     DBPASS: abc123
-#   #     DOCKER_HOST_IP: localhost
+#   #     DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
 #   #     ADDRASTERENDPOINTURL: o2-stager
 #   #     ADDRASTERENDPOINTPORT: :8080
 #   #   volumes:
@@ -263,9 +263,9 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: localhost
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
       JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: localhost
+      JPIPSERVERURL: spring-cloud.radiantbluecloud.com
       JPIPSERVERPORT: :5004
     volumes:
       # Mount the the host local data directory to the container
@@ -283,9 +283,9 @@ services:
 #   #  image: ossimlabs/o2-jpip-server
 #   #  environment:
 #   #    JPIPCACHEDIR: /data/jpip-cache
-#   #    JPIPSERVERURL: localhost
+#   #    JPIPSERVERURL: spring-cloud.radiantbluecloud.com
 #   #    JPIPSERVERPORT: 8080
-#   #    DOCKER_HOST_IP: localhost
+#   #    DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
 #   #  volumes:
 #   #    # Mount the the host local data directory to the container
 #   #    - /Users/Shared/data:/data
@@ -305,8 +305,8 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: localhost
-      WMSURL: localhost/o2-superoverlay
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+      WMSURL: spring-cloud.radiantbluecloud.com/o2-superoverlay
       WMSPORT:
     volumes:
       - /home:/home
@@ -327,7 +327,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: localhost
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
     volumes:
       # Mount the the host local data directory to the container
       #- /Users/Shared/data:/data
@@ -351,10 +351,10 @@ services:
 #       DBNAME: omar_prod
 #       DBUSER: postgres_user
 #       DBPASS: abc123
-#       DOCKER_HOST_IP: localhost
-#       WFSURL: localhost/o2-wfs
+#       DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+#       WFSURL: spring-cloud.radiantbluecloud.com/o2-wfs
 #       WFSPORT:
-#       WMSURL: localhost/o2-wms
+#       WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
 #       WMSPORT:
 #     volumes:
 #       - /home:/home
@@ -371,7 +371,7 @@ services:
       context: ./o2-mensa
     image: ossimlabs/o2-mensa
     environment:
-      DOCKER_HOST_IP: localhost
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
     volumes:
     #  - /Users/Shared/data:/data
       - /home:/home
