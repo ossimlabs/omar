@@ -12,11 +12,11 @@ services:
   #     - /Users/Shared/data:/data
   #   restart: always
   o2-base:
-    # build: ./o2-base
+    build: ./o2-base
     container_name: o2-base
     image: ossimlabs/o2-base
   o2-db:
-    #build: ./o2-db
+    build: ./o2-db
     image: ossimlabs/o2-db
     container_name: o2-db
     environment:

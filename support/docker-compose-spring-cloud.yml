@@ -3,8 +3,6 @@ services:
   omar-config-server:
     build:
       context: omar-config-server
-      args:
-        - O2_DEV_HOME=${O2_DEV_HOME}
     # networks:
     #   - docker_default
     image: ossimlabs/omar-config-server
@@ -17,8 +15,6 @@ services:
   omar-eureka-server:
      build:
       context: omar-eureka-server
-      args:
-        - O2_DEV_HOME=${O2_DEV_HOME}
     #  networks:
     #    - docker_default
      image: ossimlabs/omar-eureka-server
@@ -31,8 +27,6 @@ services:
   omar-zuul-server:
      build:
        context: omar-zuul-server
-       args:
-         - O2_DEV_HOME=${O2_DEV_HOME}
     #  networks:
     #    - docker_default
      image: ossimlabs/omar-zuul-server
