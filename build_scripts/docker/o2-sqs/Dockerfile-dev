@@ -7,7 +7,7 @@
 # remain on the queue and be reset automatically based on the queue
 # properties.
 
-FROM ossimlabs/o2-base
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The SQS service allows \

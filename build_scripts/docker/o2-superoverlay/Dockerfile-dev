@@ -4,7 +4,7 @@
 # allows one to create KML lod nodes to partition
 # the dataset into a hierarchical LOD grid.
 
-FROM ossimlabs/o2-superoverlay
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-superoverlay
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The Superoverlay \
