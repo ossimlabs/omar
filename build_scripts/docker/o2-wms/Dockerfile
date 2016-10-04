@@ -25,9 +25,6 @@ ENV DBHOST=${DBHOST}\
     DBPASS=${DBPASS}\
     DBNAME=${DBNAME}\
     DOCKER_HOST_IP=${DOCKER_HOST_IP}
-ARG O2_DEV_HOME
-RUN rm -f /usr/share/omar/wms-app/wms-app.jar && \
-    ln -s $O2_DEV_HOME/apps/wms-app/build/libs/wms-app-1.0.0.jar /usr/share/omar/wms-app/wms-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wms-app/wms-app.sh"]

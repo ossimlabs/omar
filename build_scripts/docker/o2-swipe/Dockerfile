@@ -31,10 +31,5 @@ ENV DBHOST=${DBHOST}\
     WFSURL=${WFSURL}\
     WFSPORT=${WFSPORT}
 
-ARG O2_DEV_HOME
-
-RUN rm -f /usr/share/omar/swipe-app/swipe-app.jar && \
-      ln -s $O2_DEV_HOME/apps/swipe-app/build/libs/swipe-app-1.0.0.jar /usr/share/omar/swipe-app/swipe-app.jar
-
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/swipe-app/swipe-app.sh"]

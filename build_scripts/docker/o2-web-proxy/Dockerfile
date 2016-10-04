@@ -10,8 +10,7 @@ LABEL com.radiantblue.version="0.1"\
 RUN yum -y update && yum clean all \
     && yum -y install httpd mod_ssl && yum clean all
 
-#COPY reverse-proxy.conf /etc/httpd/conf.d/reverse-proxy.conf
-COPY reverse-proxy.conf /etc/httpd/conf.d/reverse-proxy-zuul.conf
+COPY reverse-proxy.conf /etc/httpd/conf.d/reverse-proxy.conf
 
 # Simple startup script to avoid some issues observed with container restart
 ADD run-httpd.sh /run-httpd.sh

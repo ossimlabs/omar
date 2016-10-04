@@ -1,13 +1,10 @@
 version: '2'
 services:
   omar-config-server:
-    build: 
+    build:
       context: omar-config-server
-      args:
-        - O2_DEV_HOME=${O2_DEV_HOME}
     # networks:
     #   - docker_default
-    container_name: omar-config-server
     image: ossimlabs/omar-config-server
     volumes:
       - /dev/urandom:/dev/random
@@ -16,13 +13,10 @@ services:
     ports:
       - "8888:8888"
   omar-eureka-server:
-     build: 
+     build:
       context: omar-eureka-server
-      args:
-        - O2_DEV_HOME=${O2_DEV_HOME}
     #  networks:
     #    - docker_default
-     container_name: omar-eureka-server
      image: ossimlabs/omar-eureka-server
      volumes:
        - /home:/home
@@ -31,13 +25,10 @@ services:
      ports:
        - "8761:8761"
   omar-zuul-server:
-     build: 
+     build:
        context: omar-zuul-server
-       args:
-         - O2_DEV_HOME=${O2_DEV_HOME}
     #  networks:
     #    - docker_default
-     container_name: omar-zuul-server
      image: ossimlabs/omar-zuul-server
      volumes:
        - /home:/home

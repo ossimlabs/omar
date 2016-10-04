@@ -1,0 +1,75 @@
+version: '2'
+services:
+  omar-config-server:
+    build:
+      context: omar-config-server
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
+    # networks:
+    #   - docker_default
+    image: ossimlabs/omar-config-server-dev
+    volumes:
+      - /dev/urandom:/dev/random
+      - /home:/home
+      - /Users:/Users
+    ports:
+      - "8888:8888"
+  omar-eureka-server:
+     build:
+      context: omar-eureka-server
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
+    #  networks:
+    #    - docker_default
+     image: ossimlabs/omar-eureka-server-dev
+     volumes:
+       - /home:/home
+       - /Users:/Users
+       - /dev/urandom:/dev/random
+     ports:
+       - "8761:8761"
+  omar-zuul-server:
+     build:
+       context: omar-zuul-server
+       dockerfile: Dockerfile-dev
+       args:
+         - O2_DEV_HOME=${O2_DEV_HOME}
+    #  networks:
+    #    - docker_default
+     image: ossimlabs/omar-zuul-server-dev
+     volumes:
+       - /home:/home
+       - /Users:/Users
+       - /dev/urandom:/dev/random
+     ports:
+       - "8765:8765"
+  # message-server:
+  #   build: message-server
+  #   # container_name: message-server
+  #   image: ossimlabs/message-server
+  #   # ports:
+  #   #   - "8080:8080"
+  # message-server-0:
+  #   build: message-server
+  #   container_name: message-server-0
+  #   image: ossimlabs/message-server
+  #   ports:
+  #     - "8080:8080"
+  # message-server-1:
+  #   build: message-server
+  #   container_name: message-server-1
+  #   image: ossimlabs/message-server
+  #   ports:
+  #     - "8081:8080"
+  # message-client:
+  #   build: message-client
+  #   container_name: message-client
+  #   image: ossimlabs/message-client
+  #   ports:
+  #     - "9999:8080"
+networks:
+  default:
+    external:
+      name: docker_default
