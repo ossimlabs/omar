@@ -378,7 +378,7 @@ services:
     #   - o2-web-proxy
   o2-twofishes:
     #build: ./twofishes
-    image: ossimlabs/twofishes
+    image: 320588532383.dkr.ecr.us-east-1.amazonaws.com/twofishes
     container_name: twofishes
     ports:
       - "5006:8081"

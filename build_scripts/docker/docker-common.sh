@@ -17,13 +17,14 @@ else
    export OSSIM_DEV_HOME=$WORKSPACE
 fi
 
-# o2base must be first for others depend on it
-pushd $SCRIPT_DIR
-O2_APPS=("o2-base")
+# o2-base must be first for others depend on it
+O2_APPS=( "o2-base" "o2-avro" "o2-db" "o2-download" "o2-jpip" "o2-jpip-server" "o2-mensa" "o2-omar" "o2-sqs" "o2-stager" "o2-superoverlay" "o2-swipe" "o2-wcs" "o2-web-proxy" "o2-wfs" "o2-wms" "o2-wmts" "tlv")
+#pushd $SCRIPT_DIR
+#O2_APPS=( "o2-base" )
 #O2_APPS+=($(ls -d o2-* | sed -e "s/o2-base//g"))
-O2_APPS+=($(ls -d o2-*))
-O2_APPS+=("tlv")
-popd
+#O2_APPS+=($(ls -d o2-*))
+#O2_APPS+=("tlv")
+#popd
 
 if [ -z $DOCKER_REGISTRY_URI ] ; then
   export DOCKER_REGISTRY_URI="320588532383.dkr.ecr.us-east-1.amazonaws.com"

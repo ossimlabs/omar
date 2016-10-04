@@ -1,10 +1,9 @@
 # Search and replace the following tags with actual values (examples in parens):
 #
-# <DOCKER_REGISTRY_URL> (320588532383.dkr.ecr.us-east-1.amazonaws.com)
-# <DOCKER_HOST_URL> (o2.radiantbluecloud.com)
+# <DOCKER_REGISTRY_URL>  (320588532383.dkr.ecr.us-east-1.amazonaws.com)
+# <DOCKER_HOST_URL>      (o2.radiantbluecloud.com)
 # <AWS_CREDENTIALS_PATH> ("/home/jenkins/.aws:/root/.aws")
-# <BUILD> (If the image is to be built, then replace <BUILD> with "build" else
-#          comment out the line)
+# <BUILD>                ("build" | "#build")
 
 version: '2'
 services:

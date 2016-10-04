@@ -51,9 +51,14 @@ if [ ${do_all} ]; then
 fi
 
 for app in ${O2_APPS[@]} ; do
+   
+   # Pull the built images from the docker registry if not present on host:
    getImageName ${app} ${TAG}
    exists=$( docker images | grep -c -e "${app}[ ]\{2,\}${TAG}") 
+   if [ ${exists} == "0" ]; then
+      runCommand docker pull ${imagename}
    
+   exists=$( docker images | grep -c -e "${app}[ ]\{2,\}${TAG}") 
    if [ ${exists} != "0" ]; then
       
       # Export the image to local tar file
@@ -63,7 +68,7 @@ for app in ${O2_APPS[@]} ; do
    
       # upload the tar file to S3
       echo "Uploading ${tarfilename} to ${s3_bucket}"
-      runCommand aws s3 sync . ${s3_bucket} --exclude \"*\" --include ${tarfilename}
+     # runCommand aws s3 sync . ${s3_bucket} --exclude \"*\" --include ${tarfilename}
       echo "SUCCESS: Image <${imagename}> successfully exported and archived. "
       
       # Whack the local tar file:
@@ -73,6 +78,12 @@ for app in ${O2_APPS[@]} ; do
       echo "Skipping export of missing image ${imagename}."
    fi
 done
+
+# For convenience, upload the import script to the same S3 bucket:
+pushd $SCRIPT_DIR
+runCommand tar cvfz docker-scripts.tgz docker-common.sh docker-import.sh docker-compose-template.yml docker-rmi-all.sh
+runCommand aws s3 cp docker-scripts.tgz ${s3_bucket}/ 
+popd
 
 # delete the temporary tar files:
 popd
