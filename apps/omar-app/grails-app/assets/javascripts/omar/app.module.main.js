@@ -11,7 +11,8 @@
       'slickCarousel',
       'toggle-switch',
       'angular-clipboard',
-      'ui.select'])
+      'ui.select',
+      'ngSanitize'])
     .config(['$stateProvider', '$urlRouterProvider',
 
       function ($stateProvider, $urlRouterProvider) {
@@ -38,7 +39,7 @@
                   templateUrl: AppO2.APP_CONFIG.serverURL + '/mapOrtho/map.ortho.partial.html'
                 })
                 .state('mapImage', {
-                  url: '/mapImage?filename=&entry_id=&width=&height&bands=',
+                  url: '/mapImage?filename=&entry_id=&width=&height&bands=&numOfBands=&imageId=',
                   templateUrl: AppO2.APP_CONFIG.serverURL + '/mapImage/map.image.partial.html'
                 })
                 .state('wfs', {

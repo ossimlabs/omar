@@ -2,14 +2,13 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('imageSpaceService', ['$http', imageSpaceService]);
+        .service('imageSpaceService', ['$http', '$stateParams', imageSpaceService]);
 
-    function imageSpaceService($http) {
+    function imageSpaceService($http, $stateParams) {
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
         // provides access to various client params in application.yml
         // #################################################################################
-        //console.log('AppO2.APP_CONFIG in imageSpaceService: ', AppO2.APP_CONFIG);
 
         var map,
             filename,
@@ -22,7 +21,39 @@
             source,
             source2,
             upAngle,
-            northAngle;
+            northAngle,
+            bands;
+
+          var bandVal = $stateParams.bands.split( ',' );
+          var numOfBands = $stateParams.numOfBands;
+
+          if ( bandVal.length > 0 ) {
+            if ( bandVal[0] != 'default' ) {
+              if ( numOfBands <= 1 ) {
+                bands = bandVal[0];
+              }else {
+                if ( numOfBands == 2 ){
+                  bands = '1,2';
+                }else{
+                  bands = bandVal[0];
+                }
+                for ( var bandNum = 1; bandNum < numOfBands; bandNum++ ) {
+                  if ( bandVal[bandNum] ) {
+                    bands = bands + ',' + bandVal[bandNum];
+                  }
+                }
+              }
+            }else {
+              bands = '1';
+              var newNum;
+              for ( var bandNum2 = 1; bandNum2 < numOfBands; bandNum2++ ) {
+                newNum = bandNum2 + 1;
+                bands = bands + ',' + newNum;
+              }
+            }
+          }
+
+          this.bands = bands;
 
         var ImageSpaceTierSizeCalculation = {
             DEFAULT: 'default',
@@ -110,9 +141,6 @@
             var tierSizeInTiles = [];
             var tileSize = ol.DEFAULT_TILE_SIZE || 256;
 
-
-            //alert( imageWidth + ' ' + imageHeight + ' ' + tileSize );
-
             switch (tierSizeCalculation) {
                 case ImageSpaceTierSizeCalculation.DEFAULT:
                     while (imageWidth > tileSize || imageHeight > tileSize) {
@@ -143,13 +171,10 @@
             tierSizeInTiles.push([1, 1]);
             tierSizeInTiles.reverse();
 
-            //console.log( 'tierSizeInTiles', tierSizeInTiles );
-
             var resolutions = [1];
             var tileCountUpToTier = [0];
             var i = 1,
                 ii = tierSizeInTiles.length;
-            //for ( i = 1, ii = tierSizeInTiles.length; i < ii; i++ )
             while (i < ii) {
                 resolutions.push(1 << i);
                 tileCountUpToTier.push(
@@ -160,7 +185,6 @@
             }
 
             resolutions.reverse();
-            //console.log( 'resolutions', resolutions );
 
             var extent = [0, -size[1], size[0], 0];
             var tileGrid = new ol.tilegrid.TileGrid({
@@ -186,10 +210,8 @@
                     var tileX = tileCoord[1];
                     var tileY = -tileCoord[2] - 1;
 
-                    //console.log( tileCoord, [tileZ, tileX, tileY] );
-
                     return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
-                        '&x=' + tileX + '&y=' + tileY + '&format=' + format;
+                        '&x=' + tileX + '&y=' + tileY + '&format=' + format + '&bands=' + bands;
                 }
             }
 
@@ -224,12 +246,10 @@
                     entry: entry
                 }
             }).then(function successCallback(response) {
-                //console.log( response );
                 // this callback will be called asynchronously
                 // when the response is available
                 upAngle = response.data.upAngle;
                 northAngle = response.data.northAngle;
-                //console.log( upAngle, northAngle );
 
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
@@ -249,13 +269,13 @@
             });
 
             source = new ImageSpace({
-                //url: '/o2/imageSpace/getTile',
                 url: AppO2.APP_CONFIG.params.imageSpace.baseUrl + '/getTile',
                 filename: filename,
                 entry: entry,
                 format: 'jpeg',
                 size: [imgWidth, imgHeight],
-                crossOrigin: crossOrigin
+                crossOrigin: crossOrigin,
+                bands: bands
             });
 
             source2 = new ImageSpace({
@@ -291,10 +311,6 @@
                     new ol.layer.Tile({
                         source: source
                     })
-                    /*,
-                                        new ol.layer.Tile( {
-                                            source: source2
-                                        } )*/
                 ],
                 logo: false,
                 target: 'imageMap',
@@ -307,7 +323,12 @@
                     extent: [0, -imgHeight, imgWidth, 0]
                 })
             });
-            //console.log( map );
+
+            this.setBands = function(bandsVal){
+              bands = bandsVal;
+              source.refresh();
+            };
+
             map.render('imageMap');
         };
     }
