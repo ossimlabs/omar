@@ -57,52 +57,59 @@ body {
    z-index: 2000;
 }
 
-#searchForm .input-group-btn {
-    z-index: 1047;
+.searchForm {
+  height: 50px;
+  padding-top: 8px;
 }
 
-#searchForm input {
-    z-index: 1048;
+.searchForm .input-group-btn .glyphicon {
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
-@media (max-height: 599px) {
+/* IE styling
+#map { height: 450px; }
+#list { height: 350px; }
+*/
+
+@media screen and (max-height: 599px) {
     #map { height: 77%; }
     #list { height: 50%; }
 }
 
-@media (min-height: 600px) AND (max-height: 699px){
+@media screen and (min-height: 600px) AND (max-height: 699px){
     #map { height: 81%; }
     #list { height: 59%; }
 }
 
-@media (min-height: 700px) AND (max-height: 799px){
+@media screen and (min-height: 700px) AND (max-height: 799px){
     #map { height: 84%; }
     #list { height: 66%; }
 }
 
-@media (min-height: 800px) AND (max-height: 899px){
+@media screen and (min-height: 800px) AND (max-height: 899px){
     #map { height: 86%; }
     #list { height: 71%; }
 }
 
-@media (min-height: 900px) AND (max-height: 999px){
+@media screen and (min-height: 900px) AND (max-height: 999px){
     #map { height: 87%; }
     #list { height: 74%; }
 }
 
-@media (min-height: 1000px) AND (max-height: 1099px){
+@media screen and (min-height: 1000px) AND (max-height: 1099px){
     #map { height: 88%; }
     #list { height: 77%; }
 }
 
-@media (min-height: 1100px) AND (max-height: 1199px){
+@media screen and (min-height: 1100px) AND (max-height: 1199px){
     #map { height: 89%; }
     #list { height: 79%; }
 }
 
-@media (min-height: 1200px){
-    #map { height: 92%; }
-    #list { height: 80%; }
+@media screen and (min-height: 1200px){
+    #map { height: 90%; }
+    #list { height: 81%; }
 }
 
 #list {
@@ -292,6 +299,7 @@ body {
 .rotate-north {
     top: 65px;
     left: .5em;
+    right: auto;
 }
 
 .ol-touch .rotate-north {
@@ -409,8 +417,12 @@ body {
 .ol-viewport{
     border-radius: 10px;
 }
-.ol-rotate {
-    top: 4.5em;
+.ol-rotate, .ol-rotate.ol-hidden {
+    left: .5em;
+    opacity: 1;
+    right: auto;
+    top: 65px;
+    visibility: visible;
 }
 
 .ol-popup {

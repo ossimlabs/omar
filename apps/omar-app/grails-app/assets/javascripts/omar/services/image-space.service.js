@@ -61,16 +61,18 @@
         };
 
         var RotateNorthControl = function(opt_options) {
-
             var options = opt_options || {};
-            var button = document.createElement('button');
+            var span = document.createElement('span');
+            span.className = 'ol-compass';
+            span.textContent = '\u21E7';
 
+            var button = document.createElement('button');
+            button.appendChild(span);
             button.title = 'North is Up';
-            button.innerHTML = 'N';
 
             var this_ = this;
 
-            var handleRotateNorth = function(e) {
+            var handleRotateNorth = function(e) { console.dir(northAngle);
                 this_.getMap().getView().setRotation(northAngle);
                 console.log('handleRotateNorth', northAngle);
             };
@@ -90,6 +92,14 @@
 
         };
         ol.inherits(RotateNorthControl, ol.control.Control);
+
+        function rotateNorthArrow(radians) {
+            var transform = 'rotate(' + radians + 'rad)';
+            var arrow = $('.ol-compass');
+            arrow.css('msTransform', transform);
+            arrow.css('transform', transform);
+            arrow.css('webkitTransform', transform);
+        }
 
         var RotateUpControl = function(opt_options) {
 
@@ -330,6 +340,15 @@
             };
 
             map.render('imageMap');
+
+            // hide the default north arrow
+            $('.ol-rotate').removeClass('ol-rotate');
+            // rotate the custom north arrow according to the view
+            rotateNorthArrow(northAngle);
+            map.getView().on('change:rotation', function(e) {
+                var rotation = e.target.get(e.key) + northAngle;
+                rotateNorthArrow(rotation);
+            });
         };
     }
 }());

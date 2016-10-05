@@ -1,0 +1,18 @@
+version: '2'
+services:
+  o2-web-proxy:
+    build:
+      context: ./o2-web-proxy
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}    
+    image: ossimlabs/o2-web-proxy-dev
+    environment:
+      DOCKER_HOST_IP: localhost
+    ports:
+      - "80:80"
+    volumes:
+    #  - /Users/Shared/data:/data
+      - /home:/home
+      - /Users:/Users
+    restart: always

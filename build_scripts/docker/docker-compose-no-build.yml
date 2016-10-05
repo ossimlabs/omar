@@ -1,23 +1,27 @@
+# Expected shell environment variables available to docker-compose (examples in parens):
+# See docker-common.sh
+#
+# DOCKER_REGISTRY_URI  (320588532383.dkr.ecr.us-east-1.amazonaws.com)
+# DOCKER_HOST_URL      (o2.radiantbluecloud.com)
+# AWS_CREDENTIALS_PATH ("/home/jenkins/.aws:/root/.aws")
+
 version: '2'
 services:
   o2-web-proxy:
-    #build: ./o2-web-proxy
-    image: ossimlabs/o2-web-proxy
+    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy
     container_name: o2-web-proxy
     environment:
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     ports:
       - "80:80"
     volumes:
       - /data:/data
     restart: always
   # o2-base:
-  #   #build: ./o2-base
   #   container_name: o2-base
-  #   image: ossimlabs/o2-base
+  #   image: ${DOCKER_REGISTRY_URI}/o2-base
   o2-db:
-    #build: ./o2-db
-    image: ossimlabs/o2-db
+    image: ${DOCKER_REGISTRY_URI}/o2-db
     container_name: o2-db
     environment:
       POSTGRES_USER: postgres_user
@@ -27,8 +31,7 @@ services:
       - "4990:5432"
     restart: always
   o2-stager:
-    #build: ./o2-stager
-    image: ossimlabs/o2-stager
+    image: ${DOCKER_REGISTRY_URI}/o2-stager
     container_name: o2-stager
     environment:
       DBHOST: o2-db
@@ -36,7 +39,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     volumes:
       - /data:/data
     ports:
@@ -49,8 +52,7 @@ services:
     # depends_on:
     #   - o2-db
   o2-wms:
-    #build: ./o2-wms
-    image: ossimlabs/o2-wms
+    image: ${DOCKER_REGISTRY_URI}/o2-wms
     container_name: o2-wms
     environment:
       DBHOST: o2-db
@@ -58,7 +60,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     volumes:
       - /data:/data
     ports:
@@ -71,8 +73,7 @@ services:
     # depends_on:
     #   - o2-db
   o2-wfs:
-    #build: ./o2-wfs
-    image: ossimlabs/o2-wfs
+    image: ${DOCKER_REGISTRY_URI}/o2-wfs
     container_name: o2-wfs
     environment:
       DBHOST: o2-db
@@ -80,7 +81,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     ports:
       - "4998:8080"
     # depends_on:
@@ -93,8 +94,7 @@ services:
     # depends_on:
     #   - o2-db
   # o2-wcs:
-  #   #build: ./o2-wcs
-  #   image: ossimlabs/o2-wcs
+  #   image: ${DOCKER_REGISTRY_URI}/o2-wcs
   #   container_name: o2-wcs
   #   environment:
   #     DBHOST: o2-db
@@ -102,7 +102,7 @@ services:
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
-  #     DOCKER_HOST_IP: o2.radiantbluecloud.com
+  #     DOCKER_HOST_IP: ${DOCKER_HOST_URL}
   #   volumes:
   #     - /data:/data
   #   ports:
@@ -115,8 +115,7 @@ services:
   #     #- o2-wfs
   #     - o2-web-proxy
   o2-omar:
-    #build: ./o2-omar
-    image: ossimlabs/o2-omar
+    image: ${DOCKER_REGISTRY_URI}/o2-omar
     container_name: o2-omar
     environment:
       DBHOST: o2-db
@@ -124,29 +123,29 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
-      WFSURL: o2.radiantbluecloud.com/o2-wfs
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WFSPORT:
-      WMSURL: o2.radiantbluecloud.com/o2-wms
+      WMSURL: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
-      STAGERURL: o2.radiantbluecloud.com/o2-stager
+      STAGERURL: ${DOCKER_HOST_URL}/o2-stager
       STAGERPORT:
-      DOWNLOADURL: o2.radiantbluecloud.com/o2-download
+      DOWNLOADURL: ${DOCKER_HOST_URL}/o2-download
       DOWNLOADPORT:
-      KMLURL: o2.radiantbluecloud.com/o2-superoverlay
+      KMLURL: ${DOCKER_HOST_URL}/o2-superoverlay
       KMLPORT:
-      PREDIOURL: o2.radiantbluecloud.com/o2-predio
+      PREDIOURL: ${DOCKER_HOST_URL}/o2-predio
       PREDIOPORT:
       PREDIOENABLED: "false"
-      TWOFISHURL: o2.radiantbluecloud.com/twofishes
+      TWOFISHURL: ${DOCKER_HOST_URL}/twofishes
       TWOFISHPORT:
-      SWIPEURL: o2.radiantbluecloud.com/o2-swipe/swipe/index
+      SWIPEURL: ${DOCKER_HOST_URL}/o2-swipe/swipe/index
       SWIPEPORT:
       SWIPEENABLED: "true"
-      JPIPURL: http://o2.radiantbluecloud.com/o2-jpip
+      JPIPURL: http://${DOCKER_HOST_URL}/o2-jpip
       JPIPPORT:
       JPIPENABLED: "true"
-      WMTSURL: o2.radiantbluecloud.com/o2-wmts
+      WMTSURL: ${DOCKER_HOST_URL}/o2-wmts
       WMTSPORT:
       WMTSENABLED: "true"
       PWIKURL:
@@ -173,8 +172,7 @@ services:
     #   - o2-wmts
     #   - o2-swipe
   o2-wmts:
-    #build: ./o2-wmts
-    image: ossimlabs/o2-wmts
+    image: ${DOCKER_REGISTRY_URI}/o2-wmts
     container_name: o2-wmts
     environment:
       DBHOST: o2-db
@@ -182,10 +180,10 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
-      WFSSERVER: o2.radiantbluecloud.com/o2-wfs
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      WFSSERVER: ${DOCKER_HOST_URL}/o2-wfs
       WFSPORT:
-      WMSSERVER: o2.radiantbluecloud.com/o2-wms
+      WMSSERVER: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
     ports:
       - "4999:8080"
@@ -199,8 +197,7 @@ services:
     #   - o2-wms
 
   o2-sqs:
-    #build: ./o2-sqs
-    image: ossimlabs/o2-sqs
+    image: ${DOCKER_REGISTRY_URI}/o2-sqs
     container_name: o2-sqs
     environment:
       AWSDNS: sqs.us-east-1.amazonaws.com
@@ -212,12 +209,11 @@ services:
       DESTINATION_POST_END_POINT: o2-avro
       DESTINATION_POST_END_POINT_PORT: :8080
       DESTINATION_POST_FIELD: message
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     volumes:
       # Modify the path below to reflect your
-      # AWS credentials location. Example:
-      #- /Users/jdoe/.aws:/root/.aws
-      - /home/jenkins/.aws:/root/.aws
+      # AWS credentials location.
+      - ${AWS_CREDENTIALS_PATH}
     ports:
       - "5000:8080"
     # depends_on:
@@ -229,8 +225,7 @@ services:
     # depends_on:
     #   - o2-avro
   o2-avro:
-    #build: ./o2-avro
-    image: ossimlabs/o2-avro
+    image: ${DOCKER_REGISTRY_URI}/o2-avro
     container_name: o2-avro
     environment:
       DBHOST: o2-db
@@ -238,7 +233,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       ADDRASTERENDPOINTURL: o2-stager
       ADDRASTERENDPOINTPORT: :8080
     volumes:
@@ -256,8 +251,7 @@ services:
     #   - o2-db
     #   - o2-stager
   o2-jpip:
-    #build: ./o2-jpip
-    image: ossimlabs/o2-jpip
+    image: ${DOCKER_REGISTRY_URI}/o2-jpip
     container_name: o2-jpip
     environment:
       DBHOST: o2-db
@@ -265,9 +259,9 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: o2.radiantbluecloud.com
+      JPIPSERVERURL: ${DOCKER_HOST_URL}
       JPIPSERVERPORT: :5004
     volumes:
       # Mount the the host local data directory to the container
@@ -279,14 +273,13 @@ services:
     #   - o2-web-proxy
     restart: always
   o2-jpip-server:
-    #build: ./o2-jpip-server
-    image: ossimlabs/o2-jpip-server
+    image: ${DOCKER_REGISTRY_URI}/o2-jpip-server
     container_name: o2-jpip-server
     environment:
       JPIPCACHEDIR: /data/jpip-cache
       JPIPSERVERURL: localhost
       JPIPSERVERPORT: 8080
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     volumes:
       # Mount the the host local data directory to the container
       - /data:/data
@@ -294,8 +287,7 @@ services:
       - "5004:8080"
     restart: always
   o2-superoverlay:
-    #build: ./o2-superoverlay
-    image: ossimlabs/o2-superoverlay
+    image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
     container_name: o2-superoverlay
     environment:
       DBHOST: o2-db
@@ -303,8 +295,8 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
-      WMSURL: o2.radiantbluecloud.com/o2-superoverlay
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      WMSURL: ${DOCKER_HOST_URL}/o2-superoverlay
       WMSPORT:
     ports:
       - "5009:8080"
@@ -315,8 +307,7 @@ services:
     # depends_on:
     #   - o2-db
   o2-download:
-    #build: ./o2-download
-    image: ossimlabs/o2-download
+    image: ${DOCKER_REGISTRY_URI}/o2-download
     container_name: o2-download
     environment:
       DBHOST: o2-db
@@ -324,7 +315,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     volumes:
       # Mount the the host local data directory to the container
       - /data:/data
@@ -337,8 +328,7 @@ services:
     # depends_on:
     #   - o2-db
   o2-swipe:
-    #build: ./o2-swipe
-    image: ossimlabs/o2-swipe
+    image: ${DOCKER_REGISTRY_URI}/o2-swipe
     container_name: o2-swipe
     environment:
       DBHOST: o2-db
@@ -346,10 +336,10 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
-      WFSURL: o2.radiantbluecloud.com/o2-wfs
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WFSPORT:
-      WMSURL: o2.radiantbluecloud.com/o2-wms
+      WMSURL: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
     ports:
       - "5012:8080"
@@ -364,11 +354,10 @@ services:
     #   - o2-wfs
     #   - o2-wms
   o2-mensa:
-    #build: ./o2-mensa
-    image: ossimlabs/o2-mensa
+    image: ${DOCKER_REGISTRY_URI}/o2-mensa
     container_name: o2-mensa
     environment:
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     volumes:
       - /data:/data
     ports:
@@ -377,15 +366,13 @@ services:
     #   - o2-base
     #   - o2-web-proxy
   o2-twofishes:
-    #build: ./twofishes
-    image: ossimlabs/twofishes
+    image: ${DOCKER_REGISTRY_URI}/twofishes
     container_name: twofishes
     ports:
       - "5006:8081"
     restart: always
   o2-tlv:
-    #build: ./tlv
-    image: ossimlabs/tlv
+    image: ${DOCKER_REGISTRY_URI}/tlv
     container_name: tlv
     environment:
       DBHOST: o2-db
@@ -393,9 +380,9 @@ services:
       DBNAME: tlv_prod
       DBUSER: postgres_user
       DBPASS: abc123
-      DOCKER_HOST_IP: o2.radiantbluecloud.com
-      WFSURL: o2.radiantbluecloud.com/o2-wfs
-      WMSURL: o2.radiantbluecloud.com/o2-wms
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
+      WMSURL: ${DOCKER_HOST_URL}/o2-wms
     ports:
       - "5015:8080"
     restart: always

@@ -62,3 +62,10 @@ grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-superoverlay
   assets:
     url: http://${DOCKER_HOST_IP}/o2-superoverlay/assets/
+
+spring:
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false

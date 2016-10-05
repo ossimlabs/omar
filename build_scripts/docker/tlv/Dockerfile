@@ -10,17 +10,23 @@ RUN apt-get install -y git
 RUN git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git tlv_master
 
 
-# get ossimlabs network specific code
-RUN git clone https://github.com/ossimlabs/tlv.git ossimlabs_tlv
-WORKDIR /app/ossimlabs_tlv
+# get ${DOCKER_REGISTRY_URI} network specific code
+RUN git clone https://github.com/${DOCKER_REGISTRY_URI}/tlv.git ${DOCKER_REGISTRY_URI}_tlv
+WORKDIR /app/${DOCKER_REGISTRY_URI}_tlv
 RUN git fetch
 RUN git checkout dev
 
 # replace the tlv source code as necessary
 WORKDIR /app
 RUN rm -rf tlv_master/plugins/network_specific
-RUN mv ossimlabs_tlv/plugins/network_specific tlv_master/plugins/
-RUN rm -rf /app/ossimlabs_tlv
+RUN mv ${DOCKER_REGISTRY_URI}_tlv/plugins/network_specific tlv_master/plugins/
+RUN rm -rf /app/${DOCKER_REGISTRY_URI}_tlv
+
+
+# add the application documentation
+WORKDIR /app
+RUN  mv tlv_master/docs/tlv.html tlv_master/time_lapse/grails-app/conf/
+
 
 # install grails
 ENV GRAILS_VERSION 3.1.5
@@ -43,9 +49,10 @@ ADD tlv-app.yml .
 ENV SPRING_CONFIG_LOCATION /app/tlv-app.yml
 
 
-# adjust the tlv source code to accomodate deployment
+# adjust the tlv source code to accommodate deployment
 
 # take into account the web proxy path
+RUN sed -i -e 's/\/assets/\/tlv\/assets/g' /app/tlv_master/time_lapse/grails-app/conf/tlv.html
 RUN sed -i -e 's/${request.contextPath}/\/tlv/g' /app/tlv_master/time_lapse/grails-app/views/index.gsp
 
 # force a jar artifact

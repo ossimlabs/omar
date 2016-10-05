@@ -13,14 +13,58 @@
 server:
   port: 8765
 zuul:
-  ignoredServices: "*"
-  add-proxy-headers: true
+  #ignoredServices: "*"
+  # add-proxy-headers: true
   routes:
-#    message-client:
-#      path: /message-client/**
-#      serviceId: message-client
-#      strip-prefix: false
-#    message-server:
-#      path: /message-server/**
-#      serviceId: message-server
-#      strip-prefix: false
+    o2-avro:
+      path: /o2-avro/**
+      serviceId: o2-avro
+      strip-prefix: false
+    o2-download:
+      path: /o2-download/**
+      serviceId: o2-download
+      strip-prefix: false
+    o2-jpip:
+      path: /o2-jpip/**
+      serviceId: o2-jpip
+      strip-prefix: false
+    o2-sqs:
+      path: /o2-sqs/**
+      serviceId: o2-sqs
+      strip-prefix: false
+    o2-superoverlay:
+      path: /o2-superoverlay/**
+      serviceId: o2-superoverlay
+      strip-prefix: false
+    o2-swipe:
+      path: /o2-swipe/**
+      serviceId: o2-swipe
+      strip-prefix: false
+    o2-stager:
+      path: /o2-stager/**
+      serviceId: o2-stager
+      strip-prefix: false
+    o2-mensa:
+      path: /o2-mensa/**
+      serviceId: o2-mensa
+      strip-prefix: false
+    o2-wfs:
+      path: /o2-wfs/**
+      serviceId: o2-wfs
+      strip-prefix: false
+    o2-wms:
+      path: /o2-wms/**
+      serviceId: o2-wms
+      strip-prefix: false
+    o2-wcs:
+      path: /o2-wcs/**
+      serviceId: o2-wcs
+      strip-prefix: false
+    o2-wmts:
+      path: /o2-wmts/**
+      serviceId: o2-wmts
+      strip-prefix: false
+    omar-app:
+      path: /o2-omar/**
+      serviceId: o2-omar
+      strip-prefix: false

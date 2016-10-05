@@ -1,0 +1,32 @@
+# The JPIP web service is an interface to
+# convert imagery so the jpip-server can
+# stream to a client. When interfacing into
+# the JPIP web application you can post
+# messages to request a URL. The result that
+# is returned is a JSON formatted string that
+# has the URL and the state at which the URL
+# is in. For example. If a JPIP stream is
+# requested on a given image and if the image
+# does not have a JPIP stream associated with
+# it yet then it will submit the image for background
+# processing and return a STATUS.
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-jpip
+MAINTAINER RadiantBlue Technologies radiantblue.com
+LABEL com.radiantblue.version="0.1"\
+      com.radiantblue.description="The JPIP web service \
+      is an interface to convert imagery so the jpip-server \
+      can stream to a client. When interfacing into the JPIP \
+      web application you can post messages to request a URL. \
+      The result that is returned is a JSON formatted string \
+      that has the URL and the state at which the URL is in. \
+      For example. If a JPIP stream is requested on a given \
+      image and if the image does not have a JPIP stream \
+      associated with it yet then it will submit the image \
+      for background processing and return a STATUS." \
+      com.radiantblue.source=""\
+      com.radiantblue.classification="UNCLASSIFIED"
+
+ARG O2_DEV_HOME
+
+RUN rm -f /usr/share/omar/jpip-app/jpip-app.jar && \
+      ln -s $O2_DEV_HOME/apps/jpip-app/build/libs/jpip-app-1.0.0.jar /usr/share/omar/jpip-app/jpip-app.jar

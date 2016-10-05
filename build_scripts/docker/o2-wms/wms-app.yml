@@ -152,7 +152,7 @@ wms:
         color: white
 
 endpoints:
-  health:
+  # health:
     enabled: true
 
 ---
@@ -160,3 +160,10 @@ grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-wms
   assets:
     url: http://${DOCKER_HOST_IP}/o2-wms/assets/
+
+spring:
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false

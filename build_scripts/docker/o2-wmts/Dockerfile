@@ -7,7 +7,7 @@
 # WMS service to chip and return the pixel values that
 # satisfy the WMTS request.
 
-FROM ossimlabs/o2-base
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-base
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="WMTS implements the \
@@ -35,4 +35,5 @@ ENV DBUSER=${DBUSER}\
     WMSPORT=${WMSPORT}
 
 EXPOSE 8080
+
 CMD ["sh", "/usr/share/omar/wmts-app/wmts-app.sh"]

@@ -1,0 +1,14 @@
+# O2 Web Service proxy
+
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-web-proxy
+MAINTAINER RadiantBlue Technologies radiantblue.com
+LABEL com.radiantblue.version="0.1"\
+      com.radiantblue.description="O2 Web Service \
+      proxy development"\
+      com.radiantblue.source=""\
+      com.radiantblue.classification="UNCLASSIFIED"
+
+ARG O2_DEV_HOME
+
+RUN rm -f /etc/httpd/conf.d/reverse-proxy.conf && \
+    ln -s $O2_DEV_HOME/build_scripts/docker/o2-web-proxy/reverse-proxy-zuul.conf /etc/httpd/conf.d/reverse-proxy.conf

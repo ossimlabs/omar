@@ -1,0 +1,427 @@
+version: '2'
+services:
+  o2-web-proxy:
+    build:
+      context: ./o2-web-proxy
+      dockerfile: Dockerfile-dev
+    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy-dev
+    environment:
+      DOCKER_HOST_IP: localhost
+    ports:
+      - "80:80"
+    volumes:
+    #  - /Users/Shared/data:/data
+      - /home:/home
+      - /Users:/Users
+    restart: always
+  # # o2-base:
+  # #   build: ./o2-base
+  # #  dockerfile: Dockerfile
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-base
+  # #o2-db:
+  # #  #build: ./o2-db
+  # #  image: ${DOCKER_REGISTRY_URI}/o2-db
+  # #  dockerfile: Dockerfile
+  # #  environment:
+  # #    POSTGRES_USER: postgres_user
+  # #    POSTGRES_PASSWORD: abc123
+  # #    POSTGRES_DB: omar_prod
+  # #  ports:
+  # #    - "4990:5432"
+  # #  restart: always
+  o2-stager:
+    build:
+      context: ./o2-stager
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
+    image: ${DOCKER_REGISTRY_URI}/o2-stager-dev
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: localhost
+    volumes:
+    #  - /Users/Shared/data:/data
+      - /home:/home
+      - /Users:/Users
+    ports:
+      - "5002:8080"
+    # depends_on:
+    #   - o2-base
+    #   - o2-db
+    #   - o2-web-proxy
+    restart: always
+  o2-wms:
+    build:
+      context: ./o2-wms
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
+    image: ${DOCKER_REGISTRY_URI}/o2-wms-dev
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: localhost
+    volumes:
+    #  - /Users/Shared/data:/data
+      - /home:/home
+      - /Users:/Users
+    ports:
+      - "4997:8080"
+    # depends_on:
+    #   - o2-db
+    #   - o2-stager
+    #   - o2-web-proxy
+    restart: always
+  o2-wfs:
+    build:
+      context: ./o2-wfs
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=${O2_DEV_HOME}
+    image: ${DOCKER_REGISTRY_URI}/o2-wfs-dev
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: localhost
+    volumes:
+    #  - /Users/Shared/data:/data
+      - /home:/home
+      - /Users:/Users
+    ports:
+      - "4998:8080"
+    # depends_on:
+    #   - o2-base
+    #   - o2-db
+    #   - o2-stager
+    #   - o2-wms
+    #   - o2-web-proxy
+    restart: always
+  # # o2-wcs:
+  # #   build: ./o2-wcs
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-wcs
+  # #   dockerfile: Dockerfile-dev
+  # #   environment:
+  # #     DBHOST: o2-db
+  # #     DBPORT: :5432
+  # #     DBNAME: omar_prod
+  # #     DBUSER: postgres_user
+  # #     DBPASS: abc123
+  # #     DOCKER_HOST_IP: localhost
+  # #   volumes:
+  # #     - /Users/Shared/data:/data
+  # #    - /home:/home
+  # #   ports:
+  # #     - "5013:8080"
+  # #   depends_on:
+  # #     #- o2-base
+  # #     - o2-db
+  # #     - o2-stager
+  # #     #- o2-wms
+  # #     #- o2-wfs
+  # #     - o2-web-proxy
+  o2-omar:
+    build:
+      context: ./o2-omar
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
+    image: ${DOCKER_REGISTRY_URI}/o2-omar-dev
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: localhost
+      WFSURL: localhost/o2-wfs
+      WFSPORT:
+      WMSURL: localhost/o2-wms
+      WMSPORT:
+      STAGERURL: localhost/o2-stager
+      STAGERPORT:
+      DOWNLOADURL: localhost/o2-download
+      DOWNLOADPORT:
+      KMLURL: localhost/o2-superoverlay
+      KMLPORT:
+      PREDIOURL: localhost/o2-predio
+      PREDIOPORT:
+      PREDIOENABLED: "false"
+      TWOFISHURL: localhost/twofishes
+      TWOFISHPORT:
+      SWIPEURL: localhost/o2-swipe/swipe/index
+      SWIPEPORT:
+      SWIPEENABLED: "true"
+      JPIPURL:
+      JPIPPORT:
+      JPIPENABLED: "true"
+      WMTSURL: localhost/o2-wmts
+      WMTSPORT:
+      WMTSENABLED: "true"
+      PWIKURL:
+      PWIKPORT:
+      PWIKENABLED: "true"
+      APIURL:
+      APIPORT:
+      APIENABLED: "false"
+      BANNERCOLOR: green
+      BANNERCLASSIFICATION: Unclassified
+    volumes:
+    #  - /Users/Shared/data:/data
+      - /home:/home
+      - /Users:/Users
+    ports:
+      - "5010:8080"
+    # depends_on:
+    #   - o2-base
+    #   - o2-db
+    #   - o2-wms
+    #   - o2-wfs
+    #   - o2-stager
+    #   - o2-web-proxy
+    restart: always
+  o2-wmts:
+    build:
+      context: ./o2-wmts
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
+    image: ${DOCKER_REGISTRY_URI}/o2-wmts-dev
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: localhost
+      WFSSERVER: localhost/o2-wfs
+      WFSPORT:
+      WMSSERVER: localhost/o2-wms
+      WMSPORT:
+    volumes:
+      - /home:/home
+      - /Users:/Users
+    ports:
+      - "4999:8080"
+    # depends_on:
+      # - o2-base
+      # - o2-db
+      # - o2-web-proxy
+    restart: always
+  # # o2-sqs:
+  # #   build:
+  # #     context: ./o2-sqs
+  # #     args:
+  # #       - O2_DEV_HOME=$O2_DEV_HOME
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-sqs-dev
+  # #   dockerfile: Dockerfile-dev
+  # #   environment:
+  # #     AWSDNS: sqs.us-east-1.amazonaws.com
+  # #     AWSQUEUEPATH: 320588532383/avro-tst
+  # #     WAIT_TIME_SECONDS: 20
+  # #     NUMBER_OF_MESSAGES: 1
+  # #     POLLING_INTERVAL_SECONDS: 10
+  # #     DESTINATION_TYPE: post
+  # #     DESTINATION_POST_END_POINT: o2-avro
+  # #     DESTINATION_POST_END_POINT_PORT: :8080
+  # #     DESTINATION_POST_FIELD: message
+  # #     DOCKER_HOST_IP: localhost
+  # #   volumes:
+  # #     # Modify the path below to reflect your
+  # #     # AWS credentials location. Example:
+  # #     - /Users/<YourUserName>/.aws:/root/.aws
+  # #     - /home:/home
+  # #   ports:
+  # #     - "5000:8080"
+  # #   # depends_on:
+  # #   #   - o2-base
+  # #   #   - o2-stager
+  # #   #   - o2-avro
+  # #   #   - o2-web-proxy
+  # #   restart: always
+  # # o2-avro:
+  # #   build:
+  # #     context: ./o2-avro
+  # #     args:
+  # #       - O2_DEV_HOME=$O2_DEV_HOME
+  # #   image: ${DOCKER_REGISTRY_URI}/o2-avro-dev
+  # #   dockerfile: Dockerfile-dev
+  # #   environment:
+  # #     DBHOST: o2-db
+  # #     DBPORT: :5432
+  # #     DBNAME: omar_prod
+  # #     DBUSER: postgres_user
+  # #     DBPASS: abc123
+  # #     DOCKER_HOST_IP: localhost
+  # #     ADDRASTERENDPOINTURL: o2-stager
+  # #     ADDRASTERENDPOINTPORT: :8080
+  # #   volumes:
+  # #     # Mount the the host local data directory to the container
+  # #     - /Users/Shared/data:/data
+  # #     - /home:/home
+  # #   ports:
+  # #     - "5001:8080"
+  # #   # depends_on:
+  # #   #   - o2-base
+  # #   #   - o2-db
+  # #   #   - o2-stager
+  # #   #   - o2-web-proxy
+  # #   restart: always
+  o2-jpip:
+    build:
+      context: ./o2-jpip
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
+    image: ${DOCKER_REGISTRY_URI}/o2-jpip-dev
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: localhost
+      JPIPCACHEDIR: /data/jpip-cache
+      JPIPSERVERURL: localhost
+      JPIPSERVERPORT: :5004
+    volumes:
+      # Mount the the host local data directory to the container
+      #- /Users/Shared/data:/data
+      - /Users:/Users
+      - /home:/home
+    ports:
+      - "5003:8080"
+    # depends_on:
+    #   - o2-base
+    #   - o2-web-proxy
+    restart: always
+  # #o2-jpip-server:
+  # #  #build: ./o2-jpip-server
+  # #  image: ${DOCKER_REGISTRY_URI}/o2-jpip-server
+  # #  dockerfile: Dockerfile
+  # #  environment:
+  # #    JPIPCACHEDIR: /data/jpip-cache
+  # #    JPIPSERVERURL: localhost
+  # #    JPIPSERVERPORT: 8080
+  # #    DOCKER_HOST_IP: localhost
+  # #  volumes:
+  # #    # Mount the the host local data directory to the container
+  # #    - /Users/Shared/data:/data
+  # #    - /home:/home
+  # #  ports:
+  # #    - "5004:8080"
+  # #  #depends_on:
+  # #    #- o2-base
+  # #  restart: always
+  o2-superoverlay:
+    build:
+      context: ./o2-superoverlay
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
+    image: ${DOCKER_REGISTRY_URI}/o2-superoverlay-dev
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: localhost
+      WMSURL: localhost/o2-superoverlay
+      WMSPORT:
+    volumes:
+      - /home:/home
+    ports:
+      - "5009:8080"
+    # depends_on:
+    #   - o2-base
+    #   - o2-web-proxy
+    restart: always
+  o2-download:
+    build:
+      context: ./o2-download
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
+    image: ${DOCKER_REGISTRY_URI}/o2-download-dev
+    environment:
+      DBHOST: o2-db
+      DBPORT: :5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      DOCKER_HOST_IP: localhost
+    volumes:
+      # Mount the the host local data directory to the container
+      #- /Users/Shared/data:/data
+      - /home:/home
+      - /Users:/Users
+    ports:
+      - "5011:8080"
+    # depends_on:
+    #   - o2-base
+    #   - o2-web-proxy
+    restart: always
+  # o2-swipe:
+  #  build:
+  #    context: ./o2-swipe
+  #    args:
+  #      - O2_DEV_HOME=$O2_DEV_HOME
+  #   image: ${DOCKER_REGISTRY_URI}/o2-swipe-dev
+  #   dockerfile: Dockerfile-dev
+  #   environment:
+  #     DBHOST: o2-db
+  #     DBPORT: :5432
+  #     DBNAME: omar_prod
+  #     DBUSER: postgres_user
+  #     DBPASS: abc123
+  #     DOCKER_HOST_IP: localhost
+  #     WFSURL: localhost/o2-wfs
+  #     WFSPORT:
+  #     WMSURL: localhost/o2-wms
+  #     WMSPORT:
+  #   volumes:
+  #     - /home:/home
+  #     - /Users:/Users
+  #   ports:
+  #     - "5012:8080"
+  #   # depends_on:
+  #   #   - o2-base
+  #   #   - o2-db
+  #   #   - o2-stager
+  #   #   - o2-web-proxy
+  #   restart: always
+  o2-mensa:
+    build:
+      context: ./o2-mensa
+      dockerfile: Dockerfile-dev
+      args:
+        - O2_DEV_HOME=$O2_DEV_HOME
+    image: ${DOCKER_REGISTRY_URI}/o2-mensa-dev
+    environment:
+      DOCKER_HOST_IP: localhost
+    volumes:
+    #  - /Users/Shared/data:/data
+      - /home:/home
+      - /Users:/Users
+    ports:
+      - "5014:8080"
+    # depends_on:
+    #   - o2-base
+    #   - o2-web-proxy
+  # #o2-twofishes:
+  # #  #build: ./twofishes
+  # #  image: ${DOCKER_REGISTRY_URI}/twofishes
+  # #  dockerfile: Dockerfile
+  # #  ports:
+  # #    - "5006:8081"
+  # #  restart: always

@@ -6,24 +6,40 @@
 # directory supplied (or S3 bucket) into the running docker instance. 
 # The images are loaded but the containers are not launched.
 #
-# Usage: docker-import.sh [<path_to_tarfiles>]
+# Usage: docker-import.sh [-a] [<path_to_tarfiles>]
 #
 # <path_to_tarfies> can be a directory on local filesystem or an S3 bucket
-# specifed as "s3://...". If no arg is present, it assumes the S3 bucket 
-# specified by the environment variable $S3_DELIVERY_BUCKET.
+#      specifed as "s3://...". If no arg is present, it assumes the S3 bucket 
+#      specified by the environment variable $S3_DELIVERY_BUCKET.
+#
+# -a   If specified, non O2 images (centos, twofishes) will be downloaded and
+#      imported into docker as well as all O2 images.
 #
 #=================================================================================
 
-arg_path=$1
+# Uncomment following line to debug script line by line:
+#set -x; trap read debug
 
-# Assigns O2_APPS, TAG and functions:
-. docker-common.sh
+if [ "$1" == "-a" ]; then
+  do_all=true
+  arg_path=$2
+else
+  arg_path=$1
+fi
+
+# Locates script dir to find docker-common.sh
+pushd `dirname $0` >/dev/null
+export SCRIPT_DIR=`pwd -P`
+popd >/dev/null
+
+# Assigns O2_APPS and TAG and functions:
+. $SCRIPT_DIR/docker-common.sh
 
 if [ -z ${arg_path} ]; then
-  s3_bucket=${S3_DELIVERY_BUCKET}
+  s3_bucket=${S3_DELIVERY_BUCKET}/docker
   tarfilepath=image_import
-elif [[ ${arg_path} == *"s3://"* ]]; then
-  s3_bucket=${arg_path}
+elif [[ ${arg_path} == "s3://"* ]]; then
+  s3_bucket=${arg_path}/docker
   tarfilepath=image_import
 else
   s3_bucket=""
@@ -38,14 +54,17 @@ if [ ${s3_bucket} ]; then
    # runCommand rm -rf image_import/*.tgz
 fi
 
-# TODO: Need to assign array var here to represent full collection of tarfiles in
-# archive bucket/dir, not just o2-*
+# Add the large static packages if -a option supplied"
+if [ ${do_all} ]; then
+  O2_APPS+=( centos twofishes )
+fi
+
 for app in ${O2_APPS[@]} ; do
    
-   getTarFileName ${app} ${TAG}
+   tarfilename="${app}.tgz"
    if [ ${s3_bucket} ]; then
       # downloading the tar file from S3 to local FS
-      aws s3 sync ${s3_bucket}/${tarfilename} ${tarfilepath}/${tarfilename}
+      aws s3 sync ${s3_bucket} ${tarfilepath} --exclude \"*\" --include ${tarfilename}
    fi
 
    # Check for the existence of the tar file on FS:
@@ -66,6 +85,7 @@ for app in ${O2_APPS[@]} ; do
       fi
    fi
 done
+
 
 echo "Available Docker Images:"
 docker images

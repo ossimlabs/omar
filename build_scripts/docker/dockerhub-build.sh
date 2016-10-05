@@ -7,25 +7,31 @@
 #
 #=================================================================================
 
-# Assigns O2_APPS, TAG and functions:
-. docker-common.sh
+pushd `dirname $0` >/dev/null
+export SCRIPT_DIR=`pwd -P`
+popd >/dev/null
+
+# Assigns O2_APPS and TAG and functions:
+. $SCRIPT_DIR/docker-common.sh
 
 for app in ${O2_APPS[@]} ; do
    echo "Building ${app} docker image"
-   pushd ${app}
-   docker rmi ossimlabs/${app}
-   getImageName ${app} ${TAG}
-   docker build -t $imagename .
-   if [ $? -ne 0 ]; then
-     echo; echo "ERROR: Building container ${app} with tag ${TAG}"
+   if [ "${app}" ne "os-db" ] ; then
+     pushd ${app}
+     getImageName ${app} ${TAG}
+     docker rmi ${imagename}
+     docker build -t ${imagename} .
+     if [ $? -ne 0 ]; then
+       echo; echo "ERROR: Building container ${app} with tag ${TAG}"
+       popd
+       exit 1
+     fi
+     docker push $imagename
+     if [ $? -ne 0 ]; then
+       echo; echo "ERROR: Pushing container ${app} with tag ${TAG}"
+       popd
+       exit 1
+     fi
      popd
-     exit 1
    fi
-   docker push $imagename
-   if [ $? -ne 0 ]; then
-     echo; echo "ERROR: Pushing container ${app} with tag ${TAG}"
-     popd
-     exit 1
-   fi
-   popd
 done

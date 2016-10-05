@@ -1,46 +1,33 @@
-(function(){
-    'use strict';
-    angular
-        .module('omarApp')
-        .controller('MapController', ['mapService', '$stateParams', '$scope', 'toastr', MapController]);
+(function () {
+  'use strict';
+  angular
+    .module('omarApp')
+    .controller('MapController', ['mapService', '$stateParams', '$scope', 'toastr', MapController]);
 
-        function MapController(mapService, $stateParams, $scope, toastr) {
+  function MapController(mapService, $stateParams, $scope, toastr) {
 
-            toastr.info("Click on the thumbnail or ID text in the image card to view the image and it's" +
-                " metadata", 'Heads Up:', {
-                positionClass: 'toast-bottom-left',
-                closeButton: true,
-                timeOut: 10000,
-                extendedTimeOut: 5000,
-                target: 'body'
-            });
+    toastr.info("Click on the thumbnail or ID text in the image card to view the image and it's" +
+      " metadata", 'Heads Up:', {
+      positionClass: 'toast-bottom-left',
+      closeButton: true,
+      timeOut: 10000,
+      extendedTimeOut: 5000,
+      target: 'body'
+    });
 
-            /* jshint validthis: true */
-            var vm = this;
+    mapService.mapInit();
 
-            // Can not pass an object as a state paramenter - http://stackoverflow.com/a/26021346
-            //console.log('$stateParams.mapParams', $stateParams.mapParams);
-            
-            if ($stateParams.mapParams === 'mapParamsDefaultMap') {
+    $scope.$on('attrObj.updated', function (event, filter) {
 
-                //console.log('Default...');
+      mapService.updateFootPrintLayer(filter);
 
-            }
-            else {
+    });
 
-                vm.mapParams = JSON.parse($stateParams.mapParams);
+    $scope.$on('mapState.updated', function (event, params) {
 
-            }
+      mapService.zoomMap(params);
 
-            //console.log(vm.mapParams);
-            mapService.mapInit(vm.mapParams);
+    });
 
-            $scope.$on('attrObj.updated', function(event, filter) {
-
-                //console.log('$on attrObj filter updated', filter);
-                mapService.updateFootPrintLayer(filter);
-
-            });
-
-        }
+  }
 })();
