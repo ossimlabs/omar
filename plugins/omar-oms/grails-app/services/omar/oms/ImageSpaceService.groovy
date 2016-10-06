@@ -151,7 +151,8 @@ class ImageSpaceService
               "scale_2_8_bit":"true",
               "rrds":"${rrds}".toString(),
               'hist_op': cmd.histOp?:'auto-minmax',
-              three_band_out: "true"
+
+              //three_band_out: "true"
       ]
 
       if(cmd.bands)
@@ -189,107 +190,23 @@ class ImageSpaceService
     HashMap result = [status:HttpStatus.NOT_FOUND,
                       contentType: "plane/text",
                       buffer: "Unable to service tile".bytes]
-      def chipper = new Chipper()
-      def numBands
-      def buffer
 
-      def bandsArray = opts?.bands?.split(",")
 
-      Boolean transparent = hints?.transparent
-      if(bandsArray)
-      {
-        if((bandsArray.size() == 3) || (bandsArray.size() == 1))
-        {
-          numBands = bandsArray.size();
-        }
-        else
-        {
-          numBands = 1
-          opts?.bands = "1" // default to one band if problems
+    HashMap chipperResult = ChipperUtil.runChipper(opts)
 
-          // need error exception for the response code
-          //
-        }
-      }
-      else
-      {
-        opts.three_band_out = true
-        numBands = 3
-      }
-      //if(hints.transparent) ++numBands
-      if(numBands == 1)
-      {
-//        transparent = false
-      }
-      else
-      {
-        result.buffer = "When chippping, band selection can only be 1 or 3 band".bytes
-      }
-
-      if(transparent) ++numBands
-      opts.three_band_out = (numBands >= 3).toString()
-
-      buffer   = new byte[hints.width * hints.height * numBands]
-//    println buffer.size()
-//println "INITIALIZING ${opts}"
-    try{
-      if ( chipper.initialize( opts ) )
-      {
-        if ( chipper.getChip( buffer, buffer.length, transparent ) > 1 )
-        {
-          result.status = HttpStatus.OK
-          result.buffer = null
-          result.contentType = null
-        //println 'getChip: good'
-        }
-        else
-        {
-        //println "getChip: bad ${opts}"
-        }
-      }
-      else
-      {
-  //    println "initialize: bad ${opts}"
-      }
-      chipper?.delete()
-
-      def dataBuffer = new DataBufferByte( buffer, buffer.size() )
-
-      def sampleModel = new PixelInterleavedSampleModel(
-              DataBuffer.TYPE_BYTE,
-              hints.width,                      // width
-              hints.height,                     // height
-              numBands,                         // pixelStride
-              hints.width * numBands,           // scanlineStride
-              ( 0..<numBands ) as int[]         // band offsets
-      )
-
-      def cs = ColorSpace.getInstance( ColorSpace.CS_sRGB )
-      if(numBands <= 2)
-      {
-//      println "SETTING TO THE GRAY!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        cs = ColorSpace.getInstance(ColorSpace.CS_GRAY)
-      }
-
-//    println "Components === ${cs.numComponents}"
-      def mask = ( ( 0..<sampleModel.numBands ).collect { 8 } ) as int[]
-
-      def colorModel = new ComponentColorModel( cs, mask,
-              hints.transparent, false, ( hints.transparent ) ? Transparency.TRANSLUCENT : Transparency.OPAQUE,
-              DataBuffer.TYPE_BYTE )
-//      println colorModel
-      def raster = Raster.createRaster( sampleModel, dataBuffer, new Point( 0, 0 ) )
-      def image = new BufferedImage( colorModel, raster, false, null )
+    if(!opts.bands)
+    {
+      opts.three_band_out=true
+    }
+    if(chipperResult.raster)
+    {
+      def image =  ChipperUtil.optimizeRaster(chipperResult.raster, chipperResult.colorModel, hints)//hints.type, hints.transparent) //new BufferedImage( chipperResult.colorModel, chipperResult.raster, false, null )
+      result.status = HttpStatus.OK
+      result.buffer = null
+      result.contentType = null
       ImageIO.write( image, hints.type, hints.ostream )
     }
-    catch(e)
-    {
-      log.error (e.message)
-      //e.printStackTrace()
-      result = [status:HttpStatus.INTERNAL_SERVER_ERROR,
-                        contentType: "plane/text",
-                        buffer: "${e.message}".bytes]
-    }
+
     result
   }
 
