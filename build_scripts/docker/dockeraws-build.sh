@@ -34,8 +34,9 @@ function deleteImage()
 {
   REPOSITORY=$1
   TAG=$2
-  aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}g
+  aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}
 }
+
 
 createRepositories O2_APPS
 
