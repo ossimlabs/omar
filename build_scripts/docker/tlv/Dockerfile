@@ -10,17 +10,17 @@ RUN apt-get install -y git
 RUN git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git tlv_master
 
 
-# get ${DOCKER_REGISTRY_URI} network specific code
-RUN git clone https://github.com/${DOCKER_REGISTRY_URI}/tlv.git ${DOCKER_REGISTRY_URI}_tlv
-WORKDIR /app/${DOCKER_REGISTRY_URI}_tlv
+# get ossimlabs network specific code
+RUN git clone https://github.com/ossimlabs/tlv.git ossimlabs_tlv
+WORKDIR /app/ossimlabs_tlv
 RUN git fetch
 RUN git checkout dev
 
 # replace the tlv source code as necessary
 WORKDIR /app
 RUN rm -rf tlv_master/plugins/network_specific
-RUN mv ${DOCKER_REGISTRY_URI}_tlv/plugins/network_specific tlv_master/plugins/
-RUN rm -rf /app/${DOCKER_REGISTRY_URI}_tlv
+RUN mv ossimlabs_tlv/plugins/network_specific tlv_master/plugins/
+RUN rm -rf /app/ossimlabs_tlv
 
 
 # add the application documentation
