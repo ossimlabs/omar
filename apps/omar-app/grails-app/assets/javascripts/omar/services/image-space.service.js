@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('imageSpaceService', ['$http', '$stateParams', imageSpaceService]);
+        .service('imageSpaceService', ['$http', imageSpaceService]);
 
-    function imageSpaceService($http, $stateParams) {
+    function imageSpaceService( $http ) {
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
         // provides access to various client params in application.yml
@@ -24,8 +24,10 @@
             northAngle,
             bands;
 
-          var bandVal = $stateParams.bands.split( ',' );
-          var numOfBands = $stateParams.numOfBands;
+            //console.log('Band Value: ', $stateParams);
+        this.getImageBands = function(params) {
+          var bandVal = params.bands.split( ',' );
+          var numOfBands = params.numOfBands;
 
           if ( bandVal.length > 0 ) {
             if ( bandVal[0] != 'default' ) {
@@ -43,6 +45,8 @@
                   }
                 }
               }
+
+              console.log( 'Band Value: ', bands );
             }else {
               bands = '1';
               var newNum;
@@ -52,8 +56,8 @@
               }
             }
           }
-
           this.bands = bands;
+        };
 
         var ImageSpaceTierSizeCalculation = {
             DEFAULT: 'default',

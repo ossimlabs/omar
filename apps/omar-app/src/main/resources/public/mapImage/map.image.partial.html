@@ -70,7 +70,7 @@
                   <span ng-bind="$select.selected.value"></span>
               </ui-select-match>
               <ui-select-choices repeat="val in bandValues">
-                  <span ng-bind="val.key"></span>
+                  <span ng-bind="val.value"></span>
               </ui-select-choices>
             </ui-select>
           </div></br>
@@ -78,36 +78,31 @@
             <div id="redImageBand" class="image-band-div">
               <label>Red:&nbsp;</label>
               <ui-select id="redImageItem" theme="selectize" ng-model="redImageItem" on-select="onBandSelect($select.selected.value, 'red')">
-                <ui-select-match>
-                    <span ng-bind="$select.selected.value"></span>
-                </ui-select-match>
-                <ui-select-choices repeat="val in bandValues">
-                    <span ng-bind="val.key"></span>
+                <ui-select-match>{{$select.selected.value}}</ui-select-match>
+                <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
+                    <span ng-bind-html="val.value | highlight: $select.search"></span>
                 </ui-select-choices>
               </ui-select>
             </div>
             <div id="greenImageBand" class="image-band-div">
               <label>Green:&nbsp;</label>
               <ui-select id="greenImageItem" theme="selectize" ng-model="greenImageItem" on-select="onBandSelect($select.selected.value, 'green')">
-                <ui-select-match>
-                    <span ng-bind="$select.selected.value"></span>
-                </ui-select-match>
-                <ui-select-choices repeat="val in bandValues">
-                    <span ng-bind="val.key"></span>
+                <ui-select-match>{{$select.selected.value}}</ui-select-match>
+                <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
+                    <span ng-bind-html="val.value | highlight: $select.search"></span>
                 </ui-select-choices>
               </ui-select>
             </div>
             <div id="blueImageBand" class="image-band-div">
               <label>Blue:&nbsp;</label>
               <ui-select id="blueImageItem" theme="selectize" ng-model="blueImageItem" on-select="onBandSelect($select.selected.value, 'blue')">
-                <ui-select-match>
-                    <span ng-bind="$select.selected.value"></span>
-                </ui-select-match>
-                <ui-select-choices repeat="val in bandValues">
-                    <span ng-bind="val.key"></span>
+                <ui-select-match>{{$select.selected.value}}</ui-select-match>
+                <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
+                    <span ng-bind-html="val.value | highlight: $select.search"></span>
                 </ui-select-choices>
               </ui-select>
             </div>
+
           </div></br>
         </div>
         <hr>
@@ -117,7 +112,8 @@
         <div id="imageMap" class="map">
           <div id="mapDownloadButton">
             <a ng-href="" target="_blank" ng-click="image.archiveDownload(image.imageId)">
-              <i class="fa fa-download fa-border text-primary" tooltip-placement="left-bottom" uib-tooltip="Download and archive files"></i>
+              <i class="fa fa-download fa-border text-primary" tooltip-placement="left-bottom"
+                style="cursor: pointer;" uib-tooltip="Download and archive files"></i>
             </a>
           </div>
         </div>
