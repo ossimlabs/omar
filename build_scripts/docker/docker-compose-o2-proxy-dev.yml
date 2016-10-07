@@ -5,10 +5,10 @@ services:
       context: ./o2-web-proxy
       dockerfile: Dockerfile-dev
       args:
-        - O2_DEV_HOME=${O2_DEV_HOME}    
+        - O2_DEV_HOME=${O2_DEV_HOME}
     image: ossimlabs/o2-web-proxy-dev
     environment:
-      DOCKER_HOST_IP: localhost
+      DOCKER_HOST_IP: 172.16.0.109
     ports:
       - "80:80"
     volumes:

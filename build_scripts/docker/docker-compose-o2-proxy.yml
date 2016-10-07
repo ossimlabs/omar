@@ -4,7 +4,7 @@ services:
     build: ./o2-web-proxy
     image: ossimlabs/o2-web-proxy
     environment:
-      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+      DOCKER_HOST_IP: localhost
     ports:
       - "80:80"
     volumes:

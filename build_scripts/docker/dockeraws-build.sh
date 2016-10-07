@@ -8,7 +8,12 @@
 
 # Assigns O2_APPS, TAG and functions:
 
-. docker-common.sh
+pushd `dirname $0` >/dev/null
+export SCRIPT_DIR=`pwd -P`
+popd >/dev/null
+
+# Assigns O2_APPS and TAG and functions:
+. $SCRIPT_DIR/docker-common.sh
 
 export AWS_REGION=us-east-1
 function createRepositories()
@@ -29,8 +34,9 @@ function deleteImage()
 {
   REPOSITORY=$1
   TAG=$2
-  aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}g
+  aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}
 }
+
 
 createRepositories O2_APPS
 
