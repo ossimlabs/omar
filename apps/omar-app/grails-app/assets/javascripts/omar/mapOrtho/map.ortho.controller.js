@@ -31,6 +31,8 @@
             cql: ''
         };
 
+        imageLayerIds = $stateParams.layers.split(",");
+
         vm.loading = true;
 
         vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
@@ -43,8 +45,7 @@
           downloadService.downloadFiles( imageId );
         };
 
-        imageLayerIds = $stateParams.layers.split(",");
-
+        vm.imageLayerIds = imageLayerIds;
         //console.log('imageLayerIds', imageLayerIds);
 
         footprintLayer = new ol.layer.Vector({

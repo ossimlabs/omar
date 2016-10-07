@@ -108,6 +108,10 @@ dependencies {
   compile 'org.webjars.bower:angular-toggle-switch:1.3.0'
   compile 'org.webjars.bower:angular-clipboard:1.4.2'
   compile 'org.webjars:angular-ui-select:0.17.1'
+  compile 'org.webjars.bower:angular-ui-select2:0.0.5'
+  compile 'org.webjars.npm:angular-sanitize:1.4.8'
+  compile 'org.webjars.bower:microplugin:0.0.3'
+  compile 'org.webjars:selectize.js:0.12.3'
 
   // Font stuff
   compile 'org.webjars:font-awesome:4.4.0'
