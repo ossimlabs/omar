@@ -110,6 +110,7 @@ dependencies {
   compile 'org.webjars:angular-ui-select:0.17.1'
   compile 'org.webjars.bower:angular-ui-select2:0.0.5'
   compile 'org.webjars.npm:angular-sanitize:1.4.8'
+  compile 'org.webjars.bower:microplugin:0.0.3'
   compile 'org.webjars:selectize.js:0.12.3'
 
   // Font stuff
