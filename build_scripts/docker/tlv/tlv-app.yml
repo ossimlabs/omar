@@ -1,3 +1,7 @@
+server:
+  contextPath: /tlv
+  port: 8080
+
 defaultLocation: "48.8584, 2.2945"
 
 libraries:
@@ -22,10 +26,10 @@ networkSpecific:
 securityClassification: "UNCLASSIFIED"
 
 ---
-grails:
-  serverURL: http://${DOCKER_HOST_IP}/tlv
-  assets:
-    url: http://${DOCKER_HOST_IP}/tlv/assets/
+# grails:
+#   serverURL: http://${DOCKER_HOST_IP}/tlv
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/tlv/assets/
 
 spring:
   cloud:
