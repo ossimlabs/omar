@@ -28,8 +28,8 @@ endpoints:
     enabled: true
 
 ---
-# grails:
-#   serverURL: http://${DOCKER_HOST_IP}/o2-wmts
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-wmts
 #   assets:
 #     url: http://${DOCKER_HOST_IP}/o2-wmts/assets/
 

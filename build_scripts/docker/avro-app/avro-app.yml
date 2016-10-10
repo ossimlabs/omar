@@ -1,5 +1,5 @@
 server:
-  contextPath: /o2-superoverlay
+  contextPath: /o2-avro
   port: 8080
 
 environments:
@@ -40,3 +40,7 @@ spring:
       enabled: false
     discovery:
       enabled: false
+
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-avro
+

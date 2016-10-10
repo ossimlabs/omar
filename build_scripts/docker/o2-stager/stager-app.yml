@@ -23,8 +23,8 @@ endpoints:
     enabled: true
 
 ---
-# grails:
-#   serverURL: http://${DOCKER_HOST_IP}/o2-stager
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-stager
 #   assets:
 #     url: http://${DOCKER_HOST_IP}/o2-stager/assets/
 

@@ -82,8 +82,8 @@ endpoints:
     enabled: true
 
 ---
-# grails:
-#   serverURL: http://${DOCKER_HOST_IP}/o2-omar
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-omar
 #   assets:
 #     url: http://${DOCKER_HOST_IP}/o2-omar/assets/
 

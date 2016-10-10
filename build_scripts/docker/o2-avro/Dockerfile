@@ -23,8 +23,6 @@ ENV DBUSER=${DBUSER}\
     ADDRASTERENDPOINTPORT=${ADDRASTERENDPOINTPORT}
 
 ARG O2_DEV_HOME
-RUN rm -f /usr/share/omar/avro-app/avro-app.jar && \
-      ln -s $O2_DEV_HOME/apps/avro-app/build/libs/avro-app-1.0.0.jar /usr/share/omar/avro-app/avro-app.jar
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/avro-app/avro-app.sh"]

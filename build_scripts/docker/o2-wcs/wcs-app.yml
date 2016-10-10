@@ -156,8 +156,8 @@ endpoints:
     enabled: true
 
 ---
-# grails:
-#   serverURL: http://${DOCKER_HOST_IP}/o2-wcs
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-wcs
 #   assets:
 #     url: http://${DOCKER_HOST_IP}/o2-wcs/assets/
 

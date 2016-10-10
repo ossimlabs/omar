@@ -20,8 +20,8 @@ endpoints:
     enabled: true
 
 ---
-# grails:
-#   serverURL: http://${DOCKER_HOST_IP}/o2-sqs
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-sqs
 #   assets:
 #     url: http://${DOCKER_HOST_IP}/o2-sqs/assets/
 
