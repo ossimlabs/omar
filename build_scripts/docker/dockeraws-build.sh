@@ -72,13 +72,13 @@ for app in ${O2_APPS[@]} ; do
      cp Dockerfile Dockerfile.back
      sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:latest/" Dockerfile
      docker build  --no-cache -t ${imagename} .
-     mv Dockerfile.back Dockerfile
-     
+          
      if [ $? -ne 0 ]; then
        echo; echo "ERROR: Building container ${app} with tag ${TAG}"
        popd
        exit 1
      fi
+     mv Dockerfile.back Dockerfile
 
      deleteImage ${app} ${TAG}
      if [ $? -ne 0 ]; then
