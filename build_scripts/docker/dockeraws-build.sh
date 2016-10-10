@@ -14,7 +14,7 @@ popd >/dev/null
 
 # Assigns O2_APPS and TAG and functions:
 . $SCRIPT_DIR/docker-common.sh
-O2_APPS=( "o2-base" )
+O2_APPS=( "o2-base" "o2-avro" )
 
 export AWS_REGION=us-east-1
 function createRepositories()
