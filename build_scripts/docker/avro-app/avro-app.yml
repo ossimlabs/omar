@@ -40,3 +40,7 @@ spring:
       enabled: false
     discovery:
       enabled: false
+
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-avro
+

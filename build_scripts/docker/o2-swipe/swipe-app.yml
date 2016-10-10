@@ -25,8 +25,8 @@ endpoints:
     enabled: true
 
 ---
-# grails:
-#   serverURL: http://${DOCKER_HOST_IP}/o2-swipe
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-swipe
 #   assets:
 #     url: http://${DOCKER_HOST_IP}/o2-swipe/assets/
 

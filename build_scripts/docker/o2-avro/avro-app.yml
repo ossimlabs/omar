@@ -40,8 +40,8 @@ endpoints:
     enabled: true
 
 ---
-# grails:
-#   serverURL: http://${DOCKER_HOST_IP}/o2-avro
+grails:
+  serverURL: http://${DOCKER_HOST_IP}/o2-avro
 #   assets:
 #     url: http://${DOCKER_HOST_IP}/o2-avro/assets/
 

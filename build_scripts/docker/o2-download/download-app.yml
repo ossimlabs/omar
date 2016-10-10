@@ -18,8 +18,8 @@ endpoints:
     enabled: true
 
 ---
-#grails:
-#  serverURL: http://${DOCKER_HOST_IP}/o2-download
+grails:
+ serverURL: http://${DOCKER_HOST_IP}/o2-download
 #  assets:
 #    url: http://${DOCKER_HOST_IP}/o2-download/assets/
 
