@@ -34,15 +34,16 @@ function createRepositories()
 
 function deleteImage()
 {
-  local REPOSITORY=$2
-  local TAG=$3
+  local REPOSITORY=$1
+  local TAG=$2
   local IMAGES=`aws ecr list-images --repository-name $REPOSITORY --region us-east-1`
-  tagCheck=`echo $IMAGES | grep $TAG`
+  local tagCheck=`echo $IMAGES | grep $TAG`
 
+  echo "TAG CHECK==================>   ${tagCheck}"
   if [ "$tagCheck" != "" ] ; then
     aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}
      if [ $? -ne 0 ]; then
-       return 1
+       return $?
      fi
   fi
   return 0
