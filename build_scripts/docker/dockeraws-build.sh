@@ -19,8 +19,9 @@ O2_APPS=( "o2-base" "o2-avro" )
 export AWS_REGION=us-east-1
 function createRepositories()
 {
-    repositories=$1[@]
-    currentRepositories=`aws ecr describe-repositories --region ${AWS_REGION}`
+
+    local repositories=$1[@]
+    local currentRepositories=`aws ecr describe-repositories --region ${AWS_REGION}`
     a=("${!repositories}")
     for i in "${a[@]}" ; do
        repoCheck=`echo $currentRepositories | grep $i`
@@ -33,11 +34,18 @@ function createRepositories()
 
 function deleteImage()
 {
-  REPOSITORY=$1
-  TAG=$2
-  echo "DELETING: $1:$2"
-  echo "aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}"
-  aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}
+  local REPOSITORY=$2
+  local TAG=$3
+  local IMAGES=`aws ecr list-images --repository-name $REPOSITORY --region us-east-1`
+  tagCheck=`echo $IMAGES | grep $TAG`
+
+  if [ "$tagCheck" != "" ] ; then
+    aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}
+     if [ $? -ne 0 ]; then
+       return 1
+     fi
+  fi
+  return 0
 }
 
 
@@ -67,7 +75,11 @@ for app in ${O2_APPS[@]} ; do
      fi
 
      deleteImage ${app} ${TAG}
-
+     if [ $? -ne 0 ]; then
+       echo; echo "ERROR: Deleting image ${app}:${TAG}"
+       popd
+       exit 1
+     fi
      docker push ${imagename}
      if [ $? -ne 0 ]; then
        echo; echo "ERROR: Pushing container ${app} with tag ${TAG}"
