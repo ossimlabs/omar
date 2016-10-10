@@ -49,6 +49,8 @@ services:
     #   - o2-db
     #   - o2-web-proxy
     restart: always
+    copy:
+        - stager-app.yml:/usr/share/omar/stager-app/stager-app.yml
     # depends_on:
     #   - o2-db
   o2-wms:
@@ -70,6 +72,8 @@ services:
     #   - o2-stager
     #   - o2-web-proxy
     restart: always
+    copy:
+        - wms-app.yml:/usr/share/omar/wms-app/wms-app.yml
     # depends_on:
     #   - o2-db
   o2-wfs:
