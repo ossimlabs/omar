@@ -57,7 +57,7 @@ for app in ${O2_APPS[@]} ; do
      getImageName ${app} ${TAG}
      cp Dockerfile Dockerfile.back
      sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:latest/" Dockerfile
-#     docker build  --no-cache -t ${imagename} .
+     docker build  --no-cache -t ${imagename} .
      mv Dockerfile.back Dockerfile
      
      if [ $? -ne 0 ]; then
@@ -68,7 +68,7 @@ for app in ${O2_APPS[@]} ; do
 
      deleteImage ${app} ${TAG}
 
-#     docker push ${imagename}
+     docker push ${imagename}
      if [ $? -ne 0 ]; then
        echo; echo "ERROR: Pushing container ${app} with tag ${TAG}"
        popd
