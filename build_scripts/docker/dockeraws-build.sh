@@ -34,6 +34,7 @@ function deleteImage()
 {
   REPOSITORY=$1
   TAG=$2
+  echo "aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}"
   aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}
 }
 
@@ -62,6 +63,7 @@ for app in ${O2_APPS[@]} ; do
        popd
        exit 1
      fi
+
      deleteImage ${app} ${TAG}
 
 #     docker push ${imagename}
