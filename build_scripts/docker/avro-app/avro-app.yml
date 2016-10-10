@@ -1,5 +1,5 @@
 server:
-  contextPath: /o2-superoverlay
+  contextPath: /o2-avro
   port: 8080
 
 environments:
