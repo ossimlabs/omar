@@ -1,5 +1,5 @@
 server:
-  contextPath:
+  contextPath: /o2-superoverlay
   port: 8080
 
 environments:

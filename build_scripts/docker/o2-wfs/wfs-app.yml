@@ -1,5 +1,5 @@
 server:
-  # contextPath:
+  contextPath: /o2-wfs
   port: 8080
 
 # environments:
@@ -156,10 +156,10 @@ endpoints:
     enabled: true
 
 ---
-grails:
-  serverURL: http://${DOCKER_HOST_IP}/o2-wfs
-  assets:
-    url: http://${DOCKER_HOST_IP}/o2-wfs/assets/
+# grails:
+#   serverURL: http://${DOCKER_HOST_IP}/o2-wfs
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/o2-wfs/assets/
 
 spring:
   cloud:
