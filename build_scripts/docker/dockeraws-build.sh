@@ -35,6 +35,7 @@ function deleteImage()
 {
   REPOSITORY=$1
   TAG=$2
+  echo "DELETING: $1:$2"
   echo "aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}"
   aws ecr batch-delete-image --repository-name ${REPOSITORY} --image-ids imageTag=${TAG} --region ${AWS_REGION}
 }
