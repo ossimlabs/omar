@@ -33,3 +33,10 @@ omar:
           overviewCompressionType: "NONE"
           overviewType: "ossim_tiff_box"
           filename: ""
+
+spring:
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false
