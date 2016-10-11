@@ -12,7 +12,7 @@ omar:
       destination:
         type: "post"
         post:
-            urlEndPoint: "http://${DESTINATION_POST_END_POINT}${DESTINATION_POST_END_POINT_PORT}/avro/addMessage"
+            urlEndPoint: "http://${DESTINATION_POST_END_POINT}${DESTINATION_POST_END_POINT_PORT}/o2-avro/avro/addMessage"
             field: ${DESTINATION_POST_FIELD}
 
 endpoints:
