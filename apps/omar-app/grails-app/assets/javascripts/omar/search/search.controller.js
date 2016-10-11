@@ -167,6 +167,7 @@
     vm.resetSearchInput = function() {
 
       vm.searchInput = '';
+      wfsService.updateAttrFilter('');
 
     };
 
