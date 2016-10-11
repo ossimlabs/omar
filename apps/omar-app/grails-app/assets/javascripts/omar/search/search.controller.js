@@ -19,12 +19,10 @@
     var $el = $('#searchForm');
     var $searchInput = $el.find('#searchInput');
 
-    vm.placeholder = 'Search O2 Map';
+    vm.placeholder = 'Search by Image ID';
 
     // bind events
     $el.keypress(suppressKey);
-
-    searchByPlace();
 
     // Remove enter/return key forcing a form
     // submit, and reloading the page
@@ -74,6 +72,50 @@
 
           }
       });
+
+    }
+
+    vm.imageIdClass = 'btn btn-success';
+    vm.coordiantesClass = 'btn btn-default';
+    vm.placeClass = 'btn btn-default';
+
+    vm.byImageId = function() {
+
+      console.log('ng-click for byImageId...');
+      vm.imageIdClass = 'btn btn-success';
+      vm.coordiantesClass = 'btn btn-default';
+      vm.placeClass = 'btn btn-default';
+
+      vm.placeholder = 'Search by Image ID';
+
+      $searchInput.autocomplete('disable');
+
+    };
+
+    vm.byCoordiantes = function() {
+
+      console.log('ng-click for byCoordiantes');
+      vm.imageIdClass = 'btn btn-default';
+      vm.coordiantesClass = 'btn btn-success';
+      vm.placeClass = 'btn btn-default';
+
+      vm.placeholder = 'Search by Coordinates';
+
+      $searchInput.autocomplete('disable');
+
+    }
+
+    vm.byPlace = function() {
+
+      console.log('ng-click for byPlace');
+      vm.imageIdClass = 'btn btn-default';
+      vm.coordiantesClass = 'btn btn-default'
+      vm.placeClass = 'btn btn-success';
+
+      vm.placeholder = 'Search by Place Name';
+
+      $searchInput.autocomplete('enable');
+      searchByPlace();
 
     }
 
