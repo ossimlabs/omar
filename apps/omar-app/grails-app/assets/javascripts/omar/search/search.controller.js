@@ -13,6 +13,13 @@
     //console.log('AppO2.APP_CONFIG in SearchController: ', AppO2.APP_CONFIG);
 
     var vm = this;
+
+    // Image ID variables
+    var filterArray = [];
+    var clause,
+      filterString;
+
+    // Place Name variables
     var url;
     var twofishProxy = AppO2.APP_CONFIG.params.twofishes.proxy;
     var baseUrl = AppO2.APP_CONFIG.serverURL;
@@ -33,6 +40,28 @@
         event.preventDefault();
 
       }
+    }
+
+    // Searches for Image ID
+    function searchByImageId() {
+
+      function pushKeywordToArray(formField) {
+
+        clause = ["strToUpperCase(title) LIKE '%", formField.trim().toUpperCase(), "%'"].join("");
+
+        filterArray.push(clause);
+        //console.log('filterArray: ', filterArray);
+
+      }
+
+      pushKeywordToArray(vm.searchInput);
+      //console.log('vm.searchInput', filterArray);
+
+      filterString = filterArray.join(" AND ");
+      //console.log('filterString', filterString);
+
+      wfsService.updateAttrFilter(filterString);
+
     }
 
     // Searches twofishes service
@@ -79,12 +108,16 @@
     vm.coordiantesClass = 'btn btn-default';
     vm.placeClass = 'btn btn-default';
 
+    vm.searchButtonDisabled = false;
+
     vm.byImageId = function() {
 
-      console.log('ng-click for byImageId...');
+      //console.log('ng-click for byImageId...');
       vm.imageIdClass = 'btn btn-success';
       vm.coordiantesClass = 'btn btn-default';
       vm.placeClass = 'btn btn-default';
+
+      vm.searchButtonDisabled = false;
 
       vm.placeholder = 'Search by Image ID';
 
@@ -94,10 +127,12 @@
 
     vm.byCoordiantes = function() {
 
-      console.log('ng-click for byCoordiantes');
+      //console.log('ng-click for byCoordiantes');
       vm.imageIdClass = 'btn btn-default';
       vm.coordiantesClass = 'btn btn-success';
       vm.placeClass = 'btn btn-default';
+
+      vm.searchButtonDisabled = false;
 
       vm.placeholder = 'Search by Coordinates';
 
@@ -107,10 +142,12 @@
 
     vm.byPlace = function() {
 
-      console.log('ng-click for byPlace');
+      //console.log('ng-click for byPlace');
       vm.imageIdClass = 'btn btn-default';
       vm.coordiantesClass = 'btn btn-default'
       vm.placeClass = 'btn btn-success';
+
+      vm.searchButtonDisabled = true;
 
       vm.placeholder = 'Search by Place Name';
 
@@ -119,7 +156,15 @@
 
     }
 
-    vm.resetSearchInput = function () {
+    vm.executeSearch = function() {
+
+      //console.log('vm.search was clicked.');
+
+      searchByImageId();
+
+    }
+
+    vm.resetSearchInput = function() {
 
       vm.searchInput = '';
 
