@@ -105,7 +105,7 @@
     }
 
     vm.imageIdClass = 'btn btn-success';
-    vm.coordiantesClass = 'btn btn-default';
+    vm.coordinatesClass = 'btn btn-default';
     vm.placeClass = 'btn btn-default';
 
     vm.searchButtonDisabled = false;
@@ -114,7 +114,7 @@
 
       //console.log('ng-click for byImageId...');
       vm.imageIdClass = 'btn btn-success';
-      vm.coordiantesClass = 'btn btn-default';
+      vm.coordinatesClass = 'btn btn-default';
       vm.placeClass = 'btn btn-default';
 
       vm.searchButtonDisabled = false;
@@ -125,11 +125,11 @@
 
     };
 
-    vm.byCoordiantes = function() {
+    vm.byCoordinates = function() {
 
-      //console.log('ng-click for byCoordiantes');
+      //console.log('ng-click for byCoordinates');
       vm.imageIdClass = 'btn btn-default';
-      vm.coordiantesClass = 'btn btn-success';
+      vm.coordinatesClass = 'btn btn-success';
       vm.placeClass = 'btn btn-default';
 
       vm.searchButtonDisabled = false;
@@ -144,7 +144,7 @@
 
       //console.log('ng-click for byPlace');
       vm.imageIdClass = 'btn btn-default';
-      vm.coordiantesClass = 'btn btn-default'
+      vm.coordinatesClass = 'btn btn-default'
       vm.placeClass = 'btn btn-success';
 
       vm.searchButtonDisabled = true;
