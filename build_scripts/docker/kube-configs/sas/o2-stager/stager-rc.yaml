@@ -15,6 +15,10 @@ spec:
       labels:
         app: o2-stager
     spec:
+     volumes:
+      - name: nfsStager
+        persistentVolumeClaim:
+         claimName: nfs-pvc
       containers:
       - name: o2-stager
         env:
