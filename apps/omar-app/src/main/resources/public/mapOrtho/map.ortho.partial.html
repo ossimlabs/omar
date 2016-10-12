@@ -3,18 +3,17 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="mapOrtho" class="map">
-                    <div id="orthoShareButton" class="mapOrthoLinkBtns">
-                        <a ng-href="" target="_blank" ng-click="ortho.shareModal(ortho.baseServerUrl + '/omar/#/?layers=' + ortho.imageLayerIds)">
+                    <div class="imageLinkBtns imageShareButton">
+                        <a ng-href="" target="_blank" ng-click="ortho.shareModal(ortho.baseServerUrl + '/omar/#/mapOrtho?layers=' + ortho.imageLayerIds)">
                           <i class="fa fa-share-alt fa-border text-primary"
                             tooltip-placement="left-bottom"
                             uib-tooltip="Share a link to this image"></i>
                          </a>&nbsp;&nbsp;
                     </div>
-                    <div id="mapDownloadButton" class="mapOrthoLinkBtns">
+                    <div class="imageLinkBtns mapDownloadButton">
                         <a ng-href="" target="_blank" ng-click="ortho.archiveDownload(ortho.imageLayerIds)">
                           <i class="fa fa-download fa-border text-primary"
                             tooltip-placement="left-bottom"
-                            style="cursor: pointer;"
                             uib-tooltip="Download and archive files"></i>
                         </a>
                     </div>
