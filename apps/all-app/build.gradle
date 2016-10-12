@@ -15,6 +15,10 @@ buildscript {
   }
 }
 
+plugins {
+    id 'com.github.ben-manes.versions' version '0.13.0'
+}
+
 version "1.0.0"
 group "all.app"
 
@@ -50,7 +54,7 @@ repositories {
 dependencyManagement {
   imports {
     mavenBom "org.grails:grails-bom:$grailsVersion"
-    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR5'
+    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR6'
   }
   applyMavenExclusions false
 }
