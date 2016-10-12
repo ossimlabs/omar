@@ -224,7 +224,7 @@ def updateRaster(def httpStatusMessage, def params)
 			httpStatusMessage?.message = "removed raster ${ ids }:${ filename }"
 			log.info( httpStatusMessage?.message )
 
-			if (params.deleteFiles.toBoolean()) {
+			if (params.deleteFiles?.toBoolean()) {
 				def files = []
 				rasterFile?.rasterDataSet?.fileObjects.each() { files << new File(it.name) }
 				rasterFile?.rasterDataSet?.rasterEntries.each() {
