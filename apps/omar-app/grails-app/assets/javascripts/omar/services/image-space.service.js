@@ -5,6 +5,7 @@
         .service('imageSpaceService', ['$http', imageSpaceService]);
 
     function imageSpaceService( $http ) {
+
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
         // provides access to various client params in application.yml
@@ -22,42 +23,8 @@
             source2,
             upAngle,
             northAngle,
-            bands;
-
-            //console.log('Band Value: ', $stateParams);
-        this.getImageBands = function(params) {
-          var bandVal = params.bands.split( ',' );
-          var numOfBands = params.numOfBands;
-
-          if ( bandVal.length > 0 ) {
-            if ( bandVal[0] != 'default' ) {
-              if ( numOfBands <= 1 ) {
-                bands = bandVal[0];
-              }else {
-                if ( numOfBands == 2 ){
-                  bands = '1,2';
-                }else{
-                  bands = bandVal[0];
-                }
-                for ( var bandNum = 1; bandNum < numOfBands; bandNum++ ) {
-                  if ( bandVal[bandNum] ) {
-                    bands = bands + ',' + bandVal[bandNum];
-                  }
-                }
-              }
-
-              console.log( 'Band Value: ', bands );
-            }else {
-              bands = '1';
-              var newNum;
-              for ( var bandNum2 = 1; bandNum2 < numOfBands; bandNum2++ ) {
-                newNum = bandNum2 + 1;
-                bands = bands + ',' + newNum;
-              }
-            }
-          }
-          this.bands = bands;
-        };
+            bands,
+            numOfBands;
 
         var ImageSpaceTierSizeCalculation = {
             DEFAULT: 'default',
@@ -225,7 +192,8 @@
                     var tileY = -tileCoord[2] - 1;
 
                     return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
-                        '&x=' + tileX + '&y=' + tileY + '&format=' + format + '&bands=' + bands;
+                        '&x=' + tileX + '&y=' + tileY + '&format=' + format +
+                        '&numOfBands=' + numOfBands + '&bands=' + bands;
                 }
             }
 
@@ -248,6 +216,8 @@
             entry = params.entry;
             imgWidth = params.imgWidth;
             imgHeight = params.imgHeight;
+            numOfBands = params.numOfBands;
+            bands = params.bands;
 
             // Make AJAX call here to getAngles with filename & entry as args
             // to get the upAngle and northAngle values
@@ -289,6 +259,7 @@
                 format: 'jpeg',
                 size: [imgWidth, imgHeight],
                 crossOrigin: crossOrigin,
+                numOfBands: numOfBands,
                 bands: bands
             });
 
@@ -338,10 +309,45 @@
                 })
             });
 
+            //Beginning - Band Selections Section
+
+            this.getImageBands = function(){
+            var bandVal = bands.split( ',' );
+
+            if ( bandVal.length > 0 ) {
+            if ( bandVal[0] != 'default' ) {
+              if ( numOfBands <= 1 ) {
+                bands = bandVal[0];
+              }else {
+                if ( numOfBands == 2 ){
+                  bands = '1,2';
+                }else{
+                  bands = bandVal[0];
+                }
+                for ( var bandNum = 1; bandNum < numOfBands; bandNum++ ) {
+                  if ( bandVal[bandNum] ) {
+                    bands = bands + ',' + bandVal[bandNum];
+                  }
+                }
+              }
+            }else {
+              bands = '1';
+              var newNum;
+              for ( var bandNum2 = 1; bandNum2 < numOfBands; bandNum2++ ) {
+                newNum = bandNum2 + 1;
+                bands = bands + ',' + newNum;
+              }
+            }
+            }
+            this.bands = bands;
+            };
+
             this.setBands = function(bandsVal){
               bands = bandsVal;
               source.refresh();
             };
+
+            //END - Band Selection Section
 
             map.render('imageMap');
 

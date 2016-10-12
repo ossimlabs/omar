@@ -13,8 +13,8 @@
     var imageSpaceObj = {};
 
     //Used by band selection
-    var imageBandsObj = {};
-    var bands, numberOfBands, bandNum;
+    var bands, numberOfBands, bandNum,
+    redSelect, greenSelect, blueSelect;
 
     vm.archiveDownload = function( imageId ) {
       downloadService.downloadFiles( imageId );
@@ -57,12 +57,8 @@
     //Beginning - Band Selections Section
 
     function bandSelection() {
-      imageBandsObj = {
-        bands: $stateParams.bands,
-        numOfBands: $stateParams.numOfBands
-      };
 
-      imageSpaceService.getImageBands( imageBandsObj );
+      imageSpaceService.getImageBands();
 
       $scope.bandValues = [];
       $scope.bandTypeValues = [
@@ -105,25 +101,7 @@
                             blue: $scope.bandValues[2].key };
           $scope.bandTypeItem = $scope.bandTypeValues[1];
         }
-
-        $scope.showBands = function( bandType ) {
-          switch ( bandType.toUpperCase() ){
-            case 'COLOR':
-            $( '#rgb-image-space-bands' ).show();
-            $( '#gray-image-space-bands' ).hide();
-            break;
-            case 'GRAY':
-            $( '#gray-image-space-bands' ).show();
-            $( '#rgb-image-space-bands' ).hide();
-            break;
-            default:
-            $( '#gray-image-space-bands' ).hide();
-            $( '#rgb-image-space-bands' ).hide();
-            bands = '';
-            break;
-          }
-    };
-  }
+      }
 
     $scope.onBandSelect = function( selectedValue, selectedBand ) {
       switch ( selectedBand.toUpperCase() ){
@@ -147,6 +125,27 @@
       imageSpaceService.setBands( bands );
     };
 
+    $scope.showBands = function( bandType ) {
+      switch ( bandType.toUpperCase() ){
+        case 'COLOR':
+        bands = $scope.rgbValues.red + ',' + $scope.rgbValues.green + ',' + $scope.rgbValues.blue;
+        imageSpaceService.setBands( bands );
+          $( '#rgb-image-space-bands' ).show();
+          $( '#gray-image-space-bands' ).hide();
+        break;
+        case 'GRAY':
+        if($scope.grayValue) {
+          bands = $scope.grayValue;
+        } else {
+          bands = 1;
+        }
+        imageSpaceService.setBands( bands );
+          $( '#gray-image-space-bands' ).show();
+          $( '#rgb-image-space-bands' ).hide();
+        break;
+      }
+    };
+
     //END - Band Selection Section
 
     function loadMapImage() {
@@ -155,7 +154,9 @@
           filename: $stateParams.filename,
           entry: $stateParams.entry_id,
           imgWidth: $stateParams.width,
-          imgHeight: $stateParams.height
+          imgHeight: $stateParams.height,
+          numOfBands: $stateParams.numOfBands,
+          bands: $stateParams.bands
         };
 
       // Pass our imageSpaceObj constructed from the URL

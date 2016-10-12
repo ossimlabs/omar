@@ -299,10 +299,12 @@
                 filename: imageObj.properties.filename,
                 entry: imageObj.properties.entry_id,
                 imgWidth: imageObj.properties.width,
-                imgHeight: imageObj.properties.height
+                imgHeight: imageObj.properties.height,
+                numOfBands: imageObj.properties.number_of_bands,
+                bands: 'default'
+
             };
         }
-        console.log('imageSpaceObj in list.controler.js: ', imageSpaceObj);
 
         vm.imageMapHelpPopover = {
             zoomHotkey: 'SHIFT',
