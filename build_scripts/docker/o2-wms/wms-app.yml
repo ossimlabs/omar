@@ -1,5 +1,5 @@
 server:
-  contextPath:
+  contextPath: /o2-wms
   port: 8080
 
 environments:
@@ -158,8 +158,8 @@ endpoints:
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-wms
-  assets:
-    url: http://${DOCKER_HOST_IP}/o2-wms/assets/
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/o2-wms/assets/
 
 spring:
   cloud:

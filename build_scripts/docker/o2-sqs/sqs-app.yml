@@ -1,5 +1,5 @@
 server:
-  contextPath:
+  contextPath: /o2-sqs
   port: 8080
 
 omar:
@@ -12,7 +12,7 @@ omar:
       destination:
         type: "post"
         post:
-            urlEndPoint: "http://${DESTINATION_POST_END_POINT}${DESTINATION_POST_END_POINT_PORT}/avro/addMessage"
+            urlEndPoint: "http://${DESTINATION_POST_END_POINT}${DESTINATION_POST_END_POINT_PORT}/o2-avro/avro/addMessage"
             field: ${DESTINATION_POST_FIELD}
 
 endpoints:
@@ -22,8 +22,8 @@ endpoints:
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-sqs
-  assets:
-    url: http://${DOCKER_HOST_IP}/o2-sqs/assets/
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/o2-sqs/assets/
 
 spring:
   cloud:

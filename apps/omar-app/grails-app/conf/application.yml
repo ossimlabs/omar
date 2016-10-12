@@ -1,3 +1,5 @@
+#server:
+#  contextPath: /o2-omar
 ---
 hibernate:
     cache:

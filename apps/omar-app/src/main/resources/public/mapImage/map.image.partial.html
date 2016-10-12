@@ -53,7 +53,7 @@
                 ng-model="bandTypeItem"
                 on-select="showBands($select.selected.value)"
                 ng-disabled="enableBandType != true"
-                theme="bootstrap">
+                theme="selectize">
               <ui-select-match>
                   <span ng-bind="$select.selected.value"></span>
               </ui-select-match>
@@ -65,7 +65,7 @@
         <div id="image-space-bands">
           <div id="gray-image-space-bands" class="image-bands">
             <label for="male">Band:&nbsp;</label>
-            <ui-select id="grayImageItem" ng-model="grayImageItem" on-select="onBandSelect($select.selected.value, 'gray')" themetheme="bootstrap">
+            <ui-select id="grayImageItem" theme="selectize" ng-model="grayImageItem" on-select="onBandSelect($select.selected.value, 'gray')">
               <ui-select-match>
                   <span ng-bind="$select.selected.value"></span>
               </ui-select-match>
@@ -77,37 +77,32 @@
           <div id="rgb-image-space-bands" class="image-bands">
             <div id="redImageBand" class="image-band-div">
               <label>Red:&nbsp;</label>
-              <ui-select id="redImageItem" ng-model="redImageItem" on-select="onBandSelect($select.selected.value, 'red')" theme="bootstrap">
-                <ui-select-match>
-                    <span ng-bind="$select.selected.value"></span>
-                </ui-select-match>
-                <ui-select-choices repeat="val in bandValues">
-                    <span ng-bind="val.value"></span>
+              <ui-select id="redImageItem" theme="selectize" ng-model="redImageItem" on-select="onBandSelect($select.selected.value, 'red')">
+                <ui-select-match>{{$select.selected.value}}</ui-select-match>
+                <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
+                    <span ng-bind-html="val.value | highlight: $select.search"></span>
                 </ui-select-choices>
               </ui-select>
             </div>
             <div id="greenImageBand" class="image-band-div">
               <label>Green:&nbsp;</label>
-              <ui-select id="greenImageItem" ng-model="greenImageItem" on-select="onBandSelect($select.selected.value, 'green')" theme="bootstrap">
-                <ui-select-match>
-                    <span ng-bind="$select.selected.value"></span>
-                </ui-select-match>
-                <ui-select-choices repeat="val in bandValues">
-                    <span ng-bind="val.value"></span>
+              <ui-select id="greenImageItem" theme="selectize" ng-model="greenImageItem" on-select="onBandSelect($select.selected.value, 'green')">
+                <ui-select-match>{{$select.selected.value}}</ui-select-match>
+                <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
+                    <span ng-bind-html="val.value | highlight: $select.search"></span>
                 </ui-select-choices>
               </ui-select>
             </div>
             <div id="blueImageBand" class="image-band-div">
               <label>Blue:&nbsp;</label>
-              <ui-select id="blueImageItem" ng-model="blueImageItem" on-select="onBandSelect($select.selected.value, 'blue')" theme="bootstrap">
-                <ui-select-match>
-                    <span ng-bind="$select.selected.value"></span>
-                </ui-select-match>
-                <ui-select-choices repeat="val in bandValues">
-                    <span ng-bind="val.value"></span>
+              <ui-select id="blueImageItem" theme="selectize" ng-model="blueImageItem" on-select="onBandSelect($select.selected.value, 'blue')">
+                <ui-select-match>{{$select.selected.value}}</ui-select-match>
+                <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
+                    <span ng-bind-html="val.value | highlight: $select.search"></span>
                 </ui-select-choices>
               </ui-select>
             </div>
+
           </div></br>
         </div>
         <hr>
@@ -115,9 +110,24 @@
       </div>
       <div class="col-md-9">
         <div id="imageMap" class="map">
-          <div id="mapDownloadButton">
-            <a ng-href="" target="_blank" ng-click="ortho.archiveDownload(image.properties.id)">
-              <i class="fa fa-download fa-border text-primary" tooltip-placement="left-bottom" uib-tooltip="Download and archive files"></i>
+          <div class="imageLinkBtns imageShareButton">
+            <a ng-href="" target="_blank" ng-click="">
+              <i class="fa fa-share-alt fa-border text-primary"
+              tooltip-placement="left-bottom"
+              uib-tooltip="Share a link to this image"></i>
+            </a>&nbsp;&nbsp;
+          </div>
+          <div class="imageLinkBtns imageShareButton">
+            <a ng-href="" target="_blank" ng-click="image.shareModal(image.baseServerUrl + '/omar/#/mapOrtho?layers=' + image.imageId)">
+              <i class="fa fa-share-alt fa-border text-primary"
+              tooltip-placement="left-bottom"
+              uib-tooltip="Share a link to this image"></i>
+            </a>&nbsp;&nbsp;
+          </div>
+          <div class="imageLinkBtns mapDownloadButton">
+            <a ng-href="" target="_blank" ng-click="image.archiveDownload(image.imageId)">
+              <i class="fa fa-download fa-border text-primary" tooltip-placement="left-bottom"
+                style="cursor: pointer;" uib-tooltip="Download and archive files"></i>
             </a>
           </div>
         </div>

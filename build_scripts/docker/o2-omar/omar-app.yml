@@ -1,5 +1,5 @@
 server:
-  # contextPath:
+  contextPath: /o2-omar
   port: 8080
 
 environments:
@@ -84,8 +84,8 @@ endpoints:
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-omar
-  assets:
-    url: http://${DOCKER_HOST_IP}/o2-omar/assets/
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/o2-omar/assets/
 
 spring:
   cloud:

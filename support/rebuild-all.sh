@@ -8,4 +8,4 @@ for x in `find . -type d -depth 1 -name "omar*"`; do
 	cd ..
 done
 
-docker images | grep omar | awk '{print $1}' | xargs docker rmi
+#docker images | grep omar | awk '{print $1}' | xargs docker rmi

@@ -1,5 +1,5 @@
 server:
-  contextPath:
+  contextPath: /o2-avro
   port: 8080
 
 environments:
@@ -25,7 +25,7 @@ omar:
     destination:
       type: "post"
       post:
-        addRasterEndPoint: http://${ADDRASTERENDPOINTURL}${ADDRASTERENDPOINTPORT}/dataManager/addRaster
+        addRasterEndPoint: http://${ADDRASTERENDPOINTURL}${ADDRASTERENDPOINTPORT}/o2-stager/dataManager/addRaster
         addRasterEndPointField: "filename"
         addRasterEndPointParams:
           background: "true"
@@ -42,8 +42,8 @@ endpoints:
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-avro
-  assets:
-    url: http://${DOCKER_HOST_IP}/o2-avro/assets/
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/o2-avro/assets/
 
 spring:
   cloud:

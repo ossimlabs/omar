@@ -1,5 +1,5 @@
 server:
-  contextPath:
+  contextPath: /o2-superoverlay
   port: 8080
 
 environments:
@@ -60,8 +60,8 @@ endpoints:
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-superoverlay
-  assets:
-    url: http://${DOCKER_HOST_IP}/o2-superoverlay/assets/
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/o2-superoverlay/assets/
 
 spring:
   cloud:

@@ -24,6 +24,11 @@
 //= require webjars/angular-toggle-switch/1.3.0/angular-toggle-switch.js
 //= require webjars/angular-clipboard/1.4.2/angular-clipboard.js
 //= require webjars/angular-ui-select/0.17.1/select.js
+//= require webjars/angular-ui-select2/0.0.5/src/select2.js
+//= require webjars/angular-sanitize/1.4.8/angular-sanitize.js
+//= require webjars/microplugin/0.0.3/src/microplugin.js
+//= require webjars/selectize.js/0.12.3/js/selectize.js
+
 
 // <--Core-->
 //= require omar/core/OpenLayersLite-formats.js

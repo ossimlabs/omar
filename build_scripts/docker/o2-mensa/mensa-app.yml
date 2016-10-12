@@ -1,5 +1,5 @@
 server:
-  # contextPath:
+  contextPath: /o2-mensa
   port: 8080
 
 endpoints:
@@ -9,8 +9,8 @@ endpoints:
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-mensa
-  assets:
-    url: http://${DOCKER_HOST_IP}/o2-mensa/assets/
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/o2-mensa/assets/
 
 spring:
   cloud:

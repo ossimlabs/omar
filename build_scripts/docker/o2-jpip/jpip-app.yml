@@ -1,5 +1,5 @@
 server:
-  contextPath:
+  contextPath: /o2-jpip
   port: 8080
 
 environments:
@@ -32,8 +32,8 @@ endpoints:
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-jpip
-  assets:
-    url: http://${DOCKER_HOST_IP}/o2-jpip/assets/
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/o2-jpip/assets/
 
 spring:
   cloud:

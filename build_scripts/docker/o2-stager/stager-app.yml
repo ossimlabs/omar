@@ -1,5 +1,5 @@
 server:
-  contextPath:
+  contextPath: /o2-stager
   port: 8080
 
 environments:
@@ -25,8 +25,8 @@ endpoints:
 ---
 grails:
   serverURL: http://${DOCKER_HOST_IP}/o2-stager
-  assets:
-    url: http://${DOCKER_HOST_IP}/o2-stager/assets/
+#   assets:
+#     url: http://${DOCKER_HOST_IP}/o2-stager/assets/
 
 spring:
   cloud:
