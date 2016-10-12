@@ -6,7 +6,7 @@ spec:
   capacity:
     storage: 500Gi
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   nfs:
     path: /data
     server: oc2s-o2-nfs-server.rbtcloud.com
