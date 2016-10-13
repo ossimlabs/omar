@@ -24,7 +24,9 @@ ENV DBHOST=${DBHOST}\
     DBNAME=${DBNAME}\
     DOCKER_HOST_IP=${DOCKER_HOST_IP}\
     WMSURL=${WMSURL}\
-    WMSPORT=${WMSPORT}
+    WMSPORT=${WMSPORT}\
+    SPRING_CLOUD_CONFIG_ENABLED=true\
+    SPRING_CLOUD_DISCOVERY_ENABLED=true
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/superoverlay-app/superoverlay-app.sh"]

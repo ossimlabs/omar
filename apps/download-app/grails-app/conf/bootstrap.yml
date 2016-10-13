@@ -4,5 +4,12 @@ spring:
   cloud:
     config:
       enabled: false
+      uri: http://localhost:8888
     discovery:
-       enabled: false
+      enabled: false
+---
+spring:
+  profiles: production
+  cloud:
+    config:
+      uri: http://omar-config-server:8888

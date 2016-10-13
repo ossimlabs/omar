@@ -28,6 +28,9 @@ elif [ "$1" == "o2" ]; then
 elif [ "$1" == "oc2s" ]; then
   export DOCKER_COMPOSE_FILE="docker-compose-no-build.yml"
   export DOCKER_HOST_URL="oc2s-docker-test-01.rbtcloud.com"
+elif [ "$1" == "o2-db" ]; then
+  export DOCKER_COMPOSE_FILE="docker-compose-o2-db.yml"
+  export DOCKER_HOST_URL="localhost"
 else
   display_usage
   exit 1
