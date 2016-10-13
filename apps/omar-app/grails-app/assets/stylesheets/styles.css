@@ -395,14 +395,49 @@ body {
     display: none;
 }
 
+#image-space-bands{
+  margin-top: -15px;
+}
+
 .image-bands {
-    width: 110px;
+    width: 100%;
+}
+
+.image-bands label{
+    font-size: .8em;
 }
 
  .image-band-div{
-   margin-top: 10px;
-   height: 50px;
+   width: 100px;
+   margin-bottom: 20px;
  }
+
+.ui-select-container{
+    width: 90px;
+    height: 10px;
+}
+
+#image-space-bands{
+    position: relative;
+    top: 30px;
+}
+
+#image-space-bands .ui-select-container .selectize-input{
+    width: 50px;
+}
+
+.ui-select-container span{
+    font-size: .8em;
+    font-weight: bold;
+}
+
+.ui-select-container .selectize-input{
+    padding: 4px 4px;
+}
+
+.ui-select-container .selectize-input:after{
+      font-size: .1em;
+}
 
 #mapOrtho:-moz-full-screen {
     height: 100%;
