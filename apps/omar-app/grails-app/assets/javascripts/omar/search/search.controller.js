@@ -12,6 +12,10 @@
     // #################################################################################
     //console.log('AppO2.APP_CONFIG in SearchController: ', AppO2.APP_CONFIG);
 
+    // set header title
+    stateService.navState.titleLeft = "<h3>Search</h3>";
+    stateService.navStateUpdate();
+
     var vm = this;
 
     // Image ID variables
