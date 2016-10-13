@@ -2,9 +2,9 @@
   'use strict';
   angular
     .module('omarApp')
-    .controller('HomeController', [/*'APP_CONFIG', */'$scope', '$state', 'wfsService', 'toastr', '$http', HomeController]);
+    .controller('HomeController', [/*'APP_CONFIG', */'$scope', '$state', 'stateService', 'wfsService', 'toastr', '$http', HomeController]);
 
-        function HomeController(/*APP_CONFIG,*/ $scope, $state, wfsService, toastr, $http, $timeout){
+        function HomeController(/*APP_CONFIG,*/ $scope, $state, stateService, wfsService, toastr, $http, $timeout){
 
             // #################################################################################
             // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -19,6 +19,10 @@
             //     timeOut: 10000,
             //     extendedTimeOut: 5000
             // });
+
+            // set header title
+            stateService.navState.titleLeft = "<h3>Welcome!</h3>";
+            stateService.navStateUpdate();
 
             /* jshint validthis: true */
             var vm = this;

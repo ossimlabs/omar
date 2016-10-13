@@ -15,6 +15,10 @@ spec:
       labels:
         app: sqs
     spec:
+     volumes:
+      - name: nfsSqs
+        persistentVolumeClaim:
+         claimName: nfs-pvc
       containers:
       - name: o2-sqs
         env:
