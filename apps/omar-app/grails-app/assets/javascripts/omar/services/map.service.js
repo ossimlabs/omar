@@ -264,10 +264,12 @@ function mapService(stateService, wfsService) {
     // Update the image cards in the list via spatial bounds
     wfsService.updateSpatialFilter(mapObj.cql);
     //this.updateFootPrintLayer(mapObj.cql);
+    //updateFootPrints(mapObj.cql);
 
   }
 
   this.viewPortFilter = function(status) {
+
 
     if (status) {
 
@@ -279,6 +281,8 @@ function mapService(stateService, wfsService) {
         // https://groups.google.com/d/msg/ol3-dev/Z4JoCBs-iEY/HSpihl8bcVIJ
         map.un('moveend', filterByViewPort);
         clearLayerSource(filterLayerVector);
+
+        wfsService.updateSpatialFilter('');
 
     }
 
