@@ -17,6 +17,9 @@
             format,
             imgWidth,
             imgHeight,
+            tileX,
+            tileY,
+            tileZ,
             imgCenter,
             proj,
             source,
@@ -187,9 +190,9 @@
                 if (!tileCoord) {
                     return undefined;
                 } else {
-                    var tileZ = tileCoord[0];
-                    var tileX = tileCoord[1];
-                    var tileY = -tileCoord[2] - 1;
+                    tileZ = tileCoord[0];
+                    tileX = tileCoord[1];
+                    tileY = -tileCoord[2] - 1;
 
                     return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
                         '&x=' + tileX + '&y=' + tileY + '&format=' + format +
@@ -271,6 +274,7 @@
                 size: [imgWidth, imgHeight],
                 crossOrigin: crossOrigin
             });
+
             var interactions = ol.interaction.defaults({
                 altShiftDragRotate: true
             });
@@ -302,7 +306,7 @@
                 view: new ol.View({
                     projection: proj,
                     center: imgCenter,
-                    zoom: 3,
+                    zoom: 2,
                     // constrain the center: center cannot be set outside
                     // this extent
                     extent: [0, -imgHeight, imgWidth, 0]
@@ -315,31 +319,32 @@
             var bandVal = bands.split( ',' );
 
             if ( bandVal.length > 0 ) {
-            if ( bandVal[0] != 'default' ) {
-              if ( numOfBands <= 1 ) {
-                bands = bandVal[0];
-              }else {
-                if ( numOfBands == 2 ){
-                  bands = '1,2';
-                }else{
+              if ( bandVal[0] != 'default' ) {
+                if ( numOfBands <= 1 ) {
                   bands = bandVal[0];
-                }
-                for ( var bandNum = 1; bandNum < numOfBands; bandNum++ ) {
-                  if ( bandVal[bandNum] ) {
-                    bands = bands + ',' + bandVal[bandNum];
+                }else {
+                  if ( numOfBands == 2 ){
+                    bands = '1,2';
+                  }else{
+                    bands = bandVal[0];
+                  }
+                  for ( var bandNum = 1; bandNum < numOfBands; bandNum++ ) {
+                    if ( bandVal[bandNum] ) {
+                      bands = bands + ',' + bandVal[bandNum];
+                    }
                   }
                 }
+              }else {
+                bands = 'default';
+                //var newNum;
+                //for ( var bandNum2 = 1; bandNum2 < numOfBands; bandNum2++ ) {
+                  //newNum = bandNum2 + 1;
+                  //bands = bands + ',' + newNum;
+                //}
               }
-            }else {
-              bands = '1';
-              var newNum;
-              for ( var bandNum2 = 1; bandNum2 < numOfBands; bandNum2++ ) {
-                newNum = bandNum2 + 1;
-                bands = bands + ',' + newNum;
-              }
-            }
             }
             this.bands = bands;
+            this.numOfBands = numOfBands;
             };
 
             this.setBands = function(bandsVal){

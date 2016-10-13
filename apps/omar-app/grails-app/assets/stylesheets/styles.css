@@ -178,33 +178,36 @@ body {
     border-radius: 5px;
 }
 
-#mapDownloadButton{
-    position: absolute;
-    z-index: 1;
-    right: 1.0em;
-    bottom: 5px;
-    margin-right: 10px;
+#imageMap {
+    width: 100%;
+    height: 87%;
 }
 
-
-#orthoShareButton{
-    position: absolute;
-    z-index: 1;
+.imageShareButton{
     right: 3.0em;
+}
+
+.mapDownloadButton{
+    right: 1.0em;
+}
+
+.imageLinkBtns{
+    position: absolute;
+    z-index: 1;
     bottom: 5px;
     margin-right: 10px;
 }
 
-.mapOrthoLinkBtns i{
+.imageLinkBtns i{
     background-color: rgba(0,60,136,0.5);
     color: white;
     font-size: 1em;
+    cursor: pointer;
 }
 
 
-.mapOrthoLinkBtns a{
+.imageLinkBtns a{
     text-decoration: none;
-    cursor: pointer;
 }
 
 .dont-break-out {

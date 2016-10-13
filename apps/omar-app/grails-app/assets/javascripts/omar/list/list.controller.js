@@ -214,6 +214,7 @@
             // Update the DOM (card list)
             $scope.$apply(function() {
                 vm.wfsData = data;
+                //console.log('scope.on wfs updated: ', vm.wfsData);
             });
 
         });

@@ -3,10 +3,11 @@
   angular
   .module('omarApp')
   .controller('MapImageController', ['$scope', '$aside', '$state', '$stateParams',
-    '$location', 'toastr', 'imageSpaceService', 'beNumberService', 'downloadService', MapImageController]);
+    '$location', 'toastr', 'imageSpaceService', 'beNumberService', 'downloadService',
+    'shareService', MapImageController]);
 
-  function MapImageController($scope, $aside, $state, $stateParams, $location, toastr,
-     imageSpaceService, beNumberService, downloadService) {
+  function MapImageController( $scope, $aside, $state, $stateParams, $location, toastr,
+     imageSpaceService, beNumberService, downloadService, shareService ) {
 
     var vm = this;
 
@@ -15,6 +16,12 @@
     //Used by band selection
     var bands, numberOfBands, bandNum,
     redSelect, greenSelect, blueSelect;
+
+    vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
+
+    vm.shareModal = function( imageLink ) {
+      shareService.imageLinkModal( imageLink );
+    };
 
     vm.archiveDownload = function( imageId ) {
       downloadService.downloadFiles( imageId );
@@ -62,12 +69,12 @@
 
       $scope.bandValues = [];
       $scope.bandTypeValues = [
-        { 'key': 0, 'value': 'Gray' },
-        { 'key': 1, 'value': 'Color' }
+        { 'key': 0, 'value': 'Default' },
+        { 'key': 1, 'value': 'Gray' }
       ];
 
       bands = imageSpaceService.bands.split( ',' );
-      numberOfBands = bands.length;
+      numberOfBands = imageSpaceService.numOfBands;
 
       for ( bandNum = 0; bandNum < numberOfBands; bandNum++ ) {
           $scope.bandValues.push( { 'key': bandNum + 1, 'value': bandNum + 1 } );
@@ -79,7 +86,12 @@
           $scope.grayValue = $scope.bandValues[0].value;
           $scope.grayImageItem = $scope.bandValues[0];
           $scope.bandTypeItem = $scope.bandTypeValues[0];
-          $scope.enableBandType = false;
+
+          if ( numberOfBands == 2 ) {
+            $scope.enableBandType = true;
+          } else {
+            $scope.enableBandType = false;
+          }
 
           if ( numberOfBands <= 1 ) {
             $( '#gray-image-space-bands' ).hide();
@@ -90,6 +102,7 @@
           $( '#rgb-image-space-bands' ).hide();
 
         }else {
+          $scope.bandTypeValues.push( { 'key': 2, 'value': 'Color' } );
           $( '#rgb-image-space-bands' ).show();
           $( '#gray-image-space-bands' ).hide();
           $scope.grayImageItem = $scope.bandValues[0];
@@ -99,7 +112,12 @@
           $scope.rgbValues = { red: $scope.bandValues[0].key,
                             green: $scope.bandValues[1].key,
                             blue: $scope.bandValues[2].key };
-          $scope.bandTypeItem = $scope.bandTypeValues[1];
+          $scope.bandTypeItem = $scope.bandTypeValues[0];
+        }
+
+        if ( bands[0] == 'default' ) {
+            $( '#rgb-image-space-bands' ).hide();
+            $( '#gray-image-space-bands' ).hide();
         }
       }
 
@@ -142,6 +160,11 @@
         imageSpaceService.setBands( bands );
           $( '#gray-image-space-bands' ).show();
           $( '#rgb-image-space-bands' ).hide();
+        break;
+        case 'DEFAULT':
+        imageSpaceService.setBands( 'default' );
+          $( '#rgb-image-space-bands' ).hide();
+          $( '#gray-image-space-bands' ).hide();
         break;
       }
     };
