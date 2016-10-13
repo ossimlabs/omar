@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('imageSpaceService', ['$http', imageSpaceService]);
+        .service('imageSpaceService', ['$http', 'stateService', imageSpaceService]);
 
-    function imageSpaceService( $http ) {
+    function imageSpaceService($http, stateService) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -214,6 +214,25 @@
         ol.inherits(ImageSpace, ol.source.TileImage);
 
         this.initImageSpaceMap = function(params) {
+
+            // set header title
+            var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
+                "filter=filename LIKE '" + params.filename + "'" +
+                "&outputFormat=JSON" +
+                "&request=GetFeature" +
+                "&service=WFS" +
+                "&typeName=omar:raster_entry" +
+                "&version=1.1.0";
+            $http({
+                method: 'GET',
+                url: encodeURI(wfsUrl);
+            }).then(function(response) {
+                    var imageId = response.data.features[0].properties.title;
+                    var acquisitionDate = response.data.features[0].properties.acquisition_date;
+
+                    stateService.navState.titleLeft = imageId + " <br> " + acquisitionDate ;
+                    stateService.navStateUpdate();
+            });
 
             filename = params.filename;
             entry = params.entry;
