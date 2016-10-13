@@ -33,6 +33,12 @@ angular
 
     _this.mapState = mapState;
 
+    var navState = {
+        titleLeft: "",
+        titleRight: ""
+    }
+    _this.navState = navState;
+
     _this.updateMapState = function(objParams) {
 
       _this.mapState.center.lat = objParams.lat;
