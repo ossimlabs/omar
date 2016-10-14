@@ -51,6 +51,10 @@ body {
     color: #ffffff
 }
 
+.well-home {
+  cursor: pointer;
+}
+
 .image-id-link:hover {
     cursor: pointer;
     text-decoration: underline;
