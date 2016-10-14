@@ -225,7 +225,7 @@
                 "&version=1.1.0";
             $http({
                 method: 'GET',
-                url: encodeURI(wfsUrl);
+                url: encodeURI(wfsUrl)
             }).then(function(response) {
                     var imageId = response.data.features[0].properties.title;
                     var acquisitionDate = response.data.features[0].properties.acquisition_date;
