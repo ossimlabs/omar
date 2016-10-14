@@ -187,11 +187,17 @@ omar:
     twofishes:
       baseUrl: http://demo.twofishes.net
       proxy: /twoFishesProxy
+    swipeApp:
+      baseUrl: http://localhost:8081/swipe
+      enabled: false
     kmlApp:
       baseUrl: http://localhost:8081/
       enabled: true
     jpipApp:
       baseUrl: http://localhost:8081/jpip
+      enabled: false
+    wmtsApp:
+      baseUrl: http://localhost:8081/wmts
       enabled: false
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
