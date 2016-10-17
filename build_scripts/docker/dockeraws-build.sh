@@ -56,7 +56,6 @@ function deleteImage()
 
 
 createRepositories O2_APPS
-o2-base.*latest\|o2-base.*none
 #remove images
 for app in ${O2_APPS[@]} ; do
 #  for x in `docker images | grep "/${app}.*${TAG}\|/${app}.*none" | awk '{print $3}'`; do 
