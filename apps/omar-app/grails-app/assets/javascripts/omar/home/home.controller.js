@@ -2,9 +2,9 @@
   'use strict';
   angular
     .module('omarApp')
-    .controller('HomeController', [/*'APP_CONFIG', */'$scope', '$state', 'stateService', 'wfsService', 'toastr', '$http', HomeController]);
+    .controller('HomeController', ['stateService', '$window', 'toastr', HomeController]);
 
-  function HomeController(/*APP_CONFIG,*/ $scope, $state, stateService, wfsService, toastr, $http, $timeout){
+  function HomeController(stateService, $window, toastr){
 
     // #################################################################################
     // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -40,7 +40,13 @@
 
     var twofishProxy = AppO2.APP_CONFIG.params.twofishes.proxy;
 
+    vm.go = function (url) {
 
+      console.log(url);
+
+      $window.open(url);
+
+    }
 
 }
 

@@ -61,6 +61,5 @@
     <asset:deferredScripts/>
     <asset:javascript src="app.manifest.js"/>
 
-
   </body>
 </html>

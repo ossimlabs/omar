@@ -15,33 +15,23 @@
           <div><span class="fa fa-search fa-3x text-info"></span></div>
           <br>
           <p>Search and discover various types of imagery. Use this as a starting
-            point for filtering, sorting, and assemblng imagery into a collection</p>
+            point for filtering, sorting, and assembling imagery into a collection</p>
           <a type="button" class="btn btn-success" ui-sref="map">View</a>
         </div>
       </div>
-      <div ng-show="{{home.tlvAppEnabled}}" class="col-md-6">
-        <div class="text-center well well-home" ng-href="{{home.tlvAppLink}}" target="_blank">
-          <h2>Time Lapse Viewer</a></h2>
-          <div><span class="fa fa-history fa-3x text-info"></span></div>
-          <br>
-          <p>An on-demand imagery flipbook</p>
-          <br>
-          <a type="button" class="btn btn-success" ng-href="{{home.tlvAppLink}}" target="_blank">View</a>
+        <div ng-show="{{home.tlvAppEnabled}}" class="col-md-6" ng-click="home.go(home.tlvAppLink);">
+          <div class="text-center well well-home" >
+            <h2>Time Lapse Viewer</h2>
+            <div><span class="fa fa-history fa-3x text-info"></span></div>
+            <br>
+            <p>An on-demand imagery flipbook</p>
+            <br>
+            <a type="button" class="btn btn-success" ng-href="{{home.tlvAppLink}}" target="_blank">View</a>
+          </div>
         </div>
-      </div>
     </div>
     <div class="row">
-      <div ng-show="{{home.apiAppEnabled}}" class="col-md-6">
-        <div class="text-center well well-home" ng-href="{{home.apiAppLink}}" target="_blank">
-          <h2>API</h2>
-          <div><span class="fa fa-code fa-3x text-info"></span></div>
-          <br>
-          <p>The REST APIs provide programmatic access to the O2 platform.  See examples of how to query the
-            WFS, WMS, Image space services and more through standard OGC protocols</p>
-          <a type="button" class="btn btn-success" ng-href="{{home.apiAppLink}}" target="_blank">View</a>
-        </div>
-      </div>
-      <div ng-show="{{home.piwikAppEnabled}}" class="col-md-6">
+      <div ng-show="{{home.piwikAppEnabled}}" class="col-md-6 col-md-offset-3" ng-click="home.go(home.piwikAppLink);">
         <div class="text-center well well-home" ng-href="{{home.piwikAppLink}}" target="_blank">
           <h2>PIWIK</h2>
           <div><span class="fa fa-bar-chart fa-3x text-info"></span></div>
