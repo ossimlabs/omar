@@ -62,7 +62,8 @@ for app in ${O2_APPS[@]} ; do
 #  for x in `docker images | grep "/${app}.*${TAG}\|/${app}.*none" | awk '{print $3}'`; do 
 #    docker rmi -f $x; 
 #  done
-    docker rmi -f `docker images | grep "/${app}.*${TAG}\|/${app}.*none" | awk '{print $3}'`
+    $x = `docker images | grep "/${app}.*${TAG}\|/${app}.*none" | awk '{print $3}'`
+    docker rmi -f $x
 done
 
 for app in ${O2_APPS[@]} ; do
