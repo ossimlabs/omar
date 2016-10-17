@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('NavController', ['stateService', NavController]);
+        .controller('NavController', ['$scope', NavController]);
 
-        function NavController(stateService) {
+        function NavController($scope) {
 
         	// #################################################################################
             // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -15,9 +15,9 @@
             var vm = this;
         	/* jshint validthis: true */
 
-            stateService.navStateUpdate = function() {
-                vm.titleLeft = stateService.navState.titleLeft;
-            }
+            $scope.$on('navState.updated', function (event, params) {
+                vm.titleLeft = params.titleLeft;
+            });
 
         	vm.swipeAppEnabled = AppO2.APP_CONFIG.params.swipeApp.enabled;
 
