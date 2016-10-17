@@ -189,12 +189,12 @@
                 // set header title
                 var headerTitle = [];
                 angular.forEach(data, function(image) {
-                    var imageId = image.properties.title;
+                    var imageId = image.properties.title || image.properties.filename;
                     var acquisitionDate = image.properties.acquisition_date;
-                    headerTitle.push(imageId + " : " + acquisitionDate);
+                    var text = imageId + (acquisitionDate ? " : " + acquisitionDate : "");
+                    headerTitle.push(text);
                 });
-                stateService.navState.titleLeft = headerTitle.join(", ");
-                stateService.navStateUpdate();
+                stateService.navStateUpdate({ titleLeft: headerTitle.join(", ") });
             });
         }
 

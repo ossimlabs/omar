@@ -87,6 +87,9 @@
 
         vm.initKeywords = function() {
             // Keywords
+            vm.countryCodeCheck = false;
+            vm.countryCode = "";
+
             vm.imageIdCheck = false;
             vm.imageId = "";
 
@@ -324,6 +327,18 @@
             }
 
             // Keywords
+            if (vm.beNumberCheck) {
+                pushKeywordToArray("be_number", vm.beNumber);
+            }
+            if (vm.countryCodeCheck) {
+                pushKeywordToArray("country_code", vm.countryCode);
+            }
+            if (vm.filenameCheck) {
+                pushKeywordToArray("filename", vm.filename);
+            }
+            if (vm.imageIdCheck) {
+                pushKeywordToArray("title", vm.imageId);
+            }
             if (vm.missionIdCheck) {
                 //filterArray.push(["mission_id Like '%", vm.missionId.trim() ,"%'"].join(""));
                 pushKeywordToArray("mission_id", vm.missionId);
@@ -334,11 +349,6 @@
                 pushKeywordToArray("sensor_id", vm.sensorId);
                 //console.log('vm.sensorIdCheck filterArray', filterArray);
             }
-            if (vm.beNumberCheck) {
-                //filterArray.push(["be_number Like '%", vm.beNumber.trim(), "%'"].join(""));
-                pushKeywordToArray("be_number", vm.beNumber);
-                //console.log('vm.be_number filterArray', filterArray);
-            }
             if (vm.targetIdCheck) {
                 //filterArray.push(["target_id Like '%", vm.targetId.trim(), "%'"].join(""));
                 pushKeywordToArray("target_id", vm.targetId);
@@ -348,16 +358,6 @@
                 //filterArray.push(["wac_code Like '%", vm.wacNumber.trim(), "%'"].join(""));
                 pushKeywordToArray("wac_code", vm.wacNumber);
                 //console.log('vm.wac_code filterArray', filterArray);
-            }
-            if (vm.filenameCheck) {
-                //filterArray.push(["filename Like '%", vm.filename.trim(), "%'"].join(""));
-                pushKeywordToArray("filename", vm.filename);
-                //console.log('vm.filename filterArray', filterArray);
-            }
-            if (vm.imageIdCheck) {
-                //filterArray.push(["title Like '%", vm.imageId.trim(), "%'"].join(""));
-                pushKeywordToArray("title", vm.imageId);
-                //console.log('vm.imageId filterArray', filterArray);
             }
 
             // Ranges

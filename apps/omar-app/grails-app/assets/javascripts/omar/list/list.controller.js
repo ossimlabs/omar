@@ -244,34 +244,6 @@
 
         };
 
-        vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
-        vm.logRatingToPio = function(imageId) {
-
-            if (vm.pioAppEnabled) {
-                console.log(vm.pioAppEnabled);
-
-                //console.log('logRating imageId param:', imageId);
-
-                var pioUrl = AppO2.APP_CONFIG.params.predio.baseUrl + 'viewItem?targetEntityId=' + imageId;
-                var pioUrl = AppO2.APP_CONFIG.params.predio.baseUrl + 'viewItem?targetEntityId=' + imageId;
-                $http({
-                    method: 'POST',
-                    url: pioUrl
-                }).then(function(response) {
-
-                        var data;
-                        data = response; // callback response from Predictive IO controller
-                        console.log('rating response', data);
-
-                    },
-                    function error(response) {
-
-                        console.log('failed', response); // supposed to have: data, status, headers, config, statusText
-
-                    }
-                );
-            }
-        };
     }
 
     // Handles the selected image modal obj
@@ -343,7 +315,7 @@
 
         $uibModalInstance.opened.then(function() {
             setTimeout(function() {
-                imageSpaceService.initImageSpaceMap(imageSpaceObj);
+                imageSpaceService.initImageSpaceMap(imageSpaceObj, true);
             }, 100);
         });
 
