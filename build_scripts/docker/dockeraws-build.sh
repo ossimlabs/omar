@@ -59,7 +59,7 @@ createRepositories O2_APPS
 
 #remove images
 for app in ${O2_APPS[@]} ; do
-  for x in `docker images | grep /${app} | awk '{print $3}'`; do 
+  for x in `docker images | grep /${app} | grep ${TAG} | awk '{print $3}'`; do 
     docker rmi -f $x; 
   done
 done
@@ -70,7 +70,7 @@ for app in ${O2_APPS[@]} ; do
      pushd ${app}
      getImageName ${app} ${TAG}
      cp Dockerfile Dockerfile.back
-     sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:latest/" Dockerfile
+     sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:${TAG}/" Dockerfile
      docker build  --no-cache -t ${imagename} .
           
      if [ $? -ne 0 ]; then
