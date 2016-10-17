@@ -315,7 +315,7 @@
 
         $uibModalInstance.opened.then(function() {
             setTimeout(function() {
-                imageSpaceService.initImageSpaceMap(imageSpaceObj);
+                imageSpaceService.initImageSpaceMap(imageSpaceObj, true);
             }, 100);
         });
 

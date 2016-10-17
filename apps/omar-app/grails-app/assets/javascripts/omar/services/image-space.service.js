@@ -213,7 +213,7 @@
 
         ol.inherits(ImageSpace, ol.source.TileImage);
 
-        this.initImageSpaceMap = function(params) {
+        this.initImageSpaceMap = function(params, isModal) {
 
             // set header title
             var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
@@ -231,7 +231,9 @@
                     var imageId = properties.title || properties.filename;
                     var acquisitionDate = properties.acquisition_date || "";
 
-                    stateService.navStateUpdate({ titleLeft: imageId + " <br> " + acquisitionDate });
+                    if (!isModal) {
+                        stateService.navStateUpdate({ titleLeft: imageId + " <br> " + acquisitionDate });
+                    }
             });
 
             filename = params.filename;
