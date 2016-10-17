@@ -56,6 +56,8 @@ export TAG="latest"
 
 if [ "${OSSIM_GIT_BRANCH}" == "master" ] ; then
   export TAG="release"  
+elif [ "${OSSIM_GIT_BRANCH}" == "dev" ] ; then
+  export TAG="latest"
 elif [ ! -z $OSSIM_GIT_BRANCH ] ; then
   export TAG="${OSSIM_GIT_BRANCH}"
 fi
