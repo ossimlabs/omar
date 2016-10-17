@@ -51,6 +51,9 @@ omar:
     predio:
       baseUrl: http://${PREDIOURL}/predio/
       enabled: ${PREDIOENABLED}
+    tlvApp:
+      baseUrl: http://${TLVAPPURL}/tlv
+      enabled: ${TLVAPPENABLED}
     twofishes:
       baseUrl: http://${TWOFISHURL}/twofish
       proxy: /twoFishesProxy
