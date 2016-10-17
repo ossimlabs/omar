@@ -13,8 +13,7 @@
     //console.log('AppO2.APP_CONFIG in HomeController: ', AppO2.APP_CONFIG);
 
     // set header title
-    stateService.navState.titleLeft = "<h3>Welcome!</h3>";
-    stateService.navStateUpdate();
+    stateService.navStateUpdate({ titleLeft: "<h3>Welcome!</h3>" });
 
     /* jshint validthis: true */
     var vm = this;

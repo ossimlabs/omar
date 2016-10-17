@@ -33,11 +33,12 @@ angular
 
     _this.mapState = mapState;
 
-    var navState = {
-        titleLeft: "",
-        titleRight: ""
+    _this.navState = {};
+    _this.navStateUpdate = function(object) {
+        _this.navState.titleLeft = object.titleLeft || "";
+
+        $rootScope.$broadcast('navState.updated', _this.navState);
     }
-    _this.navState = navState;
 
     _this.updateMapState = function(objParams) {
 

@@ -227,11 +227,11 @@
                 method: 'GET',
                 url: encodeURI(wfsUrl)
             }).then(function(response) {
-                    var imageId = response.data.features[0].properties.title;
-                    var acquisitionDate = response.data.features[0].properties.acquisition_date;
+                    var properties = response.data.features[0].properties;
+                    var imageId = properties.title || properties.filename;
+                    var acquisitionDate = properties.acquisition_date || "";
 
-                    stateService.navState.titleLeft = imageId + " <br> " + acquisitionDate ;
-                    stateService.navStateUpdate();
+                    stateService.navStateUpdate({ titleLeft: imageId + " <br> " + acquisitionDate });
             });
 
             filename = params.filename;
