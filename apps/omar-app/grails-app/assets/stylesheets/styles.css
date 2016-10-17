@@ -1,31 +1,34 @@
 @font-face {
     font-family: 'Glyphicons Halflings';
-
     src: url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.eot');
-    src: url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-    url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.woff') format('woff'),
-    url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
-    url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    src: url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.woff') format('woff'), url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('webjars/bootstrap/3.3.5/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
-
-/*body { padding-top: 70px; }*/
 
 body {
-  padding-top: 50px;
-  padding-bottom: 50px;
-  overflow: scroll;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    overflow: scroll;
 }
-.navbar {min-height:28px !important;}
+
+.navbar {
+    min-height: 28px !important;
+}
+
 .navbar-fixed-top {
     height: 20px;
 }
+
 .navbar-fixed-bottom {
     height: 20px;
 }
 
-.navbar-brand {padding-top: 15px}
+.navbar-brand {
+    padding-top: 15px
+}
 
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
 
 .jumbotron {
     position: relative;
@@ -48,68 +51,147 @@ body {
     color: #ffffff
 }
 
+.well-home {
+  cursor: pointer;
+}
+
 .image-id-link:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
 .tooltip {
-   z-index: 2000;
+    z-index: 2000;
 }
 
 .searchForm {
-  height: 50px;
-  padding-top: 8px;
+    height: 50px;
+    padding-top: 8px;
 }
 
 .searchForm .input-group-btn .glyphicon {
-  padding-top: 3px;
-  padding-bottom: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
-
-/* IE styling
-#map { height: 450px; }
-#list { height: 350px; }
-*/
 
 @media screen and (max-height: 599px) {
-    #map { height: 77%; }
-    #list { height: 50%; }
+    #map {
+        height: 57vh;
+    }
+    #list {
+        height: 37vh;
+    }
+    #mapOrtho {
+        height: 68vh;
+    }
+    .imageMap {
+        height: 55vh;
+    }
 }
 
-@media screen and (min-height: 600px) AND (max-height: 699px){
-    #map { height: 81%; }
-    #list { height: 59%; }
+@media screen and (min-height: 600px) AND (max-height: 699px) {
+    #map {
+        height: 64vh;
+    }
+    #list {
+        height: 46vh;
+    }
+    #mapOrtho {
+        height: 73vh;
+    }
+    .imageMap {
+        height: 63vh;
+    }
 }
 
-@media screen and (min-height: 700px) AND (max-height: 799px){
-    #map { height: 84%; }
-    #list { height: 66%; }
+@media screen and (min-height: 700px) AND (max-height: 799px) {
+    #map {
+        height: 69vh;
+    }
+    #list {
+        height: 54vh;
+    }
+    #mapOrtho {
+        height: 77vh;
+    }
+    .imageMap {
+        height: 68vh;
+    }
 }
 
-@media screen and (min-height: 800px) AND (max-height: 899px){
-    #map { height: 86%; }
-    #list { height: 71%; }
+@media screen and (min-height: 800px) AND (max-height: 899px) {
+    #map {
+        height: 73vh;
+    }
+    #list {
+        height: 59vh;
+    }
+    #mapOrtho {
+        height: 80vh;
+    }
+    .imageMap {
+        height: 72vh;
+    }
 }
 
-@media screen and (min-height: 900px) AND (max-height: 999px){
-    #map { height: 87%; }
-    #list { height: 74%; }
+@media screen and (min-height: 900px) AND (max-height: 999px) {
+    #map {
+        height: 76vh;
+    }
+    #list {
+        height: 64vh;
+    }
+    #mapOrtho {
+        height: 82vh;
+    }
+    .imageMap {
+        height: 75vh;
+    }
 }
 
-@media screen and (min-height: 1000px) AND (max-height: 1099px){
-    #map { height: 88%; }
-    #list { height: 77%; }
+@media screen and (min-height: 1000px) AND (max-height: 1099px) {
+    #map {
+        height: 78vh;
+    }
+    #list {
+        height: 68vh;
+    }
+    #mapOrtho {
+        height: 83vh;
+    }
+    .imageMap {
+        height: 77vh;
+    }
 }
 
-@media screen and (min-height: 1100px) AND (max-height: 1199px){
-    #map { height: 89%; }
-    #list { height: 79%; }
+@media screen and (min-height: 1100px) AND (max-height: 1199px) {
+    #map {
+        height: 80vh;
+    }
+    #list {
+        height: 70vh;
+    }
+    #mapOrtho {
+        height: 85vh;
+    }
+    .imageMap {
+        height: 79vh;
+    }
 }
 
-@media screen and (min-height: 1200px){
-    #map { height: 90%; }
-    #list { height: 81%; }
+@media screen and (min-height: 1200px) {
+    #map {
+        height: 82vh;
+    }
+    #list {
+        height: 73vh;
+    }
+    #mapOrtho {
+        height: 86vh;
+    }
+    .imageMap {
+        height: 81vh;
+    }
 }
 
 #list {
@@ -149,95 +231,86 @@ body {
 }
 
 .imageMapModal {
-  width: 100%;
-  height: 60%;
+    width: 100%;
+    height: 60vh;
 }
 
 .imageMap {
-  width: 100%;
-  height: 90%;
+    width: 100%;
 }
 
 #mapOrtho {
     width: 100%;
-    height: 90%;
 }
 
+
 /* class for #mouseCoords*/
-#mapOrtho .map-cord-div{
+
+#mapOrtho .map-cord-div {
     position: absolute;
     bottom: 5px;
     cursor: pointer;
     z-index: 1;
     font-size: .7em;
     color: #fff;
-    background-color: rgba(0,60,136,0.5);
+    background-color: rgba(0, 60, 136, 0.5);
     left: 50%;
     transform: translate(-50%);
     padding: 2px 10px;
     border-radius: 5px;
 }
 
-#imageMap {
-    width: 100%;
-    height: 87%;
-}
-
-.imageShareButton{
+.imageShareButton {
     right: 3.0em;
 }
 
-.mapDownloadButton{
+.mapDownloadButton {
     right: 1.0em;
 }
 
-.imageLinkBtns{
+.imageLinkBtns {
     position: absolute;
     z-index: 1;
     bottom: 5px;
     margin-right: 10px;
 }
 
-.imageLinkBtns i{
-    background-color: rgba(0,60,136,0.5);
+.imageLinkBtns i {
+    background-color: rgba(0, 60, 136, 0.5);
     color: white;
     font-size: 1em;
     cursor: pointer;
 }
 
-
-.imageLinkBtns a{
+.imageLinkBtns a {
     text-decoration: none;
 }
 
 .dont-break-out {
-
     /* These are technically the same, but use both */
     overflow-wrap: break-word;
     word-wrap: break-word;
-
     -ms-word-break: break-all;
     /* This is the dangerous one in WebKit, as it breaks things wherever */
     word-break: break-all;
     /* Instead use this non-standard one: */
     word-break: break-word;
-
     /* Adds a hyphen where the word breaks, if supported (No Blink) */
     -ms-hyphens: auto;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
-
 }
+
 
 /*!
  * Styles for wfs-partial
  */
+
 .the-table {
     white-space: nowrap;
     max-width: none;
-    min-width: 100%
-    width: auto;
+    min-width: 100% width: auto;
 }
 
 .the-container {
@@ -245,15 +318,41 @@ body {
     height: 250px;
 }
 
+
 /*!
  * Styles the autocomplete dropdown
  */
-.autocomplete-suggestions { border: 1px solid #999; background: #2b3e50; overflow: auto; }
-.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
-.autocomplete-selected { background: #4e5d6c; }
-.autocomplete-suggestions strong { font-weight: normal; color: #5bc0de; }
-.autocomplete-group { padding: 2px 5px; }
-.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    background: #2b3e50;
+    overflow: auto;
+}
+
+.autocomplete-suggestion {
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.autocomplete-selected {
+    background: #4e5d6c;
+}
+
+.autocomplete-suggestions strong {
+    font-weight: normal;
+    color: #5bc0de;
+}
+
+.autocomplete-group {
+    padding: 2px 5px;
+}
+
+.autocomplete-group strong {
+    display: block;
+    border-bottom: 1px solid #000;
+}
+
 
 /*!
  * Yamm!3 - Yet another megamenu for Bootstrap 3
@@ -261,10 +360,8 @@ body {
  *
  * @geedmo - Licensed under the MIT license
  */
-.yamm .nav,
-.yamm .collapse,
-.yamm .dropup,
-.yamm .dropdown {
+
+.yamm .nav, .yamm .collapse, .yamm .dropup, .yamm .dropdown {
     position: static;
 }
 
@@ -280,24 +377,24 @@ body {
     padding: 20px 30px;
     /*overflow: scroll;*/
 }
-.yamm .dropdown.yamm-fw .dropdown-menu{
+
+.yamm .dropdown.yamm-fw .dropdown-menu {
     left: 0;
     right: 0;
 }
 
-.nav-download .dropdown-menu a{
-  text-align: center;
+.nav-download .dropdown-menu a {
+    text-align: center;
 }
 
-
-.nav-download .dropdown-menu{
-  min-width: 112px;
+.nav-download .dropdown-menu {
+    min-width: 112px;
 }
+
 
 /*.navbar-default .navbar-nav > .nav-download{
   border-left: 1px solid #CCC;
 }*/
-
 
 .rotate-north {
     top: 65px;
@@ -358,40 +455,39 @@ body {
 }
 
 .shadow {
-    -webkit-box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
-    -moz-box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
-    box-shadow: 14px 18px 36px -13px rgba(0,0,0,0.76);
+    -webkit-box-shadow: 14px 18px 36px -13px rgba(0, 0, 0, 0.76);
+    -moz-box-shadow: 14px 18px 36px -13px rgba(0, 0, 0, 0.76);
+    box-shadow: 14px 18px 36px -13px rgba(0, 0, 0, 0.76);
 }
 
 #imageMap:-moz-full-screen {
     height: 100%;
 }
+
 #imageMap:-webkit-full-screen {
     height: 100%;
 }
+
 #imageMap:-ms-fullscreen {
     height: 100%;
 }
+
 #imageMap:fullscreen {
     height: 100%;
 }
 
 .slick-prev:before, .slick-next:before {
-    color:black !important;
+    color: black !important;
 }
 
-#grayImageItem,
-#redImageItem,
-#greenImageItem,
-#blueImageItem {
+#grayImageItem, #redImageItem, #greenImageItem, #blueImageItem {
     display: inline-block;
     vertical-align: middle;
     width: 60px;
     float: right;
 }
 
-#gray-image-space-bands,
-#rgb-image-space-bands{
+#gray-image-space-bands, #rgb-image-space-bands {
     display: none;
 }
 
@@ -399,27 +495,31 @@ body {
     width: 110px;
 }
 
- .image-band-div{
-   margin-top: 10px;
-   height: 50px;
- }
+.image-band-div {
+    margin-top: 10px;
+    height: 50px;
+}
 
 #mapOrtho:-moz-full-screen {
     height: 100%;
 }
+
 #mapOrtho:-webkit-full-screen {
     height: 100%;
 }
+
 #mapOrtho:-ms-fullscreen {
     height: 100%;
 }
+
 #mapOrtho:fullscreen {
     height: 100%;
 }
 
-.ol-viewport{
+.ol-viewport {
     border-radius: 10px;
 }
+
 .ol-rotate, .ol-rotate.ol-hidden {
     left: .5em;
     opacity: 1;
@@ -431,8 +531,8 @@ body {
 .ol-popup {
     position: absolute;
     background-color: white;
-    -webkit-filter: drop-shadow(0 8px 4px rgba(0,0,0,0.8));
-    filter: drop-shadow(0 1px 8px rgba(0,0,0,0.8));
+    -webkit-filter: drop-shadow(0 8px 4px rgba(0, 0, 0, 0.8));
+    filter: drop-shadow(0 1px 8px rgba(0, 0, 0, 0.8));
     padding: 5px;
     border-radius: 10px;
     border: 1px solid #cccccc;

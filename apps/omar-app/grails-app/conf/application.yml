@@ -181,15 +181,15 @@ omar:
     apiApp:
       baseUrl: http://localhost:8081/api
       enabled: true
-    predio:
-      baseUrl: http://localhost:8081/predio/
-      enabled: false
+    tlvApp:
+      baseUrl: http://o2.radiantbluecloud.com/tlv
+      enabled: true
     twofishes:
       baseUrl: http://demo.twofishes.net
       proxy: /twoFishesProxy
     swipeApp:
       baseUrl: http://localhost:8081/swipe
-      enabled: true
+      enabled: false
     kmlApp:
       baseUrl: http://localhost:8081/
       enabled: true
@@ -198,7 +198,7 @@ omar:
       enabled: false
     wmtsApp:
       baseUrl: http://localhost:8081/wmts
-      enabled: true
+      enabled: false
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
       enabled: true

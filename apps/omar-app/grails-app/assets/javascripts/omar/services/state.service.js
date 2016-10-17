@@ -33,6 +33,13 @@ angular
 
     _this.mapState = mapState;
 
+    _this.navState = {};
+    _this.navStateUpdate = function(object) {
+        _this.navState.titleLeft = object.titleLeft || "";
+
+        $rootScope.$broadcast('navState.updated', _this.navState);
+    }
+
     _this.updateMapState = function(objParams) {
 
       _this.mapState.center.lat = objParams.lat;

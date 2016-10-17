@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module( 'omarApp' )
-        .controller( 'MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'downloadService', 'shareService', 'beNumberService', MapOrthoController]);
+        .controller( 'MapOrthoController', ['$scope', '$state', '$stateParams', '$http', '$location', 'downloadService', 'shareService', 'stateService', 'beNumberService', MapOrthoController]);
 
-    function MapOrthoController( $scope, $state, $stateParams, $http, $location, downloadService, shareService, beNumberService ) {
+    function MapOrthoController( $scope, $state, $stateParams, $http, $location, downloadService, shareService, stateService, beNumberService ) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -185,6 +185,16 @@
                 if (AppO2.APP_CONFIG.params.misc.placemarks) {
                     beNumberService.getBeData(totalGeoms);
                 }
+
+                // set header title
+                var headerTitle = [];
+                angular.forEach(data, function(image) {
+                    var imageId = image.properties.title || image.properties.filename;
+                    var acquisitionDate = image.properties.acquisition_date;
+                    var text = imageId + (acquisitionDate ? " : " + acquisitionDate : "");
+                    headerTitle.push(text);
+                });
+                stateService.navStateUpdate({ titleLeft: headerTitle.join(", ") });
             });
         }
 
