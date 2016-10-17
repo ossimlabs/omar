@@ -15,6 +15,7 @@ body {
   padding-bottom: 50px;
   overflow: scroll;
 }
+
 .navbar {min-height:28px !important;}
 .navbar-fixed-top {
     height: 20px;
@@ -39,13 +40,13 @@ body {
 .jumbotron h1 {
     padding-bottom: 6px;
     background: rgba(0, 0, 0, 0.5);
-    color: #ffffff
+    color: #ffffff;
 }
 
 .jumbotron h2 {
     padding: 6px;
     background: rgba(0, 0, 0, 0.5);
-    color: #ffffff
+    color: #ffffff;
 }
 
 .image-id-link:hover {
@@ -205,9 +206,12 @@ body {
     cursor: pointer;
 }
 
-
 .imageLinkBtns a{
     text-decoration: none;
+}
+
+.shareModalHighlightCopyTxt {
+    display: none;
 }
 
 .dont-break-out {

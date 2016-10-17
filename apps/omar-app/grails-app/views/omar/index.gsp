@@ -24,6 +24,10 @@
 
     <asset:stylesheet src="app.manifest.css"/>
 
+    <browser:isMsie>
+        <asset:stylesheet src="element.visibility.css"/>
+    </browser:isMsie>
+
 </head>
     <body>
         <o2:classificationBanner/>
