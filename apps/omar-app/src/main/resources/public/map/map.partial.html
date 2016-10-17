@@ -225,6 +225,59 @@
                       </div>
                       <div class="row">
                         <div class="col-md-3">
+                          <h4>BE Num.</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <input ng-model="filter.beNumber"
+                           ng-disabled="!filter.beNumberCheck" class="form-control"
+                           id="beNumberInput"
+                           value="{{filter.beNumber}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.beNumberCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>CC</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <input ng-model="filter.countryCode"
+                           ng-disabled="!filter.countryCodeCheck" class="form-control"
+                           id="countryCodeInput"
+                           vaule="{{filter.countryCode}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.countryCodeCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Filename</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <input ng-model="filter.filename"
+                           ng-disabled="!filter.filenameCheck"class="form-control" id="filenameInput"
+                           value="{{filter.filename}}">
+                        </div>
+                        <div class="col-md-2">
+                          <toggle-switch
+                            ng-model="filter.filenameCheck"
+                            class="switch-success">
+                          </toggle-switch>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-md-3">
                           <h4>Image ID</h4>
                         </div>
                         <div class="col-md-6">
@@ -279,24 +332,6 @@
                       <br>
                       <div class="row">
                         <div class="col-md-3">
-                          <h4>BE Num.</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <input ng-model="filter.beNumber"
-                           ng-disabled="!filter.beNumberCheck" class="form-control"
-                           id="beNumberInput"
-                           value="{{filter.beNumber}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.beNumberCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
                           <h4>Target ID</h4>
                         </div>
                         <div class="col-md-6">
@@ -326,23 +361,6 @@
                         <div class="col-md-2">
                           <toggle-switch
                             ng-model="filter.wacNumberCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>File Name</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <input ng-model="filter.filename"
-                           ng-disabled="!filter.filenameCheck"class="form-control" id="filenameInput"
-                           value="{{filter.filename}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.filenameCheck"
                             class="switch-success">
                           </toggle-switch>
                         </div>
