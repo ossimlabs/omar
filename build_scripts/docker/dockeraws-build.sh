@@ -59,9 +59,10 @@ createRepositories O2_APPS
 o2-base.*latest\|o2-base.*none
 #remove images
 for app in ${O2_APPS[@]} ; do
-  for x in `docker images | grep "/${app}.*${TAG}\|/${app}.*none" | awk '{print $3}'`; do 
-    docker rmi -f $x; 
-  done
+#  for x in `docker images | grep "/${app}.*${TAG}\|/${app}.*none" | awk '{print $3}'`; do 
+#    docker rmi -f $x; 
+#  done
+    docker rmi -f `docker images | grep "/${app}.*${TAG}\|/${app}.*none" | awk '{print $3}'`
 done
 
 for app in ${O2_APPS[@]} ; do
