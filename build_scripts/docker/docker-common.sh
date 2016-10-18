@@ -6,7 +6,7 @@ if [ -z $OMAR_SCRIPT_DIR ]; then
   OMAR_SCRIPT_DIR=`pwd -P`
   popd >/dev/null
 fi
-
+echo "SCRIPT DIRECTORY==============$OMAR_SCRIPT_DIR"
 if [ -z $WORKSPACE ] ; then
    if [ -z $OSSIM_DEV_HOME ] ; then
       pushd $OMAR_SCRIPT_DIR/../../.. >/dev/null
