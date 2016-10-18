@@ -16,8 +16,9 @@ if [ -z $WORKSPACE ] ; then
 else
    export OSSIM_DEV_HOME=$WORKSPACE
 fi
-
-source $OMAR_SCRIPT_DIR/../linux/git-prompt.sh
+pushd $OMAR_SCRIPT_DIR/../linux
+source ./git-prompt.sh
+popd
 
 if [ -z $OSSIM_GIT_BRANCH ] ; then
    pushd $OMAR_SCRIPT_DIR
