@@ -179,10 +179,20 @@
           imgWidth: $stateParams.width,
           imgHeight: $stateParams.height,
           numOfBands: $stateParams.numOfBands,
-          bands: $stateParams.bands
+          bands: $stateParams.bands,
+          imageId: $stateParams.imageId,
+          url: $stateParams.ur
         };
 
-      // Pass our imageSpaceObj constructed from the URL
+        vm.imageMapPath = AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?filename=' +
+                          imageSpaceObj.filename +  '&entry_id=' +
+                          imageSpaceObj.entry +  '&width=' +
+                          imageSpaceObj.imgWidth +  '&height=' +
+                          imageSpaceObj.imgHeight +  '&bands=' +
+                          imageSpaceObj.bands +  '&numOfBands=' +
+                          imageSpaceObj.numOfBands +  '&imageId=' +
+                          imageSpaceObj.imageId;
+      // Pass our imageSpaceObj constructed from the UR
       // ($stateParams) into the imageSpaceService and load
       // the map.
       imageSpaceService.initImageSpaceMap( imageSpaceObj );
