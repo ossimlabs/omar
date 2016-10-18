@@ -6,7 +6,7 @@ if [ -z $OMAR_SCRIPT_DIR ]; then
   OMAR_SCRIPT_DIR=`pwd -P`
   popd >/dev/null
 fi
-
+echo "SCRIPT DIRECTORY==============$OMAR_SCRIPT_DIR"
 if [ -z $WORKSPACE ] ; then
    if [ -z $OSSIM_DEV_HOME ] ; then
       pushd $OMAR_SCRIPT_DIR/../../.. >/dev/null
@@ -16,8 +16,9 @@ if [ -z $WORKSPACE ] ; then
 else
    export OSSIM_DEV_HOME=$WORKSPACE
 fi
-
-source $OMAR_SCRIPT_DIR/../linux/git-prompt.sh
+pushd $OMAR_SCRIPT_DIR/../linux
+source ./git-prompt.sh
+popd
 
 if [ -z $OSSIM_GIT_BRANCH ] ; then
    pushd $OMAR_SCRIPT_DIR
