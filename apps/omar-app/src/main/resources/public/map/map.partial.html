@@ -52,7 +52,7 @@
           <ul class="nav navbar-nav navbar-right" ng-controller="FilterController as filter">
             <p class="navbar-text">Filters</p>
             <li class="dropdown">
-              <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
                 &nbsp;Spatial<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -210,52 +210,66 @@
                 </li>
               </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
                   &nbsp;Keywords
                   <span class="caret"></span></a>
               <ul class="dropdown-menu">
+                <li>
+                  <div class="row">
+                    <p class="text-center">Click the checkbox next to the keyword parameter below to use it
+                      as a filter</p>
+                  </div>
+                </li>
+                <li>
+                  <div class="row text-center">
+                    <button class="btn btn-primary btn-xs" type="button"
+                      ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);filter.closeFilterDropdown()">Apply
+                    </button>
+                    <button class="btn btn-primary btn-xs" type="button"
+                      ng-click="filter.initKeywords();">Reset
+                    </button>
+                    <button class="btn btn-warning btn-xs" type="button"
+                      ng-click="filter.closeFilterDropdown()">Close
+                    </button>
+                  </div>
+                </li>
                 <li class="yamm-content">
                   <div id="keywords">
                     <form>
-                      <div class="row">
-                        <p class="text-center">Toggle the switch for a keyword parameter below to use it
-                          as a filter</p>
-                      </div>
+                      <br>
                       <div class="row">
                         <div class="col-md-3">
                           <h4>BE Num.</h4>
                         </div>
                         <div class="col-md-6">
-                          <input ng-model="filter.beNumber"
-                           ng-disabled="!filter.beNumberCheck" class="form-control"
-                           id="beNumberInput"
-                           value="{{filter.beNumber}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.beNumberCheck"
-                            class="switch-success">
-                          </toggle-switch>
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <input type="checkbox" ng-model="filter.beNumberCheck">
+                            </span>
+                            <input ng-model="filter.beNumber"
+                             ng-disabled="!filter.beNumberCheck" class="form-control input-sm"
+                             id="beNumberInput"
+                             value="{{filter.beNumber}}">
+                           </div>
                         </div>
                       </div>
                       <br>
                       <div class="row">
                         <div class="col-md-3">
-                          <h4>CC</h4>
+                          <h4>Country Code</h4>
                         </div>
                         <div class="col-md-6">
-                          <input ng-model="filter.countryCode"
-                           ng-disabled="!filter.countryCodeCheck" class="form-control"
-                           id="countryCodeInput"
-                           vaule="{{filter.countryCode}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.countryCodeCheck"
-                            class="switch-success">
-                          </toggle-switch>
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <input type="checkbox" ng-model="filter.countryCodeCheck">
+                            </span>
+                            <input ng-model="filter.countryCode"
+                             ng-disabled="!filter.countryCodeCheck" class="form-control input-sm"
+                             id="countryCodeInput"
+                             value="{{filter.countryCode}}">
+                          </div>
                         </div>
                       </div>
                       <br>
@@ -264,15 +278,15 @@
                           <h4>Filename</h4>
                         </div>
                         <div class="col-md-6">
-                          <input ng-model="filter.filename"
-                           ng-disabled="!filter.filenameCheck"class="form-control" id="filenameInput"
-                           value="{{filter.filename}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.filenameCheck"
-                            class="switch-success">
-                          </toggle-switch>
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <input type="checkbox" ng-model="filter.filenameCheck">
+                            </span>
+                            <input ng-model="filter.filename"
+                             ng-disabled="!filter.filenameCheck"class="form-control input-sm"
+                             id="filenameInput"
+                             value="{{filter.filename}}">
+                           </div>
                         </div>
                       </div>
                       <br>
@@ -281,16 +295,15 @@
                           <h4>Image ID</h4>
                         </div>
                         <div class="col-md-6">
-                          <input ng-model="filter.imageId"
-                           ng-disabled="!filter.imageIdCheck" class="form-control"
-                           id="imageIdInput"
-                           vaule="{{filter.imageId}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.imageIdCheck"
-                            class="switch-success">
-                          </toggle-switch>
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <input type="checkbox" ng-model="filter.imageIdCheck">
+                            </span>
+                            <input ng-model="filter.imageId"
+                             ng-disabled="!filter.imageIdCheck" class="form-control input-sm"
+                             id="imageIdInput"
+                             value="{{filter.imageId}}">
+                           </div>
                         </div>
                       </div>
                       <br>
@@ -299,17 +312,16 @@
                           <h4>Mission</h4>
                         </div>
                         <div class="col-md-6">
-                          <input ng-model="filter.missionId"
-                           ng-disabled="!filter.missionIdCheck" class="form-control"
-                           id="missionIdInput"
-                           value="{{filter.missionId}}">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <input type="checkbox" ng-model="filter.missionIdCheck">
+                            </span>
+                            <input ng-model="filter.missionId"
+                             ng-disabled="!filter.missionIdCheck" class="form-control input-sm"
+                             id="missionIdInput"
+                             value="{{filter.missionId}}">
+                           </div>
                         </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.missionIdCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
                       </div>
                       <br>
                       <div class="row">
@@ -317,16 +329,15 @@
                           <h4>Sensor</h4>
                         </div>
                         <div class="col-md-6">
-                          <input ng-model="filter.sensorId"
-                           ng-disabled="!filter.sensorIdCheck" class="form-control"
-                           id="sensorIdInput"
-                           value="{{filter.sensorId}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.sensorIdCheck"
-                            class="switch-success">
-                          </toggle-switch>
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <input type="checkbox" ng-model="filter.sensorIdCheck">
+                            </span>
+                            <input ng-model="filter.sensorId"
+                             ng-disabled="!filter.sensorIdCheck" class="form-control input-sm"
+                             id="sensorIdInput"
+                             value="{{filter.sensorId}}">
+                           </div>
                         </div>
                       </div>
                       <br>
@@ -335,16 +346,15 @@
                           <h4>Target ID</h4>
                         </div>
                         <div class="col-md-6">
-                          <input ng-model="filter.targetId"
-                           ng-disabled="!filter.targetIdCheck" class="form-control"
-                           id="targetIdInput"
-                           value="{{filter.targetId}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.targetIdCheck"
-                            class="switch-success">
-                          </toggle-switch>
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <input type="checkbox" ng-model="filter.targetIdCheck">
+                            </span>
+                            <input ng-model="filter.targetId"
+                             ng-disabled="!filter.targetIdCheck" class="form-control input-sm"
+                             id="targetIdInput"
+                             value="{{filter.targetId}}">
+                           </div>
                         </div>
                       </div>
                       <br>
@@ -353,29 +363,178 @@
                           <h4>WAC ID</h4>
                         </div>
                         <div class="col-md-6">
-                        <input ng-model="filter.wacNumber"
-                         ng-disabled="!filter.wacNumberCheck" class="form-control"
-                         id="wacNumberInput"
-                         value="{{filter.wacNumber}}">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <input type="checkbox" ng-model="filter.wacNumberCheck">
+                            </span>
+                            <input ng-model="filter.wacNumber"
+                             ng-disabled="!filter.wacNumberCheck" class="form-control input-sm"
+                             id="wacNumberInput"
+                             value="{{filter.wacNumber}}">
+                         </div>
                         </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.wacNumberCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row text-center">
-                        <button class="btn btn-primary" type="button"
-                          ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
-                        </button>
-                        <button class="btn btn-warning" type="button"
-                          ng-click="filter.initKeywords();">Reset
-                        </button>
                       </div>
                     </form>
                   </div>
+                </li>
+              </ul>
+            </li> -->
+            <li class="dropdown mega-dropdown">
+              <a class="dropdown-toggle filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
+                 &nbsp;Keyword
+               <span class="caret"></span></a>
+
+              <ul class="dropdown-menu mega-dropdown-menu row">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">Keyword Filters</li>
+                    <li class="text-center"><p>Click in the input boxes or use the checkboxes next to the keyword parameters to use them
+                      as filters</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.beNumberCheck">
+                        </span>
+                        <span class="input-group-addon name">BE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input ng-model="filter.beNumber"
+                         ng-click="filter.beNumberCheck = true;" class="form-control"
+                         ng-blur="filter.beNumberCheck = filter.beNumber === '' ? false: true;"
+                         id="beNumberInput"
+                         placeholder="Basic Encyclopedia Number"
+                         value="filter.beNumber">
+                      </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.countryCodeCheck">
+                        </span>
+                        <span class="input-group-addon name">CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input ng-model="filter.countryCode"
+                         ng-click="filter.countryCodeCheck = true;"
+                         ng-blur="filter.countryCodeCheck = filter.countryCode === '' ? false: true;"
+                         class="form-control"
+                         id="countryCodeInput"
+                         placeholder="Country Code"
+                         value="filter.countryCode">
+                      </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.filenameCheck">
+                        </span>
+                        <span class="input-group-addon name">File&nbsp;&nbsp;&nbsp;</span>
+                        <input ng-model="filter.filename"
+                         ng-click="filter.filenameCheck = true;"
+                         ng-blur="filter.filenameCheck = filter.filename === '' ? false: true;"
+                         class="form-control"
+                         id="filenameInput"
+                         placeholder="File name"
+                         value="filter.filename">
+                      </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.imageIdCheck">
+                        </span>
+                        <span class="input-group-addon name">Image&nbsp;&nbsp;&nbsp;</span>
+                        <input ng-model="filter.imageId"
+                         ng-click="filter.imageIdCheck = true;"
+                         ng-blur="filter.imageIdCheck = filter.imageId === '' ? false: true;"
+                         class="form-control"
+                         id="imageIdInput"
+                         placeholder="Image ID"
+                         value="filter.imageId">
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.missionIdCheck">
+                        </span>
+                        <span class="input-group-addon name">Mission</span>
+                        <input ng-model="filter.missionId"
+                         ng-click="filter.missionIdCheck = true;"
+                         ng-blur="filter.missionIdCheck = filter.missionId === '' ? false: true;"
+                         class="form-control"
+                         id="missionIdInput"
+                         placeholder="Mission ID"
+                         value="filter.missionId">
+                      </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.sensorIdCheck">
+                        </span>
+                        <span class="input-group-addon name">Sensor&nbsp;</span>
+                        <input ng-model="filter.sensorId"
+                         ng-click="filter.sensorIdCheck = true;"
+                         ng-blur="filter.sensorIdCheck = filter.sensorId === '' ? false: true;"
+                         class="form-control"
+                         id="sensorIdInput"
+                         placeholder="Sensor ID"
+                         value="filter.sensorId">
+                      </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.targetIdCheck">
+                        </span>
+                        <span class="input-group-addon name">Target&nbsp;</span>
+                        <input ng-model="filter.targetId"
+                         ng-click="filter.targetIdCheck = true;"
+                         ng-blur="filter.targetIdCheck = filter.targetId === '' ? false: true;"
+                         class="form-control"
+                         id="targetIdInput"
+                         placeholder="Target ID"
+                         value="filter.targetId">
+                      </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.wacNumberCheck">
+                        </span>
+                        <span class="input-group-addon name">WAC&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input ng-model="filter.wacNumber"
+                         ng-click="filter.wacNumberCheck = true;"
+                         ng-blur="filter.wacNumberCheck = filter.wacNumber === '' ? false: true;"
+                         class="form-control"
+                         id="wacNumberInput"
+                         placeholder="World Area Code"
+                         value="filter.wacNumber">
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <button class="btn btn-primary btn-xs" type="button"
+                        ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);filter.closeFilterDropdown()">Apply
+                      </button>
+                      <button class="btn btn-primary btn-xs" type="button"
+                        ng-click="filter.initKeywords();">Reset
+                      </button>
+                      <button class="btn btn-warning btn-xs" type="button"
+                        ng-click="filter.closeFilterDropdown()">Close
+                      </button>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
@@ -653,15 +812,15 @@
     <div id="list" style="border-style: solid; border-width: 1px; padding: 10px; border-radius: 4px;">
       <div ng-show="list.wfsData.length === 0">
         <div>
-          <span class="text-danger"><h4 class="text-center"><strong>We did not find any images that match your search filters</strong></h4></span>
-          <span class="text-warning"><h4 >Check the dates</h4></span>
+          <span class="text-default"><h4 class="text-center"><strong>We did not find any images that match your search filters</strong></h4></span>
+          <span class="text-info"><h4 >Check the dates</h4></span>
           <p>Make sure you provide valid dates for the query.  Also, make sure you are searching for the
             appropriate date type (acquisition versus ingest).</p>
-          <span class="text-warning"><h4>Check the spelling</h4></span>
+          <span class="text-info"><h4>Check the spelling</h4></span>
           <p>It is possible that one of the Keyword filters has a spelling error.</p>
-          <span class="text-warning"><h4>Check range values</h4></span>
+          <span class="text-info"><h4>Check range values</h4></span>
           <p>Make sure that the range values you have submitted are valid for those attributes.</p>
-          <span class="text-warning"><h4 class="text-warning">Check your map extent</h4></span>
+          <span class="text-info"><h4 class="text-info">Check your map extent</h4></span>
           <p>The map extent is also a filter for the images.  Make sure the map is zoomed out to an
             appropriate extent for your search.</p>
         </div>
