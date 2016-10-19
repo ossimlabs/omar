@@ -416,15 +416,12 @@
         vm.setInitialCustomStartDate();
         vm.setInitialCustomEndDate();
 
-        function closeFilterDropdown(){
+        vm.closeFilterDropdown = function(e) {
 
-          $(".filter-dropdown").dropdown('toggle');
+          var elem = "." + e;
+          console.log(elem);
 
-        }
-
-        vm.closeFilterDropdown = function() {
-
-          closeFilterDropdown();
+          $(elem).dropdown('toggle');
 
         };
 
@@ -433,11 +430,6 @@
           e.stopPropagation()
 
         });
-
-        vm.resetCheckboxState = function(e) {
-
-
-        }
 
     }
 })();

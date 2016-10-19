@@ -706,3 +706,10 @@ body {
   min-width: 65px;
   text-align: left;
 }
+
+.filter-row .spatial-name {
+
+  min-width: 100px;
+  text-align: left;
+
+}

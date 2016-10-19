@@ -51,73 +51,71 @@
         <div class="col-sm-7">
           <ul class="nav navbar-nav navbar-right" ng-controller="FilterController as filter">
             <p class="navbar-text">Filters</p>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            <li class="dropdown mega-dropdown">
+              <a class="dropdown-toggle spatial-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
                 &nbsp;Spatial<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <div class="yamm-content">
-                    <div ng-click="$event.stopPropagation();" style="padding-bottom: 0px;" class="yamm-content">
-                      <div class="row">
-                        <p class="text-center">Select a spatial filter from the items below</p>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">
+                      <p class="text-center">Spatial Filters</p>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.viewPortSpatial"
+                          ng-change="filter.byViewPort(filter.viewPortSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Map Viewport</span>
                       </div>
-                      <form class="form">
-                        <div class="row">
-                          <div class="col-md-8">
-                            <h4>Map Viewport</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.viewPortSpatial"
-                              ng-change="filter.byViewPort(filter.viewPortSpatial)">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12"><small class="text-muted">This filter is on by default.  It constrains the
-                            query to the boundaries of the current map extent</small>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-8">
-                            <h4>Point</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.pointSpatial"
-                              ng-change="filter.byPointer(filter.pointSpatial);">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12"><small class="text-muted">Single clicking on the map
-                            will return a potential list of images at that location</small>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-8">
-                            <h4>Polygon</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.polygonSpatial"
-                              ng-change="filter.byPolygon(filter.polygonSpatial)">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12"><small class="text-muted">Left-click and hold with the
-                            ALT key to create a box that will return a potential list of images
-                            </small>
-                          </div>
-                          <hr>
-                        </div>
-                      </form>
+                    </li>
+                    <li class="col-sm-9">
+                      <small class="text-muted">This filter is on by default.  It constrains the
+                        query to the boundaries of the current map extent</small>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.pointSpatial"
+                          ng-change="filter.byPointer(filter.pointSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Point</span>
+                      </<div>
+                    </li>
+                    <div class="col-sm-9">
+                      <small class="text-muted">Single clicking on the map
+                        will return a potential list of images at that location</small>
                     </div>
-                  </div>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.polygonSpatial"
+                          ng-change="filter.byPolygon(filter.polygonSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Polygon</span>
+                      </div>
+                    </li>
+                    <li class="col-sm-9 filter-row">
+                      <small class="text-muted">Left-click and hold with the
+                        ALT key to create a box that will return a potential list of images
+                        </small>
+                    </li>
+                    <li class="col-sm-12 text-center">
+                      <button class="btn btn-warning btn-xs" type="button"
+                        ng-click="filter.closeFilterDropdown('spatial-filter-dropdown')">Close
+                      </button>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
@@ -210,177 +208,8 @@
                 </li>
               </ul>
             </li>
-            <!-- <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                 aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
-                  &nbsp;Keywords
-                  <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <div class="row">
-                    <p class="text-center">Click the checkbox next to the keyword parameter below to use it
-                      as a filter</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="row text-center">
-                    <button class="btn btn-primary btn-xs" type="button"
-                      ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);filter.closeFilterDropdown()">Apply
-                    </button>
-                    <button class="btn btn-primary btn-xs" type="button"
-                      ng-click="filter.initKeywords();">Reset
-                    </button>
-                    <button class="btn btn-warning btn-xs" type="button"
-                      ng-click="filter.closeFilterDropdown()">Close
-                    </button>
-                  </div>
-                </li>
-                <li class="yamm-content">
-                  <div id="keywords">
-                    <form>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>BE Num.</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" ng-model="filter.beNumberCheck">
-                            </span>
-                            <input ng-model="filter.beNumber"
-                             ng-disabled="!filter.beNumberCheck" class="form-control input-sm"
-                             id="beNumberInput"
-                             value="{{filter.beNumber}}">
-                           </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Country Code</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" ng-model="filter.countryCodeCheck">
-                            </span>
-                            <input ng-model="filter.countryCode"
-                             ng-disabled="!filter.countryCodeCheck" class="form-control input-sm"
-                             id="countryCodeInput"
-                             value="{{filter.countryCode}}">
-                          </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Filename</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" ng-model="filter.filenameCheck">
-                            </span>
-                            <input ng-model="filter.filename"
-                             ng-disabled="!filter.filenameCheck"class="form-control input-sm"
-                             id="filenameInput"
-                             value="{{filter.filename}}">
-                           </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Image ID</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" ng-model="filter.imageIdCheck">
-                            </span>
-                            <input ng-model="filter.imageId"
-                             ng-disabled="!filter.imageIdCheck" class="form-control input-sm"
-                             id="imageIdInput"
-                             value="{{filter.imageId}}">
-                           </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Mission</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" ng-model="filter.missionIdCheck">
-                            </span>
-                            <input ng-model="filter.missionId"
-                             ng-disabled="!filter.missionIdCheck" class="form-control input-sm"
-                             id="missionIdInput"
-                             value="{{filter.missionId}}">
-                           </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Sensor</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" ng-model="filter.sensorIdCheck">
-                            </span>
-                            <input ng-model="filter.sensorId"
-                             ng-disabled="!filter.sensorIdCheck" class="form-control input-sm"
-                             id="sensorIdInput"
-                             value="{{filter.sensorId}}">
-                           </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Target ID</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" ng-model="filter.targetIdCheck">
-                            </span>
-                            <input ng-model="filter.targetId"
-                             ng-disabled="!filter.targetIdCheck" class="form-control input-sm"
-                             id="targetIdInput"
-                             value="{{filter.targetId}}">
-                           </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>WAC ID</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" ng-model="filter.wacNumberCheck">
-                            </span>
-                            <input ng-model="filter.wacNumber"
-                             ng-disabled="!filter.wacNumberCheck" class="form-control input-sm"
-                             id="wacNumberInput"
-                             value="{{filter.wacNumber}}">
-                         </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </li>
-              </ul>
-            </li> -->
             <li class="dropdown mega-dropdown">
-              <a class="dropdown-toggle filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
+              <a class="dropdown-toggle keyword-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
                  &nbsp;Keyword
                <span class="caret"></span></a>
@@ -531,7 +360,7 @@
                         ng-click="filter.initKeywords();">Reset
                       </button>
                       <button class="btn btn-warning btn-xs" type="button"
-                        ng-click="filter.closeFilterDropdown()">Close
+                        ng-click="filter.closeFilterDropdown('keyword-filter-dropdown')">Close
                       </button>
                     </li>
                   </ul>
