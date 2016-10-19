@@ -7,7 +7,7 @@
 body {
     padding-top: 50px;
     padding-bottom: 50px;
-    overflow: scroll;
+    /*overflow: scroll;*/
 }
 
 .navbar {
@@ -42,13 +42,13 @@ body {
 .jumbotron h1 {
     padding-bottom: 6px;
     background: rgba(0, 0, 0, 0.5);
-    color: #ffffff
+    color: #ffffff;
 }
 
 .jumbotron h2 {
     padding: 6px;
     background: rgba(0, 0, 0, 0.5);
-    color: #ffffff
+    color: #ffffff;
 }
 
 .well-home {
@@ -286,6 +286,10 @@ body {
     text-decoration: none;
 }
 
+.shareModalHighlightCopyTxt {
+    display: none;
+}
+
 .dont-break-out {
     /* These are technically the same, but use both */
     overflow-wrap: break-word;
@@ -491,13 +495,50 @@ body {
     display: none;
 }
 
-.image-bands {
-    width: 110px;
+#image-space-bands{
+  margin-top: -15px;
 }
 
-.image-band-div {
-    margin-top: 10px;
-    height: 50px;
+.image-bands {
+    width: 100%;
+}
+
+.image-bands label{
+    font-size: .8em;
+}
+
+ .image-band-div {
+   width: 100px;
+   margin-bottom: 20px;
+   /*margin-top: 10px;
+   height: 50px;*/
+ }
+
+.ui-select-container{
+    width: 90px;
+    height: 10px;
+}
+
+#image-space-bands{
+    position: relative;
+    top: 30px;
+}
+
+#image-space-bands .ui-select-container .selectize-input{
+    width: 50px;
+}
+
+.ui-select-container span{
+    font-size: .8em;
+    font-weight: bold;
+}
+
+.ui-select-container .selectize-input{
+    padding: 4px 4px;
+}
+
+.ui-select-container .selectize-input:after{
+      font-size: .1em;
 }
 
 #mapOrtho:-moz-full-screen {

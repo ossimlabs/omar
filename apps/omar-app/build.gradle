@@ -92,6 +92,7 @@ dependencies {
   testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
   testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
   compile "org.grails.plugins:grails3-cors-interceptor:1.1.0"
+  compile 'org.grails.plugins:browser-detection:3.3.0'
 
   // UI Webjar core dependencies
   compile 'org.webjars:jquery:2.1.4'

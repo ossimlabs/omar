@@ -139,10 +139,13 @@ services:
       PREDIOENABLED: "false"
       TWOFISHURL: ${DOCKER_HOST_URL}/twofishes
       TWOFISHPORT:
+      TLVAPPURL: ${DOCKER_HOST_URL}
+      TLVPORT:
+      TLVAPPENABLED: "true"
       SWIPEURL: ${DOCKER_HOST_URL}/o2-swipe/swipe/index
       SWIPEPORT:
       SWIPEENABLED: "true"
-      JPIPURL: http://${DOCKER_HOST_URL}/o2-jpip
+      JPIPURL: ${DOCKER_HOST_URL}/o2-jpip
       JPIPPORT:
       JPIPENABLED: "true"
       WMTSURL: ${DOCKER_HOST_URL}/o2-wmts
