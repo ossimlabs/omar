@@ -484,7 +484,7 @@ class SuperOverlayService implements InitializingBean
                             def feature = value
                             GroundOverlay() {
                                 description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
-                                name( "${index}: " + (feature.title ?: feature.filename) )
+                                name( "${index + 1}: " + (feature.title ?: feature.filename) )
 
                                 Icon() {
                                     def wmsUrl = wmsBaseUrl
@@ -525,7 +525,7 @@ class SuperOverlayService implements InitializingBean
                         features.eachWithIndex() { value, index ->
                             def feature = value
                             Placemark() {
-                                name( "${index}: " + (feature.title ?: feature.filename) )
+                                name( "${index + 1}: " + (feature.title ?: feature.filename) )
                                 description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
 
                                 def bounds = feature.ground_geom.envelopeInternal
@@ -572,33 +572,36 @@ class SuperOverlayService implements InitializingBean
     }
 
     def getKmlDescription( feature ) {
-        def baseUrl = grailsApplication.config.omar.o2.baseUrl
-        def imageUrl = "${baseUrl}/omar/#/mapOrtho?layers=${feature.get("id")}"
+        def o2BaseUrl = grailsApplication.config.omar.o2.baseUrl
+        def imageUrl = "${o2BaseUrl}/omar/#/mapOrtho?layers=${feature.get("id")}"
+
+        def wfsUrl = "${grailsApplication.config.omar.wfs.baseUrl}/wfs/getFeature?" +
+            "filter=in(${feature.get("id")})&" +
+            "request=GetFeature&" +
+            "service=WFS&&" +
+            "typeName=omar%3Araster_entry&" +
+            "version=1.1.0"
+
         def tableMap = [
             "Acquistion Date": feature.acquisition_date ?: "",
-            "Access Date": feature.access_date ?: "",
             "Azimuth Angle": feature.azimuth_angle ?: "",
             "Bit Depth": feature.bit_depth ?: "",
             "Cloud Cover": feature.cloud_cover ?: "",
             "Country Code": feature.country_code ?: "",
-            "File Type": feature.file_type ?: "",
             "Filename": "<a href = '${imageUrl}'>${feature.filename}</a>",
             "Grazing Angle": feature.grazing_angle ?: "",
             "GSD X/Y": (feature.gsdx && feature.gsdy) ? "${feature.gsdx}/${feature.gsdy}" : "",
-            "Height": feature.height ?: "",
             "Image ID": feature.image_id ?: "",
             "Ingest Date": feature.ingest_date ?: "",
             "NIIRS": feature.niirs ?: "",
             "# of Bands": feature.number_of_bands ?: "",
-            "# of Res. Levels": feature.number_of_res_levels ?: "",
             "Security Class.": feature.security_classification ?: "",
             "Sensor": feature.sensor_id ?: "",
             "Sun Azimuth": feature.sun_azimuth ?: "",
             "Sun Elevation": feature.sun_elevation ?: "",
             "Title": feature.title ?: "",
-            "Width": feature.width ?: ""
+            "WFS": "<a href = '${wfsUrl}'>All Metadata</a>"
         ]
-
 
         def description = "<table style = 'width: auto; white-space: nowrap'>"
         tableMap.each() {
@@ -609,8 +612,8 @@ class SuperOverlayService implements InitializingBean
         }
 
         description += "<tfoot><tr><td colspan='2'>"
-        description +=     "<a href = '${baseUrl}'>"
-        description +=         "<img src = '${baseUrl}/assets/o2-logo.png'/>"
+        description +=     "<a href = '${o2BaseUrl}'>"
+        description +=         "<img src = '${o2BaseUrl}/assets/o2-logo.png'/>"
         description +=     "</a>"
         description += "</td></tr></tfoot>"
         description += "</table>"

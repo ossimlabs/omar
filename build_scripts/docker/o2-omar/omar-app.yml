@@ -47,7 +47,7 @@ omar:
     downloadApp:
       baseUrl: http://${DOWNLOADURL}
     kmlApp:
-      baseUrl: http://${KMLURL}/
+      baseUrl: http://${KMLURL}
     predio:
       baseUrl: http://${PREDIOURL}/predio/
       enabled: ${PREDIOENABLED}

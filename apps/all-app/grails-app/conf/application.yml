@@ -516,6 +516,8 @@ wms:
 omar:
   o2:
     baseUrl: http://localhost:8080
+  wfs:
+    baseUrl: http://localhost:8081
   wms:
     baseUrl: http://localhost:8081
   wmts:
