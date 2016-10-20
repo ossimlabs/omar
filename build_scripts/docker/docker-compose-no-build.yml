@@ -299,7 +299,8 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      WMSURL: ${DOCKER_HOST_URL}/o2-superoverlay
+      O2URL: ${DOCKER_HOST_URL}/o2-omar
+      WMSURL: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
     ports:
       - "5009:8080"

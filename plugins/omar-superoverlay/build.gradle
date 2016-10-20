@@ -37,7 +37,7 @@ grails {
     plugins {
 //    compile project(':omar-openlayers')
 //    compile project(':omar-oms')
-//    compile project(':omar-geoscript')
+      compile project(':omar-geoscript')
       compile project(':omar-wms')
     }
 }
@@ -81,7 +81,7 @@ grailsPublish {
     desc = "Full plugin description"
     developers = [johndoe:"John Doe"]
     portalUser = ""
-    portalPassword = ""    
+    portalPassword = ""
 }
 
 assets {

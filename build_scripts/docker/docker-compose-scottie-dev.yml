@@ -336,7 +336,8 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       DOCKER_HOST_IP: localhost
-      WMSURL: localhost/o2-superoverlay
+      O2URL: localhost/o2-omar
+      WMSURL: localhost/o2-wms
       WMSPORT:
     volumes:
       - /home:/home
