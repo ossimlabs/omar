@@ -73,8 +73,8 @@
                       </div>
                     </li>
                     <li class="col-sm-9">
-                      <small class="text-muted">This filter is on by default.  It constrains the
-                        query to the boundaries of the current map extent</small>
+                      <p>This filter is on by default.  It constrains the
+                        query to the boundaries of the current map extent</p>
                     </li>
                     <li class="col-sm-12">
                       <hr>
@@ -90,8 +90,8 @@
                       </<div>
                     </li>
                     <li class="col-sm-9">
-                      <small class="text-muted">Single clicking on the map
-                        will return a potential list of images at that location</small>
+                      <p>Single clicking on the map
+                        will return a potential list of images at that location</p>
                     </li>
                     <li class="col-sm-12">
                       <hr>
@@ -107,9 +107,9 @@
                       </div>
                     </li>
                     <li class="col-sm-9 filter-row">
-                      <small class="text-muted">Left-click and hold with the
+                      <p>Left-click and hold with the
                         ALT key to create a box that will return a potential list of images
-                        </small>
+                      </p>
                     </li>
                     <li class="col-sm-12 text-center">
                       <button class="btn btn-warning btn-xs" type="button"
@@ -120,94 +120,113 @@
                 </li>
               </ul>
             </li>
-            <li class="dropdown">
-              <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            <li class="dropdown mega-dropdown">
+              <a  class="dropdown-toggle temporal-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false"><span class="fa fa-clock-o" aria-hidden="true"></span>
                &nbsp;Temporal<span class="caret"></span></a>
-              <ul class="dropdown-menu" ng-click="$event.stopPropagation();">
-                <li>
-                  <div style="padding-bottom: 0px;">
-                    <div class="row">
-                      <p>Select a date type and duration filter from the select boxes below</p>
-                    </div>
-                    <form class="form">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="temporalTypeFilter">Date Type</label>
-                            <select ng-model="filter.currentDateType"
-                              ng-options="type.label for type in filter.dateTypes"
-                              ng-change="filter.updateFilterString()"
-                              id="temporalTypeFilter"
-                              class="form-control">
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="temporalDuration">Duration</label>
-                            <select ng-model="filter.currentTemporalDuration"
-                              ng-options="duration.label for duration in filter.temporalDurations"
-                              ng-change="filter.updateFilterString()"
-                              id="temporalDuration"
-                              class="form-control">
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row" ng-show="filter.customDateRangeVisible">
-                        <div class="col-md-12">
-                          <label class="">Custom Dates</label>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="row" ng-show="filter.customDateRangeVisible">
-                          <div class="col-md-6"><p class="text-center">Start Time & Date</p></div>
-                          <div class="col-md-6"><p class="text-center">End Time & Date</p></div>
-                        </div>
-                        <div class="row" ng-show="filter.customDateRangeVisible">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <input type="text" class="form-control"
-                               ng-model="filter.startDate"
-                               ng-change="filter.updateFilterString();"
-                               data-time-format="HH:mm:ss a"
-                               data-autoclose="false"
-                               data-minute-step="1"
-                               data-second-step="1"
-                               placeholder="Time" bs-timepicker>
-                            </div>
-                            <div style="display:inline-block;">
-                              <uib-datepicker
-                                ng-model="filter.startDate"
-                                ng-change="filter.updateFilterString();"
-                                show-weeks="false"
-                                class="well well-sm">
-                              </uib-datepicker>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <input type="text" size="8" class="form-control"
-                               ng-model="filter.endDate"
-                               data-time-format="HH:mm:ss a"
-                               data-autoclose="0" placeholder="Time" bs-timepicker>
-                            </div>
-                            <div style="display:inline-block;">
-                              <uib-datepicker
-                                ng-model="filter.endDate"
-                                ng-change="filter.updateFilterString();"
-                                show-weeks="false"
-                                class="well well-sm">
-                              </uib-datepicker>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">Temporal Filters</li>
+                    <li class="text-center">
+                      <p>Select a date type and duration filter from the select boxes below.  Changes will be reflected immediately</p>
+                    </li>
+                  </ul>
                 </li>
-              </ul>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="form-group form-group-sm">
+                        <label for="temporalTypeFilter">Date Type</label>
+                        <select ng-model="filter.currentDateType"
+                          ng-options="type.label for type in filter.dateTypes"
+                          ng-change="filter.updateFilterString()"
+                          id="temporalTypeFilter"
+                          class="form-control">
+                        </select>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="form-group form-group-sm">
+                        <label for="temporalDuration">Duration</label>
+                        <select ng-model="filter.currentTemporalDuration"
+                          ng-options="duration.label for duration in filter.temporalDurations"
+                          ng-change="filter.updateFilterString()"
+                          id="temporalDuration"
+                          class="form-control">
+                        </select>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row">
+                      <p class="text-center">Start Time & Date</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li>
+                      <p class="text-center">End Time & Date</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="form-group form-group-sm">
+                        <input type="text" class="form-control"
+                         ng-model="filter.startDate"
+                         ng-change="filter.updateFilterString();"
+                         data-time-format="HH:mm:ss a"
+                         data-autoclose="false"
+                         data-minute-step="1"
+                         data-second-step="1"
+                         placeholder="Time" bs-timepicker>
+                      </div>
+                      <div style="display:inline-block;">
+                        <uib-datepicker
+                          ng-model="filter.startDate"
+                          ng-change="filter.updateFilterString();"
+                          show-weeks="false"
+                          class="well well-sm">
+                        </uib-datepicker>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="form-group form-group-sm">
+                        <input type="text" size="8" class="form-control"
+                         ng-model="filter.endDate"
+                         data-time-format="HH:mm:ss a"
+                         data-autoclose="0" placeholder="Time" bs-timepicker>
+                      </div>
+                      <div style="display:inline-block;">
+                        <uib-datepicker
+                          ng-model="filter.endDate"
+                          ng-change="filter.updateFilterString();"
+                          show-weeks="false"
+                          class="well well-sm">
+                        </uib-datepicker>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-12 text-center">
+                  <button class="btn btn-warning btn-xs" type="button"
+                    ng-click="filter.closeFilterDropdown('temporal-filter-dropdown')">Close
+                  </button>
+                </li>
+              </ul><!-- end menu -->
             </li>
             <li class="dropdown mega-dropdown">
               <a class="dropdown-toggle keyword-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -218,7 +237,8 @@
                 <li class="col-sm-12">
                   <ul>
                     <li class="dropdown-header text-center">Keyword Filters</li>
-                    <li class="text-center"><p>Click in the input boxes or use the checkboxes next to the keyword parameters to use them
+                    <li class="text-center">
+                      <p>Click in the input boxes or use the checkboxes next to the keyword parameters to use them
                       as filters</p>
                     </li>
                   </ul>
@@ -378,6 +398,9 @@
                     <li class="dropdown-header text-center">
                       <p class="text-center">Range Filters</p>
                     </li>
+                    <li class="text-center">
+                      <p>Click the checkbox next to the range parameter below to use it as a filter</p>
+                    </li>
                     <li class="col-sm-3 filter-row">
                       <div class="input-group input-group-sm">
                         <span class="input-group-addon">
@@ -404,7 +427,7 @@
                        placeholder="9.0" value="{{filter.predNiirsMax}}">
                     </li>
                     <li class="col-sm-3">
-                      <small class="text-muted">Valid ranges  0.0 to 9.0</small>
+                      <small>Valid ranges  0.0 to 9.0</small>
                     </li>
                     <li class="col-sm-12">
                       <hr>
@@ -435,7 +458,7 @@
                        placeholder="0.0" value="{{filter.azimuthMax}}">
                     </li>
                     <li class="col-sm-3">
-                      <small class="text-muted">Valid ranges 0 to 360 degrees</small>
+                      <small>Valid ranges 0 to 360 degrees</small>
                     </li>
                     <li class="col-sm-12">
                       <hr>
@@ -466,7 +489,7 @@
                        placeholder="0.0" value="{{filter.grazeElevMax}}">
                     </li>
                     <li class="col-sm-3">
-                      <small class="text-muted">Valid ranges 0 to 90 degrees</small>
+                      <small>Valid ranges 0 to 90 degrees</small>
                     </li>
                     <li class="col-sm-12">
                       <hr>
@@ -497,7 +520,7 @@
                        placeholder="9.0" value="{{filter.sunAzimuthMax}}">
                     </li>
                     <li class="col-sm-3">
-                      <small class="text-muted">Valid ranges 0 to 360 degrees</small>
+                      <small>Valid ranges 0 to 360 degrees</small>
                     </li>
                     <li class="col-sm-12">
                       <hr>
@@ -528,7 +551,7 @@
                        placeholder="90.0" value="{{filter.sunElevationMax}}">
                     </li>
                     <li class="col-sm-3">
-                      <small class="text-muted">Valid ranges -90 to 90 degrees</small>
+                      <small>Valid ranges -90 to 90 degrees</small>
                     </li>
                     <li class="col-sm-12">
                       <hr>
@@ -550,7 +573,7 @@
                     <li class="col-sm-2">
                     </li>
                     <li class="col-sm-3">
-                      <small class="text-muted">Valid ranges 0 to 100%</small>
+                      <small>Valid ranges 0 to 100%</small>
                     </li>
                     <li class="col-sm-12">
                       <hr>
