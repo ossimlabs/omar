@@ -50,6 +50,10 @@ wfs:
         datastoreId: omar_prod
 
 omar:
+  o2:
+    baseUrl: http://${O2URL}
+  wms:
+    baseUrl: http://${WMSURL}
   superOverlay:
     wmsUrl: http://${WMSURL}/wms/getMap
 
