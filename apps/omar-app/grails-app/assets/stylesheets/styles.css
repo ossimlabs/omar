@@ -65,8 +65,7 @@ body {
 }
 
 .searchForm {
-    height: 50px;
-    padding-top: 8px;
+    padding-top: 10px;
 }
 
 .searchForm .input-group-btn .glyphicon {
@@ -698,6 +697,16 @@ body {
   margin-bottom: 3px;
 }
 
+.mega-dropdown-menu hr {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.mega-dropdown-menu .label {
+  display: block;
+  margin-top: 5px;
+}
+
 .filter-row {
   margin-bottom: 10px;
 }
@@ -708,8 +717,11 @@ body {
 }
 
 .filter-row .spatial-name {
-
   min-width: 100px;
   text-align: left;
+}
 
+.filter-row .range-name {
+  min-width: 100px;
+  text-align: left;
 }

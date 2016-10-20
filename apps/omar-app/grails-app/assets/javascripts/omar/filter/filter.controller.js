@@ -425,11 +425,11 @@
 
         };
 
-        $(document).on('click', '.mega-dropdown', function(e) {
-
-          e.stopPropagation()
-
-        });
+        // $(document).on('click', '.mega-dropdown', function(e) {
+        //
+        //   e.stopPropagation()
+        //
+        // });
 
     }
 })();
