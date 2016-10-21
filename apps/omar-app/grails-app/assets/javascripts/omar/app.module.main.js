@@ -15,30 +15,30 @@
     .config(['$stateProvider', '$urlRouterProvider',
 
       function ($stateProvider, $urlRouterProvider) {
-
+        console.log(AppO2.APP_CONFIG.serverURL);
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
 
           .state('home', {
             url: '/home',
-            templateUrl:  AppO2.APP_CONFIG.serverURL + '/home/home.partial.html'
+            templateUrl:  AppO2.APP_CONFIG.serverURL + '/views/home/home.partial.html'
           })
           .state('map', {
             url: '/map',
-            templateUrl: AppO2.APP_CONFIG.serverURL + '/map/map.partial.html',
+            templateUrl: AppO2.APP_CONFIG.serverURL + '/views/map/map.partial.html',
           })
           .state('mapOrtho', {
             url: '/mapOrtho?layers',
-            templateUrl: AppO2.APP_CONFIG.serverURL + '/mapOrtho/map.ortho.partial.html'
+            templateUrl: AppO2.APP_CONFIG.serverURL + '/views/mapOrtho/map.ortho.partial.html'
           })
           .state('mapImage', {
             url: '/mapImage?filename=&entry_id=&width=&height&bands=&numOfBands=&imageId=',
-            templateUrl: AppO2.APP_CONFIG.serverURL + '/mapImage/map.image.partial.html'
+            templateUrl: AppO2.APP_CONFIG.serverURL + '/views/mapImage/map.image.partial.html'
           })
           .state('wfs', {
             url: '/wfs',
-            templateUrl: AppO2.APP_CONFIG.serverURL + '/wfs/wfs.partial.html'
+            templateUrl: AppO2.APP_CONFIG.serverURL + '/views/wfs/wfs.partial.html'
           });
 
       }])
