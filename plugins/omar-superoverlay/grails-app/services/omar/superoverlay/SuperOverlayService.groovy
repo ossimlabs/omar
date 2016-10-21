@@ -4,6 +4,7 @@ package omar.superoverlay
 import com.vividsolutions.jts.geom.Coordinate
 import com.vividsolutions.jts.geom.GeometryFactory
 import com.vividsolutions.jts.geom.PrecisionModel
+import geoscript.geom.*
 import geoscript.workspace.Workspace
 import grails.transaction.Transactional
 import groovy.xml.StreamingMarkupBuilder
@@ -474,8 +475,26 @@ class SuperOverlayService implements InitializingBean
             kml( "xmlns": "http://earth.google.com/kml/2.1" ) {
                 Document() {
 
+                    Style( "id": "default" ) {
+                        LineStyle() {
+                            color( "ffffffff" )
+                            width( 2 )
+                        }
+                        PolyStyle() { color( "00ffffff" ) }
+                    }
+                    Style( "id": "msi" ) {
+                        LineStyle() {
+                            color( "ff0000ff" )
+                            width( 2 )
+                        }
+                        PolyStyle() { color( "000000ff" ) }
+                    }
                     Style( "id": "vis" ) {
-                        LineStyle() { color( "ff00ffff" ) }
+                        LineStyle() {
+                            color( "ff00ffff" )
+                            width( 2 )
+                        }
+                        PolyStyle() { color( "0000ffff" ) }
                     }
 
                     Folder() {
@@ -542,18 +561,17 @@ class SuperOverlayService implements InitializingBean
                                     tilt( 0 )
                                 }
 
-                                LineString() {
-                                    altitudeMode( "clampToGround" )
-                                    coordinates(
-                                        "${bounds.minX},${bounds.minY},0 " +
-                                        "${bounds.maxX},${bounds.minY},0 " +
-                                        "${bounds.maxX},${bounds.maxY},0 " +
-                                        "${bounds.minX},${bounds.maxY},0 " +
-                                        "${bounds.minX},${bounds.minY},0 "
-                                    )
-                                }
+                                // the footprint geometry
+                                mkp.yieldUnescaped( feature.ground_geom.getKml() )
+
                                 Snippet()
-                                styleUrl( "#vis" )
+
+                                switch (feature.sensor_id) {
+                                    case "msi": styleUrl( "#msi" ); break
+                                    case "vis": styleUrl( "#vis" ); break
+                                    default: styleUrl( "#default" ); break
+                                }
+
                             }
                         }
                         open( 1 )
@@ -590,8 +608,8 @@ class SuperOverlayService implements InitializingBean
             "Country Code": feature.country_code ?: "",
             "Filename": "<a href = '${imageUrl}'>${feature.filename}</a>",
             "Grazing Angle": feature.grazing_angle ?: "",
-            "GSD X/Y": (feature.gsdx && feature.gsdy) ? "${feature.gsdx}/${feature.gsdy}" : "",
-            "Image ID": feature.image_id ?: "",
+            "GSD X/Y": (feature.gsdx && feature.gsdy) ? "${feature.gsdx} / ${feature.gsdy}" : "",
+            "Image ID": feature.image_id ?: (feature.title ?: ""),
             "Ingest Date": feature.ingest_date ?: "",
             "NIIRS": feature.niirs ?: "",
             "# of Bands": feature.number_of_bands ?: "",
@@ -599,7 +617,6 @@ class SuperOverlayService implements InitializingBean
             "Sensor": feature.sensor_id ?: "",
             "Sun Azimuth": feature.sun_azimuth ?: "",
             "Sun Elevation": feature.sun_elevation ?: "",
-            "Title": feature.title ?: "",
             "WFS": "<a href = '${wfsUrl}'>All Metadata</a>"
         ]
 
@@ -653,7 +670,7 @@ class SuperOverlayService implements InitializingBean
 
         def kmlQueryUrl = grailsLinkGenerator.link(
             absolute: true, action: "kmlQuery",
-            controller: "superOverlay", params: [max: 10]
+            controller: "superOverlay", params: [maxFeatures: 10]
         )
         def kmlNode = {
             mkp.xmlDeclaration()
@@ -687,16 +704,24 @@ class SuperOverlayService implements InitializingBean
         }
         else { bbox = [-180, -90, 180, 90] }
 
-        def polygon = "${bbox[0]} ${bbox[1]}, ${bbox[2]} ${bbox[1]}, ${bbox[2]} ${bbox[3]}, ${bbox[0]} ${bbox[3]}, ${bbox[0]} ${bbox[1]}"
-        def filter = "INTERSECTS(ground_geom,POLYGON((${polygon})))"
+        def polygon = new Bounds(bbox[0], bbox[1], bbox[2], bbox[3]).createRectangle(4, 0)
+        def filter = "INTERSECTS(ground_geom,${polygon})"
+
+        // limit the number of possible returns
+        def maxFeatures = params.maxFeatures ?: 10
+        if (!maxFeatures.toString().isNumber()) { maxFeatures = 10 }
+        else { maxFeatures = maxFeatures as Integer }
+        if (maxFeatures > 100) { maxFeatures = 100 }
 
         // conduct a search for imagery
         def wfsParams = [
             filter: filter,
+            maxFeatures: maxFeatures,
             typeName: "omar:raster_entry"
         ]
         def layerInfo = geoscriptService.findLayerInfo( wfsParams )
         def options = geoscriptService.parseOptions( wfsParams )
+
         def features
         Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { workspace ->
             def layer = workspace[layerInfo.name]
