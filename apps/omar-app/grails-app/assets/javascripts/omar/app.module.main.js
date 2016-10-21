@@ -9,7 +9,6 @@
       'toastr',
       'mgcrea.ngStrap',
       'slickCarousel',
-      'toggle-switch',
       'angular-clipboard',
       'ui.select',
       'ngSanitize'])
