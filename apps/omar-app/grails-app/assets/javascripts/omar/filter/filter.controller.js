@@ -86,6 +86,7 @@
         };
 
         vm.initKeywords = function() {
+
             // Keywords
             vm.countryCodeCheck = false;
             vm.countryCode = "";
@@ -303,7 +304,7 @@
                 }
 
                 filterArray.push(clause);
-                console.log(dbName + ' filterArray', filterArray);
+
             }
 
             function pushRangeToArray(dbName, formFieldMin, formFieldMax) {
@@ -327,37 +328,30 @@
             }
 
             // Keywords
-            if (vm.beNumberCheck) {
+            if (vm.beNumberCheck && vm.beNumber != '') {
+                console.log('Pushing beNumber to array!');
                 pushKeywordToArray("be_number", vm.beNumber);
             }
-            if (vm.countryCodeCheck) {
+            if (vm.countryCodeCheck && vm.countryCode != '') {
                 pushKeywordToArray("country_code", vm.countryCode);
             }
-            if (vm.filenameCheck) {
+            if (vm.filenameCheck && vm.filename != '') {
                 pushKeywordToArray("filename", vm.filename);
             }
-            if (vm.imageIdCheck) {
+            if (vm.imageIdCheck && vm.imageId != '') {
                 pushKeywordToArray("title", vm.imageId);
             }
-            if (vm.missionIdCheck) {
-                //filterArray.push(["mission_id Like '%", vm.missionId.trim() ,"%'"].join(""));
+            if (vm.missionIdCheck && vm.missionId != '') {
                 pushKeywordToArray("mission_id", vm.missionId);
-                //console.log('vm.missionIdCheck filterArray', filterArray);
             }
-            if (vm.sensorIdCheck) {
-                //filterArray.push(["sensor_id Like '%", vm.sensorId.trim(), "%'"].join(""));
+            if (vm.sensorIdCheck && vm.sensorId != '') {
                 pushKeywordToArray("sensor_id", vm.sensorId);
-                //console.log('vm.sensorIdCheck filterArray', filterArray);
             }
-            if (vm.targetIdCheck) {
-                //filterArray.push(["target_id Like '%", vm.targetId.trim(), "%'"].join(""));
+            if (vm.targetIdCheck && vm.targetId != '') {
                 pushKeywordToArray("target_id", vm.targetId);
-                //console.log('vm.target_id filterArray', filterArray);
             }
-            if (vm.wacNumberCheck) {
-                //filterArray.push(["wac_code Like '%", vm.wacNumber.trim(), "%'"].join(""));
+            if (vm.wacNumberCheck && vm.wacNumber != '') {
                 pushKeywordToArray("wac_code", vm.wacNumber);
-                //console.log('vm.wac_code filterArray', filterArray);
             }
 
             // Ranges
@@ -421,6 +415,21 @@
 
         vm.setInitialCustomStartDate();
         vm.setInitialCustomEndDate();
+
+        vm.closeFilterDropdown = function(e) {
+
+          var elem = "." + e;
+          console.log(elem);
+
+          $(elem).dropdown('toggle');
+
+        };
+
+        // $(document).on('click', '.mega-dropdown', function(e) {
+        //
+        //   e.stopPropagation()
+        //
+        // });
 
     }
 })();

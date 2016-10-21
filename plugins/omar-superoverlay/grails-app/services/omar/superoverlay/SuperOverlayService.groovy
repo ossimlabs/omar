@@ -1,18 +1,21 @@
 package omar.superoverlay
 
-import groovy.xml.StreamingMarkupBuilder
 
 import com.vividsolutions.jts.geom.Coordinate
 import com.vividsolutions.jts.geom.GeometryFactory
 import com.vividsolutions.jts.geom.PrecisionModel
-import joms.oms.ossimGpt
-import org.springframework.beans.factory.InitializingBean
-
+import geoscript.geom.*
+import geoscript.workspace.Workspace
+import grails.transaction.Transactional
+import groovy.xml.StreamingMarkupBuilder
 import java.awt.image.BufferedImage
-
+import joms.oms.ossimGpt
 //import org.ossim.omar.core.Utility
 //import org.ossim.omar.ogc.WmsCommand
+import org.springframework.beans.factory.InitializingBean
 
+
+@Transactional( readOnly = true )
 class SuperOverlayService implements InitializingBean
 {
   static transactional = false
@@ -24,10 +27,18 @@ class SuperOverlayService implements InitializingBean
   def webMappingService
   def tileSize = [width: 256, height: 256]
   def lodValues = [min: 128, max: 2000]
+    def geoscriptService
 //  def appTagLib = new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib()
 
   def geometryFactory = new GeometryFactory( new PrecisionModel( PrecisionModel.FLOATING ), 4326 )
 
+  def canSplit(def tileBounds, def fullResMetersPerPixel)
+  {
+    def metersPerPixel = getMetersPerPixel( tileBounds, fullResMetersPerPixel )
+
+    // keep splitting if we can zoom further
+    metersPerPixel > fullResMetersPerPixel
+  }
 
   def createFullResBounds(def rasterEntry)
   {
@@ -79,7 +90,7 @@ class SuperOverlayService implements InitializingBean
       mkp.xmlDeclaration()
       kml( "xmlns": "http://earth.google.com/kml/2.1" ) {
         Document() {
-//          name( "${rasterKmlService.createName( rasterEntry )}" )
+    //          name( "${rasterKmlService.createName( rasterEntry )}" )
           name( "${rasterEntry.filename}" )
 
           Snippet()
@@ -186,7 +197,7 @@ class SuperOverlayService implements InitializingBean
     }
     //println wmsMap
 
-//    println defaultWmsUrl
+    //    println defaultWmsUrl
 
     //def minLod = Math.sqrt(tileSize.width*tileSize.height)
     //def maxLod = minLod
@@ -234,11 +245,11 @@ class SuperOverlayService implements InitializingBean
                 mkp.yieldUnescaped( """<![CDATA[${
                   defaultWmsUrl
                 }]]>""" )
-//                mkp.yieldUnescaped( """<![CDATA[${
-//                  grailsLinkGenerator.link(
-//                      absolute: true, controller: 'wms',
-//                      action: 'getMap', params: wmsMap )
-//                }]]>""" )
+    //                mkp.yieldUnescaped( """<![CDATA[${
+    //                  grailsLinkGenerator.link(
+    //                      absolute: true, controller: 'wms',
+    //                      action: 'getMap', params: wmsMap )
+    //                }]]>""" )
               }
               viewRefreshMode( "onExpire" )
             }
@@ -365,7 +376,7 @@ class SuperOverlayService implements InitializingBean
             drawOrder( params.level )
             Icon() {
               href { mkp.yieldUnescaped( "images/image.${ext}" ) }
-//                      href{mkp.yieldUnescaped("<![CDATA[${appTagLib.createLink(absolute: true, controller: 'ogc', action: 'wms',params:wmsMap)}]]>")}
+    // href{mkp.yieldUnescaped("<![CDATA[${appTagLib.createLink(absolute: true, controller: 'ogc', action: 'wms',params:wmsMap)}]]>")}
               viewRefreshMode( "onExpire" )
             }
             LatLonBox() {
@@ -432,50 +443,6 @@ class SuperOverlayService implements InitializingBean
     result
   }
 
-  def getMetersPerPixel(def tileBounds, def fullResMetersPerPixel)
-  {
-    def deltax = ( tileBounds.maxx - tileBounds.minx )
-    def deltay = ( tileBounds.maxy - tileBounds.miny )
-    //def maxDelta = deltax>deltay?deltay:deltax
-    // def maxTileSize = tileSize.width>tileSize.height?tileSize.width:tileSize.height
-    //def metersPerPixel = (maxDelta*metersPerDegree)/maxTileSize
-    def metersPerPixel = ( ( ( deltax * metersPerDegree ) / tileSize.width ) +
-        ( ( deltay * metersPerDegree ) / tileSize.height ) ) * 0.5
-
-    metersPerPixel
-  }
-
-  def canSplit(def tileBounds, def fullResMetersPerPixel)
-  {
-    def metersPerPixel = getMetersPerPixel( tileBounds, fullResMetersPerPixel )
-
-    // keep splitting if we can zoom further
-    metersPerPixel > fullResMetersPerPixel
-  }
-
-  def tileBound(def params, def fullResBbox)
-  {
-    tileBound( params.level ? params.level as Integer : 0,
-        params.row ? params.row as Integer : 0,
-        params.col ? params.col as Integer : 0,
-        fullResBbox )
-  }
-
-  def tileBound(def level, def row, def col, def fullResBbox)
-  {
-    def minx = fullResBbox.minx
-    def maxx = fullResBbox.maxx
-    def miny = fullResBbox.miny
-    def maxy = fullResBbox.maxy
-    def deltax = ( maxx - minx ) / ( 2**level )
-    def deltay = ( maxy - miny ) / ( 2**level )
-
-    def llx = minx + deltax * col
-    def lly = miny + deltay * row
-
-    [minx: llx, miny: lly, maxx: ( llx + deltax ), maxy: ( lly + deltay )]
-  }
-
   def generateSubTiles(def params, def fullResBbox)
   {
     def level = ( params.level as Integer ) + 1
@@ -498,6 +465,298 @@ class SuperOverlayService implements InitializingBean
         [minx: llx + deltax, miny: ( lly + deltay ), maxx: ( llx + 2.0 * deltax ), maxy: ( lly + 2.0 * deltay ), level: level, col: ( ncol + 1 ), row: ( nrow + 1 )],
         [minx: llx, miny: lly + deltay, maxx: ( llx + deltax ), maxy: ( lly + 2.0 * deltay ), level: level, col: ncol, row: ( nrow + 1 )]
     ]
+  }
+
+    def getFeaturesKml(wmsParams, features) {
+        def wmsBaseUrl = grailsApplication.config.omar.wms.baseUrl + "/wms?"
+
+        def kmlNode = {
+            mkp.xmlDeclaration()
+            kml( "xmlns": "http://earth.google.com/kml/2.1" ) {
+                Document() {
+
+                    Style( "id": "default" ) {
+                        LineStyle() {
+                            color( "ffffffff" )
+                            width( 2 )
+                        }
+                        PolyStyle() { color( "00ffffff" ) }
+                    }
+                    Style( "id": "msi" ) {
+                        LineStyle() {
+                            color( "ff0000ff" )
+                            width( 2 )
+                        }
+                        PolyStyle() { color( "000000ff" ) }
+                    }
+                    Style( "id": "vis" ) {
+                        LineStyle() {
+                            color( "ff00ffff" )
+                            width( 2 )
+                        }
+                        PolyStyle() { color( "0000ffff" ) }
+                    }
+
+                    Folder() {
+                        name( "Images" )
+                        features.eachWithIndex() { value, index ->
+                            def feature = value
+                            GroundOverlay() {
+                                description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
+                                name( "${index + 1}: " + (feature.title ?: feature.filename) )
+
+                                Icon() {
+                                    def wmsUrl = wmsBaseUrl
+                                    wmsParams.FILTER = "in(${feature.get("id")})"
+                                    wmsParams.each() { wmsUrl += "${it.key}=${it.value}&" }
+                                    href { mkp.yieldUnescaped( "<![CDATA[${wmsUrl}]]>" ) }
+                                    viewBoundScale( 0.85 )
+                                    viewFormat(
+                                        "BBOX=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&" + "WIDTH=[horizPixels]&HEIGHT=[vertPixels]"
+                                    )
+                                    viewRefreshMode( "onStop" )
+                                    viewRefreshTime( 1 )
+                                }
+
+                                LookAt() {
+                                    def bounds = feature.ground_geom.envelopeInternal
+                                    def centerLon = ( bounds?.minX + bounds?.maxX ) * 0.5
+                                    def centerLat = ( bounds?.minY + bounds?.maxY ) * 0.5
+
+                                    altitude( 0 )
+                                    altitudeMode( "clampToGround" )
+                                    heading( 0 )
+                                    latitude( centerLat )
+                                    longitude( centerLon )
+                                    range( 15000 )
+                                    tilt( 0 )
+                                }
+
+                                Snippet()
+                                visibility( 0 )
+                            }
+                        }
+                        open( 1 )
+                    }
+
+                    Folder() {
+                        name( "Footprints" )
+                        features.eachWithIndex() { value, index ->
+                            def feature = value
+                            Placemark() {
+                                name( "${index + 1}: " + (feature.title ?: feature.filename) )
+                                description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
+
+                                def bounds = feature.ground_geom.envelopeInternal
+                                def centerLon = ( bounds?.minX + bounds?.maxX ) * 0.5
+                                def centerLat = ( bounds?.minY + bounds?.maxY ) * 0.5
+
+                                LookAt() {
+                                    altitude( 0 )
+                                    altitudeMode( "clampToGround" )
+                                    heading( 0 )
+                                    latitude( centerLat )
+                                    longitude( centerLon )
+                                    range( 15000 )
+                                    tilt( 0 )
+                                }
+
+                                // the footprint geometry
+                                mkp.yieldUnescaped( feature.ground_geom.getKml() )
+
+                                Snippet()
+
+                                switch (feature.sensor_id) {
+                                    case "msi": styleUrl( "#msi" ); break
+                                    case "vis": styleUrl( "#vis" ); break
+                                    default: styleUrl( "#default" ); break
+                                }
+
+                            }
+                        }
+                        open( 1 )
+                    }
+                    open( 1 )
+                }
+            }
+        }
+
+        def kmlWriter = new StringWriter()
+        def kmlBuilder = new StreamingMarkupBuilder()
+        kmlWriter << kmlBuilder.bind( kmlNode )
+
+
+        return kmlWriter.buffer
+    }
+
+    def getKmlDescription( feature ) {
+        def o2BaseUrl = grailsApplication.config.omar.o2.baseUrl
+        def imageUrl = "${o2BaseUrl}/omar/#/mapOrtho?layers=${feature.get("id")}"
+
+        def wfsUrl = "${grailsApplication.config.omar.wfs.baseUrl}/wfs/getFeature?" +
+            "filter=in(${feature.get("id")})&" +
+            "request=GetFeature&" +
+            "service=WFS&&" +
+            "typeName=omar%3Araster_entry&" +
+            "version=1.1.0"
+
+        def tableMap = [
+            "Acquistion Date": feature.acquisition_date ?: "",
+            "Azimuth Angle": feature.azimuth_angle ?: "",
+            "Bit Depth": feature.bit_depth ?: "",
+            "Cloud Cover": feature.cloud_cover ?: "",
+            "Country Code": feature.country_code ?: "",
+            "Filename": "<a href = '${imageUrl}'>${feature.filename}</a>",
+            "Grazing Angle": feature.grazing_angle ?: "",
+            "GSD X/Y": (feature.gsdx && feature.gsdy) ? "${feature.gsdx} / ${feature.gsdy}" : "",
+            "Image ID": feature.image_id ?: (feature.title ?: ""),
+            "Ingest Date": feature.ingest_date ?: "",
+            "NIIRS": feature.niirs ?: "",
+            "# of Bands": feature.number_of_bands ?: "",
+            "Security Class.": feature.security_classification ?: "",
+            "Sensor": feature.sensor_id ?: "",
+            "Sun Azimuth": feature.sun_azimuth ?: "",
+            "Sun Elevation": feature.sun_elevation ?: "",
+            "WFS": "<a href = '${wfsUrl}'>All Metadata</a>"
+        ]
+
+        def description = "<table style = 'width: auto; white-space: nowrap'>"
+        tableMap.each() {
+            description += "<tr>"
+            description += "<th align = 'right'>${it.key}:</th>"
+            description += "<td>${it.value}</td>"
+            description += "</tr>"
+        }
+
+        description += "<tfoot><tr><td colspan='2'>"
+        description +=     "<a href = '${o2BaseUrl}'>"
+        description +=         "<img src = '${o2BaseUrl}/assets/o2-logo.png'/>"
+        description +=     "</a>"
+        description += "</td></tr></tfoot>"
+        description += "</table>"
+
+
+        return description
+    }
+
+    def getKmlWmsParams(params) {
+        return [
+            FORMAT: "image/png",
+            LAYERS: "omar:raster_entry",
+            REQUEST: "GetMap",
+            SERVICE: "WMS",
+            SRS: "EPSG:4326",
+            TRANSPARENT: true,
+            VERSION: "1.1.1"
+        ]
+    }
+
+  def getMetersPerPixel(def tileBounds, def fullResMetersPerPixel)
+  {
+    def deltax = ( tileBounds.maxx - tileBounds.minx )
+    def deltay = ( tileBounds.maxy - tileBounds.miny )
+    //def maxDelta = deltax>deltay?deltay:deltax
+    // def maxTileSize = tileSize.width>tileSize.height?tileSize.width:tileSize.height
+    //def metersPerPixel = (maxDelta*metersPerDegree)/maxTileSize
+    def metersPerPixel = ( ( ( deltax * metersPerDegree ) / tileSize.width ) +
+        ( ( deltay * metersPerDegree ) / tileSize.height ) ) * 0.5
+
+    metersPerPixel
+  }
+
+    def getLastImagesKml() {
+        def kmlBuilder = new StreamingMarkupBuilder()
+        kmlBuilder.encoding = "UTF-8"
+
+        def kmlQueryUrl = grailsLinkGenerator.link(
+            absolute: true, action: "kmlQuery",
+            controller: "superOverlay", params: [maxFeatures: 10]
+        )
+        def kmlNode = {
+            mkp.xmlDeclaration()
+            kml( "xmlns": "http://earth.google.com/kml/2.1" ) {
+                NetworkLink() {
+                    Link() {
+                        href {
+                            mkp.yieldUnescaped( "<![CDATA[${kmlQueryUrl}]]>" )
+                        }
+                        viewFormat( "BBOX=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]" )
+                        viewRefreshMode( "onRequest" )
+                        viewRefreshTime( 0 )
+                    }
+                    name( "O2 Last 10 Images For View" )
+                }
+            }
+        }
+
+
+        return kmlBuilder.bind( kmlNode ).toString()
+    }
+
+    def kmlQuery(params) {
+        // make sure the BBOX is valid
+        def bbox = params.BBOX?.split(",").collect({ it as Double })
+        if ( bbox ) {
+            if ( bbox[0] < -180 ) { bbox[0] = -180 }
+            if ( bbox[1] < -90 ) { bbox[1] = -90 }
+            if ( bbox[2] > 180 ) { bbox[2] = 180 }
+            if ( bbox[3] > 90 ) { bbox[3] = 90 }
+        }
+        else { bbox = [-180, -90, 180, 90] }
+
+        def polygon = new Bounds(bbox[0], bbox[1], bbox[2], bbox[3]).createRectangle(4, 0)
+        def filter = "INTERSECTS(ground_geom,${polygon})"
+
+        // limit the number of possible returns
+        def maxFeatures = params.maxFeatures ?: 10
+        if (!maxFeatures.toString().isNumber()) { maxFeatures = 10 }
+        else { maxFeatures = maxFeatures as Integer }
+        if (maxFeatures > 100) { maxFeatures = 100 }
+
+        // conduct a search for imagery
+        def wfsParams = [
+            filter: filter,
+            maxFeatures: maxFeatures,
+            typeName: "omar:raster_entry"
+        ]
+        def layerInfo = geoscriptService.findLayerInfo( wfsParams )
+        def options = geoscriptService.parseOptions( wfsParams )
+
+        def features
+        Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { workspace ->
+            def layer = workspace[layerInfo.name]
+            features = layer.collectFromFeature( options ) { feature -> return feature }
+            workspace.close()
+        }
+
+        def wmsParams = getKmlWmsParams(params)
+        def kml = getFeaturesKml(wmsParams, features)
+
+
+        return kml
+    }
+
+  def tileBound(def params, def fullResBbox)
+  {
+    tileBound( params.level ? params.level as Integer : 0,
+        params.row ? params.row as Integer : 0,
+        params.col ? params.col as Integer : 0,
+        fullResBbox )
+  }
+
+  def tileBound(def level, def row, def col, def fullResBbox)
+  {
+    def minx = fullResBbox.minx
+    def maxx = fullResBbox.maxx
+    def miny = fullResBbox.miny
+    def maxy = fullResBbox.maxy
+    def deltax = ( maxx - minx ) / ( 2**level )
+    def deltay = ( maxy - miny ) / ( 2**level )
+
+    def llx = minx + deltax * col
+    def lly = miny + deltay * row
+
+    [minx: llx, miny: lly, maxx: ( llx + deltax ), maxy: ( lly + deltay )]
   }
 
   void afterPropertiesSet()

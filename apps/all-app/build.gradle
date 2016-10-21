@@ -73,6 +73,7 @@ grails {
 //      compile project( ':omar-security' )
     compile project( ':omar-jpip' )
     compile project( ':omar-download' )
+compile project( ':omar-superoverlay' )
   }
 }
 
@@ -102,5 +103,5 @@ dependencies {
 
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
-  
+
 }

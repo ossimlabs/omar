@@ -13,7 +13,7 @@
       <div class="collapse navbar-collapse" id="map-navbar-collapse">
         <div class="col-sm-5">
           <form id="searchForm" class="searchForm">
-            <div class="input-group" ng-controller="SearchController as search">
+            <div class="input-group input-group-sm" ng-controller="SearchController as search">
               <span class="input-group-btn">
                 <button
                   class="{{search.imageIdClass}}"
@@ -51,532 +51,548 @@
         <div class="col-sm-7">
           <ul class="nav navbar-nav navbar-right" ng-controller="FilterController as filter">
             <p class="navbar-text">Filters</p>
-            <li class="dropdown">
-              <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            <li class="dropdown mega-dropdown">
+              <a class="dropdown-toggle spatial-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
-                &nbsp;Spatial<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <div class="yamm-content">
-                    <div ng-click="$event.stopPropagation();" style="padding-bottom: 0px;" class="yamm-content">
-                      <div class="row">
-                        <p class="text-center">Select a spatial filter from the items below</p>
+                &nbsp;Spatial
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">
+                      <p class="text-center">Spatial Filters</p>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.viewPortSpatial"
+                          ng-change="filter.byViewPort(filter.viewPortSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Map Viewport</span>
                       </div>
-                      <form class="form">
-                        <div class="row">
-                          <div class="col-md-8">
-                            <h4>Map Viewport</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.viewPortSpatial"
-                              ng-change="filter.byViewPort(filter.viewPortSpatial)">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12"><small class="text-muted">This filter is on by default.  It constrains the
-                            query to the boundaries of the current map extent</small>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-8">
-                            <h4>Point</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.pointSpatial"
-                              ng-change="filter.byPointer(filter.pointSpatial);">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12"><small class="text-muted">Single clicking on the map
-                            will return a potential list of images at that location</small>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-8">
-                            <h4>Polygon</h4>
-                          </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.polygonSpatial"
-                              ng-change="filter.byPolygon(filter.polygonSpatial)">
-                            </toggle-switch>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12"><small class="text-muted">Left-click and hold with the
-                            ALT key to create a box that will return a potential list of images
-                            </small>
-                          </div>
-                          <hr>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+                    </li>
+                    <li class="col-sm-9">
+                      <p>This filter is on by default.  It constrains the
+                        query to the boundaries of the current map extent</p>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.pointSpatial"
+                          ng-change="filter.byPointer(filter.pointSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Point</span>
+                      </<div>
+                    </li>
+                    <li class="col-sm-9">
+                      <p>Single clicking on the map
+                        will return a potential list of images at that location</p>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.polygonSpatial"
+                          ng-change="filter.byPolygon(filter.polygonSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Polygon</span>
+                      </div>
+                    </li>
+                    <li class="col-sm-9 filter-row">
+                      <p>Left-click and hold with the
+                        ALT key to create a box that will return a potential list of images
+                      </p>
+                    </li>
+                    <li class="col-sm-12 text-center">
+                      <button class="btn btn-warning btn-xs" type="button"
+                        ng-click="filter.closeFilterDropdown('spatial-filter-dropdown')">Close
+                      </button>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
-            <li class="dropdown">
-              <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            <li class="dropdown mega-dropdown">
+              <a  class="dropdown-toggle temporal-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false"><span class="fa fa-clock-o" aria-hidden="true"></span>
                &nbsp;Temporal<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <div ng-click="$event.stopPropagation();" style="padding-bottom: 0px;" class="yamm-content">
-                    <div class="row">
-                      <p>Select a date type and duration filter from the select boxes below</p>
-                    </div>
-                    <form class="form">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="temporalTypeFilter">Date Type</label>
-                            <select ng-model="filter.currentDateType"
-                              ng-options="type.label for type in filter.dateTypes"
-                              ng-change="filter.updateFilterString()"
-                              id="temporalTypeFilter"
-                              class="form-control">
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="temporalDuration">Duration</label>
-                            <select ng-model="filter.currentTemporalDuration"
-                              ng-options="duration.label for duration in filter.temporalDurations"
-                              ng-change="filter.updateFilterString()"
-                              id="temporalDuration"
-                              class="form-control">
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row" ng-show="filter.customDateRangeVisible">
-                        <div class="col-md-12">
-                          <label class="">Custom Dates</label>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="row" ng-show="filter.customDateRangeVisible">
-                          <div class="col-md-6"><p class="text-center">Start Time & Date</p></div>
-                          <div class="col-md-6"><p class="text-center">End Time & Date</p></div>
-                        </div>
-                        <div class="row" ng-show="filter.customDateRangeVisible">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <input type="text" class="form-control"
-                               ng-model="filter.startDate"
-                               ng-change="filter.updateFilterString();"
-                               data-time-format="HH:mm:ss a"
-                               data-autoclose="false"
-                               data-minute-step="1"
-                               data-second-step="1"
-                               placeholder="Time" bs-timepicker>
-                            </div>
-                            <div style="display:inline-block;">
-                              <uib-datepicker
-                                ng-model="filter.startDate"
-                                ng-change="filter.updateFilterString();"
-                                show-weeks="false"
-                                class="well well-sm">
-                              </uib-datepicker>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <input type="text" size="8" class="form-control"
-                               ng-model="filter.endDate"
-                               data-time-format="HH:mm:ss a"
-                               data-autoclose="0" placeholder="Time" bs-timepicker>
-                            </div>
-                            <div style="display:inline-block;">
-                              <uib-datepicker
-                                ng-model="filter.endDate"
-                                ng-change="filter.updateFilterString();"
-                                show-weeks="false"
-                                class="well well-sm">
-                              </uib-datepicker>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">Temporal Filters</li>
+                    <li class="text-center">
+                      <p>Select a date type and duration filter from the select boxes below.  Changes will be reflected immediately</p>
+                    </li>
+                  </ul>
                 </li>
-              </ul>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="form-group form-group-sm">
+                        <label for="temporalTypeFilter">Date Type</label>
+                        <select ng-model="filter.currentDateType"
+                          ng-options="type.label for type in filter.dateTypes"
+                          ng-change="filter.updateFilterString()"
+                          id="temporalTypeFilter"
+                          class="form-control">
+                        </select>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="form-group form-group-sm">
+                        <label for="temporalDuration">Duration</label>
+                        <select ng-model="filter.currentTemporalDuration"
+                          ng-options="duration.label for duration in filter.temporalDurations"
+                          ng-change="filter.updateFilterString()"
+                          id="temporalDuration"
+                          class="form-control">
+                        </select>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row">
+                      <p class="text-center">Start Time & Date</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li>
+                      <p class="text-center">End Time & Date</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="form-group form-group-sm">
+                        <input type="text" class="form-control"
+                         ng-model="filter.startDate"
+                         ng-change="filter.updateFilterString();"
+                         data-time-format="HH:mm:ss a"
+                         data-autoclose="false"
+                         data-minute-step="1"
+                         data-second-step="1"
+                         placeholder="Time" bs-timepicker>
+                      </div>
+                      <div style="display:inline-block;">
+                        <uib-datepicker
+                          ng-model="filter.startDate"
+                          ng-change="filter.updateFilterString();"
+                          show-weeks="false"
+                          class="well well-sm">
+                        </uib-datepicker>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="form-group form-group-sm">
+                        <input type="text" size="8" class="form-control"
+                         ng-model="filter.endDate"
+                         data-time-format="HH:mm:ss a"
+                         data-autoclose="0" placeholder="Time" bs-timepicker>
+                      </div>
+                      <div style="display:inline-block;">
+                        <uib-datepicker
+                          ng-model="filter.endDate"
+                          ng-change="filter.updateFilterString();"
+                          show-weeks="false"
+                          class="well well-sm">
+                        </uib-datepicker>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-12 text-center">
+                  <button class="btn btn-warning btn-xs" type="button"
+                    ng-click="filter.closeFilterDropdown('temporal-filter-dropdown')">Close
+                  </button>
+                </li>
+              </ul><!-- end menu -->
             </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                 aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
-                  &nbsp;Keywords
-                  <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li class="yamm-content">
-                  <div id="keywords">
-                    <form>
-                      <div class="row">
-                        <p class="text-center">Toggle the switch for a keyword parameter below to use it
-                          as a filter</p>
+            <li class="dropdown mega-dropdown">
+              <a class="dropdown-toggle keyword-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
+                 &nbsp;Keyword
+               <span class="caret"></span></a>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">Keyword Filters</li>
+                    <li class="text-center">
+                      <p>Click in the input boxes or use the checkboxes next to the keyword parameters to use them
+                      as filters</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.beNumberCheck">
+                        </span>
+                        <span class="input-group-addon name">BE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input ng-model="filter.beNumber"
+                         ng-click="filter.beNumberCheck = true;" class="form-control"
+                         ng-blur="filter.beNumberCheck = filter.beNumber === '' ? false: true;"
+                         id="beNumberInput"
+                         placeholder="Basic Encyclopedia Number"
+                         value="filter.beNumber">
                       </div>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>BE Num.</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <input ng-model="filter.beNumber"
-                           ng-disabled="!filter.beNumberCheck" class="form-control"
-                           id="beNumberInput"
-                           value="{{filter.beNumber}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.beNumberCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.countryCodeCheck">
+                        </span>
+                        <span class="input-group-addon name">CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input ng-model="filter.countryCode"
+                         ng-click="filter.countryCodeCheck = true;"
+                         ng-blur="filter.countryCodeCheck = filter.countryCode === '' ? false: true;"
+                         class="form-control"
+                         id="countryCodeInput"
+                         placeholder="Country Code"
+                         value="filter.countryCode">
                       </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>CC</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <input ng-model="filter.countryCode"
-                           ng-disabled="!filter.countryCodeCheck" class="form-control"
-                           id="countryCodeInput"
-                           vaule="{{filter.countryCode}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.countryCodeCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.filenameCheck">
+                        </span>
+                        <span class="input-group-addon name">File&nbsp;&nbsp;&nbsp;</span>
+                        <input ng-model="filter.filename"
+                         ng-click="filter.filenameCheck = true;"
+                         ng-blur="filter.filenameCheck = filter.filename === '' ? false: true;"
+                         class="form-control"
+                         id="filenameInput"
+                         placeholder="File name"
+                         value="filter.filename">
                       </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Filename</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <input ng-model="filter.filename"
-                           ng-disabled="!filter.filenameCheck"class="form-control" id="filenameInput"
-                           value="{{filter.filename}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.filenameCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.imageIdCheck">
+                        </span>
+                        <span class="input-group-addon name">Image&nbsp;&nbsp;&nbsp;</span>
+                        <input ng-model="filter.imageId"
+                         ng-click="filter.imageIdCheck = true;"
+                         ng-blur="filter.imageIdCheck = filter.imageId === '' ? false: true;"
+                         class="form-control"
+                         id="imageIdInput"
+                         placeholder="Image ID"
+                         value="filter.imageId">
                       </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Image ID</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <input ng-model="filter.imageId"
-                           ng-disabled="!filter.imageIdCheck" class="form-control"
-                           id="imageIdInput"
-                           vaule="{{filter.imageId}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.imageIdCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.missionIdCheck">
+                        </span>
+                        <span class="input-group-addon name">Mission</span>
+                        <input ng-model="filter.missionId"
+                         ng-click="filter.missionIdCheck = true;"
+                         ng-blur="filter.missionIdCheck = filter.missionId === '' ? false: true;"
+                         class="form-control"
+                         id="missionIdInput"
+                         placeholder="Mission ID"
+                         value="filter.missionId">
                       </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Mission</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <input ng-model="filter.missionId"
-                           ng-disabled="!filter.missionIdCheck" class="form-control"
-                           id="missionIdInput"
-                           value="{{filter.missionId}}">
-                        </div>
-                          <div class="col-md-2">
-                            <toggle-switch
-                              ng-model="filter.missionIdCheck"
-                              class="switch-success">
-                            </toggle-switch>
-                          </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.sensorIdCheck">
+                        </span>
+                        <span class="input-group-addon name">Sensor&nbsp;</span>
+                        <input ng-model="filter.sensorId"
+                         ng-click="filter.sensorIdCheck = true;"
+                         ng-blur="filter.sensorIdCheck = filter.sensorId === '' ? false: true;"
+                         class="form-control"
+                         id="sensorIdInput"
+                         placeholder="Sensor ID"
+                         value="filter.sensorId">
                       </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Sensor</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <input ng-model="filter.sensorId"
-                           ng-disabled="!filter.sensorIdCheck" class="form-control"
-                           id="sensorIdInput"
-                           value="{{filter.sensorId}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.sensorIdCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.targetIdCheck">
+                        </span>
+                        <span class="input-group-addon name">Target&nbsp;</span>
+                        <input ng-model="filter.targetId"
+                         ng-click="filter.targetIdCheck = true;"
+                         ng-blur="filter.targetIdCheck = filter.targetId === '' ? false: true;"
+                         class="form-control"
+                         id="targetIdInput"
+                         placeholder="Target ID"
+                         value="filter.targetId">
                       </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Target ID</h4>
-                        </div>
-                        <div class="col-md-6">
-                          <input ng-model="filter.targetId"
-                           ng-disabled="!filter.targetIdCheck" class="form-control"
-                           id="targetIdInput"
-                           value="{{filter.targetId}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.targetIdCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>WAC ID</h4>
-                        </div>
-                        <div class="col-md-6">
+                    </li>
+                    <li class="filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox" ng-model="filter.wacNumberCheck">
+                        </span>
+                        <span class="input-group-addon name">WAC&nbsp;&nbsp;&nbsp;&nbsp;</span>
                         <input ng-model="filter.wacNumber"
-                         ng-disabled="!filter.wacNumberCheck" class="form-control"
+                         ng-click="filter.wacNumberCheck = true;"
+                         ng-blur="filter.wacNumberCheck = filter.wacNumber === '' ? false: true;"
+                         class="form-control"
                          id="wacNumberInput"
-                         value="{{filter.wacNumber}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.wacNumberCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
+                         placeholder="World Area Code"
+                         value="filter.wacNumber">
                       </div>
-                      <br>
-                      <div class="row text-center">
-                        <button class="btn btn-primary" type="button"
-                          ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
-                        </button>
-                        <button class="btn btn-warning" type="button"
-                          ng-click="filter.initKeywords();">Reset
-                        </button>
-                      </div>
-                    </form>
-                  </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <button class="btn btn-primary btn-xs" type="button"
+                        ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);filter.closeFilterDropdown()">Apply
+                      </button>
+                      <button class="btn btn-primary btn-xs" type="button"
+                        ng-click="filter.initKeywords();">Reset
+                      </button>
+                      <button class="btn btn-warning btn-xs" type="button"
+                        ng-click="filter.closeFilterDropdown('keyword-filter-dropdown')">Close
+                      </button>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            <li class="dropdown mega-dropdown">
+              <a class="dropdown-toggle range-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-sliders" aria-hidden="true"></span>
                 &nbsp;Ranges
                 <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li class="yamm-content">
-                  <div class="ranges">
-                    <form>
-                      <div class="row">
-                        <p class="text-center">Toggle the switch for a range parameter below to use it as a
-                          filter</p>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">
+                      <p class="text-center">Range Filters</p>
+                    </li>
+                    <li class="text-center">
+                      <p>Click the checkbox next to the range parameter below to use it as a filter</p>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.predNiirsCheck">
+                        </span>
+                        <span class="input-group-addon range-name">NIIRS</span>
                       </div>
-                      <div class="row">
-                        <div class="col-md-2 col-md-offset-3 text-center">
-                          <label class="label label-primary">Minimum</label>
-                        </div>
-                        <div class="col-md-2 text-center">
-                          <label class="label label-primary">Maximum</label>
-                        </div>
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Min</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.predNiirsMin"
+                        class="form-control input-sm" id="niirsMin"
+                        placeholder="0.0" value="{{filter.predNiirsMin}}">
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Max</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.predNiirsMax"
+                       class="form-control input-sm" id="niirsMax"
+                       placeholder="9.0" value="{{filter.predNiirsMax}}">
+                    </li>
+                    <li class="col-sm-3">
+                      <small>Valid ranges  0.0 to 9.0</small>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.azimuthCheck">
+                        </span>
+                        <span class="input-group-addon range-name">Azimuth</span>
                       </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Predicted NIIRS</h4>
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.predNiirsMin"
-                           ng-disabled="!filter.predNiirsCheck" class="form-control" id="niirsMin"
-                           placeholder="0.0" value="{{filter.predNiirsMin}}">
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.predNiirsMax"
-                           ng-disabled="!filter.predNiirsCheck" class="form-control" id="niirsMax"
-                           placeholder="9.0" value="{{filter.predNiirsMax}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.predNiirsCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Min</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.azimuthMin"
+                       class="form-control input-sm" id="azimuthMin"
+                       placeholder="0.0" value="{{filter.azimuthMin}}">
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Max</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.azimuthMax"
+                       class="form-control input-sm" id="azimuthMax"
+                       placeholder="0.0" value="{{filter.azimuthMax}}">
+                    </li>
+                    <li class="col-sm-3">
+                      <small>Valid ranges 0 to 360 degrees</small>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.grazeElevCheck">
+                        </span>
+                        <span class="input-group-addon range-name">Graze/Elev</span>
                       </div>
-                      <div class="row">
-                        <div class="col-md-10">
-                          <small class="text-muted">Valid ranges  0.0 to 9.0</small>
-                          <hr>
-                        </div>
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Min</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.grazeElevMin"
+                       class="form-control input-sm" id="grazeElevMin"
+                       placeholder="0.0" value="{{filter.grazeElevMin}}">
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Max</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.grazeElevMax"
+                       class="form-control input-sm" id="grazeElevMax"
+                       placeholder="0.0" value="{{filter.grazeElevMax}}">
+                    </li>
+                    <li class="col-sm-3">
+                      <small>Valid ranges 0 to 90 degrees</small>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.sunAzimuthCheck">
+                        </span>
+                        <span class="input-group-addon range-name">Sun Azimuth</span>
                       </div>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Azimuth</h4>
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.azimuthMin"
-                           ng-disabled="!filter.azimuthCheck" class="form-control" id="azimuthMin"
-                           placeholder="0.0" value="{{filter.azimuthMin}}">
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.azimuthMax"
-                           ng-disabled="!filter.azimuthCheck" class="form-control" id="azimuthMax"
-                           placeholder="0.0" value="{{filter.azimuthMax}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.azimuthCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Min</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.sunAzimuthMin"
+                       class="form-control input-sm" id="sunAzimuthMin"
+                       placeholder="0.0" value="{{filter.sunAzimuthMin}}">
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Max</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.sunAzimuthMax"
+                       class="form-control input-sm" id="sunAzimuthMax"
+                       placeholder="9.0" value="{{filter.sunAzimuthMax}}">
+                    </li>
+                    <li class="col-sm-3">
+                      <small>Valid ranges 0 to 360 degrees</small>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.sunElevationCheck">
+                        </span>
+                        <span class="input-group-addon range-name">Sun Elevation</span>
                       </div>
-                      <div class="row">
-                        <div class="col-md-10">
-                          <small class="text-muted">Valid ranges 0 to 360 degrees</small>
-                          <hr>
-                        </div>
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Min</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.sunElevationMin"
+                       class="form-control input-sm" id="sunElevationMin"
+                       placeholder="0.0" value="{{filter.sunElevationMin}}">
+                    </li>
+                    <li class="col-sm-1 visible-xs">
+                      <label class="label label-primary">Max</label>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.sunElevationMax"
+                       class="form-control input-sm" id="sunElevationMax"
+                       placeholder="90.0" value="{{filter.sunElevationMax}}">
+                    </li>
+                    <li class="col-sm-3">
+                      <small>Valid ranges -90 to 90 degrees</small>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.cloudCoverCheck">
+                        </span>
+                        <span class="input-group-addon range-name">Cloud Cover</span>
                       </div>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Graze/Elevation</h4>
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.grazeElevMin"
-                           ng-disabled="!filter.grazeElevCheck" class="form-control" id="grazeElevMin"
-                           placeholder="0.0" value="{{filter.grazeElevMin}}">
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.grazeElevMax"
-                           ng-disabled="!filter.grazeElevCheck" class="form-control"
-                           id="grazeElevMax"
-                           placeholder="90.0" value="{{filter.grazeElevMax}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.grazeElevCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-10">
-                          <small class="text-muted">Valid ranges 0 to 90 degrees</small>
-                          <hr>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Sun Azimuth</h4>
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.sunAzimuthMin"
-                           ng-disabled="!filter.sunAzimuthCheck" class="form-control" id="sunAzimuthMin"
-                           placeholder="0.0" value="{{filter.sunAzimuthMin}}">
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.sunAzimuthMax"
-                           ng-disabled="!filter.sunAzimuthCheck" class="form-control"
-                           id="sunAzimuthMax" placeholder="9.0" value="{{filter.sunAzimuthMax}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.sunAzimuthCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-10">
-                          <small class="text-muted">Valid ranges 0 to 360 degrees</small>
-                          <hr>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Sun Elevation</h4>
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.sunElevationMin"
-                           ng-disabled="!filter.sunElevationCheck" class="form-control"
-                           id="sunElevationMin" placeholder="0.0" value="{{filter.sunElevationMin}}">
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.sunElevationMax"
-                           ng-disabled="!filter.sunElevationCheck" class="form-control"
-                           id="sunElevationMax" placeholder="90.0" value="{{filter.sunElevationMax}}">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.sunElevationCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-10">
-                          <small class="text-muted">Valid ranges -90 to 90 degrees</small>
-                          <hr>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h4>Cloud Cover</h4>
-                        </div>
-                        <div class="col-md-2">
-                        </div>
-                        <div class="col-md-2">
-                          <input ng-model="filter.cloudCover"
-                           ng-disabled="!filter.cloudCoverCheck" class="form-control" id="cloudCover"
-                           placeholder="10.0">
-                        </div>
-                        <div class="col-md-2">
-                          <toggle-switch
-                            ng-model="filter.cloudCoverCheck"
-                            class="switch-success">
-                          </toggle-switch>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-10">
-                          <small class="text-muted">Valid ranges 0 to 100%</small>
-                          <hr>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="text-center">
-                          <button class="btn btn-primary" type="button"
-                            ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
-                          </button>
-                          <button class="btn btn-warning" type="button"
-                            ng-click="filter.initRanges();">Reset
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
+                    </li>
+                    <li class="col-sm-2">
+                      <input ng-model="filter.cloudCover"
+                       class="form-control input-sm" id="cloudCover"
+                       placeholder="10.0" value="{{filter.cloudCover}}">
+                    </li>
+                    <li class="col-sm-2">
+                    </li>
+                    <li class="col-sm-3">
+                      <small>Valid ranges 0 to 100%</small>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-12 text-center">
+                      <button class="btn btn-primary btn-xs" type="button"
+                        ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
+                      </button>
+                      <button class="btn btn-warning btn-xs" type="button"
+                        ng-click="filter.initRanges();">Reset
+                      </button>
+                      <button class="btn btn-warning btn-xs" type="button"
+                        ng-click="filter.closeFilterDropdown('range-filter-dropdown')">Close
+                      </button>
+                    </li>
+                  </ul>
                 </li>
               </ul>
-            </li>
+            </li><!-- End menu -->
             <li class="dropdown nav-download">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="fa fa-download" aria-hidden="true"></span>&nbsp;Exports
@@ -653,15 +669,15 @@
     <div id="list" style="border-style: solid; border-width: 1px; padding: 10px; border-radius: 4px;">
       <div ng-show="list.wfsData.length === 0">
         <div>
-          <span class="text-danger"><h4 class="text-center"><strong>We did not find any images that match your search filters</strong></h4></span>
-          <span class="text-warning"><h4 >Check the dates</h4></span>
+          <span class="text-default"><h4 class="text-center"><strong>We did not find any images that match your search filters</strong></h4></span>
+          <span class="text-info"><h4 >Check the dates</h4></span>
           <p>Make sure you provide valid dates for the query.  Also, make sure you are searching for the
             appropriate date type (acquisition versus ingest).</p>
-          <span class="text-warning"><h4>Check the spelling</h4></span>
+          <span class="text-info"><h4>Check the spelling</h4></span>
           <p>It is possible that one of the Keyword filters has a spelling error.</p>
-          <span class="text-warning"><h4>Check range values</h4></span>
+          <span class="text-info"><h4>Check range values</h4></span>
           <p>Make sure that the range values you have submitted are valid for those attributes.</p>
-          <span class="text-warning"><h4 class="text-warning">Check your map extent</h4></span>
+          <span class="text-info"><h4 class="text-info">Check your map extent</h4></span>
           <p>The map extent is also a filter for the images.  Make sure the map is zoomed out to an
             appropriate extent for your search.</p>
         </div>

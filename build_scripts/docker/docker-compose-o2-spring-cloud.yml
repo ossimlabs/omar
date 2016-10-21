@@ -306,7 +306,8 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-      WMSURL: spring-cloud.radiantbluecloud.com/o2-superoverlay
+      O2URL: spring-cloud.radiantbluecloud.com/o2-omar
+      WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
       WMSPORT:
     volumes:
       - /home:/home

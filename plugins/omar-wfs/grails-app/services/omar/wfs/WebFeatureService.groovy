@@ -522,7 +522,7 @@ class WebFeatureService
         {
           def buffer = getFeatureGML3( wfsParams )
           result.contentType = 'text/xml'
-          result.filename = "wfs.xml"
+          //result.filename = "wfs.xml"
           result.buffer = buffer
         }
         catch ( e )

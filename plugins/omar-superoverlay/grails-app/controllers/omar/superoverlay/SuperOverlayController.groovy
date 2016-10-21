@@ -183,6 +183,47 @@ class SuperOverlayController implements InitializingBean
     }
   }
 
+    def getLastImagesKml() {
+        def kmlString = superOverlayService.getLastImagesKml()
+
+        response.setHeader("Content-Disposition", "Attachment;Filename='O2 Last Images.kml'")
+        render(
+            contentType: "application/vnd.google-earth.kml+xml",
+            encoding: "UTF-8",
+            text: kmlString
+        )
+    }
+
+    @ApiOperation(
+        produces = 'application/vnd.google-earth.kml',
+        value = "Get a KML with the most recent images in your BBOX."
+    )
+    @ApiImplicitParams([
+        @ApiImplicitParam(
+            dataType = 'string',
+            name = 'BBOX',
+            paramType = 'query',
+            required = false,
+            value = 'An AOI, e.g. minLon,minLat,maxLon,maxLat (usually set automatically by an external GOEINT tool)'
+        ),
+        @ApiImplicitParam(
+            dataType = 'int',
+            name = 'maxFeatures',
+            paramType = 'query',
+            required = false,
+            value = 'The maximum number, [0,100], of images to be returned.'
+        )
+    ])
+    def kmlQuery() {
+        def kmlString = superOverlayService.kmlQuery(params)
+
+        render(
+            contentType: "application/vnd.google-earth.kml+xml",
+            encoding: "UTF-8",
+            text: kmlString
+        )
+    }
+
   public void afterPropertiesSet()
   {
 //    baseDir = grailsApplication.config.export?.superoverlay?.baseDir
