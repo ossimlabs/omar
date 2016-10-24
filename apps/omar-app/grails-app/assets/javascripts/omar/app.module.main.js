@@ -15,7 +15,7 @@
     .config(['$stateProvider', '$urlRouterProvider',
 
       function ($stateProvider, $urlRouterProvider) {
-        console.log(AppO2.APP_CONFIG.serverURL);
+
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
