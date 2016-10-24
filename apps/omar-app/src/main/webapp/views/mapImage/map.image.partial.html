@@ -45,8 +45,6 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-3">
-        <h2>Tools</h2>
-        <hr>
         <p>Band Selection</p>
           <div id="band-type" class="image-bands">
             <ui-select id="bandTypeItem"
