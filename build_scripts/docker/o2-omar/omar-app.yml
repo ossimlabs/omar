@@ -61,7 +61,7 @@ omar:
       baseUrl: http://${SWIPEURL}/swipe
       enabled: ${SWIPEENABLED}
     jpipApp:
-      baseUrl: ${JPIPURL}/jpip
+      baseUrl: http://${JPIPURL}/jpip
       enabled: ${JPIPENABLED}
     wmtsApp:
       baseUrl: http://${WMTSURL}/wmtsApp/index
