@@ -38,6 +38,7 @@
         vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
 
         vm.shareModal = function( imageLink ) {
+          console.log('imageLink: ',imageLink);
           shareService.imageLinkModal( imageLink );
         };
 
@@ -420,116 +421,6 @@
             tipLabel: 'Layers' // Optional label for button
         });
         mapOrtho.addControl(layerSwitcher);
-
-        function getRecommendedImages(imageId) {
-
-            var pioUrl = AppO2.APP_CONFIG.params.predio.baseUrl + 'getItemRecommendations?item=' + imageId + '&num=20';
-            $http({
-                    method: 'GET',
-                    url: pioUrl
-                })
-                .then(function(response) {
-                    var data;
-                    data = response; // callback response from Predictive IO service
-                    //console.log(data);
-                    formatRecommendedList(data);
-
-                });
-
-        }
-
-        vm.pioAppEnabled = AppO2.APP_CONFIG.params.predio.enabled;
-        console.log(vm.pioAppEnabled)
-            //console.log('PIO enabled: ', vm.pioAppEnabled);
-        if (vm.pioAppEnabled) {
-
-            //console.log(vm.pioAppEnabled);
-            // first time we will use the the first item in query string param
-            getRecommendedImages(imageLayerIds[0]);
-
-        }
-
-        // // first time we will use the the first item in query string param
-        // getRecommendedImages(imageLayerIds[0]);
-
-        function formatRecommendedList(data) {
-            var wfsImagesList = [];
-            data.data.itemScores.filter(function(el) {
-
-                //console.log(el);
-                wfsImagesList.push(el.item);
-
-            });
-
-            var wfsImageString = wfsImagesList.join(",");
-
-            var wfsRequest = {
-                typeName: 'omar:raster_entry',
-                namespace: 'http://omar.ossim.org',
-                version: '1.1.0',
-                outputFormat: 'JSON',
-                cql: '',
-            };
-
-            wfsRequest.cql = 'id in(' + wfsImageString + ')';
-
-            //console.log('wfsRequest.cql: ', wfsRequest.cql);
-
-            //var wfsRequestUrl = APP_CONFIG.services.omar.wfsUrl + "?";
-            var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl;
-
-            var wfsUrl = wfsRequestUrl +
-                "service=WFS" +
-                "&version=" + wfsRequest.version +
-                "&request=GetFeature" +
-                "&typeName=" + wfsRequest.typeName +
-                "&filter=" + wfsRequest.cql +
-                "&outputFormat=" + wfsRequest.outputFormat;
-
-            var url = encodeURI(wfsUrl);
-
-            $http({
-                method: 'GET',
-                url: url
-            }).then(function(response) {
-                var data;
-                data = response.data.features;
-                //console.log('data from wfs', data);
-
-                vm.recommendedImages = data;
-                vm.loading = false;
-            });
-
-        }
-
-        vm.switchMapImage = function(id) {
-
-            //console.log(id);
-
-            //Set url parameter for the layer
-            $state.transitionTo('mapOrtho', {
-                layers: id
-            }, {
-                notify: false
-            });
-
-            //Update the map parameters with the new image db id
-            var params = imageLayers.getSource().getParams();
-            //console.log('params: ', params);
-            params.FILTER = "in(" + id + ")"
-            imageLayers.getSource().updateParams(params);
-            //console.log('params: ', params);
-
-            //Execute call to the wfs service to get the bounds
-            getImageBounds(id);
-
-            // TODO: Call predio to update the recommended images
-            // Need to fix the bug with the image elements not lining up properly on
-            // a new call to get new recommendations
-            //getRecommendedImages(id);
-
-        };
-
 
     }
 

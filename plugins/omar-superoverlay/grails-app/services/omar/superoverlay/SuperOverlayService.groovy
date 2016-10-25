@@ -467,74 +467,19 @@ class SuperOverlayService implements InitializingBean
     ]
   }
 
-    def getFeaturesKml(wmsParams, features) {
-        def wmsBaseUrl = grailsApplication.config.omar.wms.baseUrl + "/wms?"
-
+    def getFeaturesKml(features, wmsParams) {
         def kmlNode = {
             mkp.xmlDeclaration()
             kml( "xmlns": "http://earth.google.com/kml/2.1" ) {
                 Document() {
 
-                    Style( "id": "default" ) {
-                        LineStyle() {
-                            color( "ffffffff" )
-                            width( 2 )
-                        }
-                        PolyStyle() { color( "00ffffff" ) }
-                    }
-                    Style( "id": "msi" ) {
-                        LineStyle() {
-                            color( "ff0000ff" )
-                            width( 2 )
-                        }
-                        PolyStyle() { color( "000000ff" ) }
-                    }
-                    Style( "id": "vis" ) {
-                        LineStyle() {
-                            color( "ff00ffff" )
-                            width( 2 )
-                        }
-                        PolyStyle() { color( "0000ffff" ) }
-                    }
+                    mkp.yieldUnescaped( getKmlStyles() )
 
                     Folder() {
                         name( "Images" )
                         features.eachWithIndex() { value, index ->
                             def feature = value
-                            GroundOverlay() {
-                                description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
-                                name( "${index + 1}: " + (feature.title ?: feature.filename) )
-
-                                Icon() {
-                                    def wmsUrl = wmsBaseUrl
-                                    wmsParams.FILTER = "in(${feature.get("id")})"
-                                    wmsParams.each() { wmsUrl += "${it.key}=${it.value}&" }
-                                    href { mkp.yieldUnescaped( "<![CDATA[${wmsUrl}]]>" ) }
-                                    viewBoundScale( 0.85 )
-                                    viewFormat(
-                                        "BBOX=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&" + "WIDTH=[horizPixels]&HEIGHT=[vertPixels]"
-                                    )
-                                    viewRefreshMode( "onStop" )
-                                    viewRefreshTime( 1 )
-                                }
-
-                                LookAt() {
-                                    def bounds = feature.ground_geom.envelopeInternal
-                                    def centerLon = ( bounds?.minX + bounds?.maxX ) * 0.5
-                                    def centerLat = ( bounds?.minY + bounds?.maxY ) * 0.5
-
-                                    altitude( 0 )
-                                    altitudeMode( "clampToGround" )
-                                    heading( 0 )
-                                    latitude( centerLat )
-                                    longitude( centerLon )
-                                    range( 15000 )
-                                    tilt( 0 )
-                                }
-
-                                Snippet()
-                                visibility( 0 )
-                            }
+                            mkp.yieldUnescaped( getKmlGroundOverlay(index, feature, wmsParams) )
                         }
                         open( 1 )
                     }
@@ -543,36 +488,7 @@ class SuperOverlayService implements InitializingBean
                         name( "Footprints" )
                         features.eachWithIndex() { value, index ->
                             def feature = value
-                            Placemark() {
-                                name( "${index + 1}: " + (feature.title ?: feature.filename) )
-                                description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
-
-                                def bounds = feature.ground_geom.envelopeInternal
-                                def centerLon = ( bounds?.minX + bounds?.maxX ) * 0.5
-                                def centerLat = ( bounds?.minY + bounds?.maxY ) * 0.5
-
-                                LookAt() {
-                                    altitude( 0 )
-                                    altitudeMode( "clampToGround" )
-                                    heading( 0 )
-                                    latitude( centerLat )
-                                    longitude( centerLon )
-                                    range( 15000 )
-                                    tilt( 0 )
-                                }
-
-                                // the footprint geometry
-                                mkp.yieldUnescaped( feature.ground_geom.getKml() )
-
-                                Snippet()
-
-                                switch (feature.sensor_id) {
-                                    case "msi": styleUrl( "#msi" ); break
-                                    case "vis": styleUrl( "#vis" ); break
-                                    default: styleUrl( "#default" ); break
-                                }
-
-                            }
+                            mkp.yieldUnescaped( getKmlFootprint(index, feature) )
                         }
                         open( 1 )
                     }
@@ -606,7 +522,7 @@ class SuperOverlayService implements InitializingBean
             "Bit Depth": feature.bit_depth ?: "",
             "Cloud Cover": feature.cloud_cover ?: "",
             "Country Code": feature.country_code ?: "",
-            "Filename": "<a href = '${imageUrl}'>${feature.filename}</a>",
+            "Filename": feature.filename,
             "Grazing Angle": feature.grazing_angle ?: "",
             "GSD X/Y": (feature.gsdx && feature.gsdy) ? "${feature.gsdx} / ${feature.gsdy}" : "",
             "Image ID": feature.image_id ?: (feature.title ?: ""),
@@ -617,6 +533,7 @@ class SuperOverlayService implements InitializingBean
             "Sensor": feature.sensor_id ?: "",
             "Sun Azimuth": feature.sun_azimuth ?: "",
             "Sun Elevation": feature.sun_elevation ?: "",
+            "View:": "<a href = '${imageUrl}'>Ortho</a>",
             "WFS": "<a href = '${wfsUrl}'>All Metadata</a>"
         ]
 
@@ -639,8 +556,130 @@ class SuperOverlayService implements InitializingBean
         return description
     }
 
+    def getKmlFootprint(index, feature) {
+        def kmlNode = {
+            Placemark() {
+                name( "${index + 1}: " + (feature.title ?: feature.filename) )
+                description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
+
+                def bounds = feature.ground_geom.envelopeInternal
+                def centerLon = ( bounds?.minX + bounds?.maxX ) * 0.5
+                def centerLat = ( bounds?.minY + bounds?.maxY ) * 0.5
+
+                LookAt() {
+                    altitude( 0 )
+                    altitudeMode( "clampToGround" )
+                    heading( 0 )
+                    latitude( centerLat )
+                    longitude( centerLon )
+                    range( 15000 )
+                    tilt( 0 )
+                }
+
+                // the footprint geometry
+                mkp.yieldUnescaped( feature.ground_geom.getKml() )
+
+                Snippet()
+
+                switch (feature.sensor_id) {
+                    case "msi": styleUrl( "#msi" ); break
+                    case "vis": styleUrl( "#vis" ); break
+                    default: styleUrl( "#default" ); break
+                }
+
+            }
+        }
+
+        def kmlWriter = new StringWriter()
+        def kmlBuilder = new StreamingMarkupBuilder()
+        kmlWriter << kmlBuilder.bind( kmlNode )
+
+
+        return kmlWriter.buffer
+    }
+
+    def getKmlGroundOverlay(index, feature, wmsParams) {
+        def kmlNode = {
+            GroundOverlay() {
+                description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
+                name( "${index + 1}: " + (feature.title ?: feature.filename) )
+
+                Icon() {
+                    def wmsUrl = grailsApplication.config.omar.wms.baseUrl + "/wms?"
+                    wmsParams.FILTER = "in(${feature.get("id")})"
+                    wmsParams.each() { wmsUrl += "${it.key}=${it.value}&" }
+                    href { mkp.yieldUnescaped( "<![CDATA[${wmsUrl}]]>" ) }
+                    viewBoundScale( 0.85 )
+                    viewFormat(
+                        "BBOX=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&" + "WIDTH=[horizPixels]&HEIGHT=[vertPixels]"
+                    )
+                    viewRefreshMode( "onStop" )
+                    viewRefreshTime( 1 )
+                }
+
+                LookAt() {
+                    def bounds = feature.ground_geom.envelopeInternal
+                    def centerLon = ( bounds?.minX + bounds?.maxX ) * 0.5
+                    def centerLat = ( bounds?.minY + bounds?.maxY ) * 0.5
+
+                    altitude( 0 )
+                    altitudeMode( "clampToGround" )
+                    heading( 0 )
+                    latitude( centerLat )
+                    longitude( centerLon )
+                    range( 15000 )
+                    tilt( 0 )
+                }
+
+                Snippet()
+                visibility( 0 )
+            }
+        }
+
+        def kmlWriter = new StringWriter()
+        def kmlBuilder = new StreamingMarkupBuilder()
+        kmlWriter << kmlBuilder.bind( kmlNode )
+
+
+        return kmlWriter.buffer
+    }
+
+    def getKmlStyles() {
+        def kmlNode = {
+            Style( "id": "default" ) {
+                LineStyle() {
+                    color( "ffffffff" )
+                    width( 2 )
+                }
+                PolyStyle() { color( "00ffffff" ) }
+            }
+            Style( "id": "msi" ) {
+                LineStyle() {
+                    color( "ff0000ff" )
+                    width( 2 )
+                }
+                PolyStyle() { color( "000000ff" ) }
+            }
+            Style( "id": "vis" ) {
+                LineStyle() {
+                    color( "ff00ffff" )
+                    width( 2 )
+                }
+                PolyStyle() { color( "0000ffff" ) }
+            }
+        }
+
+        def kmlWriter = new StringWriter()
+        def kmlBuilder = new StreamingMarkupBuilder()
+        kmlWriter << kmlBuilder.bind( kmlNode )
+
+
+        return kmlWriter.buffer
+    }
+
     def getKmlWmsParams(params) {
         return [
+            BANDS: "default",
             FORMAT: "image/png",
             LAYERS: "omar:raster_entry",
             REQUEST: "GetMap",
@@ -730,7 +769,7 @@ class SuperOverlayService implements InitializingBean
         }
 
         def wmsParams = getKmlWmsParams(params)
-        def kml = getFeaturesKml(wmsParams, features)
+        def kml = getFeaturesKml(features, wmsParams)
 
 
         return kml
