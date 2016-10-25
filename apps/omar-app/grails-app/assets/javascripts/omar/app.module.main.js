@@ -5,10 +5,8 @@
     .module('omarApp', [
       'ui.router',
       'ui.bootstrap',
-      'angularSpinner',
       'toastr',
       'mgcrea.ngStrap',
-      'slickCarousel',
       'angular-clipboard',
       'ui.select',
       'ngSanitize'])
