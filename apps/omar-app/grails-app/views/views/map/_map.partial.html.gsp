@@ -14,33 +14,7 @@
         <div class="col-sm-5">
           <form id="searchForm" class="searchForm">
             <div class="input-group input-group-sm" ng-controller="SearchController as search">
-              <span class="input-group-btn">
-                <button
-                  class="{{search.imageIdClass}}"
-                  type="button"
-                  ng-click="search.byImageId()"
-                  tooltip-placement="bottom"
-                  uib-tooltip="Search by Image ID">
-                    <span class="glyphicon glyphicon-picture"></span>
-                </button>
-                <!-- <button
-                  class="{{search.coordinatesClass}}"
-                  type="button"
-                  ng-click="search.byCoordinates()"
-                  tooltip-placement="bottom"
-                  uib-tooltip="Search by Coordinates">
-                  <span class="glyphicon glyphicon-screenshot"></span>
-                </button> -->
-                <button
-                  class="{{search.placeClass}}"
-                  type="button"
-                  ng-click="search.byPlace()"
-                  tooltip-placement="bottom"
-                  uib-tooltip="Search by Place Name">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                </button>
-              </span>
-              <input id="searchInput" type="text" ng-model="search.searchInput" ng-paste="search.copyPastedImageId($event)" class="form-control" placeholder="{{search.placeholder}}" autofocus>
+              <input id="searchInput" type="text" ng-model="search.searchInput" class="form-control" placeholder="{{search.placeholder}}" autofocus>
               <span class="input-group-btn">
                 <button class="btn btn-info" type="button" ng-click="search.executeSearch()" ng-disabled="search.searchButtonDisabled"><span class="glyphicon glyphicon-search"></span></button>
                 <button class="btn btn-default" type="button" ng-click="search.resetSearchInput()"><span class="glyphicon glyphicon-remove"></span></button>
