@@ -762,17 +762,17 @@
                 <div class="row">
                   <div class="col-md-12">
                     <p class="text-primary" style="margin-top:.2em;">
-                      <a href="{{list.o2baseUrl}}/#/mapOrtho?layers={{image.properties.id}}" target="_blank">
-                        <i class="fa fa-map-marker fa-border text-primary"
-                         style="cursor: pointer;"
-                         tooltip-placement="right"
-                         uib-tooltip="View rectified image"></i>&nbsp;&nbsp;
-                      </a>
                       <a href="{{list.o2baseUrl}}/#/mapImage?filename={{image.properties.filename}}&entry_id={{image.properties.entry_id}}&width={{image.properties.width}}&height={{image.properties.height}}&bands=default&numOfBands={{image.properties.number_of_bands}}&imageId={{image.properties.id}}" target="_blank">
                         <i class="fa fa-desktop fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
                          uib-tooltip="View raw image"></i>&nbsp;&nbsp;
+                      </a>
+                      <a href="{{list.o2baseUrl}}/#/mapOrtho?layers={{image.properties.id}}" target="_blank">
+                        <i class="fa fa-map-marker fa-border text-primary"
+                         style="cursor: pointer;"
+                         tooltip-placement="right"
+                         uib-tooltip="View rectified image"></i>&nbsp;&nbsp;
                       </a>
                       <a ng-show="{{list.kmlSuperOverlayAppEnabled}}" href="{{list.kmlSuperOverlayLink}}/superOverlay/createKml/{{image.properties.id}}">
                         <i class="fa fa-map fa-border text-primary"
