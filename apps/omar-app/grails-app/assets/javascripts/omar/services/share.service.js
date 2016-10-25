@@ -8,7 +8,7 @@
 
       this.imageLinkModal = function( imageLink ) {
         var modalInstance = $uibModal.open( {
-          templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-link.partial.html',
+          templateUrl: AppO2.APP_CONFIG.serverURL + '/views/list/list.image-link.partial.html',
           controller: ['clipboardService', '$uibModalInstance', 'imageLink', ImageLinkModalController],
           controllerAs: 'vm',
           resolve: {
