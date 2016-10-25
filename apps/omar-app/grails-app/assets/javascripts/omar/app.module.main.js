@@ -5,6 +5,7 @@
     .module('omarApp', [
       'ui.router',
       'ui.bootstrap',
+      'angularSpinner',
       'toastr',
       'mgcrea.ngStrap',
       'angular-clipboard',
