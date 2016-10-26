@@ -467,7 +467,7 @@ class SuperOverlayService implements InitializingBean
     ]
   }
 
-    def getFeaturesKml(features, wmsParams) {
+    def getFeaturesKml(features, params) {
         def kmlNode = {
             mkp.xmlDeclaration()
             kml( "xmlns": "http://earth.google.com/kml/2.1" ) {
@@ -475,6 +475,7 @@ class SuperOverlayService implements InitializingBean
 
                     mkp.yieldUnescaped( getKmlStyles() )
 
+                    def wmsParams = getKmlWmsParams(params)
                     Folder() {
                         name( "Images" )
                         features.eachWithIndex() { value, index ->
@@ -484,15 +485,17 @@ class SuperOverlayService implements InitializingBean
                         open( 1 )
                     }
 
-                    Folder() {
-                        name( "Footprints" )
-                        features.eachWithIndex() { value, index ->
-                            def feature = value
-                            mkp.yieldUnescaped( getKmlFootprint(index, feature) )
+                    if (params.footprints != "off") {
+                        Folder() {
+                            name( "Footprints" )
+                            features.eachWithIndex() { value, index ->
+                                def feature = value
+                                mkp.yieldUnescaped( getKmlFootprint(index, feature) )
+                            }
+                            open( 1 )
                         }
                         open( 1 )
                     }
-                    open( 1 )
                 }
             }
         }
@@ -559,8 +562,8 @@ class SuperOverlayService implements InitializingBean
     def getKmlFootprint(index, feature) {
         def kmlNode = {
             Placemark() {
-                name( "${index + 1}: " + (feature.title ?: feature.filename) )
                 description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
+                name( "${index + 1}: " + (feature.title ?: new File(feature.filename).name) )
 
                 def bounds = feature.ground_geom.envelopeInternal
                 def centerLon = ( bounds?.minX + bounds?.maxX ) * 0.5
@@ -602,7 +605,7 @@ class SuperOverlayService implements InitializingBean
         def kmlNode = {
             GroundOverlay() {
                 description { mkp.yieldUnescaped( "<![CDATA[${getKmlDescription(feature)}]]>" ) }
-                name( "${index + 1}: " + (feature.title ?: feature.filename) )
+                name( "${index + 1}: " + (feature.title ?: new File(feature.filename).name) )
 
                 Icon() {
                     def wmsUrl = grailsApplication.config.omar.wms.baseUrl + "/wms?"
@@ -703,13 +706,13 @@ class SuperOverlayService implements InitializingBean
     metersPerPixel
   }
 
-    def getLastImagesKml() {
+    def getLastImagesKml(params) {
         def kmlBuilder = new StreamingMarkupBuilder()
         kmlBuilder.encoding = "UTF-8"
 
         def kmlQueryUrl = grailsLinkGenerator.link(
             absolute: true, action: "kmlQuery",
-            controller: "superOverlay", params: [maxFeatures: 10]
+            controller: "superOverlay", params: [footprints: "on", maxFeatures: params.max ?: 10]
         )
         def kmlNode = {
             mkp.xmlDeclaration()
@@ -723,7 +726,7 @@ class SuperOverlayService implements InitializingBean
                         viewRefreshMode( "onRequest" )
                         viewRefreshTime( 0 )
                     }
-                    name( "O2 Last 10 Images For View" )
+                    name( "O2 Last ${params.max ?: 10} Images For View" )
                 }
             }
         }
@@ -768,8 +771,7 @@ class SuperOverlayService implements InitializingBean
             workspace.close()
         }
 
-        def wmsParams = getKmlWmsParams(params)
-        def kml = getFeaturesKml(features, wmsParams)
+        def kml = getFeaturesKml(features, params)
 
 
         return kml
