@@ -19,8 +19,6 @@
 //= require webjars/angular-strap/2.3.4/angular-strap.js
 //= require webjars/angular-strap/2.3.4/angular-strap.tpl.js
 //= require webjars/momentjs/2.11.0/moment.js
-//= require webjars/slick-carousel/1.5.9/slick/slick.js
-//= require webjars/angular-slick-carousel/3.0.10/dist/angular-slick.js
 //= require webjars/angular-clipboard/1.4.2/angular-clipboard.js
 //= require webjars/angular-ui-select/0.17.1/select.js
 //= require webjars/angular-ui-select2/0.0.5/src/select2.js
