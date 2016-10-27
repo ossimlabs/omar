@@ -15,7 +15,10 @@ ENV DBUSER=${DBUSER}\
     DBHOST=${DBHOST}\
     DBPORT=${DBPORT}\
     DBNAME=${DBNAME}\
-    DOCKER_HOST_IP=${DOCKER_HOST_IP}
+    DOCKER_HOST_IP=${DOCKER_HOST_IP}\
+    SPRING_CLOUD_CONFIG_ENABLED=true\
+    SPRING_CLOUD_DISCOVERY_ENABLED=true
+
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/stager-app/stager-app.sh"]

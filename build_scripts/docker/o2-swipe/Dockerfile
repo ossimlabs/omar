@@ -29,7 +29,10 @@ ENV DBHOST=${DBHOST}\
     WMSURL=${WMSURL}\
     WMSPORT=${WMSPORT}\
     WFSURL=${WFSURL}\
-    WFSPORT=${WFSPORT}
+    WFSPORT=${WFSPORT}\
+    SPRING_CLOUD_CONFIG_ENABLED=true\
+    SPRING_CLOUD_DISCOVERY_ENABLED=true
+
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/swipe-app/swipe-app.sh"]
