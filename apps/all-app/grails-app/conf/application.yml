@@ -312,6 +312,16 @@ wfs:
 #          - giant_polygon
 #        datastoreId: tiger
 
+# needs to be uncommented for C2S deployment
+#      - name: be_number
+#        title: be_number
+#        description: ''
+#        keywords:
+#          - omar
+#          - be_number
+#          - features
+#        datastoreId: omardb-1.9.0-dev
+
       - name: raster_entry
         title: raster_entry
         description: ''
