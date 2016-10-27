@@ -337,35 +337,35 @@
             //Beginning - Band Selections Section
 
             this.getImageBands = function(){
-            var bandVal = bands.split( ',' );
+              var bandVal = bands.split( ',' );
 
-            if ( bandVal.length > 0 ) {
-              if ( bandVal[0] != 'default' ) {
-                if ( numOfBands <= 1 ) {
-                  bands = bandVal[0];
-                }else {
-                  if ( numOfBands == 2 ){
-                    bands = '1,2';
-                  }else{
+              if ( bandVal.length > 0 ) {
+                if ( bandVal[0] != 'default' ) {
+                  if ( numOfBands <= 1 ) {
                     bands = bandVal[0];
-                  }
-                  for ( var bandNum = 1; bandNum < numOfBands; bandNum++ ) {
-                    if ( bandVal[bandNum] ) {
-                      bands = bands + ',' + bandVal[bandNum];
+                  }else {
+                    if ( numOfBands == 2 ){
+                      bands = '1,2';
+                    }else{
+                      bands = bandVal[0];
+                    }
+                    for ( var bandNum = 1; bandNum < numOfBands; bandNum++ ) {
+                      if ( bandVal[bandNum] ) {
+                        bands = bands + ',' + bandVal[bandNum];
+                      }
                     }
                   }
+                }else {
+                  bands = 'default';
+                  //var newNum;
+                  //for ( var bandNum2 = 1; bandNum2 < numOfBands; bandNum2++ ) {
+                    //newNum = bandNum2 + 1;
+                    //bands = bands + ',' + newNum;
+                  //}
                 }
-              }else {
-                bands = 'default';
-                //var newNum;
-                //for ( var bandNum2 = 1; bandNum2 < numOfBands; bandNum2++ ) {
-                  //newNum = bandNum2 + 1;
-                  //bands = bands + ',' + newNum;
-                //}
               }
-            }
-            this.bands = bands;
-            this.numOfBands = numOfBands;
+                this.bands = bands;
+                this.numOfBands = numOfBands;
             };
 
             this.setBands = function(bandsVal){

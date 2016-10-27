@@ -8,7 +8,6 @@
       'angularSpinner',
       'toastr',
       'mgcrea.ngStrap',
-      'slickCarousel',
       'angular-clipboard',
       'ui.select',
       'ngSanitize'])

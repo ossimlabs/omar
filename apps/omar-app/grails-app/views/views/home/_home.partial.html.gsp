@@ -19,14 +19,14 @@
           <a type="button" class="btn btn-success" ui-sref="map">View</a>
         </div>
       </div>
-      <div ng-show="{{home.kmlAppEnabled}}" class="col-md-6" ng-click="home.go(home.kmlAppLink);">
-        <div class="text-center well well-home" ng-href="{{home.kmlAppLink}}" target="_blank">
+      <div ng-init="max=10" ng-show="{{home.kmlAppEnabled}}" class="col-md-6">
+        <div class="text-center well">
           <h2>KML</h2>
           <div><span class="fa fa-map fa-3x text-info"></span></div>
           <br>
-          <p>View images in an external GEOINT tool</p>
+          <p>Download a KML of the last &nbsp; <input style="width:32px" type="number" ng-model="max"> &nbsp; images acquired.</p>
           <br>
-          <a type="button" class="btn btn-success" ng-href="{{home.kmlAppLink}}" target="_blank">Download</a>
+          <a type="button" class="btn btn-success" ng-href="{{home.kmlAppLink}}?max={{max}}" target="_blank">Download</a>
         </div>
       </div>
     </div>
