@@ -191,7 +191,7 @@ omar:
       baseUrl: http://localhost:8081/swipe
       enabled: false
     kmlApp:
-      baseUrl: http://localhost:8081/
+      baseUrl: http://localhost:8081
       enabled: true
     jpipApp:
       baseUrl: http://localhost:8081/jpip

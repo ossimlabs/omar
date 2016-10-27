@@ -23,14 +23,19 @@
 
     vm.baseUrl = AppO2.APP_CONFIG.serverURL;
 
-    vm.piwikAppEnabled = AppO2.APP_CONFIG.params.piwikApp.enabled;
-    if (vm.piwikAppEnabled) {
-        vm.piwikAppLink = AppO2.APP_CONFIG.params.piwikApp.baseUrl;
-    }
-
     vm.apiAppEnabled = AppO2.APP_CONFIG.params.apiApp.enabled;
     if (vm.apiAppEnabled) {
         vm.apiAppLink = AppO2.APP_CONFIG.params.apiApp.baseUrl;
+    }
+
+    vm.kmlAppEnabled = AppO2.APP_CONFIG.params.kmlApp.enabled;
+    if (vm.kmlAppEnabled) {
+        vm.kmlAppLink = AppO2.APP_CONFIG.params.kmlApp.baseUrl + "/superOverlay/getLastImagesKml";
+    }
+
+    vm.piwikAppEnabled = AppO2.APP_CONFIG.params.piwikApp.enabled;
+    if (vm.piwikAppEnabled) {
+        vm.piwikAppLink = AppO2.APP_CONFIG.params.piwikApp.baseUrl;
     }
 
     vm.tlvAppEnabled = AppO2.APP_CONFIG.params.tlvApp.enabled;

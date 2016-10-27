@@ -45,8 +45,6 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-3">
-        <h2>Tools</h2>
-        <hr>
         <p>Band Selection</p>
           <div id="band-type" class="image-bands">
             <ui-select id="bandTypeItem"
@@ -63,7 +61,7 @@
             </ui-select>
           </div></br>
         <div id="image-space-bands">
-          <div id="gray-image-space-bands" class="image-bands">
+          <div id="gray-image-space-bands" class="image-bands image-band-div">
             <label for="male">Band:&nbsp;</label>
             <ui-select id="grayImageItem" theme="selectize" ng-model="grayImageItem" on-select="onBandSelect($select.selected.value, 'gray')">
               <ui-select-match>
@@ -73,7 +71,7 @@
                   <span ng-bind="val.value"></span>
               </ui-select-choices>
             </ui-select>
-          </div></br>
+          </div>
           <div id="rgb-image-space-bands" class="image-bands">
             <div id="redImageBand" class="image-band-div">
               <label>Red:&nbsp;</label>
@@ -118,7 +116,7 @@
             </a>&nbsp;&nbsp;
           </div>
           <div class="imageLinkBtns imageShareButton">
-            <a ng-href="" target="_blank" ng-click="image.shareModal(image.baseServerUrl + '/omar/#/mapOrtho?layers=' + image.imageId)">
+            <a ng-href="" target="_blank" ng-click="image.shareModal(image.imageMapPath)">
               <i class="fa fa-share-alt fa-border text-primary"
               tooltip-placement="left-bottom"
               uib-tooltip="Share a link to this image"></i>

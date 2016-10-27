@@ -19,19 +19,19 @@
           <a type="button" class="btn btn-success" ui-sref="map">View</a>
         </div>
       </div>
-        <div ng-show="{{home.tlvAppEnabled}}" class="col-md-6" ng-click="home.go(home.tlvAppLink);">
-          <div class="text-center well well-home" >
-            <h2>Time Lapse Viewer</h2>
-            <div><span class="fa fa-history fa-3x text-info"></span></div>
-            <br>
-            <p>An on-demand imagery flipbook</p>
-            <br>
-            <a type="button" class="btn btn-success" ng-href="{{home.tlvAppLink}}" target="_blank">View</a>
-          </div>
+      <div ng-init="max=10" ng-show="{{home.kmlAppEnabled}}" class="col-md-6">
+        <div class="text-center well">
+          <h2>KML</h2>
+          <div><span class="fa fa-map fa-3x text-info"></span></div>
+          <br>
+          <p>Download a KML of the last &nbsp; <input style="width:32px" type="number" ng-model="max"> &nbsp; images acquired.</p>
+          <br>
+          <a type="button" class="btn btn-success" ng-href="{{home.kmlAppLink}}?max={{max}}" target="_blank">Download</a>
         </div>
+      </div>
     </div>
     <div class="row">
-      <div ng-show="{{home.piwikAppEnabled}}" class="col-md-6 col-md-offset-3" ng-click="home.go(home.piwikAppLink);">
+      <div ng-show="{{home.piwikAppEnabled}}" class="col-md-6" ng-click="home.go(home.piwikAppLink);">
         <div class="text-center well well-home" ng-href="{{home.piwikAppLink}}" target="_blank">
           <h2>PIWIK</h2>
           <div><span class="fa fa-bar-chart fa-3x text-info"></span></div>
@@ -40,6 +40,16 @@
             rates, downloads, keywords and more</p>
           <br>
           <a type="button" class="btn btn-success" ng-href="{{home.piwikAppLink}}" target="_blank">View</a>
+        </div>
+      </div>
+      <div ng-show="{{home.tlvAppEnabled}}" class="col-md-6" ng-click="home.go(home.tlvAppLink);">
+        <div class="text-center well well-home" ng-href="{{home.tlvAppLink}}" target="_blank">
+          <h2>Time Lapse Viewer</h2>
+          <div><span class="fa fa-history fa-3x text-info"></span></div>
+          <br>
+          <p>An on-demand imagery flipbook</p>
+          <br>
+          <a type="button" class="btn btn-success" ng-href="{{home.tlvAppLink}}" target="_blank">View</a>
         </div>
       </div>
     </div>
