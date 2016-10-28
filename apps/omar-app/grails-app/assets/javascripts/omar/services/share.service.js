@@ -25,7 +25,6 @@
 
     function ImageLinkModalController( clipboardService, $uibModalInstance, imageLink, title ) {
 
-      //console.log('title: ', title);
       if (title === undefined) {
 
         this.shareModalTitle = 'Share Image';
@@ -36,12 +35,13 @@
 
       }
 
-
-
       this.imageLink = imageLink;
 
       this.close = function() {
+
         $uibModalInstance.close();
+        
       };
+
     }
 }() );
