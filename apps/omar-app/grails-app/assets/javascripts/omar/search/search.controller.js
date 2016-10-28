@@ -93,15 +93,35 @@
     }
 
     function isBeNumber() {
-        var bePattern = /(.{10})/;
-        var beNumber = searchInput.val().trim();
-        if (beNumber.match(bePattern)) {
-            // go get BE location
-            searchParams.isBeNumber = null;
+        var beLookupEnabled = AppO2.APP_CONFIG.params.misc.beLookupEnabled;
+        if (beLookupEnabled) {
+            /* This pattern will have to changed in the C2S deployment */
+            var bePattern = /(.{10})/;
+            var beNumber = searchInput.val().trim();
+            if (beNumber.match(bePattern)) {
+                var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
+                    "filter=be LIKE '" + beNumber.toUpperCase() + "'" +
+                    "&maxFeatures=1" +
+                    "&outputFormat=JSON" +
+                    "&request=GetFeature" +
+                    "&service=WFS" +
+                    "&typeName=omar:be_number" +
+                    "&version=1.1.0";
+                $http({
+                    method: 'GET',
+                    url: encodeURI(wfsUrl)
+                }).then(function(response) {
+                        var features = response.data.features;
+                        if (features.length > 0) {
+                            searchParams.isBeNumber = features[0].geometry.coordinates;
+                        }
+                        else { searchParams.isImageId = null; }
+
+                        determineGeospatialInput();
+                });
+            }
         }
         else { searchParams.isBeNumber = null; }
-
-        determineGeospatialInput();
     }
 
     function isCoordinate() {
@@ -148,6 +168,7 @@
         var imageId = searchInput.val().trim();
         var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
             "filter=title LIKE '%" + imageId.toUpperCase() + "%'" +
+            "&maxFeatures=100" +
             "&outputFormat=JSON" +
             "&request=GetFeature" +
             "&service=WFS" +
@@ -156,7 +177,7 @@
         $http({
             method: 'GET',
             url: encodeURI(wfsUrl)
-        }).then(function(response) { console.dir(response);
+        }).then(function(response) {
                 var features = response.data.features;
                 if (features.length > 0) {
                     searchParams.isImageId = {

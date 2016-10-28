@@ -1,6 +1,0 @@
-FROM ossimlabs/omar-zuul-server
-MAINTAINER RadiantBlue Technologies radiantblue.com
-LABEL com.radiantblue.version=""
-ARG O2_DEV_HOME
-RUN rm /usr/share/omar-zuul-server-0.0.1-SNAPSHOT.jar && \
-    ln -s $O2_DEV_HOME/support/omar-zuul-server/build/libs/omar-zuul-server-0.0.1-SNAPSHOT.jar  /usr/share/omar-zuul-server-0.0.1-SNAPSHOT.jar

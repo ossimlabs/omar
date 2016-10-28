@@ -23,7 +23,10 @@ ENV DBHOST=${DBHOST}\
     DOCKER_HOST_IP=${DOCKER_HOST_IP}\
     DBUSER=${DBUSER}\
     DBPASS=${DBPASS}\
-    DBNAME=${DBNAME}
+    DBNAME=${DBNAME}\
+    SPRING_CLOUD_CONFIG_ENABLED=true\
+    SPRING_CLOUD_DISCOVERY_ENABLED=true
+
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wfs-app/wfs-app.sh"]

@@ -3,7 +3,10 @@ spring:
     name: omar-all-app
   cloud:
     config:
+      enabled: false
       uri: http://localhost:8888
+    discovery:
+      enabled: false
 ---
 spring:
   profiles: production
