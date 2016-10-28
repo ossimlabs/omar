@@ -207,6 +207,15 @@ class SuperOverlayController implements InitializingBean
             value = 'An AOI, e.g. minLon,minLat,maxLon,maxLat (usually set automatically by an external GOEINT tool)'
         ),
         @ApiImplicitParam(
+            allowableValues = "[off, on]",
+            dataType = 'string',
+            defaultValue = "on",
+            name = 'footprints',
+            paramType = 'query',
+            required = false,
+            value = 'Whether to include footprints in the results or not.'
+        ),
+        @ApiImplicitParam(
             dataType = 'int',
             name = 'maxFeatures',
             paramType = 'query',
