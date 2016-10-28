@@ -67,14 +67,6 @@
 
                                 $event.currentTarget.style.opacity = 1.0;
 
-                                // toastr.success("JPIP URL: " + response.data.url, "File: " + f, {
-                                //     positionClass: 'toast-bottom-left',
-                                //     closeButton: true,
-                                //     timeOut: 10000,
-                                //     extendedTimeOut: 5000,
-                                //     target: 'body'
-                                // });
-
                                 shareService.imageLinkModal(response.data.url, 'JPIP Stream URL Link');
 
                                 $timeout(function() {
@@ -83,12 +75,12 @@
 
                             } else if (secondsEllapsed > MAX) {
 
-                                toastr.error("Bummer: JPIP steam conversion hit time!",
+                                toastr.error("Sorry: JPIP steam conversion hit time!",
                                     "File: " + f, {
                                         positionClass: 'toast-bottom-left',
                                         closeButton: true,
-                                        timeOut: 1000,
-                                        extendedTimeOut: 500,
+                                        timeOut: 10000,
+                                        extendedTimeOut: 5000,
                                         target: 'body',
                                         preventDuplicates: true,
                                         preventOpenDuplicates: true,
