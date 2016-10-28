@@ -3,9 +3,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('jpipService', ['$rootScope', '$http', 'toastr', '$timeout', jpipService]);
+        .service('jpipService', ['$rootScope', '$http', 'toastr', '$timeout', 'shareService', jpipService]);
 
-    function jpipService($rootScope, $http, toastr, $timeout) {
+    function jpipService($rootScope, $http, toastr, $timeout, shareService) {
         var TRACE = 0;
         this.serviceRunning = true;
 
@@ -58,7 +58,7 @@
                                 console.log('response data', JSON.stringify(response.data));
                             }
 
-                            if (response.data.status == "FINISHED") {
+                            if (response.data.status === "FINISHED") {
                                 if (TRACE) {
                                     console.log('FINISHED...');
                                 }
@@ -67,31 +67,44 @@
 
                                 $event.currentTarget.style.opacity = 1.0;
 
-                                toastr.success("JPIP URL: " + response.data.url, "File: " + f, {
-                                    positionClass: 'toast-bottom-left',
-                                    closeButton: true,
-                                    timeOut: 10000,
-                                    extendedTimeOut: 5000,
-                                    target: 'body'
-                                });
+                                // toastr.success("JPIP URL: " + response.data.url, "File: " + f, {
+                                //     positionClass: 'toast-bottom-left',
+                                //     closeButton: true,
+                                //     timeOut: 10000,
+                                //     extendedTimeOut: 5000,
+                                //     target: 'body'
+                                // });
+
+                                shareService.imageLinkModal(response.data.url, 'JPIP Stream URL Link');
+
                                 $timeout(function() {
                                     $rootScope.$broadcast('jpip: updated');
                                 });
 
                             } else if (secondsEllapsed > MAX) {
+
                                 toastr.error("Bummer: JPIP steam conversion hit time!",
                                     "File: " + f, {
                                         positionClass: 'toast-bottom-left',
                                         closeButton: true,
-                                        timeOut: 10000,
-                                        extendedTimeOut: 5000,
-                                        target: 'body'
+                                        timeOut: 1000,
+                                        extendedTimeOut: 500,
+                                        target: 'body',
+                                        preventDuplicates: true,
+                                        preventOpenDuplicates: true,
+
                                     });
 
-                                console.log('TODO put timeout code here...');
+                                clearInterval(timerId);
+
+                                $timeout(function() {
+                                    $rootScope.$broadcast('jpip: updated');
+                                });
+
                             }
 
                         }, function error(response) {
+
                             console.log(JSON.stringify(response));
                             console.log('failed', response);
 
