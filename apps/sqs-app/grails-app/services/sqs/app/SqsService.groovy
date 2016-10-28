@@ -72,7 +72,7 @@ class SqsService {
 
    synchronized def getSqs()
    {
-      if(!sqs) sqs = new AmazonSQSClient(createCredentials())
+      if(!sqs) sqs = new AmazonSQSClient()//createCredentials())
       sqs
    }
    def postMessage(String url, String message)
