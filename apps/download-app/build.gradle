@@ -46,7 +46,7 @@ repositories {
 dependencyManagement {
   imports {
     mavenBom "org.grails:grails-bom:$grailsVersion"
-    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR5'    
+    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR5'
   }
   applyMavenExclusions false
 }
@@ -84,6 +84,7 @@ dependencies {
   testCompile "org.grails.plugins:geb"
   testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
   testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+  compile "org.grails.plugins:grails3-cors-interceptor:1.1.0"
 
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
