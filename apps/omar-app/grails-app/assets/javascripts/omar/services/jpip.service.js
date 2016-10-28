@@ -50,7 +50,7 @@
 
                         $http({
                             method: 'GET',
-                            url: jpipServiceUrl
+                            url: jpipServiceUrl + '&' + new Date()
                         }).then(function(response) {
 
                             if (TRACE) {
