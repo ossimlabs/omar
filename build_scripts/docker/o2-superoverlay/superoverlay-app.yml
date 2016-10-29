@@ -52,6 +52,8 @@ wfs:
 omar:
   o2:
     baseUrl: http://${O2URL}
+  wfs:
+    baseUrl: http://${WFSURL}
   wms:
     baseUrl: http://${WMSURL}
   superOverlay:
