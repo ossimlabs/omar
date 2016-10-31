@@ -309,7 +309,7 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      O2URL: ${DOCKER_HOST_IP}/o2-omar
+      O2URL: ${DOCKER_HOST_URL}/o2-omar
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
