@@ -8,10 +8,10 @@ environments:
       pooled: true
       jmxExport: true
       driverClassName: org.postgresql.Driver
-      username: postgres_user
-      password: abc123
+      username: ${DBUSER}
+      password: ${DBPASS}
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://${DBHOST}${DBPORT}/omar_prod
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
 
 omar:
   openlayers:
@@ -47,13 +47,10 @@ omar:
     downloadApp:
       baseUrl: http://${DOWNLOADURL}
     kmlApp:
-      baseUrl: http://${KMLURL}
+      baseUrl: http://${KMLURL}/
     predio:
       baseUrl: http://${PREDIOURL}/predio/
       enabled: ${PREDIOENABLED}
-    tlvApp:
-      baseUrl: http://${TLVAPPURL}/tlv
-      enabled: ${TLVAPPENABLED}
     twofishes:
       baseUrl: http://${TWOFISHURL}/twofish
       proxy: /twoFishesProxy
@@ -61,7 +58,7 @@ omar:
       baseUrl: http://${SWIPEURL}/swipe
       enabled: ${SWIPEENABLED}
     jpipApp:
-      baseUrl: http://${JPIPURL}/jpip
+      baseUrl: ${JPIPURL}/jpip
       enabled: ${JPIPENABLED}
     wmtsApp:
       baseUrl: http://${WMTSURL}/wmtsApp/index
