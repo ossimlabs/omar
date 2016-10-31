@@ -1,6 +1,6 @@
 <div class="modal-header">
   <span>
-    <i class="fa fa-share-alt"></i>&nbsp;&nbsp;Share Image</span>
+    <i class="fa fa-share-alt"></i>&nbsp;&nbsp;{{vm.shareModalTitle}}</span>
 </div>
 <div class="modal-body" id="image-share-modal-input">
   <span class="shareModalHighlightCopyTxt show-me">Highlight and Copy link </br></br></span>

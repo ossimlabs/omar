@@ -649,26 +649,35 @@ class SuperOverlayService implements InitializingBean
 
     def getKmlStyles() {
         def kmlNode = {
-            Style( "id": "default" ) {
+            Style( id: "default" ) {
                 LineStyle() {
                     color( "ffffffff" )
                     width( 2 )
                 }
-                PolyStyle() { color( "00ffffff" ) }
+                PolyStyle() {
+                    color( "ffffffff" )
+                    fill( 0 )
+                }
             }
-            Style( "id": "msi" ) {
+            Style( id: "msi" ) {
                 LineStyle() {
                     color( "ff0000ff" )
                     width( 2 )
                 }
-                PolyStyle() { color( "000000ff" ) }
+                PolyStyle() {
+                    color( "ff0000ff" )
+                    fill( 0 )
+                }
             }
-            Style( "id": "vis" ) {
+            Style( id: "vis" ) {
                 LineStyle() {
                     color( "ff00ffff" )
                     width( 2 )
                 }
-                PolyStyle() { color( "0000ffff" ) }
+                PolyStyle() {
+                    color( "ff00ffff" )
+                    fill( 0 )
+                }
             }
         }
 

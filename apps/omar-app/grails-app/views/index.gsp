@@ -74,6 +74,5 @@
             </div>
         </section>
     </div>
-    <g:javascript>window.location = document.URL += 'omar';</g:javascript>
 </body>
 </html>
