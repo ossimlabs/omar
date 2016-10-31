@@ -95,17 +95,22 @@
     function isBeNumber() {
         var beLookupEnabled = AppO2.APP_CONFIG.params.misc.beLookupEnabled;
         if (beLookupEnabled) {
+            var columnName = AppO2.APP_CONFIG.params.misc.placemarks.columnName;
+            var tableName = AppO2.APP_CONFIG.params.misc.placemarks.tableName;
+
             /* This pattern will have to changed in the C2S deployment */
             var bePattern = /(.{10})/;
             var beNumber = searchInput.val().trim();
             if (beNumber.match(bePattern)) {
+
+
                 var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
-                    "filter=be LIKE '" + beNumber.toUpperCase() + "'" +
+                    "filter=" + columnName + " LIKE '" + beNumber + "'" +
                     "&maxFeatures=1" +
                     "&outputFormat=JSON" +
                     "&request=GetFeature" +
                     "&service=WFS" +
-                    "&typeName=omar:be_number" +
+                    "&typeName=" + tableName +
                     "&version=1.1.0";
                 $http({
                     method: 'GET',
@@ -115,7 +120,7 @@
                         if (features.length > 0) {
                             searchParams.isBeNumber = features[0].geometry.coordinates;
                         }
-                        else { searchParams.isImageId = null; }
+                        else { searchParams.isBeNumber = null; }
 
                         determineGeospatialInput();
                 });
