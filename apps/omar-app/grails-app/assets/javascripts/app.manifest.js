@@ -74,7 +74,4 @@
 //= <--Filter-->
 //= require omar/filter/filter.controller.js
 
-// <--Multiple (test)-->
-//= require omar/multiple/multiple.controller.js
-
 //= require_self

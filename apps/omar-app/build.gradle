@@ -37,9 +37,20 @@ assets {
   minifyJs = true
   minifyCss = true
   //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
-  includes = ["fonts/*"]
-  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
-      '.grunt/**', '**/locale/**', '**/intro.unminified.js**', '**/outro.unminified.js**']
+  includes = ["**/fonts/**"]
+  excludes = [
+    '**/application.js',
+    '**/i18n/**',
+    '**/jquery*',
+    '**/omar/**',
+    '**/webjars/**',
+    '**/*-debug.js',
+    '**/*-deps.js',
+    '**/*-openlayers*',
+    '**/*.gz',
+    '**/*.html',
+    '**/*.txt',
+  ]
 }
 
 repositories {
