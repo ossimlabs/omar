@@ -2,13 +2,21 @@ allprojects {
 
   repositories {
     mavenLocal()
-    maven { url "http://download.osgeo.org/webdav/geotools/" }
-    mavenCentral()
-    maven { url "http://omar-mvn.s3-website-us-east-1.amazonaws.com" }
-//        maven { url "http://repo.boundlessgeo.com/main" }
-//        maven { url "http://maven.geo-solutions.it/" }
-//        maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
-    maven { url "https://repo.grails.org/grails/core" }
+    if(System.env.OSSIM_MAVEN_PROXY)
+    {
+        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    }
+    else
+    {
+      maven { url "http://download.osgeo.org/webdav/geotools/" }
+      mavenCentral()
+      maven { url "http://omar-mvn.s3-website-us-east-1.amazonaws.com" }
+      maven { url "http://repo.boundlessgeo.com/main" }
+      maven { url "http://maven.geo-solutions.it/" }
+      maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
+      maven { url "https://repo.grails.org/grails/core" }
+
+    }
 
   }
 }
