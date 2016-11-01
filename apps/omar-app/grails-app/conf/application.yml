@@ -201,7 +201,7 @@ omar:
       enabled: false
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
-      enabled: true
+      enabled: false
     misc:
       #beLookupEnabled: true
       icons:
