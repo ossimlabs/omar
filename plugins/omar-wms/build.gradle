@@ -4,7 +4,14 @@ buildscript {
     }
     repositories {
         mavenLocal()
-        maven { url "https://repo.grails.org/grails/core" }
+        if(System.env.OSSIM_MAVEN_PROXY)
+        {
+            maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+        }
+        else
+        {
+          maven { url "https://repo.grails.org/grails/core" }
+        }
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -28,14 +35,20 @@ ext {
 }
 
 repositories {
-  mavenLocal()
-  maven { url "http://download.osgeo.org/webdav/geotools/" }
-  maven { url "http://repo.boundlessgeo.com/main" }
-  maven { url "http://maven.geo-solutions.it/" }
-  maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
-  mavenCentral()
-  maven { url "https://repo.grails.org/grails/core" }
-
+    mavenLocal()
+    if(System.env.OSSIM_MAVEN_PROXY)
+    {
+        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    }
+    else
+    {
+        maven { url "http://download.osgeo.org/webdav/geotools/" }
+        maven { url "http://repo.boundlessgeo.com/main" }
+        maven { url "http://maven.geo-solutions.it/" }
+        maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
+        mavenCentral()
+        maven { url "https://repo.grails.org/grails/core" }
+    }
 }
 
 dependencyManagement {

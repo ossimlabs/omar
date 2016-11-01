@@ -4,7 +4,14 @@ buildscript {
     }
     repositories {
         mavenLocal()
-        maven { url "https://repo.grails.org/grails/core" }
+        if(System.env.OSSIM_MAVEN_PROXY)
+        {
+            maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+        }
+        else
+        {
+            maven { url "https://repo.grails.org/grails/core" }
+        }
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -29,10 +36,17 @@ ext {
 
 repositories {
     mavenLocal()
-    // this is for JAI.  Must be before the mavenCentral and stuff.
-    mavenCentral()
-    maven { url "https://repo.grails.org/grails/core" }
-    maven { url "http://download.osgeo.org/webdav/geotools" }
+    if(System.env.OSSIM_MAVEN_PROXY)
+    {
+        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    }
+    else
+    {
+        // this is for JAI.  Must be before the mavenCentral and stuff.
+        mavenCentral()
+        maven { url "https://repo.grails.org/grails/core" }
+        maven { url "http://download.osgeo.org/webdav/geotools" }
+    }
 }
 
 dependencyManagement {
