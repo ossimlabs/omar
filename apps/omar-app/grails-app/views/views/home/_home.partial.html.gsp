@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="row">
-      <div ng-show="{{home.piwikAppEnabled}}" class="col-md-6" ng-click="home.go(home.piwikAppLink);">
+      <div ng-hide="{{home.piwikAppEnabled}}" class="col-md-6" ng-click="home.go(home.piwikAppLink);">
         <div class="text-center well well-home" ng-href="{{home.piwikAppLink}}" target="_blank">
           <h2>PIWIK</h2>
           <div><span class="fa fa-bar-chart fa-3x text-info"></span></div>
