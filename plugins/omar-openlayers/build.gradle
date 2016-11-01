@@ -4,14 +4,8 @@ buildscript {
   }
   repositories {
     mavenLocal()
-    if(System.env.OSSIM_MAVEN_PROXY)
-    {
-        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
-    }
-    else
-    {
-        maven { url "https://repo.grails.org/grails/core" }
-    }
+    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    maven { url "https://repo.grails.org/grails/core" }
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -36,14 +30,8 @@ ext {
 
 repositories {
   mavenLocal()
-  if(System.env.OSSIM_MAVEN_PROXY)
-  {
-      maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
-  }
-  else
-  {
-    maven { url "https://repo.grails.org/grails/core" }
-  }
+  maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+  maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {

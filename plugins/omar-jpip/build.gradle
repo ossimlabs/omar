@@ -4,14 +4,8 @@ buildscript {
     }
     repositories {
         mavenLocal()
-        if(System.env.OSSIM_MAVEN_PROXY)
-        {
-            maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
-        }
-        else
-        {
-            maven { url "https://repo.grails.org/grails/core" }
-        }
+        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+        maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -36,16 +30,10 @@ ext {
 
 repositories {
     mavenLocal()
-    if(System.env.OSSIM_MAVEN_PROXY)
-    {
-        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
-    }
-    else
-    {
-        mavenCentral()
-        maven { url "https://repo.grails.org/grails/core" }
-        maven { url "http://download.osgeo.org/webdav/geotools" }
-    }
+    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    mavenCentral()
+    maven { url "https://repo.grails.org/grails/core" }
+    maven { url "http://download.osgeo.org/webdav/geotools" }
 }
 
 dependencyManagement {
