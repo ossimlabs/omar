@@ -4,9 +4,9 @@ buildscript {
   }
   repositories {
     mavenLocal()
-    if(System.env.O2_MAVEN_PROXY)
+    if(System.env.OSSIM_MAVEN_PROXY)
     {
-        maven { url "${System.env.O2_MAVEN_PROXY}" }
+        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
     }
     else
     {
@@ -55,9 +55,9 @@ assets {
 
 repositories {
   mavenLocal()
-    if(System.env.O2_MAVEN_PROXY)
+    if(System.env.OSSIM_MAVEN_PROXY)
     {
-        maven { url "${System.env.O2_MAVEN_PROXY}" }
+        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
     }
     else
     {
