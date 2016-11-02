@@ -2,14 +2,14 @@
   <nav style="margin-top: -15px;" class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-        data-target="#main-navbar-collapse" aria-expanded="false">
+        data-target="#map-navbar-collapse" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
-    <div class="collapse navbar-collapse" id="main-navbar-collapse">
+    <div class="collapse navbar-collapse" id="map-navbar-collapse">
       <ul class="nav navbar-nav">
         <!-- <li class="dropdown">
           <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -37,11 +37,10 @@
           <ul class="dropdown-menu">
             <li ng-click="image.measure(true, 'LineString')"><a><i class="fa fa-line-chart fa-lg"></i>&nbsp;&nbsp;&nbsp;Path</a></li>
             <li ng-click="image.measure(true, 'Polygon')"><a><i class="fa fa-square fa-lg"></i>&nbsp;&nbsp;&nbsp;Area</a></li>
-            <li ng-click="image.measure(false, 'Clear')"><a><i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;&nbsp;Clear Measure</a></li>
+            <li ng-click="image.measureClear()"><a><i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;&nbsp;Clear Measure</a></li>
           </ul>
         </li>
       </ul>
-
     </div>
   </nav>
   <div class="container-fluid">
@@ -112,22 +111,39 @@
             </div>
           </div>
         </div>
-        <div class="panel panel-info" ng-show="image.measureShow">
+        <div class="panel panel-info">
           <div class="panel-heading">
             <h3 class="panel-title">Measurement</h3>
           </div>
           <div class="panel-body">
-            <div class=" text-center">
+            <div class="text-center">
               <small class="text text-success">{{image.measureMessage}}</small>
+              <br>
+              <h4>Measure Type:&nbsp;&nbsp;<span class="label label-info">{{image.measureType}}</span></h4>
+            </div>
+            <div>
+              <ui-select
+              ng-model="selected.value"
+              theme="selectize"
+              on-select="image.setMeasureUnits($select.selected.value)">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">
+                    <span ng-bind="item.name"></span>
+                </ui-select-choices>
+            </ui-select>
             </div>
             <br>
-            <p>Current Type:&nbsp;&nbsp;<span class="label label-info">{{image.measureType}}</span></p>
             <ul style="padding-left: 0px">
-              <li class="list-group-item">Geodetic Distance<span class="badge">{{image.geodDist}}</span></li>
-              <li class="list-group-item">Rectilinear Distance<span class="badge">{{image.recDist}}</span></li>
+              <li class="list-group-item">Geodetic Dist.<span class="badge">{{image.geodDist}}</span></li>
+              <li class="list-group-item">Rectilinear Dist.<span class="badge">{{image.recDist}}</span></li>
               <li class="list-group-item" ng-show="image.displayAzimuth">Azimuth Bearing<span class="badge">{{image.azimuth}}</span></li>
-              <li class="list-group-item" ng-show="image.measurePolygon">Area<span class="badge">{{image.area}}&sup2;</span></li>
+              <li class="list-group-item" ng-show="image.measurePolygon">Area<span class="badge">{{image.area}}</span></li>
             </ul>
+            <div class=" text-center">
+              <small class="text text-warning">Not certified for targeting</small>
+            </div>
           </div>
         </div>
       </div>

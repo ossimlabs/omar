@@ -73,12 +73,6 @@ body {
     padding-bottom: 3px;
 }
 
-.imageMapBorder {
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 4px;
-}
-
 @media screen and (max-height: 599px) {
     #map {
         height: 57vh;
@@ -519,10 +513,10 @@ body {
    height: 50px;*/
  }
 
-.ui-select-container{
+/*.ui-select-container{
     width: 90px;
     height: 10px;
-}
+}*/
 
 #image-space-bands{
     position: relative;
@@ -533,10 +527,10 @@ body {
     width: 50px;
 }
 
-.ui-select-container span{
+/*.ui-select-container span{
     font-size: .8em;
     font-weight: bold;
-}
+}*/
 
 .ui-select-container .selectize-input{
     padding: 4px 4px;
@@ -730,38 +724,4 @@ body {
 .filter-row .range-name {
   min-width: 100px;
   text-align: left;
-}
-
-/* Measurement stuff */
-.tooltip {
-  position: relative;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
-  color: white;
-  padding: 4px 8px;
-  opacity: 0.7;
-  white-space: nowrap;
-}
-.tooltip-measure {
-  opacity: 1;
-  font-weight: bold;
-}
-.tooltip-static {
-  background-color: #ffcc33;
-  color: black;
-  border: 1px solid white;
-}
-.tooltip-measure:before,
-.tooltip-static:before {
-  border-top: 6px solid rgba(0, 0, 0, 0.5);
-  border-right: 6px solid transparent;
-  border-left: 6px solid transparent;
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  margin-left: -7px;
-  left: 50%;
-}
-.tooltip-static:before {
-  border-top-color: #ffcc33;
 }
