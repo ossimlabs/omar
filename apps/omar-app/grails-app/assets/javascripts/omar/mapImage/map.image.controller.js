@@ -61,7 +61,7 @@
 
     vm.imageId = $stateParams.imageId;
 
-    //Beginning - Band Selections Section
+    // Begin - Band Selections Section
 
     function bandSelection() {
 
@@ -199,38 +199,71 @@
 
     }
 
-    $scope.asideState = {
-      open: false
-    };
+    // Begin - Measurment Section
 
-    $scope.openAside = function(position, backdrop) {
-      $scope.asideState = {
-        open: true,
-        position: position
-      };
+    vm.measureShow = false; // don't show measure section by default
+    vm.displayArea = false;
+    vm.displayAzimuth = false;
+    vm.geodDist = '0';
+    vm.recDist = '0';
+    vm.azimuth = '0';
+    vm.area = '0';
 
-      function postClose() {
-        $scope.asideState.open = false;
+    vm.measure = function(show, type) {
+
+      switch (type){
+        case 'LineString':
+          vm.measureType = 'Path';
+          vm.measureShow = true;
+          imageSpaceService.measureActivate(type);
+          vm.measureLine = true;
+          vm.measurePolygon = false;
+        break;
+        case 'Polygon':
+          vm.measureType = 'Area';
+          vm.measureShow = true;
+          imageSpaceService.measureActivate(type);
+          vm.measureLine = false;
+          vm.measurePolygon = true;
+        break;
+        case 'Clear':
+          vm.measureShow = false;
+          imageSpaceService.measureClear();
+        break;
       }
 
-      $aside.open({
-        templateUrl: AppO2.APP_CONFIG.serverURL + '/mapImage/aside.html',
-        placement: position,
-        size: 'sm',
-        backdrop: false,
-        controller: function ($scope, $uibModalInstance) {
-          $scope.ok = function(e) {
-            $uibModalInstance.close();
-            e.stopPropagation();
-          };
+      vm.measureMessage = 'Click in the map to begin the measurement process';
 
-          $scope.cancel = function (e) {
-            $uibModalInstance.dismiss();
-            e.stopPropagation();
-          };
-        }
-      }).result.then(postClose, postClose);
-    };
+    }
+
+    $scope.$on('measure: updated', function(event, data) {
+
+      vm.geodDist = Math.round(data.gdist*1000)/1000 + ' m';
+      vm.recDist =  Math.round(data.distance*1000)/1000 + ' m';
+
+      if (data.azimuth) {
+        vm.displayAzimuth = true;
+        vm.azimuth = Math.round(data.azimuth*1000)/1000 + ' m';;
+      }
+      else if (!data.azimuth) {
+        vm.displayAzimuth = false;
+        vm.azimuth = '0';
+      }
+
+      if(data.area) {
+        vm.displayArea = true;
+        vm.area = Math.round(data.area*1000)/1000 + ' m';;
+      }
+      else if (!data.area) {
+        vm.displayArea = false;
+        vm.area = '0';
+      }
+
+      console.log(data);
+
+    });
+
+    // End - Measurement Section
 
   }
 

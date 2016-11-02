@@ -1,4 +1,4 @@
-#server:
+4#server:
 #  contextPath: /o2-omar
 ---
 hibernate:
@@ -174,6 +174,8 @@ omar:
       baseUrl: http://localhost:80/o2-wms/imageSpace/getThumbnail
     footprints:
       baseUrl: http://localhost:80/o2-wms/footprints/getFootprints
+    mensaApp:
+      baseUrl: http://localhost:80/o2-mensa/mensa
     stagerApp:
       baseUrl: http://localhost:8081
     downloadApp:
@@ -195,7 +197,7 @@ omar:
       enabled: true
     jpipApp:
       baseUrl: http://localhost:8081/jpip
-      enabled: false
+      enabled: true
     wmtsApp:
       baseUrl: http://localhost:8081/wmts
       enabled: false
