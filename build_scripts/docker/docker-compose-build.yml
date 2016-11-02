@@ -157,7 +157,7 @@ services:
       WMTSENABLED: "true"
       PWIKURL:
       PWIKPORT:
-      PWIKENABLED: "true"
+      PWIKENABLED: "false"
       APIURL:
       APIPORT:
       APIENABLED: "false"
