@@ -8,10 +8,10 @@ popd >/dev/null
 # Assigns O2_APPS and TAG and functions:
 . $SCRIPT_DIR/docker-common.sh
 
-containers=($(docker ps -q))
+containers=($(docker ps -aq))
 for container in ${containers[@]} ; do
-   echo "Stopping docker container ${container} "
-   docker stop ${container}
+   echo "Stopping and removing docker container ${container} "
+   docker rm -f ${container}
 done
 
 for app in ${O2_APPS[@]} ; do
@@ -25,6 +25,8 @@ for app in ${O2_APPS[@]} ; do
    fi
 done
 
+echo; echo Remaining containers:
+docker ps -a
 echo; echo Remaining images:
 docker images
 echo
