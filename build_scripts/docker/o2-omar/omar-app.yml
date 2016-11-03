@@ -42,6 +42,8 @@ omar:
       baseUrl: http://${WMSURL}/imageSpace/getThumbnail
     footprints:
       baseUrl: http://${WMSURL}/footprints/getFootprints
+    mensaApp:
+      baseUrl: http://${MENSAURL}/mensa
     stagerApp:
       baseUrl: http://${STAGERURL}
     downloadApp:
