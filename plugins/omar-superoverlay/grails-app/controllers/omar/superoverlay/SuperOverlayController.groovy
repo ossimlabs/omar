@@ -184,9 +184,9 @@ class SuperOverlayController implements InitializingBean
   }
 
     def getLastImagesKml() {
-        def kmlString = superOverlayService.getLastImagesKml()
+        def kmlString = superOverlayService.getLastImagesKml(params)
 
-        response.setHeader("Content-Disposition", "Attachment;Filename='O2 Last Images.kml'")
+        response.setHeader("Content-Disposition", "Attachment;Filename='O2 Last ${params.max ?: 10} Images.kml'")
         render(
             contentType: "application/vnd.google-earth.kml+xml",
             encoding: "UTF-8",
@@ -205,6 +205,15 @@ class SuperOverlayController implements InitializingBean
             paramType = 'query',
             required = false,
             value = 'An AOI, e.g. minLon,minLat,maxLon,maxLat (usually set automatically by an external GOEINT tool)'
+        ),
+        @ApiImplicitParam(
+            allowableValues = "[off, on]",
+            dataType = 'string',
+            defaultValue = "on",
+            name = 'footprints',
+            paramType = 'query',
+            required = false,
+            value = 'Whether to include footprints in the results or not.'
         ),
         @ApiImplicitParam(
             dataType = 'int',

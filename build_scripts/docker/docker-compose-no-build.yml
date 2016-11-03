@@ -265,7 +265,7 @@ services:
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       JPIPCACHEDIR: /data/jpip-cache
       JPIPSERVERURL: ${DOCKER_HOST_URL}
-      JPIPSERVERPORT: :5004
+      JPIPSERVERPORT: 5004
     volumes:
       # Mount the the host local data directory to the container
       - /data:/data
@@ -300,6 +300,7 @@ services:
       DBPASS: abc123
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       O2URL: ${DOCKER_HOST_URL}/o2-omar
+      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
     ports:

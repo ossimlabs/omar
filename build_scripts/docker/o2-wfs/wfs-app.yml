@@ -25,11 +25,11 @@ wfs:
         datastoreId: omar_prod
         datastoreParams:
           dbtype: postgis
-          host: o2-db
-          port: '5432'
-          database: omar_prod
-          user: postgres_user
-          passwd: abc123
+          host: ${DBHOST}
+          port: ${DBPORT}
+          database: ${DBNAME}
+          user: ${DBUSER}
+          passwd: ${DBPASS}
           'Expose primary keys': 'true'
           namespace: http://omar.ossim.org
   featureTypes:

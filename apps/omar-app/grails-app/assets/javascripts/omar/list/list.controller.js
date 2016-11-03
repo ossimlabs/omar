@@ -225,7 +225,7 @@
 
             var modalInstance = $uibModal.open({
                 size: 'lg',
-                templateUrl: AppO2.APP_CONFIG.serverURL + '/list/list.image-card.partial.html',
+                templateUrl: AppO2.APP_CONFIG.serverURL + '/views/list/list.image-card.partial.html',
                 controller: ['shareService', '$uibModalInstance', 'imageSpaceService', 'beNumberService', '$scope', 'imageObj', ImageModalController],
                 controllerAs: 'vm',
                 resolve: {

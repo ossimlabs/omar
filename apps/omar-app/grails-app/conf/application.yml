@@ -201,15 +201,16 @@ omar:
       enabled: false
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
-      enabled: true
+      enabled: false
     misc:
+      #beLookupEnabled: true
       icons:
         greenMarker: assets/search_marker_green.png
-#      placemarks:
-#        tableName: omar:cities
-#        columnName: CITY_NAME
-#        geomName: geom
-#        maxResults: 100
+      #placemarks:
+        #tableName: omar:be_number
+        #columnName: be
+        #geomName: location
+        #maxResults: 100
 
 
 ---

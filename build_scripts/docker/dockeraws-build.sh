@@ -61,6 +61,10 @@ for app in ${O2_APPS[@]} ; do
 #  for x in `docker images | grep "/${app}.*${TAG}\|/${app}.*none" | awk '{print $3}'`; do 
 #    docker rmi -f $x; 
 #  done
+  x=`docker -q -f "dangling=true"`
+  if [ "$x" != "" ] ; then
+    docker rmi -f $x
+  fi
   x=`docker images | grep "/${app}.*${TAG}\g|/${app}.*none" | awk '{print $3}'`
   if [ "${x}" != "" ] ; then
     docker rmi -f $x
