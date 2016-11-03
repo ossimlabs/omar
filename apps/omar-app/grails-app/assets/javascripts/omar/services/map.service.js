@@ -25,7 +25,8 @@ function mapService(stateService, wfsService) {
       wktStyle,
       filterStyle,
       footprintStyle,
-      dragBox;
+      dragBox,
+      pointLatLon;
   var mapObj = {};
 
   var baseServerUrl = AppO2.APP_CONFIG.serverURL;
@@ -300,6 +301,9 @@ function mapService(stateService, wfsService) {
     var clickCoordinates = coordinate[0] + ' ' + coordinate[1];
 
 
+    pointLatLon = coordinate[1] + ',' + coordinate[0];
+
+
     mapObj.cql = "INTERSECTS(" + geomField + ",POINT(" + clickCoordinates + "))";
 
     // Update the image cards in the list via spatial click coordinates
@@ -311,6 +315,10 @@ function mapService(stateService, wfsService) {
 
     addMarker(coordinate[1], coordinate[0], filterLayerVector);
 
+  };
+
+  this.mapPointLatLon = function() {
+    this.pointLatLon = pointLatLon;
   };
 
   this.pointFilter = function(status) {
@@ -344,9 +352,7 @@ function mapService(stateService, wfsService) {
         // Remove interaction
         map.removeInteraction(dragBox);
         clearLayerSource(filterLayerVector);
-
     }
-
   };
 
   this.mapShowImageFootprint = function(imageObj) {
