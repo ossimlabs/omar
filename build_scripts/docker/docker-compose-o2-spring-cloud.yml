@@ -23,7 +23,7 @@ services:
   #    POSTGRES_PASSWORD: abc123
   #    POSTGRES_DB: omar_prod
   #  ports:
-  #    - "4990:5432"
+  #    - "49905432"
   #  restart: always
   o2-stager:
     build:
@@ -31,7 +31,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-stager
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -53,7 +53,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-wms
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -75,7 +75,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-wfs
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -97,7 +97,7 @@ services:
 #   #   image: ${DOCKER_REGISTRY_URI}/o2-wcs
 #   #   environment:
 #   #     DBHOST: o2-db
-#   #     DBPORT: :5432
+#   #     DBPORT: 5432
 #   #     DBNAME: omar_prod
 #   #     DBUSER: postgres_user
 #   #     DBPASS: abc123
@@ -120,7 +120,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-omar
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -177,7 +177,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-wmts
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -234,7 +234,7 @@ services:
 #   #   image: ${DOCKER_REGISTRY_URI}/o2-avro
 #   #   environment:
 #   #     DBHOST: o2-db
-#   #     DBPORT: :5432
+#   #     DBPORT: 5432
 #   #     DBNAME: omar_prod
 #   #     DBUSER: postgres_user
 #   #     DBPASS: abc123
@@ -259,7 +259,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-jpip
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -301,7 +301,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -324,7 +324,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-download
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -348,7 +348,7 @@ services:
 #     image: ${DOCKER_REGISTRY_URI}/o2-swipe
 #     environment:
 #       DBHOST: o2-db
-#       DBPORT: :5432
+#       DBPORT: 5432
 #       DBNAME: omar_prod
 #       DBUSER: postgres_user
 #       DBPASS: abc123
