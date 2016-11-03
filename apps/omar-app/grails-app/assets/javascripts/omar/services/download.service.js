@@ -32,12 +32,12 @@
           imageId = imageLayerIds[0];
         }
 
-        dataManager = dataManager + '/dataManager/getRasterFiles?id=' + imageId;
-        downloadManager = downloadManager + '/archive/download';
+        var url = dataManager + '/dataManager/getRasterFiles?id=' + imageId;
+        var dm = downloadManager + '/archive/download';
 
         $http({
             method: 'GET',
-            url: dataManager
+            url: url
         })
         .then(function( response )
         {
@@ -46,7 +46,7 @@
               data.fileGroups[0].files = response.data.results;
 
               $.fileDownload(
-                downloadManager,
+                dm,
                 {
                   httpMethod: 'POST',
                   dataType: 'text',

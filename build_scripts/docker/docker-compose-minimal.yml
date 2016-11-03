@@ -32,7 +32,7 @@ services:
   #   container_name: o2-stager
   #   environment:
   #     DBHOST: o2-db
-  #     DBPORT: :5432
+  #     DBPORT: 5432
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
@@ -52,7 +52,7 @@ services:
     container_name: o2-wms
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -73,7 +73,7 @@ services:
     container_name: o2-wfs
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -96,7 +96,7 @@ services:
   # #   container_name: o2-wcs
   # #   environment:
   # #     DBHOST: o2-db
-  # #     DBPORT: :5432
+  # #     DBPORT: 5432
   # #     DBNAME: omar_prod
   # #     DBUSER: postgres_user
   # #     DBPASS: abc123
@@ -118,7 +118,7 @@ services:
     container_name: o2-omar
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -174,7 +174,7 @@ services:
   #   container_name: o2-wmts
   #   environment:
   #     DBHOST: o2-db
-  #     DBPORT: :5432
+  #     DBPORT: 5432
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
@@ -223,7 +223,7 @@ services:
   # #   container_name: o2-avro
   # #   environment:
   # #     DBHOST: o2-db
-  # #     DBPORT: :5432
+  # #     DBPORT: 5432
   # #     DBNAME: omar_prod
   # #     DBUSER: postgres_user
   # #     DBPASS: abc123
@@ -247,7 +247,7 @@ services:
   #   container_name: o2-jpip
   #   environment:
   #     DBHOST: o2-db
-  #     DBPORT: :5432
+  #     DBPORT: 5432
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
@@ -287,7 +287,7 @@ services:
   #   container_name: o2-superoverlay
   #   environment:
   #     DBHOST: o2-db
-  #     DBPORT: :5432
+  #     DBPORT: 5432
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
@@ -306,7 +306,7 @@ services:
   #   container_name: o2-download
   #   environment:
   #     DBHOST: o2-db
-  #     DBPORT: :5432
+  #     DBPORT: 5432
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
@@ -326,7 +326,7 @@ services:
   #   container_name: o2-swipe
   #   environment:
   #     DBHOST: o2-db
-  #     DBPORT: :5432
+  #     DBPORT: 5432
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123

@@ -9,7 +9,7 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-md-6" ui-sref="map">
+      <div class="col-md-4" ui-sref="map">
         <div class="text-center well well-home">
           <h2>Map</a></h2>
           <div><span class="fa fa-search fa-3x text-info"></span></div>
@@ -19,7 +19,17 @@
           <a type="button" class="btn btn-success" ui-sref="map">View</a>
         </div>
       </div>
-      <div ng-init="max=10" ng-show="{{home.kmlAppEnabled}}" class="col-md-6">
+      <div ng-show="{{home.tlvAppEnabled}}" class="col-md-4" ng-click="home.go(home.tlvAppLink);">
+        <div class="text-center well well-home" ng-href="{{home.tlvAppLink}}" target="_blank">
+          <h2>Time Lapse Viewer</h2>
+          <div><span class="fa fa-history fa-3x text-info"></span></div>
+          <br>
+          <p>An on-demand imagery flipbook</p>
+          <br><br>
+          <a type="button" class="btn btn-success" ng-href="{{home.tlvAppLink}}" target="_blank">View</a>
+        </div>
+      </div>
+      <div ng-init="max=10" ng-show="{{home.kmlAppEnabled}}" class="col-md-4">
         <div class="text-center well">
           <h2>KML</h2>
           <div><span class="fa fa-map fa-3x text-info"></span></div>
@@ -40,16 +50,6 @@
             rates, downloads, keywords and more</p>
           <br>
           <a type="button" class="btn btn-success" ng-href="{{home.piwikAppLink}}" target="_blank">View</a>
-        </div>
-      </div>
-      <div ng-show="{{home.tlvAppEnabled}}" class="col-md-6" ng-click="home.go(home.tlvAppLink);">
-        <div class="text-center well well-home" ng-href="{{home.tlvAppLink}}" target="_blank">
-          <h2>Time Lapse Viewer</h2>
-          <div><span class="fa fa-history fa-3x text-info"></span></div>
-          <br>
-          <p>An on-demand imagery flipbook</p>
-          <br>
-          <a type="button" class="btn btn-success" ng-href="{{home.tlvAppLink}}" target="_blank">View</a>
         </div>
       </div>
     </div>

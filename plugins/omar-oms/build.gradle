@@ -4,6 +4,7 @@ buildscript {
     }
     repositories {
         mavenLocal()
+        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
         maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
@@ -29,6 +30,7 @@ ext {
 
 repositories {
     mavenLocal()
+    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
     // this is for JAI.  Must be before the mavenCentral and stuff.
     mavenCentral()
     maven { url "https://repo.grails.org/grails/core" }

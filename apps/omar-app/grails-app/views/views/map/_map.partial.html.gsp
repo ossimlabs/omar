@@ -573,6 +573,7 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" ng-controller="WFSOutputDlController as wfsOutputDownload">
+                <li ng-if="filter.pointSpatial"><a ng-href="" target="_blank" ng-click="wfsOutputDownload.goToTLV()">TLV</a></li>
                 <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('JSON')">JSON</a></li>
                 <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('KML')">KML</a></li>
                 <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('CSV')">CSV</a></li>
