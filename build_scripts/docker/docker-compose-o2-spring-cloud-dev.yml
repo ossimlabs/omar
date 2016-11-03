@@ -27,7 +27,7 @@ services:
   # #    POSTGRES_PASSWORD: abc123
   # #    POSTGRES_DB: omar_prod
   # #  ports:
-  # #    - "4990:5432"
+  # #    - "49905432"
   # #  restart: always
   o2-stager:
     build:
@@ -38,7 +38,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-stager-dev
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -63,7 +63,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-wms-dev
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -88,7 +88,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-wfs-dev
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -112,7 +112,7 @@ services:
   # #   dockerfile: Dockerfile-dev
   # #   environment:
   # #     DBHOST: o2-db
-  # #     DBPORT: :5432
+  # #     DBPORT: 5432
   # #     DBNAME: omar_prod
   # #     DBUSER: postgres_user
   # #     DBPASS: abc123
@@ -138,7 +138,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-omar-dev
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -198,7 +198,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-wmts-dev
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -257,7 +257,7 @@ services:
   # #   dockerfile: Dockerfile-dev
   # #   environment:
   # #     DBHOST: o2-db
-  # #     DBPORT: :5432
+  # #     DBPORT: 5432
   # #     DBNAME: omar_prod
   # #     DBUSER: postgres_user
   # #     DBPASS: abc123
@@ -285,7 +285,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-jpip-dev
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -331,7 +331,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-superoverlay-dev
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -356,7 +356,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-download-dev
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -381,7 +381,7 @@ services:
   #   dockerfile: Dockerfile-dev
   #   environment:
   #     DBHOST: o2-db
-  #     DBPORT: :5432
+  #     DBPORT: 5432
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
