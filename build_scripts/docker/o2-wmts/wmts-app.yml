@@ -11,7 +11,7 @@ environments:
       username: ${DBUSER}
       password: ${DBPASS}
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
+      url: jdbc:postgresql://${DBHOST}:${DBPORT}/${DBNAME}
 
 omar:
   wmts:
