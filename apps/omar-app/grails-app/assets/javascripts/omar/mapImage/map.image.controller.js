@@ -171,6 +171,22 @@
 
     //END - Band Selection Section
 
+    // START - Dynamic Range Section
+    $scope.draType = {};
+    $scope.draTypes = [
+        { 'name': 'None' , 'value': 'none' },
+        { 'name': 'Auto', 'value': 'auto-minmax' },
+        { 'name': '1 STD', 'value': 'std-stretch-1' },
+        { 'name': '2 STD', 'value': 'std-stretch-2' },
+        { 'name': '3 STD', 'value': 'std-stretch-3' }
+    ];
+    $scope.draType = $scope.draTypes[1];
+
+    $scope.onDraSelect = function( draValue ) {
+        imageSpaceService.setDynamicRange( draValue );
+    };
+    // END - Dynamic Range Section
+
     function loadMapImage() {
 
       imageSpaceObj = {

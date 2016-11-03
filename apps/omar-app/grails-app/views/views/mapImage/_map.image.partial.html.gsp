@@ -113,6 +113,24 @@
         </div>
         <div class="panel panel-info">
           <div class="panel-heading">
+            <h3 class="panel-title">DRA</h3>
+          </div>
+          <div class="panel-body">
+            <ui-select
+              ng-model="draType"
+              on-select="onDraSelect($select.selected.value)"
+              theme="selectize">
+              <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="val in draTypes">
+                <span ng-bind="val.name"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+        <div class="panel panel-info">
+          <div class="panel-heading">
             <h3 class="panel-title">Measurement</h3>
           </div>
           <div class="panel-body">

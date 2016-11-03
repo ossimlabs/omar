@@ -16,6 +16,7 @@
           filename,
           entry,
           format,
+          histOp,
           imageProperties,
           imgWidth,
           imgHeight,
@@ -225,7 +226,7 @@
 
               return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
                 '&x=' + tileX + '&y=' + tileY + '&format=' + format +
-                '&numOfBands=' + numOfBands + '&bands=' + bands;
+                '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp;
               }
           }
 
@@ -271,6 +272,7 @@
 
             filename = params.filename;
             entry = params.entry;
+            histOp = "auto-minmax";
             imgWidth = params.imgWidth;
             imgHeight = params.imgHeight;
             numOfBands = params.numOfBands;
@@ -402,6 +404,11 @@
             };
 
             //END - Band Selection Section
+
+            this.setDynamicRange = function(draValue){
+              histOp = draValue;
+              source.refresh();
+            };
 
             map.render('imageMap');
 
