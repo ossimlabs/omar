@@ -372,6 +372,7 @@
 
     // End - Measurement Section
 
+    vm.screenshot = function() { imageSpaceService.screenshot(); }
     vm.zoomToFullExtent = function() { imageSpaceService.zoomToFullExtent(); }
     vm.zoomToFullRes = function() { imageSpaceService.zoomToFullRes(); }
 

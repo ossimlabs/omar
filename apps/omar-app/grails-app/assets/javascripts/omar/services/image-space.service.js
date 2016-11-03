@@ -664,15 +664,35 @@
 
             }
 
+            this.screenshot = function() {
+                map.once(
+                    "postcompose",
+                    function(event) {
+                        var canvas = event.context.canvas;
+                        canvas.toBlob(function(blob) {
+                            var filename = "O2_Screenshot.png";
+                            var link = document.createElement("a");
+                            if (link.download !== undefined) { // feature detection
+                                $(link).attr("href", window.URL.createObjectURL(blob));
+                                $(link).attr("download", filename);
+                                $("body").append(link);
+                                link.click();
+                            }
+                            else { alert("This browser doesn't support client-side downloading, :("); }
+                            link.remove();
+                        });
+                    }
+                );
+                map.renderSync();
+            }
+
             this.zoomToFullExtent = function() {
                 map.getView().setZoom(1);
             }
 
             this.zoomToFullRes = function() {
-                var gsdx = imageProperties.gsdx;
-                var gsdy = imageProperties.gsdy;
-                var fullRes = Math.sqrt(Math.pow(gsdx, 2) + Math.pow(gsdy, 2));
-                map.getView().setResolution(1 / fullRes);
+                var gsd = Math.min(imageProperties.gsdx, imageProperties.gsdy);
+                map.getView().setResolution(1 / gsd);
             }
 
         };

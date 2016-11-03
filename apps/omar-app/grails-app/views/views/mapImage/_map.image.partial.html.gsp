@@ -11,33 +11,31 @@
     </div>
     <div class="collapse navbar-collapse" id="map-navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
-            &nbsp;Zoom<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li ng-click="image.zoomToFullRes()"><a><i class="fa fa-file-image-o fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Full Resolution</a></li>
-            <li ng-click="image.zoomToFullExtent()"><a><i class="fa fa-arrows-alt fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maximum Extent</a></li>
-          </ul>
-        </li>
         <!-- <li class="dropdown">
           <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false"><span class="fa fa-mouse-pointer" aria-hidden="true"></span>
-            &nbsp;Select<span class="caret"></span></a>
+            aria-expanded="false">Select<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li ng-click=""><a><i class="fa fa-square fa-lg"></i>&nbsp;&nbsp;&nbsp;Rectangle</a></li>
-            <li ng-click=""><a><i class="fa fa-hand-paper-o fa-lg"></i>&nbsp;&nbsp;&nbsp;Freehand Polygon</a></li>
-            <li ng-click=""><a><i class="fa fa-map-pin fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a point</a></li>
+            <li ng-click=""><a>Rectangle</a></li>
+            <li ng-click=""><a>Freehand Polygon</a></li>
+            <li ng-click=""><a>Add a point</a></li>
           </ul>
         </li> -->
         <li class="dropdown">
           <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false"><span class="fa fa-info-circle" aria-hidden="true"></span>
-            &nbsp;Measure<span class="caret"></span></a>
+            aria-expanded="false">Measure<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li ng-click="image.measure(true, 'LineString')"><a><i class="fa fa-line-chart fa-lg"></i>&nbsp;&nbsp;&nbsp;Path</a></li>
-            <li ng-click="image.measure(true, 'Polygon')"><a><i class="fa fa-square fa-lg"></i>&nbsp;&nbsp;&nbsp;Area</a></li>
-            <li ng-click="image.measureClear()"><a><i class="fa fa-close fa-lg"></i>&nbsp;&nbsp;&nbsp;Clear Measure</a></li>
+            <li ng-click="image.measure(true, 'LineString')"><a>Path</a></li>
+            <li ng-click="image.measure(true, 'Polygon')"><a>Area</a></li>
+            <li ng-click="image.measureClear()"><a>Clear Measure</a></li>
+          </ul>
+        </li>
+        <li ng-click="image.screenshot()"><a>Screenshot</a></li>
+        <li class="dropdown">
+          <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false">Zoom<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li ng-click="image.zoomToFullRes()"><a>Full Resolution</a></li>
+            <li ng-click="image.zoomToFullExtent()"><a>Maximum Extent</a></li>
           </ul>
         </li>
       </ul>
