@@ -1,5 +1,5 @@
 (function () {
-  'use strict';
+  //'use strict';
   angular
   .module('omarApp')
   .controller('SearchController', ['$scope', '$state', 'wfsService', '$http', 'stateService', SearchController]);

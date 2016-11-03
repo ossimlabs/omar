@@ -75,6 +75,12 @@ body {
     padding-bottom: 3px;
 }
 
+.imageMapBorder {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+}
+
 @media screen and (max-height: 599px) {
     #map {
         height: 57vh;
@@ -515,10 +521,10 @@ body {
    height: 50px;*/
  }
 
-.ui-select-container{
+/*.ui-select-container{
     width: 90px;
     height: 10px;
-}
+}*/
 
 #image-space-bands{
     position: relative;
@@ -529,10 +535,10 @@ body {
     width: 50px;
 }
 
-.ui-select-container span{
+/*.ui-select-container span{
     font-size: .8em;
     font-weight: bold;
-}
+}*/
 
 .ui-select-container .selectize-input{
     padding: 4px 4px;
