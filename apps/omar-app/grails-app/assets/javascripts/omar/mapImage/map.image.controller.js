@@ -233,7 +233,6 @@
 
     function setMeasureUiComponents(){
 
-      vm.measureShow = true; // don't show measure section by default
       vm.measureType = 'None';
       vm.measureMessage = 'Choose a measure type from the toolbar';
       vm.displayArea = false;
@@ -299,7 +298,7 @@
       // Azimuth calcuation on LineString
       if (data.azimuth) {
         vm.displayAzimuth = true;
-        vm.azimuth = data.azimuth.toFixed(3);
+        vm.azimuth = data.azimuth.toFixed(3) + ' deg';
       }
       else if (!data.azimuth) {
         vm.displayAzimuth = false;

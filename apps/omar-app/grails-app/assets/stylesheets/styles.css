@@ -73,6 +73,12 @@ body {
     padding-bottom: 3px;
 }
 
+.imageMapBorder {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+}
+
 @media screen and (max-height: 599px) {
     #map {
         height: 57vh;
