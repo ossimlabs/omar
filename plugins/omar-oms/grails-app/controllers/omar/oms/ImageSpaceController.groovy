@@ -50,12 +50,16 @@ class ImageSpaceController
           @ApiImplicitParam(name = 'filename', value = 'Filename', paramType = 'query', dataType = 'string', required=true),
           @ApiImplicitParam(name = 'entry', value = 'Image entry id(typically 0)', defaultValue="0", paramType = 'query', dataType = 'string', required=false),
           @ApiImplicitParam(name = 'bands', value = 'Bands', defaultValue="", paramType = 'query', dataType = 'string', required=false),
-          @ApiImplicitParam(name = 'histOp', value = 'Histogram Operation',allowableValues="[none,auto-minmax,std-stretch-1,std-stretch-2,std-stretch-3]", defaultValue="auto-minmax", paramType = 'query', dataType = 'string', required=false)
+          @ApiImplicitParam(name = 'histOp', value = 'Histogram Operation',allowableValues="[none,auto-minmax,std-stretch-1,std-stretch-2,std-stretch-3]", defaultValue="auto-minmax", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'sharpenMode', value = 'Sharpen Operation',allowableValues="[none,light,heavy]", defaultValue="none", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'resamplerFilter', value = 'Interpolation Operation',allowableValues="[nearest,bilinear,cubic,gaussian,magic,bessel,blackman,bspline,catrom,hanning,hamming,hermite,lanczos,mitchell,quadratic,sinc]", defaultValue="none", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'brightness', value = 'Brightness Operation',defaultValue="0.0", paramType = 'query', dataType = 'float', required=false),
+          @ApiImplicitParam(name = 'contrast', value = 'Contrast Operation',defaultValue="1.0",  paramType = 'query', dataType = 'float', required=false)
+
   ])
   def getTile(/*GetTileCommand cmd*/)
   {
     def cmd = new GetTileCommand()
-
     BindUtil.fixParamNames( GetTileCommand, params )
     bindData( cmd, params )
     def outputStream = null
