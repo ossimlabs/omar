@@ -357,6 +357,9 @@
 
     // End - Measurement Section
 
+    vm.zoomToFullExtent = function() { imageSpaceService.zoomToFullExtent(); }
+    vm.zoomToFullRes = function() { imageSpaceService.zoomToFullRes(); }
+
   }
 
 }() );

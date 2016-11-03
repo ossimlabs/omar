@@ -11,15 +11,15 @@
     </div>
     <div class="collapse navbar-collapse" id="map-navbar-collapse">
       <ul class="nav navbar-nav">
-        <!-- <li class="dropdown">
+        <li class="dropdown">
           <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
             aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
             &nbsp;Zoom<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li ng-click=""><a><i class="fa fa-file-image-o fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Full Resolution</a></li>
-            <li ng-click=""><a><i class="fa fa-arrows-alt fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maximum Extent</a></li>
+            <li ng-click="image.zoomToFullRes()"><a><i class="fa fa-file-image-o fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Full Resolution</a></li>
+            <li ng-click="image.zoomToFullExtent()"><a><i class="fa fa-arrows-alt fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maximum Extent</a></li>
           </ul>
-        </li> -->
+        </li>
         <!-- <li class="dropdown">
           <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
             aria-expanded="false"><span class="fa fa-mouse-pointer" aria-hidden="true"></span>

@@ -16,6 +16,7 @@
           filename,
           entry,
           format,
+          imageProperties,
           imgWidth,
           imgHeight,
           tileX,
@@ -258,10 +259,9 @@
               url: encodeURI(wfsUrl)
 
             }).then(function(response) {
-
-              var properties = response.data.features[0].properties;
-              var imageId = properties.title || properties.filename;
-              var acquisitionDate = properties.acquisition_date || "";
+              imageProperties = response.data.features[0].properties;
+              var imageId = imageProperties.title || imageProperties.filename;
+              var acquisitionDate = imageProperties.acquisition_date || "";
 
               if (!isModal) {
                 stateService.navStateUpdate({ titleLeft: imageId + " <br> " + acquisitionDate });
@@ -655,6 +655,17 @@
               map.removeInteraction(draw);
               map.un('pointermove', pointerMoveHandler);
 
+            }
+
+            this.zoomToFullExtent = function() {
+                map.getView().setZoom(1);
+            }
+
+            this.zoomToFullRes = function() {
+                var gsdx = imageProperties.gsdx;
+                var gsdy = imageProperties.gsdy;
+                var fullRes = Math.sqrt(Math.pow(gsdx, 2) + Math.pow(gsdy, 2));
+                map.getView().setResolution(1 / fullRes);
             }
 
         };
