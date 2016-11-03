@@ -128,6 +128,8 @@ services:
       WFSPORT:
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
+      MENSAURL: ${DOCKER_HOST_URL}/o2-mensa
+      MENSAPORT:
       STAGERURL: ${DOCKER_HOST_URL}/o2-stager
       STAGERPORT:
       DOWNLOADURL: ${DOCKER_HOST_URL}/o2-download
@@ -153,7 +155,7 @@ services:
       WMTSENABLED: "true"
       PWIKURL:
       PWIKPORT:
-      PWIKENABLED: "true"
+      PWIKENABLED: "false"
       APIURL:
       APIPORT:
       APIENABLED: "false"
