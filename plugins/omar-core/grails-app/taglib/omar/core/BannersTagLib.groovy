@@ -7,10 +7,10 @@ class BannersTagLib {
     static namespace = "o2"
     static defaultEncodeAs = [taglib:'raw']
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
- 	
+
  	@Value('${classificationBanner.backgroundColor}')
     def backgroundColor
-    
+
     @Value('${classificationBanner.classificationType}')
     def classificationType
 
@@ -20,7 +20,7 @@ class BannersTagLib {
 
     	def x = {
     		div ("class": "navbar navbar-default navbar-fixed-${attrs.position ?: 'top'} text-center",
-    			 style: "background-color: ${backgroundColor};")
+    			 style: "background: ${backgroundColor};")
     		{
 
     			p (style: 'margin-top: 3px; text-size: 19px; color: black; text-shadow: 0px .5px .5px #fff;') {
@@ -34,4 +34,3 @@ class BannersTagLib {
     	out << text
     }
 }
-

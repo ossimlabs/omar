@@ -422,36 +422,7 @@
               rotateNorthArrow(rotation);
             });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // ############# Measure things #######################
-
+            // Begin Measure stuff
             var pointerMoveHandler = function(evt) {
 
               if (evt.dragging) {
@@ -663,7 +634,9 @@
               map.un('pointermove', pointerMoveHandler);
 
             }
+            // End Measure stuff
 
+            // Begin Screenshot stuff
             this.screenshot = function() {
                 map.once(
                     "postcompose",
@@ -685,7 +658,9 @@
                 );
                 map.renderSync();
             }
+            // end Screenshot stuff
 
+            // Begin Zoom stuff
             this.zoomToFullExtent = function() {
                 map.getView().setZoom(1);
             }
@@ -694,7 +669,7 @@
                 var gsd = Math.min(imageProperties.gsdx, imageProperties.gsdy);
                 map.getView().setResolution(1 / gsd);
             }
-
+            // End Zoom stuff
         };
 
     }

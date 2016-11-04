@@ -7,7 +7,6 @@
 body {
     padding-top: 50px;
     padding-bottom: 50px;
-    /*overflow: scroll;*/
 }
 
 .navbar {
@@ -34,7 +33,6 @@ body {
     position: relative;
     background: #000 url("aerial_rs.jpg") center center;
     width: 100%;
-    /*height: 100%;*/
     background-size: contain;
     overflow: hidden;
     padding-top: 24px;
@@ -75,6 +73,30 @@ body {
     padding-bottom: 3px;
 }
 
+.imageMapNav {
+  margin-bottom: 8px;
+}
+.imageMapTools {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding-top: 10px;
+  overflow-y: auto;
+}
+
+.imageMapTools > .panel-info {
+  margin-bottom: 4px;
+}
+
+.imageMapTools > .panel-info .selectize-input {
+  margin-top: 5px;
+}
+
+.imageMapTools label {
+  margin-bottom: 0px;
+  margin-left: 5px;
+}
+
 .imageMapBorder {
   border-style: solid;
   border-width: 1px;
@@ -92,7 +114,10 @@ body {
         height: 68vh;
     }
     .imageMap {
-        height: 55vh;
+        height: 62vh;
+    }
+    .imageMapTools {
+      height: 62vh;
     }
 }
 
@@ -107,7 +132,10 @@ body {
         height: 73vh;
     }
     .imageMap {
-        height: 63vh;
+        height: 68vh;
+    }
+    .imageMapTools {
+      height: 68vh;
     }
 }
 
@@ -122,7 +150,10 @@ body {
         height: 77vh;
     }
     .imageMap {
-        height: 68vh;
+        height: 71vh;
+    }
+    .imageMapTools {
+      height: 71vh;
     }
 }
 
@@ -137,7 +168,10 @@ body {
         height: 80vh;
     }
     .imageMap {
-        height: 72vh;
+        height: 76vh;
+    }
+    .imageMapTools {
+      height: 76vh;
     }
 }
 
@@ -152,7 +186,10 @@ body {
         height: 82vh;
     }
     .imageMap {
-        height: 75vh;
+        height: 78vh;
+    }
+    .imageMapTools {
+      height: 78vh;
     }
 }
 
@@ -167,7 +204,10 @@ body {
         height: 83vh;
     }
     .imageMap {
-        height: 77vh;
+        height: 80vh;
+    }
+    .imageMapTools {
+      height: 80vh;
     }
 }
 
@@ -182,7 +222,10 @@ body {
         height: 85vh;
     }
     .imageMap {
-        height: 79vh;
+        height: 82vh;
+    }
+    .imageMapTools {
+      height: 82vh;
     }
 }
 
@@ -198,6 +241,9 @@ body {
     }
     .imageMap {
         height: 81vh;
+    }
+    .imageMapTools {
+      height: 81vh;
     }
 }
 
@@ -372,7 +418,7 @@ body {
  * @geedmo - Licensed under the MIT license
  */
 
-.yamm .nav, .yamm .collapse, .yamm .dropup, .yamm .dropdown {
+/*.yamm .nav, .yamm .collapse, .yamm .dropup, .yamm .dropdown {
     position: static;
 }
 
@@ -386,13 +432,12 @@ body {
 
 .yamm .yamm-content {
     padding: 20px 30px;
-    /*overflow: scroll;*/
 }
 
 .yamm .dropdown.yamm-fw .dropdown-menu {
     left: 0;
     right: 0;
-}
+}*/
 
 .nav-download .dropdown-menu a {
     text-align: center;
@@ -401,7 +446,6 @@ body {
 .nav-download .dropdown-menu {
     min-width: 112px;
 }
-
 
 /*.navbar-default .navbar-nav > .nav-download{
   border-left: 1px solid #CCC;
@@ -492,10 +536,10 @@ body {
 }
 
 #grayImageItem, #redImageItem, #greenImageItem, #blueImageItem {
-    display: inline-block;
-    vertical-align: middle;
+    /*display: inline-block;
+    vertical-align: middle;*/
     width: 60px;
-    float: right;
+    /*float: right;*/
 }
 
 #gray-image-space-bands, #rgb-image-space-bands {
@@ -504,6 +548,7 @@ body {
 
 #image-space-bands{
   margin-top: -15px;
+  margin-bottom: -15px;
 }
 
 .image-bands {
@@ -528,12 +573,12 @@ body {
 
 #image-space-bands{
     position: relative;
-    top: 30px;
+    top: 20px;
 }
 
-#image-space-bands .ui-select-container .selectize-input{
+/*#image-space-bands .ui-select-container .selectize-input{
     width: 50px;
-}
+}*/
 
 /*.ui-select-container span{
     font-size: .8em;
@@ -642,28 +687,6 @@ body {
   box-shadow: none;
   -webkit-box-shadow: none;
 }
-
-/*.mega-dropdown-menu:before {
-  content: "";
-  border-bottom: 15px solid #fff;
-  border-right: 17px solid transparent;
-  border-left: 17px solid transparent;
-  position: absolute;
-  top: -15px;
-  left: 285px;
-  z-index: 10;
-}
-
-.mega-dropdown-menu:after {
-  content: "";
-  border-bottom: 17px solid #ccc;
-  border-right: 19px solid transparent;
-  border-left: 19px solid transparent;
-  position: absolute;
-  top: -17px;
-  left: 283px;
-  z-index: 8;
-}*/
 
 .mega-dropdown-menu > li > ul {
   padding: 0;
