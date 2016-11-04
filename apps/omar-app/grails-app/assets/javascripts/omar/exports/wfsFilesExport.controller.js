@@ -36,9 +36,15 @@
             startDay = '',
             startMonth = '',
             startYear = '',
+            startHour,
+            startMinute,
+            startSecond,
             endDay = '',
             endMonth = '',
-            endYear = '';
+            endYear = '',
+            endHour,
+            endMinute,
+            endSecond;
         var listSize;
         var acquisitionDateList = [];
         var wfsRequestUrl = AppO2.APP_CONFIG.params.wfs.baseUrl;
@@ -85,9 +91,16 @@
             startDay = startDate.getDate();
             startMonth = startDate.getMonth() + 1;
             startYear = startDate.getFullYear();
+            startHour = startDate.getHours();
+            startMinute = startDate.getMinutes();
+            startSecond = startDate.getSeconds();
+
             endDay = endDate.getDate();
             endMonth = endDate.getMonth() + 1;
             endYear = endDate.getFullYear();
+            endHour = endDate.getHours();
+            endMinute = endDate.getMinutes();
+            endSecond = endDate.getSeconds();
 
             tlvURL =  encodeURI( tlvRequestUrl +
                         '/?location=' +
@@ -97,7 +110,14 @@
                         '&startYear=' + startYear +
                         '&endDay=' + endDay +
                         '&endMonth=' + endMonth +
-                        '&endYear=' + endYear );
+                        '&endYear=' + endYear +
+                        '&startHour=' + startHour +
+                        '&startMinute=' + startMinute +
+                        '&startSecond=' + startSecond +
+                        '&endHour=' + endHour +
+                        '&endMinute=' + endMinute +
+                        '&endSecond=' + endSecond
+                      );
         }else {
             tlvURL =  encodeURI( tlvRequestUrl +
                         '/?location=' +
