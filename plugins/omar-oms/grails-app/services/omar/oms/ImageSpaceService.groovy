@@ -2,7 +2,9 @@ package omar.oms
 
 import groovy.json.JsonSlurper
 import omar.core.HttpStatus
+import sun.awt.image.ToolkitImage
 
+import javax.media.jai.PlanarImage
 import java.awt.Color
 import java.awt.Font
 import java.awt.Point
@@ -16,11 +18,14 @@ import java.awt.image.DataBufferByte
 import java.awt.image.PixelInterleavedSampleModel
 import java.awt.image.Raster
 import javax.imageio.ImageIO
+import javax.media.jai.JAI
 
 import joms.oms.Chipper
 import joms.oms.ImageModel
 import joms.oms.Info
 import joms.oms.Keywordlist
+
+import java.awt.image.RenderedImage
 
 class ImageSpaceService
 {
@@ -162,7 +167,6 @@ class ImageSpaceService
       {
         opts.bands = cmd.bands
       }
-
       def hints = [
               transparent: cmd.format == 'png',
               width: cmd.tileSize,
@@ -195,21 +199,64 @@ class ImageSpaceService
                       buffer: "Unable to service tile".bytes]
 
 
-    HashMap chipperResult = ChipperUtil.runChipper(opts)
-
     if(!opts.bands)
     {
-      opts.three_band_out=true
+      opts.three_band_out="true"
     }
+    HashMap chipperResult = ChipperUtil.runChipper(opts)
     if(chipperResult.raster)
     {
-      def image =  ChipperUtil.optimizeRaster(chipperResult.raster, chipperResult.colorModel, hints)//hints.type, hints.transparent) //new BufferedImage( chipperResult.colorModel, chipperResult.raster, false, null )
+      if (chipperResult.raster.numBands > 3)
+      {
+        try
+        {
+          def planarImage = JaiImage.bufferedToPlanar(new BufferedImage(chipperResult.colorModel, chipperResult.raster, true, null))
+          planarImage.data
+          def modifiedImage = JaiImage.selectBandsForRendering(planarImage)
+//          if (chipperResult.raster.numBands >= 3)
+//          {
+//            modifiedImage = JAI.create("BandSelect", planarImage, [0, 1, 2] as int[])
+//          } else
+//          {
+//            modifiedImage = JAI.create("BandSelect", planarImage, [0, 0, 0] as int[])
+//          }
+
+          if (modifiedImage)
+          {
+            chipperResult.raster = modifiedImage.data
+            chipperResult.colorModel = modifiedImage.colorModel
+          }
+//           def planarImage = PlanarImage.wrapRenderedImage(chipperResult.renderedImage)
+//           planarImage = JAI.create("NULL", planarImage)
+//           planarImage.data
+
+          // def modifedImage = JAI.create("BandSelect", PlanarImage.wrapRenderedImage(chipperResult.renderedImage), [0, 1, 2] as int[])
+//            println "MODIFIED IMAGE!!!!!!!!!!!!!${modifedImage}"
+
+        }
+        catch (e)
+        {
+          log.error(e.toString())
+        }
+
+      }
+
+      try
+      {
+      def image = ChipperUtil.optimizeRaster(chipperResult.raster, chipperResult.colorModel, hints)
+//hints.type, hints.transparent) //new BufferedImage( chipperResult.colorModel, chipperResult.raster, false, null )
       result.status = HttpStatus.OK
       result.buffer = null
       result.contentType = null
-      ImageIO.write( image, hints.type, hints.ostream )
-    }
 
+        ImageIO.write(image, hints.type, hints.ostream)
+
+      }
+      catch (e)
+      {
+        log.error(e.toString())
+      }
+    }
     result
   }
 
