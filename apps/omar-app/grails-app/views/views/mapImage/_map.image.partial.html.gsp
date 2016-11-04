@@ -1,5 +1,5 @@
 <div ng-controller="MapImageController as image">
-  <nav style="margin-top: -15px;" class="navbar navbar-default" role="navigation">
+  <nav style="margin-top: -15px;" class="navbar navbar-default imageMapNav" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
         data-target="#map-navbar-collapse" aria-expanded="false">
@@ -22,34 +22,33 @@
         </li> -->
         <li class="dropdown">
           <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false">Measure<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li ng-click="image.measure(true, 'LineString')"><a>Path</a></li>
-            <li ng-click="image.measure(true, 'Polygon')"><a>Area</a></li>
-            <li ng-click="image.measureClear()"><a>Clear Measure</a></li>
-          </ul>
-        </li>
-        <li ng-click="image.screenshot()"><a>Screenshot</a></li>
-        <li class="dropdown">
-          <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
             aria-expanded="false">Zoom<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li ng-click="image.zoomToFullRes()"><a>Full Resolution</a></li>
             <li ng-click="image.zoomToFullExtent()"><a>Maximum Extent</a></li>
           </ul>
         </li>
+        <li class="dropdown">
+          <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false">Measure<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li ng-click="image.measure(true, 'LineString')"><a>Path</a></li>
+            <li ng-click="image.measure(true, 'Polygon')"><a>Area</a></li>
+            <li role="separator" class="divider"></li>
+            <li ng-click="image.measureClear()"><a>Clear Measure</a></li>
+          </ul>
+        </li>
+        <li ng-click="image.screenshot()"><a>Screenshot</a></li>
       </ul>
     </div>
   </nav>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 well">
+      <div class="col-md-3 imageMapTools" style="overflow-y: auto;">
         <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title">Band Selection</h3>
-          </div>
           <div class="panel-body">
             <div id="band-type" class="image-bands">
+              <small class="text text-info">Band Selection</small>
               <ui-select id="bandTypeItem"
                   ng-model="bandTypeItem"
                   on-select="showBands($select.selected.value)"
@@ -63,57 +62,69 @@
                 </ui-select-choices>
               </ui-select>
             </div>
-            </br>
             <div id="image-space-bands">
               <div id="gray-image-space-bands" class="image-bands image-band-div">
-                <label for="male">Band:&nbsp;</label>
-                <ui-select id="grayImageItem" theme="selectize" ng-model="grayImageItem" on-select="onBandSelect($select.selected.value, 'gray')">
-                  <ui-select-match>
-                      <span ng-bind="$select.selected.value"></span>
-                  </ui-select-match>
-                  <ui-select-choices repeat="val in bandValues">
-                      <span ng-bind="val.value"></span>
-                  </ui-select-choices>
-                </ui-select>
+                <form class="form">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="grayImageItem">Band</label>
+                        <ui-select id="grayImageItem" theme="selectize" ng-model="grayImageItem" on-select="onBandSelect($select.selected.value, 'gray')">
+                          <ui-select-match>
+                              <span ng-bind="$select.selected.value"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="val in bandValues">
+                              <span ng-bind="val.value"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
-              <div id="rgb-image-space-bands" class="image-bands">
-                <div id="redImageBand" class="image-band-div">
-                  <label>Red:&nbsp;</label>
-                  <ui-select id="redImageItem" theme="selectize" ng-model="redImageItem" on-select="onBandSelect($select.selected.value, 'red')">
-                    <ui-select-match>{{$select.selected.value}}</ui-select-match>
-                    <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
-                        <span ng-bind-html="val.value | highlight: $select.search"></span>
-                    </ui-select-choices>
-                  </ui-select>
+              <form class="form">
+                <div id="rgb-image-space-bands" class="row image-bands">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="redImageItem">Red</label>
+                      <ui-select id="redImageItem" theme="selectize" ng-model="redImageItem" on-select="onBandSelect($select.selected.value, 'red')">
+                        <ui-select-match>{{$select.selected.value}}</ui-select-match>
+                        <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
+                            <span ng-bind-html="val.value | highlight: $select.search"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="greenImageItem">Green</label>
+                      <ui-select id="greenImageItem" theme="selectize" ng-model="greenImageItem" on-select="onBandSelect($select.selected.value, 'green')">
+                        <ui-select-match>{{$select.selected.value}}</ui-select-match>
+                        <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
+                            <span ng-bind-html="val.value | highlight: $select.search"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="blueImageBand">Blue</label>
+                      <ui-select id="blueImageItem" theme="selectize" ng-model="blueImageItem" on-select="onBandSelect($select.selected.value, 'blue')">
+                        <ui-select-match>{{$select.selected.value}}</ui-select-match>
+                        <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
+                            <span ng-bind-html="val.value | highlight: $select.search"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
                 </div>
-                <div id="greenImageBand" class="image-band-div">
-                  <label>Green:&nbsp;</label>
-                  <ui-select id="greenImageItem" theme="selectize" ng-model="greenImageItem" on-select="onBandSelect($select.selected.value, 'green')">
-                    <ui-select-match>{{$select.selected.value}}</ui-select-match>
-                    <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
-                        <span ng-bind-html="val.value | highlight: $select.search"></span>
-                    </ui-select-choices>
-                  </ui-select>
-                </div>
-                <div id="blueImageBand" class="image-band-div">
-                  <label>Blue:&nbsp;</label>
-                  <ui-select id="blueImageItem" theme="selectize" ng-model="blueImageItem" on-select="onBandSelect($select.selected.value, 'blue')">
-                    <ui-select-match>{{$select.selected.value}}</ui-select-match>
-                    <ui-select-choices repeat="val.key as val in bandValues | filter: $select.search">
-                        <span ng-bind-html="val.value | highlight: $select.search"></span>
-                    </ui-select-choices>
-                  </ui-select>
-                </div>
-              </div>
-            </br>
+              </form>
             </div>
           </div>
         </div>
         <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title">Dynamic Range Adjustment</h3>
-          </div>
           <div class="panel-body">
+            <small class="text text-info">Dynamic Range Adjustment</small>
             <ui-select
               ng-model="draType"
               on-select="onDraSelect($select.selected.value)"
@@ -127,15 +138,12 @@
             </ui-select>
           </div>
         </div>
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title">Measurement</h3>
-          </div>
+        <div class="panel panel-info" ng-show="image.showMeasureInfo">
           <div class="panel-body">
             <div class="text-center">
               <small class="text text-success">{{image.measureMessage}}</small>
               <br>
-              <h4>Measure Type:&nbsp;&nbsp;<span class="label label-info">{{image.measureType}}</span></h4>
+              <small>Measure Type:&nbsp;&nbsp;<span class="text text-info">{{image.measureType}}</span></small>
             </div>
             <div>
               <ui-select
@@ -151,6 +159,7 @@
             </ui-select>
             </div>
             <br>
+            <small class="text text-info">Measurement Info</small>
             <ul style="padding-left: 0px">
               <li class="list-group-item">Geodetic Dist.<span class="badge">{{image.geodDist}}</span></li>
               <li class="list-group-item">Rectilinear Dist.<span class="badge">{{image.recDist}}</span></li>
