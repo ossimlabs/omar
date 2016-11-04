@@ -149,7 +149,8 @@ class ChipperUtil
   {
     HashMap result = [colorModel:null,
                      sampleModel:null,
-                     raster:null]
+                     raster:null
+    ]
     def chipper = new Chipper()
     def imageData
     def cacheSource
@@ -164,9 +165,9 @@ class ChipperUtil
           cacheSource = new ossimMemoryImageSource();
           cacheSource?.setImage( imageData );
           def renderedImage = new omsRenderedImage( new omsImageSource( cacheSource ) )
-          result.raster = renderedImage.getData()
           result.sampleModel = renderedImage.sampleModel
           result.colorModel = renderedImage.colorModel
+          result.raster = renderedImage.data
           renderedImage=null
         }
 
@@ -179,7 +180,7 @@ class ChipperUtil
     }
     catch(e)
     {
-
+        e.printStackTrace()
     }
     finally{
       cacheSource?.delete();cacheSource=null
