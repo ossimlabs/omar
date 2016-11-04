@@ -233,6 +233,7 @@
 
     function setMeasureUiComponents(){
 
+      vm.showMeasureInfo = false;
       vm.measureType = 'None';
       vm.measureMessage = 'Choose a measure type from the toolbar';
       vm.displayArea = false;
@@ -336,6 +337,7 @@
         break;
       }
 
+      vm.showMeasureInfo = true;
       vm.measureMessage = 'Click in the map to begin the measurement';
 
     }
