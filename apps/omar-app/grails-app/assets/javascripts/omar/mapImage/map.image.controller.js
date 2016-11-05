@@ -217,7 +217,7 @@
 
     // Begin - Measurment Section
 
-    $scope.itemArray = [
+    $scope.itemMeasureTypeArray = [
       {id: 1, name: 'meters', value: 'm'},
       {id: 2, name: 'kilometers', value: 'km'},
       {id: 3, name: 'feet', value: 'ft'},
@@ -226,7 +226,7 @@
       {id: 6, name: 'nautical miles', value: 'nmi'},
     ];
 
-    $scope.selected = { value: $scope.itemArray[0] };
+    $scope.selectedMeasureType = $scope.itemMeasureTypeArray[0];
 
     vm.measureMessage = 'Choose a measure type from the toolbar';
     vm.measureType = 'None';
@@ -343,7 +343,7 @@
     }
 
     vm.setMeasureUnits = function(measureType) {
-
+      console.log('measure units: ', measureType);
       // Only calculate the measurement if we have a valid measure object
       if(angular.equals(measureDataObj, {})) {
         return;
@@ -368,7 +368,7 @@
 
       measureDataObj = data;
 
-      changeMeasureOutputSystem(measureDataObj, $scope.selected.value.value);
+      changeMeasureOutputSystem(measureDataObj, $scope.selectedMeasureType.value);
 
     });
 

@@ -660,6 +660,13 @@
             }
             // end Screenshot stuff
 
+            // Begin PQE stuff
+
+
+
+
+            // Emd PQE stuff
+
             // Begin Zoom stuff
             this.zoomToFullExtent = function() {
                 map.getView().setZoom(1);

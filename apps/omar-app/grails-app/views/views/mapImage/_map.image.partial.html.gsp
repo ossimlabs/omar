@@ -44,7 +44,9 @@
   </nav>
   <div class="container-fluid">
     <div class="row">
+      <!-- Image Map Tools Column -->
       <div class="col-md-3 imageMapTools" style="overflow-y: auto;">
+        <!-- Band Selection Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
             <div id="band-type" class="image-bands">
@@ -122,6 +124,7 @@
             </div>
           </div>
         </div>
+        <!-- Dynamic Range Adjustment Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
             <small class="text text-info">Dynamic Range Adjustment</small>
@@ -138,6 +141,7 @@
             </ui-select>
           </div>
         </div>
+        <!-- Measure Panel -->
         <div class="panel panel-info" ng-show="image.showMeasureInfo">
           <div class="panel-body">
             <div class="text-center">
@@ -147,13 +151,13 @@
             </div>
             <div>
               <ui-select
-              ng-model="selected.value"
+              ng-model="selectedMeasureType"
               theme="selectize"
               on-select="image.setMeasureUnits($select.selected.value)">
                 <ui-select-match>
                     <span ng-bind="$select.selected.name"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">
+                <ui-select-choices repeat="item in itemMeasureTypeArray">
                     <span ng-bind="item.name"></span>
                 </ui-select-choices>
             </ui-select>
@@ -171,7 +175,14 @@
             </div>
           </div>
         </div>
+        <!-- Position Quality Evaluator Panel -->
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <small class="text text-info">Position Quality Evaluator</small>
+          </div>
+        </div>
       </div>
+      <!-- Map Column -->
       <div class="col-md-9">
         <div id="imageMap" class="map imageMap imageMapBorder">
           <div class="imageLinkBtns imageShareButton">
