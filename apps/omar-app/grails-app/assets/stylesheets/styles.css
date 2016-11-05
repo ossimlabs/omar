@@ -418,7 +418,7 @@ body {
  * @geedmo - Licensed under the MIT license
  */
 
-/*.yamm .nav, .yamm .collapse, .yamm .dropup, .yamm .dropdown {
+.yamm .nav, .yamm .collapse, .yamm .dropup, .yamm .dropdown {
     position: static;
 }
 
@@ -437,7 +437,7 @@ body {
 .yamm .dropdown.yamm-fw .dropdown-menu {
     left: 0;
     right: 0;
-}*/
+}
 
 .nav-download .dropdown-menu a {
     text-align: center;
