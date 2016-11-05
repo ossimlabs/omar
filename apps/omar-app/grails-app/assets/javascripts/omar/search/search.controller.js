@@ -126,7 +126,10 @@
                 });
             }
         }
-        else { searchParams.isBeNumber = null; }
+        else {
+            searchParams.isBeNumber = null;
+            determineGeospatialInput();
+        }
     }
 
     function isCoordinate() {
