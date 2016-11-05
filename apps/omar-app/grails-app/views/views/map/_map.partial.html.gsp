@@ -694,7 +694,7 @@
                     Acquisition Date:&nbsp;&nbsp;
                     <span class="text-success">
                       <span ng-show="!image.properties.acquisition_date">Unknown</span>
-                      {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}
+                      {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss' : 'UTC'}}
                     </span>
                   </div>
                 </div>
@@ -703,7 +703,7 @@
                     Ingest Date:&nbsp;&nbsp;
                     <span class="text-success">
                       <span ng-show="!image.properties.ingest_date">Unknown</span>
-                      {{image.properties.ingest_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}
+                      {{image.properties.ingest_date | date:'MM/dd/yyyy HH:mm:ss:sss' : 'UTC'}}
                     </span>
                   </div>
                 </div>

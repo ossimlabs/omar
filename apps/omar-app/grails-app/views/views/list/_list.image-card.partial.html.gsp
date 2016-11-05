@@ -49,13 +49,13 @@
             <div class="col-md-6">
               <h4>Acquisition Date:&nbsp;&nbsp;<span class="text-success">
                 <span ng-show="!vm.selectedImage.properties.acquisition_date">Unknown</span>
-                {{vm.selectedImage.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}</span>
+                {{vm.selectedImage.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss' : 'UTC'}}</span>
               </h4>
             </div>
             <div class="col-md-6">
               <h4>Ingest Date:&nbsp;&nbsp;<span class="text-success">
                 <span ng-show="!vm.selectedImage.properties.ingest_date">Unknown</span>
-                  {{vm.selectedImage.properties.ingest_date| date:'MM/dd/yyyy HH:mm:ss:sss'}}</span>
+                  {{vm.selectedImage.properties.ingest_date| date:'MM/dd/yyyy HH:mm:ss:sss' : 'UTC'}}</span>
               </h4>
             </div>
           </div>
