@@ -17,9 +17,46 @@
     var bands, numberOfBands, bandNum,
     redSelect, greenSelect, blueSelect;
 
+/***********************************************/
+
+    // Instantiate a slider
+    $('#imgBrightness').slider({
+      value: 0,
+      min: -1,
+      max: 1,
+      precision: 2,
+      step: .01
+    });
+$('#imgBrightness').on('slide', function(slideEvt) {
+  $('#imgBrightnessVal').text(slideEvt.value);
+});
+
+$('#imgBrightness').on('slideStop', function( slideEvt ) {
+    imageSpaceService.setBrightness( slideEvt.value );
+});
+
+$('#imgContrast').slider({
+  value: 0.01,
+  min: 0.01,
+  max: 20,
+  precision: 2,
+  step: .01
+});
+
+$( '#imgContrast' ).on( 'slide', function( slideEvt ) {
+	$( '#imgContrastVal' ).text( slideEvt.value );
+});
+
+$( '#imgContrast' ).on( 'slideStop', function( slideEvt ) {
+    imageSpaceService.setContrast( slideEvt.value );
+});
+
+/***********************************************/
+
     vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
 
-    vm.shareModal = function( imageLink ) {
+    vm.shareModal = function() {
+      var imageLink = imageSpaceService.getImageLink();
       shareService.imageLinkModal( imageLink );
     };
 

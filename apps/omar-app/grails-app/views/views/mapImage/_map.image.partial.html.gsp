@@ -171,6 +171,18 @@
             </div>
           </div>
         </div>
+        <div class="panel panel-info" id="image-sharpness-contrast">
+          <div class="panel-body">
+            <div id=brightness-section>
+              <small class="text text-info">Brightness:</small>&nbsp;&nbsp;<span id="imgBrightnessVal">0</span><br>
+              <input id="imgBrightness" data-slider-id='imgBrightnessSlider' type="text"/>
+            </div>
+            <div id=contrast-section>
+              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal">0.01</span><br>
+              <input id="imgContrast" data-slider-id='imgContrastSlider' type="text"/>
+            </div>
+         </div>
+        </div>
       </div>
       <div class="col-md-9">
         <div id="imageMap" class="map imageMap imageMapBorder">
@@ -182,7 +194,7 @@
             </a>&nbsp;&nbsp;
           </div>
           <div class="imageLinkBtns imageShareButton">
-            <a ng-href="" target="_blank" ng-click="image.shareModal(image.imageMapPath)">
+            <a ng-href="" target="_blank" ng-click="image.shareModal()">
               <i class="fa fa-share-alt fa-border text-primary"
               tooltip-placement="left-bottom"
               uib-tooltip="Share a link to this image"></i>

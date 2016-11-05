@@ -756,3 +756,28 @@ body {
   min-width: 100px;
   text-align: left;
 }
+
+#imgBrightnessSlider,
+#imgContrastSlider{
+  width: 100%;
+}
+
+#imgBrightness .slider-selection,
+#imgContrast .slider-selection {
+	background: #BABABA;
+}
+
+#imgBrightnessVal,
+#imgContrastVal {
+  font-size: .8em;
+  text-align: center
+}
+
+.slider.slider-horizontal .slider-track {
+  height: 5px;
+}
+
+.slider-handle {
+  width: 15px;
+  height: 15px;
+}

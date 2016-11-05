@@ -30,7 +30,10 @@
           upAngle,
           northAngle,
           bands,
-          numOfBands;
+          numOfBands,
+          brightness = 0,
+          contrast = 1,
+          urlString;
 
       // Measurement variables
 
@@ -224,9 +227,12 @@
               tileX = tileCoord[1];
               tileY = -tileCoord[2] - 1;
 
-              return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
-                '&x=' + tileX + '&y=' + tileY + '&format=' + format +
-                '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp;
+              urlString = url + '?filename=' + filename + '&entry=' + entry + '&format=' + format +
+                '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp +
+                '&brightness=' + brightness + '&contrast=' + contrast;
+
+              return urlString + '&z=' + tileZ + '&x=' + tileX + '&y=' + tileY ;
+
               }
           }
 
@@ -319,7 +325,9 @@
               size: [imgWidth, imgHeight],
               crossOrigin: crossOrigin,
               numOfBands: numOfBands,
-              bands: bands
+              bands: bands,
+              brightness: brightness,
+              contrast: contrast
             });
 
             source2 = new ImageSpace({
@@ -404,6 +412,20 @@
             };
 
             //END - Band Selection Section
+
+            this.getImageLink = function(){
+              return urlString;
+            };
+
+            this.setBrightness = function(brightnessVal){
+              brightness = brightnessVal;
+              source.refresh();
+            };
+
+            this.setContrast= function(contrastVal){
+              contrast = contrastVal;
+              source.refresh();
+            };
 
             this.setDynamicRange = function(draValue){
               histOp = draValue;
