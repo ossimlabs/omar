@@ -343,7 +343,7 @@
     }
 
     vm.setMeasureUnits = function(measureType) {
-      console.log('measure units: ', measureType);
+
       // Only calculate the measurement if we have a valid measure object
       if(angular.equals(measureDataObj, {})) {
         return;
@@ -373,6 +373,24 @@
     });
 
     // End - Measurement Section
+
+    // Begin Position Quality Evaluator Section
+
+    vm.pqeShowInfo = false;
+
+    vm.pqe = function(){
+
+      vm.pqeShowInfo = true;
+
+    }
+
+    vm.pqeClear = function(){
+
+      vm.pqeShowInfo = false;
+
+    }
+
+    // End Position Quality Evaluator Section
 
     vm.screenshot = function() { imageSpaceService.screenshot(); }
     vm.zoomToFullExtent = function() { imageSpaceService.zoomToFullExtent(); }

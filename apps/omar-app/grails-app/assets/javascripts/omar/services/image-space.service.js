@@ -660,12 +660,11 @@
             }
             // end Screenshot stuff
 
-            // Begin PQE stuff
+            // Begin Position Quality Evaluator stuff
 
 
 
-
-            // Emd PQE stuff
+            // Emd Position Quality Evaluator stuff
 
             // Begin Zoom stuff
             this.zoomToFullExtent = function() {

@@ -29,6 +29,10 @@ body {
     cursor: pointer;
 }
 
+.nav-title-left {
+  margin-left: 10px;
+}
+
 .jumbotron {
     position: relative;
     background: #000 url("aerial_rs.jpg") center center;
@@ -683,7 +687,7 @@ body {
 
 .mega-dropdown-menu {
   padding: 20px 0px;
-  width: 100%;
+  /*width: 100%;*/
   box-shadow: none;
   -webkit-box-shadow: none;
 }
@@ -755,4 +759,9 @@ body {
 .filter-row .range-name {
   min-width: 100px;
   text-align: left;
+}
+
+.tooltip-inner {
+    min-width: 100px;
+    max-width: 100%;
 }

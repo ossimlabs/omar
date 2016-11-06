@@ -21,24 +21,50 @@
           </ul>
         </li> -->
         <li class="dropdown">
-          <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false">Zoom<span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false"
+            tooltip-placement="right"
+            uib-tooltip="Zoom to full resolution or maximum extent of the current image">Zoom<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li ng-click="image.zoomToFullRes()"><a>Full Resolution</a></li>
             <li ng-click="image.zoomToFullExtent()"><a>Maximum Extent</a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false">Measure<span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false"
+            tooltip-placement="right"
+            uib-tooltip="Measure area and distances, and calculate horizontal and vertical error for points">Measure<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li ng-click="image.measure(true, 'LineString')"><a>Path</a></li>
-            <li ng-click="image.measure(true, 'Polygon')"><a>Area</a></li>
+            <li class="dropdown-header">Measurements</li>
+            <li
+              ng-click="image.measure(true, 'LineString')"
+              tooltip-placement="right"
+              uib-tooltip="Draw lines, and calculate their distance"><a>Path</a></li>
+            <li
+              ng-click="image.measure(true, 'Polygon')"
+              tooltip-placement="right"
+              uib-tooltip="Create a polygon, and calculate the area within"><a>Area</a></li>
+            <li
+              ng-click="image.measureClear()"
+              tooltip-placement="right"
+              uib-tooltip="Clear the measurement and close the panel"><a>Clear</a></li>
             <li role="separator" class="divider"></li>
-            <li ng-click="image.measureClear()"><a>Clear Measure</a></li>
+            <li class="dropdown-header">Position Quality Evaluator</li>
+            <li
+              ng-click="image.pqe()"
+              tooltip-placement="right"
+              uib-tooltip="Provides horizontal and vertical error for points"><a>Enable</a></li>
+            <li
+              ng-click="image.pqeClear()"
+              tooltip-placement="right"
+              uib-tooltip="Clear the PQE information and close the panel"><a>Clear</a></li>
           </ul>
         </li>
-        <li ng-click="image.screenshot()"><a>Screenshot</a></li>
+        <li
+          ng-click="image.screenshot()"
+          tooltip-placement="right"
+          uib-tooltip="Takes a screenshot of the image at current extent and downloads it as .png"><a>Screenshot</a></li>
       </ul>
     </div>
   </nav>
@@ -176,10 +202,15 @@
           </div>
         </div>
         <!-- Position Quality Evaluator Panel -->
-        <div class="panel panel-info">
+        <div class="panel panel-info" ng-show="image.pqeShowInfo">
           <div class="panel-body">
             <small class="text text-info">Position Quality Evaluator</small>
           </div>
+          <br>
+          <div class=" text-center">
+            <small class="text text-warning">Not certified for targeting</small>
+          </div>
+          <br>
         </div>
       </div>
       <!-- Map Column -->
