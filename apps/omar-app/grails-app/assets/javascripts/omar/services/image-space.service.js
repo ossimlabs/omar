@@ -518,7 +518,7 @@
 
                   var sketchArray = [];
 
-                  var pointArray
+                  var pointArray;
                   if(sketchGeom instanceof ol.geom.LineString) {
                     pointArray = sketch.getGeometry().getCoordinates();
                   }
@@ -601,7 +601,6 @@
                   map.addOverlay(helpTooltip);
                 }
 
-
             }
 
             this.measureActivate = function(measureType) {
@@ -674,11 +673,25 @@
               drawPqePoint.on('drawend',
                 function(evt) {
                   console.log(evt);
+                  var pqePoint = evt.feature;
+
+                  var pqeArray = pqePoint.getGeometry().getCoordinates();
+                  console.log('pqeArray: ', Array.isArray(pqeArray));
+
+                  // We need to map over the items in the pqeArray, and
+                  // the second item (the y value on the OL3 grid) by -1
+                  // before we pass this to the mensa service.  Mensa expects the
+                  // XY to start in the upper-left.  OL3 starts in the lower-left.;
+                  var pqeModArray = pqeArray.map(function(el, index){
+                    return index %2 ? el * -1 : el;
+                  });
+                  console.log('pqeModArray: ', pqeModArray);
+
               });
 
-              pqePoint = evt.feature;
 
-              
+
+
 
             }
 
