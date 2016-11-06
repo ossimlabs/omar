@@ -382,11 +382,15 @@
 
       vm.pqeShowInfo = true;
 
+      imageSpaceService.pqeActivate();
+
     }
 
     vm.pqeClear = function(){
 
       vm.pqeShowInfo = false;
+
+      imageSpaceService.pqeClear();
 
     }
 

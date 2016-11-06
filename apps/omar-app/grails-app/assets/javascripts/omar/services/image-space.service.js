@@ -662,8 +662,38 @@
 
             // Begin Position Quality Evaluator stuff
 
+            var drawPqePoint;
+            function addPqeInteraction(){
 
+              drawPqePoint = new ol.interaction.Draw({
+                source: measureSource,
+                type: 'Point'
+              });
+              map.addInteraction(drawPqePoint);
 
+              drawPqePoint.on('drawend',
+                function(evt) {
+                  console.log(evt);
+              });
+
+              pqePoint = evt.feature;
+
+              
+
+            }
+
+            this.pqeActivate = function() {
+
+              addPqeInteraction();
+
+            }
+
+            this.pqeClear = function() {
+
+              console.log('clearing pqe');
+              map.removeInteraction(drawPqePoint);
+
+            }
             // Emd Position Quality Evaluator stuff
 
             // Begin Zoom stuff

@@ -64,7 +64,7 @@
         <li
           ng-click="image.screenshot()"
           tooltip-placement="right"
-          uib-tooltip="Takes a screenshot of the image at current extent and downloads it as .png"><a>Screenshot</a></li>
+          uib-tooltip="Takes a screenshot of the image at current extent and download it as .png"><a>Screenshot</a></li>
       </ul>
     </div>
   </nav>
