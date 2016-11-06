@@ -712,12 +712,12 @@
                       var data;
                       data = response.data.data;
                       console.log('data:', data);
-                      // $timeout needed: http://stackoverflow.com/a/18996042
-                      // $timeout(function() {
-                      //
-                      //   $rootScope.$broadcast('measure: updated', data);
-                      //
-                      // });
+                      //$timeout needed: http://stackoverflow.com/a/18996042
+                      $timeout(function() {
+
+                        $rootScope.$broadcast('pqe: updated', data);
+
+                      });
 
                   }, function errorCallback(response) {
 

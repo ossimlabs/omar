@@ -320,6 +320,9 @@
 
     vm.measure = function(show, type) {
 
+      imageSpaceService.pqeClear();
+      vm.pqeShowInfo = false;
+
       switch (type){
         case 'LineString':
           vm.measureType = 'Path';
@@ -384,6 +387,9 @@
     vm.az = '';
 
     vm.pqe = function(){
+
+      vm.showMeasureInfo = false;
+      imageSpaceService.measureClear();
 
       vm.pqeShowInfo = true;
 
