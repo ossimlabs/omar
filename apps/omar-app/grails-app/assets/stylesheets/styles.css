@@ -762,8 +762,8 @@ body {
   width: 100%;
 }
 
-#imgBrightness .slider-selection,
-#imgContrast .slider-selection {
+#imgBrightnessSlider .slider-selection,
+#imgContrastSlider .slider-selection {
 	background: #BABABA;
 }
 

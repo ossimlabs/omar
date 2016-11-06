@@ -31,9 +31,10 @@
           northAngle,
           bands,
           numOfBands,
-          brightness = 0,
-          contrast = 1,
-          urlString;
+          brightness,
+          contrast,
+          urlString,
+          imgID;
 
       // Measurement variables
 
@@ -227,12 +228,10 @@
               tileX = tileCoord[1];
               tileY = -tileCoord[2] - 1;
 
-              urlString = url + '?filename=' + filename + '&entry=' + entry + '&format=' + format +
+              return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
+                '&x=' + tileX + '&y=' + tileY + '&format=' + format +
                 '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp +
                 '&brightness=' + brightness + '&contrast=' + contrast;
-
-              return urlString + '&z=' + tileZ + '&x=' + tileX + '&y=' + tileY ;
-
               }
           }
 
@@ -283,6 +282,9 @@
             imgHeight = params.imgHeight;
             numOfBands = params.numOfBands;
             bands = params.bands;
+            imgID = params.imageId;
+            brightness = params.brightness;
+            contrast = params.contrast;
 
             // Make AJAX call here to getAngles with filename & entry as args
             // to get the upAngle and northAngle values
@@ -414,7 +416,17 @@
             //END - Band Selection Section
 
             this.getImageLink = function(){
+              urlString = AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?filename=' + filename +
+                  '&entry_id=' + entry + '&width=' + imgWidth +
+                  '&height=' + imgHeight + '&bands=' + bands +
+                  '&numOfBands=' + numOfBands + '&imageId=' + imgID + '&brightness=' +
+                  brightness + '&contrast=' + contrast;
               return urlString;
+            };
+
+            this.setDynamicRange = function(draValue){
+              histOp = draValue;
+              source.refresh();
             };
 
             this.setBrightness = function(brightnessVal){
@@ -424,11 +436,6 @@
 
             this.setContrast= function(contrastVal){
               contrast = contrastVal;
-              source.refresh();
-            };
-
-            this.setDynamicRange = function(draValue){
-              histOp = draValue;
               source.refresh();
             };
 

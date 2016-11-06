@@ -174,12 +174,12 @@
         <div class="panel panel-info" id="image-sharpness-contrast">
           <div class="panel-body">
             <div id=brightness-section>
-              <small class="text text-info">Brightness:</small>&nbsp;&nbsp;<span id="imgBrightnessVal">0</span><br>
-              <input id="imgBrightness" data-slider-id='imgBrightnessSlider' type="text"/>
+              <small class="text text-info">Brightness:</small>&nbsp;&nbsp;<span id="imgBrightnessVal"></span><br>
+              <input id="imgBrightnessSlider" data-slider-id='imgBrightnessSlider' type="text"/>
             </div>
             <div id=contrast-section>
-              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal">0.01</span><br>
-              <input id="imgContrast" data-slider-id='imgContrastSlider' type="text"/>
+              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal"></span><br>
+              <input id="imgContrastSlider" data-slider-id='imgContrastSlider' type="text"/>
             </div>
          </div>
         </div>

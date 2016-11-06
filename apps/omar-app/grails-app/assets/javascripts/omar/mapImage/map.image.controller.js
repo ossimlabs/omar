@@ -15,43 +15,7 @@
 
     //Used by band selection
     var bands, numberOfBands, bandNum,
-    redSelect, greenSelect, blueSelect;
-
-/***********************************************/
-
-    // Instantiate a slider
-    $('#imgBrightness').slider({
-      value: 0,
-      min: -1,
-      max: 1,
-      precision: 2,
-      step: .01
-    });
-$('#imgBrightness').on('slide', function(slideEvt) {
-  $('#imgBrightnessVal').text(slideEvt.value);
-});
-
-$('#imgBrightness').on('slideStop', function( slideEvt ) {
-    imageSpaceService.setBrightness( slideEvt.value );
-});
-
-$('#imgContrast').slider({
-  value: 0.01,
-  min: 0.01,
-  max: 20,
-  precision: 2,
-  step: .01
-});
-
-$( '#imgContrast' ).on( 'slide', function( slideEvt ) {
-	$( '#imgContrastVal' ).text( slideEvt.value );
-});
-
-$( '#imgContrast' ).on( 'slideStop', function( slideEvt ) {
-    imageSpaceService.setContrast( slideEvt.value );
-});
-
-/***********************************************/
+    redSelect, greenSelect, blueSelect, brightness, contrast;
 
     vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
 
@@ -68,11 +32,11 @@ $( '#imgContrast' ).on( 'slideStop', function( slideEvt ) {
 
       // Check to make sure that all of the $stateParams are defined.
       // If there are undefined params return an error.
-      for (var i in $stateParams) {
+      for ( var i in $stateParams ) {
 
-        if ($stateParams[i] === undefined) {
+        if ( $stateParams[i] === undefined ) {
 
-          toastr.error('There was an issue loading the selected image into the map.',
+          toastr.error( 'There was an issue loading the selected image into the map.',
               'A problem has occurred:', {
               positionClass: 'toast-bottom-left',
               closeButton: true,
@@ -98,7 +62,7 @@ $( '#imgContrast' ).on( 'slideStop', function( slideEvt ) {
 
     vm.imageId = $stateParams.imageId;
 
-    // Begin - Band Selections Section
+    // Start - Band Selections Section
 
     function bandSelection() {
 
@@ -189,7 +153,7 @@ $( '#imgContrast' ).on( 'slideStop', function( slideEvt ) {
           $( '#gray-image-space-bands' ).hide();
         break;
         case 'GRAY':
-        if($scope.grayValue) {
+        if ( $scope.grayValue ) {
           bands = $scope.grayValue;
         } else {
           bands = 1;
@@ -208,10 +172,51 @@ $( '#imgContrast' ).on( 'slideStop', function( slideEvt ) {
 
     //END - Band Selection Section
 
+    // Start - Brightness/Contrast Section
+
+        // Instantiate a slider
+    $( '#imgBrightnessSlider' ).slider({
+        value: parseFloat( brightness ),
+        min: -1.0,
+        max: 1.0,
+        precision: 2,
+        step: 0.01
+    });
+
+  //  $( '#imgBrightnessVal' ).text( brightness );
+
+    $( '#imgBrightnessSlider' ).on( 'slide', function( slideEvt ) {
+      $( '#imgBrightnessVal' ).text( slideEvt.value );
+    });
+
+    $( '#imgBrightnessSlider' ).on( 'slideStop', function( slideEvt ) {
+      imageSpaceService.setBrightness( slideEvt.value );
+    });
+
+    $( '#imgContrastSlider' ).slider({
+        value: parseFloat( contrast ),
+        min: 0.0,
+        max: 20.0,
+        precision: 2,
+        step: 0.01
+    });
+
+  //  $( '#imgContrastVal' ).text( parseFloat( contrast ) );
+
+    $( '#imgContrastSlider' ).on( 'slide', function( slideEvt ) {
+      $( '#imgContrastVal' ).text( slideEvt.value );
+    });
+
+    $( '#imgContrastSlider' ).on( 'slideStop', function( slideEvt ) {
+      imageSpaceService.setContrast( slideEvt.value );
+    });
+
+    //END - Brightness/Contrast Section
+
     // START - Dynamic Range Section
     $scope.draType = {};
     $scope.draTypes = [
-        { 'name': 'None' , 'value': 'none' },
+        { 'name': 'None', 'value': 'none' },
         { 'name': 'Auto', 'value': 'auto-minmax' },
         { 'name': '1 STD', 'value': 'std-stretch-1' },
         { 'name': '2 STD', 'value': 'std-stretch-2' },
@@ -225,6 +230,9 @@ $( '#imgContrast' ).on( 'slideStop', function( slideEvt ) {
     // END - Dynamic Range Section
 
     function loadMapImage() {
+      console.log('$stateParams: ' + $stateParams.brightness);
+      brightness = ( $stateParams.brightness ) ? ( $stateParams.brightness ) : ( 0.0 );
+      contrast = ( $stateParams.contrast ) ? ( $stateParams.contrast ) : ( 1.0 );
 
       imageSpaceObj = {
           filename: $stateParams.filename,
@@ -234,7 +242,9 @@ $( '#imgContrast' ).on( 'slideStop', function( slideEvt ) {
           numOfBands: $stateParams.numOfBands,
           bands: $stateParams.bands,
           imageId: $stateParams.imageId,
-          url: $stateParams.ur
+          url: $stateParams.ur,
+          brightness: brightness,
+          contrast: contrast
         };
 
         vm.imageMapPath = AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?filename=' +
@@ -244,7 +254,10 @@ $( '#imgContrast' ).on( 'slideStop', function( slideEvt ) {
                           imageSpaceObj.imgHeight +  '&bands=' +
                           imageSpaceObj.bands +  '&numOfBands=' +
                           imageSpaceObj.numOfBands +  '&imageId=' +
-                          imageSpaceObj.imageId;
+                          imageSpaceObj.imageId + '&brightness=' +
+                          imageSpaceObj.brightness + '&contrast=' +
+                          imageSpaceObj.contrast;
+
       // Pass our imageSpaceObj constructed from the UR
       // ($stateParams) into the imageSpaceService and load
       // the map.
