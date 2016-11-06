@@ -25,6 +25,8 @@
           tileZ,
           imgCenter,
           proj,
+          resampleFilter,
+          sharpenMode,
           source,
           source2,
           upAngle,
@@ -226,7 +228,8 @@
 
               return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
                 '&x=' + tileX + '&y=' + tileY + '&format=' + format +
-                '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp;
+                '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp +
+                '&resampleFilter=' + resampleFilter + '&sharpenMode=' + sharpenMode;
               }
           }
 
@@ -277,6 +280,8 @@
             imgHeight = params.imgHeight;
             numOfBands = params.numOfBands;
             bands = params.bands;
+            resampleFilter = "nearest";
+            sharpenMode = "none";
 
             // Make AJAX call here to getAngles with filename & entry as args
             // to get the upAngle and northAngle values
@@ -405,8 +410,18 @@
 
             //END - Band Selection Section
 
-            this.setDynamicRange = function(draValue){
-              histOp = draValue;
+            this.setDynamicRange = function(value) {
+              histOp = value;
+              source.refresh();
+            };
+
+            this.setResampleFilter = function(value) {
+              resampleFilter = value;
+              source.refresh();
+            };
+
+            this.setSharpenMode = function(value) {
+              sharpenMode = value;
               source.refresh();
             };
 

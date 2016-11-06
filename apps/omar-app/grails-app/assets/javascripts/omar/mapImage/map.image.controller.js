@@ -171,7 +171,6 @@
 
     //END - Band Selection Section
 
-    // START - Dynamic Range Section
     $scope.draType = {};
     $scope.draTypes = [
         { 'name': 'None' , 'value': 'none' },
@@ -182,10 +181,45 @@
     ];
     $scope.draType = $scope.draTypes[1];
 
-    $scope.onDraSelect = function( draValue ) {
-        imageSpaceService.setDynamicRange( draValue );
+    $scope.onDraSelect = function( value ) {
+        imageSpaceService.setDynamicRange( value );
     };
-    // END - Dynamic Range Section
+
+    $scope.resampleFilterType = {};
+    $scope.resampleFilterTypes = [
+        { 'name': 'bessel' , 'value': 'bessel' },
+        { 'name': 'bilinear' , 'value': 'bilinear' },
+        { 'name': 'blackman' , 'value': 'blackman' },
+        { 'name': 'bspline' , 'value': 'bspline' },
+        { 'name': 'catrom' , 'value': 'catrom' },
+        { 'name': 'cubic' , 'value': 'cubic' },
+        { 'name': 'gaussian' , 'value': 'gaussian' },
+        { 'name': 'hanning' , 'value': 'hanning' },
+        { 'name': 'hermite' , 'value': 'hermite' },
+        { 'name': 'lanczos' , 'value': 'lanczos' },
+        { 'name': 'magic' , 'value': 'magic' },
+        { 'name': 'mitchell' , 'value': 'mitchell' },
+        { 'name': 'nearest' , 'value': 'nearest' },
+        { 'name': 'quadratic' , 'value': 'quadratic' },
+        { 'name': 'sinc', 'value': 'sinc' }
+    ];
+    $scope.resampleFilterType = $scope.resampleFilterTypes[0];
+
+    $scope.onResampleFilterSelect = function( value ) {
+        imageSpaceService.setResampleFilter( value );
+    };
+
+    $scope.sharpenModeType = {};
+    $scope.sharpenModeTypes = [
+        { 'name': 'None' , 'value': 'none' },
+        { 'name': 'Light', 'value': 'light' },
+        { 'name': 'Heavy', 'value': 'heavy' }
+    ];
+    $scope.sharpenModeType = $scope.sharpenModeTypes[0];
+
+    $scope.onSharpenModeSelect = function( value ) {
+        imageSpaceService.setSharpenMode( value );
+    };
 
     function loadMapImage() {
 
