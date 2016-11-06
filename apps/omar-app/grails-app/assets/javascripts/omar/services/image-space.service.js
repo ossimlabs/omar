@@ -701,9 +701,9 @@
                       filename: filename,
                       entryId: entry,
                       pointList: pqeMpArray,
-                      pqeIncludePositionError: false,
+                      pqeIncludePositionError: true,
                       pqeProbabilityLevel: '0.9',
-                      pqeEllipsePointType: 'array',
+                      pqeEllipsePointType: 'linestring',
                       pqeEllipseAngularIncrement: '10'
                     }
 
