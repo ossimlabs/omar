@@ -206,11 +206,18 @@
           <div class="panel-body">
             <small class="text text-info">Position Quality Evaluator</small>
           </div>
-          <br>
-          <div class=" text-center">
+          <ul style="padding-left: 0px">
+            <li class="list-group-item">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
+            <li class="list-group-item">SMA / SMI<span class="badge">{{image.sma}} / {{image.smi}}</span></li>
+            <li class="list-group-item">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
+          </ul>
+          <div class="text-center">
+            <small>Probability Level: {{image.lvl}}</small>
+            <br>
             <small class="text text-warning">Not certified for targeting</small>
-          </div>
           <br>
+          <br>
+          </div>
         </div>
       </div>
       <!-- Map Column -->

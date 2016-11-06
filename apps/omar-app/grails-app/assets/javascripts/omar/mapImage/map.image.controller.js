@@ -377,6 +377,11 @@
     // Begin Position Quality Evaluator Section
 
     vm.pqeShowInfo = false;
+    vm.ce = '';
+    vm.le = '';
+    vm.sma = '';
+    vm.smi = '';
+    vm.az = '';
 
     vm.pqe = function(){
 
@@ -393,6 +398,22 @@
       imageSpaceService.pqeClear();
 
     }
+
+    var pqeObj = {};
+    $scope.$on('pqe: updated', function(event, data) {
+
+      pqeObj = data[0];
+
+      console.log('pqeObj: ', pqeObj.pqe);
+
+      vm.ce = pqeObj.pqe.CE.toFixed(4);;
+      vm.le = pqeObj.pqe.LE.toFixed(4);;
+      vm.sma = pqeObj.pqe.SMA.toFixed(4);;
+      vm.smi = pqeObj.pqe.SMI.toFixed(4);;
+      vm.az = pqeObj.pqe.AZ.toFixed(4);;
+      vm.lvl = pqeObj.pqe.probabilityLevel.toFixed(1) + 'P';
+
+    });
 
     // End Position Quality Evaluator Section
 
