@@ -88,19 +88,19 @@
             startDate = new Date( acquisitionDateList[0] );
             endDate = new Date( acquisitionDateList[listSize - 1] );
 
-            startDay = startDate.getDate();
-            startMonth = startDate.getMonth() + 1;
-            startYear = startDate.getFullYear();
-            startHour = startDate.getHours();
-            startMinute = startDate.getMinutes();
-            startSecond = startDate.getSeconds();
+            startDay = startDate.getUTCDate();
+            startMonth = startDate.getUTCMonth() + 1;
+            startYear = startDate.getUTCFullYear();
+            startHour = startDate.getUTCHours();
+            startMinute = startDate.getUTCMinutes();
+            startSecond = startDate.getUTCSeconds();
 
-            endDay = endDate.getDate();
-            endMonth = endDate.getMonth() + 1;
-            endYear = endDate.getFullYear();
-            endHour = endDate.getHours();
-            endMinute = endDate.getMinutes();
-            endSecond = endDate.getSeconds();
+            endDay = endDate.getUTCDate();
+            endMonth = endDate.getUTCMonth() + 1;
+            endYear = endDate.getUTCFullYear();
+            endHour = endDate.getUTCHours();
+            endMinute = endDate.getUTCMinutes();
+            endSecond = endDate.getUTCSeconds();
 
             tlvURL =  encodeURI( tlvRequestUrl +
                         '/?location=' +
