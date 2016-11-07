@@ -25,12 +25,18 @@
           tileZ,
           imgCenter,
           proj,
+          resamplerFilter,
+          sharpenMode,
           source,
           source2,
           upAngle,
           northAngle,
           bands,
-          numOfBands;
+          numOfBands,
+          brightness,
+          contrast,
+          urlString,
+          imgID;
 
       // Measurement variables
 
@@ -226,7 +232,9 @@
 
               return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
                 '&x=' + tileX + '&y=' + tileY + '&format=' + format +
-                '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp;
+                '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp +
+                '&brightness=' + brightness + '&contrast=' + contrast +
+                '&resamplerFilter=' + resamplerFilter + '&sharpenMode=' + sharpenMode;
               }
           }
 
@@ -267,7 +275,6 @@
               if (!isModal) {
                 stateService.navStateUpdate({ titleLeft: imageId + " <br> " + acquisitionDate });
               }
-
             });
 
             filename = params.filename;
@@ -277,6 +284,11 @@
             imgHeight = params.imgHeight;
             numOfBands = params.numOfBands;
             bands = params.bands;
+            imgID = params.imageId;
+            brightness = params.brightness;
+            contrast = params.contrast;
+            resamplerFilter = "bilinear";
+            sharpenMode = "none";
 
             // Make AJAX call here to getAngles with filename & entry as args
             // to get the upAngle and northAngle values
@@ -319,7 +331,9 @@
               size: [imgWidth, imgHeight],
               crossOrigin: crossOrigin,
               numOfBands: numOfBands,
-              bands: bands
+              bands: bands,
+              brightness: brightness,
+              contrast: contrast
             });
 
             source2 = new ImageSpace({
@@ -394,6 +408,7 @@
 
                 }
               }
+              //if ( bandVal.length >= 3 ) {}
               this.bands = bands;
               this.numOfBands = numOfBands;
             };
@@ -405,8 +420,43 @@
 
             //END - Band Selection Section
 
-            this.setDynamicRange = function(draValue){
-              histOp = draValue;
+            this.getImageLink = function(){
+              urlString = AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?filename=' + filename +
+                  '&entry_id=' + entry + '&width=' + imgWidth +
+                  '&height=' + imgHeight + '&bands=' + bands +
+                  '&numOfBands=' + numOfBands + '&imageId=' + imgID +
+                  '&brightness=' + brightness + '&contrast=' + contrast;
+              return urlString;
+            };
+
+            this.setDynamicRange = function(value) {
+              histOp = value;
+              source.refresh();
+            };
+
+            this.setResamplerFilter = function(value) {
+              resamplerFilter = value;
+              source.refresh();
+            };
+
+            this.setSharpenMode = function(value) {
+              sharpenMode = value;
+              source.refresh();
+            };
+
+            this.setBrightness = function(brightnessVal){
+              brightness = brightnessVal;
+              source.refresh();
+            };
+
+            this.setContrast = function(contrastVal){
+              contrast = contrastVal;
+              source.refresh();
+            };
+
+            this.resetBrightnessContrast = function(){
+              brightness = ( $stateParams.brightness ) ? ( $stateParams.brightness ) : ( 0.0 );
+              contrast = ( $stateParams.contrast ) ? ( $stateParams.contrast ) : ( 1.0 );
               source.refresh();
             };
 

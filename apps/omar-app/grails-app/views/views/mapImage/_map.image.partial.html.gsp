@@ -168,6 +168,38 @@
           </div>
         </div>
         <!-- Measure Panel -->
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <small class="text text-info">Interpolation</small>
+            <ui-select
+              ng-model="resamplerFilterType"
+              on-select="onResamplerFilterSelect($select.selected.value)"
+              theme="selectize">
+              <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="val in resamplerFilterTypes">
+                <span ng-bind="val.name"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <small class="text text-info">Sharpen Mode</small>
+            <ui-select
+              ng-model="sharpenModeType"
+              on-select="onSharpenModeSelect($select.selected.value)"
+              theme="selectize">
+              <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="val in sharpenModeTypes">
+                <span ng-bind="val.name"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
         <div class="panel panel-info" ng-show="image.showMeasureInfo">
           <div class="panel-body">
             <div class="text-center">
@@ -218,6 +250,21 @@
           <br>
           <br>
           </div>
+        <div class="panel panel-info" id="image-sharpness-contrast">
+          <div class="panel-body">
+            <div id="brightness-section">
+              <small class="text text-info">Brightness:</small>&nbsp;&nbsp;
+              <span id="imgBrightnessVal"></span><br>
+              <input id="imgBrightnessSlider" data-slider-id="imgBrightnessSlider" type="text"/>
+            </div>
+            <div id="contrast-section">
+              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal"></span><br>
+              <input id="imgContrastSlider" data-slider-id='imgContrastSlider' type="text"/>
+            </div>
+            <div id="brightnes-contrast-reset">
+              <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
+            </div>
+         </div>
         </div>
       </div>
       <!-- Map Column -->
@@ -231,7 +278,7 @@
             </a>&nbsp;&nbsp;
           </div>
           <div class="imageLinkBtns imageShareButton">
-            <a ng-href="" target="_blank" ng-click="image.shareModal(image.imageMapPath)">
+            <a ng-href="" target="_blank" ng-click="image.shareModal()">
               <i class="fa fa-share-alt fa-border text-primary"
               tooltip-placement="left-bottom"
               uib-tooltip="Share a link to this image"></i>

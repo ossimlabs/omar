@@ -765,3 +765,39 @@ body {
     min-width: 100px;
     max-width: 100%;
 }
+
+#brightness-section,
+#contrast-section,
+#imgBrightnessSlider,
+#imgContrastSlider,
+#brightnes-contrast-reset{
+  width: 100%;
+}
+
+#imgBrightnessSlider .slider-selection,
+#imgContrastSlider .slider-selection {
+	background: #BABABA;
+}
+
+#imgBrightnessVal,
+#imgContrastVal {
+  font-size: .8em;
+  text-align: center
+}
+
+#brightnes-contrast-reset .btn{
+  float: right;
+  width: 50px;
+  height: 30px;
+  padding: 5px 5px;
+  line-height: 0px;
+}
+
+.slider.slider-horizontal .slider-track {
+  height: 5px;
+}
+
+.slider-handle {
+  width: 15px;
+  height: 15px;
+}

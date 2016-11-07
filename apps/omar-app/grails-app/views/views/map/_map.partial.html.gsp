@@ -737,7 +737,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <p class="text-primary" style="margin-top:.2em;">
-                      <a href="{{list.o2baseUrl}}/#/mapImage?filename={{image.properties.filename}}&entry_id={{image.properties.entry_id}}&width={{image.properties.width}}&height={{image.properties.height}}&bands=default&numOfBands={{image.properties.number_of_bands}}&imageId={{image.properties.id}}" target="_blank">
+                      <a href="{{list.o2baseUrl}}/#/mapImage?filename={{image.properties.filename}}&entry_id={{image.properties.entry_id}}&width={{image.properties.width}}&height={{image.properties.height}}&bands=default&numOfBands={{image.properties.number_of_bands}}&imageId={{image.properties.id}}&brightness=0.0&contrast=1.0" target="_blank">
                         <i class="fa fa-desktop fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
