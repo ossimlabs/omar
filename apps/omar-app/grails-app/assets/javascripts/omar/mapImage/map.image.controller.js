@@ -495,6 +495,10 @@
     vm.smi = '';
     vm.az = '';
 
+    vm.showPqePosOutput = false;
+    vm.showPqeOutput = false;
+    vm.showPqeWarning = false;
+
     vm.pqe = function(){
 
       vm.showMeasureInfo = false;
@@ -521,26 +525,34 @@
       pqeObj = data[0];
 
       console.log('pqeObj: ', pqeObj.pqe);
-      if (pqeObj.pqe === undefined){
+      if (pqeObj.pqe !== undefined){
 
-        alert('No PQE info available!');
-        return;
-
-      }
-      else {
+        vm.showPqeOutput = true;
 
         vm.ce = pqeObj.pqe.CE.toFixed(4);
         vm.le = pqeObj.pqe.LE.toFixed(4) + ' m';
         vm.sma = pqeObj.pqe.SMA.toFixed(4);
         vm.smi = pqeObj.pqe.SMI.toFixed(4) + ' m';
         vm.az = pqeObj.pqe.AZ.toFixed(4) + ' deg';
+        vm.projType = pqeObj.pqe.projType;
+        vm.surfaceName = pqeObj.pqe.surfaceName;
         vm.lvl = pqeObj.pqe.probabilityLevel.toFixed(1) + 'P';
 
       }
+      else {
 
+        vm.showPqeWarning = true;
 
+      }
 
+      vm.showPqePosOutput = true;
 
+      vm.lat = pqeObj.lat.toFixed(4);
+      vm.lon = pqeObj.lon.toFixed(4);
+      vm.hgt = pqeObj.hgt.toFixed(4);
+      vm.hgtMsl = pqeObj.hgtMsl.toFixed(4) + ' m';
+      vm.imageX = pqeObj.x.toFixed(4);
+      vm.imageY = pqeObj.y.toFixed(4);
 
     });
 

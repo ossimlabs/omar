@@ -734,9 +734,9 @@
                   var pqeModArray = pqeArray.map(function(el, index){
                     return index %2 ? el * -1 : el;
                   })
-                  console.log('pqeModArray: ', pqeModArray);
+                  //console.log('pqeModArray: ', pqeModArray);
                   var pqeString = pqeModArray.join(" ").match(/[+-]?\d+(\.\d+)?\s+[+-]?\d+(\.\d+)?/g).join(", ");
-                  console.log('pqeString: ', pqeString);
+                  //console.log('pqeString: ', pqeString);
 
                   //'LINESTRING(' + pqeModArray + ')'
                   var pqeMpArray = 'MULTIPOINT(' + pqeString + ')';
