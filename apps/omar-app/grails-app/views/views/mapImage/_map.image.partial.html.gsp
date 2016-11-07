@@ -21,30 +21,58 @@
           </ul>
         </li> -->
         <li class="dropdown">
-          <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false">Zoom<span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false"
+            tooltip-placement="right"
+            uib-tooltip="Zoom to full resolution or maximum extent of the current image">Zoom<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li ng-click="image.zoomToFullRes()"><a>Full Resolution</a></li>
             <li ng-click="image.zoomToFullExtent()"><a>Maximum Extent</a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false">Measure<span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false"
+            tooltip-placement="right"
+            uib-tooltip="Measure area and distances, and calculate horizontal and vertical error for points">Measure<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li ng-click="image.measure(true, 'LineString')"><a>Path</a></li>
-            <li ng-click="image.measure(true, 'Polygon')"><a>Area</a></li>
+            <li class="dropdown-header">Measurements</li>
+            <li
+              ng-click="image.measure(true, 'LineString')"
+              tooltip-placement="right"
+              uib-tooltip="Draw lines, and calculate their distance"><a>Path</a></li>
+            <li
+              ng-click="image.measure(true, 'Polygon')"
+              tooltip-placement="right"
+              uib-tooltip="Create a polygon, and calculate the area within"><a>Area</a></li>
+            <li
+              ng-click="image.measureClear()"
+              tooltip-placement="right"
+              uib-tooltip="Clear the measurement and close the panel"><a>Clear</a></li>
             <li role="separator" class="divider"></li>
-            <li ng-click="image.measureClear()"><a>Clear Measure</a></li>
+            <li class="dropdown-header">Position Quality Evaluator</li>
+            <li
+              ng-click="image.pqe()"
+              tooltip-placement="right"
+              uib-tooltip="Provides horizontal and vertical error for points"><a>Enable</a></li>
+            <li
+              ng-click="image.pqeClear()"
+              tooltip-placement="right"
+              uib-tooltip="Clear the PQE information and close the panel"><a>Clear</a></li>
           </ul>
         </li>
-        <li ng-click="image.screenshot()"><a>Screenshot</a></li>
+        <li
+          ng-click="image.screenshot()"
+          tooltip-placement="right"
+          uib-tooltip="Takes a screenshot of the image at current extent and download it as .png"><a>Screenshot</a></li>
       </ul>
     </div>
   </nav>
   <div class="container-fluid">
     <div class="row">
+      <!-- Image Map Tools Column -->
       <div class="col-md-3 imageMapTools" style="overflow-y: auto;">
+        <!-- Band Selection Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
             <div id="band-type" class="image-bands">
@@ -122,6 +150,7 @@
             </div>
           </div>
         </div>
+        <!-- Dynamic Range Adjustment Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
             <small class="text text-info">Dynamic Range Adjustment</small>
@@ -138,6 +167,7 @@
             </ui-select>
           </div>
         </div>
+        <!-- Measure Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
             <small class="text text-info">Interpolation</small>
@@ -179,13 +209,13 @@
             </div>
             <div>
               <ui-select
-              ng-model="selected.value"
+              ng-model="selectedMeasureType"
               theme="selectize"
               on-select="image.setMeasureUnits($select.selected.value)">
                 <ui-select-match>
                     <span ng-bind="$select.selected.name"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">
+                <ui-select-choices repeat="item in itemMeasureTypeArray">
                     <span ng-bind="item.name"></span>
                 </ui-select-choices>
             </ui-select>
@@ -201,6 +231,24 @@
             <div class=" text-center">
               <small class="text text-warning">Not certified for targeting</small>
             </div>
+          </div>
+        </div>
+        <!-- Position Quality Evaluator Panel -->
+        <div class="panel panel-info" ng-show="image.pqeShowInfo">
+          <div class="panel-body">
+            <small class="text text-info">Position Quality Evaluator</small>
+          </div>
+          <ul style="padding-left: 0px">
+            <li class="list-group-item">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
+            <li class="list-group-item">SMA / SMI<span class="badge">{{image.sma}} / {{image.smi}}</span></li>
+            <li class="list-group-item">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
+          </ul>
+          <div class="text-center">
+            <small>Probability Level: {{image.lvl}}</small>
+            <br>
+            <small class="text text-warning">Not certified for targeting</small>
+          <br>
+          <br>
           </div>
         </div>
         <div class="panel panel-info" id="image-sharpness-contrast">
@@ -220,6 +268,7 @@
          </div>
         </div>
       </div>
+      <!-- Map Column -->
       <div class="col-md-9">
         <div id="imageMap" class="map imageMap imageMapBorder">
           <div class="imageLinkBtns imageShareButton">

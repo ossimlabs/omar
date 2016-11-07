@@ -323,7 +323,7 @@
 
     // Begin - Measurment Section
 
-    $scope.itemArray = [
+    $scope.itemMeasureTypeArray = [
       {id: 1, name: 'meters', value: 'm'},
       {id: 2, name: 'kilometers', value: 'km'},
       {id: 3, name: 'feet', value: 'ft'},
@@ -332,7 +332,7 @@
       {id: 6, name: 'nautical miles', value: 'nmi'},
     ];
 
-    $scope.selected = { value: $scope.itemArray[0] };
+    $scope.selectedMeasureType = $scope.itemMeasureTypeArray[0];
 
     vm.measureMessage = 'Choose a measure type from the toolbar';
     vm.measureType = 'None';
@@ -383,12 +383,12 @@
         case 'ft':
           vm.geodDist = linearCalc(data.gdist, 3.280839895) + ' ' + type;
           vm.recDist = linearCalc(data.distance, 3.280839895) + ' ' + type;
-          vm.area = areaCalc(data.area, 10.7639) + " ft^2";
+          vm.area = areaCalc(data.area, 10.763910416623611025) + " ft^2";
         break;
         case 'mi':
           vm.geodDist = linearCalc(data.gdist, 0.00062137119224) + ' ' + type;
           vm.recDist = linearCalc(data.distance, 0.00062137119224) + ' ' + type;
-          vm.area = areaCalc(data.area, .00000386102) + " mi^2";
+          vm.area = areaCalc(data.area, .00000038610215854575) + " mi^2";
         break;
         case 'yd':
           vm.geodDist = linearCalc(data.gdist, 1.0936132983) + ' ' + type;
@@ -425,6 +425,9 @@
     }
 
     vm.measure = function(show, type) {
+
+      imageSpaceService.pqeClear();
+      vm.pqeShowInfo = false;
 
       switch (type){
         case 'LineString':
@@ -474,11 +477,57 @@
 
       measureDataObj = data;
 
-      changeMeasureOutputSystem(measureDataObj, $scope.selected.value.value);
+      changeMeasureOutputSystem(measureDataObj, $scope.selectedMeasureType.value);
 
     });
 
     // End - Measurement Section
+
+    // Begin Position Quality Evaluator Section
+
+    vm.pqeShowInfo = false;
+    vm.ce = '';
+    vm.le = '';
+    vm.sma = '';
+    vm.smi = '';
+    vm.az = '';
+
+    vm.pqe = function(){
+
+      vm.showMeasureInfo = false;
+      imageSpaceService.measureClear();
+
+      vm.pqeShowInfo = true;
+
+      imageSpaceService.pqeActivate();
+
+    }
+
+    vm.pqeClear = function(){
+
+      vm.pqeShowInfo = false;
+
+      imageSpaceService.pqeClear();
+
+    }
+
+    var pqeObj = {};
+    $scope.$on('pqe: updated', function(event, data) {
+
+      pqeObj = data[0];
+
+      console.log('pqeObj: ', pqeObj.pqe);
+
+      vm.ce = pqeObj.pqe.CE.toFixed(4);;
+      vm.le = pqeObj.pqe.LE.toFixed(4);;
+      vm.sma = pqeObj.pqe.SMA.toFixed(4);;
+      vm.smi = pqeObj.pqe.SMI.toFixed(4);;
+      vm.az = pqeObj.pqe.AZ.toFixed(4);;
+      vm.lvl = pqeObj.pqe.probabilityLevel.toFixed(1) + 'P';
+
+    });
+
+    // End Position Quality Evaluator Section
 
     vm.screenshot = function() { imageSpaceService.screenshot(); }
     vm.zoomToFullExtent = function() { imageSpaceService.zoomToFullExtent(); }

@@ -568,7 +568,7 @@
 
                   var sketchArray = [];
 
-                  var pointArray
+                  var pointArray;
                   if(sketchGeom instanceof ol.geom.LineString) {
                     pointArray = sketch.getGeometry().getCoordinates();
                   }
@@ -651,7 +651,6 @@
                   map.addOverlay(helpTooltip);
                 }
 
-
             }
 
             this.measureActivate = function(measureType) {
@@ -709,6 +708,94 @@
                 map.renderSync();
             }
             // end Screenshot stuff
+
+            // Begin Position Quality Evaluator stuff
+
+            var drawPqePoint;
+            function addPqeInteraction(){
+
+              drawPqePoint = new ol.interaction.Draw({
+                source: measureSource,
+                type: 'Point'
+              });
+              map.addInteraction(drawPqePoint);
+
+              drawPqePoint.on('drawend',
+                function(evt) {
+                  console.log(evt);
+                  var pqePoint = evt.feature;
+
+                  var pqeArray = pqePoint.getGeometry().getCoordinates();
+
+                  // We need to map over the items in the pqeArray, and multiply
+                  // the second item (the y value on the OL3 grid) by -1
+                  // before we pass this to the mensa service.  Mensa expects the
+                  // XY to start in the upper-left.  OL3 starts in the lower-left.;
+                  var pqeModArray = pqeArray.map(function(el, index){
+                    return index %2 ? el * -1 : el;
+                  })
+                  console.log('pqeModArray: ', pqeModArray);
+                  var pqeString = pqeModArray.join(" ").match(/[+-]?\d+(\.\d+)?\s+[+-]?\d+(\.\d+)?/g).join(", ");
+                  console.log('pqeString: ', pqeString);
+
+                  //'LINESTRING(' + pqeModArray + ')'
+                  var pqeMpArray = 'MULTIPOINT(' + pqeString + ')';
+
+                  var mensaPqeUrl = AppO2.APP_CONFIG.params.mensaApp.baseUrl + '/imagePointsToGround?';
+
+                  $http({
+
+                    method: 'POST',
+                    url: encodeURI(mensaPqeUrl),
+                    data: {
+                      filename: filename,
+                      entryId: entry,
+                      pointList: pqeMpArray,
+                      pqeIncludePositionError: true,
+                      pqeProbabilityLevel: '0.9',
+                      pqeEllipsePointType: 'linestring',
+                      pqeEllipseAngularIncrement: '10'
+                    }
+
+                  }).then(function(response) {
+
+                      var data;
+                      data = response.data.data;
+                      console.log('data:', data);
+                      //$timeout needed: http://stackoverflow.com/a/18996042
+                      $timeout(function() {
+
+                        $rootScope.$broadcast('pqe: updated', data);
+
+                      });
+
+                  }, function errorCallback(response) {
+
+                      console.log('Error: ', response);
+
+                  });
+
+              });
+
+
+
+
+
+            }
+
+            this.pqeActivate = function() {
+
+              addPqeInteraction();
+
+            }
+
+            this.pqeClear = function() {
+
+              console.log('clearing pqe');
+              map.removeInteraction(drawPqePoint);
+
+            }
+            // Emd Position Quality Evaluator stuff
 
             // Begin Zoom stuff
             this.zoomToFullExtent = function() {
