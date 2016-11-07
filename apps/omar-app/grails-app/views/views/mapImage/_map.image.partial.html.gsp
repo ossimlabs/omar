@@ -209,7 +209,7 @@
             </div>
             <div>
               <ui-select
-              ng-model="selectedMeasureType"
+              ng-model="selectedMeasureType.value"
               theme="selectize"
               on-select="image.setMeasureUnits($select.selected.value)">
                 <ui-select-match>

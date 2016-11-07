@@ -332,7 +332,7 @@
       {id: 6, name: 'nautical miles', value: 'nmi'},
     ];
 
-    $scope.selectedMeasureType = $scope.itemMeasureTypeArray[0];
+    $scope.selectedMeasureType = { value: $scope.itemMeasureTypeArray[0] };
 
     vm.measureMessage = 'Choose a measure type from the toolbar';
     vm.measureType = 'None';
@@ -476,8 +476,7 @@
     $scope.$on('measure: updated', function(event, data) {
 
       measureDataObj = data;
-
-      changeMeasureOutputSystem(measureDataObj, $scope.selectedMeasureType.value);
+      changeMeasureOutputSystem(measureDataObj, $scope.selectedMeasureType.value.value);
 
     });
 
