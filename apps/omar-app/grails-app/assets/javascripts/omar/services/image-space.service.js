@@ -272,7 +272,6 @@
               if (!isModal) {
                 stateService.navStateUpdate({ titleLeft: imageId + " <br> " + acquisitionDate });
               }
-
             });
 
             filename = params.filename;
@@ -404,6 +403,7 @@
 
                 }
               }
+              //if ( bandVal.length >= 3 ) {}
               this.bands = bands;
               this.numOfBands = numOfBands;
             };
@@ -419,8 +419,8 @@
               urlString = AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?filename=' + filename +
                   '&entry_id=' + entry + '&width=' + imgWidth +
                   '&height=' + imgHeight + '&bands=' + bands +
-                  '&numOfBands=' + numOfBands + '&imageId=' + imgID + '&brightness=' +
-                  brightness + '&contrast=' + contrast;
+                  '&numOfBands=' + numOfBands + '&imageId=' + imgID +
+                  '&brightness=' + brightness + '&contrast=' + contrast;
               return urlString;
             };
 
@@ -434,8 +434,14 @@
               source.refresh();
             };
 
-            this.setContrast= function(contrastVal){
+            this.setContrast = function(contrastVal){
               contrast = contrastVal;
+              source.refresh();
+            };
+
+            this.resetBrightnessContrast = function(){
+              brightness = ( $stateParams.brightness ) ? ( $stateParams.brightness ) : ( 0.0 );
+              contrast = ( $stateParams.contrast ) ? ( $stateParams.contrast ) : ( 1.0 );
               source.refresh();
             };
 

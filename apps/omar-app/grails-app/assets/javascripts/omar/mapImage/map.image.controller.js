@@ -86,21 +86,12 @@
         if ( numberOfBands <= 2 ) {
           $scope.grayValue = $scope.bandValues[0].value;
           $scope.grayImageItem = $scope.bandValues[0];
-          $scope.bandTypeItem = $scope.bandTypeValues[0];
 
           if ( numberOfBands == 2 ) {
             $scope.enableBandType = true;
           } else {
             $scope.enableBandType = false;
           }
-
-          if ( numberOfBands <= 1 ) {
-            $( '#gray-image-space-bands' ).hide();
-          }else {
-            $( '#gray-image-space-bands' ).show();
-          }
-
-          $( '#rgb-image-space-bands' ).hide();
 
         }else {
           $scope.bandTypeValues.push( { 'key': 2, 'value': 'Color' } );
@@ -113,12 +104,32 @@
           $scope.rgbValues = { red: $scope.bandValues[0].key,
                             green: $scope.bandValues[1].key,
                             blue: $scope.bandValues[2].key };
-          $scope.bandTypeItem = $scope.bandTypeValues[0];
         }
+
+       if ( bands.length == 1 ) {
+         $scope.bandTypeItem = $scope.bandTypeValues[1];
+         $scope.grayImageItem = { 'key': bands[0], 'value': bands[0] };
+          $( '#rgb-image-space-bands' ).hide();
+          $( '#gray-image-space-bands' ).show();
+       }else {
+         $scope.bandTypeItem = $scope.bandTypeValues[2];
+         $scope.redImageItem = { 'key': bands[0], 'value': bands[0] };
+         $scope.greenImageItem = { 'key': bands[1], 'value': bands[1] };
+         $scope.blueImageItem = { 'key': bands[2], 'value': bands[2] };
+          $( '#rgb-image-space-bands' ).show();
+          $( '#gray-image-space-bands' ).hide();
+       }
 
         if ( bands[0] == 'default' ) {
             $( '#rgb-image-space-bands' ).hide();
             $( '#gray-image-space-bands' ).hide();
+
+            $scope.grayImageItem = { 'key': 1, 'value': 1 };
+            $scope.redImageItem = { 'key': 1, 'value': 1 };
+            $scope.greenImageItem = { 'key': 2, 'value': 2 };
+            $scope.blueImageItem = { 'key': 3, 'value': 3 };
+
+            $scope.bandTypeItem = $scope.bandTypeValues[0];
         }
       }
 
@@ -183,16 +194,6 @@
         step: 0.01
     });
 
-  //  $( '#imgBrightnessVal' ).text( brightness );
-
-    $( '#imgBrightnessSlider' ).on( 'slide', function( slideEvt ) {
-      $( '#imgBrightnessVal' ).text( slideEvt.value );
-    });
-
-    $( '#imgBrightnessSlider' ).on( 'slideStop', function( slideEvt ) {
-      imageSpaceService.setBrightness( slideEvt.value );
-    });
-
     $( '#imgContrastSlider' ).slider({
         value: parseFloat( contrast ),
         min: 0.0,
@@ -201,7 +202,18 @@
         step: 0.01
     });
 
-  //  $( '#imgContrastVal' ).text( parseFloat( contrast ) );
+    $( '#imgBrightnessVal' ).text( brightness );
+
+    $( '#imgBrightnessSlider' ).on( 'slide', function( slideEvt ) {
+      $( '#imgBrightnessVal' ).text( slideEvt.value );
+    });
+
+    $( '#imgBrightnessSlider' ).on( 'slideStop', function( slideEvt ) {
+      imageSpaceService.setBrightness( slideEvt.value );
+      $( '#imgBrightnessVal' ).text( slideEvt.value );
+    });
+
+    $( '#imgContrastVal' ).text( parseFloat( contrast ) );
 
     $( '#imgContrastSlider' ).on( 'slide', function( slideEvt ) {
       $( '#imgContrastVal' ).text( slideEvt.value );
@@ -209,7 +221,16 @@
 
     $( '#imgContrastSlider' ).on( 'slideStop', function( slideEvt ) {
       imageSpaceService.setContrast( slideEvt.value );
+      $( '#imgContrastVal' ).text( slideEvt.value );
     });
+
+    vm.resetBrightnessContrast = function() {
+      imageSpaceService.setBrightness( imageSpaceObj.brightness );
+      $( '#imgBrightnessVal' ).text( imageSpaceObj.brightness );
+
+      imageSpaceService.setContrast( imageSpaceObj.contrast );
+      $( '#imgContrastVal' ).text( imageSpaceObj.contrast );
+    };
 
     //END - Brightness/Contrast Section
 
@@ -230,7 +251,6 @@
     // END - Dynamic Range Section
 
     function loadMapImage() {
-      console.log('$stateParams: ' + $stateParams.brightness);
       brightness = ( $stateParams.brightness ) ? ( $stateParams.brightness ) : ( 0.0 );
       contrast = ( $stateParams.contrast ) ? ( $stateParams.contrast ) : ( 1.0 );
 

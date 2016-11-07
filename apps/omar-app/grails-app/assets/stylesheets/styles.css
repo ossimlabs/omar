@@ -757,8 +757,11 @@ body {
   text-align: left;
 }
 
+#brightness-section,
+#contrast-section,
 #imgBrightnessSlider,
-#imgContrastSlider{
+#imgContrastSlider,
+#brightnes-contrast-reset{
   width: 100%;
 }
 
@@ -771,6 +774,14 @@ body {
 #imgContrastVal {
   font-size: .8em;
   text-align: center
+}
+
+#brightnes-contrast-reset .btn{
+  float: right;
+  width: 50px;
+  height: 30px;
+  padding: 5px 5px;
+  line-height: 0px;
 }
 
 .slider.slider-horizontal .slider-track {
