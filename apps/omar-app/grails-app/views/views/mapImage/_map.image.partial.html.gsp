@@ -86,9 +86,11 @@
         <!-- Measure Panel -->
         <div class="panel panel-info" ng-show="image.showMeasureInfo">
           <div class="panel-body">
+            <small class="text text-info">Measurements</small>
+            <br>
+            <small class="text text-success">{{image.measureMessage}}</small>
+            <br>
             <div class="text-center">
-              <small class="text text-success">{{image.measureMessage}}</small>
-              <br>
               <small>Measure Type:&nbsp;&nbsp;<span class="text text-info">{{image.measureType}}</span></small>
             </div>
             <div>
@@ -102,17 +104,17 @@
                 <ui-select-choices repeat="item in itemMeasureTypeArray">
                     <span ng-bind="item.name"></span>
                 </ui-select-choices>
-            </ui-select>
+              </ui-select>
             </div>
             <br>
-            <small class="text text-info">Measurement Info</small>
+            <small class="text text-info">Output</small>
             <ul style="padding-left: 0px">
               <li class="list-group-item">Geodetic Dist.<span class="badge">{{image.geodDist}}</span></li>
               <li class="list-group-item">Rectilinear Dist.<span class="badge">{{image.recDist}}</span></li>
               <li class="list-group-item" ng-show="image.displayAzimuth">Azimuth Bearing<span class="badge">{{image.azimuth}}</span></li>
               <li class="list-group-item" ng-show="image.measurePolygon">Area<span class="badge">{{image.area}}</span></li>
             </ul>
-            <div class=" text-center">
+            <div class="text-center">
               <small class="text text-warning">Not certified for targeting</small>
             </div>
           </div>
@@ -121,18 +123,49 @@
         <div class="panel panel-info" ng-show="image.pqeShowInfo">
           <div class="panel-body">
             <small class="text text-info">Position Quality Evaluator</small>
-          </div>
-          <ul style="padding-left: 0px">
-            <li class="list-group-item">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
-            <li class="list-group-item">SMA / SMI<span class="badge">{{image.sma}} / {{image.smi}}</span></li>
-            <li class="list-group-item">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
-          </ul>
-          <div class="text-center">
-            <small>Probability Level: {{image.lvl}}</small>
             <br>
-            <small class="text text-warning">Not certified for targeting</small>
-          <br>
-          <br>
+            <small class="text text-success">Click in the map to add a point. The position and the error of the information associated with it will be displayed.</small>
+            <div ng-show="image.showPqePosOutput">
+              <small class="text text-info text-center">Position Output</small>
+              <ul style="padding-left: 0px">
+                <li class="list-group-item">Lat , Lon<span class="badge">{{image.lat}} , {{image.lon}}</span></li>
+                <li class="list-group-item"
+                tooltip-placement="bottom"
+                uib-tooltip="Height Above Ellipsoid / Height Above Mean Sea Level">HAE / MSL<span class="badge">{{image.hgt}} / {{image.hgtMsl}}</span></li>
+                <li class="list-group-item"
+                tooltip-placement="bottom"
+                uib-tooltip="Image space pixel coordinates">X,Y <small>(pixels)</small><span class="badge">{{image.imageX}} / {{image.imageY}}</span></li>
+              </ul>
+            </div>
+            <div ng-show="image.showPqeOutput">
+              <small class="text text-info text-center">Quality Output</small>
+              <ul style="padding-left: 0px">
+                <li class="list-group-item"
+                tooltip-placement="bottom"
+                uib-tooltip="Circular Error / Linear Error">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
+                <li class="list-group-item"
+                tooltip-placement="bottom"
+                uib-tooltip="Semi-Major Axis / Semi-Minor Axis">SMA / SMI<span class="badge">{{image.sma}} / {{image.smi}}</span></li>
+                <li class="list-group-item"
+                tooltip-placement="bottom"
+                uib-tooltip="Semi-Major Axis Azimuth">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
+                <li class="list-group-item"
+                tooltip-placement="bottom"
+                uib-tooltip="Projection model used to calculate the PQE values">Model / Proj<span class="badge">{{image.surfaceName}} / {{image.projType}}</span></li>
+              </ul>
+              <div class="text-center">
+                <small>Probability Level: {{image.lvl}}</small>
+                <br>
+                <small class="text text-warning">Not certified for targeting</small>
+                <br>
+              </div>
+            </div>
+            <div ng-show="image.showPqeWarning">
+              <div class="alert alert-warning">
+                <small>The current image does not contain the
+                  proper metadata to support PQE output.</small>
+              </div>
+            </div>
           </div>
         </div>
         <!-- Band Selection Panel -->

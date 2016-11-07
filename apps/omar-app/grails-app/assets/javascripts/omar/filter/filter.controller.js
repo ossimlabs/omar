@@ -26,10 +26,7 @@
           // If we don't have any of the filters selected we will provide
           // a list of all the images.
           if (!vm.viewPortSpatial && !vm.pointSpatial && !vm.polygonSpatial) {
-
-            console.log('checkNoSpatialFilter if !all: ');
             mapService.viewPortFilter(false);
-
           }
 
         }
@@ -190,7 +187,6 @@
 
         vm.showCustomDateRange = function() {
             vm.customDateRangeVisible = true;
-            console.log('vm.customDateRangeVisible', vm.customDateRangeVisible);
         };
 
         vm.setInitialCustomStartDate = function() {
@@ -206,21 +202,14 @@
         };
 
         vm.getCustomStartDate = function() {
-            console.log('Start: ' + vm.startDate);
-            console.log('moment formatted start date', moment(vm.startDate).format('MM-DD-YYYY HH:mm:ss'));
-
             // TODO: Pickup the time from the timepicker control instead of formatting from moment
-            console.log('vm.startDate before momnent', vm.startDate);
-            return moment(vm.startDate).format('MM-DD-YYYY HH:mm:ss');
+            return moment(vm.startDate).format('MM-DD-YYYY HH:mm:ss+0000');
         };
 
         vm.getCustomEndDate = function() {
-            //console.log('End: ' + vm.endDate);
-            //console.log('moment formatted end date', moment(vm.endDate).format('MM-DD-YYYY'));
-
             // TODO: Pickup the time from the timepicker control instead of formatting from moment
 
-            return moment(vm.endDate).format('MM-DD-YYYY HH:mm:ss');
+            return moment(vm.endDate).format('MM-DD-YYYY HH:mm:ss+0000');
         };
 
         vm.updateFilterString = function() {
@@ -228,15 +217,15 @@
             filterArray = [];
 
             // Move this to an init like the others?
-            var dateToday = moment().format('MM-DD-YYYY 00:00');
-            var dateTodayEnd = moment().format('MM-DD-YYYY 23:59');
-            var dateYesterday = moment().subtract(1, 'days').format('MM-DD-YYYY 00:00');
-            var dateYesterdayEnd = moment().subtract(1, 'days').format('MM-DD-YYYY 23:59');
-            var dateLast3Days = moment().subtract(2, 'days').format('MM-DD-YYYY 00:00');
-            var dateLast7Days = moment().subtract(7, 'days').format('MM-DD-YYYY 00:00');
-            var dateThisMonth = moment().subtract(1, 'months').format('MM-DD-YYYY 00:00');
-            var dateLast3Months = moment().subtract(3, 'months').format('MM-DD-YYYY 00:00');
-            var dateLast6Months = moment().subtract(6, 'months').format('MM-DD-YYYY 00:00');
+            var dateToday = moment().format('MM-DD-YYYY 00:00+0000');
+            var dateTodayEnd = moment().format('MM-DD-YYYY 23:59+0000');
+            var dateYesterday = moment().subtract(1, 'days').format('MM-DD-YYYY 00:00+0000');
+            var dateYesterdayEnd = moment().subtract(1, 'days').format('MM-DD-YYYY 23:59+0000');
+            var dateLast3Days = moment().subtract(2, 'days').format('MM-DD-YYYY 00:00+0000');
+            var dateLast7Days = moment().subtract(7, 'days').format('MM-DD-YYYY 00:00+0000');
+            var dateThisMonth = moment().subtract(1, 'months').format('MM-DD-YYYY 00:00+0000');
+            var dateLast3Months = moment().subtract(3, 'months').format('MM-DD-YYYY 00:00+0000');
+            var dateLast6Months = moment().subtract(6, 'months').format('MM-DD-YYYY 00:00+0000');
 
             var dbName = vm.currentDateType.value; //"acquisition_date";
             var temporalParam = vm.currentTemporalDuration.value;
@@ -272,7 +261,6 @@
                     filterArray.push([dbName, ">='", dateLast6Months, "'AND", dbName, "<='", dateTodayEnd, "'"].join(" "));
                     break;
                 case "customDateRange":
-                    //console.log('switch == "customDateRange"');
                     vm.customDateRangeVisible = true;
                     filterArray.push([dbName, ">='", vm.getCustomStartDate(), "'AND", dbName, "<='", vm.getCustomEndDate(), "'"].join(" "));
                     break;
@@ -283,7 +271,6 @@
                     //filterArray.push([dbName,  ">='", dateToday, "'AND", dbName, "<='",  dateTodayEnd, "'
                     // AND"].join(" "));
                     //filterArray.push([" ",].join(" "));
-                    //console.log('switch default working');
                     break;
             }
 
@@ -322,14 +309,12 @@
                         });
                 } else {
                     filterArray.push([dbName, ">=", min, "AND", dbName, "<=", max].join(" "));
-                    console.log(dbName + 'filterArray', filterArray);
                 }
 
             }
 
             // Keywords
             if (vm.beNumberCheck && vm.beNumber != '') {
-                console.log('Pushing beNumber to array!');
                 pushKeywordToArray("be_number", vm.beNumber);
             }
             if (vm.countryCodeCheck && vm.countryCode != '') {
@@ -403,7 +388,6 @@
             }
 
             filterString = filterArray.join(" AND ");
-            //console.log('filterString', filterString);
 
             wfsService.updateAttrFilter(filterString);
 
@@ -417,9 +401,7 @@
         vm.setInitialCustomEndDate();
 
         vm.closeFilterDropdown = function(e) {
-
           var elem = "." + e;
-          console.log(elem);
 
           $(elem).dropdown('toggle');
 

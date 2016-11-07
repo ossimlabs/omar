@@ -99,30 +99,23 @@
         "&version=" + wfsRequest.version +
         "&request=GetFeature" +
         "&typeName=" + wfsRequest.typeName +
-        "&filter=" + wfsRequest.cql +
+        "&filter=" + encodeURIComponent(wfsRequest.cql) +
         "&outputFormat=" + wfsRequest.outputFormat +
         "&sortBy=" + wfsRequest.sortField + wfsRequest.sortType +
-        "&startIndex=" + wfsRequest.startIndex; // +
-        //"&maxFeatures=" + wfsRequest.maxFeatures;
-
-      var url = encodeURI(wfsUrl);
+        "&startIndex=" + wfsRequest.startIndex +
+        "&maxFeatures=" + wfsRequest.maxFeatures;
 
       $http({
-
         method: 'GET',
-        url: url
-
+        url: wfsUrl
       })
       .then(function (response) {
-
         var data;
         data = response.data.features;
 
         // $timeout needed: http://stackoverflow.com/a/18996042
         $timeout(function () {
-
             $rootScope.$broadcast('wfs: updated', data);
-
           });
       });
 

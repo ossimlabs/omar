@@ -114,7 +114,6 @@
                         <label for="temporalTypeFilter">Date Type</label>
                         <select ng-model="filter.currentDateType"
                           ng-options="type.label for type in filter.dateTypes"
-                          ng-change="filter.updateFilterString()"
                           id="temporalTypeFilter"
                           class="form-control">
                         </select>
@@ -157,8 +156,7 @@
                       <div class="form-group form-group-sm">
                         <input type="text" class="form-control"
                          ng-model="filter.startDate"
-                         ng-change="filter.updateFilterString();"
-                         data-time-format="HH:mm:ss a"
+                         data-time-format="HH:mm:ss"
                          data-autoclose="false"
                          data-minute-step="1"
                          data-second-step="1"
@@ -167,7 +165,6 @@
                       <div style="display:inline-block;">
                         <uib-datepicker
                           ng-model="filter.startDate"
-                          ng-change="filter.updateFilterString();"
                           show-weeks="false"
                           class="well well-sm">
                         </uib-datepicker>
@@ -181,13 +178,12 @@
                       <div class="form-group form-group-sm">
                         <input type="text" size="8" class="form-control"
                          ng-model="filter.endDate"
-                         data-time-format="HH:mm:ss a"
+                         data-time-format="HH:mm:ss"
                          data-autoclose="0" placeholder="Time" bs-timepicker>
                       </div>
                       <div style="display:inline-block;">
                         <uib-datepicker
                           ng-model="filter.endDate"
-                          ng-change="filter.updateFilterString();"
                           show-weeks="false"
                           class="well well-sm">
                         </uib-datepicker>
@@ -196,6 +192,9 @@
                   </ul>
                 </li>
                 <li class="col-sm-12 text-center">
+                  <button class="btn btn-primary btn-xs" type="button"
+                    ng-click="filter.updateFilterString()">Apply
+                  </button>
                   <button class="btn btn-warning btn-xs" type="button"
                     ng-click="filter.closeFilterDropdown('temporal-filter-dropdown')">Close
                   </button>
@@ -348,7 +347,7 @@
                   <ul>
                     <li class="filter-row text-center">
                       <button class="btn btn-primary btn-xs" type="button"
-                        ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);filter.closeFilterDropdown()">Apply
+                        ng-click="filter.updateFilterString()">Apply
                       </button>
                       <button class="btn btn-primary btn-xs" type="button"
                         ng-click="filter.initKeywords();">Reset
@@ -554,7 +553,7 @@
                     </li>
                     <li class="col-sm-12 text-center">
                       <button class="btn btn-primary btn-xs" type="button"
-                        ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
+                        ng-click="filter.updateFilterString()">Apply
                       </button>
                       <button class="btn btn-warning btn-xs" type="button"
                         ng-click="filter.initRanges();">Reset

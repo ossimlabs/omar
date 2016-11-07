@@ -256,21 +256,21 @@
 
     $scope.resamplerFilterType = {};
     $scope.resamplerFilterTypes = [
-        { 'name': 'bessel' , 'value': 'bessel' },
-        { 'name': 'bilinear' , 'value': 'bilinear' },
-        { 'name': 'blackman' , 'value': 'blackman' },
-        { 'name': 'bspline' , 'value': 'bspline' },
-        { 'name': 'catrom' , 'value': 'catrom' },
-        { 'name': 'cubic' , 'value': 'cubic' },
-        { 'name': 'gaussian' , 'value': 'gaussian' },
-        { 'name': 'hanning' , 'value': 'hanning' },
-        { 'name': 'hermite' , 'value': 'hermite' },
-        { 'name': 'lanczos' , 'value': 'lanczos' },
-        { 'name': 'magic' , 'value': 'magic' },
-        { 'name': 'mitchell' , 'value': 'mitchell' },
-        { 'name': 'nearest' , 'value': 'nearest' },
-        { 'name': 'quadratic' , 'value': 'quadratic' },
-        { 'name': 'sinc', 'value': 'sinc' }
+        { 'name': 'Bessel' , 'value': 'bessel' },
+        { 'name': 'Bilinear' , 'value': 'bilinear' },
+        { 'name': 'Blackman' , 'value': 'blackman' },
+        { 'name': 'B-Spline' , 'value': 'bspline' },
+        { 'name': 'Catrom' , 'value': 'catrom' },
+        { 'name': 'Cubic' , 'value': 'cubic' },
+        { 'name': 'Gaussian' , 'value': 'gaussian' },
+        { 'name': 'Hamming' , 'value': 'hamming' },
+        { 'name': 'Hermite' , 'value': 'hermite' },
+        { 'name': 'Lanczos' , 'value': 'lanczos' },
+        { 'name': 'Magic' , 'value': 'magic' },
+        { 'name': 'Mitchell' , 'value': 'mitchell' },
+        { 'name': 'Nearest' , 'value': 'nearest' },
+        { 'name': 'Quadratic' , 'value': 'quadratic' },
+        { 'name': 'Sinc', 'value': 'sinc' }
     ];
     $scope.resamplerFilterType = $scope.resamplerFilterTypes[1];
 
@@ -430,6 +430,8 @@
 
     vm.measure = function(show, type) {
 
+      vm.pqeClear();
+
       imageSpaceService.pqeClear();
       vm.pqeShowInfo = false;
 
@@ -488,17 +490,18 @@
 
     // Begin Position Quality Evaluator Section
 
-    vm.pqeShowInfo = false;
-    vm.ce = '';
-    vm.le = '';
-    vm.sma = '';
-    vm.smi = '';
-    vm.az = '';
+
+
+    vm.showPqePosOutput = false;
+    vm.showPqeOutput = false;
+    vm.showPqeWarning = false;
 
     vm.pqe = function(){
 
-      vm.showMeasureInfo = false;
-      imageSpaceService.measureClear();
+      vm.measureClear();
+
+      //vm.showMeasureInfo = false;
+      //imageSpaceService.measureClear();
 
       vm.pqeShowInfo = true;
 
@@ -510,6 +513,28 @@
 
       vm.pqeShowInfo = false;
 
+      vm.showPqeOutput = false;
+
+      vm.ce = '';
+      vm.le = '';
+      vm.sma = '';
+      vm.smi = '';
+      vm.az = '';
+      vm.projType = '';
+      vm.surfaceName = '';
+      vm.lvl = '';
+
+      vm.showPqeWarning = false;
+
+      vm.showPqePosOutput = false;
+
+      vm.lat = '';
+      vm.lon = '';
+      vm.hgt = '';
+      vm.hgtMsl = '';
+      vm.imageX = '';
+      vm.imageY = '';
+
       imageSpaceService.pqeClear();
 
     }
@@ -517,16 +542,38 @@
     var pqeObj = {};
     $scope.$on('pqe: updated', function(event, data) {
 
+      console.log('data: ', data);
       pqeObj = data[0];
 
       console.log('pqeObj: ', pqeObj.pqe);
+      if (pqeObj.pqe !== undefined){
 
-      vm.ce = pqeObj.pqe.CE.toFixed(4);;
-      vm.le = pqeObj.pqe.LE.toFixed(4);;
-      vm.sma = pqeObj.pqe.SMA.toFixed(4);;
-      vm.smi = pqeObj.pqe.SMI.toFixed(4);;
-      vm.az = pqeObj.pqe.AZ.toFixed(4);;
-      vm.lvl = pqeObj.pqe.probabilityLevel.toFixed(1) + 'P';
+        vm.showPqeOutput = true;
+
+        vm.ce = pqeObj.pqe.CE.toFixed(4);
+        vm.le = pqeObj.pqe.LE.toFixed(4) + ' m';
+        vm.sma = pqeObj.pqe.SMA.toFixed(4);
+        vm.smi = pqeObj.pqe.SMI.toFixed(4) + ' m';
+        vm.az = pqeObj.pqe.AZ.toFixed(4) + ' deg';
+        vm.projType = pqeObj.pqe.projType;
+        vm.surfaceName = pqeObj.pqe.surfaceName;
+        vm.lvl = pqeObj.pqe.probabilityLevel.toFixed(1) + 'P';
+
+      }
+      else {
+
+        vm.showPqeWarning = true;
+
+      }
+
+      vm.showPqePosOutput = true;
+
+      vm.lat = pqeObj.lat.toFixed(4);
+      vm.lon = pqeObj.lon.toFixed(4);
+      vm.hgt = pqeObj.hgt.toFixed(4);
+      vm.hgtMsl = pqeObj.hgtMsl.toFixed(4) + ' m';
+      vm.imageX = pqeObj.x.toFixed(4);
+      vm.imageY = pqeObj.y.toFixed(4);
 
     });
 
