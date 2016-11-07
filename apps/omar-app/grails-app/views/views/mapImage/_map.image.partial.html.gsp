@@ -124,9 +124,9 @@
           <div class="panel-body">
             <small class="text text-info">Position Quality Evaluator</small>
             <br>
-            <small class="text text-success">Click in the map to add a point, and view the position and the error associated with it.</small>
+            <small class="text text-success">Click in the map to add a point. The position and the error of the information associated with it will be displayed.</small>
             <div ng-show="image.showPqePosOutput">
-              <small class="text text-success text-center">Position Output</small>
+              <small class="text text-info text-center">Position Output</small>
               <ul style="padding-left: 0px">
                 <li class="list-group-item">Lat , Lon<span class="badge">{{image.lat}} , {{image.lon}}</span></li>
                 <li class="list-group-item"
@@ -138,7 +138,7 @@
               </ul>
             </div>
             <div ng-show="image.showPqeOutput">
-              <small class="text text-success text-center">Quality Output</small>
+              <small class="text text-info text-center">Quality Output</small>
               <ul style="padding-left: 0px">
                 <li class="list-group-item"
                 tooltip-placement="bottom"
@@ -162,8 +162,8 @@
             </div>
             <div ng-show="image.showPqeWarning">
               <div class="alert alert-warning">
-                The current image does not contain the
-                  proper metadata to support PQE output.
+                <small>The current image does not contain the
+                  proper metadata to support PQE output.</small>
               </div>
             </div>
           </div>
