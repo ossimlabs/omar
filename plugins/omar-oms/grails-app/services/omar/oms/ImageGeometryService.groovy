@@ -56,6 +56,7 @@ class ImageGeometryService {
                     result.SMI=pqeArray[3]
                     result.AZ=Math.toDegrees(pqeArray[4])
                     result.probabilityLevel=probabilityLevel
+                    result.projType=projType
 
                     //dataRecord.nELL=pqeArray[5]
                 }
