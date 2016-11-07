@@ -513,16 +513,30 @@
     var pqeObj = {};
     $scope.$on('pqe: updated', function(event, data) {
 
+      console.log('data: ', data);
       pqeObj = data[0];
 
       console.log('pqeObj: ', pqeObj.pqe);
+      if (pqeObj.pqe === undefined){
 
-      vm.ce = pqeObj.pqe.CE.toFixed(4);;
-      vm.le = pqeObj.pqe.LE.toFixed(4);;
-      vm.sma = pqeObj.pqe.SMA.toFixed(4);;
-      vm.smi = pqeObj.pqe.SMI.toFixed(4);;
-      vm.az = pqeObj.pqe.AZ.toFixed(4);;
-      vm.lvl = pqeObj.pqe.probabilityLevel.toFixed(1) + 'P';
+        alert('No PQE info available!');
+        return;
+
+      }
+      else {
+
+        vm.ce = pqeObj.pqe.CE.toFixed(4);
+        vm.le = pqeObj.pqe.LE.toFixed(4) + ' m';
+        vm.sma = pqeObj.pqe.SMA.toFixed(4);
+        vm.smi = pqeObj.pqe.SMI.toFixed(4) + ' m';
+        vm.az = pqeObj.pqe.AZ.toFixed(4) + ' deg';
+        vm.lvl = pqeObj.pqe.probabilityLevel.toFixed(1) + 'P';
+
+      }
+
+
+
+
 
     });
 

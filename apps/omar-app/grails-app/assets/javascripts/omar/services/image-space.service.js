@@ -759,6 +759,7 @@
 
                   }).then(function(response) {
 
+                      console.log('response: ', response);
                       var data;
                       data = response.data.data;
                       console.log('data:', data);

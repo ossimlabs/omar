@@ -91,7 +91,7 @@
                 <ui-select-choices repeat="item in itemMeasureTypeArray">
                     <span ng-bind="item.name"></span>
                 </ui-select-choices>
-            </ui-select>
+              </ui-select>
             </div>
             <br>
             <small class="text text-info">Measurement Info</small>
@@ -101,7 +101,7 @@
               <li class="list-group-item" ng-show="image.displayAzimuth">Azimuth Bearing<span class="badge">{{image.azimuth}}</span></li>
               <li class="list-group-item" ng-show="image.measurePolygon">Area<span class="badge">{{image.area}}</span></li>
             </ul>
-            <div class=" text-center">
+            <div class="text-center">
               <small class="text text-warning">Not certified for targeting</small>
             </div>
           </div>
@@ -110,18 +110,26 @@
         <div class="panel panel-info" ng-show="image.pqeShowInfo">
           <div class="panel-body">
             <small class="text text-info">Position Quality Evaluator</small>
-          </div>
-          <ul style="padding-left: 0px">
-            <li class="list-group-item">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
-            <li class="list-group-item">SMA / SMI<span class="badge">{{image.sma}} / {{image.smi}}</span></li>
-            <li class="list-group-item">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
-          </ul>
-          <div class="text-center">
-            <small>Probability Level: {{image.lvl}}</small>
             <br>
-            <small class="text text-warning">Not certified for targeting</small>
-          <br>
-          <br>
+            <small class="text text-success text-center">Quality Output</small>
+            <ul style="padding-left: 0px">
+              <li class="list-group-item">Lat / Lon<span class="badge">/</span></li>
+              <li class="list-group-item">Height / Mean Sea Level<span class="badge">/</span></li>
+              <li class="list-group-item">Image Pixel<span class="badge">/</span></li>
+              <li class="list-group-item">Model /Projection<span class="badge"></span></li>
+            </ul>
+            <small class="text text-success text-center">Position Output</small>
+            <ul style="padding-left: 0px">
+              <li class="list-group-item">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
+              <li class="list-group-item">SMA / SMI<span class="badge">{{image.sma}} / {{image.smi}}</span></li>
+              <li class="list-group-item">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
+            </ul>
+            <div class="text-center">
+              <small>Probability Level: {{image.lvl}}</small>
+              <br>
+              <small class="text text-warning">Not certified for targeting</small>
+              <br>
+            </div>
           </div>
         </div>
         <!-- Band Selection Panel -->
