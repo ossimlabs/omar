@@ -801,3 +801,28 @@ body {
   width: 15px;
   height: 15px;
 }
+
+#imgLinkButtons {
+  padding: 8px 12px;
+  float: left;
+  font-size: 1.5em;
+}
+
+#imgLinkButtons .tooltip-inner {
+    min-width: 100px;
+    max-width: 200px;
+}
+
+#imgLinkButtons.modal-footer {
+  border-top: none;
+}
+
+#imgLinkButtons a {
+  margin-right: 5px;
+}
+
+#imgLinkButtons a:visited,
+#imgLinkButtons a:hover,
+#imgLinkButtons a:active {
+  text-decoration: none;
+}
