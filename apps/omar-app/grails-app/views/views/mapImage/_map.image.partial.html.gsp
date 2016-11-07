@@ -138,6 +138,38 @@
             </ui-select>
           </div>
         </div>
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <small class="text text-info">Interpolation</small>
+            <ui-select
+              ng-model="resampleFilterType"
+              on-select="onResampleFilterSelect($select.selected.value)"
+              theme="selectize">
+              <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="val in resampleFilterTypes">
+                <span ng-bind="val.name"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <small class="text text-info">Sharpen Mode</small>
+            <ui-select
+              ng-model="sharpenModeType"
+              on-select="onSharpenModeSelect($select.selected.value)"
+              theme="selectize">
+              <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="val in sharpenModeTypes">
+                <span ng-bind="val.name"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
         <div class="panel panel-info" ng-show="image.showMeasureInfo">
           <div class="panel-body">
             <div class="text-center">

@@ -25,6 +25,8 @@
           tileZ,
           imgCenter,
           proj,
+          resampleFilter,
+          sharpenMode,
           source,
           source2,
           upAngle,
@@ -231,7 +233,8 @@
               return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
                 '&x=' + tileX + '&y=' + tileY + '&format=' + format +
                 '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp +
-                '&brightness=' + brightness + '&contrast=' + contrast;
+                '&brightness=' + brightness + '&contrast=' + contrast +
+                '&resampleFilter=' + resampleFilter + '&sharpenMode=' + sharpenMode;
               }
           }
 
@@ -284,6 +287,8 @@
             imgID = params.imageId;
             brightness = params.brightness;
             contrast = params.contrast;
+            resampleFilter = "nearest";
+            sharpenMode = "none";
 
             // Make AJAX call here to getAngles with filename & entry as args
             // to get the upAngle and northAngle values
@@ -424,8 +429,18 @@
               return urlString;
             };
 
-            this.setDynamicRange = function(draValue){
-              histOp = draValue;
+            this.setDynamicRange = function(value) {
+              histOp = value;
+              source.refresh();
+            };
+
+            this.setResampleFilter = function(value) {
+              resampleFilter = value;
+              source.refresh();
+            };
+
+            this.setSharpenMode = function(value) {
+              sharpenMode = value;
               source.refresh();
             };
 
