@@ -32,7 +32,7 @@
             templateUrl: AppO2.APP_CONFIG.serverURL + '/views/mapOrtho/map.ortho.partial.html'
           })
           .state('mapImage', {
-            url: '/mapImage?filename=&entry_id=&width=&height&bands=&numOfBands=&imageId=',
+            url: '/mapImage?filename=&entry_id=&width=&height&bands=&numOfBands=&imageId=&brightness=&contrast=',
             templateUrl: AppO2.APP_CONFIG.serverURL + '/views/mapImage/map.image.partial.html'
           })
           .state('wfs', {

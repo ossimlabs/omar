@@ -131,6 +131,7 @@ dependencies {
   compile 'org.webjars.npm:angular-sanitize:1.4.8'
   compile 'org.webjars.bower:microplugin:0.0.3'
   compile 'org.webjars:selectize.js:0.12.3'
+  compile 'org.webjars.bower:seiyria-bootstrap-slider:9.3.0'
 
   // Font stuff
   compile 'org.webjars:font-awesome:4.4.0'

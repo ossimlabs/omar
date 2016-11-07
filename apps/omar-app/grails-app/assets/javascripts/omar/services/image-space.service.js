@@ -32,7 +32,11 @@
           upAngle,
           northAngle,
           bands,
-          numOfBands;
+          numOfBands,
+          brightness,
+          contrast,
+          urlString,
+          imgID;
 
       // Measurement variables
 
@@ -229,6 +233,7 @@
               return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
                 '&x=' + tileX + '&y=' + tileY + '&format=' + format +
                 '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp +
+                '&brightness=' + brightness + '&contrast=' + contrast +
                 '&resampleFilter=' + resampleFilter + '&sharpenMode=' + sharpenMode;
               }
           }
@@ -270,7 +275,6 @@
               if (!isModal) {
                 stateService.navStateUpdate({ titleLeft: imageId + " <br> " + acquisitionDate });
               }
-
             });
 
             filename = params.filename;
@@ -280,6 +284,9 @@
             imgHeight = params.imgHeight;
             numOfBands = params.numOfBands;
             bands = params.bands;
+            imgID = params.imageId;
+            brightness = params.brightness;
+            contrast = params.contrast;
             resampleFilter = "nearest";
             sharpenMode = "none";
 
@@ -324,7 +331,9 @@
               size: [imgWidth, imgHeight],
               crossOrigin: crossOrigin,
               numOfBands: numOfBands,
-              bands: bands
+              bands: bands,
+              brightness: brightness,
+              contrast: contrast
             });
 
             source2 = new ImageSpace({
@@ -399,6 +408,7 @@
 
                 }
               }
+              //if ( bandVal.length >= 3 ) {}
               this.bands = bands;
               this.numOfBands = numOfBands;
             };
@@ -409,6 +419,15 @@
             };
 
             //END - Band Selection Section
+
+            this.getImageLink = function(){
+              urlString = AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?filename=' + filename +
+                  '&entry_id=' + entry + '&width=' + imgWidth +
+                  '&height=' + imgHeight + '&bands=' + bands +
+                  '&numOfBands=' + numOfBands + '&imageId=' + imgID +
+                  '&brightness=' + brightness + '&contrast=' + contrast;
+              return urlString;
+            };
 
             this.setDynamicRange = function(value) {
               histOp = value;
@@ -422,6 +441,22 @@
 
             this.setSharpenMode = function(value) {
               sharpenMode = value;
+              source.refresh();
+            };
+
+            this.setBrightness = function(brightnessVal){
+              brightness = brightnessVal;
+              source.refresh();
+            };
+
+            this.setContrast = function(contrastVal){
+              contrast = contrastVal;
+              source.refresh();
+            };
+
+            this.resetBrightnessContrast = function(){
+              brightness = ( $stateParams.brightness ) ? ( $stateParams.brightness ) : ( 0.0 );
+              contrast = ( $stateParams.contrast ) ? ( $stateParams.contrast ) : ( 1.0 );
               source.refresh();
             };
 
