@@ -20,6 +20,11 @@
             <li ng-click=""><a>Add a point</a></li>
           </ul>
         </li> -->
+        <li
+          ng-click="image.archiveDownload(image.imageId)"
+          tooltip-placement="right"
+          uib-tooltip="Download the raw image, histogram and overview files"><a>Download</a>
+        </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
             aria-expanded="false"
@@ -52,9 +57,15 @@
           </ul>
         </li>
         <li
+          ng-click="image.shareModal()"
+          tooltip-placement="right"
+          uib-tooltip="Copy a link to share this image"><a>Share</a>
+        </li>
+        <li
           ng-click="image.screenshot()"
           tooltip-placement="right"
-          uib-tooltip="Takes a screenshot of the image at current extent and download it as .png"><a>Screenshot</a></li>
+          uib-tooltip="Takes a screenshot of the image at current extent and download it as .png"><a>Screenshot</a>
+        </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
             aria-expanded="false"
