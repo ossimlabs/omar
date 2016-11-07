@@ -142,13 +142,13 @@
           <div class="panel-body">
             <small class="text text-info">Interpolation</small>
             <ui-select
-              ng-model="resampleFilterType"
-              on-select="onResampleFilterSelect($select.selected.value)"
+              ng-model="resamplerFilterType"
+              on-select="onResamplerFilterSelect($select.selected.value)"
               theme="selectize">
               <ui-select-match>
                 <span ng-bind="$select.selected.name"></span>
               </ui-select-match>
-              <ui-select-choices repeat="val in resampleFilterTypes">
+              <ui-select-choices repeat="val in resamplerFilterTypes">
                 <span ng-bind="val.name"></span>
               </ui-select-choices>
             </ui-select>

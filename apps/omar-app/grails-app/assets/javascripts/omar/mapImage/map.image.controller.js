@@ -185,8 +185,8 @@
         imageSpaceService.setDynamicRange( value );
     };
 
-    $scope.resampleFilterType = {};
-    $scope.resampleFilterTypes = [
+    $scope.resamplerFilterType = {};
+    $scope.resamplerFilterTypes = [
         { 'name': 'bessel' , 'value': 'bessel' },
         { 'name': 'bilinear' , 'value': 'bilinear' },
         { 'name': 'blackman' , 'value': 'blackman' },
@@ -203,10 +203,10 @@
         { 'name': 'quadratic' , 'value': 'quadratic' },
         { 'name': 'sinc', 'value': 'sinc' }
     ];
-    $scope.resampleFilterType = $scope.resampleFilterTypes[0];
+    $scope.resamplerFilterType = $scope.resamplerFilterTypes[1];
 
-    $scope.onResampleFilterSelect = function( value ) {
-        imageSpaceService.setResampleFilter( value );
+    $scope.onResamplerFilterSelect = function( value ) {
+        imageSpaceService.setResamplerFilter( value );
     };
 
     $scope.sharpenModeType = {};
