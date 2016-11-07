@@ -72,6 +72,58 @@
     <div class="row">
       <!-- Image Map Tools Column -->
       <div class="col-md-3 imageMapTools" style="overflow-y: auto;">
+        <!-- Measure Panel -->
+        <div class="panel panel-info" ng-show="image.showMeasureInfo">
+          <div class="panel-body">
+            <div class="text-center">
+              <small class="text text-success">{{image.measureMessage}}</small>
+              <br>
+              <small>Measure Type:&nbsp;&nbsp;<span class="text text-info">{{image.measureType}}</span></small>
+            </div>
+            <div>
+              <ui-select
+              ng-model="selectedMeasureType.value"
+              theme="selectize"
+              on-select="image.setMeasureUnits($select.selected.value)">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item in itemMeasureTypeArray">
+                    <span ng-bind="item.name"></span>
+                </ui-select-choices>
+            </ui-select>
+            </div>
+            <br>
+            <small class="text text-info">Measurement Info</small>
+            <ul style="padding-left: 0px">
+              <li class="list-group-item">Geodetic Dist.<span class="badge">{{image.geodDist}}</span></li>
+              <li class="list-group-item">Rectilinear Dist.<span class="badge">{{image.recDist}}</span></li>
+              <li class="list-group-item" ng-show="image.displayAzimuth">Azimuth Bearing<span class="badge">{{image.azimuth}}</span></li>
+              <li class="list-group-item" ng-show="image.measurePolygon">Area<span class="badge">{{image.area}}</span></li>
+            </ul>
+            <div class=" text-center">
+              <small class="text text-warning">Not certified for targeting</small>
+            </div>
+          </div>
+        </div>
+        <!-- Position Quality Evaluator Panel -->
+        <div class="panel panel-info" ng-show="image.pqeShowInfo">
+          <div class="panel-body">
+            <small class="text text-info">Position Quality Evaluator</small>
+          </div>
+          <ul style="padding-left: 0px">
+            <li class="list-group-item">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
+            <li class="list-group-item">SMA / SMI<span class="badge">{{image.sma}} / {{image.smi}}</span></li>
+            <li class="list-group-item">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
+          </ul>
+          <div class="text-center">
+            <small>Probability Level: {{image.lvl}}</small>
+            <br>
+            <small class="text text-warning">Not certified for targeting</small>
+          <br>
+          <br>
+          </div>
+        </div>
         <!-- Band Selection Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
@@ -167,7 +219,7 @@
             </ui-select>
           </div>
         </div>
-        <!-- Measure Panel -->
+        <!-- Interpolation Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
             <small class="text text-info">Interpolation</small>
@@ -184,6 +236,7 @@
             </ui-select>
           </div>
         </div>
+        <!-- Sharpen Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
             <small class="text text-info">Sharpen Mode</small>
@@ -200,57 +253,7 @@
             </ui-select>
           </div>
         </div>
-        <div class="panel panel-info" ng-show="image.showMeasureInfo">
-          <div class="panel-body">
-            <div class="text-center">
-              <small class="text text-success">{{image.measureMessage}}</small>
-              <br>
-              <small>Measure Type:&nbsp;&nbsp;<span class="text text-info">{{image.measureType}}</span></small>
-            </div>
-            <div>
-              <ui-select
-              ng-model="selectedMeasureType.value"
-              theme="selectize"
-              on-select="image.setMeasureUnits($select.selected.value)">
-                <ui-select-match>
-                    <span ng-bind="$select.selected.name"></span>
-                </ui-select-match>
-                <ui-select-choices repeat="item in itemMeasureTypeArray">
-                    <span ng-bind="item.name"></span>
-                </ui-select-choices>
-            </ui-select>
-            </div>
-            <br>
-            <small class="text text-info">Measurement Info</small>
-            <ul style="padding-left: 0px">
-              <li class="list-group-item">Geodetic Dist.<span class="badge">{{image.geodDist}}</span></li>
-              <li class="list-group-item">Rectilinear Dist.<span class="badge">{{image.recDist}}</span></li>
-              <li class="list-group-item" ng-show="image.displayAzimuth">Azimuth Bearing<span class="badge">{{image.azimuth}}</span></li>
-              <li class="list-group-item" ng-show="image.measurePolygon">Area<span class="badge">{{image.area}}</span></li>
-            </ul>
-            <div class=" text-center">
-              <small class="text text-warning">Not certified for targeting</small>
-            </div>
-          </div>
-        </div>
-        <!-- Position Quality Evaluator Panel -->
-        <div class="panel panel-info" ng-show="image.pqeShowInfo">
-          <div class="panel-body">
-            <small class="text text-info">Position Quality Evaluator</small>
-          </div>
-          <ul style="padding-left: 0px">
-            <li class="list-group-item">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
-            <li class="list-group-item">SMA / SMI<span class="badge">{{image.sma}} / {{image.smi}}</span></li>
-            <li class="list-group-item">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
-          </ul>
-          <div class="text-center">
-            <small>Probability Level: {{image.lvl}}</small>
-            <br>
-            <small class="text text-warning">Not certified for targeting</small>
-          <br>
-          <br>
-          </div>
-        </div>
+        <!-- Brightness/Contrast Panel -->
         <div class="panel panel-info" id="image-sharpness-contrast">
           <div class="panel-body">
             <div id="brightness-section">
