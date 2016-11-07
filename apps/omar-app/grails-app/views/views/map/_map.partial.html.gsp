@@ -158,7 +158,7 @@
                         <input type="text" class="form-control"
                          ng-model="filter.startDate"
                          ng-change="filter.updateFilterString();"
-                         data-time-format="HH:mm:ss a"
+                         data-time-format="HH:mm:ss"
                          data-autoclose="false"
                          data-minute-step="1"
                          data-second-step="1"
@@ -181,7 +181,7 @@
                       <div class="form-group form-group-sm">
                         <input type="text" size="8" class="form-control"
                          ng-model="filter.endDate"
-                         data-time-format="HH:mm:ss a"
+                         data-time-format="HH:mm:ss"
                          data-autoclose="0" placeholder="Time" bs-timepicker>
                       </div>
                       <div style="display:inline-block;">
