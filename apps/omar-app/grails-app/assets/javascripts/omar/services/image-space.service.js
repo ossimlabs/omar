@@ -25,7 +25,7 @@
           tileZ,
           imgCenter,
           proj,
-          resampleFilter,
+          resamplerFilter,
           sharpenMode,
           source,
           source2,
@@ -234,7 +234,7 @@
                 '&x=' + tileX + '&y=' + tileY + '&format=' + format +
                 '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp +
                 '&brightness=' + brightness + '&contrast=' + contrast +
-                '&resampleFilter=' + resampleFilter + '&sharpenMode=' + sharpenMode;
+                '&resamplerFilter=' + resamplerFilter + '&sharpenMode=' + sharpenMode;
               }
           }
 
@@ -287,7 +287,7 @@
             imgID = params.imageId;
             brightness = params.brightness;
             contrast = params.contrast;
-            resampleFilter = "nearest";
+            resamplerFilter = "bilinear";
             sharpenMode = "none";
 
             // Make AJAX call here to getAngles with filename & entry as args
@@ -434,8 +434,8 @@
               source.refresh();
             };
 
-            this.setResampleFilter = function(value) {
-              resampleFilter = value;
+            this.setResamplerFilter = function(value) {
+              resamplerFilter = value;
               source.refresh();
             };
 
