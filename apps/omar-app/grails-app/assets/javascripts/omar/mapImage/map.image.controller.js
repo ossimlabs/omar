@@ -430,6 +430,8 @@
 
     vm.measure = function(show, type) {
 
+      vm.pqeClear();
+
       imageSpaceService.pqeClear();
       vm.pqeShowInfo = false;
 
@@ -488,12 +490,7 @@
 
     // Begin Position Quality Evaluator Section
 
-    vm.pqeShowInfo = false;
-    vm.ce = '';
-    vm.le = '';
-    vm.sma = '';
-    vm.smi = '';
-    vm.az = '';
+
 
     vm.showPqePosOutput = false;
     vm.showPqeOutput = false;
@@ -501,8 +498,10 @@
 
     vm.pqe = function(){
 
-      vm.showMeasureInfo = false;
-      imageSpaceService.measureClear();
+      vm.measureClear();
+
+      //vm.showMeasureInfo = false;
+      //imageSpaceService.measureClear();
 
       vm.pqeShowInfo = true;
 
@@ -513,6 +512,28 @@
     vm.pqeClear = function(){
 
       vm.pqeShowInfo = false;
+
+      vm.showPqeOutput = false;
+
+      vm.ce = '';
+      vm.le = '';
+      vm.sma = '';
+      vm.smi = '';
+      vm.az = '';
+      vm.projType = '';
+      vm.surfaceName = '';
+      vm.lvl = '';
+
+      vm.showPqeWarning = false;
+
+      vm.showPqePosOutput = false;
+
+      vm.lat = '';
+      vm.lon = '';
+      vm.hgt = '';
+      vm.hgtMsl = '';
+      vm.imageX = '';
+      vm.imageY = '';
 
       imageSpaceService.pqeClear();
 
