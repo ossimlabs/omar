@@ -383,12 +383,12 @@
         case 'ft':
           vm.geodDist = linearCalc(data.gdist, 3.280839895) + ' ' + type;
           vm.recDist = linearCalc(data.distance, 3.280839895) + ' ' + type;
-          vm.area = areaCalc(data.area, 10.7639) + " ft^2";
+          vm.area = areaCalc(data.area, 10.763910416623611025) + " ft^2";
         break;
         case 'mi':
           vm.geodDist = linearCalc(data.gdist, 0.00062137119224) + ' ' + type;
           vm.recDist = linearCalc(data.distance, 0.00062137119224) + ' ' + type;
-          vm.area = areaCalc(data.area, .00000386102) + " mi^2";
+          vm.area = areaCalc(data.area, .00000038610215854575) + " mi^2";
         break;
         case 'yd':
           vm.geodDist = linearCalc(data.gdist, 1.0936132983) + ' ' + type;

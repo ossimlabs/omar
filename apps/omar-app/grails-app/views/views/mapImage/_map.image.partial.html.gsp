@@ -250,6 +250,7 @@
           <br>
           <br>
           </div>
+        </div>
         <div class="panel panel-info" id="image-sharpness-contrast">
           <div class="panel-body">
             <div id="brightness-section">
