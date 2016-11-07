@@ -256,21 +256,21 @@
 
     $scope.resamplerFilterType = {};
     $scope.resamplerFilterTypes = [
-        { 'name': 'bessel' , 'value': 'bessel' },
-        { 'name': 'bilinear' , 'value': 'bilinear' },
-        { 'name': 'blackman' , 'value': 'blackman' },
-        { 'name': 'bspline' , 'value': 'bspline' },
-        { 'name': 'catrom' , 'value': 'catrom' },
-        { 'name': 'cubic' , 'value': 'cubic' },
-        { 'name': 'gaussian' , 'value': 'gaussian' },
-        { 'name': 'hanning' , 'value': 'hanning' },
-        { 'name': 'hermite' , 'value': 'hermite' },
-        { 'name': 'lanczos' , 'value': 'lanczos' },
-        { 'name': 'magic' , 'value': 'magic' },
-        { 'name': 'mitchell' , 'value': 'mitchell' },
-        { 'name': 'nearest' , 'value': 'nearest' },
-        { 'name': 'quadratic' , 'value': 'quadratic' },
-        { 'name': 'sinc', 'value': 'sinc' }
+        { 'name': 'Bessel' , 'value': 'bessel' },
+        { 'name': 'Bilinear' , 'value': 'bilinear' },
+        { 'name': 'Blackman' , 'value': 'blackman' },
+        { 'name': 'B-Spline' , 'value': 'bspline' },
+        { 'name': 'Catrom' , 'value': 'catrom' },
+        { 'name': 'Cubic' , 'value': 'cubic' },
+        { 'name': 'Gaussian' , 'value': 'gaussian' },
+        { 'name': 'Hamming' , 'value': 'hamming' },
+        { 'name': 'Hermite' , 'value': 'hermite' },
+        { 'name': 'Lanczos' , 'value': 'lanczos' },
+        { 'name': 'Magic' , 'value': 'magic' },
+        { 'name': 'Mitchell' , 'value': 'mitchell' },
+        { 'name': 'Nearest' , 'value': 'nearest' },
+        { 'name': 'Quadratic' , 'value': 'quadratic' },
+        { 'name': 'Sinc', 'value': 'sinc' }
     ];
     $scope.resamplerFilterType = $scope.resamplerFilterTypes[1];
 
