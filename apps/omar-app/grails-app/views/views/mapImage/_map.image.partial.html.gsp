@@ -24,16 +24,6 @@
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
             aria-expanded="false"
             tooltip-placement="right"
-            uib-tooltip="Zoom to full resolution or maximum extent of the current image">Zoom<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li ng-click="image.zoomToFullRes()"><a>Full Resolution</a></li>
-            <li ng-click="image.zoomToFullExtent()"><a>Maximum Extent</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false"
-            tooltip-placement="right"
             uib-tooltip="Measure area and distances, and calculate horizontal and vertical error for points">Measure<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Measurements</li>
@@ -65,6 +55,16 @@
           ng-click="image.screenshot()"
           tooltip-placement="right"
           uib-tooltip="Takes a screenshot of the image at current extent and download it as .png"><a>Screenshot</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false"
+            tooltip-placement="right"
+            uib-tooltip="Zoom to full resolution or maximum extent of the current image">Zoom<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li ng-click="image.zoomToFullRes()"><a>Full Resolution</a></li>
+            <li ng-click="image.zoomToFullExtent()"><a>Maximum Extent</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </nav>
