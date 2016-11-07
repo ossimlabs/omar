@@ -319,13 +319,6 @@
       <div class="col-md-9">
         <div id="imageMap" class="map imageMap imageMapBorder">
           <div class="imageLinkBtns imageShareButton">
-            <a ng-href="" target="_blank" ng-click="">
-              <i class="fa fa-share-alt fa-border text-primary"
-              tooltip-placement="left-bottom"
-              uib-tooltip="Share a link to this image"></i>
-            </a>&nbsp;&nbsp;
-          </div>
-          <div class="imageLinkBtns imageShareButton">
             <a ng-href="" target="_blank" ng-click="image.shareModal()">
               <i class="fa fa-share-alt fa-border text-primary"
               tooltip-placement="left-bottom"
