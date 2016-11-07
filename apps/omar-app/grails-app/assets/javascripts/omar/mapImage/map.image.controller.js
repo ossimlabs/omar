@@ -15,7 +15,9 @@
 
     //Used by band selection
     var bands, numberOfBands, bandNum,
-    redSelect, greenSelect, blueSelect, brightness, contrast;
+    redSelect, greenSelect, blueSelect,
+    brightness, brightnesSlider,
+    contrast, contrastSlider;
 
     vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
 
@@ -186,7 +188,7 @@
     // Start - Brightness/Contrast Section
 
         // Instantiate a slider
-    $( '#imgBrightnessSlider' ).slider({
+    brightnesSlider = $( '#imgBrightnessSlider' ).slider({
         value: parseFloat( brightness ),
         min: -1.0,
         max: 1.0,
@@ -194,7 +196,7 @@
         step: 0.01
     });
 
-    $( '#imgContrastSlider' ).slider({
+    contrastSlider = $( '#imgContrastSlider' ).slider({
         value: parseFloat( contrast ),
         min: 0.0,
         max: 20.0,
@@ -204,32 +206,34 @@
 
     $( '#imgBrightnessVal' ).text( brightness );
 
-    $( '#imgBrightnessSlider' ).on( 'slide', function( slideEvt ) {
+    brightnesSlider.on( 'slide', function( slideEvt ) {
       $( '#imgBrightnessVal' ).text( slideEvt.value );
     });
 
-    $( '#imgBrightnessSlider' ).on( 'slideStop', function( slideEvt ) {
+    brightnesSlider.on( 'slideStop', function( slideEvt ) {
       imageSpaceService.setBrightness( slideEvt.value );
       $( '#imgBrightnessVal' ).text( slideEvt.value );
     });
 
     $( '#imgContrastVal' ).text( parseFloat( contrast ) );
 
-    $( '#imgContrastSlider' ).on( 'slide', function( slideEvt ) {
+    contrastSlider.on( 'slide', function( slideEvt ) {
       $( '#imgContrastVal' ).text( slideEvt.value );
     });
 
-    $( '#imgContrastSlider' ).on( 'slideStop', function( slideEvt ) {
+    contrastSlider.on( 'slideStop', function( slideEvt ) {
       imageSpaceService.setContrast( slideEvt.value );
       $( '#imgContrastVal' ).text( slideEvt.value );
     });
 
     vm.resetBrightnessContrast = function() {
-      imageSpaceService.setBrightness( imageSpaceObj.brightness );
-      $( '#imgBrightnessVal' ).text( imageSpaceObj.brightness );
+        $( '#imgBrightnessVal' ).text( imageSpaceObj.brightness );
+        brightnesSlider.slider( 'setValue', parseFloat( imageSpaceObj.brightness ) );
+        imageSpaceService.setBrightness( imageSpaceObj.brightness );
 
-      imageSpaceService.setContrast( imageSpaceObj.contrast );
-      $( '#imgContrastVal' ).text( imageSpaceObj.contrast );
+        $( '#imgContrastVal' ).text( imageSpaceObj.contrast );
+        contrastSlider.slider( 'setValue', parseFloat( imageSpaceObj.contrast ) );
+        imageSpaceService.setContrast( imageSpaceObj.contrast );
     };
 
     //END - Brightness/Contrast Section
