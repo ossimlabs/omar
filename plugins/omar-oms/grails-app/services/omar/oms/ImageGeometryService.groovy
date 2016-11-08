@@ -46,6 +46,8 @@ class ImageGeometryService {
                 if (!surfaceInfoAvailable)
                 {
                     result.surfaceName = "NO SURFACE INFO"
+                    result.pqeValid    = false
+                    result.pqeMessage  = "No Surface Information available"
                 }
                 else
                 {
