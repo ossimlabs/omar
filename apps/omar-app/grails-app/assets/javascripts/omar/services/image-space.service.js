@@ -279,7 +279,7 @@
 
             filename = params.filename;
             entry = params.entry;
-            histOp = "auto-minmax";
+            histOp = params.histOp;
             imgWidth = params.imgWidth;
             imgHeight = params.imgHeight;
             numOfBands = params.numOfBands;
@@ -287,8 +287,8 @@
             imgID = params.imageId;
             brightness = params.brightness;
             contrast = params.contrast;
-            resamplerFilter = "bilinear";
-            sharpenMode = "none";
+            resamplerFilter = params.resamplerFilter;
+            sharpenMode = params.sharpenMode;
 
             // Make AJAX call here to getAngles with filename & entry as args
             // to get the upAngle and northAngle values
@@ -333,7 +333,10 @@
               numOfBands: numOfBands,
               bands: bands,
               brightness: brightness,
-              contrast: contrast
+              contrast: contrast,
+              histOp: histOp,
+              resamplerFilter: resamplerFilter,
+              sharpenMode: sharpenMode
             });
 
             source2 = new ImageSpace({
@@ -425,7 +428,10 @@
                   '&entry_id=' + entry + '&width=' + imgWidth +
                   '&height=' + imgHeight + '&bands=' + bands +
                   '&numOfBands=' + numOfBands + '&imageId=' + imgID +
-                  '&brightness=' + brightness + '&contrast=' + contrast;
+                  '&brightness=' + brightness + '&contrast=' + contrast +
+                  '&histOp=' + histOp + '&resamplerFilter=' + resamplerFilter +
+                  '&sharpenMode=' + sharpenMode;
+
               return urlString;
             };
 
