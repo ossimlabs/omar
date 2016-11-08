@@ -739,7 +739,7 @@
                   // XY to start in the upper-left.  OL3 starts in the lower-left.;
                   var pqeModArray = pqeArray.map(function(el, index){
                     return index %2 ? el * -1 : el;
-                  })
+                  });
                   //console.log('pqeModArray: ', pqeModArray);
                   var pqeString = pqeModArray.join(" ").match(/[+-]?\d+(\.\d+)?\s+[+-]?\d+(\.\d+)?/g).join(", ");
                   //console.log('pqeString: ', pqeString);
@@ -765,10 +765,28 @@
 
                   }).then(function(response) {
 
-                      console.log('response: ', response);
+                      //console.log('response: ', response);
                       var data;
                       data = response.data.data;
                       console.log('data:', data);
+
+                      var pqeErrorWkt = data[0].pqe.ellPts;
+                      console.log('pqeErrorWkt: ', pqeErrorWkt);
+
+                      var formatError = new ol.format.WKT();
+
+                      var pqeErrorFeature = formatError.readFeature(pqeErrorWkt);
+
+                      console.log('pqeErrorFeature: ', pqeErrorFeature);
+
+                      console.log('Coordinates: ', pqeErrorFeature.getGeometry().getCoordinates());
+
+                      var pqeErrorArray = pqeErrorFeature.getGeometry().getCoordinates();
+
+
+
+
+
                       //$timeout needed: http://stackoverflow.com/a/18996042
                       $timeout(function() {
 
@@ -784,10 +802,6 @@
 
               });
 
-
-
-
-
             }
 
             this.pqeActivate = function() {
@@ -798,7 +812,7 @@
 
             this.pqeClear = function() {
 
-              console.log('clearing pqe');
+              //console.log('clearing pqe');
               map.removeInteraction(drawPqePoint);
 
             }
