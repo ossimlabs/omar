@@ -198,7 +198,7 @@
 
     contrastSlider = $( '#imgContrastSlider' ).slider({
         value: parseFloat( contrast ),
-        min: 0.0,
+        min: 0.01,
         max: 20.0,
         precision: 2,
         step: 0.01
@@ -248,7 +248,14 @@
         { 'name': '2 STD', 'value': 'std-stretch-2' },
         { 'name': '3 STD', 'value': 'std-stretch-3' }
     ];
+
     $scope.draType = $scope.draTypes[1];
+
+    angular.forEach( $scope.draTypes, function( value, key ) {
+      if ( value.value == imageSpaceObj.histOp ) {
+        $scope.draType = { 'name': value.name, 'value': value.value };
+      }// end if
+    }); //end foreach
 
     $scope.onDraSelect = function( value ) {
         imageSpaceService.setDynamicRange( value );
@@ -256,23 +263,30 @@
 
     $scope.resamplerFilterType = {};
     $scope.resamplerFilterTypes = [
-        { 'name': 'Bessel' , 'value': 'bessel' },
-        { 'name': 'Bilinear' , 'value': 'bilinear' },
-        { 'name': 'Blackman' , 'value': 'blackman' },
-        { 'name': 'B-Spline' , 'value': 'bspline' },
-        { 'name': 'Catrom' , 'value': 'catrom' },
-        { 'name': 'Cubic' , 'value': 'cubic' },
-        { 'name': 'Gaussian' , 'value': 'gaussian' },
-        { 'name': 'Hamming' , 'value': 'hamming' },
-        { 'name': 'Hermite' , 'value': 'hermite' },
-        { 'name': 'Lanczos' , 'value': 'lanczos' },
-        { 'name': 'Magic' , 'value': 'magic' },
-        { 'name': 'Mitchell' , 'value': 'mitchell' },
-        { 'name': 'Nearest' , 'value': 'nearest' },
-        { 'name': 'Quadratic' , 'value': 'quadratic' },
+        { 'name': 'Bessel', 'value': 'bessel' },
+        { 'name': 'Bilinear', 'value': 'bilinear' },
+        { 'name': 'Blackman', 'value': 'blackman' },
+        { 'name': 'B-Spline', 'value': 'bspline' },
+        { 'name': 'Catrom', 'value': 'catrom' },
+        { 'name': 'Cubic', 'value': 'cubic' },
+        { 'name': 'Gaussian', 'value': 'gaussian' },
+        { 'name': 'Hamming', 'value': 'hamming' },
+        { 'name': 'Hermite', 'value': 'hermite' },
+        { 'name': 'Lanczos', 'value': 'lanczos' },
+        { 'name': 'Magic', 'value': 'magic' },
+        { 'name': 'Mitchell', 'value': 'mitchell' },
+        { 'name': 'Nearest', 'value': 'nearest' },
+        { 'name': 'Quadratic', 'value': 'quadratic' },
         { 'name': 'Sinc', 'value': 'sinc' }
     ];
+
     $scope.resamplerFilterType = $scope.resamplerFilterTypes[1];
+
+    angular.forEach( $scope.resamplerFilterTypes, function( value, key ) {
+      if ( value.value == imageSpaceObj.resamplerFilter ) {
+        $scope.resamplerFilterType = { 'name': value.name, 'value': value.value };
+      }// end if
+    }); //end foreach
 
     $scope.onResamplerFilterSelect = function( value ) {
         imageSpaceService.setResamplerFilter( value );
@@ -280,19 +294,25 @@
 
     $scope.sharpenModeType = {};
     $scope.sharpenModeTypes = [
-        { 'name': 'None' , 'value': 'none' },
+        { 'name': 'None', 'value': 'none' },
         { 'name': 'Light', 'value': 'light' },
         { 'name': 'Heavy', 'value': 'heavy' }
     ];
     $scope.sharpenModeType = $scope.sharpenModeTypes[0];
+
+    angular.forEach( $scope.sharpenModeTypes, function( value, key ) {
+      if ( value.value == imageSpaceObj.sharpenMode ) {
+        $scope.sharpenModeType = { 'name': value.name, 'value': value.value };
+      }// end if
+    }); //end foreach
 
     $scope.onSharpenModeSelect = function( value ) {
         imageSpaceService.setSharpenMode( value );
     };
 
     function loadMapImage() {
-      brightness = ( $stateParams.brightness ) ? ( $stateParams.brightness ) : ( 0.0 );
-      contrast = ( $stateParams.contrast ) ? ( $stateParams.contrast ) : ( 1.0 );
+      brightness = parseFloat( $stateParams.brightness );
+      contrast = parseFloat( $stateParams.contrast );
 
       imageSpaceObj = {
           filename: $stateParams.filename,
@@ -304,7 +324,10 @@
           imageId: $stateParams.imageId,
           url: $stateParams.ur,
           brightness: brightness,
-          contrast: contrast
+          contrast: contrast,
+          histOp: $stateParams.histOp,
+          resamplerFilter: $stateParams.resamplerFilter,
+          sharpenMode: $stateParams.sharpenMode
         };
 
         vm.imageMapPath = AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?filename=' +
@@ -316,7 +339,10 @@
                           imageSpaceObj.numOfBands +  '&imageId=' +
                           imageSpaceObj.imageId + '&brightness=' +
                           imageSpaceObj.brightness + '&contrast=' +
-                          imageSpaceObj.contrast;
+                          imageSpaceObj.contrast + '&histOp=' +
+                          imageSpaceObj.histOp + '&resamplerFilter' +
+                          imageSpaceObj.resamplerFilter + '&sharpenMode'
+                          imageSpaceObj.sharpenMode;
 
       // Pass our imageSpaceObj constructed from the UR
       // ($stateParams) into the imageSpaceService and load
