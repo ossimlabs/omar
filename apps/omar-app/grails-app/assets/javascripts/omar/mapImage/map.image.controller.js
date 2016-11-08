@@ -187,54 +187,54 @@
 
     // Start - Brightness/Contrast Section
 
-        // Instantiate a slider
-    brightnesSlider = $( '#imgBrightnessSlider' ).slider({
-        value: parseFloat( brightness ),
-        min: -1.0,
-        max: 1.0,
-        precision: 2,
-        step: 0.01
-    });
+    // Instantiate a slider
+    // brightnesSlider = $( '#imgBrightnessSlider' ).slider({
+    //     value: parseFloat( brightness ),
+    //     min: -1.0,
+    //     max: 1.0,
+    //     precision: 2,
+    //     step: 0.01
+    // });
 
-    contrastSlider = $( '#imgContrastSlider' ).slider({
-        value: parseFloat( contrast ),
-        min: 0.0,
-        max: 20.0,
-        precision: 2,
-        step: 0.01
-    });
+    // contrastSlider = $( '#imgContrastSlider' ).slider({
+    //     value: parseFloat( contrast ),
+    //     min: 0.0,
+    //     max: 20.0,
+    //     precision: 2,
+    //     step: 0.01
+    // });
 
-    $( '#imgBrightnessVal' ).text( brightness );
-
-    brightnesSlider.on( 'slide', function( slideEvt ) {
-      $( '#imgBrightnessVal' ).text( slideEvt.value );
-    });
-
-    brightnesSlider.on( 'slideStop', function( slideEvt ) {
-      imageSpaceService.setBrightness( slideEvt.value );
-      $( '#imgBrightnessVal' ).text( slideEvt.value );
-    });
-
-    $( '#imgContrastVal' ).text( parseFloat( contrast ) );
-
-    contrastSlider.on( 'slide', function( slideEvt ) {
-      $( '#imgContrastVal' ).text( slideEvt.value );
-    });
-
-    contrastSlider.on( 'slideStop', function( slideEvt ) {
-      imageSpaceService.setContrast( slideEvt.value );
-      $( '#imgContrastVal' ).text( slideEvt.value );
-    });
-
-    vm.resetBrightnessContrast = function() {
-        $( '#imgBrightnessVal' ).text( imageSpaceObj.brightness );
-        brightnesSlider.slider( 'setValue', parseFloat( imageSpaceObj.brightness ) );
-        imageSpaceService.setBrightness( imageSpaceObj.brightness );
-
-        $( '#imgContrastVal' ).text( imageSpaceObj.contrast );
-        contrastSlider.slider( 'setValue', parseFloat( imageSpaceObj.contrast ) );
-        imageSpaceService.setContrast( imageSpaceObj.contrast );
-    };
+    // $( '#imgBrightnessVal' ).text( brightness );
+    //
+    // brightnesSlider.on( 'slide', function( slideEvt ) {
+    //   $( '#imgBrightnessVal' ).text( slideEvt.value );
+    // });
+    //
+    // brightnesSlider.on( 'slideStop', function( slideEvt ) {
+    //   imageSpaceService.setBrightness( slideEvt.value );
+    //   $( '#imgBrightnessVal' ).text( slideEvt.value );
+    // });
+    //
+    // $( '#imgContrastVal' ).text( parseFloat( contrast ) );
+    //
+    // contrastSlider.on( 'slide', function( slideEvt ) {
+    //   $( '#imgContrastVal' ).text( slideEvt.value );
+    // });
+    //
+    // contrastSlider.on( 'slideStop', function( slideEvt ) {
+    //   imageSpaceService.setContrast( slideEvt.value );
+    //   $( '#imgContrastVal' ).text( slideEvt.value );
+    // });
+    //
+    // vm.resetBrightnessContrast = function() {
+    //     $( '#imgBrightnessVal' ).text( imageSpaceObj.brightness );
+    //     brightnesSlider.slider( 'setValue', parseFloat( imageSpaceObj.brightness ) );
+    //     imageSpaceService.setBrightness( imageSpaceObj.brightness );
+    //
+    //     $( '#imgContrastVal' ).text( imageSpaceObj.contrast );
+    //     contrastSlider.slider( 'setValue', parseFloat( imageSpaceObj.contrast ) );
+    //     imageSpaceService.setContrast( imageSpaceObj.contrast );
+    // };
 
     //END - Brightness/Contrast Section
 
