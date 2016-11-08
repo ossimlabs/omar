@@ -246,6 +246,23 @@
             </div>
           </div>
         </div>
+        <!-- Brightness/Contrast Panel -->
+        <div class="panel panel-info" id="image-sharpness-contrast">
+          <div class="panel-body">
+            <div id="brightness-section">
+              <small class="text text-info">Brightness:</small>&nbsp;&nbsp;
+              <span id="imgBrightnessVal"></span><br>
+              <input id="imgBrightnessSlider" data-slider-id="imgBrightnessSlider" type="text"/>
+            </div>
+            <div id="contrast-section">
+              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal"></span><br>
+              <input id="imgContrastSlider" data-slider-id='imgContrastSlider' type="text"/>
+            </div>
+            <div id="brightnes-contrast-reset">
+              <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
+            </div>
+         </div>
+        </div>
         <!-- Dynamic Range Adjustment Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
@@ -296,23 +313,6 @@
               </ui-select-choices>
             </ui-select>
           </div>
-        </div>
-        <!-- Brightness/Contrast Panel -->
-        <div class="panel panel-info" id="image-sharpness-contrast">
-          <div class="panel-body">
-            <div id="brightness-section">
-              <small class="text text-info">Brightness:</small>&nbsp;&nbsp;
-              <span id="imgBrightnessVal"></span><br>
-              <input id="imgBrightnessSlider" data-slider-id="imgBrightnessSlider" type="text"/>
-            </div>
-            <div id="contrast-section">
-              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal"></span><br>
-              <input id="imgContrastSlider" data-slider-id='imgContrastSlider' type="text"/>
-            </div>
-            <div id="brightnes-contrast-reset">
-              <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
-            </div>
-         </div>
         </div>
       </div>
       <!-- Map Column -->
