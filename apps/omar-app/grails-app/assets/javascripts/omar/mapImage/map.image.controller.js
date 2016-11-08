@@ -526,9 +526,6 @@
 
       vm.measureClear();
 
-      //vm.showMeasureInfo = false;
-      //imageSpaceService.measureClear();
-
       vm.pqeShowInfo = true;
 
       imageSpaceService.pqeActivate();
