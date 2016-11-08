@@ -39,6 +39,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      OSSIM_DATA: /data
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     volumes:
       - /data:/data
@@ -60,6 +61,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      OSSIM_DATA: /data
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     volumes:
       - /data:/data
@@ -81,6 +83,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      OSSIM_DATA: /data
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
     ports:
       - "4998:8080"
@@ -190,6 +193,7 @@ services:
       WFSPORT:
       WMSSERVER: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
+      OSSIM_DATA: /data
     ports:
       - "4999:8080"
     # depends_on:
@@ -238,6 +242,7 @@ services:
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
+      OSSIM_DATA: /data
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       ADDRASTERENDPOINTURL: o2-stager
       ADDRASTERENDPOINTPORT: :8080
@@ -265,6 +270,7 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      OSSIM_DATA: /data
       JPIPCACHEDIR: /data/jpip-cache
       JPIPSERVERURL: ${DOCKER_HOST_URL}
       JPIPSERVERPORT: 5004
@@ -304,6 +310,7 @@ services:
       O2URL: ${DOCKER_HOST_URL}/o2-omar
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
+      OSSIM_DATA: /data
       WMSPORT:
     ports:
       - "5009:8080"
@@ -323,6 +330,7 @@ services:
       DBUSER: postgres_user
       DBPASS: abc123
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      OSSIM_DATA: /data
     volumes:
       # Mount the the host local data directory to the container
       - /data:/data
@@ -348,6 +356,7 @@ services:
       WFSPORT:
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
+      OSSIM_DATA: /data
     ports:
       - "5012:8080"
     # depends_on:
@@ -365,6 +374,7 @@ services:
     container_name: o2-mensa
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      OSSIM_DATA: /data
     volumes:
       - /data:/data
     ports:

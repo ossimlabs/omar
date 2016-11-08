@@ -37,7 +37,9 @@ RUN yum -y install o2-mensa-app \
   yum -y install ossim-png-plugin && yum -y install ossim-gdal-plugin.x86_64
 ADD mensa-app.yml /usr/share/omar/mensa-app/mensa-app.yml
 ENV SPRING_CLOUD_CONFIG_ENABLED=true\
-    SPRING_CLOUD_DISCOVERY_ENABLED=true
+    SPRING_CLOUD_DISCOVERY_ENABLED=true\
+    OSSIM_DATA=${OSSIM_DATA}
+
 
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/mensa-app/mensa-app.sh"]
