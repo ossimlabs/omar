@@ -53,7 +53,7 @@
             width: 3
           }),
           image: new ol.style.Circle({
-            radius: 0,
+            radius: 3,
             fill: new ol.style.Fill({
               color: 'cyan'
             })
@@ -732,7 +732,9 @@
 
               drawPqePoint.on('drawend',
                 function(evt) {
-                  console.log(evt);
+
+                  measureSource.clear();
+
                   var pqePoint = evt.feature;
 
                   var pqeArray = pqePoint.getGeometry().getCoordinates();
@@ -743,12 +745,10 @@
                   // XY to start in the upper-left.  OL3 starts in the lower-left.;
                   var pqeModArray = pqeArray.map(function(el, index){
                     return index %2 ? el * -1 : el;
-                  })
-                  //console.log('pqeModArray: ', pqeModArray);
-                  var pqeString = pqeModArray.join(" ").match(/[+-]?\d+(\.\d+)?\s+[+-]?\d+(\.\d+)?/g).join(", ");
-                  //console.log('pqeString: ', pqeString);
+                  });
 
-                  //'LINESTRING(' + pqeModArray + ')'
+                  var pqeString = pqeModArray.join(" ").match(/[+-]?\d+(\.\d+)?\s+[+-]?\d+(\.\d+)?/g).join(", ");
+
                   var pqeMpArray = 'MULTIPOINT(' + pqeString + ')';
 
                   var mensaPqeUrl = AppO2.APP_CONFIG.params.mensaApp.baseUrl + '/imagePointsToGround?';
@@ -763,16 +763,44 @@
                       pointList: pqeMpArray,
                       pqeIncludePositionError: true,
                       pqeProbabilityLevel: '0.9',
-                      pqeEllipsePointType: 'linestring',
+                      pqeEllipsePointType: 'array',
                       pqeEllipseAngularIncrement: '10'
                     }
 
                   }).then(function(response) {
 
-                      console.log('response: ', response);
                       var data;
                       data = response.data.data;
-                      console.log('data:', data);
+
+                      var centerPoint = []
+                      centerPoint.push(data[0].x);
+                      centerPoint.push(data[0].y);
+
+                      var pqeErrorArray = data[0].pqe.ellPts;
+
+                      var pqeModErrorArray = [];
+
+                      pqeErrorArray.forEach(function(el){
+                        pqeModErrorArray.push(el.x);
+                        pqeModErrorArray.push(el.y*-1);
+                      });
+
+                      var pqeErrorString = pqeModErrorArray.join(" ").match(/[+-]?\d+(\.\d+)?\s+[+-]?\d+(\.\d+)?/g).join(", ");
+
+                      var formatModError = new ol.format.WKT();
+
+                      var pqeErrorModWkt =  'POLYGON((' + pqeErrorString + '))';
+                      var pqeErrorModFeature = formatModError.readFeature(pqeErrorModWkt);
+                      measureSource.addFeature(pqeErrorModFeature);
+
+                      var pqeCenterWkt =  'POINT(' + centerPoint[0] + ' ' + centerPoint[1] + ')';
+                      var pqeCenterFeature = formatModError.readFeature(pqeCenterWkt);
+                      measureSource.addFeature(pqeCenterFeature);
+
+                      //var pqeExtent = pqeErrorModFeature.getGeometry().getExtent();
+                      //var deltaX = pqeExtent[2]-pqeExtent[0];
+                      //var deltaY = pqeExtent[3]-pqeExtent[1];
+
                       //$timeout needed: http://stackoverflow.com/a/18996042
                       $timeout(function() {
 
@@ -788,10 +816,6 @@
 
               });
 
-
-
-
-
             }
 
             this.pqeActivate = function() {
@@ -802,7 +826,7 @@
 
             this.pqeClear = function() {
 
-              console.log('clearing pqe');
+              //console.log('clearing pqe');
               map.removeInteraction(drawPqePoint);
 
             }

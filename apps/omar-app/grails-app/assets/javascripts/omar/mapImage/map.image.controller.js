@@ -526,9 +526,6 @@
 
       vm.measureClear();
 
-      //vm.showMeasureInfo = false;
-      //imageSpaceService.measureClear();
-
       vm.pqeShowInfo = true;
 
       imageSpaceService.pqeActivate();
@@ -568,10 +565,10 @@
     var pqeObj = {};
     $scope.$on('pqe: updated', function(event, data) {
 
-      console.log('data: ', data);
+      //console.log('data: ', data);
       pqeObj = data[0];
 
-      console.log('pqeObj: ', pqeObj.pqe);
+      //console.log('pqeObj: ', pqeObj.pqe);
       if (pqeObj.pqe !== undefined){
 
         vm.showPqeOutput = true;
