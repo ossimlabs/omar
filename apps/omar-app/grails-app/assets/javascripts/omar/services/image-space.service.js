@@ -269,11 +269,15 @@
 
             }).then(function(response) {
               imageProperties = response.data.features[0].properties;
-              var imageId = imageProperties.title || imageProperties.filename;
-              var acquisitionDate = imageProperties.acquisition_date || "";
+              var imageIdText = imageProperties.title || imageProperties.filename;
+              var acquisitionDateText = imageProperties.acquisition_date || "";
+              if (acquisitionDateText != "") {
+                acquisitionDateText = moment.utc(acquisitionDateText).format('MM-DD-YYYY HH:mm:ss') + " z";
+              }
+
 
               if (!isModal) {
-                stateService.navStateUpdate({ titleLeft: imageId + " <br> " + acquisitionDate });
+                stateService.navStateUpdate({ titleLeft: imageIdText + " <br> " + acquisitionDateText });
               }
             });
 
