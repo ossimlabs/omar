@@ -27,7 +27,6 @@
 //= require webjars/selectize.js/0.12.3/js/selectize.js
 //= require webjars/seiyria-bootstrap-slider/9.3.0/dist/bootstrap-slider.js
 
-
 // <--Core-->
 //= require omar/core/OpenLayersLite-formats.js
 //= require omar/core/wfs-client.js
