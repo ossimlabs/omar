@@ -9,10 +9,10 @@
     <div class="col-md-3 text-right">
       <a ng-href="" target="_blank" ng-click="vm.shareModal(vm.o2baseUrlModal + '/#' + vm.o2contextPathModal + '/mapOrtho?layers=' + vm.selectedImage.properties.id)">
         <i class="fa fa-share-alt fa-2x"
-         style="cursor: pointer;"
-         tooltip-placement="left-bottom"
-         uib-tooltip="Share a link to this image"></i>
-      </a>&nbsp;&nbsp;
+           style="cursor: pointer;"
+           tooltip-placement="left-bottom"
+           uib-tooltip="Share a link to this image"></i>
+         </a>&nbsp;&nbsp;
       <i class="fa fa-close fa-2x" ng-click="$close()" style="cursor: pointer;" tooltip-placement="bottom" uib-tooltip="Close image view"></i>
     </div>
   </div>
@@ -275,5 +275,19 @@
   </div>
 </div>
 <div class="modal-footer">
+    <div id="imgLinkButtons" class="modal-footer">
+      <a href="{{vm.o2baseUrlModal}}/#/mapImage?filename={{vm.selectedImage.properties.filename}}&entry_id={{vm.selectedImage.properties.entry_id}}&width={{vm.selectedImage.properties.width}}&height={{vm.selectedImage.properties.height}}&bands=default&numOfBands={{vm.selectedImage.properties.number_of_bands}}&imageId={{vm.selectedImage.properties.id}}&brightness=0.0&contrast=1.0" target="_blank">
+        <i class="fa fa-desktop fa-border text-primary"
+         style="cursor: pointer;"
+         tooltip-placement="top"
+         uib-tooltip="Click here to do band selection, DRA, interpolation, measurement and image enhancement."></i>
+      </a>
+      <a href="{{vm.o2baseUrlModal}}/#/mapOrtho?layers={{vm.selectedImage.properties.id}}" target="_blank">
+        <i class="fa fa-map-marker fa-border text-primary"
+         style="cursor: pointer;"
+         tooltip-placement="top"
+         uib-tooltip="View rectified image"></i>
+      </a>
+    </div>
     <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Close</button>
 </div>
