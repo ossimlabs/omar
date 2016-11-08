@@ -23,7 +23,8 @@ class ImageGeometryService {
                              def ellSamp,
                              def ellLine)
     {
-        HashMap result = [:]
+        HashMap result = [pqeValid:false,
+                          pqeMessage:""]
         Boolean errorPropAvailable = imageSpaceModel.imageToGroundErrorPropagation(gpt,
                 probabilityLevel,
                 angInc,
