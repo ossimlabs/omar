@@ -51,6 +51,7 @@ class ImageGeometryService {
                 }
                 else
                 {
+                    result.pqeValid    = true
                     result.surfaceName = surfaceName
                     result.CE=pqeArray[0]
                     result.LE=pqeArray[1]
@@ -59,6 +60,7 @@ class ImageGeometryService {
                     result.AZ=Math.toDegrees(pqeArray[4])
                     result.probabilityLevel=probabilityLevel
                     result.projType=projType
+                    result.pqeMessage  = "SUCCESS"
 
                     //dataRecord.nELL=pqeArray[5]
                 }
