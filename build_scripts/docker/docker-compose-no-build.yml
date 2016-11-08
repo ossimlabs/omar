@@ -41,8 +41,8 @@ services:
       DBPASS: abc123
       OSSIM_DATA: /data
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     volumes:
       - /data:/data
     ports:
@@ -65,8 +65,8 @@ services:
       DBPASS: abc123
       OSSIM_DATA: /data
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     volumes:
       - /data:/data
     ports:
@@ -89,8 +89,8 @@ services:
       DBPASS: abc123
       OSSIM_DATA: /data
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     ports:
       - "4998:8080"
     # depends_on:
@@ -170,8 +170,8 @@ services:
       APIENABLED: "false"
       BANNERCOLOR: green
       BANNERCLASSIFICATION: Unclassified
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     ports:
       - "5010:8080"
     # depends_on:
@@ -202,8 +202,8 @@ services:
       WMSSERVER: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
       OSSIM_DATA: /data
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     ports:
       - "4999:8080"
     # depends_on:
@@ -229,8 +229,8 @@ services:
       DESTINATION_POST_END_POINT_PORT: :8080
       DESTINATION_POST_FIELD: message
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     volumes:
       # Modify the path below to reflect your
       # AWS credentials location.
@@ -258,8 +258,8 @@ services:
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       ADDRASTERENDPOINTURL: o2-stager
       ADDRASTERENDPOINTPORT: :8080
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     volumes:
       # Mount the the host local data directory to the container
       - /data:/data
@@ -288,8 +288,8 @@ services:
       JPIPCACHEDIR: /data/jpip-cache
       JPIPSERVERURL: ${DOCKER_HOST_URL}
       JPIPSERVERPORT: 5004
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     volumes:
       # Mount the the host local data directory to the container
       - /data:/data
@@ -307,8 +307,8 @@ services:
       JPIPSERVERURL: localhost
       JPIPSERVERPORT: 8080
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     volumes:
       # Mount the the host local data directory to the container
       - /data:/data
@@ -330,8 +330,8 @@ services:
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
       OSSIM_DATA: /data
       WMSPORT:
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     ports:
       - "5009:8080"
     # depends_on:
@@ -351,8 +351,8 @@ services:
       DBPASS: abc123
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       OSSIM_DATA: /data
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     volumes:
       # Mount the the host local data directory to the container
       - /data:/data
@@ -379,8 +379,8 @@ services:
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
       OSSIM_DATA: /data
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     ports:
       - "5012:8080"
     # depends_on:
@@ -399,8 +399,8 @@ services:
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       OSSIM_DATA: /data
-      SPRING_CLOUD_CONFIG_ENABLED: false
-      SPRING_CLOUD_DISCOVERY_ENABLED: false
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
     volumes:
       - /data:/data
     ports:
