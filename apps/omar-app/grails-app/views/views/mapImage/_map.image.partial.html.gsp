@@ -298,7 +298,7 @@
           </div>
         </div>
         <!-- Brightness/Contrast Panel -->
-        <!-- <div class="panel panel-info" id="image-sharpness-contrast">
+        <div class="panel panel-info" id="image-sharpness-contrast">
           <div class="panel-body">
             <div id="brightness-section">
               <small class="text text-info">Brightness:</small>&nbsp;&nbsp;
@@ -313,7 +313,7 @@
               <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
             </div>
          </div>
-        </div> -->
+        </div>
       </div>
       <!-- Map Column -->
       <div class="col-md-9">
