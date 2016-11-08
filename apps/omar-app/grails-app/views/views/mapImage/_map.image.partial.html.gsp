@@ -151,7 +151,7 @@
                 uib-tooltip="Semi-Major Axis Azimuth">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
                 <li class="list-group-item"
                 tooltip-placement="bottom"
-                uib-tooltip="Projection model used to calculate the PQE values">Model / Proj<span class="badge">{{image.surfaceName}} / {{image.projType}}</span></li>
+                uib-tooltip="Projection model used to calculate the PQE values">Model<span class="badge">{{image.surfaceName}} / {{image.projType}}</span></li>
               </ul>
               <div class="text-center">
                 <small>Probability Level: {{image.lvl}}</small>
