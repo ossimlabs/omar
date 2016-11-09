@@ -287,6 +287,16 @@ body {
     text-decoration: none;
 }
 
+#modal-image-space-body.modal-body {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#modal-image-space-footer.modal-footer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 .imageMapModal {
     width: 100%;
     height: 60vh;
@@ -294,6 +304,21 @@ body {
 
 .imageMap {
     width: 100%;
+}
+
+.list-card-modal-header-links{
+    position: relative;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.list-card-image-modal-links {
+    float: left;
+}
+
+.list-card-modal-close{
+    float: right;
 }
 
 #mapOrtho {
@@ -803,9 +828,9 @@ body {
 }
 
 #imgLinkButtons {
-  padding: 8px 12px;
-  float: left;
-  font-size: 1.5em;
+    padding: 8px 12px;
+    float: left;
+    font-size: 1.5em;
 }
 
 #imgLinkButtons .tooltip-inner {
@@ -814,15 +839,15 @@ body {
 }
 
 #imgLinkButtons.modal-footer {
-  border-top: none;
+    border-top: none;
 }
 
 #imgLinkButtons a {
-  margin-right: 5px;
+    margin-right: 5px;
 }
 
 #imgLinkButtons a:visited,
 #imgLinkButtons a:hover,
 #imgLinkButtons a:active {
-  text-decoration: none;
+    text-decoration: none;
 }

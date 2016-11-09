@@ -667,7 +667,7 @@
               <div class="media-left">
                 <img ng-style="list.thumbBorder(image.properties.file_type)"
                   class="media-object"
-                  ng-click="list.showImageModal(image); list.logRatingToPio(image.properties.id);"
+                  ng-click="list.showImageModal(image, list.imageSpaceDefaults); list.logRatingToPio(image.properties.id);"
                   tooltip-placement="right"
                   uib-tooltip="Click the thumbnail or the Image ID to preview image and view metadata"
                   ng-src="{{list.thumbPath}}?{{list.thumbFilename}}{{image.properties.filename}}{{list.thumbEntry}}{{image.properties.entry_id}}{{list.thumbSize}}{{list.thumbFormat}}"
@@ -681,7 +681,7 @@
                 <div class="row">
                   <div class="col-md-12" style="font-size: 13px;">
                     ID:&nbsp;&nbsp;
-                    <span ng-click="list.showImageModal(image); list.logRatingToPio(image.properties.id);"
+                    <span ng-click="list.showImageModal(image, list.imageSpaceDefaults); list.logRatingToPio(image.properties.id);"
                       class="text-success image-id-link">
                       <span ng-show="!image.properties.title">Unknown</span>
                       {{image.properties.title}}
@@ -736,7 +736,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <p class="text-primary" style="margin-top:.2em;">
-                      <a href="{{list.o2baseUrl}}/#/mapImage?filename={{image.properties.filename}}&entry_id={{image.properties.entry_id}}&width={{image.properties.width}}&height={{image.properties.height}}&bands=default&numOfBands={{image.properties.number_of_bands}}&imageId={{image.properties.id}}&brightness=0.0&contrast=1.0&histOp=auto-minmax&resamplerFilter=bilinear&sharpenMode=none" target="_blank">
+                      <a href="{{list.o2baseUrl}}/#/mapImage?filename={{image.properties.filename}}&entry_id={{image.properties.entry_id}}&width={{image.properties.width}}&height={{image.properties.height}}&bands={{list.imageSpaceDefaults.bands}}&numOfBands={{image.properties.number_of_bands}}&imageId={{image.properties.id}}&brightness={{list.imageSpaceDefaults.brightness}}&contrast={{list.imageSpaceDefaults.contrast}}&histOp={{list.imageSpaceDefaults.histOp}}&resamplerFilter={{list.imageSpaceDefaults.resamplerFilter}}&sharpenMode={{list.imageSpaceDefaults.sharpenMode}}" target="_blank">
                         <i class="fa fa-desktop fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"

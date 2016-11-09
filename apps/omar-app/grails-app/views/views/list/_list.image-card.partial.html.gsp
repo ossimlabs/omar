@@ -1,24 +1,64 @@
 <div class="modal-header" id="modal-image-space">
   <div class="row">
-    <div class="col-md-9">
-      <h5>ID:&nbsp;&nbsp;<span class="text-success">
-        <span ng-show="!vm.selectedImage.properties.title">{{vm.selectedImage.properties.filename | fileNameTrim
-          }}</span>{{vm.selectedImage.properties.title}}</span>
-      </h5>
-    </div>
-    <div class="col-md-3 text-right">
-      <a ng-href="" target="_blank" ng-click="vm.shareModal(vm.o2baseUrlModal + '/#' + vm.o2contextPathModal + '/mapOrtho?layers=' + vm.selectedImage.properties.id)">
-        <i class="fa fa-share-alt fa-2x"
+    <div class="list-card-modal-header-links">
+      <div class="text-primary list-card-image-modal-links" style="margin-top:.2em;">
+        <a href="{{vm.o2baseUrlModal}}/#/mapImage?filename={{vm.selectedImage.properties.filename}}&entry_id={{vm.selectedImage.properties.entry_id}}&width={{vm.selectedImage.properties.width}}&height={{vm.selectedImage.properties.height}}&bands={{vm.imageSpaceDefaults.bands}}&numOfBands={{vm.selectedImage.properties.number_of_bands}}&imageId={{vm.selectedImage.properties.id}}&brightness={{vm.imageSpaceDefaults.brightness}}&contrast={{vm.imageSpaceDefaults.contrast}}&histOp={{vm.imageSpaceDefaults.histOp}}&resamplerFilter={{vm.imageSpaceDefaults.resamplerFilter}}&sharpenMode={{vm.imageSpaceDefaults.sharpenMode}}" target="_blank">
+          <i class="fa fa-desktop fa-border text-primary"
            style="cursor: pointer;"
-           tooltip-placement="left-bottom"
-           uib-tooltip="Share a link to this image"></i>
-         </a>&nbsp;&nbsp;
-      <i class="fa fa-close fa-2x" ng-click="$close()" style="cursor: pointer;" tooltip-placement="bottom" uib-tooltip="Close image view"></i>
+           tooltip-placement="top"
+           uib-tooltip="View raw image"></i>&nbsp;&nbsp;
+        </a>
+        <a href="{{vm.o2baseUrlModal}}/#/mapOrtho?layers={{vm.selectedImage.properties.id}}" target="_blank">
+          <i class="fa fa-map-marker fa-border text-primary"
+           style="cursor: pointer;"
+           tooltip-placement="top"
+           uib-tooltip="View rectified image"></i>&nbsp;&nbsp;
+        </a>
+        <a ng-show="{{vm.kmlSuperOverlayAppEnabled}}" href="{{vm.kmlSuperOverlayLink}}/superOverlay/createKml/{{vm.selectedImage.properties.id}}">
+          <i class="fa fa-map fa-border text-primary"
+           style="cursor: pointer;"
+           tooltip-placement="top"
+           uib-tooltip="Download KML"></i>&nbsp;&nbsp;
+        </a>
+        <a ng-href="" target="_blank" ng-click="vm.shareModal(vm.o2baseUrlModal + '/#/mapOrtho?layers=' + vm.selectedImage.properties.id)">
+          <i class="fa fa-share-alt fa-border text-primary"
+           style="cursor: pointer;"
+           tooltip-placement="top"
+           uib-tooltip="Share link"></i>
+        </a>&nbsp;&nbsp;
+        <a ng-href="" target="_blank" ng-click="vm.archiveDownload(vm.selectedImage.properties.id)">
+          <i class="fa fa-download fa-border text-primary"
+            style="cursor: pointer;"
+            tooltip-placement="top"
+            uib-tooltip="Download"></i>&nbsp;&nbsp;
+        </a>
+        <a ng-show="{{vm.jpipAppEnabled}}" href="" ng-click="vm.getJpipStream($event, vm.selectedImage.properties.filename, vm.selectedImage.properties.entry_id, 'chip', $index, 'stream');">
+          <i class="fa fa-file-image-o fa-border text-primary"
+           style="cursor: pointer;"
+           tooltip-placement="top"
+           uib-tooltip="JPIP image"></i>
+        </a>&nbsp;
+        <a ng-show="{{vm.jpipAppEnabled}}" href="" ng-click="vm.getJpipStream($event, vm.selectedImage.properties.filename, vm.selectedImage.properties.entry_id, '4326', $index, 'ortho');">
+          <i class="fa fa-image fa-border text-primary"
+           style="cursor: pointer;"
+           tooltip-placement="top"
+           uib-tooltip="JPIP ortho"></i>
+        </a>
+      </div>
+      <div class="list-card-modal-close">
+        <i class="fa fa-close fa-2x" ng-click="$close()" style="cursor: pointer;" tooltip-placement="bottom" uib-tooltip="Close image view"></i>
+      </div>
     </div>
+
   </div>
 </div>
-<div class="modal-body">
+<div class="modal-body" id="modal-image-space-body">
   <div class="container-fluid">
+    <div class="row">
+      <h5>ID:&nbsp;&nbsp;<span class="text-success">
+        <span ng-show="!vm.selectedImage.properties.title">{{vm.selectedImage.properties.filename | fileNameTrim}}</span>{{vm.selectedImage.properties.title}}</span>
+      </h5>
+    </div>
     <div class="row">
       <uib-tabset>
         <uib-tab heading="Image">
@@ -274,20 +314,6 @@
     </div>
   </div>
 </div>
-<div class="modal-footer">
-    <div id="imgLinkButtons" class="modal-footer">
-      <a href="{{vm.o2baseUrlModal}}/#/mapImage?filename={{vm.selectedImage.properties.filename}}&entry_id={{vm.selectedImage.properties.entry_id}}&width={{vm.selectedImage.properties.width}}&height={{vm.selectedImage.properties.height}}&bands=default&numOfBands={{vm.selectedImage.properties.number_of_bands}}&imageId={{vm.selectedImage.properties.id}}&brightness=0.0&contrast=1.0" target="_blank">
-        <i class="fa fa-desktop fa-border text-primary"
-         style="cursor: pointer;"
-         tooltip-placement="top"
-         uib-tooltip="Click here to do band selection, DRA, interpolation, measurement and image enhancement."></i>
-      </a>
-      <a href="{{vm.o2baseUrlModal}}/#/mapOrtho?layers={{vm.selectedImage.properties.id}}" target="_blank">
-        <i class="fa fa-map-marker fa-border text-primary"
-         style="cursor: pointer;"
-         tooltip-placement="top"
-         uib-tooltip="View rectified image"></i>
-      </a>
-    </div>
+<div class="modal-footer" id="modal-image-space-footer">
     <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Close</button>
 </div>
