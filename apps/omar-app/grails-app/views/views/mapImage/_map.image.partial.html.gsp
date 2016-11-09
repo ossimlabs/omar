@@ -258,11 +258,12 @@
             <div id="brightness-section">
               <small class="text text-info">Brightness:</small>&nbsp;&nbsp;
               <span id="imgBrightnessVal"></span><br>
-              <input id="imgBrightnessSlider" data-slider-id="imgBrightnessSlider" type="text"/>
+              <input id="imgBrightnessSlider" data-slider-id="imgBrightnessSlider" data-slider-tooltip="hide" type="text"/>
             </div>
             <div id="contrast-section">
-              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal"></span><br>
-              <input id="imgContrastSlider" data-slider-id='imgContrastSlider' type="text"/>
+              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;
+              <span id="imgContrastVal"></span><br>
+              <input id="imgContrastSlider" data-slider-id='imgContrastSlider' data-slider-tooltip="hide" type="text"/>
             </div>
             <div id="brightnes-contrast-reset">
               <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
