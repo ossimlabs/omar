@@ -78,6 +78,7 @@ body {
 }
 
 .imageMapNav {
+  margin-top: -15px;
   margin-bottom: 8px;
 }
 .imageMapTools {
@@ -92,6 +93,18 @@ body {
   margin-bottom: 4px;
 }
 
+.imageMapTools .panel-body {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.imageMapTools ul {
+  padding-left: 0px;
+  margin-bottom: 2px;
+}
+.imageMapTools .list-group-item {
+  padding: 7px 7px;
+}
 .imageMapTools > .panel-info .selectize-input {
   margin-top: 5px;
 }
@@ -99,6 +112,20 @@ body {
 .imageMapTools label {
   margin-bottom: 0px;
   margin-left: 5px;
+}
+
+.imageMapTools .measure-output {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.imageMapTools .brightness-slider {
+  margin-top: 30px;
+}
+
+.imageMapTools .pqe-warning {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .imageMapBorder {

@@ -1,5 +1,5 @@
 <div ng-controller="MapImageController as image">
-  <nav style="margin-top: -15px;" class="navbar navbar-default imageMapNav" role="navigation">
+  <nav class="navbar navbar-default imageMapNav" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
         data-target="#map-navbar-collapse" aria-expanded="false">
@@ -82,7 +82,7 @@
   <div class="container-fluid">
     <div class="row">
       <!-- Image Map Tools Column -->
-      <div class="col-md-3 imageMapTools" style="overflow-y: auto;">
+      <div class="col-md-3 imageMapTools">
         <!-- Measure Panel -->
         <div class="panel panel-info" ng-show="image.showMeasureInfo">
           <div class="panel-body">
@@ -106,11 +106,10 @@
                 </ui-select-choices>
               </ui-select>
             </div>
-            <br>
-            <div class="text-center">
+            <div class="text-center measure-output">
               <small class="text text-info">Output</small>
             </div>
-            <ul style="padding-left: 0px">
+            <ul>
               <li class="list-group-item">Geodetic Dist.<span class="badge">{{image.geodDist}}</span></li>
               <li class="list-group-item">Rectilinear Dist.<span class="badge">{{image.recDist}}</span></li>
               <li class="list-group-item" ng-show="image.displayAzimuth">Azimuth Bearing<span class="badge">{{image.azimuth}}</span></li>
@@ -123,12 +122,12 @@
         </div>
         <!-- Position Quality Evaluator Panel -->
         <div class="panel panel-info" ng-show="image.pqeShowInfo">
-          <div class="panel-body" style="padding-top: 5px;padding-bottom: 5px;">
+          <div class="panel-body">
             <small class="text text-info">Position Quality Evaluator</small>
             <br>
             <small class="text text-success">{{image.pqeMessage}}</small>
             <div ng-show="image.showPqeWarning">
-              <div class="alert alert-warning" style="margin-bottom: 0px;">
+              <div class="alert alert-warning pqe-warning" >
                 <small>The current image does not contain the
                   proper metadata to support PQE output.</small>
               </div>
@@ -137,7 +136,7 @@
               <div class="text-center">
                 <small class="text text-info text-center">Position</small>
               </div>
-              <ul style="padding-left: 0px;margin-bottom: 1px;">
+              <ul>
                 <li class="list-group-item">Lat , Lon<span class="badge">{{image.lat}} , {{image.lon}}</span></li>
                 <li class="list-group-item"
                 tooltip-placement="bottom"
@@ -151,7 +150,7 @@
               <div class="text-center">
                 <small class="text text-info text-center">Quality</small>
               </div>
-              <ul style="padding-left: 0px; margin-bottom: 1px;">
+              <ul>
                 <li class="list-group-item"
                 tooltip-placement="bottom"
                 uib-tooltip="Circular Error / Linear Error">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
@@ -284,7 +283,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div id="brightnes-contrast-reset" style="margin-top: 30px;">
+                <div id="brightnes-contrast-reset" class="brightness-slider">
                   <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
                 </div>
               </div>
@@ -345,21 +344,7 @@
       </div>
       <!-- Map Column -->
       <div class="col-md-9">
-        <div id="imageMap" class="map imageMap imageMapBorder">
-          <div class="imageLinkBtns imageShareButton">
-            <a ng-href="" target="_blank" ng-click="image.shareModal()">
-              <i class="fa fa-share-alt fa-border text-primary"
-              tooltip-placement="left-bottom"
-              uib-tooltip="Share a link to this image"></i>
-            </a>&nbsp;&nbsp;
-          </div>
-          <div class="imageLinkBtns mapDownloadButton">
-            <a ng-href="" target="_blank" ng-click="image.archiveDownload(image.imageId)">
-              <i class="fa fa-download fa-border text-primary" tooltip-placement="left-bottom"
-                style="cursor: pointer;" uib-tooltip="Download and archive files"></i>
-            </a>
-          </div>
-        </div>
+        <div id="imageMap" class="map imageMap imageMapBorder"></div>
       </div>
     </div>
   </div>
