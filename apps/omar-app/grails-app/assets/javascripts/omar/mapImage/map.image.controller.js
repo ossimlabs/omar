@@ -516,8 +516,7 @@
 
     // Begin Position Quality Evaluator Section
 
-
-
+    vm.pqeMessage = 'Click in the map to add a point. The position and the error of the information associated with it will be displayed.';
     vm.showPqePosOutput = false;
     vm.showPqeOutput = false;
     vm.showPqeWarning = false;
@@ -525,9 +524,6 @@
     vm.pqe = function(){
 
       vm.measureClear();
-
-      //vm.showMeasureInfo = false;
-      //imageSpaceService.measureClear();
 
       vm.pqeShowInfo = true;
 
@@ -537,10 +533,12 @@
 
     vm.pqeClear = function(){
 
+
       vm.pqeShowInfo = false;
 
       vm.showPqeOutput = false;
 
+      vm.pqeMessage = 'Click in the map to add a point. The position and the error of the information associated with it will be displayed.';
       vm.ce = '';
       vm.le = '';
       vm.sma = '';
@@ -572,10 +570,11 @@
       pqeObj = data[0];
 
       console.log('pqeObj: ', pqeObj.pqe);
-      if (pqeObj.pqe !== undefined){
+      if (pqeObj.pqe.pqeValid){
 
         vm.showPqeOutput = true;
 
+        vm.pqeMessage = 'The information below illustrates the position of the clicked point in the map.  The cyan point and ellipsis around it display the probabilty of error for the point calculation.'
         vm.ce = pqeObj.pqe.CE.toFixed(4);
         vm.le = pqeObj.pqe.LE.toFixed(4) + ' m';
         vm.sma = pqeObj.pqe.SMA.toFixed(4);
@@ -593,6 +592,8 @@
       }
 
       vm.showPqePosOutput = true;
+
+      vm.pqeMessage = '';
 
       vm.lat = pqeObj.lat.toFixed(4);
       vm.lon = pqeObj.lon.toFixed(4);

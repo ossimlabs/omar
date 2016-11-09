@@ -107,7 +107,9 @@
               </ui-select>
             </div>
             <br>
-            <small class="text text-info">Output</small>
+            <div class="text-center">
+              <small class="text text-info">Output</small>
+            </div>
             <ul style="padding-left: 0px">
               <li class="list-group-item">Geodetic Dist.<span class="badge">{{image.geodDist}}</span></li>
               <li class="list-group-item">Rectilinear Dist.<span class="badge">{{image.recDist}}</span></li>
@@ -124,9 +126,11 @@
           <div class="panel-body">
             <small class="text text-info">Position Quality Evaluator</small>
             <br>
-            <small class="text text-success">Click in the map to add a point. The position and the error of the information associated with it will be displayed.</small>
+            <small class="text text-success">{{image.pqeMessage}}</small>
             <div ng-show="image.showPqePosOutput">
-              <small class="text text-info text-center">Position Output</small>
+              <div class="text-center">
+                <small class="text text-info text-center">Position</small>
+              </div>
               <ul style="padding-left: 0px">
                 <li class="list-group-item">Lat , Lon<span class="badge">{{image.lat}} , {{image.lon}}</span></li>
                 <li class="list-group-item"
@@ -138,7 +142,9 @@
               </ul>
             </div>
             <div ng-show="image.showPqeOutput">
-              <small class="text text-info text-center">Quality Output</small>
+              <div class="text-center">
+                <small class="text text-info text-center">Quality</small>
+              </div>
               <ul style="padding-left: 0px">
                 <li class="list-group-item"
                 tooltip-placement="bottom"
@@ -151,17 +157,17 @@
                 uib-tooltip="Semi-Major Axis Azimuth">SMA AZ<span class="badge">{{image.sma}}  {{image.az}}</span></li>
                 <li class="list-group-item"
                 tooltip-placement="bottom"
-                uib-tooltip="Projection model used to calculate the PQE values">Model / Proj<span class="badge">{{image.surfaceName}} / {{image.projType}}</span></li>
+                uib-tooltip="Projection model used to calculate the PQE values">Model<span class="badge">{{image.surfaceName}} / {{image.projType}}</span></li>
               </ul>
-              <div class="text-center">
-                <small>Probability Level: {{image.lvl}}</small>
-                <br>
-                <small class="text text-warning">Not certified for targeting</small>
-                <br>
-              </div>
+            </div>
+            <div class="text-center" ng-show="image.showPqePosOutput">
+              <small>Probability Level: {{image.lvl}}</small>
+              <br>
+              <small class="text text-warning">Not certified for targeting</small>
+              <br>
             </div>
             <div ng-show="image.showPqeWarning">
-              <div class="alert alert-warning">
+              <div class="alert alert-warning" style="margin-bottom: 0px;">
                 <small>The current image does not contain the
                   proper metadata to support PQE output.</small>
               </div>
@@ -246,6 +252,23 @@
             </div>
           </div>
         </div>
+        <!-- Brightness/Contrast Panel -->
+        <div class="panel panel-info" id="image-sharpness-contrast">
+          <div class="panel-body">
+            <div id="brightness-section">
+              <small class="text text-info">Brightness:</small>&nbsp;&nbsp;
+              <span id="imgBrightnessVal"></span><br>
+              <input id="imgBrightnessSlider" data-slider-id="imgBrightnessSlider" type="text"/>
+            </div>
+            <div id="contrast-section">
+              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal"></span><br>
+              <input id="imgContrastSlider" data-slider-id='imgContrastSlider' type="text"/>
+            </div>
+            <div id="brightnes-contrast-reset">
+              <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
+            </div>
+         </div>
+        </div>
         <!-- Dynamic Range Adjustment Panel -->
         <div class="panel panel-info">
           <div class="panel-body">
@@ -296,23 +319,6 @@
               </ui-select-choices>
             </ui-select>
           </div>
-        </div>
-        <!-- Brightness/Contrast Panel -->
-        <div class="panel panel-info" id="image-sharpness-contrast">
-          <div class="panel-body">
-            <div id="brightness-section">
-              <small class="text text-info">Brightness:</small>&nbsp;&nbsp;
-              <span id="imgBrightnessVal"></span><br>
-              <input id="imgBrightnessSlider" data-slider-id="imgBrightnessSlider" type="text"/>
-            </div>
-            <div id="contrast-section">
-              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal"></span><br>
-              <input id="imgContrastSlider" data-slider-id='imgContrastSlider' type="text"/>
-            </div>
-            <div id="brightnes-contrast-reset">
-              <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
-            </div>
-         </div>
         </div>
       </div>
       <!-- Map Column -->
