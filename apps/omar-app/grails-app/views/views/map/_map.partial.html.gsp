@@ -11,20 +11,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="collapse navbar-collapse" id="map-navbar-collapse">
-        <div class="col-sm-5">
-          <form id="searchForm" class="searchForm">
-            <div class="input-group input-group-sm" ng-controller="SearchController as search">
-              <input id="searchInput" type="text" ng-model="search.searchInput" class="form-control" placeholder="{{search.placeholder}}" autofocus>
-              <span class="input-group-btn">
-                <button class="btn btn-info" type="button" ng-click="search.executeSearch()" ng-disabled="search.searchButtonDisabled"><span class="glyphicon glyphicon-search"></span></button>
-                <button class="btn btn-default" type="button" ng-click="search.resetSearchInput()"><span class="glyphicon glyphicon-remove"></span></button>
-              </span>
-            </div>
-          </form>
-        </div>
-        <div class="col-sm-7">
-          <ul class="nav navbar-nav navbar-right" ng-controller="FilterController as filter">
-            <p class="navbar-text">Filters</p>
+        <div class="col-sm-8">
+          <ul class="nav navbar-nav " ng-controller="FilterController as filter">
+            <!-- <p class="navbar-text">Filters</p> -->
             <li class="dropdown mega-dropdown">
               <a class="dropdown-toggle spatial-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
@@ -607,6 +596,17 @@
               </ul>
             </li>
           </ul>
+        </div>
+        <div class="col-sm-4">
+          <form id="searchForm" class="searchForm">
+            <div class="input-group input-group-sm" ng-controller="SearchController as search">
+              <input id="searchInput" type="text" ng-model="search.searchInput" class="form-control" placeholder="Search O2" autofocus>
+              <span class="input-group-btn">
+                <button class="btn btn-info" type="button" ng-click="search.executeSearch()" ng-disabled="search.searchButtonDisabled"><span class="glyphicon glyphicon-search"></span></button>
+                <button class="btn btn-default" type="button" ng-click="search.resetSearchInput()"><span class="glyphicon glyphicon-remove"></span></button>
+              </span>
+            </div>
+          </form>
         </div>
       </div>
     </div>
