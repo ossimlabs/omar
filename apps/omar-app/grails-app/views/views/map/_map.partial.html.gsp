@@ -238,13 +238,19 @@
                           <input type="checkbox" ng-model="filter.countryCodeCheck">
                         </span>
                         <span class="input-group-addon name">CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.countryCode"
-                         ng-click="filter.countryCodeCheck = true;"
-                         ng-blur="filter.countryCodeCheck = filter.countryCode === '' ? false: true;"
-                         class="form-control"
-                         id="countryCodeInput"
-                         placeholder="Country Code"
-                         value="filter.countryCode">
+                        <ui-select
+                          id = "countryCodeInput"
+                          ng-blur = "filter.countryCodeCheck = filter.countryCode === '' ? false : true"
+                          ng-click = "filter.countryCodeCheck = true; filter.getDistinctValues('countryCode');"
+                          ng-model = "filter.countryCode"
+                          theme = "selectize">
+                          <ui-select-match placeholder = "Country Code">
+                            {{$select.selected}}
+                          </ui-select-match>
+                          <ui-select-choices repeat = "val in countryCodeTypes | filter: $select.search">
+                            {{val}}
+                          </ui-select-choices>
+                        </ui-select>
                       </div>
                     </li>
                     <li class="filter-row">
@@ -287,13 +293,19 @@
                           <input type="checkbox" ng-model="filter.missionIdCheck">
                         </span>
                         <span class="input-group-addon name">Mission</span>
-                        <input ng-model="filter.missionId"
-                         ng-click="filter.missionIdCheck = true;"
-                         ng-blur="filter.missionIdCheck = filter.missionId === '' ? false: true;"
-                         class="form-control"
-                         id="missionIdInput"
-                         placeholder="Mission ID"
-                         value="filter.missionId">
+                        <ui-select
+                          id = "missionIdInput"
+                          ng-blur = "filter.missionIdCheck = filter.missionId === '' ? false : true"
+                          ng-click = "filter.missionIdCheck = true; filter.getDistinctValues('missionId');"
+                          ng-model = "filter.missionId"
+                          theme = "selectize">
+                          <ui-select-match placeholder = "Mission ID">
+                            {{$select.selected}}
+                          </ui-select-match>
+                          <ui-select-choices repeat = "val in missionIdTypes | filter: $select.search">
+                            {{val}}
+                          </ui-select-choices>
+                        </ui-select>
                       </div>
                     </li>
                     <li class="filter-row">
@@ -302,13 +314,19 @@
                           <input type="checkbox" ng-model="filter.sensorIdCheck">
                         </span>
                         <span class="input-group-addon name">Sensor&nbsp;</span>
-                        <input ng-model="filter.sensorId"
-                         ng-click="filter.sensorIdCheck = true;"
-                         ng-blur="filter.sensorIdCheck = filter.sensorId === '' ? false: true;"
-                         class="form-control"
-                         id="sensorIdInput"
-                         placeholder="Sensor ID"
-                         value="filter.sensorId">
+                        <ui-select
+                          id = "sensorIdInput"
+                          ng-blur = "filter.sensorIdCheck = filter.sensorId === '' ? false : true"
+                          ng-click = "filter.sensorIdCheck = true; filter.getDistinctValues('sensorId');"
+                          ng-model = "filter.sensorId"
+                          theme = "selectize">
+                          <ui-select-match placeholder = "Sensor ID">
+                            {{$select.selected}}
+                          </ui-select-match>
+                          <ui-select-choices repeat = "val in sensorIdTypes | filter: $select.search">
+                            {{val}}
+                          </ui-select-choices>
+                        </ui-select>
                       </div>
                     </li>
                     <li class="filter-row">
@@ -317,13 +335,20 @@
                           <input type="checkbox" ng-model="filter.targetIdCheck">
                         </span>
                         <span class="input-group-addon name">Target&nbsp;</span>
-                        <input ng-model="filter.targetId"
-                         ng-click="filter.targetIdCheck = true;"
-                         ng-blur="filter.targetIdCheck = filter.targetId === '' ? false: true;"
-                         class="form-control"
-                         id="targetIdInput"
-                         placeholder="Target ID"
-                         value="filter.targetId">
+                        <ui-select
+                          class="form-control"
+                          id = "targetIdInput"
+                          ng-blur = "filter.targetIdCheck = filter.targetId === '' ? false : true"
+                          ng-click = "filter.targetIdCheck = true; filter.getDistinctValues('targetId');"
+                          ng-model = "filter.targetId"
+                          theme = "selectize">
+                          <ui-select-match placeholder = "Target ID">
+                            {{$select.selected}}
+                          </ui-select-match>
+                          <ui-select-choices repeat = "val in targetIdTypes | filter: $select.search">
+                            {{val}}
+                          </ui-select-choices>
+                        </ui-select>
                       </div>
                     </li>
                     <li class="filter-row">

@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiOperation
 import grails.converters.JSON
 import omar.core.HttpStatusMessage
 import omar.core.BindUtil
+import groovy.json.JsonOutput
 
 @Api( value = "dataManager",
 		description = "DataManager Support"
@@ -169,5 +170,39 @@ class RasterDataSetController
 		HashMap result = rasterDataSetService.getRasterFiles(cmd)
 
 		render contentType: "application/json", text: result as JSON
+	}
+
+	@ApiOperation(
+		value = "Returns an array of distinct values in the Raster Entry table for a given column name",
+		produces = 'application/json',
+		httpMethod = 'GET'
+	)
+	@ApiImplicitParams([
+		@ApiImplicitParam(
+			allowableValues = "[countryCode, missionId, sensorId, targetId]",
+ 			dataType = 'string',
+			defaultValue = "countryCode",
+			name = 'property',
+			paramType = 'query',
+			required = true,
+			value = 'Column Name'
+		)
+	])
+	def getDistinctValues() {
+		def results = []
+		switch (params.property) {
+			case "countryCode" :
+			case "missionId" :
+			case "sensorId" :
+			case "targetId" :
+				results = RasterEntry.withCriteria {
+					projections {
+						distinct("${params.property}")
+					}
+				}
+		}
+
+
+		render contentType: "application/json", text: JsonOutput.toJson(results.findAll({ it != null }))
 	}
 }

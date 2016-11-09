@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('FilterController', ['wfsService', 'mapService', 'toastr', FilterController]);
+        .controller('FilterController', ['$http', '$scope', 'wfsService', 'mapService', 'toastr', FilterController]);
 
-    function FilterController(wfsService, mapService, toastr) {
+    function FilterController($http, $scope, wfsService, mapService, toastr) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -20,6 +20,20 @@
 
             vm.polygonSpatial = false;
         };
+
+        vm.getDistinctValues = function(property) {
+            if (!$scope[property + "Types"]) {
+                var url = AppO2.APP_CONFIG.params.stagerApp.baseUrl +
+                    "/dataManager/getDistinctValues?property=" + property;
+                $http({
+                    method: 'GET',
+                    url: url
+                })
+                .then(function (response) {
+                    $scope[property + "Types"] = response.data;
+                });
+            }
+        }
 
         function checkNoSpatialFilter() {
 
