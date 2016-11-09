@@ -95,9 +95,9 @@
             </div>
             <div>
               <ui-select
-              ng-model="selectedMeasureType.value"
-              theme="selectize"
-              on-select="image.setMeasureUnits($select.selected.value)">
+                ng-model="selectedMeasureType.value"
+                theme="selectize"
+                on-select="image.setMeasureUnits($select.selected.value)">
                 <ui-select-match>
                     <span ng-bind="$select.selected.name"></span>
                 </ui-select-match>
@@ -123,15 +123,21 @@
         </div>
         <!-- Position Quality Evaluator Panel -->
         <div class="panel panel-info" ng-show="image.pqeShowInfo">
-          <div class="panel-body">
+          <div class="panel-body" style="padding-top: 5px;padding-bottom: 5px;">
             <small class="text text-info">Position Quality Evaluator</small>
             <br>
             <small class="text text-success">{{image.pqeMessage}}</small>
+            <div ng-show="image.showPqeWarning">
+              <div class="alert alert-warning" style="margin-bottom: 0px;">
+                <small>The current image does not contain the
+                  proper metadata to support PQE output.</small>
+              </div>
+            </div>
             <div ng-show="image.showPqePosOutput">
               <div class="text-center">
                 <small class="text text-info text-center">Position</small>
               </div>
-              <ul style="padding-left: 0px">
+              <ul style="padding-left: 0px;margin-bottom: 1px;">
                 <li class="list-group-item">Lat , Lon<span class="badge">{{image.lat}} , {{image.lon}}</span></li>
                 <li class="list-group-item"
                 tooltip-placement="bottom"
@@ -145,7 +151,7 @@
               <div class="text-center">
                 <small class="text text-info text-center">Quality</small>
               </div>
-              <ul style="padding-left: 0px">
+              <ul style="padding-left: 0px; margin-bottom: 1px;">
                 <li class="list-group-item"
                 tooltip-placement="bottom"
                 uib-tooltip="Circular Error / Linear Error">CE / LE<span class="badge">{{image.ce}} / {{image.le}}</span></li>
@@ -160,17 +166,27 @@
                 uib-tooltip="Projection model used to calculate the PQE values">Model<span class="badge">{{image.surfaceName}} / {{image.projType}}</span></li>
               </ul>
             </div>
-            <div class="text-center" ng-show="image.showPqePosOutput">
-              <small>Probability Level: {{image.lvl}}</small>
-              <br>
+            <div class="text-center">
+              <small class="text text-info"
+              tooltip-placement="bottom"
+              uib-tooltip="Confidence level % that the point is within the elliptical error identified by the Circular error (CE) and the Linear error (LE)">Probability Level:</small>
+            </div>
+            <div>
+              <ui-select
+                ng-model="selectedProbabilityType.value"
+                theme="selectize"
+                on-select="image.setPqeProbability($select.selected.value)">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item in pqeProbabilityArray">
+                    <span ng-bind="item.name"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="text-center">
               <small class="text text-warning">Not certified for targeting</small>
               <br>
-            </div>
-            <div ng-show="image.showPqeWarning">
-              <div class="alert alert-warning" style="margin-bottom: 0px;">
-                <small>The current image does not contain the
-                  proper metadata to support PQE output.</small>
-              </div>
             </div>
           </div>
         </div>
@@ -255,17 +271,24 @@
         <!-- Brightness/Contrast Panel -->
         <div class="panel panel-info" id="image-sharpness-contrast">
           <div class="panel-body">
-            <div id="brightness-section">
-              <small class="text text-info">Brightness:</small>&nbsp;&nbsp;
-              <span id="imgBrightnessVal"></span><br>
-              <input id="imgBrightnessSlider" data-slider-id="imgBrightnessSlider" type="text"/>
-            </div>
-            <div id="contrast-section">
-              <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal"></span><br>
-              <input id="imgContrastSlider" data-slider-id='imgContrastSlider' type="text"/>
-            </div>
-            <div id="brightnes-contrast-reset">
-              <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
+
+            <div class="row">
+              <div class="col-sm-9">
+                <div id="brightness-section">
+                  <small class="text text-info">Brightness:</small>&nbsp;&nbsp;
+                  <span id="imgBrightnessVal"></span><br>
+                  <input id="imgBrightnessSlider" data-slider-id="imgBrightnessSlider" type="text"/>
+                </div>
+                <div id="contrast-section">
+                  <small class="text text-info">Contrast:</small>&nbsp;&nbsp;<span id="imgContrastVal"></span><br>
+                  <input id="imgContrastSlider" data-slider-id='imgContrastSlider' type="text"/>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div id="brightnes-contrast-reset" style="margin-top: 30px;">
+                  <button type="button" class="btn btn-primary" ng-click="image.resetBrightnessContrast()">Reset</button>
+                </div>
+              </div>
             </div>
          </div>
         </div>

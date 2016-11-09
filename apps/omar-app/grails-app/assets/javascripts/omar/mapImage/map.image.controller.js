@@ -516,18 +516,32 @@
 
     // Begin Position Quality Evaluator Section
 
+    $scope.pqeProbabilityArray = [
+      {id: 1, name: '0.9P', value: '0.9'},
+      {id: 2, name: '0.95P', value: '0.95'},
+      {id: 3, name: '0.5P', value: '0.5'},
+    ];
+
+    $scope.selectedProbabilityType = { value: $scope.pqeProbabilityArray[0] };
+
     vm.pqeMessage = 'Click in the map to add a point. The position and the error of the information associated with it will be displayed.';
     vm.showPqePosOutput = false;
     vm.showPqeOutput = false;
     vm.showPqeWarning = false;
 
-    vm.pqe = function(){
+    vm.pqe = function(probability){
 
       vm.measureClear();
 
       vm.pqeShowInfo = true;
 
       imageSpaceService.pqeActivate();
+
+    }
+
+    vm.setPqeProbability = function(value) {
+
+      imageSpaceService.setPqeProbability(value);
 
     }
 
@@ -566,10 +580,8 @@
     var pqeObj = {};
     $scope.$on('pqe: updated', function(event, data) {
 
-      console.log('data: ', data);
       pqeObj = data[0];
-
-      console.log('pqeObj: ', pqeObj.pqe);
+      
       if (pqeObj.pqe.pqeValid){
 
         vm.showPqeOutput = true;
@@ -588,12 +600,11 @@
       else {
 
         vm.showPqeWarning = true;
+        vm.pqeMessage = '';
 
       }
 
       vm.showPqePosOutput = true;
-
-      vm.pqeMessage = '';
 
       vm.lat = pqeObj.lat.toFixed(4);
       vm.lon = pqeObj.lon.toFixed(4);
