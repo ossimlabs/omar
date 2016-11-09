@@ -117,6 +117,18 @@
         //console.log('vm.o2baseUrl: ', vm.o2baseUrl);
         //vm.o2contextPath = AppO2.APP_CONTEXTPATH;
 
+        var imageSpaceDefaults = {
+              bands: 'default',
+              brightness: 0,
+              contrast: 1,
+              histOp: 'auto-minmax',
+              resamplerFilter: 'bilinear',
+              sharpenMode: 'none'
+        };
+
+        //used in _map.partial.html.gsp
+        vm.imageSpaceDefaults = imageSpaceDefaults;
+
         vm.displayFootprint = function(obj) {
 
             mapService.mapShowImageFootprint(obj);
@@ -219,19 +231,22 @@
 
         });
 
-        vm.showImageModal = function(imageObj) {
+        vm.showImageModal = function(imageObj, imageSpaceDefaults) {
 
             //console.log('imageObj', imageObj);
 
             var modalInstance = $uibModal.open({
                 size: 'lg',
                 templateUrl: AppO2.APP_CONFIG.serverURL + '/views/list/list.image-card.partial.html',
-                controller: ['shareService', '$uibModalInstance', 'imageSpaceService', 'beNumberService', '$scope', 'imageObj', ImageModalController],
+                controller: ['shareService', 'downloadService', '$uibModalInstance', 'imageSpaceService', 'beNumberService', '$scope', 'imageObj', 'imageSpaceDefaults', ImageModalController],
                 controllerAs: 'vm',
                 resolve: {
                     imageObj: function() {
-                        return imageObj;
+                      return imageObj;
                     },
+                    imageSpaceDefaults: function() {
+                      return imageSpaceDefaults;
+                    }
                 }
             });
 
@@ -247,12 +262,14 @@
     }
 
     // Handles the selected image modal obj
-    function ImageModalController(shareService, $uibModalInstance, imageSpaceService, beNumberService, $scope, imageObj) {
+    function ImageModalController(shareService, downloadService, $uibModalInstance, imageSpaceService, beNumberService, $scope, imageObj, imageSpaceDefaults) {
 
         var vm = this;
         vm.beData = [];
 
         vm.selectedImage = imageObj;
+        //used in the modal _list.image-card.partial.html.gsp
+        vm.imageSpaceDefaults = imageSpaceDefaults;
         //console.log(vm.selectedImage);
 
         //modal.rendered = false;
@@ -265,6 +282,11 @@
         vm.placemarkConfig = AppO2.APP_CONFIG.params.misc.placemarks;
         vm.beLookupEnabled = (vm.placemarkConfig) ? true : false;
 
+        vm.kmlSuperOverlayAppEnabled = AppO2.APP_CONFIG.params.kmlApp.enabled;
+        if (vm.kmlSuperOverlayAppEnabled) {
+            vm.kmlSuperOverlayLink = AppO2.APP_CONFIG.params.kmlApp.baseUrl;
+        }
+
         var imageSpaceObj = {};
 
         if (imageObj) {
@@ -274,8 +296,7 @@
                 imgWidth: imageObj.properties.width,
                 imgHeight: imageObj.properties.height,
                 numOfBands: imageObj.properties.number_of_bands,
-                bands: 'default'
-
+                id: imageObj.properties.id
             };
         }
 
@@ -310,8 +331,12 @@
         };
 
         vm.shareModal = function (imageLink) {
-          shareService.imageLinkModal(imageLink)
-        }
+          shareService.imageLinkModal(imageLink);
+        };
+
+        vm.archiveDownload = function( imageId ) {
+          downloadService.downloadFiles( imageId );
+        };
 
         $uibModalInstance.opened.then(function() {
             setTimeout(function() {

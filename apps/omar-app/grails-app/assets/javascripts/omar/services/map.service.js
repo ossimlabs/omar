@@ -103,7 +103,7 @@ function mapService(stateService, wfsService) {
       center: [0, 0],
       projection: 'EPSG:4326',
       zoom: 12,
-      minZoom: 3,
+      minZoom: 1,
       maxZoom: 18
     });
 

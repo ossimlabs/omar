@@ -198,7 +198,7 @@
 
      contrastSlider = $( '#imgContrastSlider' ).slider({
          value: parseFloat( contrast ),
-         min: 0.0,
+         min: 0.01,
          max: 20.0,
          precision: 2,
          step: 0.01

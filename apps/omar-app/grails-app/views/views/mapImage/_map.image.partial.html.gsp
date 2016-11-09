@@ -271,7 +271,6 @@
         <!-- Brightness/Contrast Panel -->
         <div class="panel panel-info" id="image-sharpness-contrast">
           <div class="panel-body">
-
             <div class="row">
               <div class="col-sm-9">
                 <div id="brightness-section">
