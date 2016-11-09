@@ -722,13 +722,25 @@
             // Begin Position Quality Evaluator stuff
 
             var drawPqePoint;
+            drawPqePoint = new ol.interaction.Draw({
+              source: measureSource,
+              type: 'Point'
+            });
+
+            var probability = '0.9'; // Default
+            this.setPqeProbability = function(value) {
+
+              probability = value;
+
+            }
+
             function addPqeInteraction(){
 
-              drawPqePoint = new ol.interaction.Draw({
-                source: measureSource,
-                type: 'Point'
-              });
-              map.addInteraction(drawPqePoint);
+              if(drawPqePoint != undefined) {
+
+                map.addInteraction(drawPqePoint);
+
+              }
 
               drawPqePoint.on('drawend',
                 function(evt) {
@@ -762,7 +774,7 @@
                       entryId: entry,
                       pointList: pqeMpArray,
                       pqeIncludePositionError: true,
-                      pqeProbabilityLevel: '0.9',
+                      pqeProbabilityLevel: probability,
                       pqeEllipsePointType: 'array',
                       pqeEllipseAngularIncrement: '10'
                     }
@@ -818,19 +830,19 @@
 
             }
 
-            this.pqeActivate = function() {
+            this.pqeActivate = function(probabilty) {
 
-              addPqeInteraction();
+              addPqeInteraction(probabilty);
 
             }
 
             this.pqeClear = function() {
 
-              //console.log('clearing pqe');
+              measureSource.clear();
               map.removeInteraction(drawPqePoint);
 
             }
-            // Emd Position Quality Evaluator stuff
+            // End Position Quality Evaluator stuff
 
             // Begin Zoom stuff
             this.zoomToFullExtent = function() {
