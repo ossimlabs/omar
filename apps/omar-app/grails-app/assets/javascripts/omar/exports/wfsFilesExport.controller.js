@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module( 'omarApp' )
-        .controller( 'WFSOutputDlController', ['wfsService', '$window', '$http', 'mapService', 'stateService', WFSOutputDlController]);
+        .controller( 'WFSOutputDlController', ['wfsService', '$window', '$http', 'mapService', WFSOutputDlController]);
 
-    function WFSOutputDlController( wfsService, $window, $http, mapService, stateService )
+    function WFSOutputDlController( wfsService, $window, $http, mapService )
     {
       var vm = this;
 
@@ -35,11 +35,9 @@
         if ( mapService.pointLatLon ) {
           pointLatLon = mapService.pointLatLon;
         } else {
-          var center = stateService.mapState.center;
-          pointLatLon = center.lat + "," + center.lng;
-
+          var center = mapService.getCenter();
+          pointLatLon = center.slice().reverse().join(', ');
         }
-
         var tlvURL = encodeURI( tlvBaseUrl + '/?location=' + pointLatLon + '&filter=' + filter);
         $window.open( tlvURL, '_blank' );
       };

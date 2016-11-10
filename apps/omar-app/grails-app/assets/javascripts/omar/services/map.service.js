@@ -417,6 +417,13 @@ function mapService(stateService, wfsService) {
 
   };
 
+    this.getCenter = function() {
+        return map.getView().getCenter();
+    }
+    this.calculateExtent = function() {
+        return map.getView().calculateExtent(map.getSize());
+    }
+
   function getMapBbox() {
 
     return map.getView().calculateExtent(map.getSize());
