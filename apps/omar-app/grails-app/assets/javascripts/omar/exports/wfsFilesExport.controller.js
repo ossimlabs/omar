@@ -30,7 +30,7 @@
         var tlvBaseUrl = AppO2.APP_CONFIG.params.tlvApp.baseUrl;
         var filter = wfsService.spatialObj.filter;
         if (filter == '') { toastr.error("A spatial filter needs to be enabled."); }
-        else {  
+        else {
             var pointLatLon;
             mapService.mapPointLatLon();
             if ( mapService.pointLatLon ) {
@@ -39,7 +39,8 @@
               var center = mapService.getCenter();
               pointLatLon = center.slice().reverse().join(', ');
             }
-            var tlvURL = encodeURI( tlvBaseUrl + '/?location=' + pointLatLon + '&filter=' + filter);
+            var bbox = mapService.calculateExtent().join(',');
+            var tlvURL = encodeURI( tlvBaseUrl + '/?bbox=' + bbox + '&filter=' + filter + '&location=' + pointLatLon);
             $window.open( tlvURL, '_blank' );
         }
       };
