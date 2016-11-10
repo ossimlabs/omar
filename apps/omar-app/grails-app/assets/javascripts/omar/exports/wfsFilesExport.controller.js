@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module( 'omarApp' )
-        .controller( 'WFSOutputDlController', ['wfsService', '$window', '$http', 'mapService', WFSOutputDlController]);
+        .controller( 'WFSOutputDlController', ['wfsService', '$window', '$http', 'mapService', 'toastr', WFSOutputDlController]);
 
-    function WFSOutputDlController( wfsService, $window, $http, mapService )
+    function WFSOutputDlController( wfsService, $window, $http, mapService, toastr )
     {
       var vm = this;
 
@@ -29,17 +29,19 @@
       vm.goToTLV = function() {
         var tlvBaseUrl = AppO2.APP_CONFIG.params.tlvApp.baseUrl;
         var filter = wfsService.spatialObj.filter;
-
-        var pointLatLon;
-        mapService.mapPointLatLon();
-        if ( mapService.pointLatLon ) {
-          pointLatLon = mapService.pointLatLon;
-        } else {
-          var center = mapService.getCenter();
-          pointLatLon = center.slice().reverse().join(', ');
+        if (filter == '') { toastr.error("A spatial filter needs to be enabled."); }
+        else {  
+            var pointLatLon;
+            mapService.mapPointLatLon();
+            if ( mapService.pointLatLon ) {
+              pointLatLon = mapService.pointLatLon;
+            } else {
+              var center = mapService.getCenter();
+              pointLatLon = center.slice().reverse().join(', ');
+            }
+            var tlvURL = encodeURI( tlvBaseUrl + '/?location=' + pointLatLon + '&filter=' + filter);
+            $window.open( tlvURL, '_blank' );
         }
-        var tlvURL = encodeURI( tlvBaseUrl + '/?location=' + pointLatLon + '&filter=' + filter);
-        $window.open( tlvURL, '_blank' );
       };
     }
 })();
