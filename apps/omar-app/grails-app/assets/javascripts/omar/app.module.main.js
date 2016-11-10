@@ -11,9 +11,13 @@
       'angular-clipboard',
       'ui.select',
       'ngSanitize'])
-    .config(['$stateProvider', '$urlRouterProvider',
+    .config(['$stateProvider', '$urlRouterProvider', '$uibTooltipProvider',
 
-      function ($stateProvider, $urlRouterProvider) {
+      function ($stateProvider, $urlRouterProvider, $uibTooltipProvider) {
+
+        $uibTooltipProvider.options({
+          'popupDelay': 1500
+        });
 
         $urlRouterProvider.otherwise('/home');
 
