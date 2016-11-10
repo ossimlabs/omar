@@ -190,7 +190,7 @@
           </div>
         </div>
         <!-- Band Selection Panel -->
-        <div class="panel panel-info">
+        <div class="panel panel-info band-selection-panel">
           <div class="panel-body">
             <div id="band-type" class="image-bands">
               <small class="text text-info">Band Selection</small>

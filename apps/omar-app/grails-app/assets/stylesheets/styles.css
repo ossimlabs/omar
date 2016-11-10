@@ -97,6 +97,9 @@ body {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+.imageMapTools .band-selection-panel {
+  padding-bottom: 10px;
+}
 
 .imageMapTools ul {
   padding-left: 0px;
