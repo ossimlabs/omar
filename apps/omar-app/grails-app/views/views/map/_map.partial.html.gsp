@@ -769,7 +769,7 @@
                          tooltip-placement="right"
                          uib-tooltip="View raw image"></i>&nbsp;&nbsp;
                       </a>
-                      <a href="{{list.o2baseUrl}}/#/mapOrtho?layers={{image.properties.id}}" target="_blank">
+                      <a href="" ng-click = "list.viewOrtho(image)" target="_blank">
                         <i class="fa fa-map-marker fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
