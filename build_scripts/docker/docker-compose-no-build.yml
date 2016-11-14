@@ -31,7 +31,7 @@ services:
       - "4990:5432"
     restart: always
   o2-stager:
-    image: ${DOCKER_REGISTRY_URI}/o2-stager
+    image: ${DOCKER_REGISTRY_URI}/o2-stager:${TAG}
     container_name: o2-stager
     environment:
       DBHOST: o2-db
