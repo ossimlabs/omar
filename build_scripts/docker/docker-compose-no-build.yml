@@ -219,8 +219,8 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-sqs:${TAG}
     container_name: o2-sqs
     environment:
-      AWSDNS: sqs.us-east-1.amazonaws.com
-      AWSQUEUEPATH: 320588532383/avro-tst
+      AWSDNS: ${AWSDNS}
+      AWSQUEUEPATH: ${AWSQUEUEPATH}
       WAIT_TIME_SECONDS: 20
       NUMBER_OF_MESSAGES: 1
       POLgG_INTERVAL_SECONDS: 10
