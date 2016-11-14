@@ -21,7 +21,7 @@ services:
   #   container_name: o2-base
   #   image: ${DOCKER_REGISTRY_URI}/o2-base
   o2-db:
-    image: ${DOCKER_REGISTRY_URI}/o2-db:${TAG}
+    image: ${DOCKER_REGISTRY_URI}/o2-db
     container_name: o2-db
     environment:
       POSTGRES_USER: postgres_user
