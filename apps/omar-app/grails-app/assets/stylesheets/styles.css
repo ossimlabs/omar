@@ -7,7 +7,6 @@
 body {
     padding-top: 50px;
     padding-bottom: 50px;
-    /*overflow: scroll;*/
 }
 
 .navbar {
@@ -30,11 +29,14 @@ body {
     cursor: pointer;
 }
 
+.nav-title-left {
+  margin-left: 10px;
+}
+
 .jumbotron {
     position: relative;
     background: #000 url("aerial_rs.jpg") center center;
     width: 100%;
-    /*height: 100%;*/
     background-size: contain;
     overflow: hidden;
     padding-top: 24px;
@@ -75,6 +77,66 @@ body {
     padding-bottom: 3px;
 }
 
+.imageMapNav {
+  margin-top: -15px;
+  margin-bottom: 8px;
+}
+.imageMapTools {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding-top: 10px;
+  overflow-y: auto;
+}
+
+.imageMapTools > .panel-info {
+  margin-bottom: 4px;
+}
+
+.imageMapTools .panel-body {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.imageMapTools .band-selection-panel {
+  padding-bottom: 10px;
+}
+
+.imageMapTools ul {
+  padding-left: 0px;
+  margin-bottom: 2px;
+}
+.imageMapTools .list-group-item {
+  padding: 7px 7px;
+}
+.imageMapTools > .panel-info .selectize-input {
+  margin-top: 5px;
+}
+
+.imageMapTools label {
+  margin-bottom: 0px;
+  margin-left: 5px;
+}
+
+.imageMapTools .measure-output {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.imageMapTools .brightness-slider {
+  margin-top: 30px;
+}
+
+.imageMapTools .pqe-warning {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.imageMapBorder {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+}
+
 @media screen and (max-height: 599px) {
     #map {
         height: 57vh;
@@ -86,7 +148,10 @@ body {
         height: 68vh;
     }
     .imageMap {
-        height: 55vh;
+        height: 62vh;
+    }
+    .imageMapTools {
+      height: 62vh;
     }
 }
 
@@ -101,7 +166,10 @@ body {
         height: 73vh;
     }
     .imageMap {
-        height: 63vh;
+        height: 68vh;
+    }
+    .imageMapTools {
+      height: 68vh;
     }
 }
 
@@ -116,7 +184,10 @@ body {
         height: 77vh;
     }
     .imageMap {
-        height: 68vh;
+        height: 71vh;
+    }
+    .imageMapTools {
+      height: 71vh;
     }
 }
 
@@ -131,7 +202,10 @@ body {
         height: 80vh;
     }
     .imageMap {
-        height: 72vh;
+        height: 76vh;
+    }
+    .imageMapTools {
+      height: 76vh;
     }
 }
 
@@ -146,7 +220,10 @@ body {
         height: 82vh;
     }
     .imageMap {
-        height: 75vh;
+        height: 78vh;
+    }
+    .imageMapTools {
+      height: 78vh;
     }
 }
 
@@ -161,7 +238,10 @@ body {
         height: 83vh;
     }
     .imageMap {
-        height: 77vh;
+        height: 80vh;
+    }
+    .imageMapTools {
+      height: 80vh;
     }
 }
 
@@ -176,7 +256,10 @@ body {
         height: 85vh;
     }
     .imageMap {
-        height: 79vh;
+        height: 82vh;
+    }
+    .imageMapTools {
+      height: 82vh;
     }
 }
 
@@ -192,6 +275,9 @@ body {
     }
     .imageMap {
         height: 81vh;
+    }
+    .imageMapTools {
+      height: 81vh;
     }
 }
 
@@ -231,6 +317,16 @@ body {
     text-decoration: none;
 }
 
+#modal-image-space-body.modal-body {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#modal-image-space-footer.modal-footer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 .imageMapModal {
     width: 100%;
     height: 60vh;
@@ -240,6 +336,21 @@ body {
     width: 100%;
 }
 
+.list-card-modal-header-links{
+    position: relative;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.list-card-image-modal-links {
+    float: left;
+}
+
+.list-card-modal-close{
+    float: right;
+}
+
 #mapOrtho {
     width: 100%;
 }
@@ -247,18 +358,21 @@ body {
 
 /* class for #mouseCoords*/
 
-#mapOrtho .map-cord-div {
+.map-cord-div {
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
+    right: 10px;
     cursor: pointer;
     z-index: 1;
     font-size: .7em;
     color: #fff;
     background-color: rgba(0, 60, 136, 0.5);
-    left: 50%;
     transform: translate(-50%);
     padding: 2px 10px;
-    border-radius: 5px;
+    border: none;
+    border-radius: 2px;
+    text-align: center;
+    margin: 1px;
 }
 
 .imageShareButton {
@@ -380,7 +494,6 @@ body {
 
 .yamm .yamm-content {
     padding: 20px 30px;
-    /*overflow: scroll;*/
 }
 
 .yamm .dropdown.yamm-fw .dropdown-menu {
@@ -395,7 +508,6 @@ body {
 .nav-download .dropdown-menu {
     min-width: 112px;
 }
-
 
 /*.navbar-default .navbar-nav > .nav-download{
   border-left: 1px solid #CCC;
@@ -417,7 +529,7 @@ body {
 }
 
 .ol-touch .rotate-up {
-    top: 80px;
+    top: 120px;
 }
 
 .top-logo {
@@ -486,10 +598,10 @@ body {
 }
 
 #grayImageItem, #redImageItem, #greenImageItem, #blueImageItem {
-    display: inline-block;
-    vertical-align: middle;
+    /*display: inline-block;
+    vertical-align: middle;*/
     width: 60px;
-    float: right;
+    /*float: right;*/
 }
 
 #gray-image-space-bands, #rgb-image-space-bands {
@@ -498,6 +610,7 @@ body {
 
 #image-space-bands{
   margin-top: -15px;
+  margin-bottom: -15px;
 }
 
 .image-bands {
@@ -515,24 +628,24 @@ body {
    height: 50px;*/
  }
 
-.ui-select-container{
+/*.ui-select-container{
     width: 90px;
     height: 10px;
-}
+}*/
 
 #image-space-bands{
     position: relative;
-    top: 30px;
+    top: 20px;
 }
 
-#image-space-bands .ui-select-container .selectize-input{
+/*#image-space-bands .ui-select-container .selectize-input{
     width: 50px;
-}
+}*/
 
-.ui-select-container span{
+/*.ui-select-container span{
     font-size: .8em;
     font-weight: bold;
-}
+}*/
 
 .ui-select-container .selectize-input{
     padding: 4px 4px;
@@ -632,32 +745,10 @@ body {
 
 .mega-dropdown-menu {
   padding: 20px 0px;
-  width: 100%;
+  /*width: 100%;*/
   box-shadow: none;
   -webkit-box-shadow: none;
 }
-
-/*.mega-dropdown-menu:before {
-  content: "";
-  border-bottom: 15px solid #fff;
-  border-right: 17px solid transparent;
-  border-left: 17px solid transparent;
-  position: absolute;
-  top: -15px;
-  left: 285px;
-  z-index: 10;
-}
-
-.mega-dropdown-menu:after {
-  content: "";
-  border-bottom: 17px solid #ccc;
-  border-right: 19px solid transparent;
-  border-left: 19px solid transparent;
-  position: absolute;
-  top: -17px;
-  left: 283px;
-  z-index: 8;
-}*/
 
 .mega-dropdown-menu > li > ul {
   padding: 0;
@@ -726,4 +817,70 @@ body {
 .filter-row .range-name {
   min-width: 100px;
   text-align: left;
+}
+
+.tooltip-inner {
+    min-width: 100px;
+    max-width: 100%;
+}
+
+#brightness-section,
+#contrast-section,
+#imgBrightnessSlider,
+#imgContrastSlider,
+#brightnes-contrast-reset{
+  width: 100%;
+}
+
+#imgBrightnessSlider .slider-selection,
+#imgContrastSlider .slider-selection {
+	background: #BABABA;
+}
+
+#imgBrightnessVal,
+#imgContrastVal {
+  font-size: .8em;
+  text-align: center
+}
+
+#brightnes-contrast-reset .btn{
+  float: right;
+  width: 50px;
+  height: 30px;
+  padding: 5px 5px;
+  line-height: 0px;
+}
+
+.slider.slider-horizontal .slider-track {
+  height: 5px;
+}
+
+.slider-handle {
+  width: 15px;
+  height: 15px;
+}
+
+#imgLinkButtons {
+    padding: 8px 12px;
+    float: left;
+    font-size: 1.5em;
+}
+
+#imgLinkButtons .tooltip-inner {
+    min-width: 100px;
+    max-width: 200px;
+}
+
+#imgLinkButtons.modal-footer {
+    border-top: none;
+}
+
+#imgLinkButtons a {
+    margin-right: 5px;
+}
+
+#imgLinkButtons a:visited,
+#imgLinkButtons a:hover,
+#imgLinkButtons a:active {
+    text-decoration: none;
 }

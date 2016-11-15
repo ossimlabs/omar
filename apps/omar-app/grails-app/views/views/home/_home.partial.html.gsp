@@ -34,7 +34,7 @@
           <h2>KML</h2>
           <div><span class="fa fa-map fa-3x text-info"></span></div>
           <br>
-          <p>Download a KML of the last &nbsp; <input style="width:32px" type="number" ng-model="max"> &nbsp; images acquired.</p>
+          <p>Download a KML of the last &nbsp; <input style="width:35px" type="number" ng-model="max"> &nbsp; images acquired.</p>
           <br>
           <a type="button" class="btn btn-success" ng-href="{{home.kmlAppLink}}?max={{max}}" target="_blank">Download</a>
         </div>

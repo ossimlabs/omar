@@ -1,5 +1,5 @@
 /*
-*= require webjars/bootswatch-darkly/3.3.5+4/css/bootstrap.css
+*= require webjars/bootswatch-slate/3.3.5+4/css/bootstrap.css
 *= require webjars/angular-ui-bootstrap/0.14.3/ui-bootstrap-csp.css
 *= require webjars/angular-ui-select/0.17.1/select.css
 *= require webjars/angular-ui-select2/0.0.5/docs/styles.css
@@ -7,6 +7,7 @@
 *= require webjars/selectize.js/0.12.3/css/selectize.bootstrap3.css
 *= require webjars/selectize.js/0.12.3/css/selectize.css
 *= require webjars/selectize.js/0.12.3/css/selectize.default.css
+*= require webjars/seiyria-bootstrap-slider/9.3.0/dist/css/bootstrap-slider.css
 *= require omar-openlayers.css
 *= require webjars/font-awesome/4.4.0/css/font-awesome.css
 *= require webjars/bootstrap-select/1.7.5/dist/css/bootstrap-select.css

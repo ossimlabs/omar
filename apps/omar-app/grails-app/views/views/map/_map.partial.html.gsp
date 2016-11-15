@@ -11,20 +11,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="collapse navbar-collapse" id="map-navbar-collapse">
-        <div class="col-sm-5">
-          <form id="searchForm" class="searchForm">
-            <div class="input-group input-group-sm" ng-controller="SearchController as search">
-              <input id="searchInput" type="text" ng-model="search.searchInput" class="form-control" placeholder="{{search.placeholder}}" autofocus>
-              <span class="input-group-btn">
-                <button class="btn btn-info" type="button" ng-click="search.executeSearch()" ng-disabled="search.searchButtonDisabled"><span class="glyphicon glyphicon-search"></span></button>
-                <button class="btn btn-default" type="button" ng-click="search.resetSearchInput()"><span class="glyphicon glyphicon-remove"></span></button>
-              </span>
-            </div>
-          </form>
-        </div>
-        <div class="col-sm-7">
-          <ul class="nav navbar-nav navbar-right" ng-controller="FilterController as filter">
-            <p class="navbar-text">Filters</p>
+        <div class="col-sm-8">
+          <ul class="nav navbar-nav " ng-controller="FilterController as filter">
+            <!-- <p class="navbar-text">Filters</p> -->
             <li class="dropdown mega-dropdown">
               <a class="dropdown-toggle spatial-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
@@ -114,7 +103,6 @@
                         <label for="temporalTypeFilter">Date Type</label>
                         <select ng-model="filter.currentDateType"
                           ng-options="type.label for type in filter.dateTypes"
-                          ng-change="filter.updateFilterString()"
                           id="temporalTypeFilter"
                           class="form-control">
                         </select>
@@ -157,8 +145,7 @@
                       <div class="form-group form-group-sm">
                         <input type="text" class="form-control"
                          ng-model="filter.startDate"
-                         ng-change="filter.updateFilterString();"
-                         data-time-format="HH:mm:ss a"
+                         data-time-format="HH:mm:ss"
                          data-autoclose="false"
                          data-minute-step="1"
                          data-second-step="1"
@@ -167,7 +154,6 @@
                       <div style="display:inline-block;">
                         <uib-datepicker
                           ng-model="filter.startDate"
-                          ng-change="filter.updateFilterString();"
                           show-weeks="false"
                           class="well well-sm">
                         </uib-datepicker>
@@ -181,13 +167,12 @@
                       <div class="form-group form-group-sm">
                         <input type="text" size="8" class="form-control"
                          ng-model="filter.endDate"
-                         data-time-format="HH:mm:ss a"
+                         data-time-format="HH:mm:ss"
                          data-autoclose="0" placeholder="Time" bs-timepicker>
                       </div>
                       <div style="display:inline-block;">
                         <uib-datepicker
                           ng-model="filter.endDate"
-                          ng-change="filter.updateFilterString();"
                           show-weeks="false"
                           class="well well-sm">
                         </uib-datepicker>
@@ -196,6 +181,9 @@
                   </ul>
                 </li>
                 <li class="col-sm-12 text-center">
+                  <button class="btn btn-primary btn-xs" type="button"
+                    ng-click="filter.updateFilterString()">Apply
+                  </button>
                   <button class="btn btn-warning btn-xs" type="button"
                     ng-click="filter.closeFilterDropdown('temporal-filter-dropdown')">Close
                   </button>
@@ -239,13 +227,19 @@
                           <input type="checkbox" ng-model="filter.countryCodeCheck">
                         </span>
                         <span class="input-group-addon name">CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.countryCode"
-                         ng-click="filter.countryCodeCheck = true;"
-                         ng-blur="filter.countryCodeCheck = filter.countryCode === '' ? false: true;"
-                         class="form-control"
-                         id="countryCodeInput"
-                         placeholder="Country Code"
-                         value="filter.countryCode">
+                        <ui-select
+                          id = "countryCodeInput"
+                          ng-blur = "filter.countryCodeCheck = filter.countryCode === '' ? false : true"
+                          ng-click = "filter.countryCodeCheck = true; filter.getDistinctValues('countryCode');"
+                          ng-model = "filter.countryCode"
+                          theme = "selectize">
+                          <ui-select-match placeholder = "Country Code">
+                            {{$select.selected}}
+                          </ui-select-match>
+                          <ui-select-choices repeat = "val in countryCodeTypes | filter: $select.search">
+                            {{val}}
+                          </ui-select-choices>
+                        </ui-select>
                       </div>
                     </li>
                     <li class="filter-row">
@@ -288,13 +282,19 @@
                           <input type="checkbox" ng-model="filter.missionIdCheck">
                         </span>
                         <span class="input-group-addon name">Mission</span>
-                        <input ng-model="filter.missionId"
-                         ng-click="filter.missionIdCheck = true;"
-                         ng-blur="filter.missionIdCheck = filter.missionId === '' ? false: true;"
-                         class="form-control"
-                         id="missionIdInput"
-                         placeholder="Mission ID"
-                         value="filter.missionId">
+                        <ui-select
+                          id = "missionIdInput"
+                          ng-blur = "filter.missionIdCheck = filter.missionId === '' ? false : true"
+                          ng-click = "filter.missionIdCheck = true; filter.getDistinctValues('missionId');"
+                          ng-model = "filter.missionId"
+                          theme = "selectize">
+                          <ui-select-match placeholder = "Mission ID">
+                            {{$select.selected}}
+                          </ui-select-match>
+                          <ui-select-choices repeat = "val in missionIdTypes | filter: $select.search">
+                            {{val}}
+                          </ui-select-choices>
+                        </ui-select>
                       </div>
                     </li>
                     <li class="filter-row">
@@ -303,13 +303,19 @@
                           <input type="checkbox" ng-model="filter.sensorIdCheck">
                         </span>
                         <span class="input-group-addon name">Sensor&nbsp;</span>
-                        <input ng-model="filter.sensorId"
-                         ng-click="filter.sensorIdCheck = true;"
-                         ng-blur="filter.sensorIdCheck = filter.sensorId === '' ? false: true;"
-                         class="form-control"
-                         id="sensorIdInput"
-                         placeholder="Sensor ID"
-                         value="filter.sensorId">
+                        <ui-select
+                          id = "sensorIdInput"
+                          ng-blur = "filter.sensorIdCheck = filter.sensorId === '' ? false : true"
+                          ng-click = "filter.sensorIdCheck = true; filter.getDistinctValues('sensorId');"
+                          ng-model = "filter.sensorId"
+                          theme = "selectize">
+                          <ui-select-match placeholder = "Sensor ID">
+                            {{$select.selected}}
+                          </ui-select-match>
+                          <ui-select-choices repeat = "val in sensorIdTypes | filter: $select.search">
+                            {{val}}
+                          </ui-select-choices>
+                        </ui-select>
                       </div>
                     </li>
                     <li class="filter-row">
@@ -318,13 +324,20 @@
                           <input type="checkbox" ng-model="filter.targetIdCheck">
                         </span>
                         <span class="input-group-addon name">Target&nbsp;</span>
-                        <input ng-model="filter.targetId"
-                         ng-click="filter.targetIdCheck = true;"
-                         ng-blur="filter.targetIdCheck = filter.targetId === '' ? false: true;"
-                         class="form-control"
-                         id="targetIdInput"
-                         placeholder="Target ID"
-                         value="filter.targetId">
+                        <ui-select
+                          class="form-control"
+                          id = "targetIdInput"
+                          ng-blur = "filter.targetIdCheck = filter.targetId === '' ? false : true"
+                          ng-click = "filter.targetIdCheck = true; filter.getDistinctValues('targetId');"
+                          ng-model = "filter.targetId"
+                          theme = "selectize">
+                          <ui-select-match placeholder = "Target ID">
+                            {{$select.selected}}
+                          </ui-select-match>
+                          <ui-select-choices repeat = "val in targetIdTypes | filter: $select.search">
+                            {{val}}
+                          </ui-select-choices>
+                        </ui-select>
                       </div>
                     </li>
                     <li class="filter-row">
@@ -348,7 +361,7 @@
                   <ul>
                     <li class="filter-row text-center">
                       <button class="btn btn-primary btn-xs" type="button"
-                        ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);filter.closeFilterDropdown()">Apply
+                        ng-click="filter.updateFilterString()">Apply
                       </button>
                       <button class="btn btn-primary btn-xs" type="button"
                         ng-click="filter.initKeywords();">Reset
@@ -554,7 +567,7 @@
                     </li>
                     <li class="col-sm-12 text-center">
                       <button class="btn btn-primary btn-xs" type="button"
-                        ng-click="filter.updateFilterString(filter.currentTemporalDuration.value);">Apply
+                        ng-click="filter.updateFilterString()">Apply
                       </button>
                       <button class="btn btn-warning btn-xs" type="button"
                         ng-click="filter.initRanges();">Reset
@@ -573,7 +586,7 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" ng-controller="WFSOutputDlController as wfsOutputDownload">
-                <li ng-if="filter.pointSpatial"><a ng-href="" target="_blank" ng-click="wfsOutputDownload.goToTLV()">TLV</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.goToTLV()">TLV</a></li>
                 <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('JSON')">JSON</a></li>
                 <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('KML')">KML</a></li>
                 <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('CSV')">CSV</a></li>
@@ -584,6 +597,17 @@
             </li>
           </ul>
         </div>
+        <div class="col-sm-4">
+          <form id="searchForm" class="searchForm">
+            <div class="input-group input-group-sm" ng-controller="SearchController as search">
+              <input id="searchInput" type="text" ng-model="search.searchInput" class="form-control" placeholder="Search O2" autofocus>
+              <span class="input-group-btn">
+                <button class="btn btn-info" type="button" ng-click="search.executeSearch()" ng-disabled="search.searchButtonDisabled"><span class="glyphicon glyphicon-search"></span></button>
+                <button class="btn btn-default" type="button" ng-click="search.resetSearchInput()"><span class="glyphicon glyphicon-remove"></span></button>
+              </span>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -591,6 +615,8 @@
 <div style="margin-top: -15px;" class="row">
   <div class="col-md-8">
     <div id="map" class="map" params="map.mapParams" map></div>
+      <div id="mouseCoords" class="map-cord-div" tooltip-placement="top"
+      uib-tooltip="Click on the coordinates to change units." tooltip-popup-delay="300"></div>
       <div id="popup" class="ol-popup">
         <div id="popup-content"></div>
       </div>
@@ -668,7 +694,7 @@
               <div class="media-left">
                 <img ng-style="list.thumbBorder(image.properties.file_type)"
                   class="media-object"
-                  ng-click="list.showImageModal(image); list.logRatingToPio(image.properties.id);"
+                  ng-click="list.showImageModal(image, list.imageSpaceDefaults); list.logRatingToPio(image.properties.id);"
                   tooltip-placement="right"
                   uib-tooltip="Click the thumbnail or the Image ID to preview image and view metadata"
                   ng-src="{{list.thumbPath}}?{{list.thumbFilename}}{{image.properties.filename}}{{list.thumbEntry}}{{image.properties.entry_id}}{{list.thumbSize}}{{list.thumbFormat}}"
@@ -682,7 +708,7 @@
                 <div class="row">
                   <div class="col-md-12" style="font-size: 13px;">
                     ID:&nbsp;&nbsp;
-                    <span ng-click="list.showImageModal(image); list.logRatingToPio(image.properties.id);"
+                    <span ng-click="list.showImageModal(image, list.imageSpaceDefaults); list.logRatingToPio(image.properties.id);"
                       class="text-success image-id-link">
                       <span ng-show="!image.properties.title">Unknown</span>
                       {{image.properties.title}}
@@ -694,7 +720,8 @@
                     Acquisition Date:&nbsp;&nbsp;
                     <span class="text-success">
                       <span ng-show="!image.properties.acquisition_date">Unknown</span>
-                      {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}
+                      {{image.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss' : 'UTC'}}
+                      <span ng-show="image.properties.acquisition_date">z</span>
                     </span>
                   </div>
                 </div>
@@ -703,7 +730,8 @@
                     Ingest Date:&nbsp;&nbsp;
                     <span class="text-success">
                       <span ng-show="!image.properties.ingest_date">Unknown</span>
-                      {{image.properties.ingest_date | date:'MM/dd/yyyy HH:mm:ss:sss'}}
+                      {{image.properties.ingest_date | date:'MM/dd/yyyy HH:mm:ss' : 'UTC'}}
+                      <span ng-show="image.properties.ingest_date">z</span>
                     </span>
                   </div>
                 </div>
@@ -737,13 +765,13 @@
                 <div class="row">
                   <div class="col-md-12">
                     <p class="text-primary" style="margin-top:.2em;">
-                      <a href="{{list.o2baseUrl}}/#/mapImage?filename={{image.properties.filename}}&entry_id={{image.properties.entry_id}}&width={{image.properties.width}}&height={{image.properties.height}}&bands=default&numOfBands={{image.properties.number_of_bands}}&imageId={{image.properties.id}}" target="_blank">
+                      <a href="{{list.o2baseUrl}}/#/mapImage?filename={{image.properties.filename}}&entry_id={{image.properties.entry_id}}&width={{image.properties.width}}&height={{image.properties.height}}&bands={{list.imageSpaceDefaults.bands}}&numOfBands={{image.properties.number_of_bands}}&imageId={{image.properties.id}}&brightness={{list.imageSpaceDefaults.brightness}}&contrast={{list.imageSpaceDefaults.contrast}}&histOp={{list.imageSpaceDefaults.histOp}}&resamplerFilter={{list.imageSpaceDefaults.resamplerFilter}}&sharpenMode={{list.imageSpaceDefaults.sharpenMode}}" target="_blank">
                         <i class="fa fa-desktop fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
                          uib-tooltip="View raw image"></i>&nbsp;&nbsp;
                       </a>
-                      <a href="{{list.o2baseUrl}}/#/mapOrtho?layers={{image.properties.id}}" target="_blank">
+                      <a href="" ng-click = "list.viewOrtho(image)" target="_blank">
                         <i class="fa fa-map-marker fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
@@ -787,6 +815,19 @@
           </div>
         </div>
       </div>
+    </div>
+    <!-- right-click context menu -->
+    <div class="modal" id="contextMenuDialog" role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>You Clicked Here:</h4></div>
+                <div align="center" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="text-center">
       <uib-pagination style="margin: 8px;"

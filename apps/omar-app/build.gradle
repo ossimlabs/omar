@@ -11,6 +11,7 @@ buildscript {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
     classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
     classpath "org.grails.plugins:hibernate5:5.0.10"
+    classpath 'net.errbuddy.plugins:babel-asset-pipeline:2.1.0'
   }
 }
 
@@ -131,6 +132,7 @@ dependencies {
   compile 'org.webjars.npm:angular-sanitize:1.4.8'
   compile 'org.webjars.bower:microplugin:0.0.3'
   compile 'org.webjars:selectize.js:0.12.3'
+  compile 'org.webjars.bower:seiyria-bootstrap-slider:9.3.0'
 
   // Font stuff
   compile 'org.webjars:font-awesome:4.4.0'
@@ -150,6 +152,8 @@ dependencies {
 
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
+
+  compile 'net.errbuddy.plugins:babel-asset-pipeline:2.1.0'
 }
 
 task wrapper(type: Wrapper) {

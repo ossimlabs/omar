@@ -26,9 +26,12 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-db
     container_name: o2-db
     environment:
+      O2_MAX_DISK_LIMIT: 0.9
+      O2_MIN_DISK_LIMIT: 0.8
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: abc123
       POSTGRES_DB: omar_prod
+      STAGERURL: ${DOCKER_HOST_URL}/o2-stager
     ports:
       - "4990:5432"
     restart: always
@@ -38,7 +41,7 @@ services:
     container_name: o2-stager
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -60,7 +63,7 @@ services:
     container_name: o2-wms
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -82,7 +85,7 @@ services:
     container_name: o2-wfs
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -104,7 +107,7 @@ services:
   #   container_name: o2-wcs
   #   environment:
   #     DBHOST: o2-db
-  #     DBPORT: :5432
+  #     DBPORT: 5432
   #     DBNAME: omar_prod
   #     DBUSER: postgres_user
   #     DBPASS: abc123
@@ -126,7 +129,7 @@ services:
     container_name: o2-omar
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -135,6 +138,8 @@ services:
       WFSPORT:
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
       WMSPORT:
+      MENSAURL: ${DOCKER_HOST_URL}/o2-mensa
+      MENSAPORT:
       STAGERURL: ${DOCKER_HOST_URL}/o2-stager
       STAGERPORT:
       DOWNLOADURL: ${DOCKER_HOST_URL}/o2-download
@@ -163,6 +168,8 @@ services:
       APIENABLED: "false"
       BANNERCOLOR: green
       BANNERCLASSIFICATION: Unclassified
+      TLVENABLED: "true"
+      TLVURL: ${DOCKER_HOST_URL}/tlv
     ports:
       - "5010:8080"
     # depends_on:
@@ -184,7 +191,7 @@ services:
     container_name: o2-wmts
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -239,7 +246,7 @@ services:
     container_name: o2-avro
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -266,7 +273,7 @@ services:
     container_name: o2-jpip
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -299,12 +306,12 @@ services:
       - "5004:8080"
     restart: always
   o2-superoverlay:
-    build: ./o2-overlay
+    build: ./o2-superoverlay
     image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
     container_name: o2-superoverlay
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -327,7 +334,7 @@ services:
     container_name: o2-download
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -349,7 +356,7 @@ services:
     container_name: o2-swipe
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: omar_prod
       DBUSER: postgres_user
       DBPASS: abc123
@@ -396,7 +403,7 @@ services:
     container_name: tlv
     environment:
       DBHOST: o2-db
-      DBPORT: :5432
+      DBPORT: 5432
       DBNAME: tlv_prod
       DBUSER: postgres_user
       DBPASS: abc123

@@ -539,6 +539,14 @@ omar:
       layers: "omar:raster_entry"
       styles: "byFileType"
 
+---
+omar:
+  jpip:
+    server:
+      cache: /data/omar/jpip_server/cache
+      log:   /data/omar/jpip_server/log/omar-jpip-server-log.txt
+      ip:    10.0.10.100
+      url:   jpip://10.0.10.100:9000
 
 quartz:
   jdbcStore: false

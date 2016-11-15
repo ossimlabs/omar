@@ -1,4 +1,4 @@
-#server:
+4#server:
 #  contextPath: /o2-omar
 ---
 hibernate:
@@ -161,19 +161,21 @@ omar:
           visible: true
   app:
     wfs:
-      baseUrl: http://localhost:80/o2-wfs/wfs?
+      baseUrl: http://localhost:8081/wfs?
       enabled: true
       proxy: /proxy/index?url=
     wms:
-      baseUrl: http://localhost:80/o2-wms/wms?
+      baseUrl: http://localhost:8081/wms?
       enabled: true
     imageSpace:
-      baseUrl: http://localhost:80/o2-wms/imageSpace
+      baseUrl: http://localhost:8081/imageSpace
       enabled: true
     thumbnails:
-      baseUrl: http://localhost:80/o2-wms/imageSpace/getThumbnail
+      baseUrl: http://localhost:8081/imageSpace/getThumbnail
     footprints:
-      baseUrl: http://localhost:80/o2-wms/footprints/getFootprints
+      baseUrl: http://localhost:8081/footprints/getFootprints
+    mensaApp:
+      baseUrl: http://localhost:8081/mensa
     stagerApp:
       baseUrl: http://localhost:8081
     downloadApp:
@@ -195,7 +197,7 @@ omar:
       enabled: true
     jpipApp:
       baseUrl: http://localhost:8081/jpip
-      enabled: false
+      enabled: true
     wmtsApp:
       baseUrl: http://localhost:8081/wmts
       enabled: false

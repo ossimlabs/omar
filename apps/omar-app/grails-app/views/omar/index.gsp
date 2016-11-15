@@ -41,7 +41,7 @@
                 <li ng-show="{{nav.apiAppEnabled}}"><a ng-href="{{nav.apiAppLink}}" target="_blank">&nbsp;API</a></li>
               </ul>
             </li>
-            <li ng-bind-html="nav.titleLeft"></li>
+            <li class="nav-title-left" ng-bind-html="nav.titleLeft" style="cursor:default"></li>
           </ul>
         </div>
       </nav>

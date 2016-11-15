@@ -72,6 +72,7 @@ grails {
     compile project( ':omar-wms' )
     compile project( ':omar-wmts' )
     compile project( ':omar-mensa' )
+    compile project( ':omar-stager' )
     // compile project( ':omar-security' )
     compile project( ':omar-jpip' )
     compile project( ':omar-download' )

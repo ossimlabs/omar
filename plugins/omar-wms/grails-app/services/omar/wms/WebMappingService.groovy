@@ -360,11 +360,22 @@ class WebMappingService implements InitializingBean
               filter: ( id ) ? "in(${id})" : wmsParams?.filter,
 //sorting: sorting,
 //	max: maxCount, // will remove and change to have the wms plugin have defaults
-              fields: ['filename', 'entry_id'] as List<String>
+              fields: ['id', 'filename', 'entry_id'] as List<String>
           ) {
-            [imageFile: it.filename as File, entry: it.entry_id?.toInteger()]
+            [id: it.get('id'), imageFile: it.filename as File, entry: it.entry_id?.toInteger()]
           }
         }
+
+        def ids =  wmsParams?.filter.find( /.*in[(](.*)[)].*/) { matcher, ids -> return ids }
+        if (ids) {
+            def orderedImages = []
+            ids.split(",").collect({ it as Integer }).each() {
+                def idIndex = it
+                orderedImages << images.find { it.id == idIndex }
+            }
+            images = orderedImages
+        }
+
 
         def chipperLayer = new ChipperLayer( images )
 

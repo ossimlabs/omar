@@ -23,7 +23,8 @@ class ImageGeometryService {
                              def ellSamp,
                              def ellLine)
     {
-        HashMap result = [:]
+        HashMap result = [pqeValid:false,
+                          pqeMessage:""]
         Boolean errorPropAvailable = imageSpaceModel.imageToGroundErrorPropagation(gpt,
                 probabilityLevel,
                 angInc,
@@ -46,9 +47,12 @@ class ImageGeometryService {
                 if (!surfaceInfoAvailable)
                 {
                     result.surfaceName = "NO SURFACE INFO"
+                    result.pqeValid    = false
+                    result.pqeMessage  = "No Surface Information available"
                 }
                 else
                 {
+                    result.pqeValid    = true
                     result.surfaceName = surfaceName
                     result.CE=pqeArray[0]
                     result.LE=pqeArray[1]
@@ -56,6 +60,8 @@ class ImageGeometryService {
                     result.SMI=pqeArray[3]
                     result.AZ=Math.toDegrees(pqeArray[4])
                     result.probabilityLevel=probabilityLevel
+                    result.projType=projType
+                    result.pqeMessage  = "SUCCESS"
 
                     //dataRecord.nELL=pqeArray[5]
                 }

@@ -15,11 +15,14 @@
 
     //Used by band selection
     var bands, numberOfBands, bandNum,
-    redSelect, greenSelect, blueSelect;
+    redSelect, greenSelect, blueSelect,
+    brightness, brightnesSlider,
+    contrast, contrastSlider;
 
     vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
 
-    vm.shareModal = function( imageLink ) {
+    vm.shareModal = function() {
+      var imageLink = imageSpaceService.getImageLink();
       shareService.imageLinkModal( imageLink );
     };
 
@@ -31,11 +34,11 @@
 
       // Check to make sure that all of the $stateParams are defined.
       // If there are undefined params return an error.
-      for (var i in $stateParams) {
+      for ( var i in $stateParams ) {
 
-        if ($stateParams[i] === undefined) {
+        if ( $stateParams[i] === undefined ) {
 
-          toastr.error('There was an issue loading the selected image into the map.',
+          toastr.error( 'There was an issue loading the selected image into the map.',
               'A problem has occurred:', {
               positionClass: 'toast-bottom-left',
               closeButton: true,
@@ -61,7 +64,7 @@
 
     vm.imageId = $stateParams.imageId;
 
-    //Beginning - Band Selections Section
+    // Start - Band Selections Section
 
     function bandSelection() {
 
@@ -85,21 +88,12 @@
         if ( numberOfBands <= 2 ) {
           $scope.grayValue = $scope.bandValues[0].value;
           $scope.grayImageItem = $scope.bandValues[0];
-          $scope.bandTypeItem = $scope.bandTypeValues[0];
 
           if ( numberOfBands == 2 ) {
             $scope.enableBandType = true;
           } else {
             $scope.enableBandType = false;
           }
-
-          if ( numberOfBands <= 1 ) {
-            $( '#gray-image-space-bands' ).hide();
-          }else {
-            $( '#gray-image-space-bands' ).show();
-          }
-
-          $( '#rgb-image-space-bands' ).hide();
 
         }else {
           $scope.bandTypeValues.push( { 'key': 2, 'value': 'Color' } );
@@ -112,12 +106,32 @@
           $scope.rgbValues = { red: $scope.bandValues[0].key,
                             green: $scope.bandValues[1].key,
                             blue: $scope.bandValues[2].key };
-          $scope.bandTypeItem = $scope.bandTypeValues[0];
         }
+
+       if ( bands.length == 1 ) {
+         $scope.bandTypeItem = $scope.bandTypeValues[1];
+         $scope.grayImageItem = { 'key': bands[0], 'value': bands[0] };
+          $( '#rgb-image-space-bands' ).hide();
+          $( '#gray-image-space-bands' ).show();
+       }else {
+         $scope.bandTypeItem = $scope.bandTypeValues[2];
+         $scope.redImageItem = { 'key': bands[0], 'value': bands[0] };
+         $scope.greenImageItem = { 'key': bands[1], 'value': bands[1] };
+         $scope.blueImageItem = { 'key': bands[2], 'value': bands[2] };
+          $( '#rgb-image-space-bands' ).show();
+          $( '#gray-image-space-bands' ).hide();
+       }
 
         if ( bands[0] == 'default' ) {
             $( '#rgb-image-space-bands' ).hide();
             $( '#gray-image-space-bands' ).hide();
+
+            $scope.grayImageItem = { 'key': 1, 'value': 1 };
+            $scope.redImageItem = { 'key': 1, 'value': 1 };
+            $scope.greenImageItem = { 'key': 2, 'value': 2 };
+            $scope.blueImageItem = { 'key': 3, 'value': 3 };
+
+            $scope.bandTypeItem = $scope.bandTypeValues[0];
         }
       }
 
@@ -152,7 +166,7 @@
           $( '#gray-image-space-bands' ).hide();
         break;
         case 'GRAY':
-        if($scope.grayValue) {
+        if ( $scope.grayValue ) {
           bands = $scope.grayValue;
         } else {
           bands = 1;
@@ -171,7 +185,134 @@
 
     //END - Band Selection Section
 
+    // Start - Brightness/Contrast Section
+
+    // Instantiate a slider
+     brightnesSlider = $( '#imgBrightnessSlider' ).slider({
+         value: parseFloat( brightness ),
+         min: -1.0,
+         max: 1.0,
+         precision: 2,
+         step: 0.01
+     });
+
+     contrastSlider = $( '#imgContrastSlider' ).slider({
+         value: parseFloat( contrast ),
+         min: 0.01,
+         max: 20.0,
+         precision: 2,
+         step: 0.01
+     });
+
+     $( '#imgBrightnessVal' ).text( brightness );
+
+     brightnesSlider.on( 'slide', function( slideEvt ) {
+       $( '#imgBrightnessVal' ).text( slideEvt.value );
+     });
+
+     brightnesSlider.on( 'slideStop', function( slideEvt ) {
+       imageSpaceService.setBrightness( slideEvt.value );
+       $( '#imgBrightnessVal' ).text( slideEvt.value );
+     });
+
+     $( '#imgContrastVal' ).text( parseFloat( contrast ) );
+
+     contrastSlider.on( 'slide', function( slideEvt ) {
+       $( '#imgContrastVal' ).text( slideEvt.value );
+     });
+
+     contrastSlider.on( 'slideStop', function( slideEvt ) {
+       imageSpaceService.setContrast( slideEvt.value );
+       $( '#imgContrastVal' ).text( slideEvt.value );
+     });
+
+     vm.resetBrightnessContrast = function() {
+         $( '#imgBrightnessVal' ).text( imageSpaceObj.brightness );
+         brightnesSlider.slider( 'setValue', parseFloat( imageSpaceObj.brightness ) );
+         imageSpaceService.setBrightness( imageSpaceObj.brightness );
+
+         $( '#imgContrastVal' ).text( imageSpaceObj.contrast );
+         contrastSlider.slider( 'setValue', parseFloat( imageSpaceObj.contrast ) );
+         imageSpaceService.setContrast( imageSpaceObj.contrast );
+     };
+
+    //END - Brightness/Contrast Section
+
+    // START - Dynamic Range Section
+
+    $scope.draType = {};
+    $scope.draTypes = [
+        { 'name': 'None', 'value': 'none' },
+        { 'name': 'Auto', 'value': 'auto-minmax' },
+        { 'name': '1 STD', 'value': 'std-stretch-1' },
+        { 'name': '2 STD', 'value': 'std-stretch-2' },
+        { 'name': '3 STD', 'value': 'std-stretch-3' }
+    ];
+
+    $scope.draType = $scope.draTypes[1];
+
+    angular.forEach( $scope.draTypes, function( value, key ) {
+      if ( value.value == imageSpaceObj.histOp ) {
+        $scope.draType = { 'name': value.name, 'value': value.value };
+      }// end if
+    }); //end foreach
+
+    $scope.onDraSelect = function( value ) {
+        imageSpaceService.setDynamicRange( value );
+    };
+
+    $scope.resamplerFilterType = {};
+    $scope.resamplerFilterTypes = [
+        { 'name': 'Bessel', 'value': 'bessel' },
+        { 'name': 'Bilinear', 'value': 'bilinear' },
+        { 'name': 'Blackman', 'value': 'blackman' },
+        { 'name': 'B-Spline', 'value': 'bspline' },
+        { 'name': 'Catrom', 'value': 'catrom' },
+        { 'name': 'Cubic', 'value': 'cubic' },
+        { 'name': 'Gaussian', 'value': 'gaussian' },
+        { 'name': 'Hamming', 'value': 'hamming' },
+        { 'name': 'Hermite', 'value': 'hermite' },
+        { 'name': 'Lanczos', 'value': 'lanczos' },
+        { 'name': 'Magic', 'value': 'magic' },
+        { 'name': 'Mitchell', 'value': 'mitchell' },
+        { 'name': 'Nearest', 'value': 'nearest' },
+        { 'name': 'Quadratic', 'value': 'quadratic' },
+        { 'name': 'Sinc', 'value': 'sinc' }
+    ];
+
+    $scope.resamplerFilterType = $scope.resamplerFilterTypes[1];
+
+    angular.forEach( $scope.resamplerFilterTypes, function( value, key ) {
+      if ( value.value == imageSpaceObj.resamplerFilter ) {
+        $scope.resamplerFilterType = { 'name': value.name, 'value': value.value };
+      }// end if
+    }); //end foreach
+
+    $scope.onResamplerFilterSelect = function( value ) {
+        imageSpaceService.setResamplerFilter( value );
+    };
+
+    $scope.sharpenModeType = {};
+    $scope.sharpenModeTypes = [
+        { 'name': 'None', 'value': 'none' },
+        { 'name': 'Light', 'value': 'light' },
+        { 'name': 'Heavy', 'value': 'heavy' }
+    ];
+    $scope.sharpenModeType = $scope.sharpenModeTypes[0];
+
+    angular.forEach( $scope.sharpenModeTypes, function( value, key ) {
+      if ( value.value == imageSpaceObj.sharpenMode ) {
+        $scope.sharpenModeType = { 'name': value.name, 'value': value.value };
+      }// end if
+    }); //end foreach
+
+    $scope.onSharpenModeSelect = function( value ) {
+        imageSpaceService.setSharpenMode( value );
+    };
+
     function loadMapImage() {
+      brightness = parseFloat( $stateParams.brightness );
+      contrast = parseFloat( $stateParams.contrast );
 
       imageSpaceObj = {
           filename: $stateParams.filename,
@@ -181,7 +322,12 @@
           numOfBands: $stateParams.numOfBands,
           bands: $stateParams.bands,
           imageId: $stateParams.imageId,
-          url: $stateParams.ur
+          url: $stateParams.ur,
+          brightness: brightness,
+          contrast: contrast,
+          histOp: $stateParams.histOp,
+          resamplerFilter: $stateParams.resamplerFilter,
+          sharpenMode: $stateParams.sharpenMode
         };
 
         vm.imageMapPath = AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?filename=' +
@@ -191,7 +337,13 @@
                           imageSpaceObj.imgHeight +  '&bands=' +
                           imageSpaceObj.bands +  '&numOfBands=' +
                           imageSpaceObj.numOfBands +  '&imageId=' +
-                          imageSpaceObj.imageId;
+                          imageSpaceObj.imageId + '&brightness=' +
+                          imageSpaceObj.brightness + '&contrast=' +
+                          imageSpaceObj.contrast + '&histOp=' +
+                          imageSpaceObj.histOp + '&resamplerFilter' +
+                          imageSpaceObj.resamplerFilter + '&sharpenMode'
+                          imageSpaceObj.sharpenMode;
+
       // Pass our imageSpaceObj constructed from the UR
       // ($stateParams) into the imageSpaceService and load
       // the map.
@@ -199,38 +351,275 @@
 
     }
 
-    $scope.asideState = {
-      open: false
-    };
+    // Begin - Measurment Section
 
-    $scope.openAside = function(position, backdrop) {
-      $scope.asideState = {
-        open: true,
-        position: position
-      };
+    $scope.itemMeasureTypeArray = [
+      {id: 1, name: 'meters', value: 'm'},
+      {id: 2, name: 'kilometers', value: 'km'},
+      {id: 3, name: 'feet', value: 'ft'},
+      {id: 4, name: 'miles', value: 'mi'},
+      {id: 5, name: 'yards', value: 'yd'},
+      {id: 6, name: 'nautical miles', value: 'nmi'},
+    ];
 
-      function postClose() {
-        $scope.asideState.open = false;
+    $scope.selectedMeasureType = { value: $scope.itemMeasureTypeArray[0] };
+
+    vm.measureMessage = 'Choose a measure type from the toolbar';
+    vm.measureType = 'None';
+
+    function setMeasureUiComponents(){
+
+      vm.showMeasureInfo = false;
+      vm.measureType = 'None';
+      vm.measureMessage = 'Choose a measure type from the toolbar';
+      vm.displayArea = false;
+      vm.displayAzimuth = false;
+      vm.geodDist = '';
+      vm.recDist = '';
+      vm.azimuth = '';
+      vm.area = '';
+
+    }
+
+    function changeMeasureOutputSystem(data, type){
+
+      function linearCalc(val, multiplier){
+
+        return (val * multiplier).toFixed(4);
+
       }
 
-      $aside.open({
-        templateUrl: AppO2.APP_CONFIG.serverURL + '/mapImage/aside.html',
-        placement: position,
-        size: 'sm',
-        backdrop: false,
-        controller: function ($scope, $uibModalInstance) {
-          $scope.ok = function(e) {
-            $uibModalInstance.close();
-            e.stopPropagation();
-          };
+      function areaCalc(val, multiplier){
 
-          $scope.cancel = function (e) {
-            $uibModalInstance.dismiss();
-            e.stopPropagation();
-          };
+        if(!data.area){
+          return
+        } else {
+          return (val * multiplier).toFixed(4);
         }
-      }).result.then(postClose, postClose);
-    };
+
+      }
+
+      switch (type){
+        case 'm':
+          vm.geodDist = linearCalc(data.gdist, 1) + ' ' + type;
+          vm.recDist = linearCalc(data.distance, 1) + ' ' + type;
+          vm.area = areaCalc(data.area, 1) + " m^2";
+        break;
+        case 'km':
+          vm.geodDist = linearCalc(data.gdist, 0.001) + ' ' + type;
+          vm.recDist = linearCalc(data.distance, 0.001) + ' ' + type;
+          vm.area = areaCalc(data.area, 0.000001) + " km^2";
+        break;
+        case 'ft':
+          vm.geodDist = linearCalc(data.gdist, 3.280839895) + ' ' + type;
+          vm.recDist = linearCalc(data.distance, 3.280839895) + ' ' + type;
+          vm.area = areaCalc(data.area, 10.763910416623611025) + " ft^2";
+        break;
+        case 'mi':
+          vm.geodDist = linearCalc(data.gdist, 0.00062137119224) + ' ' + type;
+          vm.recDist = linearCalc(data.distance, 0.00062137119224) + ' ' + type;
+          vm.area = areaCalc(data.area, .00000038610215854575) + " mi^2";
+        break;
+        case 'yd':
+          vm.geodDist = linearCalc(data.gdist, 1.0936132983) + ' ' + type;
+          vm.recDist = linearCalc(data.distance, 1.0936132983) + ' ' + type;
+          vm.area = areaCalc(data.area, 1.19598861218942) + " yd^2";
+        break;
+        case 'nmi':
+          vm.geodDist = linearCalc(data.gdist, 0.000539957) + ' ' + type;
+          vm.recDist = linearCalc(data.distance, 0.000539957) + ' ' + type;
+          vm.area = areaCalc(data.area, .000000291553) + " nmi^2";
+        break;
+      }
+
+      // Azimuth calcuation on LineString
+      if (data.azimuth) {
+        vm.displayAzimuth = true;
+        vm.azimuth = data.azimuth.toFixed(3) + ' deg';
+      }
+      else if (!data.azimuth) {
+        vm.displayAzimuth = false;
+        vm.azimuth = '0';
+      }
+
+      // Area calculation on Polygons
+      if(data.area) {
+        vm.displayArea = true;
+        //vm.area = Math.round(data.area*1000)/1000 + ' m';;
+      }
+      else if (!data.area) {
+        vm.displayArea = false;
+        vm.area = '0';
+      }
+
+    }
+
+    vm.measure = function(show, type) {
+
+      vm.pqeClear();
+
+      imageSpaceService.pqeClear();
+      vm.pqeShowInfo = false;
+
+      switch (type){
+        case 'LineString':
+          vm.measureType = 'Path';
+          vm.measureShow = true;
+          imageSpaceService.measureActivate(type);
+          vm.measureLine = true;
+          vm.measurePolygon = false;
+        break;
+        case 'Polygon':
+          vm.measureType = 'Area';
+          vm.measureShow = true;
+          imageSpaceService.measureActivate(type);
+          vm.measureLine = false;
+          vm.measurePolygon = true;
+        break;
+      }
+
+      vm.showMeasureInfo = true;
+      vm.measureMessage = 'Click in the map to begin the measurement';
+
+    }
+
+    vm.setMeasureUnits = function(measureType) {
+
+      // Only calculate the measurement if we have a valid measure object
+      if(angular.equals(measureDataObj, {})) {
+        return;
+      } else {
+        changeMeasureOutputSystem(measureDataObj, measureType);
+      }
+    }
+
+    vm.measureClear = function() {
+
+      vm.measureShow = true;
+      imageSpaceService.measureClear();
+
+      // Reset the UI to original state
+      setMeasureUiComponents();
+
+    }
+
+    var measureDataObj = {};
+
+    $scope.$on('measure: updated', function(event, data) {
+
+      measureDataObj = data;
+      changeMeasureOutputSystem(measureDataObj, $scope.selectedMeasureType.value.value);
+
+    });
+
+    // End - Measurement Section
+
+    // Begin Position Quality Evaluator Section
+
+    $scope.pqeProbabilityArray = [
+      {id: 1, name: '0.9P', value: '0.9'},
+      {id: 2, name: '0.95P', value: '0.95'},
+      {id: 3, name: '0.5P', value: '0.5'},
+    ];
+
+    $scope.selectedProbabilityType = { value: $scope.pqeProbabilityArray[0] };
+
+    vm.pqeMessage = 'Click in the map to add a point. The position and the error of the information associated with it will be displayed.';
+    vm.showPqePosOutput = false;
+    vm.showPqeOutput = false;
+    vm.showPqeWarning = false;
+
+    vm.pqe = function(probability){
+
+      vm.measureClear();
+
+      vm.pqeShowInfo = true;
+
+      imageSpaceService.pqeActivate();
+
+    }
+
+    vm.setPqeProbability = function(value) {
+
+      imageSpaceService.setPqeProbability(value);
+
+    }
+
+    vm.pqeClear = function(){
+
+
+      vm.pqeShowInfo = false;
+
+      vm.showPqeOutput = false;
+
+      vm.pqeMessage = 'Click in the map to add a point. The position and the error of the information associated with it will be displayed.';
+      vm.ce = '';
+      vm.le = '';
+      vm.sma = '';
+      vm.smi = '';
+      vm.az = '';
+      vm.projType = '';
+      vm.surfaceName = '';
+      vm.lvl = '';
+
+      vm.showPqeWarning = false;
+
+      vm.showPqePosOutput = false;
+
+      vm.lat = '';
+      vm.lon = '';
+      vm.hgt = '';
+      vm.hgtMsl = '';
+      vm.imageX = '';
+      vm.imageY = '';
+
+      imageSpaceService.pqeClear();
+
+    }
+
+    var pqeObj = {};
+    $scope.$on('pqe: updated', function(event, data) {
+
+      pqeObj = data[0];
+      
+      if (pqeObj.pqe.pqeValid){
+
+        vm.showPqeOutput = true;
+
+        vm.pqeMessage = 'The information below illustrates the position of the clicked point in the map.  The cyan point and ellipsis around it display the probabilty of error for the point calculation.'
+        vm.ce = pqeObj.pqe.CE.toFixed(4);
+        vm.le = pqeObj.pqe.LE.toFixed(4) + ' m';
+        vm.sma = pqeObj.pqe.SMA.toFixed(4);
+        vm.smi = pqeObj.pqe.SMI.toFixed(4) + ' m';
+        vm.az = pqeObj.pqe.AZ.toFixed(4) + ' deg';
+        vm.projType = pqeObj.pqe.projType;
+        vm.surfaceName = pqeObj.pqe.surfaceName;
+        vm.lvl = pqeObj.pqe.probabilityLevel.toFixed(1) + 'P';
+
+      }
+      else {
+
+        vm.showPqeWarning = true;
+        vm.pqeMessage = '';
+
+      }
+
+      vm.showPqePosOutput = true;
+
+      vm.lat = pqeObj.lat.toFixed(4);
+      vm.lon = pqeObj.lon.toFixed(4);
+      vm.hgt = pqeObj.hgt.toFixed(4);
+      vm.hgtMsl = pqeObj.hgtMsl.toFixed(4) + ' m';
+      vm.imageX = pqeObj.x.toFixed(4);
+      vm.imageY = pqeObj.y.toFixed(4);
+
+    });
+
+    // End Position Quality Evaluator Section
+
+    vm.screenshot = function() { imageSpaceService.screenshot(); }
+    vm.zoomToFullExtent = function() { imageSpaceService.zoomToFullExtent(); }
+    vm.zoomToFullRes = function() { imageSpaceService.zoomToFullRes(); }
 
   }
 

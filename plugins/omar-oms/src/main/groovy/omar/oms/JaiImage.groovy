@@ -5,15 +5,41 @@ import javax.imageio.ImageReadParam
 import javax.media.jai.ImageLayout
 import javax.media.jai.JAI
 import javax.media.jai.ParameterBlockJAI
+import javax.media.jai.PlanarImage
+import java.awt.Graphics
+import java.awt.Image
 import java.awt.Point
 import java.awt.RenderingHints
 import java.awt.image.BufferedImage
+import java.awt.image.Raster
 
 /**
  * Created by sbortman on 12/7/15.
  */
 class JaiImage
 {
+  static PlanarImage bufferedToPlanar(BufferedImage bi)
+  {
+    def planarImage = PlanarImage.wrapRenderedImage(bi)
+    planarImage = JAI.create("NULL", planarImage)
+
+    planarImage
+  }
+  static def selectBandsForRendering(PlanarImage planarImage)
+  {
+    def modifiedImage
+
+    if(planarImage.sampleModel.numBands >=3)
+    {
+      modifiedImage = JAI.create("BandSelect", planarImage, [0, 1, 2] as int[])
+    }
+    else
+    {
+      modifiedImage = JAI.create("BandSelect", planarImage, [0, 0, 0] as int[])
+    }
+
+    modifiedImage
+  }
   def reformatImage(def image, int tileWidth = 256, int tileHeight = 256)
   {
     def imageLayout = new ImageLayout( image )
