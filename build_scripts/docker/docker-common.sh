@@ -65,7 +65,7 @@ fi
 
 
 if [ -z $S3_DELIVERY_BUCKET ]; then
-  export S3_DELIVERY_BUCKET="s3://o2-delivery/dev"
+  export S3_DELIVERY_BUCKET="s3://o2-delivery/${OSSIM_GIT_BRANCH}"
 fi
 
 echo 
