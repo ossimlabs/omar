@@ -301,7 +301,7 @@ services:
       - "5004:8080"
     restart: always
   o2-superoverlay:
-    build: ./o2-overlay
+    build: ./o2-superoverlay
     image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
     container_name: o2-superoverlay
     environment:
