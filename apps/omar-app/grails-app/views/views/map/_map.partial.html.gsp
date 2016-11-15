@@ -615,6 +615,8 @@
 <div style="margin-top: -15px;" class="row">
   <div class="col-md-8">
     <div id="map" class="map" params="map.mapParams" map></div>
+      <div id="mouseCoords" class="map-cord-div" tooltip-placement="top"
+      uib-tooltip="Click on the coordinates to change units." tooltip-popup-delay="300"></div>
       <div id="popup" class="ol-popup">
         <div id="popup-content"></div>
       </div>
@@ -813,6 +815,19 @@
           </div>
         </div>
       </div>
+    </div>
+    <!-- right-click context menu -->
+    <div class="modal" id="contextMenuDialog" role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>You Clicked Here:</h4></div>
+                <div align="center" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="text-center">
       <uib-pagination style="margin: 8px;"
