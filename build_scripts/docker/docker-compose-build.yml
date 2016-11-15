@@ -168,6 +168,8 @@ services:
       APIENABLED: "false"
       BANNERCOLOR: green
       BANNERCLASSIFICATION: Unclassified
+      TLVENABLED: "true"
+      TLVURL: ${DOCKER_HOST_URL}/tlv
     ports:
       - "5010:8080"
     # depends_on:
