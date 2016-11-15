@@ -26,9 +26,12 @@ services:
     image: ${DOCKER_REGISTRY_URI}/o2-db
     container_name: o2-db
     environment:
+      O2_MAX_DISK_LIMIT: 0.9
+      O2_MIN_DISK_LIMIT: 0.8
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: abc123
       POSTGRES_DB: omar_prod
+      STAGERURL: ${DOCKER_HOST_URL}/o2-stager
     ports:
       - "4990:5432"
     restart: always
@@ -301,7 +304,7 @@ services:
       - "5004:8080"
     restart: always
   o2-superoverlay:
-    build: ./o2-overlay
+    build: ./o2-superoverlay
     image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
     container_name: o2-superoverlay
     environment:

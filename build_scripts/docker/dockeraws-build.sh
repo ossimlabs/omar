@@ -71,6 +71,14 @@ for app in ${O2_APPS[@]} ; do
   fi
 done
 
+if [ "${TAG}" = "release" ] ; then
+  export AWSDNS=sqs.us-east-1.amazonaws.com
+  export AWSQUEUEPATH=320588532383/avro-release  
+else
+  export AWSDNS=sqs.us-east-1.amazonaws.com
+  export AWSQUEUEPATH=320588532383/avro-tst
+fi
+
 for app in ${O2_APPS[@]} ; do
    echo "Building ${app} docker image"
    if [ "${app}" != "o2-db" ] ; then

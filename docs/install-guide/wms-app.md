@@ -323,3 +323,13 @@ curl http://192.168.2.200/wms-app/health
 ```
 
 which returns the health of your sytem and should have the value `{"status":"UP"}`
+
+#Problems
+
+If you exceed a connection pool limit you can pass as a command line option the property **spring.datasource.maxActive=50** to increase the maximum active connecitons.  This can be passed as a proeprty argument **--spring.datasource.maxActive=50** or as a property in the YAML file:
+
+```
+spring:
+  datasource:
+    maxActive: 50
+```
