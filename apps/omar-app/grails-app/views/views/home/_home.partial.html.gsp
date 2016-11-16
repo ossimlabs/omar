@@ -26,7 +26,7 @@
           <br>
           <p>An on-demand imagery flipbook</p>
           <br><br>
-          <a type="button" class="btn btn-success" ng-href="{{home.tlvAppLink}}" target="_blank">View</a>
+          <a type="button" class="btn btn-success" target="_blank">View</a>
         </div>
       </div>
       <div ng-init="max=10" ng-show="{{home.kmlAppEnabled}}" class="col-md-4">
