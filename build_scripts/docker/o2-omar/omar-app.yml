@@ -71,6 +71,9 @@ omar:
     apiApp:
       baseUrl: http://${APIURL}/api
       enabled: ${APIENABLED}
+    tlvApp:
+      baseUrl: http://${TLVURL}
+      enabled: ${TLVENABLED}
     misc:
       icons:
         green-marker: search_marker_green.png
