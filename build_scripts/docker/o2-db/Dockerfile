@@ -12,11 +12,14 @@ LABEL com.radiantblue.version="0.1"\
       specified database."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN apt-get --assume-yes update && apt-get --assume-yes install postgis && apt-get --assume-yes clean
+
+RUN apt-get -y update && \
+    apt-get install -y postgis && \
+    apt-get -y clean
 
 ADD init-add-postgis.sh /docker-entrypoint-initdb.d/init-add-postgis.sh
 ENV POSTGRES_PASSWORD=${DBPASS}\
     POSTGRES_USER=${DBUSER}\
-    POSTGRES_DB=${DBNAME}
+    POSTGRES_DB=${DBNAME} \
 
 EXPOSE 5432

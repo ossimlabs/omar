@@ -27,7 +27,7 @@ if [ -z $OSSIM_GIT_BRANCH ] ; then
 fi
 
 # o2-base must be first for others depend on it
-O2_APPS=( "o2-base" "o2-avro" "o2-db" "o2-download" "o2-jpip" "o2-jpip-server" "o2-mensa" "o2-omar" "o2-sqs" "o2-stager" "o2-superoverlay" "o2-swipe" "o2-wcs" "o2-web-proxy" "o2-wfs" "o2-wms" "o2-wmts" "tlv")
+O2_APPS=( "o2-base" "o2-avro" "o2-db" "o2-disk-cleanup" "o2-download" "o2-jpip" "o2-jpip-server" "o2-mensa" "o2-omar" "o2-sqs" "o2-stager" "o2-superoverlay" "o2-swipe" "o2-wcs" "o2-web-proxy" "o2-wfs" "o2-wms" "o2-wmts" "tlv")
 #pushd $OMAR_SCRIPT_DIR
 #O2_APPS=( "o2-base" )
 #O2_APPS+=($(ls -d o2-* | sed -e "s/o2-base//g"))
@@ -56,7 +56,7 @@ export O2_APPS
 export TAG="latest"
 
 if [ "${OSSIM_GIT_BRANCH}" == "master" ] ; then
-  export TAG="release"  
+  export TAG="release"
 elif [ "${OSSIM_GIT_BRANCH}" == "dev" ] ; then
   export TAG="latest"
 elif [ ! -z $OSSIM_GIT_BRANCH ] ; then
@@ -68,13 +68,13 @@ if [ -z $S3_DELIVERY_BUCKET ]; then
   export S3_DELIVERY_BUCKET="s3://o2-delivery/dev"
 fi
 
-echo 
+echo
 echo OMAR_SCRIPT_DIR=$OMAR_SCRIPT_DIR
 echo OSSIM_DEV_HOME=$OSSIM_DEV_HOME
 echo DOCKER_REGISTRY_URI=$DOCKER_REGISTRY_URI
 echo AWS_CREDENTIALS_PATH=$AWS_CREDENTIALS_PATH
 echo S3_DELIVERY_BUCKET=$S3_DELIVERY_BUCKET
-echo 
+echo
 
 function getImageName {
    imagename="${DOCKER_REGISTRY_URI}/$1:$2"
@@ -83,10 +83,8 @@ function getImageName {
 function runCommand {
   echo $*
   eval $*
-  if [ $? != 0 ] ; then 
+  if [ $? != 0 ] ; then
     echo "ERROR: Failed while executing command: <$*>."
     echo; exit 1;
   fi
 }
-
-

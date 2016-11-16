@@ -172,6 +172,8 @@ services:
       BANNERCLASSIFICATION: Unclassified
       SPRING_CLOUD_CONFIG_ENABLED: "false"
       SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+      TLVENABLED: "true"
+      TLVURL: ${DOCKER_HOST_URL}/tlv
     ports:
       - "5010:8080"
     # depends_on:
