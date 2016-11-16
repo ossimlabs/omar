@@ -1,4 +1,4 @@
-4#server:
+#server:
 #  contextPath: /o2-omar
 ---
 hibernate:
@@ -132,17 +132,17 @@ grails:
 omar:
   openlayers:
     baseMaps:
+      # -
+      #   layerType: "tilewms"
+      #   title: "Open Street Map"
+      #   url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+      #   params:
+      #     layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+      #     format: "image/jpeg"
+      #   options:
+      #     visible: false
       -
-        layerType: "tile"
-        title: "Open Street Map"
-        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
-        params:
-          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
-          format: "image/jpeg"
-        options:
-          visible: false
-      -
-        layerType: "tile"
+        layerType: "tilewms"
         title: "Natural Earth"
         url: "http://demo.boundlessgeo.com/geoserver/wms"
         params:
@@ -151,14 +151,26 @@ omar:
         options:
           visible: false
       -
-        layerType: "tile"
+        layerType: "tilewms"
         title: "Blue Marble"
         url: "http://demo.opengeo.org/geoserver/wms"
         params:
           layers: "nasa:bluemarble"
           format: "image/jpeg"
         options:
-          visible: true
+          visible: false
+      # -
+      #   layerType: "xyz"
+      #   title: "OSM Basic"
+      #   url: "http://10.0.10.183/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png"
+      #   options:
+      #     visible: false
+      # -
+      #   layerType: "xyz"
+      #   title: "OSM Bright"
+      #   url: "http://10.0.10.183/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png"
+      #   options:
+      #     visible: true
   app:
     wfs:
       baseUrl: http://localhost:8081/wfs?
