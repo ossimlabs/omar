@@ -4,15 +4,16 @@ import static groovyx.net.http.Method.POST
 
 
 // necessary environment variables
-def jdbcUrl = "jdbc:postgresql:${ System.getenv( "POSTGRES_DB" ) }"
+def diskVolume = System.getenv( "O2_DISK_VOLUME" )
+def jdbcUrl = System.getenv( "JDBC_CONNECTION_STRING" )
 def maxDiskLimit = System.getenv( "O2_MAX_DISK_LIMIT" ) as Double
 def minDiskLimit = System.getenv( "O2_MIN_DISK_LIMIT" ) as Double
 def removeRasterUrl = "${ System.getenv( "O2_REMOVE_RASTER_URL" ) }/dataManager/removeRaster"
 
 
-def totalDiskSpace = new File( "/" ).getTotalSpace()
+def totalDiskSpace = new File( diskVolume ).getTotalSpace()
 println "Total Disk Space: ${ convertBytesToHumanReadable( totalDiskSpace ) }"
-def freeDiskSpace = new File( "/" ).getUsableSpace()
+def freeDiskSpace = new File( diskVolume ).getUsableSpace()
 println "Free Disk Space: ${ convertBytesToHumanReadable( freeDiskSpace ) }"
 def usedDiskSpace = totalDiskSpace - freeDiskSpace
 println "Used Disk Space: ${ convertBytesToHumanReadable( usedDiskSpace ) }"
@@ -43,7 +44,7 @@ if (usedDiskSpace > totalDiskSpace * maxDiskLimit) {
       System.exit( 1 )
     }
 
-    def usedDiskSpacePercentage = (totalDiskSpace - new File( "/" ).getUsableSpace()) / totalDiskSpace as Double
+    def usedDiskSpacePercentage = (totalDiskSpace - new File( diskVolume ).getUsableSpace()) / totalDiskSpace as Double
     println "Disk space being used: ${ (usedDiskSpacePercentage * 100).trunc( 2 ) } %"
 
     if (usedDiskSpacePercentage < minDiskLimit) {
