@@ -102,27 +102,30 @@ services:
     restart: always
     # depends_on:
     #   - o2-db
-  # o2-wcs:
-  #   image: ${DOCKER_REGISTRY_URI}/o2-wcs
-  #   container_name: o2-wcs
-  #   environment:
-  #     DBHOST: o2-db
-  #     DBPORT: 5432
-  #     DBNAME: omar_prod
-  #     DBUSER: postgres_user
-  #     DBPASS: abc123
-  #     DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-  #   volumes:
-  #     - /data:/data
-  #   ports:
-  #     - "5013:8080"
-  #   depends_on:
-  #     #- o2-base
-  #     - o2-db
-  #     - o2-stager
-  #     #- o2-wms
-  #     #- o2-wfs
-  #     - o2-web-proxy
+  o2-wcs:
+    image: ${DOCKER_REGISTRY_URI}/o2-wcs:${TAG}
+    container_name: o2-wcs
+    environment:
+      DBHOST: o2-db
+      DBPORT: 5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      OSSIM_DATA: /data
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    volumes:
+      - /data:/data
+    ports:
+      - "5013:8080"
+    depends_on:
+      #- o2-base
+      - o2-db
+      - o2-stager
+      #- o2-wms
+      #- o2-wfs
+      - o2-web-proxy
   o2-omar:
     image: ${DOCKER_REGISTRY_URI}/o2-omar:${TAG}
     container_name: o2-omar
