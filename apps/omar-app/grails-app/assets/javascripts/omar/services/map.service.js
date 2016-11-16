@@ -131,37 +131,36 @@ function mapService(stateService, wfsService) {
     function addBaseMapLayers(layerObj) {
 
       var baseMapLayer;
-      if (layerObj.layerType.toLowerCase() === 'tileWms') {
-
-        baseMapLayer = new ol.layer.Tile({
+      
+      switch (layerObj.layerType.toLowerCase()){
+        case 'tilewms':
+          baseMapLayer = new ol.layer.Tile({
             title: layerObj.title,
             type: 'base',
             visible: layerObj.options.visible,
             source: new ol.source.TileWMS({
-                url: layerObj.url,
-                params: {
-                    'VERSION': '1.1.1',
-                    'LAYERS': layerObj.params.layers,
-                    'FORMAT': layerObj.params.format
-                }
+              url: layerObj.url,
+              params: {
+                'VERSION': '1.1.1',
+                'LAYERS': layerObj.params.layers,
+                'FORMAT': layerObj.params.format
+              }
             }),
             name: layerObj.title
-        });
-
-      } else if (layerObj.layerType.toLowerCase() === 'xyz') {
-
-        baseMapLayer = new ol.layer.Tile({
+            });
+          break;
+        case 'xyz':
+          baseMapLayer = new ol.layer.Tile({
             title: layerObj.title,
             type: 'base',
             visible: layerObj.options.visible,
             source: new ol.source.XYZ({
-            url: layerObj.url
-          }),
-          name: layerObj.title
-        })
-
+              url: layerObj.url
+            }),
+            name: layerObj.title
+          });
+          break;
       }
-
 
       if (baseMapLayer != null) {
 
