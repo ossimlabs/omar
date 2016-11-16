@@ -23,7 +23,7 @@ services:
   #   image: ${DOCKER_REGISTRY_URI}/o2-base
   o2-disk-cleanup:
     build: ./o2-disk-cleanup
-    container_name: o2-db
+    container_name: o2-disk-cleanup
     environment:
       O2_DISK_VOLUME: "/data"
       O2_MAX_DISK_LIMIT: 0.9
