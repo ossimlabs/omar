@@ -170,9 +170,9 @@ services:
       TLVAPPURL: ${DOCKER_HOST_URL}
       TLVPORT:
       TLVAPPENABLED: "true"
-      SWIPEURL: ${DOCKER_HOST_URL}/o2-swipe/swipe/index
-      SWIPEPORT:
-      SWIPEENABLED: "true"
+      #SWIPEURL: ${DOCKER_HOST_URL}/o2-swipe/swipe/index
+      #SWIPEPORT:
+      #SWIPEENABLED: "true"
       JPIPURL: ${DOCKER_HOST_URL}/o2-jpip
       JPIPPORT:
       JPIPENABLED: "true"
@@ -383,31 +383,31 @@ services:
     restart: always
     # depends_on:
     #   - o2-db
-  o2-swipe:
-    image: ${DOCKER_REGISTRY_URI}/o2-swipe:${TAG}
-    container_name: o2-swipe
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
-      WFSPORT:
-      WMSURL: ${DOCKER_HOST_URL}/o2-wms
-      WMSPORT:
-      OSSIM_DATA: /data
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    ports:
-      - "5012:8080"
+  #o2-swipe:
+    #image: ${DOCKER_REGISTRY_URI}/o2-swipe:${TAG}
+    #container_name: o2-swipe
+    #environment:
+      #DBHOST: o2-db
+      #DBPORT: 5432
+      #DBNAME: omar_prod
+      #DBUSER: postgres_user
+      #DBPASS: abc123
+      #DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      #WFSURL: ${DOCKER_HOST_URL}/o2-wfs
+      #WFSPORT:
+      #WMSURL: ${DOCKER_HOST_URL}/o2-wms
+      #WMSPORT:
+      #OSSIM_DATA: /data
+      #SPRING_CLOUD_CONFIG_ENABLED: "false"
+      #SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    #ports:
+      #- "5012:8080"
     # depends_on:
     #   - o2-base
     #   - o2-db
     #   - o2-stager
     #   - o2-web-proxy
-    restart: always
+    #restart: always
     # depends_on:
     #   - o2-db
     #   - o2-wfs

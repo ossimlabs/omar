@@ -201,9 +201,9 @@ omar:
     twofishes:
       baseUrl: http://demo.twofishes.net
       proxy: /twoFishesProxy
-    swipeApp:
-      baseUrl: http://localhost:8081/swipe
-      enabled: false
+    #swipeApp:
+      #baseUrl: http://localhost:8081/swipe
+      #enabled: false
     kmlApp:
       baseUrl: http://localhost:8081
       enabled: true
