@@ -132,15 +132,15 @@ grails:
 omar:
   openlayers:
     baseMaps:
-      # -
-      #   layerType: "tilewms"
-      #   title: "Open Street Map"
-      #   url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
-      #   params:
-      #     layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
-      #     format: "image/jpeg"
-      #   options:
-      #     visible: false
+      -
+        layerType: "tilewms"
+        title: "Open Street Map"
+        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        params:
+          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+          format: "image/jpeg"
+        options:
+          visible: false
       -
         layerType: "tilewms"
         title: "Natural Earth"
@@ -158,7 +158,7 @@ omar:
           layers: "nasa:bluemarble"
           format: "image/jpeg"
         options:
-          visible: false
+          visible: true
       # -
       #   layerType: "xyz"
       #   title: "OSM Basic"
