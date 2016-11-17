@@ -100,12 +100,12 @@ dependencies {
   console "org.grails:grails-console"
   profile "org.grails.profiles:web"
   runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
-  runtime "com.h2database:h2"
+  runtime "com.h2database:h2:1.4.193"
   testCompile "org.grails:grails-plugin-testing"
   testCompile "org.grails.plugins:geb"
-  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
-  testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
-  compile "org.grails.plugins:grails3-cors-interceptor:1.1.0"
+  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
+  testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
+  compile "org.grails.plugins:grails3-cors-interceptor:1.2.1"
   compile 'org.grails.plugins:browser-detection:3.3.0'
 
   // UI Webjar core dependencies
