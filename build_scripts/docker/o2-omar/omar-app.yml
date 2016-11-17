@@ -17,7 +17,7 @@ omar:
   openlayers:
     baseMaps:
       -
-        layerType: "tile"
+        layerType: "tilewms"
         title: "Open Street Map"
         url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
         params:
