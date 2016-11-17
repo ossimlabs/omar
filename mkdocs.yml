@@ -11,7 +11,7 @@ pages:
   - 'WFS Service': 'install-guide/wfs-app.md'
   - 'WCS Service': 'install-guide/wcs-app.md'
   - 'WMTS Service': 'install-guide/wmts-app.md'
-  - 'Swipe Service': 'install-guide/swipe-app.md'
+  #- 'Swipe Service': 'install-guide/swipe-app.md'
   - 'Super Overlay Service': 'install-guide/superoverlay-app.md'
   - 'JPIP Service': 'install-guide/jpip-app.md'
   - 'JPIP Streaming Service': 'install-guide/jpip-server.md'

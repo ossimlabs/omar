@@ -56,9 +56,9 @@ omar:
     twofishes:
       baseUrl: http://${TWOFISHURL}/twofish
       proxy: /twoFishesProxy
-    swipeApp:
-      baseUrl: http://${SWIPEURL}/swipe
-      enabled: ${SWIPEENABLED}
+    #swipeApp:
+      #baseUrl: http://${SWIPEURL}/swipe
+      #enabled: ${SWIPEENABLED}
     jpipApp:
       baseUrl: ${JPIPURL}/jpip
       enabled: ${JPIPENABLED}
