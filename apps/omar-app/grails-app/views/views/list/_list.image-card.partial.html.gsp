@@ -8,7 +8,7 @@
            tooltip-placement="top"
            uib-tooltip="View raw image"></i>&nbsp;&nbsp;
         </a>
-        <a href="{{vm.o2baseUrlModal}}/#/mapOrtho?layers={{vm.selectedImage.properties.id}}" target="_blank">
+        <a href="" ng-click="vm.viewOrtho(vm.selectedImage)" target="_blank">
           <i class="fa fa-map-marker fa-border text-primary"
            style="cursor: pointer;"
            tooltip-placement="top"
