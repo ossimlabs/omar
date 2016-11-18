@@ -26,7 +26,7 @@ RUN source /root/.sdkman/bin/sdkman-init.sh && gradle -p /o2-disk-cleanup jar &&
 RUN yum install -y cronie && \
     yum install -y initscripts && \
     yum clean all && \
-    echo "* * * * * java -jar /o2-disk-cleanup.jar >> /cheese.txt 2>&1" > crontab.txt && \
+    echo "*/10 * * * * java -jar /o2-disk-cleanup.jar >> /cheese.txt 2>&1" > crontab.txt && \
     crontab crontab.txt
 
 CMD crond -p && while true; do sleep 1000; done;
