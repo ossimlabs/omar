@@ -8,7 +8,9 @@ def diskVolume = System.getenv( "O2_DISK_VOLUME" )
 def jdbcUrl = System.getenv( "JDBC_CONNECTION_STRING" )
 def maxDiskLimit = System.getenv( "O2_MAX_DISK_LIMIT" ) as Double
 def minDiskLimit = System.getenv( "O2_MIN_DISK_LIMIT" ) as Double
+def password = System.getenv( "POSTGRES_PASSWORD" )
 def removeRasterUrl = "${ System.getenv( "O2_REMOVE_RASTER_URL" ) }/dataManager/removeRaster"
+def username = System.getenv( "POSTGRES_USER" )
 
 
 def totalDiskSpace = new File( diskVolume ).getTotalSpace()
@@ -25,7 +27,7 @@ if (usedDiskSpace > totalDiskSpace * maxDiskLimit) {
   def numberOfBytesToDelete = (totalDiskSpace - freeDiskSpace) - minDiskLimit * totalDiskSpace
   println "I will try and delete approx. ${ convertBytesToHumanReadable( numberOfBytesToDelete ) } of data..."
 
-  def sql = Sql.newInstance( jdbcUrl )
+  def sql = Sql.newInstance( jdbcUrl, username, password, "org.postgresql.Driver" )
   def sqlCommand = "SELECT filename FROM raster_entry ORDER BY ingest_date ASC;"
   sql.eachRow( sqlCommand ) {
     def filename = it.filename

@@ -5,12 +5,13 @@ LABEL com.radiantblue.version="0.1"\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
 
-
 ENV JAVA_HOME=/usr \
     O2_DISK_VOLUME=${O2_DISK_VOLUME} \
     O2_MAX_DISK_LIMIT=${O2_MAX_DISK_LIMIT} \
     O2_MIN_DISK_LIMIT=${O2_MIN_DISK_LIMIT} \
     JDBC_CONNECTION_STRING=${JDBC_CONNECTION_STRING} \
+    POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
+    POSTGRES_USER=${POSTGRES_USER} \
     STAGERURL=${STAGERURL}
 
 RUN yum install -y which && \
