@@ -9,10 +9,10 @@
            uib-tooltip="View raw image"></i>&nbsp;&nbsp;
         </a>
         <a href="" ng-click="vm.viewOrtho(vm.selectedImage)" target="_blank">
-          <i class="fa fa-map-marker fa-border text-primary"
+          <i class="fa fa-history fa-border text-primary"
            style="cursor: pointer;"
            tooltip-placement="top"
-           uib-tooltip="View rectified image"></i>&nbsp;&nbsp;
+           uib-tooltip="View rectified image in TLV"></i>&nbsp;&nbsp;
         </a>
         <a ng-show="{{vm.kmlSuperOverlayAppEnabled}}" href="{{vm.kmlSuperOverlayLink}}/superOverlay/createKml/{{vm.selectedImage.properties.id}}">
           <i class="fa fa-map fa-border text-primary"
