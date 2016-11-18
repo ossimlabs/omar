@@ -193,7 +193,8 @@
          min: -1.0,
          max: 1.0,
          precision: 2,
-         step: 0.01
+         step: 0.01,
+         tooltip: 'hide'
      });
 
      contrastSlider = $( '#imgContrastSlider' ).slider({
@@ -201,7 +202,8 @@
          min: 0.01,
          max: 20.0,
          precision: 2,
-         step: 0.01
+         step: 0.01,
+         tooltip: 'hide'
      });
 
      $( '#imgBrightnessVal' ).text( brightness );
