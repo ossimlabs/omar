@@ -1,6 +1,7 @@
 #server:
 #  contextPath: /o2-omar
 ---
+
 hibernate:
     cache:
         queries: false
@@ -159,18 +160,18 @@ omar:
           format: "image/jpeg"
         options:
           visible: true
-      # -
-      #   layerType: "xyz"
-      #   title: "OSM Basic"
-      #   url: "http://10.0.10.183/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png"
-      #   options:
-      #     visible: false
-      # -
-      #   layerType: "xyz"
-      #   title: "OSM Bright"
-      #   url: "http://10.0.10.183/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png"
-      #   options:
-      #     visible: true
+      -
+        layerType: "xyz"
+        title: "OSM Basic"
+        url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png
+        options:
+          visible: false
+      -
+        layerType: "xyz"
+        title: "OSM Bright"
+        url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
+        options:
+          visible: false
   app:
     wfs:
       baseUrl: http://localhost:8081/wfs?

@@ -19,12 +19,24 @@ omar:
       -
         layerType: "tilewms"
         title: "Open Street Map"
-        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        url: http://vmap0.tiles.osgeo.org/wms/vmap0
         params:
           layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
           format: "image/jpeg"
         options:
           visible: true
+      -
+        layerType: "xyz"
+        title: "OSM Basic"
+        url: http://o2.radaintbluecloud.com/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png
+        options:
+          visible: false
+      -
+        layerType: "xyz"
+        title: "OSM Bright"
+        url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
+        options:
+          visible: false
   app:
     # root:
     #   baseUrl: http://o2-omar/omar-app

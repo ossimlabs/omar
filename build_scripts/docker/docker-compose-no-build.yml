@@ -451,3 +451,13 @@ services:
     # depends_on:
     #   - o2-wfs
     #   - o2-wms
+  o2-basemap:
+      image: ${DOCKER_REGISTRY_URI}/o2-basemap
+      container_name: o2-basemap
+      # Location of the .mbtiles file for the base map
+      # /basemap on the host to /data in the o2-basemap container
+      volumes:
+        - /basemap:/data
+      ports:
+        - "5016:80"
+      restart: always
