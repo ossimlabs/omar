@@ -29,4 +29,5 @@ RUN yum install -y cronie && \
     echo "*/10 * * * * java -jar /o2-disk-cleanup.jar >> /cheese.txt 2>&1" > crontab.txt && \
     crontab crontab.txt
 
+EXPOSE 8080
 CMD crond -p && while true; do sleep 1000; done;
