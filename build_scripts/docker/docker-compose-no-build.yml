@@ -26,10 +26,10 @@ services:
       O2_DISK_VOLUME: "/data"
       O2_MAX_DISK_LIMIT: 0.9
       O2_MIN_DISK_LIMIT: 0.8
-      JDBC_CONNECTION_STRING: "jdbc:postgresql://${DOCKER_HOST_URL}:4490/omar_prod"
+      JDBC_CONNECTION_STRING: "jdbc:postgresql://o2-db:5432/omar_prod"
       POSTGRES_PASSWORD: abc123
       POSTGRES_USER: postgres_user
-      STAGERURL: ${DOCKER_HOST_URL}/o2-stager
+      STAGER_URL: ${DOCKER_HOST_URL}/o2-stager
     image: ${DOCKER_REGISTRY_URI}/o2-disk-cleanup
     ports:
       - "4991:8080"
