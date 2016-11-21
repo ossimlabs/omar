@@ -6,13 +6,22 @@ LABEL com.radiantblue.version="0.1"\
       com.radiantblue.classification="UNCLASSIFIED"
 
 ENV JAVA_HOME=/usr \
+    JDBC_CONNECTION_STRING=${JDBC_CONNECTION_STRING} \
     O2_DISK_VOLUME=${O2_DISK_VOLUME} \
     O2_MAX_DISK_LIMIT=${O2_MAX_DISK_LIMIT} \
     O2_MIN_DISK_LIMIT=${O2_MIN_DISK_LIMIT} \
-    JDBC_CONNECTION_STRING=${JDBC_CONNECTION_STRING} \
     POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
     POSTGRES_USER=${POSTGRES_USER} \
-    STAGERURL=${STAGERURL}
+    STAGER_URL=${STAGER_URL}
+
+RUN echo "export JAVA_HOME=/usr" >> $HOME/.bashrc && \
+    echo "export JDBC_CONNECTION_STRING=${JDBC_CONNECTION_STRING}" >> $HOME/.bashrc && \
+    echo "export O2_DISK_VOLUME=${O2_DISK_VOLUME}" >> $HOME/.bashrc && \
+    echo "export O2_MAX_DISK_LIMIT=${O2_MAX_DISK_LIMIT}" >> $HOME/.bashrc && \
+    echo "export O2_MIN_DISK_LIMIT=${O2_MIN_DISK_LIMIT}" >> $HOME/.bashrc && \
+    echo "export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> $HOME/.bashrc && \
+    echo "export POSTGRES_USER=${POSTGRES_USER}" >> $HOME/.bashrc && \
+    echo "export STAGER_URL=${STAGER_URL}" >> $HOME/.bashrc
 
 RUN yum install -y which && \
     yum install -y unzip && \
@@ -26,7 +35,7 @@ RUN source /root/.sdkman/bin/sdkman-init.sh && gradle -p /o2-disk-cleanup jar &&
 RUN yum install -y cronie && \
     yum install -y initscripts && \
     yum clean all && \
-    echo "*/10 * * * * java -jar /o2-disk-cleanup.jar >> /cheese.txt 2>&1" > crontab.txt && \
+    echo "*/10 * * * * . $HOME/.bashrc; java -jar /o2-disk-cleanup.jar >> /dev/null 2>&1" > crontab.txt && \
     crontab crontab.txt
 
 EXPOSE 8080
