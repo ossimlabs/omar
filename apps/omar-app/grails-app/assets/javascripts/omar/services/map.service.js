@@ -131,23 +131,35 @@ function mapService(stateService, wfsService) {
     function addBaseMapLayers(layerObj) {
 
       var baseMapLayer;
-      if (layerObj.layerType.toLowerCase() === 'tile') {
-
-        baseMapLayer = new ol.layer.Tile({
+      
+      switch (layerObj.layerType.toLowerCase()){
+        case 'tilewms':
+          baseMapLayer = new ol.layer.Tile({
             title: layerObj.title,
             type: 'base',
             visible: layerObj.options.visible,
             source: new ol.source.TileWMS({
-                url: layerObj.url,
-                params: {
-                    'VERSION': '1.1.1',
-                    'LAYERS': layerObj.params.layers,
-                    'FORMAT': layerObj.params.format
-                }
+              url: layerObj.url,
+              params: {
+                'VERSION': '1.1.1',
+                'LAYERS': layerObj.params.layers,
+                'FORMAT': layerObj.params.format
+              }
             }),
             name: layerObj.title
-        });
-
+            });
+          break;
+        case 'xyz':
+          baseMapLayer = new ol.layer.Tile({
+            title: layerObj.title,
+            type: 'base',
+            visible: layerObj.options.visible,
+            source: new ol.source.XYZ({
+              url: layerObj.url
+            }),
+            name: layerObj.title
+          });
+          break;
       }
 
       if (baseMapLayer != null) {
@@ -174,12 +186,34 @@ function mapService(stateService, wfsService) {
       ],
       controls: ol.control.defaults().extend([
         new ol.control.ScaleLine()
-      ]),
+      ]).extend([mousePositionControl]),
       logo: false,
       overlays: [overlay],
       target: 'map',
       view: mapView
     });
+
+
+    setupContextDialog();
+
+    function setupContextDialog() {
+        map.getViewport().addEventListener("contextmenu",
+            function (event) {
+                event.preventDefault();
+                var pixel = [event.layerX, event.layerY];
+                var coord = map.getCoordinateFromPixel(pixel);
+                if (coord) {
+                    var point = new GeoPoint(coord[0], coord[1]);
+                    var ddPoint = point.getLatDec().toFixed(6) + ', ' + point.getLonDec().toFixed(6);
+                    var dmsPoint = point.getLatDegCard() + ' ' + point.getLonDegCard();
+                    var mgrsPoint = mgrs.forward(coord, 5);
+                    $('#contextMenuDialog .modal-body').html(ddPoint + " // " + dmsPoint + " // " + mgrsPoint);
+                    $('#contextMenuDialog').modal('show');
+                }
+            }
+        );
+    }
+
 
     var layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Layers' // Optional label for button
@@ -619,6 +653,35 @@ function mapService(stateService, wfsService) {
     return color;
 
   }
+
+
+    var mousePositionControl = new ol.control.MousePosition( {
+        coordinateFormat: function ( coord ) {
+            var html = "";
+            var point = new GeoPoint( coord[0], coord[1] );
+            switch(mousePositionControl.coordFormat) {
+                // dd
+                case 0: html = coord[1].toFixed( 6 ) + ', ' + coord[0].toFixed( 6 ); break;
+                // dms w/cardinal direction
+                case 1: html = point.getLatDegCard() + ', ' + point.getLonDegCard(); break;
+                // dms w/o cardinal direction
+                case 2: html = point.getLatDeg() + ', ' + point.getLonDeg(); break;
+                // mgrs
+                case 3: html = mgrs.forward( coord, 5 ); break;
+            }
+            document.getElementById( 'mouseCoords').innerHTML = html;
+        },
+        projection: 'EPSG:4326',
+        // comment the following two lines to have the mouse position
+        // be placed within the map.
+        className: 'custom-mouse-position',
+        //target: document.getElementById('mouse-position'),
+        undefinedHTML: '&nbsp;'
+    } );
+  mousePositionControl.coordFormat = 0;
+    $('#mouseCoords').click(function() {
+        mousePositionControl.coordFormat = mousePositionControl.coordFormat >= 3 ? 0 : mousePositionControl.coordFormat + 1;
+    });
 
 }
 

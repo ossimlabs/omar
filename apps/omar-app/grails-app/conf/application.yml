@@ -1,6 +1,7 @@
-4#server:
+#server:
 #  contextPath: /o2-omar
 ---
+
 hibernate:
     cache:
         queries: false
@@ -133,7 +134,7 @@ omar:
   openlayers:
     baseMaps:
       -
-        layerType: "tile"
+        layerType: "tilewms"
         title: "Open Street Map"
         url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
         params:
@@ -142,7 +143,7 @@ omar:
         options:
           visible: false
       -
-        layerType: "tile"
+        layerType: "tilewms"
         title: "Natural Earth"
         url: "http://demo.boundlessgeo.com/geoserver/wms"
         params:
@@ -151,7 +152,7 @@ omar:
         options:
           visible: false
       -
-        layerType: "tile"
+        layerType: "tilewms"
         title: "Blue Marble"
         url: "http://demo.opengeo.org/geoserver/wms"
         params:
@@ -159,6 +160,18 @@ omar:
           format: "image/jpeg"
         options:
           visible: true
+      -
+        layerType: "xyz"
+        title: "OSM Basic"
+        url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png
+        options:
+          visible: false
+      -
+        layerType: "xyz"
+        title: "OSM Bright"
+        url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
+        options:
+          visible: false
   app:
     wfs:
       baseUrl: http://localhost:8081/wfs?
@@ -189,9 +202,9 @@ omar:
     twofishes:
       baseUrl: http://demo.twofishes.net
       proxy: /twoFishesProxy
-    swipeApp:
-      baseUrl: http://localhost:8081/swipe
-      enabled: false
+    #swipeApp:
+      #baseUrl: http://localhost:8081/swipe
+      #enabled: false
     kmlApp:
       baseUrl: http://localhost:8081
       enabled: true

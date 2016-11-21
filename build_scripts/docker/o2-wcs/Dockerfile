@@ -30,8 +30,5 @@ ENV DBHOST=${DBHOST}\
 
 ARG O2_DEV_HOME
 
-RUN rm -f /usr/share/omar/wcs-app/wcs-app.jar && \
-    ln -s $O2_DEV_HOME/apps/wcs-app/build/libs/wcs-app-1.0.0.jar /usr/share/omar/wcs-app/wcs-app.jar
-
 EXPOSE 8080
 CMD ["sh", "/usr/share/omar/wcs-app/wcs-app.sh"]

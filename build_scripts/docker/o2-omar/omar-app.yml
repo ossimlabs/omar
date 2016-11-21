@@ -17,12 +17,24 @@ omar:
   openlayers:
     baseMaps:
       -
-        layerType: "tile"
+        layerType: "tilewms"
         title: "Open Street Map"
-        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        url: http://vmap0.tiles.osgeo.org/wms/vmap0
         params:
           layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
           format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "xyz"
+        title: "OSM Basic"
+        url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png
+        options:
+          visible: false
+      -
+        layerType: "xyz"
+        title: "OSM Bright"
+        url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
         options:
           visible: true
   app:
@@ -56,9 +68,9 @@ omar:
     twofishes:
       baseUrl: http://${TWOFISHURL}/twofish
       proxy: /twoFishesProxy
-    swipeApp:
-      baseUrl: http://${SWIPEURL}/swipe
-      enabled: ${SWIPEENABLED}
+    #swipeApp:
+      #baseUrl: http://${SWIPEURL}/swipe
+      #enabled: ${SWIPEENABLED}
     jpipApp:
       baseUrl: ${JPIPURL}/jpip
       enabled: ${JPIPENABLED}
@@ -71,6 +83,9 @@ omar:
     apiApp:
       baseUrl: http://${APIURL}/api
       enabled: ${APIENABLED}
+    tlvApp:
+      baseUrl: http://${TLVURL}
+      enabled: ${TLVENABLED}
     misc:
       icons:
         green-marker: search_marker_green.png

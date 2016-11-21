@@ -140,9 +140,9 @@ services:
       PREDIOENABLED: "false"
       TWOFISHURL: spring-cloud.radiantbluecloud.com/twofishes
       TWOFISHPORT:
-      SWIPEURL: spring-cloud.radiantbluecloud.com/o2-swipe/swipe/index
-      SWIPEPORT:
-      SWIPEENABLED: "true"
+      #SWIPEURL: spring-cloud.radiantbluecloud.com/o2-swipe/swipe/index
+      #SWIPEPORT:
+      #SWIPEENABLED: "true"
       JPIPURL:
       JPIPPORT:
       JPIPENABLED: "true"

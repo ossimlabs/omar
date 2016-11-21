@@ -26,7 +26,9 @@ services:
       O2_DISK_VOLUME: "/data"
       O2_MAX_DISK_LIMIT: 0.9
       O2_MIN_DISK_LIMIT: 0.8
-      JDBC_CONNECTION_STRING: "jdbc:postgres://o2-db:5432/omar_prod"
+      JDBC_CONNECTION_STRING: "jdbc:postgresql://${DOCKER_HOST_URL}:4490/omar_prod"
+      POSTGRES_PASSWORD: abc123
+      POSTGRES_USER: postgres_user
       STAGERURL: ${DOCKER_HOST_URL}/o2-stager
     image: ${DOCKER_REGISTRY_URI}/o2-disk-cleanup
     ports:
@@ -116,27 +118,30 @@ services:
     restart: always
     # depends_on:
     #   - o2-db
-  # o2-wcs:
-  #   image: ${DOCKER_REGISTRY_URI}/o2-wcs
-  #   container_name: o2-wcs
-  #   environment:
-  #     DBHOST: o2-db
-  #     DBPORT: 5432
-  #     DBNAME: omar_prod
-  #     DBUSER: postgres_user
-  #     DBPASS: abc123
-  #     DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-  #   volumes:
-  #     - /data:/data
-  #   ports:
-  #     - "5013:8080"
-  #   depends_on:
-  #     #- o2-base
-  #     - o2-db
-  #     - o2-stager
-  #     #- o2-wms
-  #     #- o2-wfs
-  #     - o2-web-proxy
+  o2-wcs:
+    image: ${DOCKER_REGISTRY_URI}/o2-wcs:${TAG}
+    container_name: o2-wcs
+    environment:
+      DBHOST: o2-db
+      DBPORT: 5432
+      DBNAME: omar_prod
+      DBUSER: postgres_user
+      DBPASS: abc123
+      OSSIM_DATA: /data
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    volumes:
+      - /data:/data
+    ports:
+      - "5013:8080"
+    depends_on:
+      #- o2-base
+      - o2-db
+      - o2-stager
+      #- o2-wms
+      #- o2-wfs
+      - o2-web-proxy
   o2-omar:
     image: ${DOCKER_REGISTRY_URI}/o2-omar:${TAG}
     container_name: o2-omar
@@ -167,9 +172,9 @@ services:
       TLVAPPURL: ${DOCKER_HOST_URL}
       TLVPORT:
       TLVAPPENABLED: "true"
-      SWIPEURL: ${DOCKER_HOST_URL}/o2-swipe/swipe/index
-      SWIPEPORT:
-      SWIPEENABLED: "true"
+      #SWIPEURL: ${DOCKER_HOST_URL}/o2-swipe/swipe/index
+      #SWIPEPORT:
+      #SWIPEENABLED: "true"
       JPIPURL: ${DOCKER_HOST_URL}/o2-jpip
       JPIPPORT:
       JPIPENABLED: "true"
@@ -186,6 +191,8 @@ services:
       BANNERCLASSIFICATION: Unclassified
       SPRING_CLOUD_CONFIG_ENABLED: "false"
       SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+      TLVENABLED: "true"
+      TLVURL: ${DOCKER_HOST_URL}/tlv
     ports:
       - "5010:8080"
     # depends_on:
@@ -378,31 +385,31 @@ services:
     restart: always
     # depends_on:
     #   - o2-db
-  o2-swipe:
-    image: ${DOCKER_REGISTRY_URI}/o2-swipe:${TAG}
-    container_name: o2-swipe
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
-      WFSPORT:
-      WMSURL: ${DOCKER_HOST_URL}/o2-wms
-      WMSPORT:
-      OSSIM_DATA: /data
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    ports:
-      - "5012:8080"
+  #o2-swipe:
+    #image: ${DOCKER_REGISTRY_URI}/o2-swipe:${TAG}
+    #container_name: o2-swipe
+    #environment:
+      #DBHOST: o2-db
+      #DBPORT: 5432
+      #DBNAME: omar_prod
+      #DBUSER: postgres_user
+      #DBPASS: abc123
+      #DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      #WFSURL: ${DOCKER_HOST_URL}/o2-wfs
+      #WFSPORT:
+      #WMSURL: ${DOCKER_HOST_URL}/o2-wms
+      #WMSPORT:
+      #OSSIM_DATA: /data
+      #SPRING_CLOUD_CONFIG_ENABLED: "false"
+      #SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    #ports:
+      #- "5012:8080"
     # depends_on:
     #   - o2-base
     #   - o2-db
     #   - o2-stager
     #   - o2-web-proxy
-    restart: always
+    #restart: always
     # depends_on:
     #   - o2-db
     #   - o2-wfs
@@ -446,3 +453,13 @@ services:
     # depends_on:
     #   - o2-wfs
     #   - o2-wms
+  o2-basemap:
+      image: ${DOCKER_REGISTRY_URI}/o2-basemap
+      container_name: o2-basemap
+      # Location of the .mbtiles file for the base map
+      # /basemap on the host to /data in the o2-basemap container
+      volumes:
+        - /basemap:/data
+      ports:
+        - "5016:80"
+      restart: always

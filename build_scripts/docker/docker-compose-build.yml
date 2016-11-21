@@ -165,9 +165,9 @@ services:
       PREDIOENABLED: "false"
       TWOFISHURL: ${DOCKER_HOST_URL}/twofishes
       TWOFISHPORT:
-      SWIPEURL: ${DOCKER_HOST_URL}/o2-swipe/swipe/index
-      SWIPEPORT:
-      SWIPEENABLED: "true"
+      #SWIPEURL: ${DOCKER_HOST_URL}/o2-swipe/swipe/index
+      #SWIPEPORT:
+      #SWIPEENABLED: "true"
       JPIPURL: http://${DOCKER_HOST_URL}/o2-jpip
       JPIPPORT:
       JPIPENABLED: "true"
@@ -182,6 +182,8 @@ services:
       APIENABLED: "false"
       BANNERCOLOR: green
       BANNERCLASSIFICATION: Unclassified
+      TLVENABLED: "true"
+      TLVURL: ${DOCKER_HOST_URL}/tlv
     ports:
       - "5010:8080"
     # depends_on:
@@ -362,29 +364,29 @@ services:
     restart: always
     # depends_on:
     #   - o2-db
-  o2-swipe:
-    build: ./o2-swipe
-    image: ${DOCKER_REGISTRY_URI}/o2-swipe
-    container_name: o2-swipe
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
-      WFSPORT:
-      WMSURL: ${DOCKER_HOST_URL}/o2-wms
-      WMSPORT:
-    ports:
-      - "5012:8080"
+  #o2-swipe:
+    #build: ./o2-swipe
+    #image: ${DOCKER_REGISTRY_URI}/o2-swipe
+    #container_name: o2-swipe
+    #environment:
+      #DBHOST: o2-db
+      #DBPORT: 5432
+      #DBNAME: omar_prod
+      #DBUSER: postgres_user
+      #DBPASS: abc123
+      #DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      #WFSURL: ${DOCKER_HOST_URL}/o2-wfs
+      #WFSPORT:
+      #WMSURL: ${DOCKER_HOST_URL}/o2-wms
+      #WMSPORT:
+    #ports:
+      #- "5012:8080"
     # depends_on:
     #   - o2-base
     #   - o2-db
     #   - o2-stager
     #   - o2-web-proxy
-    restart: always
+    #restart: always
     # depends_on:
     #   - o2-db
     #   - o2-wfs
