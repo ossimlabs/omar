@@ -13,7 +13,7 @@
       <div class="collapse navbar-collapse" id="map-navbar-collapse">
         <div class="col-sm-8">
           <ul class="nav navbar-nav " ng-controller="FilterController as filter">
-            <!-- <p class="navbar-text">Filters</p> -->
+            <p class="navbar-text">Filters:</p>
             <li class="dropdown mega-dropdown">
               <a class="dropdown-toggle spatial-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
@@ -580,21 +580,6 @@
                 </li>
               </ul>
             </li><!-- End menu -->
-            <li class="dropdown nav-download">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="fa fa-download" aria-hidden="true"></span>&nbsp;Exports
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" ng-controller="WFSOutputDlController as wfsOutputDownload">
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.goToTLV()">TLV</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('JSON')">JSON</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('KML')">KML</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('CSV')">CSV</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML2')">GML2</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML3')">GML3</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML32')">GML32</a></li>
-              </ul>
-            </li>
           </ul>
         </div>
         <div class="col-sm-4">
@@ -635,13 +620,13 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <p class="navbar-text">Sort</p>
+          <p class="navbar-text">Sort:</p>
         </div>
         <div class="collapse navbar-collapse" id="sort-navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-               aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;
+               aria-haspopup="true" aria-expanded="false">
                {{list.currentSortText}}<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li ng-click="list.sortWfs('acquisition_date', '+D', 'Acquired (Newest)');"><a>Acquired (Newest)</a></li>
@@ -658,6 +643,20 @@
                 <li role="separator" class="divider"></li>
                 <li ng-click="list.sortWfs('mission_id', '+A', 'Mission (Asc)');"><a>Misson (Asc)</a></li>
                 <li ng-click="list.sortWfs('mission_id', '+D', 'Mission (Desc)');"><a>Misson (Desc)</a></li>
+              </ul>
+            </li>
+            <li class="dropdown nav-download">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" ng-controller="WFSOutputDlController as wfsOutputDownload">
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.goToTLV()">TLV</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('JSON')">JSON</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('KML')">KML</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('CSV')">CSV</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML2')">GML2</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML3')">GML3</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML32')">GML32</a></li>
               </ul>
             </li>
           </ul>
