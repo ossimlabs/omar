@@ -23,6 +23,26 @@
         vm.thumbSize = '&size=100';
         vm.thumbFormat = '&format=jpeg';
 
+        vm.getImageSpaceUrl = function(image) {
+            var defaults = imageSpaceDefaults;
+            var properties = image.properties;
+
+
+            return AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?' +
+                'bands=' + defaults.bands + '&' +
+                'brightness=' + defaults.brightness + '&' +
+                'contrast=' + defaults.contrast + '&' +
+                'entry_id=' + properties.entry_id + '&' +
+                'filename=' + properties.filename + '&' +
+                'height=' + properties.height + '&' +
+                'histOp=' + defaults.histOp + '&' +
+                'imageId=' + properties.id + '&' +
+                'numOfBands=' + properties.number_of_bands + '&' +
+                'resamplerFilter=' + defaults.resamplerFilter + '&' +
+                'sharpenMode=' + defaults.sharpenMode + '&' +
+                'width=' + properties.width;
+        }
+
         vm.thumbBorder = function( imageType ) {
 
             //console.log(imageType);
@@ -322,6 +342,26 @@
             templateUrl: 'imageMapHelpTemplate.html',
             title: 'Help'
         };
+
+        vm.getImageSpaceUrl = function(image) {
+            var defaults = imageSpaceDefaults;
+            var properties = image.properties;
+
+
+            return AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?' +
+                'bands=' + defaults.bands + '&' +
+                'brightness=' + defaults.brightness + '&' +
+                'contrast=' + defaults.contrast + '&' +
+                'entry_id=' + properties.entry_id + '&' +
+                'filename=' + properties.filename + '&' +
+                'height=' + properties.height + '&' +
+                'histOp=' + defaults.histOp + '&' +
+                'imageId=' + properties.id + '&' +
+                'numOfBands=' + properties.number_of_bands + '&' +
+                'resamplerFilter=' + defaults.resamplerFilter + '&' +
+                'sharpenMode=' + defaults.sharpenMode + '&' +
+                'width=' + properties.width;
+        }
 
         vm.loadBeData = function loadBeData(geom) {
             console.log('loadBeData geometry: ', imageObj.geometry);
