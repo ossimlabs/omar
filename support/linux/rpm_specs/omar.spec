@@ -49,10 +49,10 @@ Group:          System Environment/Libraries
 #Group:          System Environment/Libraries
 #Requires: ossim-oms
 
-%package    swipe-app
-Summary:        Swipe Services
-Version:        %{O2_VERSION}
-Group:          System Environment/Libraries
+#%package    swipe-app
+#Summary:        Swipe Services
+#Version:        %{O2_VERSION}
+#Group:          System Environment/Libraries
 
 %package    wmts-app
 Summary:        Swipe Services
@@ -78,8 +78,8 @@ Stager service for the O2 distribution.  Will support Google Earth's KML superov
 #%description  ossimtools-app
 #OSSIM Tools
 
-%description  swipe-app
-Swipe application
+#%description  swipe-app
+#Swipe application
 
 %description  wmts-app
 WMTS application
@@ -107,7 +107,7 @@ export WFS_APP_HOME=$OMAR_DEV_HOME/apps/wfs-app
 export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
 export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
 #export OSSIMTOOLS_APP_HOME=$OMAR_DEV_HOME/apps/ossimtools-app
-export SWIPE_APP_HOME=$OMAR_DEV_HOME/apps/swipe-app
+#export SWIPE_APP_HOME=$OMAR_DEV_HOME/apps/swipe-app
 export WMTS_APP_HOME=$OMAR_DEV_HOME/apps/wmts-app
 
 export OSSIM_INSTALL_PREFIX=%{buildroot}/usr
@@ -135,9 +135,9 @@ popd
 #./gradlew assemble
 #popd
 
-pushd $SWIPE_APP_HOME
-./gradlew assemble
-popd
+#pushd $SWIPE_APP_HOME
+#./gradlew assemble
+#popd
 
 pushd $WMTS_APP_HOME
 ./gradlew assemble
@@ -157,7 +157,7 @@ export WMS_APP_HOME=$OMAR_DEV_HOME/apps/wms-app
 export STAGER_APP_HOME=$OMAR_DEV_HOME/apps/stager-app
 export SUPEROVERLAY_APP_HOME=$OMAR_DEV_HOME/apps/superoverlay-app
 export OSSIMTOOLS_APP_HOME=$OMAR_DEV_HOME/apps/ossimtools-app
-export SWIPE_APP_HOME=$OMAR_DEV_HOME/apps/swipe-app
+#export SWIPE_APP_HOME=$OMAR_DEV_HOME/apps/swipe-app
 export WMTS_APP_HOME=$OMAR_DEV_HOME/apps/wmts-app
 
 pushd $OMAR_APP_HOME
@@ -190,10 +190,10 @@ popd
 #install -p -m644 build/libs/ossimtools-app-%{version}.jar %{buildroot}/opt/ossimlabs/ossimtools-app/
 #popd
 
-pushd $SWIPE_APP_HOME
-install -d %{buildroot}/opt/ossimlabs/swipe-app
-install -p -m644 build/libs/swipe*.jar %{buildroot}/opt/ossimlabs/swipe-app/
-popd
+#pushd $SWIPE_APP_HOME
+#install -d %{buildroot}/opt/ossimlabs/swipe-app
+#install -p -m644 build/libs/swipe*.jar %{buildroot}/opt/ossimlabs/swipe-app/
+#popd
 
 pushd $WMTS_APP_HOME
 install -d %{buildroot}/opt/ossimlabs/wmts-app
@@ -221,8 +221,8 @@ popd
 #%files ossimtools-app
 #/opt/ossimlabs/ossimtools-app
 
-%files swipe-app
-/opt/ossimlabs/swipe-app
+#%files swipe-app
+#/opt/ossimlabs/swipe-app
 
 %files wmts-app
 /opt/ossimlabs/wmts-app

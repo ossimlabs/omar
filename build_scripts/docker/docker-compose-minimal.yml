@@ -138,9 +138,9 @@ services:
       PREDIOENABLED: "false"
       TWOFISHURL: localhost/twofishes
       TWOFISHPORT:
-      SWIPEURL: localhost/o2-swipe/swipe/index
-      SWIPEPORT:
-      SWIPEENABLED: "true"
+      #SWIPEURL: localhost/o2-swipe/swipe/index
+      #SWIPEPORT:
+      #SWIPEENABLED: "true"
       JPIPURL:
       JPIPPORT:
       JPIPENABLED: "true"

@@ -772,10 +772,10 @@
                          uib-tooltip="View raw image"></i>&nbsp;&nbsp;
                       </a>
                       <a href="" ng-click = "list.viewOrtho(image)" target="_blank">
-                        <i class="fa fa-map-marker fa-border text-primary"
+                        <i class="fa fa-history fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
-                         uib-tooltip="View rectified image"></i>&nbsp;&nbsp;
+                         uib-tooltip="View rectified image in TLV"></i>&nbsp;&nbsp;
                       </a>
                       <a ng-show="{{list.kmlSuperOverlayAppEnabled}}" href="{{list.kmlSuperOverlayLink}}/superOverlay/createKml/{{image.properties.id}}">
                         <i class="fa fa-map fa-border text-primary"
