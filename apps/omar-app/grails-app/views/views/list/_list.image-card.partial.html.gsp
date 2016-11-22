@@ -20,7 +20,7 @@
            tooltip-placement="top"
            uib-tooltip="Download KML"></i>&nbsp;&nbsp;
         </a>
-        <a ng-href="" target="_blank" ng-click="vm.shareModal(vm.o2baseUrlModal + '/#/mapOrtho?layers=' + vm.selectedImage.properties.id)">
+        <a ng-href="" target="_blank" ng-click="vm.shareModal(vm.getImageSpaceUrl(vm.selectedImage))">
           <i class="fa fa-share-alt fa-border text-primary"
            style="cursor: pointer;"
            tooltip-placement="top"
