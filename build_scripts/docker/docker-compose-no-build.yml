@@ -23,10 +23,10 @@ services:
   o2-disk-cleanup:
     container_name: o2-disk-cleanup
     environment:
-      O2_DISK_VOLUME: "/data"
+      O2_DISK_VOLUME: /data
       O2_MAX_DISK_LIMIT: 0.9
       O2_MIN_DISK_LIMIT: 0.8
-      JDBC_CONNECTION_STRING: "jdbc:postgresql://o2-db:5432/omar_prod"
+      JDBC_CONNECTION_STRING: jdbc:postgresql://o2-db:5432/omar_prod
       POSTGRES_PASSWORD: abc123
       POSTGRES_USER: postgres_user
       STAGER_URL: ${DOCKER_HOST_URL}/o2-stager
