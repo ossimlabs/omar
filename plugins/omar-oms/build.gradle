@@ -13,6 +13,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.github.ben-manes.versions' version '0.13.0'
+}
+
 version "0.1"
 group "omar.oms"
 
