@@ -30,9 +30,13 @@ class GeoscriptService implements InitializingBean
           options['start'] = wfsParams[wfsParamName]
           break
         case 'propertyName':
-          options['fields'] = wfsParams[wfsParamName]?.split( ',' )?.collect {
+          def fields =  wfsParams[wfsParamName]?.split( ',' )?.collect {
             it.split( ':' )?.last()
           } as List<String>
+          if ( fields && ! fields?.isEmpty() && fields?.every { it } ) {
+            // println "FIELDS: ${fields.size()}"
+            options['fields'] = fields
+          }
           break
         case 'sortBy':
           if ( wfsParams[wfsParamName]?.trim() )
