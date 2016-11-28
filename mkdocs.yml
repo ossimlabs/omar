@@ -2,31 +2,35 @@ site_name: OMAR Web Services
 repo_url: https://github.com/ossimlabs/omar
 repo_name: OMAR
 pages:
-- Home: 'index.md'
+- Home: index.md
 - Install Guide:
-  - 'Common Install': 'install-guide/common.md'
-  - 'OMAR/O2 UI' : 'install-guide/omar-app.md'
-  - 'Stager Service': 'install-guide/stager-app.md'
-  - 'WMS Service': 'install-guide/wms-app.md'
-  - 'WFS Service': 'install-guide/wfs-app.md'
-  - 'WCS Service': 'install-guide/wcs-app.md'
-  - 'WMTS Service': 'install-guide/wmts-app.md'
-  #- 'Swipe Service': 'install-guide/swipe-app.md'
-  - 'Super Overlay Service': 'install-guide/superoverlay-app.md'
-  - 'JPIP Service': 'install-guide/jpip-app.md'
-  - 'JPIP Streaming Service': 'install-guide/jpip-server.md'
-  - 'Twofishes Service': 'install-guide/twofishes.md'
-  - 'Download Service': 'install-guide/download-app.md'
-  - 'SQS Service': 'install-guide/sqs-app.md'
-  - 'Avro Service': 'install-guide/avro-app.md'
-  - 'Mensa Service': 'install-guide/mensa-app.md'
+  - Common Install: install-guide/common.md
+  - OMAR/O2 UI : install-guide/omar-app.md
+  - Stager Service: install-guide/stager-app.md
+  - WMS Service: install-guide/wms-app.md
+  - WFS Service: install-guide/wfs-app.md
+  - WCS Service: install-guide/wcs-app.md
+  - WMTS Service: install-guide/wmts-app.md
+  #- Swipe Service: install-guide/swipe-app.md
+  - Super Overlay Service: install-guide/superoverlay-app.md
+  - JPIP Service: install-guide/jpip-app.md
+  - JPIP Streaming Service: install-guide/jpip-server.md
+  - Twofishes Service: install-guide/twofishes.md
+  - Download Service: install-guide/download-app.md
+  - SQS Service: install-guide/sqs-app.md
+  - Avro Service: install-guide/avro-app.md
+  - Mensa Service: install-guide/mensa-app.md
 - Docker:
-  - 'Docker Common Instructions': 'docker-install/docker-common.md'
-  - 'SQS Service (Docker)': 'docker-install/docker-sqs-app.md'
-  - 'AVRO Service (Docker)': 'docker-install/docker-avro-app.md'
-  - 'Stager Service (Docker)': 'docker-install/docker-stager-app.md'
-  - 'SQS Service (Docker)': 'docker-install/docker-sqs-app.md'
-  - 'WMS Service (Docker)': 'docker-install/docker-wms-app.md'
-  - 'WFS Service (Docker)': 'docker-install/docker-wfs-app.md'
-  - 'WMTS Service (Docker)': 'docker-install/docker-wmts-app.md'
-  - 'AVRO Service (Docker)': 'docker-install/docker-avro-app.md'
+  - Docker Common Instructions: docker-install/docker-common.md
+  - SQS Service (Docker): docker-install/docker-sqs-app.md
+  - AVRO Service (Docker): docker-install/docker-avro-app.md
+  - Stager Service (Docker): docker-install/docker-stager-app.md
+  - SQS Service (Docker): docker-install/docker-sqs-app.md
+  - WMS Service (Docker): docker-install/docker-wms-app.md
+  - WFS Service (Docker): docker-install/docker-wfs-app.md
+  - WMTS Service (Docker): docker-install/docker-wmts-app.md
+  - AVRO Service (Docker): docker-install/docker-avro-app.md
+- User Guide:
+  - Image Space: user-guide/image-space.md
+  - Search: user-guide/search.md
+  - TLV: user-guide/tlv.md
