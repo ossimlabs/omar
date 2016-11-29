@@ -76,8 +76,6 @@ TLV will attempt to use your device’s internal sensors to orient the imagery i
 The default order of the image stack is chronological. But, if you prefer the other way, here’s where to do it.
 
 ## View
-* **View:**
-The following section describes all the functionality that is available as it relates to the view menu.
 * **Dimensions:**
 If your browser supports it, TLV will give you a 3D view of your images!
 * **Swipe:**
