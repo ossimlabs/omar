@@ -9,13 +9,18 @@ popd >/dev/null
 
 . $SCRIPT_DIR/env.sh
 
-for app in ${O2_APPS[@]} ; do 
+for app in ${O2_APPS[@]} ; do
    echo "BUILDING: $app ..."
    pushd $OMAR_DEV_HOME/apps/$app
-   ./gradlew assemble
+   if [ $app = "disk-cleanup" ]
+   then
+      gradle jar
+   else
+      ./gradlew assemble
+   fi
    if [ $? -ne 0 ];then
        echo "BUILD ERROR: $x failed to build..."
        exit 1
-   fi 
-   popd  
+   fi
+   popd
 done

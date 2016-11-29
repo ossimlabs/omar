@@ -450,6 +450,8 @@ class WebFeatureService
 
   def getFeature(GetFeatureRequest wfsParams)
   {
+    // println wfsParams
+
     HashMap result = [status: HttpStatus.OK, buffer: "", contentType: "text/xml", buffer: ""]
 
     switch ( wfsParams?.outputFormat?.toUpperCase() )
@@ -534,6 +536,8 @@ class WebFeatureService
         break
     }
 
+    // println result
+
     result
   }
 
@@ -542,11 +546,10 @@ class WebFeatureService
     def layerInfo = geoscriptService.findLayerInfo( wfsParams )
     def results
 
-
     def options = geoscriptService.parseOptions( wfsParams )
 
     //println options
-    println layerInfo.workspaceInfo.workspaceParams
+    // println layerInfo.workspaceInfo.workspaceParams
     Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { workspace ->
       def layer = workspace[layerInfo.name]
       def count = layer.count( wfsParams.filter ?: Filter.PASS )//wfsParams.filter )
@@ -648,16 +651,16 @@ class WebFeatureService
     def layerInfo = geoscriptService.findLayerInfo( wfsParams )
     def xml
 
-//    println wfsParams
-
+  //  println wfsParams
 
     def options = geoscriptService.parseOptions( wfsParams )
 
-//    println options
+  //  println options
 
     //println layerInfo?.workspaceInfo?.workspaceParams
 
     Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) ) { workspace ->
+
       def layer = workspace[layerInfo.name]
       def matched = layer?.count( wfsParams.filter ?: Filter.PASS )
       def count = ( wfsParams.maxFeatures ) ? Math.min( matched, wfsParams.maxFeatures ) : matched
@@ -672,7 +675,14 @@ class WebFeatureService
               grailsLinkGenerator.link( absolute: true, uri: '/schemas/wfs/1.1.0/wfs.xsd' )
       ]
 
+      // println schemaLocations
+
 //      def features = layer.getFeatures( options )
+
+      // println "*" * 50
+      // println  layer.getFeatures( options )
+      // println "*" * 50
+
       def features = layer.collectFromFeature( options ) { feature ->
         switch ( wfsParams?.outputFormat?.toUpperCase() )
         {
@@ -687,6 +697,8 @@ class WebFeatureService
             return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
         }
       }
+
+      // println features
 
       def x = {
         mkp.xmlDeclaration()

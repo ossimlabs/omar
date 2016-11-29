@@ -7,457 +7,338 @@
 
 version: '2'
 services:
-  o2-web-proxy:
-    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy:${TAG}
-    container_name: o2-web-proxy
+  o2-avro:
+    container_name: o2-avro
     environment:
+      ADDRASTERENDPOINTPORT: :8080
+      ADDRASTERENDPOINTURL: o2-stager
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      OSSIM_DATA: /data
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    image: ${DOCKER_REGISTRY_URI}/o2-avro:${TAG}
     ports:
-      - "80:80"
+      - "5001:8080"
+    restart: always
     volumes:
       - /data:/data
+  o2-basemap:
+      container_name: o2-basemap
+      # Location of the .mbtiles file for the base map
+      # /basemap on the host to /data in the o2-basemap container
+      image: ${DOCKER_REGISTRY_URI}/o2-basemap
+      ports:
+        - "5016:80"
+      restart: always
+      volumes:
+        - /basemap:/data
+  o2-db:
+    container_name: o2-db
+    environment:
+      POSTGRES_DB: omar_prod
+      POSTGRES_PASSWORD: abc123
+      POSTGRES_USER: postgres_user
+    image: ${DOCKER_REGISTRY_URI}/o2-db
+    ports:
+      - "4990:5432"
     restart: always
-  # o2-base:
-  #   container_name: o2-base
-  #   image: ${DOCKER_REGISTRY_URI}/o2-base
   o2-disk-cleanup:
     container_name: o2-disk-cleanup
     environment:
-      O2_DISK_VOLUME: "/data"
+      O2_DISK_VOLUME: /data
       O2_MAX_DISK_LIMIT: 0.9
       O2_MIN_DISK_LIMIT: 0.8
-      JDBC_CONNECTION_STRING: "jdbc:postgres://o2-db:5432/omar_prod"
-      STAGERURL: ${DOCKER_HOST_URL}/o2-stager
+      JDBC_CONNECTION_STRING: jdbc:postgresql://o2-db:5432/omar_prod
+      POSTGRES_PASSWORD: abc123
+      POSTGRES_USER: postgres_user
+      STAGER_URL: ${DOCKER_HOST_URL}/o2-stager
     image: ${DOCKER_REGISTRY_URI}/o2-disk-cleanup
     ports:
       - "4991:8080"
     volumes:
       - /data:/data
     restart: always
-  o2-db:
-    image: ${DOCKER_REGISTRY_URI}/o2-db
-    container_name: o2-db
-    environment:
-      POSTGRES_USER: postgres_user
-      POSTGRES_PASSWORD: abc123
-      POSTGRES_DB: omar_prod
-    ports:
-      - "4990:5432"
-    restart: always
-  o2-stager:
-    image: ${DOCKER_REGISTRY_URI}/o2-stager:${TAG}
-    container_name: o2-stager
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      OSSIM_DATA: /data
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    volumes:
-      - /data:/data
-    ports:
-      - "5002:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-web-proxy
-    restart: always
-    # depends_on:
-    #   - o2-db
-  o2-wms:
-    image: ${DOCKER_REGISTRY_URI}/o2-wms:${TAG}
-    container_name: o2-wms
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      OSSIM_DATA: /data
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    volumes:
-      - /data:/data
-    ports:
-      - "4997:8080"
-    # depends_on:
-    #   - o2-db
-    #   - o2-stager
-    #   - o2-web-proxy
-    restart: always
-    # depends_on:
-    #   - o2-db
-  o2-wfs:
-    image: ${DOCKER_REGISTRY_URI}/o2-wfs:${TAG}
-    container_name: o2-wfs
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      OSSIM_DATA: /data
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    ports:
-      - "4998:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-stager
-    #   - o2-wms
-    #   - o2-web-proxy
-    restart: always
-    # depends_on:
-    #   - o2-db
-  o2-wcs:
-    image: ${DOCKER_REGISTRY_URI}/o2-wcs:${TAG}
-    container_name: o2-wcs
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      OSSIM_DATA: /data
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    volumes:
-      - /data:/data
-    ports:
-      - "5013:8080"
-    depends_on:
-      #- o2-base
-      - o2-db
-      - o2-stager
-      #- o2-wms
-      #- o2-wfs
-      - o2-web-proxy
-  o2-omar:
-    image: ${DOCKER_REGISTRY_URI}/o2-omar:${TAG}
-    container_name: o2-omar
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
-      WFSPORT:
-      WMSURL: ${DOCKER_HOST_URL}/o2-wms
-      WMSPORT:
-      MENSAURL: ${DOCKER_HOST_URL}/o2-mensa
-      MENSAPORT:
-      STAGERURL: ${DOCKER_HOST_URL}/o2-stager
-      STAGERPORT:
-      DOWNLOADURL: ${DOCKER_HOST_URL}/o2-download
-      DOWNLOADPORT:
-      KMLURL: ${DOCKER_HOST_URL}/o2-superoverlay
-      KMLPORT:
-      PREDIOURL: ${DOCKER_HOST_URL}/o2-predio
-      PREDIOPORT:
-      PREDIOENABLED: "false"
-      TWOFISHURL: ${DOCKER_HOST_URL}/twofishes
-      TWOFISHPORT:
-      TLVAPPURL: ${DOCKER_HOST_URL}
-      TLVPORT:
-      TLVAPPENABLED: "true"
-      #SWIPEURL: ${DOCKER_HOST_URL}/o2-swipe/swipe/index
-      #SWIPEPORT:
-      #SWIPEENABLED: "true"
-      JPIPURL: ${DOCKER_HOST_URL}/o2-jpip
-      JPIPPORT:
-      JPIPENABLED: "true"
-      WMTSURL: ${DOCKER_HOST_URL}/o2-wmts
-      WMTSPORT:
-      WMTSENABLED: "true"
-      PWIKURL:
-      PWIKPORT:
-      PWIKENABLED: "false"
-      APIURL:
-      APIPORT:
-      APIENABLED: "false"
-      BANNERCOLOR: green
-      BANNERCLASSIFICATION: Unclassified
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-      TLVENABLED: "true"
-      TLVURL: ${DOCKER_HOST_URL}/tlv
-    ports:
-      - "5010:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-wms
-    #   - o2-wfs
-    #   - o2-stager
-    #   - o2-web-proxy
-    restart: always
-    # depends_on:
-    #   - o2-wfs
-    #   - o2-wms
-    #   - o2-wmts
-    #   - o2-swipe
-  o2-wmts:
-    image: ${DOCKER_REGISTRY_URI}/o2-wmts:${TAG}
-    container_name: o2-wmts
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      WFSSERVER: ${DOCKER_HOST_URL}/o2-wfs
-      WFSPORT:
-      WMSSERVER: ${DOCKER_HOST_URL}/o2-wms
-      WMSPORT:
-      OSSIM_DATA: /data
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    ports:
-      - "4999:8080"
-    # depends_on:
-      # - o2-base
-      # - o2-db
-      # - o2-web-proxy
-    restart: always
-    # depends_on:
-    #   - o2-wfs
-    #   - o2-wms
-
-  o2-sqs:
-    image: ${DOCKER_REGISTRY_URI}/o2-sqs:${TAG}
-    container_name: o2-sqs
-    environment:
-      AWSDNS: ${AWSDNS}
-      AWSQUEUEPATH: ${AWSQUEUEPATH}
-      WAIT_TIME_SECONDS: 20
-      NUMBER_OF_MESSAGES: 1
-      POLgG_INTERVAL_SECONDS: 10
-      DESTINATION_TYPE: post
-      DESTINATION_POST_END_POINT: o2-avro
-      DESTINATION_POST_END_POINT_PORT: :8080
-      DESTINATION_POST_FIELD: message
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    volumes:
-      # Modify the path below to reflect your
-      # AWS credentials location.
-      - ${AWS_CREDENTIALS_PATH}
-    ports:
-      - "5000:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-stager
-    #   - o2-avro
-    #   - o2-web-proxy
-    restart: always
-    # depends_on:
-    #   - o2-avro
-  o2-avro:
-    image: ${DOCKER_REGISTRY_URI}/o2-avro:${TAG}
-    container_name: o2-avro
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      OSSIM_DATA: /data
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      ADDRASTERENDPOINTURL: o2-stager
-      ADDRASTERENDPOINTPORT: :8080
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    volumes:
-      # Mount the the host local data directory to the container
-      - /data:/data
-    ports:
-      - "5001:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-stager
-    #   - o2-web-proxy
-    restart: always
-    # depends_on:
-    #   - o2-db
-    #   - o2-stager
-  o2-jpip:
-    image: ${DOCKER_REGISTRY_URI}/o2-jpip:${TAG}
-    container_name: o2-jpip
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      OSSIM_DATA: /data
-      JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: ${DOCKER_HOST_URL}
-      JPIPSERVERPORT: 5004
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    volumes:
-      # Mount the the host local data directory to the container
-      - /data:/data
-    ports:
-      - "5003:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
-    restart: always
-  o2-jpip-server:
-    image: ${DOCKER_REGISTRY_URI}/o2-jpip-server:${TAG}
-    container_name: o2-jpip-server
-    environment:
-      JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: localhost
-      JPIPSERVERPORT: 8080
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    volumes:
-      # Mount the the host local data directory to the container
-      - /data:/data
-    ports:
-      - "5004:8080"
-    restart: always
-  o2-superoverlay:
-    image: ${DOCKER_REGISTRY_URI}/o2-superoverlay:${TAG}
-    container_name: o2-superoverlay
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      O2URL: ${DOCKER_HOST_URL}/o2-omar
-      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
-      WMSURL: ${DOCKER_HOST_URL}/o2-wms
-      OSSIM_DATA: /data
-      WMSPORT:
-      SPRING_CLOUD_CONFIG_ENABLED: "false"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    ports:
-      - "5009:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
-    restart: always
-    # depends_on:
-    #   - o2-db
   o2-download:
-    image: ${DOCKER_REGISTRY_URI}/o2-download:${TAG}
     container_name: o2-download
     environment:
       DBHOST: o2-db
-      DBPORT: 5432
       DBNAME: omar_prod
-      DBUSER: postgres_user
       DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       OSSIM_DATA: /data
       SPRING_CLOUD_CONFIG_ENABLED: "false"
       SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    volumes:
-      # Mount the the host local data directory to the container
-      - /data:/data
+    image: ${DOCKER_REGISTRY_URI}/o2-download:${TAG}
     ports:
       - "5011:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
     restart: always
-    # depends_on:
-    #   - o2-db
-  #o2-swipe:
-    #image: ${DOCKER_REGISTRY_URI}/o2-swipe:${TAG}
-    #container_name: o2-swipe
-    #environment:
-      #DBHOST: o2-db
-      #DBPORT: 5432
-      #DBNAME: omar_prod
-      #DBUSER: postgres_user
-      #DBPASS: abc123
-      #DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-      #WFSURL: ${DOCKER_HOST_URL}/o2-wfs
-      #WFSPORT:
-      #WMSURL: ${DOCKER_HOST_URL}/o2-wms
-      #WMSPORT:
-      #OSSIM_DATA: /data
-      #SPRING_CLOUD_CONFIG_ENABLED: "false"
-      #SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    #ports:
-      #- "5012:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-stager
-    #   - o2-web-proxy
-    #restart: always
-    # depends_on:
-    #   - o2-db
-    #   - o2-wfs
-    #   - o2-wms
+    volumes:
+      - /data:/data
+  o2-jpip:
+    container_name: o2-jpip
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      JPIPCACHEDIR: /data/jpip-cache
+      JPIPSERVERPORT: 5004
+      JPIPSERVERURL: ${DOCKER_HOST_URL}
+      OSSIM_DATA: /data
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    image: ${DOCKER_REGISTRY_URI}/o2-jpip:${TAG}
+    ports:
+      - "5003:8080"
+    restart: always
+    volumes:
+      - /data:/data
+  o2-jpip-server:
+    container_name: o2-jpip-server
+    environment:
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      JPIPCACHEDIR: /data/jpip-cache
+      JPIPSERVERPORT: 8080
+      JPIPSERVERURL: localhost
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    image: ${DOCKER_REGISTRY_URI}/o2-jpip-server:${TAG}
+    ports:
+      - "5004:8080"
+    restart: always
+    volumes:
+      - /data:/data
   o2-mensa:
-    image: ${DOCKER_REGISTRY_URI}/o2-mensa:${TAG}
     container_name: o2-mensa
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       OSSIM_DATA: /data
       SPRING_CLOUD_CONFIG_ENABLED: "false"
       SPRING_CLOUD_DISCOVERY_ENABLED: "false"
-    volumes:
-      - /data:/data
+    image: ${DOCKER_REGISTRY_URI}/o2-mensa:${TAG}
     ports:
       - "5014:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
+    volumes:
+      - /data:/data
   o2-twofishes:
-    image: ${DOCKER_REGISTRY_URI}/twofishes
     container_name: twofishes
+    image: ${DOCKER_REGISTRY_URI}/twofishes
     ports:
       - "5006:8081"
     restart: always
-  o2-tlv:
-    image: ${DOCKER_REGISTRY_URI}/tlv:${TAG}
-    container_name: tlv
+  o2-omar:
+    container_name: o2-omar
+    environment:
+      APIENABLED: "false"
+      APIPORT:
+      APIURL:
+      BANNERCOLOR: green
+      BANNERCLASSIFICATION: Unclassified
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      DOWNLOADPORT:
+      DOWNLOADURL: ${DOCKER_HOST_URL}/o2-download
+      JPIPENABLED: "true"
+      JPIPPORT:
+      JPIPURL: ${DOCKER_HOST_URL}/o2-jpip
+      KMLPORT:
+      KMLURL: ${DOCKER_HOST_URL}/o2-superoverlay
+      MENSAPORT:
+      MENSAURL: ${DOCKER_HOST_URL}/o2-mensa
+      PREDIOENABLED: "false"
+      PREDIOPORT:
+      PREDIOURL: ${DOCKER_HOST_URL}/o2-predio
+      PWIKENABLED: "false"
+      PWIKPORT:
+      PWIKURL:
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+      STAGERPORT:
+      STAGERURL: ${DOCKER_HOST_URL}/o2-stager
+      TLVAPPENABLED: "true"
+      TLVENABLED: "true"
+      TLVPORT:
+      TLVAPPURL: ${DOCKER_HOST_URL}
+      TLVURL: ${DOCKER_HOST_URL}/tlv
+      TWOFISHPORT:
+      TWOFISHURL: ${DOCKER_HOST_URL}/twofishes
+      WFSPORT:
+      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
+      WMSPORT:
+      WMSURL: ${DOCKER_HOST_URL}/o2-wms
+      WMTSENABLED: "true"
+      WMTSPORT:
+      WMTSURL: ${DOCKER_HOST_URL}/o2-wmts
+    image: ${DOCKER_REGISTRY_URI}/o2-omar:${TAG}
+    ports:
+      - "5010:8080"
+    restart: always
+  o2-sqs:
+    container_name: o2-sqs
+    environment:
+      AWSDNS: ${AWSDNS}
+      AWSQUEUEPATH: ${AWSQUEUEPATH}
+      DESTINATION_POST_END_POINT: o2-avro
+      DESTINATION_POST_END_POINT_PORT: :8080
+      DESTINATION_POST_FIELD: message
+      DESTINATION_TYPE: post
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      NUMBER_OF_MESSAGES: 1
+      POLgG_INTERVAL_SECONDS: 10
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+      WAIT_TIME_SECONDS: 20
+    image: ${DOCKER_REGISTRY_URI}/o2-sqs:${TAG}
+    ports:
+      - "5000:8080"
+    restart: always
+    volumes:
+      # Modify the path below to reflect your
+      # AWS credentials location.
+      - ${AWS_CREDENTIALS_PATH}
+  o2-stager:
+    container_name: o2-stager
     environment:
       DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: tlv_prod
-      DBUSER: postgres_user
+      DBNAME: omar_prod
       DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      OSSIM_DATA: /data
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    image: ${DOCKER_REGISTRY_URI}/o2-stager:${TAG}
+    ports:
+      - "5002:8080"
+    restart: always
+    volumes:
+      - /data:/data
+  o2-superoverlay:
+    container_name: o2-superoverlay
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      O2URL: ${DOCKER_HOST_URL}/o2-omar
+      OSSIM_DATA: /data
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
+      WMSPORT:
+      WMSURL: ${DOCKER_HOST_URL}/o2-wms
+    image: ${DOCKER_REGISTRY_URI}/o2-superoverlay:${TAG}
+    ports:
+      - "5009:8080"
+    restart: always
+  o2-tlv:
+    container_name: tlv
+    environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
+    image: ${DOCKER_REGISTRY_URI}/tlv:${TAG}
     ports:
       - "5015:8080"
     restart: always
-    # depends_on:
-    #   - o2-wfs
-    #   - o2-wms
-  o2-basemap:
-      image: ${DOCKER_REGISTRY_URI}/o2-basemap
-      container_name: o2-basemap
-      # Location of the .mbtiles file for the base map
-      # /basemap on the host to /data in the o2-basemap container
-      volumes:
-        - /basemap:/data
-      ports:
-        - "5016:80"
-      restart: always
+  o2-wcs:
+    container_name: o2-wcs
+    depends_on:
+      - o2-db
+      - o2-stager
+      - o2-web-proxy
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      OSSIM_DATA: /data
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    image: ${DOCKER_REGISTRY_URI}/o2-wcs:${TAG}
+    ports:
+      - "5013:8080"
+    volumes:
+      - /data:/data
+  o2-web-proxy:
+    container_name: o2-web-proxy
+    environment:
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy:${TAG}
+    ports:
+      - "80:80"
+    restart: always
+    volumes:
+      - /data:/data
+  o2-wfs:
+    container_name: o2-wfs
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      OSSIM_DATA: /data
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    image: ${DOCKER_REGISTRY_URI}/o2-wfs:${TAG}
+    ports:
+      - "4998:8080"
+    restart: always
+  o2-wms:
+    container_name: o2-wms
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      OSSIM_DATA: /data
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+    image: ${DOCKER_REGISTRY_URI}/o2-wms:${TAG}
+    ports:
+      - "4997:8080"
+    restart: always
+    volumes:
+      - /data:/data
+  o2-wmts:
+    container_name: o2-wmts
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      OSSIM_DATA: /data
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+      SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+      WFSPORT:
+      WFSSERVER: ${DOCKER_HOST_URL}/o2-wfs
+      WMSPORT:
+      WMSSERVER: ${DOCKER_HOST_URL}/o2-wms
+    image: ${DOCKER_REGISTRY_URI}/o2-wmts:${TAG}
+    ports:
+      - "4999:8080"
+    restart: always

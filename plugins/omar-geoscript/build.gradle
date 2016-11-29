@@ -13,6 +13,10 @@ buildscript {
   }
 }
 
+plugins {
+    id 'com.github.ben-manes.versions' version '0.13.0'
+}
+
 version "0.1"
 group "omar.geoscript"
 
@@ -79,8 +83,8 @@ dependencies {
   runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
   testCompile "org.grails:grails-plugin-testing"
   testCompile "org.grails.plugins:geb"
-  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
-  testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
+  testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
 }
 grailsPublish {
   // TODO: Provide values here

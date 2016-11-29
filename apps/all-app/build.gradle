@@ -10,7 +10,7 @@ buildscript {
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
     classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
-    classpath "org.grails.plugins:hibernate5:5.0.10"
+    classpath "org.grails.plugins:hibernate5:5.0.12"
     classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
 
   }
@@ -97,12 +97,12 @@ dependencies {
   console "org.grails:grails-console"
   profile "org.grails.profiles:web"
   runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
-  runtime "com.h2database:h2"
+  runtime "com.h2database:h2:1.4.193"
   testCompile "org.grails:grails-plugin-testing"
   testCompile "org.grails.plugins:geb"
-  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
-  testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
-  compile "org.grails.plugins:grails3-cors-interceptor:1.1.0"
+  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
+  testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
+  compile "org.grails.plugins:grails3-cors-interceptor:1.2.1"
 
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"

@@ -14,6 +14,10 @@ buildscript {
   }
 }
 
+plugins {
+    id 'com.github.ben-manes.versions' version '0.13.0'
+}
+
 version "1.0.0"
 group "ossimtools.app"
 
@@ -80,7 +84,7 @@ dependencies {
   runtime "com.h2database:h2"
   testCompile "org.grails:grails-plugin-testing"
   testCompile "org.grails.plugins:geb"
-  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
-  testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
+  testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
 }
 

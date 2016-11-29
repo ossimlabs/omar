@@ -9,10 +9,10 @@
            uib-tooltip="View raw image"></i>&nbsp;&nbsp;
         </a>
         <a href="" ng-click="vm.viewOrtho(vm.selectedImage)" target="_blank">
-          <i class="fa fa-map-marker fa-border text-primary"
+          <i class="fa fa-history fa-border text-primary"
            style="cursor: pointer;"
            tooltip-placement="top"
-           uib-tooltip="View rectified image"></i>&nbsp;&nbsp;
+           uib-tooltip="View rectified image in TLV"></i>&nbsp;&nbsp;
         </a>
         <a ng-show="{{vm.kmlSuperOverlayAppEnabled}}" href="{{vm.kmlSuperOverlayLink}}/superOverlay/createKml/{{vm.selectedImage.properties.id}}">
           <i class="fa fa-map fa-border text-primary"
@@ -20,7 +20,7 @@
            tooltip-placement="top"
            uib-tooltip="Download KML"></i>&nbsp;&nbsp;
         </a>
-        <a ng-href="" target="_blank" ng-click="vm.shareModal(vm.o2baseUrlModal + '/#/mapOrtho?layers=' + vm.selectedImage.properties.id)">
+        <a ng-href="" target="_blank" ng-click="vm.shareModal(vm.getImageSpaceUrl(vm.selectedImage))">
           <i class="fa fa-share-alt fa-border text-primary"
            style="cursor: pointer;"
            tooltip-placement="top"
