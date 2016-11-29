@@ -21,6 +21,9 @@ RUN yum install -y cronie && \
     echo "*/10 * * * * . $HOME/.profile; java -jar /usr/share/omar/disk-cleanup/disk-cleanup.jar >> /dev/null 2>&1" > crontab.txt && \
     crontab crontab.txt
 
+RUN rm -f /usr/share/omar/disk-cleanup/disk-cleanup.jar && \
+    ln -s $O2_DEV_HOME/apps/disk-cleanup/build/libs/disk-cleanup.jar /usr/share/omar/disk-cleanup/disk-cleanup.jar
+
 CMD echo "export JAVA_HOME=/usr" >> $HOME/.profile && \
     echo "export JDBC_CONNECTION_STRING=${JDBC_CONNECTION_STRING}" >> $HOME/.profile && \
     echo "export O2_DISK_VOLUME=${O2_DISK_VOLUME}" >> $HOME/.profile && \
