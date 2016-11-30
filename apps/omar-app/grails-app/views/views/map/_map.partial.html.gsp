@@ -205,157 +205,162 @@
                     </li>
                   </ul>
                 </li>
-                <li class="col-sm-6">
-                  <ul>
-                    <li class="filter-row text-center">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.beNumberCheck">
-                        </span>
-                        <span class="input-group-addon name">BE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.beNumber"
-                         ng-click="filter.beNumberCheck = true;" class="form-control"
-                         ng-blur="filter.beNumberCheck = filter.beNumber === '' ? false: true;"
-                         id="beNumberInput"
-                         placeholder="Basic Encyclopedia Number"
-                         value="filter.beNumber">
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.countryCodeCheck">
-                        </span>
-                        <span class="input-group-addon name">CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <ui-select
-                          id = "countryCodeInput"
-                          ng-blur = "filter.countryCodeCheck = filter.countryCode === '' ? false : true"
-                          ng-click = "filter.countryCodeCheck = true; filter.getDistinctValues('countryCode');"
-                          ng-model = "filter.countryCode"
-                          theme = "selectize">
-                          <ui-select-match placeholder = "Country Code">
-                            {{$select.selected}}
-                          </ui-select-match>
-                          <ui-select-choices repeat = "val in countryCodeTypes | filter: $select.search">
-                            {{val}}
-                          </ui-select-choices>
-                        </ui-select>
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.filenameCheck">
-                        </span>
-                        <span class="input-group-addon name">File&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.filename"
-                         ng-click="filter.filenameCheck = true;"
-                         ng-blur="filter.filenameCheck = filter.filename === '' ? false: true;"
-                         class="form-control"
-                         id="filenameInput"
-                         placeholder="File name"
-                         value="filter.filename">
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.imageIdCheck">
-                        </span>
-                        <span class="input-group-addon name">Image&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.imageId"
-                         ng-click="filter.imageIdCheck = true;"
-                         ng-blur="filter.imageIdCheck = filter.imageId === '' ? false: true;"
-                         class="form-control"
-                         id="imageIdInput"
-                         placeholder="Image ID"
-                         value="filter.imageId">
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6">
-                  <ul>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.missionIdCheck">
-                        </span>
-                        <span class="input-group-addon name">Mission</span>
-                        <ui-select
-                          id = "missionIdInput"
-                          ng-blur = "filter.missionIdCheck = filter.missionId === '' ? false : true"
-                          ng-click = "filter.missionIdCheck = true; filter.getDistinctValues('missionId');"
-                          ng-model = "filter.missionId"
-                          theme = "selectize">
-                          <ui-select-match placeholder = "Mission ID">
-                            {{$select.selected}}
-                          </ui-select-match>
-                          <ui-select-choices repeat = "val in missionIdTypes | filter: $select.search">
-                            {{val}}
-                          </ui-select-choices>
-                        </ui-select>
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.sensorIdCheck">
-                        </span>
-                        <span class="input-group-addon name">Sensor&nbsp;</span>
-                        <ui-select
-                          id = "sensorIdInput"
-                          ng-blur = "filter.sensorIdCheck = filter.sensorId === '' ? false : true"
-                          ng-click = "filter.sensorIdCheck = true; filter.getDistinctValues('sensorId');"
-                          ng-model = "filter.sensorId"
-                          theme = "selectize">
-                          <ui-select-match placeholder = "Sensor ID">
-                            {{$select.selected}}
-                          </ui-select-match>
-                          <ui-select-choices repeat = "val in sensorIdTypes | filter: $select.search">
-                            {{val}}
-                          </ui-select-choices>
-                        </ui-select>
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.targetIdCheck">
-                        </span>
-                        <span class="input-group-addon name">Target&nbsp;</span>
-                        <ui-select
-                          class="form-control"
-                          id = "targetIdInput"
-                          ng-blur = "filter.targetIdCheck = filter.targetId === '' ? false : true"
-                          ng-click = "filter.targetIdCheck = true; filter.getDistinctValues('targetId');"
-                          ng-model = "filter.targetId"
-                          theme = "selectize">
-                          <ui-select-match placeholder = "Target ID">
-                            {{$select.selected}}
-                          </ui-select-match>
-                          <ui-select-choices repeat = "val in targetIdTypes | filter: $select.search">
-                            {{val}}
-                          </ui-select-choices>
-                        </ui-select>
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.wacNumberCheck">
-                        </span>
-                        <span class="input-group-addon name">WAC&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.wacNumber"
-                         ng-click="filter.wacNumberCheck = true;"
-                         ng-blur="filter.wacNumberCheck = filter.wacNumber === '' ? false: true;"
-                         class="form-control"
-                         id="wacNumberInput"
-                         placeholder="World Area Code"
-                         value="filter.wacNumber">
-                      </div>
-                    </li>
-                  </ul>
+                <li class="col-sm-12">
+                  <table style="border-spacing: 0 5" width = "100%">
+                    <tr>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.beNumberCheck">
+                          </span>
+                          <span class="input-group-addon name">BE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          <input ng-model="filter.beNumber"
+                           ng-click="filter.beNumberCheck = true;" class="form-control"
+                           ng-blur="filter.beNumberCheck = filter.beNumber === '' ? false: true;"
+                           id="beNumberInput"
+                           placeholder="Basic Encyclopedia Number"
+                           value="filter.beNumber">
+                        </div>
+                      </td>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.missionIdCheck">
+                          </span>
+                          <span class="input-group-addon name">Mission</span>
+                          <ui-select
+                           id = "missionIdInput"
+                           ng-blur = "filter.missionIdCheck = filter.missionId === '' ? false : true"
+                           ng-click = "filter.missionIdCheck = true; filter.getDistinctValues('missionId');"
+                           ng-model = "filter.missionId"
+                           theme = "selectize">
+                            <ui-select-match placeholder = "Mission ID">
+                              {{$select.selected}}
+                            </ui-select-match>
+                            <ui-select-choices repeat = "val in missionIdTypes | filter: $select.search">
+                              {{val}}
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </td class="filter-row">
+                    </tr>
+                    <tr>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.countryCodeCheck">
+                          </span>
+                          <span class="input-group-addon name">CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          <ui-select
+                           id = "countryCodeInput"
+                           ng-blur = "filter.countryCodeCheck = filter.countryCode === '' ? false : true"
+                           ng-click = "filter.countryCodeCheck = true; filter.getDistinctValues('countryCode');"
+                           ng-model = "filter.countryCode"
+                           theme = "selectize">
+                            <ui-select-match placeholder = "Country Code">
+                              {{$select.selected}}
+                            </ui-select-match>
+                            <ui-select-choices repeat = "val in countryCodeTypes | filter: $select.search">
+                              {{val}}
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </td>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.sensorIdCheck">
+                          </span>
+                          <span class="input-group-addon name">Sensor&nbsp;</span>
+                          <ui-select
+                           id = "sensorIdInput"
+                           ng-blur = "filter.sensorIdCheck = filter.sensorId === '' ? false : true"
+                           ng-click = "filter.sensorIdCheck = true; filter.getDistinctValues('sensorId');"
+                           ng-model = "filter.sensorId"
+                           theme = "selectize">
+                            <ui-select-match placeholder = "Sensor ID">
+                              {{$select.selected}}
+                            </ui-select-match>
+                            <ui-select-choices repeat = "val in sensorIdTypes | filter: $select.search">
+                              {{val}}
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.filenameCheck">
+                          </span>
+                          <span class="input-group-addon name">File&nbsp;&nbsp;&nbsp;</span>
+                          <input ng-model="filter.filename"
+                           ng-click="filter.filenameCheck = true;"
+                           ng-blur="filter.filenameCheck = filter.filename === '' ? false: true;"
+                           class="form-control"
+                           id="filenameInput"
+                           placeholder="File name"
+                           value="filter.filename">
+                        </div>
+                      </td>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.targetIdCheck">
+                          </span>
+                          <span class="input-group-addon name">Target&nbsp;</span>
+                          <ui-select
+                           class="form-control"
+                           id = "targetIdInput"
+                           ng-blur = "filter.targetIdCheck = filter.targetId === '' ? false : true"
+                           ng-click = "filter.targetIdCheck = true; filter.getDistinctValues('targetId');"
+                           ng-model = "filter.targetId"
+                           theme = "selectize">
+                            <ui-select-match placeholder = "Target ID">
+                              {{$select.selected}}
+                            </ui-select-match>
+                            <ui-select-choices repeat = "val in targetIdTypes | filter: $select.search">
+                              {{val}}
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.imageIdCheck">
+                          </span>
+                          <span class="input-group-addon name">Image&nbsp;&nbsp;&nbsp;</span>
+                          <input ng-model="filter.imageId"
+                           ng-click="filter.imageIdCheck = true;"
+                           ng-blur="filter.imageIdCheck = filter.imageId === '' ? false: true;"
+                           class="form-control"
+                           id="imageIdInput"
+                           placeholder="Image ID"
+                           value="filter.imageId">
+                        </div>
+                      </td>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.wacNumberCheck">
+                          </span>
+                          <span class="input-group-addon name">WAC&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          <input ng-model="filter.wacNumber"
+                           ng-click="filter.wacNumberCheck = true;"
+                           ng-blur="filter.wacNumberCheck = filter.wacNumber === '' ? false: true;"
+                           class="form-control"
+                           id="wacNumberInput"
+                           placeholder="World Area Code"
+                           value="filter.wacNumber">
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
                 </li>
                 <li class="col-sm-12">
                   <ul>
