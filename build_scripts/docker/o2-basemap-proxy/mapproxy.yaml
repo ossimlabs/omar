@@ -1,0 +1,45 @@
+services:
+  demo:
+  tms:
+    use_grid_names: true
+    # origin for /tiles service
+    origin: 'nw'
+  kml:
+      use_grid_names: true
+  wmts:
+  wms:
+    md:
+      title: o2 Map Proxy
+      abstract: Provides a set of tiles for the o2 basemaps.
+
+layers:
+  - name: o2-basemap-basic
+    title: o2 Basic Basemap
+    sources: [o2_basic_tiles_cache]
+  - name: o2-basemap-bright
+    title: o2 Bright Basemap
+    sources: [o2_bright_tiles_cache]
+
+caches:
+  o2_basic_tiles_cache:
+    grids: [webmercator]
+    sources: [o2_basic_tiles]
+  o2_bright_tiles_cache:
+    grids: [webmercator]
+    sources: [o2_bright_tiles]
+
+sources:
+  o2_basic_tiles:
+     type: tile
+     url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/%(z)s/%(x)s/%(y)s.png
+     grid: webmercator
+  o2_bright_tiles:
+    type: tile
+    url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/%(z)s/%(x)s/%(y)s.png
+    grid: webmercator
+
+grids:
+    webmercator:
+        base: GLOBAL_WEBMERCATOR
+    geodetic:
+        base: GLOBAL_GEODETIC
