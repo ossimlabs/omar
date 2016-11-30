@@ -25,7 +25,7 @@ LABEL com.radiantblue.version="0.1"\
       for background processing and return a STATUS." \
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install o2-jpip-app && yum -y install ossim-kakadu-plugin && yum clean all
+RUN yum -y install o2-jpip-app && yum -y install ossim-kakadu-plugin && yum -y install ossim-aws-plugin && yum clean all
 ADD jpip-app.yml /usr/share/omar/jpip-app/jpip-app.yml
 ENV DBUSER=${DBUSER}\
     DBPASS=${DBPASS}\
