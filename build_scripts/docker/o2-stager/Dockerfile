@@ -8,7 +8,9 @@ LABEL com.radiantblue.version="0.1"\
       currently indexes the data into the OMAR system."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install o2-stager-app ossim-kakadu-plugin ossim-sqlite-plugin && yum clean all
+RUN yum -y install o2-stager-app ossim-kakadu-plugin ossim-geopdf-plugin ossim-png-plugin&&\
+  yum -y install ossim-jpeg12-plugin ossim-aws-plugin ossim-sqlite-plugin ossim-gdal-plugin&& \
+  yum clean all
 ADD stager-app.yml /usr/share/omar/stager-app/stager-app.yml
 ENV DBUSER=${DBUSER}\
     DBPASS=${DBPASS}\
