@@ -22,6 +22,7 @@ class WebFeatureService
 {
   def grailsLinkGenerator
   def geoscriptService
+  def superOverlayService
 
   static final Map<String, String> typeMappings = [
           'Double': 'xsd:double',
@@ -590,26 +591,16 @@ class WebFeatureService
     return JsonOutput.toJson( results )
   }
 
-  private def getFeatureKML(GetFeatureRequest wfsParams)
-  {
+  private def getFeatureKML(GetFeatureRequest wfsParams) {
     def layerInfo = geoscriptService.findLayerInfo( wfsParams )
     def result
 
-
     def options = geoscriptService.parseOptions( wfsParams )
-
-    //println options
 
     Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo.workspaceInfo.workspaceParams ) ) { workspace ->
       def layer = workspace[layerInfo.name]
-      def count = layer.count( wfsParams.filter ?: Filter.PASS )//wfsParams.filter )
-      def nameClosure = {fields->
-
-        if((fields.title!=null) && (fields.title.trim()!="")) return fields.title?.trim()
-
-        return new File(fields?.filename).name
-      }
-      result = ExportKml.toKMLString(layer, nameClosure)
+      def features = layer.getFeatures( options )
+      result = superOverlayService.getFeaturesKml(features, [:])
 
       workspace.close()
     }
@@ -637,7 +628,7 @@ class WebFeatureService
 
         return new File(fields?.filename).name
       }
-      result = writer.write(layer)
+      result = writer.write(layer.filter(wfsParams.filter))
 
       workspace.close()
     }
