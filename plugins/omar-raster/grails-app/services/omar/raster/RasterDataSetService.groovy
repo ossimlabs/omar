@@ -37,24 +37,31 @@ class RasterDataSetService implements ApplicationContextAware {
 	 * @param filename is the file you wish to add to the OMAR tables
 	 */
 	def addRaster( def httpStatusMessage, AddRasterCommand params ) {
-		def filename = params?.filename as File
+		String filename = params?.filename
 		httpStatusMessage?.status = HttpStatus.OK
 		httpStatusMessage?.message = "Added raster ${filename}"
+		URI uri = new URI(filename.toString())
+		String scheme = uri.scheme?.toLowerCase()
 
-		if (!filename?.exists()) {
-			httpStatusMessage?.status = HttpStatus.NOT_FOUND
-			httpStatusMessage?.message = "Not Found: ${filename}"
-			log.error(httpStatusMessage?.message)
+		if(!scheme || (scheme=="file"))
+		{
+			File testFile = filename as File
+			if (!testFile?.exists()) {
+				httpStatusMessage?.status = HttpStatus.NOT_FOUND
+				httpStatusMessage?.message = "Not Found: ${filename}"
+				log.error(httpStatusMessage?.message)
+			}
+			else if (!testFile?.canRead()) {
+				httpStatusMessage?.status = HttpStatus.FORBIDDEN
+				httpStatusMessage?.message = "Not Readable ${filename}"
+				log.error(httpStatusMessage?.message)
+			}
 		}
-		else if (!filename?.canRead()) {
-			httpStatusMessage?.status = HttpStatus.FORBIDDEN
-			httpStatusMessage?.message = "Not Readable ${filename}"
-			log.error(httpStatusMessage?.message)
-		}
-		else {
-			def xml = dataInfoService.getInfo(params?.filename)
+
+		if(httpStatusMessage?.status == HttpStatus.OK)
+		{
+			def xml = dataInfoService.getInfo(filename)
 			def background = false;
-
 			try { background = params?.background }
 			catch (Exception e) { log.error(e) }
 
@@ -64,7 +71,7 @@ class RasterDataSetService implements ApplicationContextAware {
 				log.error(httpStatusMessage?.message)
 			}
 			else if (background) {
-				def result = stagerService.addFileToStage(filename.absolutePath, params.properties)
+				def result = stagerService.addFileToStage(filename, params.properties)
 
 				httpStatusMessage.status = result.status
 				httpStatusMessage.message = result.message
@@ -127,7 +134,7 @@ class RasterDataSetService implements ApplicationContextAware {
 								log.error(httpStatusMessage?.message)
 							}
 						}
-						//new org.ossim.omar.DataManagerQueueItem(file: filename.absolutePath, baseDir: parent.baseDir, dataInfo: xml).save()
+						//new org.ossim.omar.DataManagerQueueItem(file: filename, baseDir: parent.baseDir, dataInfo: xml).save()
 					}
 				}
 			}
@@ -214,9 +221,9 @@ def updateRaster(def httpStatusMessage, def params)
 
 	def removeRaster( def httpStatusMessage, def params ) {
 		def status = false
-		def filename = params?.filename as File
+		String filename = params?.filename //as File
 
-		def rasterFile = RasterFile.findByNameAndType( filename.absolutePath, "main" )
+		def rasterFile = RasterFile.findByNameAndType( filename, "main" )
 		if ( rasterFile ) {
 			rasterFile?.rasterDataSet?.delete( flush: true )
 			httpStatusMessage?.status = HttpStatus.OK
@@ -226,18 +233,24 @@ def updateRaster(def httpStatusMessage, def params)
 
 			if (params.deleteFiles?.toBoolean()) {
 				def files = []
-				rasterFile?.rasterDataSet?.fileObjects.each() { files << new File(it.name) }
+				rasterFile?.rasterDataSet?.fileObjects.each() { files << it.name }
 				rasterFile?.rasterDataSet?.rasterEntries.each() {
                 	it.fileObjects.each() { files << new File(it.name) }
 				}
 
 				files.each() {
 					def file = it
-					if (file.canWrite()) {
-						if (file.isDirectory()) { file.deleteDir() }
-						else { file.delete() }
-						if (!file.exists()) { log.info("Deleted ${file}") }
-						else { log.info("Unable to delete ${file}") }
+					URI uri = new URI(file)
+					String scheme = uri.scheme?.toLowerCase()
+					if(!scheme||(scheme=="file"))
+					{
+						File fileToRemove = file as File
+						if (fileToRemove.canWrite()) {
+							if (fileToRemove.isDirectory()) { fileToRemove.deleteDir() }
+							else { fileToRemove.delete() }
+							if (!fileToRemove.exists()) { log.info("Deleted ${file}") }
+							else { log.info("Unable to delete ${file}") }
+						}
 					}
 					else { log.info("Don't have permissions to delete ${file}") }
 				}

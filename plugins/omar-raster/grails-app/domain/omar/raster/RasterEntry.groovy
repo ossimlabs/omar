@@ -375,6 +375,7 @@ class RasterEntry
     }
     rasterEntry.groundGeom = initGroundGeom( rasterEntryNode?.groundGeom )
     rasterEntry.acquisitionDate = initAcquisitionDate( rasterEntryNode )
+
 /*
     if ( rasterEntry.groundGeom && !rasterEntry.tiePointSet )
     {
@@ -513,7 +514,7 @@ class RasterEntry
             case "filename":
               if ( value && !rasterEntry.filename)
               {
-                rasterEntry.filename = value as File
+                rasterEntry.filename = value
               }
               break
             case "imageid":
