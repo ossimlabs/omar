@@ -25,7 +25,7 @@ class RasterFile
   {
     def rasterFile = new RasterFile()
 
-    rasterFile.name = new File( rasterFileNode?.name?.text() ).absolutePath
+    rasterFile.name = rasterFileNode?.name?.text()
     rasterFile.format = rasterFileNode?.@format?.text()
     rasterFile.type = rasterFileNode?.@type?.text()
     return rasterFile
