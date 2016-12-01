@@ -61,7 +61,7 @@ class ImageSpaceService
   }
 
 
-  def readImageInfo(File file)
+  def readImageInfo(String file)
   {
     def info = getImageInfoAsMap( file )
     def data = [numImages: info.number_entries as int]
@@ -98,7 +98,7 @@ class ImageSpaceService
     return data
   }
 
-  def getImageInfoAsMap(File file)
+  def getImageInfoAsMap(String file)
   {
     def kwl = new Keywordlist()
     def info = new Info()
