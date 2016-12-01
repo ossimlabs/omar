@@ -53,6 +53,12 @@ The map will show footprints for all the imagery in the database according to wh
 
 TIP: You can right-click the map to get that point's coordinate. Also, the mouse-coordinate format found at the bottom-right of the map can be changed simply by clicking on it.
 
+* **Mouse Coordinates:**
+The current coordinate of the mouse is displayed in the lower-right corner of the map. You can click the box to cycle through DD, DMS and MGRS formats. Right-click anywhere on the map to get a dialog box of that coordinate in all three formats.
+
+* **Rotation:**
+You can rotate the map by holding Shift + Alt while clicking and dragging.
+
 ## Results
 Search results are displayed in a box to the right of the map. Each image will have the corresponding links associated with it.
 

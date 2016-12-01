@@ -17,6 +17,10 @@ Select the method by which unknown pixels are determined from known pixels.
 * **Sharpen Mode:**
 Select the kernel size used for sharpening.
 
+## Map
+* **Rotation:**
+You can rotate the map by holding Shift + Alt while clicking and dragging.
+
 ## Measure  
 * Measurements
 * * **Path:**
