@@ -59,6 +59,7 @@ dependencyManagement {
 grails {
   exploded = true
   plugins {
+    compile project( ':omar-superoverlay' )
     compile project( ':omar-wfs' )
   }
 }
@@ -91,4 +92,3 @@ dependencies {
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
 
 }
-
