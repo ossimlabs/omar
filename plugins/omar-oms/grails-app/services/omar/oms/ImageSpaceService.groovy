@@ -103,7 +103,7 @@ class ImageSpaceService
     def kwl = new Keywordlist()
     def info = new Info()
 
-    info.getImageInfo( file.absolutePath, true, true, true, true, true, true, kwl )
+    info.getImageInfo( file, true, true, true, true, true, true, kwl )
 
     def data = [:]
 
@@ -138,57 +138,55 @@ class ImageSpaceService
 
   def getTile(GetTileCommand cmd)
   {
-    def imageInfo = readImageInfo( cmd.filename as File )
-    def result = [status:HttpStatus.NOT_FOUND,
-                  contentType: "plane/text",
-                  buffer: "Unable to service tile".bytes]
-    def imageEntry = imageInfo.images[cmd.entry]
-    def indexOffset = findIndexOffset( imageEntry)
+      def imageInfo = readImageInfo(cmd.filename)
+      def result = [status     : HttpStatus.NOT_FOUND,
+                    contentType: "plane/text",
+                    buffer     : "Unable to service tile".bytes]
+      def imageEntry = imageInfo.images[cmd.entry]
+      def indexOffset = findIndexOffset(imageEntry)
 
-    if(cmd.z < imageEntry.numResLevels )
-    {
-      def rrds = indexOffset - cmd.z
-      def opts = [
-              cut_bbox_xywh: [cmd.x * cmd.tileSize, cmd.y * cmd.tileSize, cmd.tileSize, cmd.tileSize].join( ',' ),
-              'image0.file': cmd.filename,
-              'image0.entry': cmd.entry as String,
-              "operation":"chip",
-              "scale_2_8_bit":"true",
-              "rrds":"${rrds}".toString(),
-              'hist_op': cmd.histOp?:'auto-minmax',
-              'brightness': cmd.brightness?cmd.brightness.toString():"0.0",
-              'contrast' : cmd.contrast?cmd.contrast.toString():"1.0",
-              'sharpen_mode' : cmd.sharpenMode?:"none",
-              "resampler_filter" : cmd.resamplerFilter?:"nearest"
-              //three_band_out: "true"
-      ]
-
-      if(cmd.bands)
+      if (cmd.z < imageEntry.numResLevels)
       {
-        opts.bands = cmd.bands
-      }
-      def hints = [
-              transparent: cmd.format == 'png',
-              width: cmd.tileSize,
-              height: cmd.tileSize,
-              type: cmd.format,
-              ostream: new ByteArrayOutputStream()
-      ]
+        def rrds = indexOffset - cmd.z
+        def opts = [
+                cut_bbox_xywh     : [cmd.x * cmd.tileSize, cmd.y * cmd.tileSize, cmd.tileSize, cmd.tileSize].join(','),
+                'image0.file'     : cmd.filename,
+                'image0.entry'    : cmd.entry as String,
+                "operation"       : "chip",
+                "scale_2_8_bit"   : "true",
+                "rrds"            : "${rrds}".toString(),
+                'hist_op'         : cmd.histOp ?: 'auto-minmax',
+                'brightness'      : cmd.brightness ? cmd.brightness.toString() : "0.0",
+                'contrast'        : cmd.contrast ? cmd.contrast.toString() : "1.0",
+                'sharpen_mode'    : cmd.sharpenMode ?: "none",
+                "resampler_filter": cmd.resamplerFilter ?: "nearest"
+                //three_band_out: "true"
+        ]
 
-      //println opts
-      def chipperResults = runChipper( opts, hints )
-      if(chipperResults.status == HttpStatus.OK)
-      {
-        result = [status: HttpStatus.OK,
-                  contentType: "image/${hints.type}",
-                  buffer: hints.ostream.toByteArray()]
-      }
-      else
-      {
-        result = chipperResults
-      }
-    }
+        if (cmd.bands)
+        {
+          opts.bands = cmd.bands
+        }
+        def hints = [
+                transparent: cmd.format == 'png',
+                width      : cmd.tileSize,
+                height     : cmd.tileSize,
+                type       : cmd.format,
+                ostream    : new ByteArrayOutputStream()
+        ]
 
+        //println opts
+        def chipperResults = runChipper(opts, hints)
+        if (chipperResults.status == HttpStatus.OK)
+        {
+          result = [status     : HttpStatus.OK,
+                    contentType: "image/${hints.type}",
+                    buffer     : hints.ostream.toByteArray()]
+        } else
+        {
+          result = chipperResults
+        }
+      }
     result
   }
 
