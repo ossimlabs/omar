@@ -92,6 +92,8 @@ services:
       STAGERURL: localhost/o2-stager
       TWOFISHPORT:
       TWOFISHURL: localhost/twofishes
+      USER_GUIDE_ENABLED: "true"
+      USER_GUIDE_URL: ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs/
       WFSPORT:
       WFSURL: localhost/o2-wfs
       WMSPORT:

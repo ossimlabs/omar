@@ -39,5 +39,9 @@
       vm.tlvAppLink = AppO2.APP_CONFIG.params.tlvApp.baseUrl;
     }
 
+    vm.userGuideEnabled = AppO2.APP_CONFIG.params.userGuide.enabled;
+    if (vm.userGuideEnabled) {
+      vm.userGuideLink = AppO2.APP_CONFIG.params.userGuide.baseUrl;
+    }
   }
 })();
