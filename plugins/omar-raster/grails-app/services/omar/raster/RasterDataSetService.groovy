@@ -62,7 +62,6 @@ class RasterDataSetService implements ApplicationContextAware {
 		{
 			def xml = dataInfoService.getInfo(filename)
 			def background = false;
-			println xml
 			try { background = params?.background }
 			catch (Exception e) { log.error(e) }
 
