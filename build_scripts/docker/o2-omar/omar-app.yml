@@ -86,6 +86,9 @@ omar:
     tlvApp:
       baseUrl: http://${TLVURL}
       enabled: ${TLVENABLED}
+    userGuide:
+      baseUrl: http://${USER_GUIDE_URL}
+      enabled: ${USER_GUIDE_ENABLED}
     misc:
       icons:
         green-marker: search_marker_green.png

@@ -80,6 +80,8 @@ services:
       STAGERURL: spring-cloud.radiantbluecloud.com/o2-stager
       TWOFISHPORT:
       TWOFISHURL: spring-cloud.radiantbluecloud.com/twofishes
+      USER_GUIDE_ENABLED: "true"
+      USER_GUIDE_URL: ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs/
       WFSPORT:
       WFSURL: spring-cloud.radiantbluecloud.com/o2-wfs
       WMSPORT:

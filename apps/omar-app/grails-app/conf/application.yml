@@ -217,6 +217,9 @@ omar:
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
       enabled: false
+    userGuide:
+      baseUrl: http://ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs
+      enabled: true
     misc:
       #beLookupEnabled: true
       icons:

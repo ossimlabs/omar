@@ -147,6 +147,8 @@ services:
       TLVURL: ${DOCKER_HOST_URL}/tlv
       TWOFISHPORT:
       TWOFISHURL: ${DOCKER_HOST_URL}/twofishes
+      USER_GUIDE_ENABLED: "true"
+      USER_GUIDE_URL: ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs/
       WFSPORT:
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSPORT:
