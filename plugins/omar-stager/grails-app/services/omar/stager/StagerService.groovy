@@ -105,17 +105,33 @@ class StagerService
 		try{
 			if(imageStager.open(params.filename))
 			{
+				URI uri = new URI(params.filename)
+
+				String scheme = uri.scheme
+				if(!scheme) scheme = "file"
+				if(uri.scheme?.toLowerCase() != "file")
+				{
+					params.buildHistograms = false
+					params.buildOverviews = false
+				}
 				//imageStager.setDefaults()
 				//imageStager.stageAll()
 
-				imageStager.setHistogramStagingFlag(params.buildHistograms);
-				imageStager.setOverviewStagingFlag(params.buildOverviews);
-				imageStager.setCompressionType(params.overviewCompressionType)
-				imageStager.setOverviewType(params.overviewType)
-				imageStager.stageAll()
+				Integer nEntries = imageStager.getNumberOfEntries()
+				(0..<nEntries).each{
+					imageStager.setEntry(it)
+
+					imageStager.setHistogramStagingFlag(params.buildHistograms);
+					imageStager.setOverviewStagingFlag(params.buildOverviews);
+					imageStager.setCompressionType(params.overviewCompressionType)
+					imageStager.setOverviewType(params.overviewType)
+
+					imageStager.stage()
+				}
+				//imageStager.stageAll()
 				imageStager.delete()
 				imageStager = null
-				String xml = dataInfoService.getInfo( filename as File)
+				String xml = dataInfoService.getInfo( filename )
 				if ( xml )
 				{
 					def parser = parserPool.borrowObject()
@@ -166,10 +182,10 @@ class StagerService
 			switch ( action )
 			{
 			case Action.BUILD_OVRS:
-				xml = StagerUtil.getInfo( filename as File)
+				xml = StagerUtil.getInfo( filename.toString())
 				break
 			case Action.INDEX_ONLY:
-				xml = dataInfoService.getInfo( filename.absolutePath as File)
+				xml = dataInfoService.getInfo( filename.toString())
 				break
 			}
 			if ( xml )
