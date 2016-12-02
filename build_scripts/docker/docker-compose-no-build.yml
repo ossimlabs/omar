@@ -240,6 +240,7 @@ services:
       OSSIM_DATA: /data
       SPRING_CLOUD_CONFIG_ENABLED: "false"
       SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+      TLV_URL: ${DOCKER_HOST_URL}/tlv
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSPORT:
       WMSURL: ${DOCKER_HOST_URL}/o2-wms

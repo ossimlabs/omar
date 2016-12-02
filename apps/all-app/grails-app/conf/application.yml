@@ -526,6 +526,8 @@ wms:
 omar:
   o2:
     baseUrl: http://localhost:8080
+  tlv:
+    baseUrl: http://o2.radiantbluecloud.com/tlv
   wfs:
     baseUrl: http://localhost:8081
   wms:
