@@ -209,6 +209,7 @@ services:
       DBUSER: postgres_user
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       O2URL: ${DOCKER_HOST_URL}/o2-omar
+      TLV_URL: ${DOCKER_HOST_URL}/tlv
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSPORT:
       WMSURL: ${DOCKER_HOST_URL}/o2-wms

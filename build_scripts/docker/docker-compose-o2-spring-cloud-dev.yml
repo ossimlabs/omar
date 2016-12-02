@@ -142,6 +142,7 @@ services:
       DBUSER: postgres_user
       DOCKER_HOST_IP: localhost
       O2URL: localhost/o2-omar
+      TLV_URL: localhost/tlv
       WMSPORT:
       WMSURL: localhost/o2-wms
     image: ${DOCKER_REGISTRY_URI}/o2-superoverlay-dev

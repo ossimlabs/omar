@@ -124,6 +124,7 @@ services:
       DBUSER: postgres_user
       DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
       O2URL: spring-cloud.radiantbluecloud.com/o2-omar
+      TLV_URL: spring-cloud.radiantbluecloud.com/tlv
       WMSPORT:
       WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
     image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
