@@ -109,7 +109,7 @@ class StagerService
 
 				String scheme = uri.scheme
 				if(!scheme) scheme = "file"
-				if(uri.scheme?.toLowerCase() != "file")
+				if(scheme != "file")
 				{
 					params.buildHistograms = false
 					params.buildOverviews = false
