@@ -59,7 +59,6 @@ dependencyManagement {
 grails {
   exploded = true
   plugins {
-    compile project( ':omar-superoverlay' )
     compile project( ':omar-wfs' )
   }
 }
