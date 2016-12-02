@@ -2,16 +2,16 @@ server:
   contextPath: /o2-wfs
   port: 8080
 
-# environments:
-#   production:
-#     dataSource:
-#       pooled: true
-#       jmxExport: true
-#       driverClassName: org.postgresql.Driver
-#       username: ${DBUSER}
-#       password: ${DBPASS}
-#       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
-#       url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
+environments:
+  production:
+    dataSource:
+      pooled: true
+      jmxExport: true
+      driverClassName: org.postgresql.Driver
+      username: ${DBUSER}
+      password: ${DBPASS}
+      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+      url: jdbc:postgresql://${DBHOST}${DBPORT}/${DBNAME}
 
 ---
 
