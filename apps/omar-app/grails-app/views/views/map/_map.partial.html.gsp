@@ -15,182 +15,6 @@
           <ul class="nav navbar-nav " ng-controller="FilterController as filter">
             <p class="navbar-text">Filters:</p>
             <li class="dropdown mega-dropdown">
-              <a class="dropdown-toggle spatial-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
-                &nbsp;Spatial
-                <span class="caret"></span></a>
-              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
-                <li class="col-sm-12">
-                  <ul>
-                    <li class="dropdown-header text-center">
-                      <p class="text-center">Spatial Filters</p>
-                    </li>
-                    <li class="col-sm-3 filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox"
-                          ng-model="filter.viewPortSpatial"
-                          ng-change="filter.byViewPort(filter.viewPortSpatial)">
-                        </span>
-                        <span class="input-group-addon spatial-name">Map Viewport</span>
-                      </div>
-                    </li>
-                    <li class="col-sm-9">
-                      <p>This filter is on by default.  It constrains the
-                        query to the boundaries of the current map extent</p>
-                    </li>
-                    <li class="col-sm-12">
-                      <hr>
-                    </li>
-                    <li class="col-sm-3 filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox"
-                          ng-model="filter.pointSpatial"
-                          ng-change="filter.byPointer(filter.pointSpatial)">
-                        </span>
-                        <span class="input-group-addon spatial-name">Point</span>
-                      </<div>
-                    </li>
-                    <li class="col-sm-9">
-                      <p>Single clicking on the map
-                        will return a potential list of images at that location</p>
-                    </li>
-                    <li class="col-sm-12">
-                      <hr>
-                    </li>
-                    <li class="col-sm-3 filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox"
-                          ng-model="filter.polygonSpatial"
-                          ng-change="filter.byPolygon(filter.polygonSpatial)">
-                        </span>
-                        <span class="input-group-addon spatial-name">Polygon</span>
-                      </div>
-                    </li>
-                    <li class="col-sm-9 filter-row">
-                      <p>Left-click and hold with the
-                        ALT key to create a box that will return a potential list of images
-                      </p>
-                    </li>
-                    <li class="col-sm-12 text-center">
-                      <button class="btn btn-warning btn-xs" type="button"
-                        ng-click="filter.closeFilterDropdown('spatial-filter-dropdown')">Close
-                      </button>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown mega-dropdown">
-              <a  class="dropdown-toggle temporal-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false"><span class="fa fa-clock-o" aria-hidden="true"></span>
-               &nbsp;Temporal<span class="caret"></span></a>
-              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
-                <li class="col-sm-12">
-                  <ul>
-                    <li class="dropdown-header text-center">Temporal Filters</li>
-                    <li class="text-center">
-                      <p>Select a date type and duration filter from the select boxes below.  Changes will be reflected immediately</p>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6">
-                  <ul>
-                    <li class="filter-row">
-                      <div class="form-group form-group-sm">
-                        <label for="temporalTypeFilter">Date Type</label>
-                        <select ng-model="filter.currentDateType"
-                          ng-options="type.label for type in filter.dateTypes"
-                          id="temporalTypeFilter"
-                          class="form-control">
-                        </select>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6">
-                  <ul>
-                    <li class="filter-row">
-                      <div class="form-group form-group-sm">
-                        <label for="temporalDuration">Duration</label>
-                        <select ng-model="filter.currentTemporalDuration"
-                          ng-options="duration.label for duration in filter.temporalDurations"
-                          ng-change="filter.updateFilterString()"
-                          id="temporalDuration"
-                          class="form-control">
-                        </select>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
-                  <ul>
-                    <li class="filter-row">
-                      <p class="text-center">Start Time & Date</p>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
-                  <ul>
-                    <li>
-                      <p class="text-center">End Time & Date</p>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
-                  <ul>
-                    <li class="filter-row text-center">
-                      <div class="form-group form-group-sm">
-                        <input type="text" class="form-control"
-                         ng-model="filter.startDate"
-                         data-time-format="HH:mm:ss"
-                         data-autoclose="false"
-                         data-minute-step="1"
-                         data-second-step="1"
-                         placeholder="Time" bs-timepicker>
-                      </div>
-                      <div style="display:inline-block;">
-                        <uib-datepicker
-                          ng-model="filter.startDate"
-                          show-weeks="false"
-                          class="well well-sm">
-                        </uib-datepicker>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
-                  <ul>
-                    <li class="filter-row text-center">
-                      <div class="form-group form-group-sm">
-                        <input type="text" size="8" class="form-control"
-                         ng-model="filter.endDate"
-                         data-time-format="HH:mm:ss"
-                         data-autoclose="0" placeholder="Time" bs-timepicker>
-                      </div>
-                      <div style="display:inline-block;">
-                        <uib-datepicker
-                          ng-model="filter.endDate"
-                          show-weeks="false"
-                          class="well well-sm">
-                        </uib-datepicker>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-12 text-center">
-                  <button class="btn btn-primary btn-xs" type="button"
-                    ng-click="filter.updateFilterString()">Apply
-                  </button>
-                  <button class="btn btn-warning btn-xs" type="button"
-                    ng-click="filter.closeFilterDropdown('temporal-filter-dropdown')">Close
-                  </button>
-                </li>
-              </ul><!-- end menu -->
-            </li>
-            <li class="dropdown mega-dropdown">
               <a class="dropdown-toggle keyword-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
                  &nbsp;Keyword
@@ -585,6 +409,182 @@
                 </li>
               </ul>
             </li><!-- End menu -->
+            <li class="dropdown mega-dropdown">
+              <a class="dropdown-toggle spatial-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
+                &nbsp;Spatial
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">
+                      <p class="text-center">Spatial Filters</p>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.viewPortSpatial"
+                          ng-change="filter.byViewPort(filter.viewPortSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Map Viewport</span>
+                      </div>
+                    </li>
+                    <li class="col-sm-9">
+                      <p>This filter is on by default.  It constrains the
+                        query to the boundaries of the current map extent</p>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.pointSpatial"
+                          ng-change="filter.byPointer(filter.pointSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Point</span>
+                      </<div>
+                    </li>
+                    <li class="col-sm-9">
+                      <p>Single clicking on the map
+                        will return a potential list of images at that location</p>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.polygonSpatial"
+                          ng-change="filter.byPolygon(filter.polygonSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Polygon</span>
+                      </div>
+                    </li>
+                    <li class="col-sm-9 filter-row">
+                      <p>Left-click and hold with the
+                        ALT key to create a box that will return a potential list of images
+                      </p>
+                    </li>
+                    <li class="col-sm-12 text-center">
+                      <button class="btn btn-warning btn-xs" type="button"
+                        ng-click="filter.closeFilterDropdown('spatial-filter-dropdown')">Close
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown mega-dropdown">
+              <a  class="dropdown-toggle temporal-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false"><span class="fa fa-clock-o" aria-hidden="true"></span>
+               &nbsp;Temporal<span class="caret"></span></a>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">Temporal Filters</li>
+                    <li class="text-center">
+                      <p>Select a date type and duration filter from the select boxes below.  Changes will be reflected immediately</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="form-group form-group-sm">
+                        <label for="temporalTypeFilter">Date Type</label>
+                        <select ng-model="filter.currentDateType"
+                          ng-options="type.label for type in filter.dateTypes"
+                          id="temporalTypeFilter"
+                          class="form-control">
+                        </select>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="form-group form-group-sm">
+                        <label for="temporalDuration">Duration</label>
+                        <select ng-model="filter.currentTemporalDuration"
+                          ng-options="duration.label for duration in filter.temporalDurations"
+                          ng-change="filter.updateFilterString()"
+                          id="temporalDuration"
+                          class="form-control">
+                        </select>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row">
+                      <p class="text-center">Start Time & Date</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li>
+                      <p class="text-center">End Time & Date</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="form-group form-group-sm">
+                        <input type="text" class="form-control"
+                         ng-model="filter.startDate"
+                         data-time-format="HH:mm:ss"
+                         data-autoclose="false"
+                         data-minute-step="1"
+                         data-second-step="1"
+                         placeholder="Time" bs-timepicker>
+                      </div>
+                      <div style="display:inline-block;">
+                        <uib-datepicker
+                          ng-model="filter.startDate"
+                          show-weeks="false"
+                          class="well well-sm">
+                        </uib-datepicker>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="form-group form-group-sm">
+                        <input type="text" size="8" class="form-control"
+                         ng-model="filter.endDate"
+                         data-time-format="HH:mm:ss"
+                         data-autoclose="0" placeholder="Time" bs-timepicker>
+                      </div>
+                      <div style="display:inline-block;">
+                        <uib-datepicker
+                          ng-model="filter.endDate"
+                          show-weeks="false"
+                          class="well well-sm">
+                        </uib-datepicker>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-12 text-center">
+                  <button class="btn btn-primary btn-xs" type="button"
+                    ng-click="filter.updateFilterString()">Apply
+                  </button>
+                  <button class="btn btn-warning btn-xs" type="button"
+                    ng-click="filter.closeFilterDropdown('temporal-filter-dropdown')">Close
+                  </button>
+                </li>
+              </ul><!-- end menu -->
+            </li>
           </ul>
         </div>
         <div class="col-sm-4">
