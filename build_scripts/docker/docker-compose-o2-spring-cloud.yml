@@ -153,6 +153,8 @@ services:
       DBPORT: 5432
       DBUSER: postgres_user
       DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+      O2URL: spring-cloud.radiantbluecloud.com/o2-omar
+      TLV_URL: spring-cloud.radiantbluecloud.com/tlv
     image: ${DOCKER_REGISTRY_URI}/o2-wfs
     ports:
       - "4998:8080"
