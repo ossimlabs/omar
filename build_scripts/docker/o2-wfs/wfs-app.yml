@@ -18,6 +18,10 @@ omar:
     baseUrl: http://${O2URL}
   tlv:
     baseUrl: http://${TLV_URL}
+  wfs:
+    baseUrl: http://${WFSURL}
+  wms:
+    baseUrl: http://${WMSURL}
 
 ---
 

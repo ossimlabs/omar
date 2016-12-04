@@ -271,6 +271,8 @@ services:
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       O2URL: ${DOCKER_HOST_URL}/o2-omar
       TLV_URL: ${DOCKER_HOST_URL}/tlv
+      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
+      WMSURL: ${DOCKER_HOST_URL}/o2-wms
     image: ${DOCKER_REGISTRY_URI}/o2-wfs
     ports:
       - "4998:8080"
