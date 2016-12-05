@@ -114,3 +114,6 @@ Sorts the list in reverse alphabetical order according to mission ID.
 Sorts the list in alphabetical order according to sensor ID.
 * **Sensor (Desc):**
 Sorts the list in reverse alphabetical order sensor to image ID.
+
+## Search Box
+There is an input box located above the map all the way to the right. The box is meant to take in various kinds of input and will automatically determine if a BE, coordinate, image ID or placename is entered. In all cases, if a match is found, the map will zoom to the appropriate area.
