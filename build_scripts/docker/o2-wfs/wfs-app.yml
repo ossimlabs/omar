@@ -13,6 +13,16 @@ environments:
       dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
       url: jdbc:postgresql://${DBHOST}:${DBPORT}/${DBNAME}
 
+omar:
+  o2:
+    baseUrl: http://${O2URL}
+  tlv:
+    baseUrl: http://${TLV_URL}
+  wfs:
+    baseUrl: http://${WFSURL}
+  wms:
+    baseUrl: http://${WMSURL}
+
 ---
 
 wfs:

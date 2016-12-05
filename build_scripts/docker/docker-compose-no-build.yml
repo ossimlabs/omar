@@ -242,6 +242,7 @@ services:
       OSSIM_DATA: /data
       SPRING_CLOUD_CONFIG_ENABLED: "false"
       SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+      TLV_URL: ${DOCKER_HOST_URL}/tlv
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSPORT:
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
@@ -299,9 +300,13 @@ services:
       DBPORT: 5432
       DBUSER: postgres_user
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      O2URL: ${DOCKER_HOST_URL}/o2-omar
       OSSIM_DATA: /data
       SPRING_CLOUD_CONFIG_ENABLED: "false"
       SPRING_CLOUD_DISCOVERY_ENABLED: "false"
+      TLV_URL: ${DOCKER_HOST_URL}/tlv
+      WFSURL: ${DOCKER_HOST_URL}/o2-wfs
+      WMSURL: ${DOCKER_HOST_URL}/o2-wms
     image: ${DOCKER_REGISTRY_URI}/o2-wfs:${TAG}
     ports:
       - "4998:8080"

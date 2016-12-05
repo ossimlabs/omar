@@ -21,7 +21,7 @@ import groovy.xml.StreamingMarkupBuilder
 class WebFeatureService {
     def geoscriptService
     def grailsLinkGenerator
-    //def superOverlayService
+    def kmlService
 
 
     static final List<String> comparisonOperators = [
@@ -649,8 +649,8 @@ class WebFeatureService {
             workspace ->
             def layer = workspace[layerInfo.name]
             def features = layer.getFeatures( options )
-            //result = superOverlayService.getFeaturesKml(features, [:])
-            result = "foo"
+            result = kmlService.getFeaturesKml(features, [:])
+
             workspace.close()
         }
 

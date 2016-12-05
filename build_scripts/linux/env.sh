@@ -5,3 +5,6 @@ export O2_APPS=( "omar-app" "sqs-app" "mensa-app" "avro-app" "disk-cleanup" "dow
 if [ -z "$OMAR_INSTALL_PREFIX" ]; then
    export OMAR_INSTALL_PREFIX=$ROOT_DIR/install
 fi
+
+export GRADLE_HOME=/var/lib/jenkins/gradle-3.2.1
+export PATH=$PATH:$GRADLE_HOME/bin
