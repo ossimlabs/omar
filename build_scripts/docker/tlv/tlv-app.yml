@@ -10,20 +10,18 @@ baseLayers:
         visible: true
         url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
 
-defaultLocation: "48.8584, 2.2945"
+defaultLocation: 48.8584, 2.2945
+
+geocoderUrl: ${GEOCODER_URL}
 
 libraries:
     o2:
-        label: "O2"
-        layerType: "wms"
-        name: "o2"
-        sensors:
-            - description: "Commercial: Multispectral"
-              name: "msi"
-            - description: "Commercial: Panchromatic"
-              name: "vis"
-        queryUrl: "http://${WFSURL}/wfs"
-        viewUrl: "http://${WMSURL}/wms"
+        label: O2
+        layerType: wms
+        name: o2
+        sensors: []
+        queryUrl: http://${WFSURL}/wfs
+        viewUrl: http://${WMSURL}/wms
 
 networkSpecific:
     dialogs:
@@ -31,7 +29,7 @@ networkSpecific:
     layers:
         enabled: true
 
-securityClassification: "UNCLASSIFIED"
+securityClassification: UNCLASSIFIED
 
 server:
   contextPath: /tlv
