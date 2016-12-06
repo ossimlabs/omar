@@ -128,7 +128,7 @@ class StagerService
 					imageStager.setCompressionType(params.overviewCompressionType)
 					imageStager.setOverviewType(params.overviewType)
 					imageStager.setUseFastHistogramStagingFlag(params.useFastHistogramStaging)
-
+					imageStager.setQuietFlag(true);
 					if(params.buildHistograms&& params.buildOverviews)
 					{
 						Boolean  hasOverviews  = imageStager.hasOverviews();
