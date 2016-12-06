@@ -32,10 +32,12 @@ sources:
   o2_basic_tiles:
      type: tile
      url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/%(z)s/%(x)s/%(y)s.png
+     #url: ${BASICURL}/styles/basic-v9/rendered/%(z)s/%(x)s/%(y)s.png
      grid: webmercator
   o2_bright_tiles:
     type: tile
     url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/%(z)s/%(x)s/%(y)s.png
+    #url: ${BRIGHTURL}/styles/bright-v9/rendered/%(z)s/%(x)s/%(y)s.png
     grid: webmercator
 
 grids:
