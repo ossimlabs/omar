@@ -15,7 +15,6 @@ class StageFileJob {
       {
          try
          {
-            println (fileRecord as HashMap)
 //            def result = stagerService.stageFileJni([filename:fileRecord.filename,
 //                                                     buildOverviews: fileRecord.buildOverviews,
 //                                                     buildHistograms:fileRecord.buildHistograms,
@@ -25,7 +24,6 @@ class StageFileJob {
 //                                                     overviewType: fileRecord.overviewType
 //            ]
             def result =  stagerService.stageFileJni(fileRecord as HashMap)
-
 
             if(result.status>=300)
             {
