@@ -1,5 +1,6 @@
-# Welcome to OMAR suite of Web Services
+# Welcome to O2 suite of Web Services
 
+O2 is the latest generation of image archive, access, processing and visualization open source software.  O2 is evolved from OSSIM, OMAR and many other open source technologies into a set of microservices for cloud-ready deployment in addition to standard hardware set deployments.
 
 ## Binary Distribution and Setup
 
