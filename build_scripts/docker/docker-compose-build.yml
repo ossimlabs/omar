@@ -223,6 +223,7 @@ services:
     container_name: tlv
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      GEOCODER_URL: ${DOCKER_REGISTRY_URI}/twofishes
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
     ports:
