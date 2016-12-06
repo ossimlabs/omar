@@ -52,6 +52,20 @@ class RasterDataSetController
         </li>
         <br>
         <li>
+            <b>buildHistogramsWithR0</b><p/>
+            If the parameter is true and buildHistograms is true then it will use the full resolution
+            to build the histograms.  Ususally this is specified if you have images with internal overviews.
+            If internal overviews are found and buildHistograms is true and  buildHistogramsWithR0 is false then it will
+            build using the first iteration of the overview and that is whatever the last level the internal overviews
+            end.  So if you have an image with internal 5 levels then it will use the 5th level for the histogram.  If
+        </li>
+        <br>
+        <li>
+            <b>useFastHistogramStaging</b><p/>
+            If enabled it will only use a few tiles in the image to calculate the histogram
+        </li>
+        <br>
+        <li>
             <b>overviewType</b><p/>
             Indicates the overview type to use.
         </li>
@@ -80,6 +94,8 @@ class RasterDataSetController
 			@ApiImplicitParam( name = 'background', value = 'Process in the background', allowableValues="[true,false]", defaultValue="true", dataType = "boolean",  required = false),
 			@ApiImplicitParam( name = 'buildOverviews', value = 'Build overviews', allowableValues="[true,false]", defaultValue="true", dataType = "boolean", required = false),
 			@ApiImplicitParam( name = 'buildHistograms', value = 'Build histograms', allowableValues="[true,false]", defaultValue="true", dataType = "boolean", required = false),
+			@ApiImplicitParam( name = 'buildHistogramsWithR0', value = 'Build histograms with R0', allowableValues="[true,false]", defaultValue="false", dataType = "boolean", required = false),
+			@ApiImplicitParam( name = 'useFastHistogramStaging', value = 'Fast Histogram calculation', allowableValues="[true,false]", defaultValue="false", dataType = "boolean", required = false),
 			@ApiImplicitParam( name = 'overviewType', value = 'Overview type', allowableValues="[ossim_tiff_box, ossim_tiff_nearest, ossim_kakadu_nitf_j2k]", defaultValue = "ossim_tiff_box", dataType = "string", required = false),
 			@ApiImplicitParam( name = 'overviewCompressionType', value = 'Overview compression type', allowableValues="[NONE,JPEG,PACKBITS,DEFLATE]", defaultValue="NONE", dataType = "string", required = false),
 	] )

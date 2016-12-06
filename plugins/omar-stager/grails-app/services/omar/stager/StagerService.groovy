@@ -121,12 +121,42 @@ class StagerService
 				(0..<nEntries).each{
 					imageStager.setEntry(it)
 
+					imageStager.setDefaults()
+
 					imageStager.setHistogramStagingFlag(params.buildHistograms);
 					imageStager.setOverviewStagingFlag(params.buildOverviews);
 					imageStager.setCompressionType(params.overviewCompressionType)
 					imageStager.setOverviewType(params.overviewType)
-
-					imageStager.stage()
+					imageStager.setUseFastHistogramStagingFlag(params.useFastHistogramStaging)
+					imageStager.setQuietFlag(true);
+					if(params.buildHistograms&& params.buildOverviews)
+					{
+						Boolean  hasOverviews  = imageStager.hasOverviews();
+						if(hasOverviews)
+						{
+							if(params.buildHistogramsWithR0)
+							{
+								imageStager.setHistogramStagingFlag(false);
+								imageStager.stage()
+								imageStager.setHistogramStagingFlag(true);
+								imageStager.setOverviewStagingFlag(false);
+								imageStager.stage()
+							}
+							else
+							{
+								imageStager.stage()
+							}
+							// if we are required to use R0 then we will do it in 2 steps
+						}
+						else
+						{
+							imageStager.stage()
+						}
+					}
+					else
+					{
+						imageStager.stage()
+					}
 				}
 				//imageStager.stageAll()
 				imageStager.delete()
@@ -161,6 +191,7 @@ class StagerService
 		}
 		catch(e)
 		{
+			println e
 			results.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
 			results.message = "Unable to process file ${params.filename} with ERROR: ${e}"
 			log.error "${e.toString()}"
@@ -264,6 +295,8 @@ class StagerService
 			String processId = getNewFileStageProcessId()
 			Boolean buildOverviews = params?.buildOverviews
 			Boolean buildHistograms = params?.buildHistograms
+			Boolean buildHistogramsWithR0 = params?.buildHistogramsWithR0
+			Boolean useFastHistogramStaging = params?.useFastHistogramStaging
 			String overviewCompressionType = params?.overviewCompressionType
 			String overviewType = params?.overviewType
 
@@ -271,6 +304,8 @@ class StagerService
 					filename: filename,
 					buildOverviews: buildOverviews,
 					buildHistograms: buildHistograms,
+					buildHistogramsWithR0: buildHistogramsWithR0,
+					useFastHistogramStaging: useFastHistogramStaging,
 					overviewCompressionType: overviewCompressionType,
 					overviewType: overviewType,
 					status: ProcessStatus.READY,
