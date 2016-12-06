@@ -24,6 +24,12 @@ services:
     restart: always
     volumes:
       - /data:/data
+  o2-basemap-proxy:
+    build: ./o2-basemap-proxy
+    image: ${DOCKER_REGISTRY_URI}/o2-basemap-proxy
+    container_name: o2-basemap-proxy
+    ports:
+      - "5017:8080"
   o2-db:
     build: ./o2-db
     container_name: o2-db
