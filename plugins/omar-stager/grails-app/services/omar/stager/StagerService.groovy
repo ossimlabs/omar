@@ -131,7 +131,6 @@ class StagerService
 
 					if(params.buildHistograms&& params.buildOverviews)
 					{
-						println "buildHistograms && buildOverviews"
 						Boolean  hasOverviews  = imageStager.hasOverviews();
 						if(hasOverviews)
 						{
@@ -296,6 +295,8 @@ class StagerService
 			String processId = getNewFileStageProcessId()
 			Boolean buildOverviews = params?.buildOverviews
 			Boolean buildHistograms = params?.buildHistograms
+			Boolean buildHistogramsWithR0 = params?.buildHistogramsWithR0
+			Boolean useFastHistogramStaging = params?.useFastHistogramStaging
 			String overviewCompressionType = params?.overviewCompressionType
 			String overviewType = params?.overviewType
 
@@ -303,6 +304,8 @@ class StagerService
 					filename: filename,
 					buildOverviews: buildOverviews,
 					buildHistograms: buildHistograms,
+					buildHistogramsWithR0: buildHistogramsWithR0,
+					useFastHistogramStaging: useFastHistogramStaging,
 					overviewCompressionType: overviewCompressionType,
 					overviewType: overviewType,
 					status: ProcessStatus.READY,
