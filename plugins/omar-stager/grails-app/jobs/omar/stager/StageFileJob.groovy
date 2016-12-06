@@ -15,12 +15,18 @@ class StageFileJob {
       {
          try
          {
-            def result = stagerService.stageFileJni([filename:fileRecord.filename,
-                                        buildOverviews: fileRecord.buildOverviews,
-                                        buildHistograms:fileRecord.buildHistograms,
-                                        overviewCompressionType: fileRecord.overviewCompressionType,
-                                        overviewType: fileRecord.overviewType
-            ])
+            println (fileRecord as HashMap)
+//            def result = stagerService.stageFileJni([filename:fileRecord.filename,
+//                                                     buildOverviews: fileRecord.buildOverviews,
+//                                                     buildHistograms:fileRecord.buildHistograms,
+//                                                     buildHistogramsWithR0:fileRecord.buildHistogramsWithR0,
+//                                                     useFastHistogramStaging:fileRecord.useFastHistogramStaging,
+//                                                     overviewCompressionType: fileRecord.overviewCompressionType,
+//                                                     overviewType: fileRecord.overviewType
+//            ]
+            def result =  stagerService.stageFileJni(fileRecord as HashMap)
+
+
             if(result.status>=300)
             {
                if(result.status == 415)
