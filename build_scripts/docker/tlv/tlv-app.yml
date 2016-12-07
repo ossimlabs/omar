@@ -10,6 +10,8 @@ baseLayers:
         visible: true
         url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
 
+beLookupUrl: http://${BE_LOOKUP_URL}/wfs
+
 defaultLocation: 48.8584, 2.2945
 
 geocoderUrl: http://${GEOCODER_URL}
