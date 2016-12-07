@@ -26,6 +26,24 @@ omar:
         options:
           visible: false
       -
+        layerType: "tilewms"
+        title: "OSM Basic (Cached)"
+        url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
+        params:
+          layers: "o2-basemap-basic"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "OSM Bright (Cached)"
+        url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
+        params:
+          layers: "o2-basemap-bright"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
         layerType: "xyz"
         title: "OSM Basic"
         url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png
