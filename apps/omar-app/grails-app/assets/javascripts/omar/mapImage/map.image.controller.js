@@ -583,7 +583,7 @@
     $scope.$on('pqe: updated', function(event, data) {
 
       pqeObj = data[0];
-      
+
       if (pqeObj.pqe.pqeValid){
 
         vm.showPqeOutput = true;
@@ -620,6 +620,15 @@
     // End Position Quality Evaluator Section
 
     vm.screenshot = function() { imageSpaceService.screenshot(); }
+    vm.viewMetadata = function( image ) {
+        var url = AppO2.APP_CONFIG.params.wfs.baseUrl +
+            "filter=in(" + image.imageId + ")&" +
+            "request=GetFeature&" +
+            "service=WFS&" +
+            "typeName=omar:raster_entry&" +
+            "version=1.1.0";
+        window.open( url );
+    }
     vm.zoomToFullExtent = function() { imageSpaceService.zoomToFullExtent(); }
     vm.zoomToFullRes = function() { imageSpaceService.zoomToFullRes(); }
 

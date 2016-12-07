@@ -57,6 +57,11 @@
           </ul>
         </li>
         <li
+          ng-click="image.viewMetadata(image)"
+          tooltip-placement="right"
+          uib-tooltip="View the image metadata"><a>Metadata</a>
+        </li>
+        <li
           ng-click="image.shareModal()"
           tooltip-placement="right"
           uib-tooltip="Copy a link to share this image"><a>Share</a>
