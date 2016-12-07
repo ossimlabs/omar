@@ -228,6 +228,7 @@ services:
     image: ${DOCKER_REGISTRY_URI}/tlv
     container_name: tlv
     environment:
+      BE_LOOKUP_URL: ${DOCKER_HOST_URL}/o2-wfs
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
       GEOCODER_URL: ${DOCKER_HOST_URL}/twofishes
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
