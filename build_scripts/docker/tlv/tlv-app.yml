@@ -12,7 +12,7 @@ baseLayers:
 
 defaultLocation: 48.8584, 2.2945
 
-geocoderUrl: ${GEOCODER_URL}
+geocoderUrl: http://${GEOCODER_URL}
 
 libraries:
     o2:
