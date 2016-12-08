@@ -4,4 +4,3 @@ pages:
 - Search: search/index.md
 - TLV: tlv/index.md
 site_name: O2 User Guide
-#theme: readthedocs
