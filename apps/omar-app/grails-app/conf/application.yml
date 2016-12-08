@@ -162,7 +162,7 @@ omar:
           visible: false
       -
         layerType: "tilewms"
-        title: "OSM Basic (Cached)"
+        title: "OSM Basic"
         url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
         params:
           layers: "o2-basemap-basic"
@@ -171,25 +171,13 @@ omar:
           visible: false
       -
         layerType: "tilewms"
-        title: "OSM Bright (Cached)"
+        title: "OSM Bright"
         url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
         params:
           layers: "o2-basemap-bright"
           format: "image/jpeg"
         options:
           visible: true
-      -
-        layerType: "xyz"
-        title: "OSM Basic"
-        url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png
-        options:
-          visible: false
-      -
-        layerType: "xyz"
-        title: "OSM Bright"
-        url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
-        options:
-          visible: false
   app:
     wfs:
       baseUrl: http://localhost:8081/wfs?
