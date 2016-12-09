@@ -15,7 +15,7 @@ LABEL com.radiantblue.version="0.1"\
       beginning for the rest of the o2 apps."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-ADD ossimg.repo /etc/yum.repos.d/ossim.repo
+ADD ossim.repo /etc/yum.repos.d/ossim.repo
 RUN sed -i "s/OSSIM_GIT_BRANCH/${OSSIM_GIT_BRANCH}/g" /etc/yum.repos.d/ossim.repo
 ##
 # If EPEL is doing a full mirror list synchronization you might get errors
