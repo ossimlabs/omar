@@ -5,7 +5,10 @@ pushd `dirname $0` > /dev/null
 export SCRIPT_DIR=`pwd -P`
 popd >/dev/null
 
-JAVA_OPTS="-server -Xms256m -Xmx1024m -Djava.awt.headless=true -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit"
+if [ -z ${JAVA_OPTS} ] ; then
+   JAVA_OPTS="-server -Xms256m -Xmx1024m -Djava.awt.headless=true -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit"
+fi
+
 PROGRAM_NAME={{program_name}}
 if [ -z $OSSIM_INSTALL_PREFIX ]; then
    export OSSIM_INSTALL_PREFIX={{OSSIM_INSTALL_PREFIX}}
