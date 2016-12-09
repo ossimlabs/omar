@@ -6,6 +6,8 @@
 # a beginning for the rest of the o2 apps.
 FROM centos:latest
 MAINTAINER RadiantBlue Technologies radiantblue.com
+ARG GIT_BRANCH=dev
+
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="A base image to \
       install java and the ossim repo. There isn't \
@@ -13,8 +15,8 @@ LABEL com.radiantblue.version="0.1"\
       beginning for the rest of the o2 apps."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-ADD ossim.repo /etc/yum.repos.d/ossim.repo
-
+ADD ossim-${GIT_BRANCH}.repo /etc/yum.repos.d/ossim.repo
+RUN sed -i "s/GIT_BRANCH/${GIT_BRANCH}/g" /etc/yum.repos.d/ossim.repo
 ##
 # If EPEL is doing a full mirror list synchronization you might get errors
 # Uncomment this to use a fixed location for the epel
