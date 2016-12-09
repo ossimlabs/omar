@@ -53,7 +53,7 @@
             visible: false,
             title: 'Image Footprints',
             opacity: 1.0,
-            source: new ol.source.Vector(),
+            source: new ol.source.Vector({ wrapX: false }),
             style: new ol.style.Style({
                 fill: new ol.style.Fill({
                     color: 'rgba(0, 0, 0, 0)'
@@ -67,7 +67,7 @@
 
         placemarkLayer = new ol.layer.Vector({
             title: 'Placemarks',
-            source: new ol.source.Vector()
+            source: new ol.source.Vector({ wrapX: false })
 
         });
 
@@ -213,7 +213,8 @@
                     'FILTER': "in(" + imageLayerIds + ")",
                     'TILED': true,
                     'VERSION': '1.1.1'
-                }
+                },
+		wrapX: false
             }),
             name: imageLayerIds
         });
@@ -272,7 +273,8 @@
                             'VERSION': '1.1.1',
                             'LAYERS': layerObj.params.layers,
                             'FORMAT': layerObj.params.format
-                        }
+                        },
+			wrapX: false
                     }),
                     name: layerObj.title
                 });

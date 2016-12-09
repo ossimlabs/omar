@@ -159,19 +159,25 @@ omar:
           layers: "nasa:bluemarble"
           format: "image/jpeg"
         options:
-          visible: true
+          visible: false
       -
-        layerType: "xyz"
+        layerType: "tilewms"
         title: "OSM Basic"
-        url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png
+        url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
+        params:
+          layers: "o2-basemap-basic"
+          format: "image/jpeg"
         options:
           visible: false
       -
-        layerType: "xyz"
+        layerType: "tilewms"
         title: "OSM Bright"
-        url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
+        url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
+        params:
+          layers: "o2-basemap-bright"
+          format: "image/jpeg"
         options:
-          visible: false
+          visible: true
   app:
     wfs:
       baseUrl: http://localhost:8081/wfs?

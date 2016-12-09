@@ -6,6 +6,8 @@ class OmarStageFile {
     String filename
     Boolean buildOverviews
     Boolean buildHistograms
+    Boolean buildHistogramsWithR0
+    Boolean useFastHistogramStaging
     String overviewCompressionType
     String overviewType
     ProcessStatus status
@@ -17,6 +19,8 @@ class OmarStageFile {
         filename nullable:false
         buildOverviews nullable:true
         buildHistograms nullable:true
+        buildHistogramsWithR0 nullable:true
+        useFastHistogramStaging nullable:true
         overviewCompressionType nullable:true
         overviewType nullable:true
         status nullable:false
@@ -36,6 +40,8 @@ class OmarStageFile {
         if ( dateCreated == null ) dateCreated = new Date()
         if(buildOverviews==null) buildOverviews=true
         if(buildHistograms==null) buildHistograms=true
+        if(buildHistogramsWithR0==null) buildHistogramsWithR0 = false
+        if(useFastHistogramStaging==null) useFastHistogramStaging = false
         if(!overviewCompressionType) overviewCompressionType = "NONE"
         if(!overviewType) overviewType = "ossim_tiff_box"
 

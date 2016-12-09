@@ -28,15 +28,25 @@ services:
     volumes:
       - /data:/data
   o2-basemap:
-      container_name: o2-basemap
-      # Location of the .mbtiles file for the base map
-      # /basemap on the host to /data in the o2-basemap container
-      image: ${DOCKER_REGISTRY_URI}/o2-basemap
-      ports:
-        - "5016:80"
-      restart: always
-      volumes:
-        - /basemap:/data
+    container_name: o2-basemap
+    image: ${DOCKER_REGISTRY_URI}/o2-basemap
+    ports:
+      - "5016:80"
+    restart: always
+    # Location of the .mbtiles file for the base map
+    # /basemap on the host to /data in the o2-basemap container
+    volumes:
+      - /basemap:/data
+  o2-basemap-proxy:
+    container_name: o2-basemap-proxy
+    image: ${DOCKER_REGISTRY_URI}/o2-basemap-proxy
+    ports:
+      - "5017:8080"
+    # Mount a volume/directory "cache_data" from the
+    # container to the host to hold the cache for the
+    # base maps.
+    volumes:
+      - /basemap-cache:/mapproxy/cache_data
   o2-db:
     container_name: o2-db
     environment:
@@ -253,7 +263,9 @@ services:
   o2-tlv:
     container_name: tlv
     environment:
+      BE_LOOKUP_URL: ${DOCKER_HOST_URL}/o2-wfs
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      GEOCODER_URL: ${DOCKER_HOST_URL}/twofishes
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
     image: ${DOCKER_REGISTRY_URI}/tlv:${TAG}

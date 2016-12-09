@@ -24,6 +24,12 @@ services:
     restart: always
     volumes:
       - /data:/data
+  o2-basemap-proxy:
+    build: ./o2-basemap-proxy
+    image: ${DOCKER_REGISTRY_URI}/o2-basemap-proxy
+    container_name: o2-basemap-proxy
+    ports:
+      - "5017:8080"
   o2-db:
     build: ./o2-db
     container_name: o2-db
@@ -222,7 +228,9 @@ services:
     image: ${DOCKER_REGISTRY_URI}/tlv
     container_name: tlv
     environment:
+      BE_LOOKUP_URL: ${DOCKER_HOST_URL}/o2-wfs
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      GEOCODER_URL: ${DOCKER_HOST_URL}/twofishes
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSURL: ${DOCKER_HOST_URL}/o2-wms
     ports:

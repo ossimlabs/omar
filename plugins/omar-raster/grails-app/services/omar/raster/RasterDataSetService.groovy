@@ -91,10 +91,12 @@ class RasterDataSetService implements ApplicationContextAware {
 
 				if(params.buildOverviews||params.buildHistograms) {
 					def result = stagerService.stageFileJni([filename:params.filename,
-														 buildOverviews: params.buildOverviews,
-														 buildHistograms:params.buildHistograms,
-														 overviewCompressionType: params.overviewCompressionType,
-														 overviewType: params.overviewType
+																		  buildOverviews: params.buildOverviews,
+																		  buildHistograms:params.buildHistograms,
+																		  overviewCompressionType: params.overviewCompressionType,
+																		  buildHistogramsWithR0: params.buildHistogramsWithR0,
+																		  useFastHistogramStaging: params.useFastHistogramStaging,
+																		  overviewType: params.overviewType
 					])
 					if(result?.status >= 300) { log.error(result?.message) }
 					httpStatusMessage.status = result.status
@@ -315,6 +317,8 @@ def updateRaster(def httpStatusMessage, def params)
 								statusMessage: record.statusMessage,
 								buildOverviews: record.buildOverviews,
 								buildHistograms: record.buildHistograms,
+								buildHistogramsWithR0: record.buildHistogramsWithR0,
+								useFastHistogramStaging: record.useFastHistogramStaging,
 								overviewCompressionType: record.overviewCompressionType,
 								overviewType: record.overviewType,
 								dateCreated: record.dateCreated,
