@@ -1,6 +1,6 @@
 [ossim]
 name=CentOS-$releasever - ossim packages for $basearch
-baseurl=http://s3.amazonaws.com/o2-rpms/CentOS/$releasever/dev/$basearch
+baseurl=http://s3.amazonaws.com/o2-rpms/CentOS/$releasever/GIT_BRANCH/$basearch
 enabled=1
 gpgcheck=0
 metadata_expire=5m
