@@ -85,7 +85,7 @@ for app in ${O2_APPS[@]} ; do
      pushd ${app}
      getImageName ${app} ${TAG}
      cp Dockerfile Dockerfile.back
-     sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:${TAG}/" Dockerfile
+     sed -i -e "s/FROM.*${app}/FROM ${DOCKER_REGISTRY_URI}\/${app}\:${TAG}/" Dockerfile
      
      if [ "${app}" == "o2-base" ] ; then
         docker build  --build-arg OSSIM_GIT_BRANCH=${OSSIM_GIT_BRANCH} --no-cache -t ${imagename} .
