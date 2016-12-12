@@ -47,6 +47,7 @@
 //= require omar/services/clipboard.service.js
 //= require omar/services/share.service.js
 //= require omar/services/download.service.js
+//= require omar/services/coordinate-conversion-service.js
 
 // <--Nav-->
 //= require omar/nav/nav.controller.js

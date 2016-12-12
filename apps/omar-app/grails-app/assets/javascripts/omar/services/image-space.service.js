@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('imageSpaceService', ['$rootScope', '$http', 'stateService', '$timeout', imageSpaceService]);
+        .service('imageSpaceService', ['$rootScope', '$http', 'stateService', '$timeout', '$q', imageSpaceService]);
 
-    function imageSpaceService($rootScope, $http, stateService, $timeout) {
+    function imageSpaceService($rootScope, $http, stateService, $timeout, $q) {
 
       // #################################################################################
       // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -844,7 +844,38 @@
             }
             // End Position Quality Evaluator stuff
 
+            this.groundToImage = function( points ) {
+                var deferred = $q.defer();
+
+                $http({
+                    data: {
+                        entryId: entry,
+                        filename: filename,
+                        pointList: points
+                    },
+                    method: 'POST',
+                    url: encodeURI( AppO2.APP_CONFIG.params.mensaApp.baseUrl + "/groundToImagePoints" )
+                }).then(
+                    function( response ) {
+                        var pixels = response.data.data;
+
+
+                        if ( pixels.length > 0 ) {
+                            deferred.resolve( pixels[0] );
+                        }
+                        else { deferred.resolve( false ); }
+                    }
+                );
+
+
+                return deferred.promise;
+            }
+
             // Begin Zoom stuff
+            this.setCenter = function( point ) {
+                map.getView().setCenter( point );
+            }
+
             this.zoomToFullExtent = function() {
                 map.getView().setZoom(1);
             }
