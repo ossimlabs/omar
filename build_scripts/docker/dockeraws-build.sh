@@ -88,6 +88,7 @@ for app in ${O2_APPS[@]} ; do
      sed -i -e "s/FROM.*${app}/FROM ${DOCKER_REGISTRY_URI}\/${app}\:${TAG}/" Dockerfile
      
      if [ "${app}" == "o2-base" ] ; then
+        echo "SETTING OSSIM_GIT_BRANCH for Dockerfile to argument value ${OSSIM_GIT_BRANCH}"
         docker build  --build-arg OSSIM_GIT_BRANCH=${OSSIM_GIT_BRANCH} --no-cache -t ${imagename} .
      else
         docker build  --no-cache -t ${imagename} .

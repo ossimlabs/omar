@@ -6,7 +6,8 @@
 # a beginning for the rest of the o2 apps.
 FROM centos:latest
 MAINTAINER RadiantBlue Technologies radiantblue.com
-ARG OSSIM_GIT_BRANCH=dev
+ARG OSSIM_GIT_BRANCH
+ENV OSSIM_GIT_BRANCH
 
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="A base image to \
