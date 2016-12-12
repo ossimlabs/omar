@@ -67,7 +67,7 @@ services:
       POSTGRES_PASSWORD: abc123
       POSTGRES_USER: postgres_user
       STAGER_URL: ${DOCKER_HOST_URL}/o2-stager
-    image: ${DOCKER_REGISTRY_URI}/o2-disk-cleanup
+    image: ${DOCKER_REGISTRY_URI}/o2-disk-cleanup:${TAG}
     ports:
       - "4991:8080"
     volumes:
