@@ -24,21 +24,21 @@
                     var latitude = dmsToDd( RegExp.$1, RegExp.$2, RegExp.$3, RegExp.$4 );
                     var longitude = dmsToDd( RegExp.$5, RegExp.$6, RegExp.$7, RegExp.$8 );
 
-                    $rootScope.$broadcast('coordService: updated', [ longitude, latitude ]);
+                    $rootScope.$broadcast('coordService: updated', { coordinate: [ longitude, latitude ] } );
 
                 }
                 else if ( location.match( ddPattern ) ) {
                     var latitude = parseFloat(RegExp.$1);
                     var longitude = parseFloat(RegExp.$2);
 
-                    $rootScope.$broadcast('coordService: updated', [ longitude, latitude ]);
+                    $rootScope.$broadcast('coordService: updated', { coordinate: [ longitude, latitude ] } );
 
                 }
                 else if ( location.match( mgrsPattern ) ) {
                     var mgrsString = RegExp.$1 + RegExp.$2 + RegExp.$3 + RegExp.$4 + RegExp.$5 + RegExp.$6;
                     var coords = mgrs.toPoint(mgrsString);
 
-                    $rootScope.$broadcast('coordService: updated', coords);
+                    $rootScope.$broadcast('coordService: updated', { coordinate: coords } );
 
                 }
                 else if ( location.match( bePattern ) && AppO2.APP_CONFIG.params.misc.beLookupEnabled ) {
@@ -57,18 +57,14 @@
                         method: 'GET',
                         url: encodeURI( wfsUrl )
                     }).then(function( response ) {
-                            var features = response.data.features;
+                        var features = response.data.features;
 
-                            if ( features.length > 0 ) {
-
-                               $rootScope.$broadcast('coordService: updated', features[0].geometry.coordinates );
-
-                             }
-                            else {
-
-                              $rootScope.$broadcast('coordService: be_search_error', "Sorry, we couldn't find a matching BE number for this image.");
-
-                            }
+                        if ( features.length > 0 ) {
+                            $rootScope.$broadcast( 'coordService: updated', features[0].geometry.coordinates );
+                        }
+                        else {
+                            $rootScope.$broadcast('coordService: be_search_error', "Sorry, we couldn't find a matching BE number for this image.");
+                        }
                     });
                 }
                 else {
@@ -84,19 +80,19 @@
                         method: 'GET',
                         url: encodeURI( twoFishesUrl )
                     }).then(function( response ) {
-                          var features = response.data.interpretations;
+                        var features = response.data.interpretations;
 
-                          if ( features.length > 0 ) {
+                        if ( features.length > 0 ) {
+                            var geometry = features[0].feature.geometry;
+                            var center = geometry.center;
 
-                            var center = features[0].feature.geometry.center;
-                            $rootScope.$broadcast('coordService: updated', [ center.lng, center.lat ]);
-
-                          }
-                          else {
-
-                            $rootScope.$broadcast('coordService: twofishes_error', "Sorry, we couldn't find anything for that location.");
-
-                           }
+                            var params = { coordinate: [ center.lng, center.lat ] };
+                            if ( geometry.bounds ) { params.bounds = geometry.bounds; }
+                            $rootScope.$broadcast( 'coordService: updated', params );
+                        }
+                        else {
+                            $rootScope.$broadcast( 'coordService: twofishes_error', "Sorry, we couldn't find anything for that location." );
+                        }
                     });
                 }
 
