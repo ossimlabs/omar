@@ -283,16 +283,16 @@
 
             filename = params.filename;
             entry = params.entry;
-            histOp = params.histOp;
+            histOp = params.histOp || "auto-minmax";
             imgWidth = params.imgWidth;
             imgHeight = params.imgHeight;
             numOfBands = params.numOfBands;
-            bands = params.bands;
+            bands = params.bands || "default";
             imgID = params.imageId;
-            brightness = params.brightness;
-            contrast = params.contrast;
-            resamplerFilter = params.resamplerFilter;
-            sharpenMode = params.sharpenMode;
+            brightness = params.brightness || 0;
+            contrast = params.contrast || 1;
+            resamplerFilter = params.resamplerFilter || "bilinear";
+            sharpenMode = params.sharpenMode || "none";
 
             // Make AJAX call here to getAngles with filename & entry as args
             // to get the upAngle and northAngle values

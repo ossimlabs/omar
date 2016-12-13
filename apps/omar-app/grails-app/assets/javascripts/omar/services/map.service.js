@@ -76,11 +76,11 @@ function mapService(stateService, wfsService) {
   });
 
   searchLayerVector = new ol.layer.Vector({
-    source: new ol.source.Vector()
+    source: new ol.source.Vector({ wrapX: false })
   });
 
   filterLayerVector = new ol.layer.Vector({
-      source: new ol.source.Vector()
+      source: new ol.source.Vector({ wrapX: false })
   });
 
   /**
@@ -101,6 +101,7 @@ function mapService(stateService, wfsService) {
 
     mapView = new ol.View({
       center: [0, 0],
+      extent: [-180, -90, 180, 90],
       projection: 'EPSG:4326',
       zoom: 12,
       minZoom: 1,
@@ -116,7 +117,8 @@ function mapService(stateService, wfsService) {
           VERSION: '1.1.1',
           LAYERS: 'omar:raster_entry',
           STYLES: 'byFileType'
-        }
+        },
+	wrapX: false
       }),
       name: 'Image Footprints'
     });
@@ -144,7 +146,8 @@ function mapService(stateService, wfsService) {
                 'VERSION': '1.1.1',
                 'LAYERS': layerObj.params.layers,
                 'FORMAT': layerObj.params.format
-              }
+              },
+	      wrapX: false
             }),
             name: layerObj.title
             });
@@ -155,7 +158,8 @@ function mapService(stateService, wfsService) {
             type: 'base',
             visible: layerObj.options.visible,
             source: new ol.source.XYZ({
-              url: layerObj.url
+              url: layerObj.url,
+	      wrapX: false
             }),
             name: layerObj.title
           });

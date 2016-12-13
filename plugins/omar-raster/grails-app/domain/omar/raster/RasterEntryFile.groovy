@@ -22,7 +22,7 @@ class RasterEntryFile
   {
     def rasterEntryFile = new RasterEntryFile()
 
-    rasterEntryFile.name = new File( rasterEntryFileNode?.name?.text() ).absolutePath
+    rasterEntryFile.name = rasterEntryFileNode?.name?.text() //new File( rasterEntryFileNode?.name?.text() ).absolutePath
     rasterEntryFile.type = rasterEntryFileNode?.@type?.text()
     return rasterEntryFile
   }

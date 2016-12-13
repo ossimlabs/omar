@@ -1,21 +1,29 @@
-server:
-  contextPath: /tlv
-  port: 8080
+baseLayers:
+    osmBasic:
+        name: OSM Basic
+        type: xyz
+        url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png
+        visible: false
+    osmBright:
+        name: OSM Bright
+        type: xyz
+        visible: true
+        url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
 
-defaultLocation: "48.8584, 2.2945"
+beLookupUrl: http://${BE_LOOKUP_URL}/wfs
+
+defaultLocation: 48.8584, 2.2945
+
+geocoderUrl: http://${GEOCODER_URL}
 
 libraries:
     o2:
-        label: "O2"
-        layerType: "wms"
-        name: "o2"
-        sensors:
-            - description: "Commercial: Multispectral"
-              name: "msi"
-            - description: "Commercial: Panchromatic"
-              name: "vis"
-        queryUrl: "http://${WFSURL}/wfs"
-        viewUrl: "http://${WMSURL}/wms"
+        label: O2
+        layerType: wms
+        name: o2
+        sensors: []
+        queryUrl: http://${WFSURL}/wfs
+        viewUrl: http://${WMSURL}/wms
 
 networkSpecific:
     dialogs:
@@ -23,7 +31,11 @@ networkSpecific:
     layers:
         enabled: true
 
-securityClassification: "UNCLASSIFIED"
+securityClassification: UNCLASSIFIED
+
+server:
+  contextPath: /tlv
+  port: 8080
 
 ---
 # grails:
@@ -37,4 +49,3 @@ spring:
       enabled: false
     discovery:
       enabled: false
-

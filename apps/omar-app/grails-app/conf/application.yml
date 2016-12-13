@@ -1,6 +1,7 @@
 #server:
 #  contextPath: /o2-omar
 ---
+
 hibernate:
     cache:
         queries: false
@@ -132,15 +133,15 @@ grails:
 omar:
   openlayers:
     baseMaps:
-      # -
-      #   layerType: "tilewms"
-      #   title: "Open Street Map"
-      #   url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
-      #   params:
-      #     layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
-      #     format: "image/jpeg"
-      #   options:
-      #     visible: false
+      -
+        layerType: "tilewms"
+        title: "Open Street Map"
+        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        params:
+          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+          format: "image/jpeg"
+        options:
+          visible: false
       -
         layerType: "tilewms"
         title: "Natural Earth"
@@ -159,18 +160,24 @@ omar:
           format: "image/jpeg"
         options:
           visible: false
-      # -
-      #   layerType: "xyz"
-      #   title: "OSM Basic"
-      #   url: "http://10.0.10.183/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png"
-      #   options:
-      #     visible: false
-      # -
-      #   layerType: "xyz"
-      #   title: "OSM Bright"
-      #   url: "http://10.0.10.183/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png"
-      #   options:
-      #     visible: true
+      -
+        layerType: "tilewms"
+        title: "OSM Basic"
+        url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
+        params:
+          layers: "o2-basemap-basic"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "OSM Bright"
+        url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
+        params:
+          layers: "o2-basemap-bright"
+          format: "image/jpeg"
+        options:
+          visible: true
   app:
     wfs:
       baseUrl: http://localhost:8081/wfs?
@@ -201,9 +208,9 @@ omar:
     twofishes:
       baseUrl: http://demo.twofishes.net
       proxy: /twoFishesProxy
-    swipeApp:
-      baseUrl: http://localhost:8081/swipe
-      enabled: false
+    #swipeApp:
+      #baseUrl: http://localhost:8081/swipe
+      #enabled: false
     kmlApp:
       baseUrl: http://localhost:8081
       enabled: true
@@ -216,6 +223,9 @@ omar:
     piwikApp:
       baseUrl: http://omar.ossim.org/piwik/
       enabled: false
+    userGuide:
+      baseUrl: http://ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs
+      enabled: true
     misc:
       #beLookupEnabled: true
       icons:

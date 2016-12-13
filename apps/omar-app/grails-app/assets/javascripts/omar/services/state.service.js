@@ -10,10 +10,10 @@ angular
 
     var mapState = {
       center: {
-        lat: 33.3116664,
-        lng: 44.2858655
+        lat: 0,
+        lng: 0
       },
-      zoom: 4,
+      zoom: 3,
       feature: {
         lat: undefined,
         lng: undefined,

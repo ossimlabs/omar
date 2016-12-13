@@ -6,10 +6,14 @@ class DataInfoService
 
   def infoGetterPool
 
-  String getInfo( File file, Integer entryId=null )
-  {
-    this.getInfo( file?.absolutePath )
-  }
+  //String getInfo( File file, Integer entryId=null )
+  //{
+  //  this.getInfo( file?.absolutePath )
+  //}
+//  String getInfo( URI file, Integer entryId=null )
+//  {
+//    this.getInfo( file.toString(), entryId )
+//  }
 
   String getInfo( String filename, Integer entryId = null )
   {

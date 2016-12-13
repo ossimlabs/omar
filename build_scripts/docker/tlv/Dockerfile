@@ -11,7 +11,9 @@ LABEL com.radiantblue.version="0.1"\
       com.radiantblue.classification="UNCLASSIFIED"
 RUN yum -y install time_lapse && yum clean all
 ADD tlv-app.yml /usr/share/omar/time_lapse/time_lapse.yml
-ENV DOCKER_HOST_IP=${DOCKER_HOST_IP}\
+ENV BE_LOOKUP_URL=${BE_LOOKUP_URL}\
+    DOCKER_HOST_IP=${DOCKER_HOST_IP}\
+    GEOCODER_URL=${GEOCODER_URL}\
     WFSURL=${WFSURL}\
     WMSURL=${WMSURL}
 

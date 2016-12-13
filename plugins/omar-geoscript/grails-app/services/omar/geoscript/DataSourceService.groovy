@@ -13,19 +13,24 @@ class DataSourceService
 	def messageSource
 
 	static String expandEnvVars(String text) {
+
 		String txt = text
-		String pattern = '\\$\\{([A-Za-z0-9]+)\\}';
-		Pattern expr = Pattern.compile(pattern);
-		Matcher matcher = expr.matcher(txt);
-		while (matcher.find()) {
-			String envValue = System.env."${matcher.group(1)}";
-			if (envValue == null) {
-				envValue = "";
-			} else {
-				envValue = envValue.replace('\\', '\\\\');
+
+		if(txt)
+		{
+			String pattern = '\\$\\{([A-Za-z0-9]+)\\}';
+			Pattern expr = Pattern.compile(pattern);
+			Matcher matcher = expr.matcher(txt);
+			while (matcher.find()) {
+				String envValue = System.env."${matcher.group(1)}";
+				if (envValue == null) {
+					envValue = "";
+				} else {
+					envValue = envValue.replace('\\', '\\\\');
+				}
+				Pattern subexpr = Pattern.compile(Pattern.quote(matcher.group(0)));
+				txt = subexpr.matcher(txt).replaceAll(envValue);
 			}
-			Pattern subexpr = Pattern.compile(Pattern.quote(matcher.group(0)));
-			txt = subexpr.matcher(txt).replaceAll(envValue);
 		}
 		txt
 	}

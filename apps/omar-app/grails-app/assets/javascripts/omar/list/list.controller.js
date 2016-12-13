@@ -23,6 +23,26 @@
         vm.thumbSize = '&size=100';
         vm.thumbFormat = '&format=jpeg';
 
+        vm.getImageSpaceUrl = function(image) {
+            var defaults = imageSpaceDefaults;
+            var properties = image.properties;
+
+
+            return AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?' +
+                'bands=' + defaults.bands + '&' +
+                'brightness=' + defaults.brightness + '&' +
+                'contrast=' + defaults.contrast + '&' +
+                'entry_id=' + properties.entry_id + '&' +
+                'filename=' + properties.filename + '&' +
+                'height=' + properties.height + '&' +
+                'histOp=' + defaults.histOp + '&' +
+                'imageId=' + properties.id + '&' +
+                'numOfBands=' + properties.number_of_bands + '&' +
+                'resamplerFilter=' + defaults.resamplerFilter + '&' +
+                'sharpenMode=' + defaults.sharpenMode + '&' +
+                'width=' + properties.width;
+        }
+
         vm.thumbBorder = function( imageType ) {
 
             //console.log(imageType);
@@ -323,6 +343,26 @@
             title: 'Help'
         };
 
+        vm.getImageSpaceUrl = function(image) {
+            var defaults = imageSpaceDefaults;
+            var properties = image.properties;
+
+
+            return AppO2.APP_CONFIG.serverURL + '/omar/#/mapImage?' +
+                'bands=' + defaults.bands + '&' +
+                'brightness=' + defaults.brightness + '&' +
+                'contrast=' + defaults.contrast + '&' +
+                'entry_id=' + properties.entry_id + '&' +
+                'filename=' + properties.filename + '&' +
+                'height=' + properties.height + '&' +
+                'histOp=' + defaults.histOp + '&' +
+                'imageId=' + properties.id + '&' +
+                'numOfBands=' + properties.number_of_bands + '&' +
+                'resamplerFilter=' + defaults.resamplerFilter + '&' +
+                'sharpenMode=' + defaults.sharpenMode + '&' +
+                'width=' + properties.width;
+        }
+
         vm.loadBeData = function loadBeData(geom) {
             console.log('loadBeData geometry: ', imageObj.geometry);
             vm.beData = beNumberService.getBeData(new ol.geom.MultiPolygon(imageObj.geometry.coordinates));
@@ -352,6 +392,23 @@
 
         vm.archiveDownload = function( imageId ) {
           downloadService.downloadFiles( imageId );
+        };
+
+        vm.viewOrtho = function(image) {
+            var feature = new ol.format.GeoJSON().readFeature(image);
+
+            var extent = feature.getGeometry().getExtent();
+            var centerLat = (extent[1] + extent[3]) / 2;
+            var centerLon = (extent[0] + extent[2]) / 2;
+
+            var filter = "in(" + feature.getProperties().id + ")";
+
+            var tlvUrl = AppO2.APP_CONFIG.params.tlvApp.baseUrl + "?" +
+                "bbox=" + extent.join(",") + "&" +
+                "filter=" + filter + "&" +
+                "location=" + [centerLat, centerLon].join(",");
+
+            window.open(tlvUrl, "_blank");
         };
 
         $uibModalInstance.opened.then(function() {

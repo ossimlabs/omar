@@ -85,9 +85,15 @@ for app in ${O2_APPS[@]} ; do
      pushd ${app}
      getImageName ${app} ${TAG}
      cp Dockerfile Dockerfile.back
-     sed -i -e "s/FROM.*ossimlabs.*o2-base/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:${TAG}/" Dockerfile
-     docker build  --no-cache -t ${imagename} .
-          
+     sed -i -e "s/FROM.*o2-base.*/FROM ${DOCKER_REGISTRY_URI}\/o2-base\:${TAG}/" Dockerfile
+     
+     if [ "${app}" == "o2-base" ] ; then
+        echo "SETTING OSSIM_GIT_BRANCH for Dockerfile to argument value ${OSSIM_GIT_BRANCH}"
+        docker build  --build-arg OSSIM_GIT_BRANCH=${OSSIM_GIT_BRANCH} --no-cache -t ${imagename} .
+     else
+        docker build  --no-cache -t ${imagename} .
+     fi
+
      if [ $? -ne 0 ]; then
        echo; echo "ERROR: Building container ${app} with tag ${TAG}"
        popd

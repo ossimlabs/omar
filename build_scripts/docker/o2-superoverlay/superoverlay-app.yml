@@ -52,6 +52,8 @@ wfs:
 omar:
   o2:
     baseUrl: http://${O2URL}
+  tlv:
+    baseUrl: http://${TLV_URL}
   wfs:
     baseUrl: http://${WFSURL}
   wms:

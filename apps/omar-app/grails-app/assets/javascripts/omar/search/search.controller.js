@@ -2,9 +2,9 @@
   //'use strict';
   angular
   .module('omarApp')
-  .controller('SearchController', ['$scope', '$state', 'wfsService', '$http', 'stateService', SearchController]);
+  .controller('SearchController', ['$scope', '$state', 'wfsService', '$http', 'stateService', 'toastr', SearchController]);
 
-  function SearchController($scope, $state, wfsService, $http, stateService) {
+  function SearchController($scope, $state, wfsService, $http, stateService, toastr) {
 
     // #################################################################################
     // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -18,6 +18,11 @@
 
     var searchParams = {};
     var searchInput = $('#searchInput');
+    searchInput.keypress(function(event) {
+        if(event.keyCode == 13) { // pressing Return or Enter
+            vm.executeSearch();
+        }
+    });
 
     // enable twofishes service
     var baseUrl = AppO2.APP_CONFIG.serverURL;

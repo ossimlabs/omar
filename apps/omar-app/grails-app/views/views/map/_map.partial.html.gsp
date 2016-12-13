@@ -13,183 +13,7 @@
       <div class="collapse navbar-collapse" id="map-navbar-collapse">
         <div class="col-sm-8">
           <ul class="nav navbar-nav " ng-controller="FilterController as filter">
-            <!-- <p class="navbar-text">Filters</p> -->
-            <li class="dropdown mega-dropdown">
-              <a class="dropdown-toggle spatial-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
-                &nbsp;Spatial
-                <span class="caret"></span></a>
-              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
-                <li class="col-sm-12">
-                  <ul>
-                    <li class="dropdown-header text-center">
-                      <p class="text-center">Spatial Filters</p>
-                    </li>
-                    <li class="col-sm-3 filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox"
-                          ng-model="filter.viewPortSpatial"
-                          ng-change="filter.byViewPort(filter.viewPortSpatial)">
-                        </span>
-                        <span class="input-group-addon spatial-name">Map Viewport</span>
-                      </div>
-                    </li>
-                    <li class="col-sm-9">
-                      <p>This filter is on by default.  It constrains the
-                        query to the boundaries of the current map extent</p>
-                    </li>
-                    <li class="col-sm-12">
-                      <hr>
-                    </li>
-                    <li class="col-sm-3 filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox"
-                          ng-model="filter.pointSpatial"
-                          ng-change="filter.byPointer(filter.pointSpatial)">
-                        </span>
-                        <span class="input-group-addon spatial-name">Point</span>
-                      </<div>
-                    </li>
-                    <li class="col-sm-9">
-                      <p>Single clicking on the map
-                        will return a potential list of images at that location</p>
-                    </li>
-                    <li class="col-sm-12">
-                      <hr>
-                    </li>
-                    <li class="col-sm-3 filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox"
-                          ng-model="filter.polygonSpatial"
-                          ng-change="filter.byPolygon(filter.polygonSpatial)">
-                        </span>
-                        <span class="input-group-addon spatial-name">Polygon</span>
-                      </div>
-                    </li>
-                    <li class="col-sm-9 filter-row">
-                      <p>Left-click and hold with the
-                        ALT key to create a box that will return a potential list of images
-                      </p>
-                    </li>
-                    <li class="col-sm-12 text-center">
-                      <button class="btn btn-warning btn-xs" type="button"
-                        ng-click="filter.closeFilterDropdown('spatial-filter-dropdown')">Close
-                      </button>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown mega-dropdown">
-              <a  class="dropdown-toggle temporal-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false"><span class="fa fa-clock-o" aria-hidden="true"></span>
-               &nbsp;Temporal<span class="caret"></span></a>
-              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
-                <li class="col-sm-12">
-                  <ul>
-                    <li class="dropdown-header text-center">Temporal Filters</li>
-                    <li class="text-center">
-                      <p>Select a date type and duration filter from the select boxes below.  Changes will be reflected immediately</p>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6">
-                  <ul>
-                    <li class="filter-row">
-                      <div class="form-group form-group-sm">
-                        <label for="temporalTypeFilter">Date Type</label>
-                        <select ng-model="filter.currentDateType"
-                          ng-options="type.label for type in filter.dateTypes"
-                          id="temporalTypeFilter"
-                          class="form-control">
-                        </select>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6">
-                  <ul>
-                    <li class="filter-row">
-                      <div class="form-group form-group-sm">
-                        <label for="temporalDuration">Duration</label>
-                        <select ng-model="filter.currentTemporalDuration"
-                          ng-options="duration.label for duration in filter.temporalDurations"
-                          ng-change="filter.updateFilterString()"
-                          id="temporalDuration"
-                          class="form-control">
-                        </select>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
-                  <ul>
-                    <li class="filter-row">
-                      <p class="text-center">Start Time & Date</p>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
-                  <ul>
-                    <li>
-                      <p class="text-center">End Time & Date</p>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
-                  <ul>
-                    <li class="filter-row text-center">
-                      <div class="form-group form-group-sm">
-                        <input type="text" class="form-control"
-                         ng-model="filter.startDate"
-                         data-time-format="HH:mm:ss"
-                         data-autoclose="false"
-                         data-minute-step="1"
-                         data-second-step="1"
-                         placeholder="Time" bs-timepicker>
-                      </div>
-                      <div style="display:inline-block;">
-                        <uib-datepicker
-                          ng-model="filter.startDate"
-                          show-weeks="false"
-                          class="well well-sm">
-                        </uib-datepicker>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
-                  <ul>
-                    <li class="filter-row text-center">
-                      <div class="form-group form-group-sm">
-                        <input type="text" size="8" class="form-control"
-                         ng-model="filter.endDate"
-                         data-time-format="HH:mm:ss"
-                         data-autoclose="0" placeholder="Time" bs-timepicker>
-                      </div>
-                      <div style="display:inline-block;">
-                        <uib-datepicker
-                          ng-model="filter.endDate"
-                          show-weeks="false"
-                          class="well well-sm">
-                        </uib-datepicker>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-12 text-center">
-                  <button class="btn btn-primary btn-xs" type="button"
-                    ng-click="filter.updateFilterString()">Apply
-                  </button>
-                  <button class="btn btn-warning btn-xs" type="button"
-                    ng-click="filter.closeFilterDropdown('temporal-filter-dropdown')">Close
-                  </button>
-                </li>
-              </ul><!-- end menu -->
-            </li>
+            <p class="navbar-text">Filters:</p>
             <li class="dropdown mega-dropdown">
               <a class="dropdown-toggle keyword-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false"><span class="fa fa-key" aria-hidden="true"></span>
@@ -205,157 +29,162 @@
                     </li>
                   </ul>
                 </li>
-                <li class="col-sm-6">
-                  <ul>
-                    <li class="filter-row text-center">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.beNumberCheck">
-                        </span>
-                        <span class="input-group-addon name">BE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.beNumber"
-                         ng-click="filter.beNumberCheck = true;" class="form-control"
-                         ng-blur="filter.beNumberCheck = filter.beNumber === '' ? false: true;"
-                         id="beNumberInput"
-                         placeholder="Basic Encyclopedia Number"
-                         value="filter.beNumber">
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.countryCodeCheck">
-                        </span>
-                        <span class="input-group-addon name">CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <ui-select
-                          id = "countryCodeInput"
-                          ng-blur = "filter.countryCodeCheck = filter.countryCode === '' ? false : true"
-                          ng-click = "filter.countryCodeCheck = true; filter.getDistinctValues('countryCode');"
-                          ng-model = "filter.countryCode"
-                          theme = "selectize">
-                          <ui-select-match placeholder = "Country Code">
-                            {{$select.selected}}
-                          </ui-select-match>
-                          <ui-select-choices repeat = "val in countryCodeTypes | filter: $select.search">
-                            {{val}}
-                          </ui-select-choices>
-                        </ui-select>
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.filenameCheck">
-                        </span>
-                        <span class="input-group-addon name">File&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.filename"
-                         ng-click="filter.filenameCheck = true;"
-                         ng-blur="filter.filenameCheck = filter.filename === '' ? false: true;"
-                         class="form-control"
-                         id="filenameInput"
-                         placeholder="File name"
-                         value="filter.filename">
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.imageIdCheck">
-                        </span>
-                        <span class="input-group-addon name">Image&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.imageId"
-                         ng-click="filter.imageIdCheck = true;"
-                         ng-blur="filter.imageIdCheck = filter.imageId === '' ? false: true;"
-                         class="form-control"
-                         id="imageIdInput"
-                         placeholder="Image ID"
-                         value="filter.imageId">
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="col-sm-6">
-                  <ul>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.missionIdCheck">
-                        </span>
-                        <span class="input-group-addon name">Mission</span>
-                        <ui-select
-                          id = "missionIdInput"
-                          ng-blur = "filter.missionIdCheck = filter.missionId === '' ? false : true"
-                          ng-click = "filter.missionIdCheck = true; filter.getDistinctValues('missionId');"
-                          ng-model = "filter.missionId"
-                          theme = "selectize">
-                          <ui-select-match placeholder = "Mission ID">
-                            {{$select.selected}}
-                          </ui-select-match>
-                          <ui-select-choices repeat = "val in missionIdTypes | filter: $select.search">
-                            {{val}}
-                          </ui-select-choices>
-                        </ui-select>
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.sensorIdCheck">
-                        </span>
-                        <span class="input-group-addon name">Sensor&nbsp;</span>
-                        <ui-select
-                          id = "sensorIdInput"
-                          ng-blur = "filter.sensorIdCheck = filter.sensorId === '' ? false : true"
-                          ng-click = "filter.sensorIdCheck = true; filter.getDistinctValues('sensorId');"
-                          ng-model = "filter.sensorId"
-                          theme = "selectize">
-                          <ui-select-match placeholder = "Sensor ID">
-                            {{$select.selected}}
-                          </ui-select-match>
-                          <ui-select-choices repeat = "val in sensorIdTypes | filter: $select.search">
-                            {{val}}
-                          </ui-select-choices>
-                        </ui-select>
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.targetIdCheck">
-                        </span>
-                        <span class="input-group-addon name">Target&nbsp;</span>
-                        <ui-select
-                          class="form-control"
-                          id = "targetIdInput"
-                          ng-blur = "filter.targetIdCheck = filter.targetId === '' ? false : true"
-                          ng-click = "filter.targetIdCheck = true; filter.getDistinctValues('targetId');"
-                          ng-model = "filter.targetId"
-                          theme = "selectize">
-                          <ui-select-match placeholder = "Target ID">
-                            {{$select.selected}}
-                          </ui-select-match>
-                          <ui-select-choices repeat = "val in targetIdTypes | filter: $select.search">
-                            {{val}}
-                          </ui-select-choices>
-                        </ui-select>
-                      </div>
-                    </li>
-                    <li class="filter-row">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                          <input type="checkbox" ng-model="filter.wacNumberCheck">
-                        </span>
-                        <span class="input-group-addon name">WAC&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <input ng-model="filter.wacNumber"
-                         ng-click="filter.wacNumberCheck = true;"
-                         ng-blur="filter.wacNumberCheck = filter.wacNumber === '' ? false: true;"
-                         class="form-control"
-                         id="wacNumberInput"
-                         placeholder="World Area Code"
-                         value="filter.wacNumber">
-                      </div>
-                    </li>
-                  </ul>
+                <li class="col-sm-12">
+                  <table style="border-spacing: 0 5" width = "100%">
+                    <tr>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.beNumberCheck">
+                          </span>
+                          <span class="input-group-addon name">BE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          <input ng-model="filter.beNumber"
+                           ng-click="filter.beNumberCheck = true;" class="form-control"
+                           ng-blur="filter.beNumberCheck = filter.beNumber === '' ? false: true;"
+                           id="beNumberInput"
+                           placeholder="Basic Encyclopedia Number"
+                           value="filter.beNumber">
+                        </div>
+                      </td>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.missionIdCheck">
+                          </span>
+                          <span class="input-group-addon name">Mission</span>
+                          <ui-select
+                           id = "missionIdInput"
+                           ng-blur = "filter.missionIdCheck = filter.missionId === '' ? false : true"
+                           ng-click = "filter.missionIdCheck = true; filter.getDistinctValues('missionId');"
+                           ng-model = "filter.missionId"
+                           theme = "selectize">
+                            <ui-select-match placeholder = "Mission ID">
+                              {{$select.selected}}
+                            </ui-select-match>
+                            <ui-select-choices repeat = "val in missionIdTypes | filter: $select.search">
+                              {{val}}
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </td class="filter-row">
+                    </tr>
+                    <tr>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.countryCodeCheck">
+                          </span>
+                          <span class="input-group-addon name">CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          <ui-select
+                           id = "countryCodeInput"
+                           ng-blur = "filter.countryCodeCheck = filter.countryCode === '' ? false : true"
+                           ng-click = "filter.countryCodeCheck = true; filter.getDistinctValues('countryCode');"
+                           ng-model = "filter.countryCode"
+                           theme = "selectize">
+                            <ui-select-match placeholder = "Country Code">
+                              {{$select.selected}}
+                            </ui-select-match>
+                            <ui-select-choices repeat = "val in countryCodeTypes | filter: $select.search">
+                              {{val}}
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </td>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.sensorIdCheck">
+                          </span>
+                          <span class="input-group-addon name">Sensor&nbsp;</span>
+                          <ui-select
+                           id = "sensorIdInput"
+                           ng-blur = "filter.sensorIdCheck = filter.sensorId === '' ? false : true"
+                           ng-click = "filter.sensorIdCheck = true; filter.getDistinctValues('sensorId');"
+                           ng-model = "filter.sensorId"
+                           theme = "selectize">
+                            <ui-select-match placeholder = "Sensor ID">
+                              {{$select.selected}}
+                            </ui-select-match>
+                            <ui-select-choices repeat = "val in sensorIdTypes | filter: $select.search">
+                              {{val}}
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.filenameCheck">
+                          </span>
+                          <span class="input-group-addon name">File&nbsp;&nbsp;&nbsp;</span>
+                          <input ng-model="filter.filename"
+                           ng-click="filter.filenameCheck = true;"
+                           ng-blur="filter.filenameCheck = filter.filename === '' ? false: true;"
+                           class="form-control"
+                           id="filenameInput"
+                           placeholder="File name"
+                           value="filter.filename">
+                        </div>
+                      </td>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.targetIdCheck">
+                          </span>
+                          <span class="input-group-addon name">Target&nbsp;</span>
+                          <ui-select
+                           class="form-control"
+                           id = "targetIdInput"
+                           ng-blur = "filter.targetIdCheck = filter.targetId === '' ? false : true"
+                           ng-click = "filter.targetIdCheck = true; filter.getDistinctValues('targetId');"
+                           ng-model = "filter.targetId"
+                           theme = "selectize">
+                            <ui-select-match placeholder = "Target ID">
+                              {{$select.selected}}
+                            </ui-select-match>
+                            <ui-select-choices repeat = "val in targetIdTypes | filter: $select.search">
+                              {{val}}
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.imageIdCheck">
+                          </span>
+                          <span class="input-group-addon name">Image&nbsp;&nbsp;&nbsp;</span>
+                          <input ng-model="filter.imageId"
+                           ng-click="filter.imageIdCheck = true;"
+                           ng-blur="filter.imageIdCheck = filter.imageId === '' ? false: true;"
+                           class="form-control"
+                           id="imageIdInput"
+                           placeholder="Image ID"
+                           value="filter.imageId">
+                        </div>
+                      </td>
+                      <td class="filter-row">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-addon">
+                            <input type="checkbox" ng-model="filter.wacNumberCheck">
+                          </span>
+                          <span class="input-group-addon name">WAC&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          <input ng-model="filter.wacNumber"
+                           ng-click="filter.wacNumberCheck = true;"
+                           ng-blur="filter.wacNumberCheck = filter.wacNumber === '' ? false: true;"
+                           class="form-control"
+                           id="wacNumberInput"
+                           placeholder="World Area Code"
+                           value="filter.wacNumber">
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
                 </li>
                 <li class="col-sm-12">
                   <ul>
@@ -580,20 +409,181 @@
                 </li>
               </ul>
             </li><!-- End menu -->
-            <li class="dropdown nav-download">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="fa fa-download" aria-hidden="true"></span>&nbsp;Exports
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" ng-controller="WFSOutputDlController as wfsOutputDownload">
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.goToTLV()">TLV</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('JSON')">JSON</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('KML')">KML</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('CSV')">CSV</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML2')">GML2</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML3')">GML3</a></li>
-                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML32')">GML32</a></li>
+            <li class="dropdown mega-dropdown">
+              <a class="dropdown-toggle spatial-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false"><span class="fa fa-map" aria-hidden="true"></span>
+                &nbsp;Spatial
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">
+                      <p class="text-center">Spatial Filters</p>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.viewPortSpatial"
+                          ng-change="filter.byViewPort(filter.viewPortSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Map Viewport</span>
+                      </div>
+                    </li>
+                    <li class="col-sm-9">
+                      <p>This filter is on by default.  It constrains the
+                        query to the boundaries of the current map extent</p>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.pointSpatial"
+                          ng-change="filter.byPointer(filter.pointSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Point</span>
+                      </<div>
+                    </li>
+                    <li class="col-sm-9">
+                      <p>Single clicking on the map
+                        will return a potential list of images at that location</p>
+                    </li>
+                    <li class="col-sm-12">
+                      <hr>
+                    </li>
+                    <li class="col-sm-3 filter-row">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                          <input type="checkbox"
+                          ng-model="filter.polygonSpatial"
+                          ng-change="filter.byPolygon(filter.polygonSpatial)">
+                        </span>
+                        <span class="input-group-addon spatial-name">Polygon</span>
+                      </div>
+                    </li>
+                    <li class="col-sm-9 filter-row">
+                      <p>Left-click and hold with the
+                        ALT key to create a box that will return a potential list of images
+                      </p>
+                    </li>
+                    <li class="col-sm-12 text-center">
+                      <button class="btn btn-warning btn-xs" type="button"
+                        ng-click="filter.closeFilterDropdown('spatial-filter-dropdown')">Close
+                      </button>
+                    </li>
+                  </ul>
+                </li>
               </ul>
+            </li>
+            <li class="dropdown mega-dropdown">
+              <a  class="dropdown-toggle temporal-filter-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false"><span class="fa fa-clock-o" aria-hidden="true"></span>
+               &nbsp;Temporal<span class="caret"></span></a>
+              <ul class="dropdown-menu mega-dropdown-menu row" ng-click="$event.stopPropagation();">
+                <li class="col-sm-12">
+                  <ul>
+                    <li class="dropdown-header text-center">Temporal Filters</li>
+                    <li class="text-center">
+                      <p>Select a date type and duration filter from the select boxes below.  Changes will be reflected immediately</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="form-group form-group-sm">
+                        <label for="temporalTypeFilter">Date Type</label>
+                        <select ng-model="filter.currentDateType"
+                          ng-options="type.label for type in filter.dateTypes"
+                          id="temporalTypeFilter"
+                          class="form-control">
+                        </select>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6">
+                  <ul>
+                    <li class="filter-row">
+                      <div class="form-group form-group-sm">
+                        <label for="temporalDuration">Duration</label>
+                        <select ng-model="filter.currentTemporalDuration"
+                          ng-options="duration.label for duration in filter.temporalDurations"
+                          ng-change="filter.updateFilterString()"
+                          id="temporalDuration"
+                          class="form-control">
+                        </select>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row">
+                      <p class="text-center">Start Time & Date</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li>
+                      <p class="text-center">End Time & Date</p>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="form-group form-group-sm">
+                        <input type="text" class="form-control"
+                         ng-model="filter.startDate"
+                         data-time-format="HH:mm:ss"
+                         data-autoclose="false"
+                         data-minute-step="1"
+                         data-second-step="1"
+                         placeholder="Time" bs-timepicker>
+                      </div>
+                      <div style="display:inline-block;">
+                        <uib-datepicker
+                          ng-model="filter.startDate"
+                          show-weeks="false"
+                          class="well well-sm">
+                        </uib-datepicker>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-6" ng-show="filter.customDateRangeVisible">
+                  <ul>
+                    <li class="filter-row text-center">
+                      <div class="form-group form-group-sm">
+                        <input type="text" size="8" class="form-control"
+                         ng-model="filter.endDate"
+                         data-time-format="HH:mm:ss"
+                         data-autoclose="0" placeholder="Time" bs-timepicker>
+                      </div>
+                      <div style="display:inline-block;">
+                        <uib-datepicker
+                          ng-model="filter.endDate"
+                          show-weeks="false"
+                          class="well well-sm">
+                        </uib-datepicker>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="col-sm-12 text-center">
+                  <button class="btn btn-primary btn-xs" type="button"
+                    ng-click="filter.updateFilterString()">Apply
+                  </button>
+                  <button class="btn btn-warning btn-xs" type="button"
+                    ng-click="filter.closeFilterDropdown('temporal-filter-dropdown')">Close
+                  </button>
+                </li>
+              </ul><!-- end menu -->
             </li>
           </ul>
         </div>
@@ -635,13 +625,13 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <p class="navbar-text">Sort</p>
+          <p class="navbar-text">Sort:</p>
         </div>
         <div class="collapse navbar-collapse" id="sort-navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-               aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;
+               aria-haspopup="true" aria-expanded="false">
                {{list.currentSortText}}<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li ng-click="list.sortWfs('acquisition_date', '+D', 'Acquired (Newest)');"><a>Acquired (Newest)</a></li>
@@ -658,6 +648,20 @@
                 <li role="separator" class="divider"></li>
                 <li ng-click="list.sortWfs('mission_id', '+A', 'Mission (Asc)');"><a>Misson (Asc)</a></li>
                 <li ng-click="list.sortWfs('mission_id', '+D', 'Mission (Desc)');"><a>Misson (Desc)</a></li>
+              </ul>
+            </li>
+            <li class="dropdown nav-download">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" ng-controller="WFSOutputDlController as wfsOutputDownload">
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('CSV')">CSV</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML2')">GML2</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML3')">GML3</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('GML32')">GML32</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('JSON')">JSON</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.getDownloadURL('KML')">KML</a></li>
+                <li><a ng-href="" target="_blank" ng-click="wfsOutputDownload.goToTLV()">TLV</a></li>
               </ul>
             </li>
           </ul>
@@ -772,10 +776,10 @@
                          uib-tooltip="View raw image"></i>&nbsp;&nbsp;
                       </a>
                       <a href="" ng-click = "list.viewOrtho(image)" target="_blank">
-                        <i class="fa fa-map-marker fa-border text-primary"
+                        <i class="fa fa-history fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
-                         uib-tooltip="View rectified image"></i>&nbsp;&nbsp;
+                         uib-tooltip="View rectified image in TLV"></i>&nbsp;&nbsp;
                       </a>
                       <a ng-show="{{list.kmlSuperOverlayAppEnabled}}" href="{{list.kmlSuperOverlayLink}}/superOverlay/createKml/{{image.properties.id}}">
                         <i class="fa fa-map fa-border text-primary"
@@ -783,7 +787,7 @@
                          tooltip-placement="right"
                          uib-tooltip="Download KML"></i>&nbsp;&nbsp;
                       </a>
-                      <a ng-href="" target="_blank" ng-click="list.shareModal(list.o2baseUrl + '/#/mapOrtho?layers=' + image.properties.id)">
+                      <a ng-href="" target="_blank" ng-click="list.shareModal(list.getImageSpaceUrl(image))">
                         <i class="fa fa-share-alt fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"

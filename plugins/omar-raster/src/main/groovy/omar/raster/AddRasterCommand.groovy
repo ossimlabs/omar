@@ -10,6 +10,8 @@ class AddRasterCommand implements Validateable
    Boolean background = false
    Boolean buildOverviews  = false
    Boolean buildHistograms = false
+   Boolean buildHistogramsWithR0 = false
+   Boolean useFastHistogramStaging = false
    String overviewCompressionType = "NONE"
    String overviewType = "ossim_tiff_box"
 
@@ -18,6 +20,8 @@ class AddRasterCommand implements Validateable
       background nullable: false
       buildOverviews nullable: false
       buildHistograms nullable: false
+      buildHistogramsWithR0 nullable: false
+      useFastHistogramStaging nullable: false
       overviewCompressionType nullable: false
       overviewType nullable: false
    }

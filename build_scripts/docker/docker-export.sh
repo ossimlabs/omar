@@ -69,7 +69,7 @@ for app in ${O2_APPS[@]} ; do
    
       # upload the tar file to S3
       echo "Uploading ${tarfilename} to ${s3_bucket}"
-     # runCommand aws s3 sync . ${s3_bucket} --exclude \"*\" --include ${tarfilename}
+      runCommand aws s3 sync . ${s3_bucket} --exclude \"*\" --include ${tarfilename}
       echo "SUCCESS: Image <${imagename}> successfully exported and archived. "
       
       # Whack the local tar file:

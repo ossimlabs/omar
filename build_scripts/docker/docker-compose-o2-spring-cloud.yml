@@ -1,390 +1,205 @@
 version: '2'
 services:
-  o2-web-proxy:
-    build: ./o2-web-proxy
-    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy
-    environment:
-      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-    ports:
-      - "80:80"
-    volumes:
-    #  - /Users/Shared/data:/data
-      - /home:/home
-      - /Users:/Users
-    restart: always
-  # o2-base:
-  #   build: ./o2-base
-  #   image: ${DOCKER_REGISTRY_URI}/o2-base
-  #o2-db:
-  #  #build: ./o2-db
-  #  image: ${DOCKER_REGISTRY_URI}/o2-db
-  #  environment:
-  #    POSTGRES_USER: postgres_user
-  #    POSTGRES_PASSWORD: abc123
-  #    POSTGRES_DB: omar_prod
-  #  ports:
-  #    - "49905432"
-  #  restart: always
-  o2-stager:
-    build:
-      context: ./o2-stager
-    image: ${DOCKER_REGISTRY_URI}/o2-stager
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-    volumes:
-    #  - /Users/Shared/data:/data
-      - /home:/home
-      - /Users:/Users
-    ports:
-      - "5002:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-web-proxy
-    restart: always
-  o2-wms:
-    build:
-     context: ./o2-wms
-    image: ${DOCKER_REGISTRY_URI}/o2-wms
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-    volumes:
-    #  - /Users/Shared/data:/data
-      - /home:/home
-      - /Users:/Users
-    ports:
-      - "4997:8080"
-    # depends_on:
-    #   - o2-db
-    #   - o2-stager
-    #   - o2-web-proxy
-    restart: always
-  o2-wfs:
-    build:
-      context: ./o2-wfs
-    image: ${DOCKER_REGISTRY_URI}/o2-wfs
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-    volumes:
-    #  - /Users/Shared/data:/data
-      - /home:/home
-    ports:
-      - "4998:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-stager
-    #   - o2-wms
-    #   - o2-web-proxy
-    restart: always
-#   # o2-wcs:
-#   #   build: ./o2-wcs
-#   #   image: ${DOCKER_REGISTRY_URI}/o2-wcs
-#   #   environment:
-#   #     DBHOST: o2-db
-#   #     DBPORT: 5432
-#   #     DBNAME: omar_prod
-#   #     DBUSER: postgres_user
-#   #     DBPASS: abc123
-#   #     DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-#   #   volumes:
-#   #     - /Users/Shared/data:/data
-#   #    - /home:/home
-#   #   ports:
-#   #     - "5013:8080"
-#   #   depends_on:
-#   #     #- o2-base
-#   #     - o2-db
-#   #     - o2-stager
-#   #     #- o2-wms
-#   #     #- o2-wfs
-#   #     - o2-web-proxy
-  o2-omar:
-    build:
-      context: ./o2-omar
-    image: ${DOCKER_REGISTRY_URI}/o2-omar
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-      WFSURL: spring-cloud.radiantbluecloud.com/o2-wfs
-      WFSPORT:
-      WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
-      WMSPORT:
-      STAGERURL: spring-cloud.radiantbluecloud.com/o2-stager
-      STAGERPORT:
-      DOWNLOADURL: spring-cloud.radiantbluecloud.com/o2-download
-      DOWNLOADPORT:
-      KMLURL: spring-cloud.radiantbluecloud.com/o2-superoverlay
-      KMLPORT:
-      PREDIOURL: spring-cloud.radiantbluecloud.com/o2-predio
-      PREDIOPORT:
-      PREDIOENABLED: "false"
-      TWOFISHURL: spring-cloud.radiantbluecloud.com/twofishes
-      TWOFISHPORT:
-      SWIPEURL: spring-cloud.radiantbluecloud.com/o2-swipe/swipe/index
-      SWIPEPORT:
-      SWIPEENABLED: "true"
-      JPIPURL:
-      JPIPPORT:
-      JPIPENABLED: "true"
-      WMTSURL: spring-cloud.radiantbluecloud.com/o2-wmts
-      WMTSPORT:
-      WMTSENABLED: "true"
-      PWIKURL:
-      PWIKPORT:
-      PWIKENABLED: "true"
-      APIURL:
-      APIPORT:
-      APIENABLED: "false"
-      BANNERCOLOR: green
-      BANNERCLASSIFICATION: Unclassified
-    volumes:
-    #  - /Users/Shared/data:/data
-      - /home:/home
-      - /Users:/Users
-    ports:
-      - "5010:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-db
-    #   - o2-wms
-    #   - o2-wfs
-    #   - o2-stager
-    #   - o2-web-proxy
-    restart: always
-  o2-wmts:
-    build:
-      context: ./o2-wmts
-    image: ${DOCKER_REGISTRY_URI}/o2-wmts
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-      WFSSERVER: spring-cloud.radiantbluecloud.com/o2-wfs
-      WFSPORT:
-      WMSSERVER: spring-cloud.radiantbluecloud.com/o2-wms
-      WMSPORT:
-    volumes:
-      - /home:/home
-      - /Users:/Users
-    ports:
-      - "4999:8080"
-    # depends_on:
-      # - o2-base
-      # - o2-db
-      # - o2-web-proxy
-    restart: always
-#   # o2-sqs:
-#   #   build:
-#   #     context: ./o2-sqs
-#   #     args:
-#   #       - O2_DEV_HOME=$O2_DEV_HOME
-#   #   image: ${DOCKER_REGISTRY_URI}/o2-sqs
-#   #   environment:
-#   #     AWSDNS: sqs.us-east-1.amazonaws.com
-#   #     AWSQUEUEPATH: 320588532383/avro-tst
-#   #     WAIT_TIME_SECONDS: 20
-#   #     NUMBER_OF_MESSAGES: 1
-#   #     POLLING_INTERVAL_SECONDS: 10
-#   #     DESTINATION_TYPE: post
-#   #     DESTINATION_POST_END_POINT: o2-avro
-#   #     DESTINATION_POST_END_POINT_PORT: :8080
-#   #     DESTINATION_POST_FIELD: message
-#   #     DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-#   #   volumes:
-#   #     # Modify the path below to reflect your
-#   #     # AWS credentials location. Example:
-#   #     - /Users/<YourUserName>/.aws:/root/.aws
-#   #     - /home:/home
-#   #   ports:
-#   #     - "5000:8080"
-#   #   # depends_on:
-#   #   #   - o2-base
-#   #   #   - o2-stager
-#   #   #   - o2-avro
-#   #   #   - o2-web-proxy
-#   #   restart: always
-#   # o2-avro:
-#   #   build:
-#   #     context: ./o2-avro
-#   #     args:
-#   #       - O2_DEV_HOME=$O2_DEV_HOME
-#   #   image: ${DOCKER_REGISTRY_URI}/o2-avro
-#   #   environment:
-#   #     DBHOST: o2-db
-#   #     DBPORT: 5432
-#   #     DBNAME: omar_prod
-#   #     DBUSER: postgres_user
-#   #     DBPASS: abc123
-#   #     DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-#   #     ADDRASTERENDPOINTURL: o2-stager
-#   #     ADDRASTERENDPOINTPORT: :8080
-#   #   volumes:
-#   #     # Mount the the host local data directory to the container
-#   #     - /Users/Shared/data:/data
-#   #     - /home:/home
-#   #   ports:
-#   #     - "5001:8080"
-#   #   # depends_on:
-#   #   #   - o2-base
-#   #   #   - o2-db
-#   #   #   - o2-stager
-#   #   #   - o2-web-proxy
-#   #   restart: always
-  o2-jpip:
-    build:
-      context: ./o2-jpip
-    image: ${DOCKER_REGISTRY_URI}/o2-jpip
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-      JPIPCACHEDIR: /data/jpip-cache
-      JPIPSERVERURL: spring-cloud.radiantbluecloud.com
-      JPIPSERVERPORT: :5004
-    volumes:
-      # Mount the the host local data directory to the container
-      #- /Users/Shared/data:/data
-      - /Users:/Users
-      - /home:/home
-    ports:
-      - "5003:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
-    restart: always
-#   #o2-jpip-server:
-#   #  #build: ./o2-jpip-server
-#   #  image: ${DOCKER_REGISTRY_URI}/o2-jpip-server
-#   #  environment:
-#   #    JPIPCACHEDIR: /data/jpip-cache
-#   #    JPIPSERVERURL: spring-cloud.radiantbluecloud.com
-#   #    JPIPSERVERPORT: 8080
-#   #    DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-#   #  volumes:
-#   #    # Mount the the host local data directory to the container
-#   #    - /Users/Shared/data:/data
-#   #    - /home:/home
-#   #  ports:
-#   #    - "5004:8080"
-#   #  #depends_on:
-#   #    #- o2-base
-#   #  restart: always
-  o2-superoverlay:
-    build:
-      context: ./o2-superoverlay
-    image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
-    environment:
-      DBHOST: o2-db
-      DBPORT: 5432
-      DBNAME: omar_prod
-      DBUSER: postgres_user
-      DBPASS: abc123
-      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-      O2URL: spring-cloud.radiantbluecloud.com/o2-omar
-      WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
-      WMSPORT:
-    volumes:
-      - /home:/home
-      - /Users:/Users
-    ports:
-      - "5009:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
-    restart: always
   o2-download:
     build:
       context: ./o2-download
-    image: ${DOCKER_REGISTRY_URI}/o2-download
     environment:
       DBHOST: o2-db
-      DBPORT: 5432
       DBNAME: omar_prod
-      DBUSER: postgres_user
       DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
       DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-    volumes:
-      # Mount the the host local data directory to the container
-      #- /Users/Shared/data:/data
-      - /home:/home
-      - /Users:/Users
+    image: ${DOCKER_REGISTRY_URI}/o2-download
     ports:
       - "5011:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
     restart: always
-#   o2-swipe:
-# #    build:
-# #      context: ./o2-swipe
-# #      args:
-# #        - O2_DEV_HOME=$O2_DEV_HOME
-#     image: ${DOCKER_REGISTRY_URI}/o2-swipe
-#     environment:
-#       DBHOST: o2-db
-#       DBPORT: 5432
-#       DBNAME: omar_prod
-#       DBUSER: postgres_user
-#       DBPASS: abc123
-#       DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-#       WFSURL: spring-cloud.radiantbluecloud.com/o2-wfs
-#       WFSPORT:
-#       WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
-#       WMSPORT:
-#     volumes:
-#       - /home:/home
-#     ports:
-#       - "5012:8080"
-#     # depends_on:
-#     #   - o2-base
-#     #   - o2-db
-#     #   - o2-stager
-#     #   - o2-web-proxy
-#     restart: always
+    volumes:
+      - /home:/home
+      - /Users:/Users
+  o2-jpip:
+    build:
+      context: ./o2-jpip
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+      JPIPCACHEDIR: /data/jpip-cache
+      JPIPSERVERPORT: :5004
+      JPIPSERVERURL: spring-cloud.radiantbluecloud.com
+    image: ${DOCKER_REGISTRY_URI}/o2-jpip
+    ports:
+      - "5003:8080"
+    restart: always
+    volumes:
+      - /Users:/Users
+      - /home:/home
   o2-mensa:
     build:
       context: ./o2-mensa
-    image: ${DOCKER_REGISTRY_URI}/o2-mensa
     environment:
       DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
-    volumes:
-    #  - /Users/Shared/data:/data
-      - /home:/home
-      - /Users:/Users
+    image: ${DOCKER_REGISTRY_URI}/o2-mensa
     ports:
       - "5014:8080"
-    # depends_on:
-    #   - o2-base
-    #   - o2-web-proxy
-  #o2-twofishes:
-  #  #build: ./twofishes
-  #  image: ${DOCKER_REGISTRY_URI}/twofishes
-  #  ports:
-  #    - "5006:8081"
-  #  restart: always
+    volumes:
+      - /home:/home
+      - /Users:/Users
+  o2-omar:
+    build:
+      context: ./o2-omar
+    environment:
+      APIENABLED: "false"
+      APIPORT:
+      APIURL:
+      BANNERCOLOR: green
+      BANNERCLASSIFICATION: Unclassified
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+      DOWNLOADPORT:
+      DOWNLOADURL: spring-cloud.radiantbluecloud.com/o2-download
+      JPIPENABLED: "true"
+      JPIPPORT:
+      JPIPURL:
+      KMLPORT:
+      KMLURL: spring-cloud.radiantbluecloud.com/o2-superoverlay
+      PREDIOENABLED: "false"
+      PREDIOPORT:
+      PREDIOURL: spring-cloud.radiantbluecloud.com/o2-predio
+      PWIKENABLED: "true"
+      PWIKPORT:
+      PWIKURL:
+      STAGERPORT:
+      STAGERURL: spring-cloud.radiantbluecloud.com/o2-stager
+      TWOFISHPORT:
+      TWOFISHURL: spring-cloud.radiantbluecloud.com/twofishes
+      USER_GUIDE_ENABLED: "true"
+      USER_GUIDE_URL: ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs/
+      WFSPORT:
+      WFSURL: spring-cloud.radiantbluecloud.com/o2-wfs
+      WMSPORT:
+      WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
+      WMTSENABLED: "true"
+      WMTSPORT:
+      WMTSURL: spring-cloud.radiantbluecloud.com/o2-wmts
+    image: ${DOCKER_REGISTRY_URI}/o2-omar
+    ports:
+      - "5010:8080"
+    restart: always
+    volumes:
+      - /home:/home
+      - /Users:/Users
+  o2-stager:
+    build:
+      context: ./o2-stager
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+    image: ${DOCKER_REGISTRY_URI}/o2-stager
+    ports:
+      - "5002:8080"
+    restart: always
+    volumes:
+      - /home:/home
+      - /Users:/Users
+  o2-superoverlay:
+    build:
+      context: ./o2-superoverlay
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+      O2URL: spring-cloud.radiantbluecloud.com/o2-omar
+      TLV_URL: spring-cloud.radiantbluecloud.com/tlv
+      WMSPORT:
+      WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
+    image: ${DOCKER_REGISTRY_URI}/o2-superoverlay
+    ports:
+      - "5009:8080"
+    restart: always
+    volumes:
+      - /home:/home
+      - /Users:/Users
+  o2-web-proxy:
+    build: ./o2-web-proxy
+    environment:
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy
+    ports:
+      - "80:80"
+    restart: always
+    volumes:
+      - /home:/home
+      - /Users:/Users
+  o2-wfs:
+    build:
+      context: ./o2-wfs
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+      O2URL: spring-cloud.radiantbluecloud.com/o2-omar
+      TLV_URL: spring-cloud.radiantbluecloud.com/tlv
+      WFSURL: spring-cloud.radiantbluecloud.com/o2-wfs
+      WMSURL: spring-cloud.radiantbluecloud.com/o2-wms
+    image: ${DOCKER_REGISTRY_URI}/o2-wfs
+    ports:
+      - "4998:8080"
+    restart: always
+    volumes:
+      - /home:/home
+  o2-wms:
+    build:
+      context: ./o2-wms
+    environment:
+      DBHOST: o2-db
+      DBNAME: omar_prod
+      DBPASS: abc123
+      DBPORT: 5432
+      DBUSER: postgres_user
+      DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+    image: ${DOCKER_REGISTRY_URI}/o2-wms
+    ports:
+      - "4997:8080"
+    restart: always
+    volumes:
+      - /home:/home
+      - /Users:/Users
+o2-wmts:
+  build:
+    context: ./o2-wmts
+  environment:
+    DBHOST: o2-db
+    DBNAME: omar_prod
+    DBPASS: abc123
+    DBPORT: 5432
+    DBUSER: postgres_user
+    DOCKER_HOST_IP: spring-cloud.radiantbluecloud.com
+    WFSPORT:
+    WFSSERVER: spring-cloud.radiantbluecloud.com/o2-wfs
+    WMSPORT:
+    WMSSERVER: spring-cloud.radiantbluecloud.com/o2-wms
+  image: ${DOCKER_REGISTRY_URI}/o2-wmts
+  ports:
+    - "4999:8080"
+  restart: always
+  volumes:
+    - /home:/home
+    - /Users:/Users
