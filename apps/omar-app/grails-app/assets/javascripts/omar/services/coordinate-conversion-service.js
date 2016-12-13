@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module( 'omarApp' )
-        .service( 'coordinateConversionService', [ '$http', '$rootScope', '$timeout', coordinateConversionService ] );
+        .service( 'coordinateConversionService', [ '$http', '$rootScope', coordinateConversionService ] );
 
-        function coordinateConversionService( $http, $rootScope, $timeout ) {
+        function coordinateConversionService( $http, $rootScope) {
 
             this.convert = function( location ) {
                 var bePattern = /(.{10})/;
