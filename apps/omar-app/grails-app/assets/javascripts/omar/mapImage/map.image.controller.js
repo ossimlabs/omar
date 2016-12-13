@@ -18,7 +18,6 @@
 
     vm.baseServerUrl = AppO2.APP_CONFIG.serverURL;
 
-
     var geoJumpInput = $("#geoJumpInput");
     geoJumpInput.keypress(function(event) {
         if(event.keyCode == 13) { // pressing Return or Enter
@@ -27,31 +26,43 @@
     });
     vm.resetGeoJumpInput = function () { vm.geoJumpInput = ""; }
     vm.geoJump = function() {
-            var location = geoJumpInput.val();
-            var coords = coordinateConversionService.convert( location ).then(
-                function( response ) {
-                    console.log("Response from Coordinate Conversion Service: ");
-                    console.log(response);
-                    if ( response ) {
-                        var points = [ { "lat": response[ 1 ], "lon": response[ 0 ] } ];
-                        var pixels = imageSpaceService.groundToImage( points ).then(
-                            function( response ) {
-                                if ( response ) {
-                                    var pixel = [ response.x, response.y * -1 ];
-                                    imageSpaceService.setCenter( pixel );
-                                }
-                                else {
-                                    toastr.error( "Sorry, we couldn't translate that coordinate into pixels." );
-                                }
-                            }
-                        );
-                    }
-                    else {
-                        toastr.error( "Sorry, we couldn't find anything for that location." );
-                    }
-                }
-            );
+      var location = geoJumpInput.val();
+      var coords = coordinateConversionService.convert( location );
     }
+
+    $scope.$on('coordService: updated', function(event, response) {
+
+      if ( response ) {
+          var points = [ { "lat": response[ 1 ], "lon": response[ 0 ] } ];
+          var pixels = imageSpaceService.groundToImage( points ).then(
+              function( response ) {
+                  if ( response ) {
+                      var pixel = [ response.x, response.y * -1 ];
+                      imageSpaceService.setCenter( pixel );
+                  }
+                  else {
+                      toastr.error( "Sorry, we couldn't translate that coordinate into pixels." );
+                  }
+              }
+          );
+      }
+      else {
+          toastr.error( "Sorry, we couldn't find anything for that location." );
+      }
+
+    });
+
+    $scope.$on('coordService: be_search_error', function(event, message){
+
+      toastr.error(message, 'Error');
+
+    });
+
+    $scope.$on('coordService: twofishes_error', function(event, message){
+
+      toastr.error(message, 'Error');
+
+    });
 
     vm.shareModal = function() {
       var imageLink = imageSpaceService.getImageLink();
