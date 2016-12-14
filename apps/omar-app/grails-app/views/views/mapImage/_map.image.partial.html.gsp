@@ -76,12 +76,12 @@
       <div class="col-sm-4">
         <form id="searchForm" class="searchForm">
           <div class="input-group input-group-sm">
-            <input id="geoJumpInput" type="text" class="form-control" ng-model="image.geoJumpInput" placeholder="Geo-Jump" autofocus>
+            <input id="geoJumpInput" type="text" class="form-control" ng-model="image.geoJumpInput" placeholder="BE, Coordinate or Placename" autofocus>
             <span class="input-group-btn">
               <button class="btn btn-info" type="button" ng-click="image.geoJump()">
                 <span class="glyphicon glyphicon-search"></span>
               </button>
-              <button class="btn btn-default" type="button" ng-click="image.resetGeoJumpInput()">
+              <button class="btn btn-default" type="button" ng-click="image.geoJumpInput=''">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
             </span>
