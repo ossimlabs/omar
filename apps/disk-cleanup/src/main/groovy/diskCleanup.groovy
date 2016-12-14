@@ -9,7 +9,7 @@ def jdbcUrl = System.getenv( "JDBC_CONNECTION_STRING" )
 def maxDiskLimit = System.getenv( "O2_MAX_DISK_LIMIT" ) as Double
 def minDiskLimit = System.getenv( "O2_MIN_DISK_LIMIT" ) as Double
 def password = System.getenv( "POSTGRES_PASSWORD" )
-def removeRasterUrl = "${ System.getenv( "STAGER_URL" ) }/dataManager/removeRaster"
+def removeRasterUrl = "http://${ System.getenv( "STAGER_URL" ) }/dataManager/removeRaster"
 def username = System.getenv( "POSTGRES_USER" )
 
 
