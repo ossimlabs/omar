@@ -37,7 +37,7 @@ services:
     # /basemap on the host to /data in the o2-basemap container
     volumes:
       - /basemap:/data
-  o2-basemap-proxy:
+  o2-mapproxy:
     container_name: o2-mapproxy
     image: ${DOCKER_REGISTRY_URI}/o2-mapproxy
     ports:
