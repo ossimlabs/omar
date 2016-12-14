@@ -3,7 +3,7 @@ package ingest.metrics.app
 class UrlMappings {
 
     static mappings = {
-        "/$controller/$action?/$id?(.$format)?"{
+        "/$controller/$action?/$ingestId?"{
             constraints {
                 // apply constraints here
             }
