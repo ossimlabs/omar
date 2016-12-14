@@ -31,8 +31,8 @@
     }
 
     $scope.$on('coordService: updated', function( event, response ) {
-        if ( response ) {
-            var points = [ { "lat": response[ 1 ], "lon": response[ 0 ] } ];
+        if ( response ) { console.dir(response);
+            var points = [ { "lat": response.coordinate[ 1 ], "lon": response.coordinate[ 0 ] } ];
             var pixels = imageSpaceService.groundToImage( points ).then(
                 function( response ) {
                     if ( response ) {
