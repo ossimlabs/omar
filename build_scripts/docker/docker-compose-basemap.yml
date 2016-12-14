@@ -7,35 +7,32 @@
 
 version: '2'
 services:
-  # o2-basemap:
-  #   container_name: o2-basemap
-  #   # Location of the .mbtiles file for the base map
-  #   # /basemap on the host to /data in the o2-basemap container
-  #   image: ${DOCKER_REGISTRY_URI}/o2-basemap
-  #   ports:
-  #     - "5016:80"
-  #   restart: always
-  #   volumes:
-  #     - /basemap:/data
+  o2-basemap:
+    container_name: o2-basemap
+    # Location of the .mbtiles file for the base map
+    # /basemap on the host to /data in the o2-basemap container
+    image: ${DOCKER_REGISTRY_URI}/o2-basemap
+    ports:
+      - "5016:80"
+    restart: always
+    volumes:
+      - /Users/Shared/data/basemap:/data
   o2-basemap-proxy:
-    build: ./o2-basemap-proxy
-    image: ${DOCKER_REGISTRY_URI}/o2-basemap-proxy-all
-    container_name: o2-basemap-proxy
+    image: ${DOCKER_REGISTRY_URI}/o2-mapproxy
+    #image: openseamap/mapproxy-docker
+    container_name: o2-mapproxy
     ports:
       - "5017:8080"
     # Mount a volume/directory "cache_data" from the
     # container to the host to hold the cache for the
-    # base maps.
+    # base maps.  Modify for your system configuration.
     volumes:
-      - /Users/adrake/projects/___mapproxy-cache___:/mapproxy/cache_data
+      - /Users/adrake/projects/___mapproxy-cache___:/mapproxy
   o2-web-proxy:
     build: ./o2-web-proxy
     container_name: o2-web-proxy
     environment:
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
-    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy:${TAG}
+    image: ${DOCKER_REGISTRY_URI}/o2-web-proxy #:${TAG}
     ports:
       - "80:80"
-    #restart: always
-    # volumes:
-    #   - /data:/data
