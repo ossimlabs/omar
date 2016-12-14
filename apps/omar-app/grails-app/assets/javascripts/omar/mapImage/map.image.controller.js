@@ -24,7 +24,6 @@
             vm.geoJump();
         }
     });
-    vm.resetGeoJumpInput = function () { vm.geoJumpInput = ""; }
     vm.geoJump = function() {
       var location = geoJumpInput.val().trim();
       var coords = coordinateConversionService.convert( location );
