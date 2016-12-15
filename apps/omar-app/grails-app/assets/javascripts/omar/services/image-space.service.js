@@ -17,6 +17,7 @@
           entry,
           format,
           histOp,
+          imageGeometry,
           imageProperties,
           imgWidth,
           imgHeight,
@@ -268,6 +269,7 @@
               url: encodeURI(wfsUrl)
 
             }).then(function(response) {
+              imageGeometry = response.data.features[0].geometry;
               imageProperties = response.data.features[0].properties;
               var imageIdText = imageProperties.title || imageProperties.filename;
               var acquisitionDateText = imageProperties.acquisition_date || "";
@@ -871,7 +873,10 @@
                 return deferred.promise;
             }
 
-            // Begin Zoom stuff
+            this.getFootprintGeometry = function() { 
+                return new ol.geom.MultiPolygon( imageGeometry.coordinates );
+            }
+
             this.setCenter = function( point ) {
                 map.getView().setCenter( point );
             }
@@ -884,7 +889,7 @@
                 var gsd = Math.min(imageProperties.gsdx, imageProperties.gsdy);
                 map.getView().setResolution(1 / gsd);
             }
-            // End Zoom stuff
+
         };
 
     }
