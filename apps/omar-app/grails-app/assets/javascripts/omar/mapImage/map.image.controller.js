@@ -24,31 +24,58 @@
             vm.geoJump();
         }
     });
+    geoJumpInput.autocomplete({
+        dataType: "json",
+        minChars: 3,
+        onSelect: function ( suggestion ) { vm.geoJump(); },
+        serviceUrl: AppO2.APP_CONFIG.serverURL + AppO2.APP_CONFIG.params.twofishes.proxy +
+            "/?responseIncludes=WKT_GEOMETRY_SIMPLIFIED&autocomplete=true&maxInterpretations=10&autocompleteBias=BALANCED",
+        transformResult: function ( response ) {
+            return {
+                suggestions: $.map(response.interpretations, function (dataItem) {
+                    return {
+                        bounds: dataItem.feature.geometry.bounds,
+                        data: dataItem.feature.displayName,
+                        lat: dataItem.feature.geometry.center.lat,
+                        lng: dataItem.feature.geometry.center.lng,
+                        value: dataItem.feature.displayName,
+                        wkt: dataItem.feature.geometry.wktGeometrySimplified
+                    };
+                })
+            }
+        },
+        type: "GET"
+    });
+    geoJumpInput.autocomplete("enable");
+
     vm.geoJump = function() {
       var location = geoJumpInput.val().trim();
       var coords = coordinateConversionService.convert( location );
     }
 
     $scope.$on('coordService: updated', function( event, response ) {
-        if ( response ) { console.dir(response);
-            var points = [ { "lat": response.coordinate[ 1 ], "lon": response.coordinate[ 0 ] } ];
-            var pixels = imageSpaceService.groundToImage( points ).then(
-                function( response ) {
-                    if ( response ) {
-                        var pixel = [ response.x, response.y * -1 ];
-                        imageSpaceService.setCenter( pixel );
+        if ( response ) {
+            var extent = imageSpaceService.getFootprintGeometry().getExtent();
+            if ( ol.extent.containsCoordinate( extent, response.coordinate ) ) {
+                var points = [ { "lat": response.coordinate[ 1 ], "lon": response.coordinate[ 0 ] } ];
+                var pixels = imageSpaceService.groundToImage( points ).then(
+                    function( response ) {
+                        if ( response ) {
+                            var pixel = [ response.x, response.y * -1 ];
+                            imageSpaceService.setCenter( pixel );
+                        }
+                        else {
+                            toastr.error( "Sorry, we couldn't translate that coordinate into pixels." );
+                        }
                     }
-                    else {
-                        toastr.error( "Sorry, we couldn't translate that coordinate into pixels." );
-                    }
-                }
-            );
+                );
+            }
+            else { toastr.error( "That point lies outside the image bounds." ); }
         }
         else {
             toastr.error( "Sorry, we couldn't find anything for that location." );
         }
     });
-
     $scope.$on( 'coordService: be_search_error', function( event, message ) { toastr.error( message, 'Error' ); } );
     $scope.$on( 'coordService: twofishes_error', function( event, message ) { toastr.error( message, 'Error' ); } );
 

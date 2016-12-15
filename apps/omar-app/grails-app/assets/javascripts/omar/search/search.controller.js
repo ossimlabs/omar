@@ -77,9 +77,7 @@
                         images: features
                     });
                 }
-                else {
-                    var coords = coordinateConversionService.convert( input );
-                }
+                else { coordinateConversionService.convert( input ); }
         });
     }
 
@@ -89,7 +87,7 @@
     }
 
     $scope.$on('coordService: updated', function( event, response ) {
-        if ( response ) { console.dir(response);
+        if ( response ) {
             if ( response.bounds ) {
                 stateService.updateMapState({
                     bounds: response.bounds,
@@ -110,7 +108,6 @@
     });
 
     $scope.$on( 'coordService: be_search_error', function( event, message ) { toastr.error( message, 'Error' ); } );
-
     $scope.$on( 'coordService: twofishes_error', function( event, message ) { toastr.error( message, 'Error' ); } );
 
     function searchByImageId( imageObject ) {
