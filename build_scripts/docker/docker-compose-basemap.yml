@@ -23,9 +23,9 @@ services:
     container_name: o2-mapproxy
     ports:
       - "5017:8080"
-    # Mount a volume/directory "cache_data" from the
-    # container to the host to hold the cache for the
-    # base maps.  Modify for your system configuration.
+    # Mount a volume/directory "mapproxy" from the
+    # container to the host to hold the configuration files
+    # and cache for the base maps.
     volumes:
       - /Users/adrake/projects/___mapproxy-cache___:/mapproxy
   o2-web-proxy:
