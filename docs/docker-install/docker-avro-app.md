@@ -4,8 +4,6 @@ The Avro service takes an AVRO JSON payload or JSON record from and AVRO file as
 
 View the [Avro Service](../install-guide/avro-app.md#Installation) install guide for additional information on using the service.
 
-<<<<<<< HEAD
-=======
 ## Dockerfile
 ```
 # This service takes an AVRO JSON payload or JSON record
@@ -37,7 +35,6 @@ CMD ["sh", "/usr/share/omar/avro-app/avro-app.sh"]
 
 ```
 
->>>>>>> dev
 ## Docker Compose
 
 Docker Compose official [docs](https://docs.docker.com/compose/overview/).
@@ -45,17 +42,12 @@ Docker Compose official [docs](https://docs.docker.com/compose/overview/).
 Navigate to the docker directory:
 
 ```
-<<<<<<< HEAD
-omar/build_scripts/docker
-=======
 $ cd omar/build_scripts/docker
->>>>>>> dev
 ```
 
 The directory should have a YAML file:
 
 ```
-<<<<<<< HEAD
 omar/build_scripts/docker/docker-compose.yml
 ```
 
@@ -69,7 +61,7 @@ docker-compose build --no-cache avro
 
 Execute the following:
 ```
-docker run -d -p 5000:8080 \
+$ docker run -d -p 5000:8080 \
 -e DBHOST='<YOUR_DB_HOST>' \
 -e DBPORT='<YOUR_DB_PORT>' \
 -e DBNAME='<YOUR_DB_NAME>' \
@@ -81,7 +73,8 @@ docker run -d -p 5000:8080 \
 ```
 
 The **avro-app** should now be running in a new container.  
-=======
+
+```
 $ omar/build_scripts/docker/docker-compose.yml
 ```
 ## Modifying the docker-compose.yml
@@ -92,33 +85,24 @@ $ docker-compose up
 ```
 
 The **o2-avro** service should now be running in a new container.  
->>>>>>> dev
 
 To list all running containers:
 
 ```
-<<<<<<< HEAD
-docker ps
-=======
 $ docker ps
->>>>>>> dev
 ```
 
 Output example:
 
 CONTAINER ID | IMAGE | COMMAND | CREATED | PORTS | NAMES
 ------------ | ------------- | ------------ | ------------ | ------------ | ------------
-<<<<<<< HEAD
 908c7ee6d152 | radiantbluetechnologies/avro  | "/bin/sh -c 'yum -y i" | 17 seconds ago | | small_borg
 
-=======
 908c7ee6d152 | radiantbluetechnologies/o2-avro  | "/bin/sh -c 'yum -y i" | 17 seconds ago | 0.0.0.0:5001->8080/tcp | o2-avro
->>>>>>> dev
 
 To list all containers (even those not running):
 
 ```
-<<<<<<< HEAD
 docker ps -a
 ```
 
@@ -126,7 +110,6 @@ Attaching to the container via bash:
 
 ```
 docker exec -it <containerID> bash
-=======
 $ docker ps -a
 ```
 
@@ -134,13 +117,11 @@ Attaching to the container via bash (if needed):
 
 ```
 $ docker exec -it o2-avro bash
->>>>>>> dev
 ```
 *Note: This will connect you to the container as `root@` the **containerID** you provide.*
 
 ---
 
-<<<<<<< HEAD
 ##Verify that the avro-app is running correctly:
 
 You will need to get your Docker host IP:
@@ -160,7 +141,8 @@ Look for the running radiantbluetechnologies/avro container.  It will have an as
 Using your host IP and port from the commands above, test the *avro-app* service health status:
 ```
 http://<YOUR_HOST_IP>:5000/health
-=======
+```
+
 ##Verify that the o2-avro service is running correctly
 
 You will need to get your Docker host IP:
@@ -181,19 +163,17 @@ Look for the running radiantbluetechnologies/o2-avro container.  It will have an
 Using your Docker host IP and port from the commands above, test the **o2-avro** service **health** status in a browser:
 ```
 http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/health
->>>>>>> dev
 ```
 You should receive:
 `{"status":"UP"}`
 
-<<<<<<< HEAD
 You can also test the **Quartz Job** used to run the avro request:
 ```
 http://<YOUR_HOST_IP>:5000/quartz/list
 ```
 
 You should see a page with a digital clock and a count down timer.
-=======
+
 #### Quartz
 You can also test the **Quartz Job** used to run the **avro** request in a browser:
 ```
@@ -207,4 +187,3 @@ Access the **API** Page:
 http://<YOUR_DOCKER_HOST_IP>:<YOUR_DOCKER_HOST_PORT>/api
 ```
 The API page allows you to test various parts of the **o2-avro** service.  View the [Avro Service](../install-guide/avro-app.md#Installation) install guide for additional information on using the service.
->>>>>>> dev
