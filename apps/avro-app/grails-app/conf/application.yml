@@ -122,8 +122,10 @@ grails:
                 taglib: none
                 staticparts: none
 endpoints:
-    jmx:
-        unique-names: true
+  health:
+    enabled: true
+  jmx:
+      unique-names: true
 omar:
   avro:
     sourceUriField: "S3_URI_Nitf"

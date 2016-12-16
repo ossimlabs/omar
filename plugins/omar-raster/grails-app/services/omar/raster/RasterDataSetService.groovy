@@ -238,7 +238,7 @@ def updateRaster(def httpStatusMessage, def params)
 				def files = []
 				rasterFile?.rasterDataSet?.fileObjects.each() { files << it.name }
 				rasterFile?.rasterDataSet?.rasterEntries.each() {
-                	it.fileObjects.each() { files << new File(it.name) }
+                			it.fileObjects.each() { files << it.name }
 				}
 
 				files.each() {

@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('omarApp')
-        .service('imageSpaceService', ['$rootScope', '$http', 'stateService', '$timeout', imageSpaceService]);
+        .service('imageSpaceService', ['$rootScope', '$http', 'stateService', '$timeout', '$q', imageSpaceService]);
 
-    function imageSpaceService($rootScope, $http, stateService, $timeout) {
+    function imageSpaceService($rootScope, $http, stateService, $timeout, $q) {
 
       // #################################################################################
       // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -17,6 +17,7 @@
           entry,
           format,
           histOp,
+          imageGeometry,
           imageProperties,
           imgWidth,
           imgHeight,
@@ -268,6 +269,7 @@
               url: encodeURI(wfsUrl)
 
             }).then(function(response) {
+              imageGeometry = response.data.features[0].geometry;
               imageProperties = response.data.features[0].properties;
               var imageIdText = imageProperties.title || imageProperties.filename;
               var acquisitionDateText = imageProperties.acquisition_date || "";
@@ -844,7 +846,41 @@
             }
             // End Position Quality Evaluator stuff
 
-            // Begin Zoom stuff
+            this.groundToImage = function( points ) {
+                var deferred = $q.defer();
+
+                $http({
+                    data: {
+                        entryId: entry,
+                        filename: filename,
+                        pointList: points
+                    },
+                    method: 'POST',
+                    url: encodeURI( AppO2.APP_CONFIG.params.mensaApp.baseUrl + "/groundToImagePoints" )
+                }).then(
+                    function( response ) {
+                        var pixels = response.data.data;
+
+
+                        if ( pixels.length > 0 ) {
+                            deferred.resolve( pixels[0] );
+                        }
+                        else { deferred.resolve( false ); }
+                    }
+                );
+
+
+                return deferred.promise;
+            }
+
+            this.getFootprintGeometry = function() { 
+                return new ol.geom.MultiPolygon( imageGeometry.coordinates );
+            }
+
+            this.setCenter = function( point ) {
+                map.getView().setCenter( point );
+            }
+
             this.zoomToFullExtent = function() {
                 map.getView().setZoom(1);
             }
@@ -853,7 +889,7 @@
                 var gsd = Math.min(imageProperties.gsdx, imageProperties.gsdy);
                 map.getView().setResolution(1 / gsd);
             }
-            // End Zoom stuff
+
         };
 
     }
