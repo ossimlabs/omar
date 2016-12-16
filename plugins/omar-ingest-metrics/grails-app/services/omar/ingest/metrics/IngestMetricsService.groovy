@@ -52,12 +52,12 @@ class IngestMetricsService
          ingestMetricsRecord.ingestId = cmd.ingestId
          ingestMetricsRecord.description = cmd.description
          ingestMetricsRecord.startDate = new Date()
+         ingestMetricsRecord.statusMessage = cmd.statusMessage
          ingestMetricsRecord.endDate = null
          ingestMetricsRecord.startCopy = null
          ingestMetricsRecord.endCopy = null
          ingestMetricsRecord.startStaging = null
          ingestMetricsRecord.endStaging = null
-         ingestMetricsRecord.statusMessage = cmd.statusMessage
       }
       ingestMetricsRecord?.status = ProcessStatus.RUNNING.toString()
 
@@ -166,7 +166,8 @@ class IngestMetricsService
       {
          result.statusCode = HttpStatus.NOT_FOUND
          result.statusMessage = "unable to find Record with id ${cmd.ingestId}"
-      } else
+      }
+      else
       {
          ingestMetricsRecord.endCopy = new Date()
          if (!ingestMetricsRecord?.save(flush: true))
@@ -404,25 +405,52 @@ class IngestMetricsService
       Double totalCopyTime
       Double totalStagingTime
       def record = getIngestMetrics(cmd.ingestId)
+      Double totalOverheadTime
+      Boolean totalOverheadTimeValid = true;
       if(record.endDate&&record.startDate)
       {
          totalTime = (record.endDate.time - record.startDate.time) / 1000.0
+         totalOverheadTime = totalTime
+      }
+      else
+      {
+         totalOverheadTimeValid = false
       }
       if(record.endCopy&&record.startCopy)
       {
          totalCopyTime = (record.endCopy.time - record.startCopy.time) / 1000.0
+         if(totalOverheadTimeValid) totalOverheadTime -= totalCopyTime
+      }
+      else
+      {
+         totalOverheadTimeValid = false
       }
       if(record.startStaging&&record.endStaging)
       {
          totalStagingTime =  (record.endStaging.time-record.startStaging.time)/1000.0
+         if(totalOverheadTimeValid) totalOverheadTime -= totalStagingTime
       }
-      result.data << [ ingestId:         record.ingestId,
-                       description:      record.description,
-                       totalTime:        totalTime,
-                       totalCopyTime:    totalCopyTime,
-                       totalStagingTime: totalStagingTime,
-                       status:           record.status
+      else
+      {
+         totalOverheadTimeValid = false
+      }
+      HashMap tempRecord = [ ingestId:         record.ingestId,
+                             description:      record.description,
+                             totalTime:        totalTime,
+                             totalCopyTime:    totalCopyTime,
+                             totalStagingTime: totalStagingTime,
+                             status:           record.status
       ]
+      if(totalOverheadTimeValid)
+      {
+         tempRecord.totalOverheadTime = totalOverheadTime
+      }
+      else
+      {
+         tempRecord.totalOverheadTime = null
+      }
+
+      result.data << tempRecord
       result.remove("pagination")
 
       result
@@ -446,6 +474,10 @@ class IngestMetricsService
       Double totalCopyTime;
       Double averageStagingTime;
       Double totalStagingTime;
+      Double totalOverheadTime;
+      Double averageOverheadTime;
+      Boolean totalOverheadTimeValid = true;
+      Boolean averageOverheadTimeValid = true;
       def baseCriteria = {
          eq("status", "FINISHED")
 
@@ -488,6 +520,22 @@ class IngestMetricsService
       {
          totalTime = criteriaResult[0]
          averageTime = criteriaResult[1]
+
+         if(totalTime == null)
+         {
+            totalOverheadTimeValid = false;
+         }
+         if(averageTime == null)
+         {
+            averageOverheadTimeValid = false;
+         }
+         totalOverheadTime = totalTime
+         averageOverheadTime = averageTime
+      }
+      else
+      {
+         totalOverheadTimeValid = false;
+         averageOverheadTimeValid = false;
       }
       criteriaResult = IngestMetrics.createCriteria().list {
          baseCriteria.delegate=delegate
@@ -510,6 +558,22 @@ class IngestMetricsService
       {
          totalCopyTime = criteriaResult[0]
          averageCopyTime = criteriaResult[1]
+         if(totalCopyTime == null)
+         {
+            totalOverheadTimeValid = false
+         }
+         if(averageCopyTime == null)
+         {
+            averageOverheadTimeValid = false
+         }
+         if(totalOverheadTimeValid) totalOverheadTime -= totalCopyTime
+
+         if(averageOverheadTimeValid) averageOverheadTime -= averageCopyTime
+      }
+      else
+      {
+         totalOverheadTimeValid = false;
+         averageOverheadTimeValid = false;
       }
 
       criteriaResult = IngestMetrics.createCriteria().list {
@@ -531,26 +595,69 @@ class IngestMetricsService
       }[0]
       if (criteriaResult)
       {
-         totalCopyTime = criteriaResult[0]
-         averageCopyTime = criteriaResult[1]
+         totalStagingTime = criteriaResult[0]
+         averageStagingTime = criteriaResult[1]
+         if(totalStagingTime == null)
+         {
+            totalOverheadTimeValid = false
+         }
+         if(averageStagingTime == null)
+         {
+            averageOverheadTimeValid = false
+         }
+         if(totalOverheadTimeValid) totalOverheadTime -= totalStagingTime
+         if(averageOverheadTimeValid) averageOverheadTime -= averageStagingTime
+      }
+      else
+      {
+         totalOverheadTimeValid = false;
+         averageOverheadTimeValid = false;
       }
 
       itemCount = IngestMetrics.createCriteria().count{
          baseCriteria.delegate=delegate
          baseCriteria()
       }
-
+       if(totalOverheadTimeValid)
+       {
+          if(totalOverheadTime<0) totalOverheadTimeValid = false
+       }
+      if(averageOverheadTimeValid)
+      {
+         if(averageOverheadTime<0) averageOverheadTimeValid = false
+      }
+      if(!totalOverheadTimeValid||!averageOverheadTimeValid)
+      {
+         totalOverheadTimeValid =  averageOverheadTimeValid = false
+      }
       if(itemCount)
       {
-         result.data << [
+         HashMap tempRecord = [
                  itemCount         : itemCount,
                  totalTime         : totalTime,
                  totalCopyTime     : totalCopyTime,
                  totalStagingTime  : totalStagingTime,
                  averageTime       : averageTime,
                  averageCopyTime   : averageCopyTime,
-                 averageStagingTime: averageStagingTime
+                 averageStagingTime: averageStagingTime,
          ]
+         if(totalOverheadTimeValid)
+         {
+            tempRecord.totalOverheadTime = totalOverheadTime
+         }
+         else
+         {
+            tempRecord.totalOverheadTime = null
+         }
+         if(averageOverheadTimeValid)
+         {
+            tempRecord.averageOverheadTime = averageOverheadTime
+         }
+         else
+         {
+            tempRecord.averageOverheadTime = null
+         }
+         result.data << tempRecord
       }
       else
       {
@@ -607,6 +714,12 @@ class IngestMetricsService
          ingestMetricsRecord.statusMessage = statusMessage
 
          result.data << ingestMetricsRecord.properties
+
+         if(!ingestMetricsRecord.save(flush:true))
+         {
+            result.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+            result.statusMessage = "Unable to set the status for ${ingestId}".toString()
+         }
       }
       else
       {

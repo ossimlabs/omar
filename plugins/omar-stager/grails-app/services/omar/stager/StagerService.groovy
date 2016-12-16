@@ -104,7 +104,7 @@ class StagerService
 		ImageStager imageStager = new ImageStager()
 		String filename = params.filename
 		try{
-			ingestMetricsService.startIngest(filename)
+			ingestMetricsService.startStaging(filename)
 			if(imageStager.open(params.filename))
 			{
 				URI uri = new URI(params.filename)
@@ -182,7 +182,7 @@ class StagerService
 
 					def (status, message) = ingestService.ingest(oms, baseDir)
 
-					ingestMetricsService.endIngest(filename)
+					ingestMetricsService.endStaging(filename)
 
 					results = [status:status, message:message]
 				}
@@ -195,7 +195,7 @@ class StagerService
 			}
 			else
 			{
-				ingestMetricsService.endIngest(filename)
+				ingestMetricsService.endStaging(filename)
 			}
 		}
 		catch(e)

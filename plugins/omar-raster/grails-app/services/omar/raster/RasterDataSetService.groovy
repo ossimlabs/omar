@@ -18,7 +18,7 @@ class RasterDataSetService implements ApplicationContextAware {
 	def dataInfoService
 	def ingestService
 	def stagerService
-
+	def ingestMetricsService
 	ApplicationContext applicationContext
 
 

@@ -397,6 +397,7 @@ class AvroService {
       if(fullPathLocation)
       {
         messageId = fullPathLocation.toString()
+        ingestMetricsService.startIngest(messageId, "")
         def avroPayload = AvroPayload.findByMessageId(messageId)
         if(!avroPayload)
         {
@@ -456,7 +457,6 @@ class AvroService {
                               messageId:avroPayload.messageId,
                               message:avroPayload.message,
                       ]
-              ingestMetricsService.startIngest(messageId, "")
 
               // log message with id file path
             }
