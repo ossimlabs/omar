@@ -1,5 +1,8 @@
 package omar.ingest.metrics
 
+import grails.rest.Resource
+
+//@Resource (uri="/ingestMetrics", formats=['json'])
 class IngestMetrics {
 
     String ingestId
@@ -27,8 +30,10 @@ class IngestMetrics {
      */
     String status
 
+    String statusMessage
+
     static mapping = {
-        ingestId      index: 'ingest_metrics_object_id_idx'
+        ingestId      type: "text", index: 'ingest_metrics_object_id_idx'
         description   type:  'text'
         startDate     index: 'ingest_metrics_start_date_idx'
         endDate       index: 'ingest_metrics_end_date_idx'
@@ -37,6 +42,7 @@ class IngestMetrics {
         startStaging  index: 'ingest_metrics_start_staging_idx'
         endStaging    index: 'ingest_metrics_end_staging_idx'
         status        index: 'ingest_metrics_status_idx'
+        statusMessage type: "text"
     }
 
     static constraints = {
@@ -46,13 +52,14 @@ class IngestMetrics {
         startDate     nullable:true
         endDate       nullable:true
 
-        startDownload nullable:true
-        endDownload   nullable:true
+        startCopy     nullable:true
+        endCopy       nullable:true
 
         startStaging  nullable:true
         endStaging    nullable:true
 
         status        nullable:true
+        statusMessage nullable:true
     }
 
 }

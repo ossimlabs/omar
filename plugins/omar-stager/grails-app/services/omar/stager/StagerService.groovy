@@ -18,6 +18,7 @@ class StagerService
 
 	def parserPool
 	def ingestService
+	def ingestMetricsService
    def dataInfoService
 
 	enum Action {
@@ -103,6 +104,7 @@ class StagerService
 		ImageStager imageStager = new ImageStager()
 		String filename = params.filename
 		try{
+			ingestMetricsService.startIngest(filename)
 			if(imageStager.open(params.filename))
 			{
 				URI uri = new URI(params.filename)
@@ -180,13 +182,20 @@ class StagerService
 
 					def (status, message) = ingestService.ingest(oms, baseDir)
 
+					ingestMetricsService.endIngest(filename)
+
 					results = [status:status, message:message]
 				}
 				else
 				{
 					results.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
 					results.message = "Unable to open file ${params.filename}"
+					ingestMetricsService.setStatus(filename, ProcessStatus.FAILED, "Unable to open file ${params.filename}")
 				}
+			}
+			else
+			{
+				ingestMetricsService.endIngest(filename)
 			}
 		}
 		catch(e)
@@ -195,6 +204,7 @@ class StagerService
 			results.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
 			results.message = "Unable to process file ${params.filename} with ERROR: ${e}"
 			log.error "${e.toString()}"
+			ingestMetricsService.setStatus(filename, ProcessStatus.FAILED, "Unable to process file ${params.filename} with ERROR: ${e}")
 		}
 		imageStager?.delete()
 
