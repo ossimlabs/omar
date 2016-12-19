@@ -18,6 +18,7 @@ include 'omar-core',
 		'omar-security',
 		'omar-superoverlay',
 		'omar-wcs',
+		'omar-ingest-metrics',
 		'avro-app',
 		'download-app',
 		'omar-app',
@@ -34,7 +35,8 @@ include 'omar-core',
 		'stager-app',
 		'predio-app',
 		'ossimtools-app',
-		'wcs-app'
+		'wcs-app',
+		'ingest-metrics-app'
 
 // Plugins
 project(':omar-core').projectDir = 'plugins/omar-core' as File
@@ -57,6 +59,7 @@ project(':omar-superoverlay').projectDir = 'plugins/omar-superoverlay' as File
 project(':omar-avro').projectDir = 'plugins/omar-avro' as File
 project(':omar-download').projectDir = 'plugins/omar-download' as File
 project(':omar-wcs').projectDir = 'plugins/omar-wcs' as File
+project(':omar-ingest-metrics').projectDir = 'plugins/omar-ingest-metrics' as File
 
 // Apps
 project(':omar-app').projectDir = 'apps/omar-app' as File
@@ -76,3 +79,4 @@ project(':mensa-app').projectDir = 'apps/mensa-app' as File
 project(':avro-app').projectDir = 'apps/avro-app' as File
 project(':download-app').projectDir = 'apps/download-app' as File
 project(':wcs-app').projectDir = 'apps/wcs-app' as File
+project(':ingest-metrics-app').projectDir = 'apps/ingest-metrics-app' as File

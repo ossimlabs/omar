@@ -50,10 +50,14 @@ class DateUtil
     Date date = null
     switch ( dateString )
     {
-    case ~/[0-9]{4}[0-1][0-9][0-3][0-9]/:
-      sdf = new SimpleDateFormat("yyyyMMdd");
+      case ~/[0-9]{4}/:
+        sdf = new SimpleDateFormat("yyyy");
 //        println "one: ${dateString}"
-      break
+        break
+      case ~/[0-9]{4}[0-1][0-9][0-3][0-9]/:
+        sdf = new SimpleDateFormat("yyyyMMdd");
+//        println "one: ${dateString}"
+        break
     case ~/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/:
       sdf = new SimpleDateFormat("yyyy-MM-dd");
       //println "one: ${dateString}"
@@ -618,4 +622,8 @@ class DateUtil
     return intervalResult;
   }
 
+  static Date dateTimeToDate(org.joda.time.DateTime dateTime)
+  {
+    new Date(dateTime.millis)
+  }
 }

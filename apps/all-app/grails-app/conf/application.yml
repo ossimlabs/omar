@@ -549,6 +549,26 @@ omar:
       log:   /data/omar/jpip_server/log/omar-jpip-server-log.txt
       ip:    10.0.10.100
       url:   jpip://10.0.10.100:9000
+  avro:
+    sourceUriField: "URL"
+    dateField: "Observation_Date_Time"
+    dateFieldFormat: "yyyyMMddHHmmss"
+    imageIdField: "Image_Id"
+    jsonSubFieldPath: "Message"
+    download:
+      directory: "/data/s3"
+    destination:
+      type: "post"
+      post:
+        addRasterEndPoint: http://localhost:8081/dataManager/addRaster
+        addRasterEndPointField: "filename"
+        addRasterEndPointParams:
+          background: "true"
+          buildHistograms: "true"
+          buildOverviews: "true"
+          overviewCompressionType: "NONE"
+          overviewType: "ossim_tiff_box"
+          filename: ""
 
 quartz:
   jdbcStore: false

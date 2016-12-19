@@ -139,7 +139,7 @@ omar:
     destination:
       type: "post"
       post:
-        addRasterEndPoint: "http://192.168.2.200/stager-app/dataManager/addRaster"
+        addRasterEndPoint: "http://localhost:8081/dataManager/addRaster"
         addRasterEndPointField: "filename"
         addRasterEndPointParams:
           background: "true"
