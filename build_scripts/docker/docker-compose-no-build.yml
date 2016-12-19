@@ -217,10 +217,10 @@ services:
     ports:
       - "5000:8080"
     restart: always
-#    volumes:
+    volumes:
       # Modify the path below to reflect your
       # AWS credentials location.
-#      - ${AWS_CREDENTIALS_PATH}
+      - "/home/jenkins/.aws:/root/.aws"
   o2-stager:
     container_name: o2-stager
     environment:
