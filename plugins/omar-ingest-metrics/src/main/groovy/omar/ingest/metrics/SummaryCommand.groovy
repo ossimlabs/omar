@@ -18,6 +18,8 @@ class SummaryCommand implements Validateable
    DateTime startDate
    DateTime endDate
 
+   Boolean individual=false
+
    Integer offset = 0
    Integer limit
 
