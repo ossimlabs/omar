@@ -23,12 +23,7 @@ class IngestMetricsService
    {
       HashMap result = [
               statusCode: HttpStatus.OK,
-              data      : [],
-//              pagination: [
-//                      count: 0,
-//                      offset: 0,
-//                      limit: 0
-//              ]
+              data      : []
       ]
       if (!cmd.ingestId)
       {
@@ -255,7 +250,7 @@ class IngestMetricsService
       result
    }
 
-   HashMap update(IngestCommand cmd)
+   HashMap save(IngestCommand cmd)
    {
       HashMap result = [
               statusCode: HttpStatus.OK,
@@ -266,9 +261,21 @@ class IngestMetricsService
 //                      limit: 0
 //              ]
       ]
-      println "CMD ======== ${cmd}"
       def ingestMetricsRecord = getIngestMetrics(cmd.ingestId)
       Boolean changedFlag = false
+      if(!ingestMetricsRecord&&(cmd.ingestId||cmd.newIngestId))
+      {
+         ingestMetricsRecord = new IngestMetrics()
+         if(cmd.newIngestId)
+         {
+            ingestMetricsRecord.ingestId = cmd.newIngestId
+         }
+         else
+         {
+            ingestMetricsRecord.ingestId = cmd.ingestId
+         }
+         changedFlag = true
+      }
       if (ingestMetricsRecord)
       {
          if (cmd.description)
@@ -371,12 +378,15 @@ class IngestMetricsService
          }
          else if (cmd.startDate && cmd.endDate)
          {
+            deleteStatement = "${deleteStatement} WHERE startDate >= '${cmd.startDate}' AND endDate <= '${cmd.endDate}'"
          }
          else if (cmd.startDate)
          {
+            deleteStatement = "${deleteStatement} WHERE startDate >= '${cmd.startDate}'"
          }
          else if (cmd.endDate)
          {
+            deleteStatement = "${deleteStatement} WHERE endDate <='${cmd.endDate}'"
          }
 
          IngestMetrics.executeUpdate(deleteStatement.toString());
@@ -401,57 +411,98 @@ class IngestMetricsService
                       limit : 0
               ]
       ]
-      Double totalTime
-      Double totalCopyTime
-      Double totalStagingTime
-      def record = getIngestMetrics(cmd.ingestId)
-      Double totalOverheadTime
-      Boolean totalOverheadTimeValid = true;
-      if(record.endDate&&record.startDate)
-      {
-         totalTime = (record.endDate.time - record.startDate.time) / 1000.0
-         totalOverheadTime = totalTime
-      }
-      else
-      {
-         totalOverheadTimeValid = false
-      }
-      if(record.endCopy&&record.startCopy)
-      {
-         totalCopyTime = (record.endCopy.time - record.startCopy.time) / 1000.0
-         if(totalOverheadTimeValid) totalOverheadTime -= totalCopyTime
-      }
-      else
-      {
-         totalOverheadTimeValid = false
-      }
-      if(record.startStaging&&record.endStaging)
-      {
-         totalStagingTime =  (record.endStaging.time-record.startStaging.time)/1000.0
-         if(totalOverheadTimeValid) totalOverheadTime -= totalStagingTime
-      }
-      else
-      {
-         totalOverheadTimeValid = false
-      }
-      HashMap tempRecord = [ ingestId:         record.ingestId,
-                             description:      record.description,
-                             totalTime:        totalTime,
-                             totalCopyTime:    totalCopyTime,
-                             totalStagingTime: totalStagingTime,
-                             status:           record.status
-      ]
-      if(totalOverheadTimeValid)
-      {
-         tempRecord.totalOverheadTime = totalOverheadTime
-      }
-      else
-      {
-         tempRecord.totalOverheadTime = null
+      def baseCriteria = {
+
+         if(cmd.ingestId)
+         {
+            eq("ingestId", cmd.ingestId)
+         }
+         else if (cmd.startDate && cmd.endDate)
+         {
+            and {
+               ge("startDate",  DateUtil.dateTimeToDate(cmd.startData))
+               le("endDate",  DateUtil.dateTimeToDate(cmd.endData))
+            }
+         }
+         else if (cmd.startDate)
+         {
+            ge('startDate',  DateUtil.dateTimeToDate(cmd.startDate))
+         }
+         else if (cmd.endDate)
+         {
+            le('endDate',  DateUtil.dateTimeToDate(cmd.endDate))
+         }
       }
 
-      result.data << tempRecord
-      result.remove("pagination")
+      // need to externalize
+      if(cmd.offset == null) cmd.offset = 0;
+      if(cmd.limit == null) cmd.limit = 10000;
+      if(cmd.limit > 10000) cmd.limit = 10000;
+
+      Integer count = IngestMetrics.createCriteria().count{
+         baseCriteria.delegate = delegate
+         baseCriteria()
+      }
+
+      def records = IngestMetrics.createCriteria().list(max:cmd.limit, offset:cmd.offset){
+         baseCriteria.delegate = delegate
+         baseCriteria()
+      }
+
+
+      records.each{record->
+         Double totalTime
+         Double totalCopyTime
+         Double totalStagingTime
+
+         Double totalOverheadTime
+         Boolean totalOverheadTimeValid = true;
+         if(record.endDate&&record.startDate)
+         {
+            totalTime = (record.endDate.time - record.startDate.time) / 1000.0
+            totalOverheadTime = totalTime
+         }
+         else
+         {
+            totalOverheadTimeValid = false
+         }
+         if(record.endCopy&&record.startCopy)
+         {
+            totalCopyTime = (record.endCopy.time - record.startCopy.time) / 1000.0
+            if(totalOverheadTimeValid) totalOverheadTime -= totalCopyTime
+         }
+         else
+         {
+            totalOverheadTimeValid = false
+         }
+         if(record.startStaging&&record.endStaging)
+         {
+            totalStagingTime =  (record.endStaging.time-record.startStaging.time)/1000.0
+            if(totalOverheadTimeValid) totalOverheadTime -= totalStagingTime
+         }
+         else
+         {
+            totalOverheadTimeValid = false
+         }
+         HashMap tempRecord = [ ingestId:         record.ingestId,
+                                description:      record.description,
+                                totalTime:        totalTime,
+                                totalCopyTime:    totalCopyTime,
+                                totalStagingTime: totalStagingTime,
+                                status:           record.status
+         ]
+         if(totalOverheadTimeValid)
+         {
+            tempRecord.totalOverheadTime = totalOverheadTime
+         }
+         else
+         {
+            tempRecord.totalOverheadTime = null
+         }
+
+         result.data << tempRecord
+
+      }
 
       result
    }
@@ -490,10 +541,10 @@ class IngestMetricsService
          }
          else if (cmd.startDate)
          {
-            gt('startDate',  DateUtil.dateTimeToDate(cmd.startDate))
+            ge('startDate',  DateUtil.dateTimeToDate(cmd.startDate))
          } else if (cmd.endDate)
          {
-            lt('endDate',  DateUtil.dateTimeToDate(cmd.endDate))
+            le('endDate',  DateUtil.dateTimeToDate(cmd.endDate))
          }
       }
 
@@ -681,19 +732,15 @@ class IngestMetricsService
                       limit : 0
               ]
       ]
-      if (cmd.isNull())
-      {
-         result = fullSummary(cmd)
-      }
-      else if(cmd.ingestId)
+      if(cmd.ingestId||cmd.individual)
       {
          result = ingestIdSummary(cmd)
       }
-      else if(cmd.startDate)
+      else if(cmd.startDate||cmd.endDate)
       {
          result = fullSummary(cmd)
       }
-      else if(cmd.endDate)
+      else
       {
          result = fullSummary(cmd)
       }
