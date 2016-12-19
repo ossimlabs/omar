@@ -449,6 +449,9 @@ class IngestMetricsService
          baseCriteria()
       }
 
+      result.pagination.count  = count
+      result.pagination.offset = cmd.offset
+      result.pagination.limit  = cmd.limit
 
       records.each{record->
          Double totalTime
