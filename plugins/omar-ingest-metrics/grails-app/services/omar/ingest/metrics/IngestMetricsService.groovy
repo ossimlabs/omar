@@ -266,7 +266,6 @@ class IngestMetricsService
 //                      limit: 0
 //              ]
       ]
-      println "CMD ======== ${cmd}"
       def ingestMetricsRecord = getIngestMetrics(cmd.ingestId)
       Boolean changedFlag = false
       if (ingestMetricsRecord)
@@ -371,12 +370,15 @@ class IngestMetricsService
          }
          else if (cmd.startDate && cmd.endDate)
          {
+            deleteStatement = "${deleteStatement} WHERE startDate >= '${cmd.startDate}' AND endDate <= '${cmd.endDate}'"
          }
          else if (cmd.startDate)
          {
+            deleteStatement = "${deleteStatement} WHERE startDate >= '${cmd.startDate}'"
          }
          else if (cmd.endDate)
          {
+            deleteStatement = "${deleteStatement} WHERE endDate <='${cmd.endDate}'"
          }
 
          IngestMetrics.executeUpdate(deleteStatement.toString());
@@ -490,10 +492,10 @@ class IngestMetricsService
          }
          else if (cmd.startDate)
          {
-            gt('startDate',  DateUtil.dateTimeToDate(cmd.startDate))
+            ge('startDate',  DateUtil.dateTimeToDate(cmd.startDate))
          } else if (cmd.endDate)
          {
-            lt('endDate',  DateUtil.dateTimeToDate(cmd.endDate))
+            le('endDate',  DateUtil.dateTimeToDate(cmd.endDate))
          }
       }
 
