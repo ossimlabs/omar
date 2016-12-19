@@ -49,8 +49,9 @@ dependencyManagement {
 grails {
     exploded = true
     plugins {
-      compile project( ':omar-core' )
-      compile project( ':omar-hibernate-spatial' )
+        compile project( ':omar-core' )
+        compile project( ':omar-hibernate-spatial' )
+        compile project( ':omar-ingest-metrics' )
     }
 }
 
@@ -73,7 +74,7 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
-    
+
     compile 'org.grails.plugins:quartz:2.0.9'
     compile 'org.grails.plugins:quartz-monitor:1.3'
     compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
@@ -92,7 +93,7 @@ grailsPublish {
     desc = "Full plugin description"
     developers = [johndoe:"John Doe"]
     portalUser = ""
-    portalPassword = ""    
+    portalPassword = ""
 }
 
 assets {

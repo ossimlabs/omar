@@ -8,6 +8,8 @@ import groovy.json.JsonSlurper
 
 @Transactional
 class AvroService {
+  def ingestMetricsService
+
   private getUniqueProcessId()
   {
     String result = UUID.randomUUID().toString()
@@ -394,7 +396,8 @@ class AvroService {
 
       if(fullPathLocation)
       {
-        messageId = fullPathLocation
+        messageId = fullPathLocation.toString()
+        ingestMetricsService.startIngest(messageId, "")
         def avroPayload = AvroPayload.findByMessageId(messageId)
         if(!avroPayload)
         {
@@ -418,6 +421,7 @@ class AvroService {
                          messageId:avroPayload.messageId,
                          message:avroPayload.message,
                       ]
+
             }
           } 
           else
@@ -453,6 +457,8 @@ class AvroService {
                               messageId:avroPayload.messageId,
                               message:avroPayload.message,
                       ]
+
+              // log message with id file path
             }
           }
         }
@@ -467,7 +473,7 @@ class AvroService {
     }
     catch(e)
     {
-     // e.printStackTrace()
+      e.printStackTrace()
       result.status = HttpStatus.ERROR
       result.statusCode = HttpStatus.BAD_REQUEST
       result.message = e.toString()

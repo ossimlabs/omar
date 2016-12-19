@@ -48,9 +48,10 @@ dependencyManagement {
 grails {
     exploded = true
     plugins {
-      compile project(':omar-core')
-      compile project(':omar-oms')
-      compile project(':omar-hibernate-spatial')
+        compile project(':omar-core')
+        compile project(':omar-oms')
+        compile project(':omar-hibernate-spatial')
+        compile project(':omar-ingest-metrics')
     }
 }
 
@@ -87,7 +88,7 @@ grailsPublish {
     desc = "Full plugin description"
     developers = [johndoe:"John Doe"]
     portalUser = ""
-    portalPassword = ""    
+    portalPassword = ""
 }
 
 assets {

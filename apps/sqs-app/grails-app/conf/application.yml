@@ -140,3 +140,5 @@ omar:
         post:
           urlEndPoint: "http://localhost:8080/avro/addMessage"
           field: message
+  ingestMetrics:
+    url: ""

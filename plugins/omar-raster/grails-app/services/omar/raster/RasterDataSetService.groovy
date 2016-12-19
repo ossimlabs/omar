@@ -18,7 +18,7 @@ class RasterDataSetService implements ApplicationContextAware {
 	def dataInfoService
 	def ingestService
 	def stagerService
-
+	def ingestMetricsService
 	ApplicationContext applicationContext
 
 
@@ -70,7 +70,8 @@ class RasterDataSetService implements ApplicationContextAware {
 				httpStatusMessage?.status = HttpStatus.UNSUPPORTED_MEDIA_TYPE
 				log.error(httpStatusMessage?.message)
 			}
-			else if (background) {
+			else if (background)
+			{
 				def result = stagerService.addFileToStage(filename, params.properties)
 
 				httpStatusMessage.status = result.status
