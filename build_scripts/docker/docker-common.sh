@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Assumes AWS account "rbt-modapps" (320588532383) UNLESS env var
+# USE_C2S_ACCOUNT exists and is set to "true", in which case the rbt-c2s
+# (433455360279) AWS account is used.
+
 # Locates script dir for relative paths:
 if [ -z $OMAR_SCRIPT_DIR ]; then
   pushd `dirname $0` >/dev/null
@@ -34,13 +38,41 @@ O2_APPS=( "o2-base" "o2-avro" "o2-db" "o2-disk-cleanup" "o2-download" "o2-jpip" 
 #O2_APPS+=("tlv")
 #popd
 
-if [ -z $DOCKER_REGISTRY_URI ] ; then
-  export DOCKER_REGISTRY_URI="320588532383.dkr.ecr.us-east-1.amazonaws.com"
+if [ -z $AWS_ACCOUNT_ID ]; then
+  if [ "$USE_C2S_ACCOUNT" == true ]; then
+    export AWS_ACCOUNT_ID="433455360279"
+  else
+    export AWS_ACCOUNT_ID="320588532383"
+  fi
+fi
+if [ -z $AWS_DEFAULT_REGION ] ; then
+  export AWS_DEFAULT_REGION="us-east-1"
 fi
 
-if [ -z $AWS_CREDENTIALS_PATH ] ; then
-  export AWS_CREDENTIALS_PATH="/home/jenkins/.aws:/root/.aws"
+# URL of docker container image registry.
+# NOTE: Jenkins needs authentication on specified registry.
+if [ -z $DOCKER_REGISTRY_URI ] ; then
+  export DOCKER_REGISTRY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 fi
+
+# Using "jenkins" user creds:
+if [ -z $AWS_ACCESS_KEY_ID ] ; then
+  if [ "$USE_C2S_ACCOUNT" == true ]; then
+    export AWS_ACCESS_KEY_ID="AKIAI35DINCQVGWBDSZA"
+  else
+    export AWS_ACCESS_KEY_ID="AKIAJNX5YDI7ARRRYABA"
+  fi
+fi
+if [ -z $AWS_SECRET_ACCESS_KEY ] ; then
+  if [ "$USE_C2S_ACCOUNT" == true ]; then
+    export AWS_SECRET_ACCESS_KEY="dlzq2jWcnt+513W0bUY3yipjKXnb3n+5F7EgaxKh"
+  else
+    export AWS_SECRET_ACCESS_KEY="i/DCHNBXR+qOwTyUmbxVZI+Xys9EpZXnNMuqnP4H"
+  fi
+fi
+#if [ -z $AWS_CREDENTIALS_PATH ] ; then
+#  export AWS_CREDENTIALS_PATH="/home/jenkins/.aws:/root/.aws"
+#fi
 
 # Create login credentials for docker
 if [[ "$DOCKER_REGISTRY_URI" =~ .*amazonaws.* ]] ; then
@@ -72,7 +104,9 @@ echo
 echo OMAR_SCRIPT_DIR=$OMAR_SCRIPT_DIR
 echo OSSIM_DEV_HOME=$OSSIM_DEV_HOME
 echo DOCKER_REGISTRY_URI=$DOCKER_REGISTRY_URI
-echo AWS_CREDENTIALS_PATH=$AWS_CREDENTIALS_PATH
+echo AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID
+echo AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+echo AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 echo S3_DELIVERY_BUCKET=$S3_DELIVERY_BUCKET
 echo
 
