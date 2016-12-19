@@ -55,25 +55,6 @@ if [ -z $DOCKER_REGISTRY_URI ] ; then
   export DOCKER_REGISTRY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 fi
 
-# Using "jenkins" user creds:
-if [ -z $AWS_ACCESS_KEY_ID ] ; then
-  if [ "$USE_C2S_ACCOUNT" == true ]; then
-    export AWS_ACCESS_KEY_ID="AKIAI35DINCQVGWBDSZA"
-  else
-    export AWS_ACCESS_KEY_ID="AKIAJNX5YDI7ARRRYABA"
-  fi
-fi
-if [ -z $AWS_SECRET_ACCESS_KEY ] ; then
-  if [ "$USE_C2S_ACCOUNT" == true ]; then
-    export AWS_SECRET_ACCESS_KEY="dlzq2jWcnt+513W0bUY3yipjKXnb3n+5F7EgaxKh"
-  else
-    export AWS_SECRET_ACCESS_KEY="i/DCHNBXR+qOwTyUmbxVZI+Xys9EpZXnNMuqnP4H"
-  fi
-fi
-#if [ -z $AWS_CREDENTIALS_PATH ] ; then
-#  export AWS_CREDENTIALS_PATH="/home/jenkins/.aws:/root/.aws"
-#fi
-
 # Create login credentials for docker
 if [[ "$DOCKER_REGISTRY_URI" =~ .*amazonaws.* ]] ; then
   echo; echo "Attempting to log into Amazon container registry..."
