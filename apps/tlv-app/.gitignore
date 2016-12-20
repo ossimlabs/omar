@@ -1,4 +1,3 @@
 .gradle
-plugins/network_specific/build
 time_lapse/.asscache
 time_lapse/build
