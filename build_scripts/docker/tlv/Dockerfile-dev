@@ -1,7 +1,7 @@
 # The Time Lapse Viewer application, nicknamed TLV, is
 # an on-demand imagery flipbook.
 
-FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/o2-base
+FROM 320588532383.dkr.ecr.us-east-1.amazonaws.com/tlv
 MAINTAINER RadiantBlue Technologies radiantblue.com
 LABEL com.radiantblue.version="0.1"\
       com.radiantblue.description="The Time Lapse \
@@ -9,11 +9,11 @@ LABEL com.radiantblue.version="0.1"\
       on-deman imagery flipbook."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install time_lapse && yum clean all
-ADD tlv-app.yml /usr/share/omar/time_lapse/time_lapse.yml
-ENV DOCKER_HOST_IP=${DOCKER_HOST_IP}\
-    WFSURL=${WFSURL}\
-    WMSURL=${WMSURL}
+
+ARG O2_DEV_HOME
+
+RUN rm /usr/share/omar/tlv-app/tlv-app.jar && \
+        ln -s $O2_DEV_HOME/apps/tlv-app/build/libs/tlv-app-0.1.jar /usr/share/omar/tlv-app/tlv-app.jar
 
 EXPOSE 8080
-CMD ["sh", "/usr/share/omar/time_lapse/time_lapse.sh"]
+CMD ["sh", "/usr/share/omar/tlv-app/tlv-app.sh"]
