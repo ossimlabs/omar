@@ -14,14 +14,6 @@ for app in ${O2_APPS[@]} ; do
    pushd $OMAR_DEV_HOME/apps/$app
    if [ $app = "disk-cleanup" ]; then
       ./gradlew jar
-   elif [ $app = "tlv-app" ]; then
-      pushd time_lapse
-      ./gradlew assemble
-      popd
-      mkdir -p build/libs
-      for artifact in  `ls time_lapse/build/libs/*.jar` ; do
-         mv $artifact build/libs
-      done
    else
       ./gradlew assemble
    fi

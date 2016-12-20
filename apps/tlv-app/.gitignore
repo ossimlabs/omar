@@ -1,3 +1,2 @@
-.gradle
-time_lapse/.asscache
-time_lapse/build
+.asscache
+build
