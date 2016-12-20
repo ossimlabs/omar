@@ -74,12 +74,13 @@ assets {
     minifyCss = true
 
     excludes = [
+        '**/cesium/*/Source/**',
         '**/*.css',
         '**/*.js'
     ]
     includes = [
-        '**/cesium/*/**',
-	'**/font-awesome-4.6.2.css',
+        '**/cesium/*/Build/Cesium/**',
+        '**/font-awesome-4.6.2.css',
         '**/index-bundle.*'
     ]
 }
