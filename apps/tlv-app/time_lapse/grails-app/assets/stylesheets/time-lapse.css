@@ -1,0 +1,52 @@
+.ol-full-screen {
+	left: 0.5em;
+	right: auto;
+	top: 90px;
+}
+
+.ol-mouse-position {
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	cursor: pointer;
+	right: 0.5em;
+	top: 0.5em;
+}
+
+.ol-rotate, .ol-rotate.ol-hidden {
+        left: 0.5em;
+        opacity: 1;
+        right: auto;
+        top: 60px;
+        visibility: visible;
+}
+
+/* mobile device support */
+.ol-touch .ol-rotate { top: 80px; }
+
+.ol-touch .ol-full-screen { top: 120px; }
+
+#tileLoadProgressBar {
+	background: rgba(255, 255, 255, 1);
+	height: 1px;
+	left: 0;
+	position: relative;
+	top: 0;
+	visibility: hidden;
+	width: 0;
+}
+
+.tooltip.in { opacity: 1; }
+
+.tooltip.top .tooltip-arrow { border-top-color: white; }
+
+.tooltip-inner {
+	border: 2px solid white;
+	white-space: pre-wrap;
+}
+
+#tooltipInfo {
+	height: 1px;
+	position: absolute;
+	width: 1px;
+	z-index: 100;
+}

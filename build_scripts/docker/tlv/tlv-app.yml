@@ -14,6 +14,8 @@ beLookupUrl: http://${BE_LOOKUP_URL}/wfs
 
 defaultLocation: 48.8584, 2.2945
 
+docsUrl: http://${DOCS_URL}
+
 geocoderUrl: http://${GEOCODER_URL}
 
 libraries:

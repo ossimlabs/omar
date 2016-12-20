@@ -1,0 +1,20 @@
+.slider-horizontal { bottom: 2em; }
+
+.swipe-text-div {
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+    display: none;
+    position: absolute;
+}
+
+.swipe-text-div-left {
+    left: 0.5em;
+    text-align: left;
+    top: 0.5em;
+}
+
+.swipe-text-div-right {
+    right: 0.5em;
+    text-align: right;
+    top: 0.5em;
+}
