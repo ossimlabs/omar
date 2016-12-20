@@ -1,5 +1,5 @@
-//= require jquery-2.2.0.min.js
-//= require bootstrap-3.3.6
+//= require webjars/jquery/2.2.0/jquery.js
+//= require webjars/bootstrap/3.3.5/js/bootstrap.js
 //= require moment-2.10.6.js
 //= require bootstrap-datetimepicker-4.15.35
 //= require bootstrap-slider

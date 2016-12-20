@@ -3,12 +3,10 @@ package time_lapse
 
 class WmsController {
 
-	def logsService
 	def wmsConversionService
 
 
 	def index() {
-		logsService.recordWmsRequest(params, request)
 		def image = wmsConversionService.serviceMethod(params)
 
 
