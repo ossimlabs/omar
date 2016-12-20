@@ -230,6 +230,7 @@ services:
     environment:
       BE_LOOKUP_URL: ${DOCKER_HOST_URL}/o2-wfs
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
+      DOCS_URL: ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs/user-guide/tlv
       GEOCODER_URL: ${DOCKER_HOST_URL}/twofishes
       WFSURL: ${DOCKER_HOST_URL}/o2-wfs
       WMSURL: ${DOCKER_HOST_URL}/o2-wms

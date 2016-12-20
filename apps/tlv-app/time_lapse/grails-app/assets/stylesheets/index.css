@@ -1,0 +1,27 @@
+#errorDialog {
+    display: none;
+    bottom: 0;
+    left: 0;
+	position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 9999;
+}
+
+.navbar { margin-bottom: 0px; }
+
+.security-classification {
+	font-weight: bold;
+	left: 0;
+	margin: 0 auto;
+	position: relative;
+	right: 0;
+	text-align: center;
+	top: 0;
+	width: 100%;
+	z-index: 9999;
+}
+
+.slider-selection, .slider-track-high { background: #303c3a; }
+
+.table th, .table td { border-top: none !important; }
