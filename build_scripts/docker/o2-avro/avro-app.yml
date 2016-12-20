@@ -25,7 +25,8 @@ omar:
     destination:
       type: "post"
       post:
-        addRasterEndPoint: http://${ADDRASTERENDPOINTURL}${ADDRASTERENDPOINTPORT}/o2-stager/dataManager/addRaster
+#        addRasterEndPoint: http://${ADDRASTERENDPOINTURL}${ADDRASTERENDPOINTPORT}/o2-stager/dataManager/addRaster
+        addRasterEndPoint: ${ADDRASTERENDPOINTURL}
         addRasterEndPointField: "filename"
         addRasterEndPointParams:
           background: "true"

@@ -10,8 +10,9 @@ services:
   o2-avro:
     container_name: o2-avro
     environment:
-      ADDRASTERENDPOINTPORT: :8080
-      ADDRASTERENDPOINTURL: o2-stager
+#      ADDRASTERENDPOINTPORT: :8080
+#      ADDRASTERENDPOINTURL: o2-stager
+      ADDRASTERENDPOINTURL: http://o2-stager:8080/o2-stager/dataManager/addRaster
       DBHOST: o2-db
       DBNAME: omar_prod
       DBPASS: abc123
