@@ -3,7 +3,7 @@
 //= require moment-2.10.6.js
 //= require bootstrap-datetimepicker-4.15.35
 //= require bootstrap-slider
-//= require cesium/Cesium
+//= require webjars/cesium/1.21.0/Build/Cesium/Cesium.js
 //= require ol3-cesium-1.16
 //= require coordinate-conversion
 

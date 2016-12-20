@@ -1,13 +1,13 @@
-/* 
+/*
 *= require bootstrap-slate-3.3.6
 *= require bootstrap-datetimepicker-4.15.35
 *= require bootstrap-slider
 *= require ol-3.15.1
-*= require cesium/Widgets/widgets.css
+*= require webjars/cesium/1.21.0/Build/Cesium/Widgets/widgets.css
 *=
 *= require index
 *= require index-plugin
 *= require time-lapse
 *= require menus/search
-*= require menus/view 
+*= require menus/view
 */
