@@ -9,8 +9,8 @@ LABEL com.radiantblue.version="0.1"\
       on-deman imagery flipbook."\
       com.radiantblue.source=""\
       com.radiantblue.classification="UNCLASSIFIED"
-RUN yum -y install time_lapse && yum clean all
-ADD tlv-app.yml /usr/share/omar/time_lapse/time_lapse.yml
+RUN yum -y install o2-tlv-app && yum clean all
+ADD tlv-app.yml /usr/share/omar/tlv-app/tlv-app.yml
 ENV BE_LOOKUP_URL=${BE_LOOKUP_URL}\
     DOCKER_HOST_IP=${DOCKER_HOST_IP}\
     DOCS_URL=${DOCS_URL}\
@@ -19,4 +19,4 @@ ENV BE_LOOKUP_URL=${BE_LOOKUP_URL}\
     WMSURL=${WMSURL}
 
 EXPOSE 8080
-CMD ["sh", "/usr/share/omar/time_lapse/time_lapse.sh"]
+CMD ["sh", "/usr/share/omar/tlv-app/tlv-app.sh"]
