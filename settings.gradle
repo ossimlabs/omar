@@ -32,7 +32,7 @@ include 'all-app',
 		'pki-app',
 		'predio-app',
 		'stager-app',
-		'time_lapse',
+		'tlv-app',
 		'tlv-network-specific',
 		'wcs-app',
 		'wfs-app',
@@ -77,7 +77,7 @@ project(':pki-app').projectDir = 'apps/pki-app' as File
 project(':predio-app').projectDir = 'apps/predio-app' as File
 project(':stager-app').projectDir = 'apps/stager-app' as File
 project(':superoverlay-app').projectDir = 'apps/superoverlay-app' as File
-project(':time_lapse').projectDir = 'apps/tlv-app/time_lapse' as File
+project(':tlv-app').projectDir = 'apps/tlv-app' as File
 project(':wcs-app').projectDir = 'apps/wcs-app' as File
 project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':wms-app').projectDir = 'apps/wms-app' as File
