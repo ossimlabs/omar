@@ -12,8 +12,7 @@ popd >/dev/null
 for app in ${O2_APPS[@]} ; do
    echo "BUILDING: $app ..."
    pushd $OMAR_DEV_HOME/apps/$app
-   if [ $app = "disk-cleanup" ]
-   then
+   if [ $app = "disk-cleanup" ]; then
       ./gradlew jar
    else
       ./gradlew assemble
