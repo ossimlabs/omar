@@ -65,6 +65,7 @@ dependencies {
     compile 'org.webjars:bootstrap:3.3.5'
     compile 'org.webjars:bootswatch-slate:3.3.5+4'
     compile 'org.webjars:jquery:2.2.0'
+    compile 'org.webjars:momentjs:2.10.6'
     compile 'org.webjars.npm:cesium:1.21.0'
 }
 
@@ -80,6 +81,9 @@ assets {
         '**/bootstrap/**',
         '**/bootswatch-slate/**',
         '**/cesium/**',
+        '**/jquery/**',
+        '**/momentjs/**',
+        '**/requirejs/**',
         '**/*.css',
         '**/*.js'
     ]
