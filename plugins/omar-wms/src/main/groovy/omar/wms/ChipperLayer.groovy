@@ -33,20 +33,20 @@ class ChipperLayer extends DirectLayer
     def info = ImageInfoUtil.getImageInfoAsMap( imageFile )
 
     bbox = new Bounds(
-            info."image${entry}".geometry.ll_lon.toDouble(),
-            info."image${entry}".geometry.ll_lat.toDouble(),
-            info."image${entry}".geometry.ur_lon.toDouble(),
-            info."image${entry}".geometry.ur_lat.toDouble(),
-            'epsg:4326' )
+        info."image${entry}".geometry.ll_lon.toDouble(),
+        info."image${entry}".geometry.ll_lat.toDouble(),
+        info."image${entry}".geometry.ur_lon.toDouble(),
+        info."image${entry}".geometry.ur_lat.toDouble(),
+        'epsg:4326' )
 
     initOpts = [
-            operation: 'ortho',
-            hist_op: 'auto-minmax',
-            srs: 'epsg:4326',
-            output_radiometry: 'U8',
-            three_band_out: 'true',
-            'image0.file': imageFile,
-            'image0.entry': String.valueOf( entry )
+        operation: 'ortho',
+        hist_op: 'auto-minmax',
+        srs: 'epsg:4326',
+        output_radiometry: 'U8',
+        three_band_out: 'true',
+        'image0.file': imageFile,
+        'image0.entry': String.valueOf( entry )
     ]
 
     initHints = [transparent: true]
@@ -55,30 +55,30 @@ class ChipperLayer extends DirectLayer
   public ChipperLayer(List images)
   {
     initOpts = [
-            operation: 'ortho',
-            hist_op: 'auto-minmax',
-            srs: 'epsg:4326',
-            output_radiometry: 'U8',
-            three_band_out: 'true',
+        operation: 'ortho',
+        hist_op: 'auto-minmax',
+        srs: 'epsg:4326',
+        output_radiometry: 'U8',
+        three_band_out: 'true',
     ]
 
     images?.eachWithIndex { image, i ->
 
-      if(image.imageFile)
+      if ( image.imageFile )
       {
         def imageFile = image.imageFile
         def entry = ( image.entry ) ? String.valueOf( image.entry ) : '0'
 
-        if(image.groundGeom)
+        if ( image.groundGeom )
         {
           Bounds imageBounds = image.groundGeom.bounds
-          if(bbox)
+          if ( bbox )
           {
-            bbox.expand(imageBounds)
+            bbox.expand( imageBounds )
           }
           else
           {
-            bbox =  imageBounds
+            bbox = imageBounds
           }
         }
         else
@@ -89,20 +89,20 @@ class ChipperLayer extends DirectLayer
           if ( bbox )
           {
             bbox.expand( new Bounds(
-                    info[imageKey].geometry.ll_lon.toDouble(),
-                    info[imageKey].geometry.ll_lat.toDouble(),
-                    info[imageKey].geometry.ur_lon.toDouble(),
-                    info[imageKey].geometry.ur_lat.toDouble(),
-                    'epsg:4326' ) )
+                info[imageKey].geometry.ll_lon.toDouble(),
+                info[imageKey].geometry.ll_lat.toDouble(),
+                info[imageKey].geometry.ur_lon.toDouble(),
+                info[imageKey].geometry.ur_lat.toDouble(),
+                'epsg:4326' ) )
           }
           else
           {
             bbox = new Bounds(
-                    info[imageKey].geometry.ll_lon.toDouble(),
-                    info[imageKey].geometry.ll_lat.toDouble(),
-                    info[imageKey].geometry.ur_lon.toDouble(),
-                    info[imageKey].geometry.ur_lat.toDouble(),
-                    'epsg:4326' )
+                info[imageKey].geometry.ll_lon.toDouble(),
+                info[imageKey].geometry.ll_lat.toDouble(),
+                info[imageKey].geometry.ur_lon.toDouble(),
+                info[imageKey].geometry.ur_lat.toDouble(),
+                'epsg:4326' )
           }
         }
         initOpts["image${i}.file"] = imageFile
@@ -128,29 +128,29 @@ class ChipperLayer extends DirectLayer
     def bbox = viewport.bounds
 
     def renderOpts = initOpts + [
-            cut_width: screenArea.@width as String,
-            cut_height: screenArea.@height as String,
-            cut_wms_bbox: [bbox.minX, bbox.minY, bbox.maxX, bbox.maxY].join( ',' ),
-            srs: viewport.coordinateReferenceSystem.identifiers.first() as String
+        cut_width: screenArea.@width as String,
+        cut_height: screenArea.@height as String,
+        cut_wms_bbox: [bbox.minX, bbox.minY, bbox.maxX, bbox.maxY].join( ',' ),
+        srs: viewport.coordinateReferenceSystem.identifiers.first() as String
     ]
 
     def renderHints = initHints + [
-            width: screenArea.@width,
-            height: screenArea.@height
+        width: screenArea.@width,
+        height: screenArea.@height
     ]
 
-    HashMap chipperResult = ChipperUtil.runChipper(renderOpts)
+    HashMap chipperResult = ChipperUtil.runChipper( renderOpts )
     def image
 
-    if(chipperResult.raster)
+    if ( chipperResult.raster )
     {
-      if (chipperResult.raster.numBands > 3)
+      if ( chipperResult.raster.numBands > 3 )
       {
-        def planarImage = JaiImage.bufferedToPlanar(new BufferedImage(chipperResult.colorModel, chipperResult.raster, true, null))
+        def planarImage = JaiImage.bufferedToPlanar( new BufferedImage( chipperResult.colorModel, chipperResult.raster, true, null ) )
         planarImage.data
-        def modifiedImage = JaiImage.selectBandsForRendering(planarImage)
+        def modifiedImage = JaiImage.selectBandsForRendering( planarImage )
 
-        if (modifiedImage)
+        if ( modifiedImage )
         {
           chipperResult.raster = modifiedImage.data
           chipperResult.colorModel = modifiedImage.colorModel
@@ -161,21 +161,24 @@ class ChipperLayer extends DirectLayer
 
       try
       {
-        image = ChipperUtil.optimizeRaster(chipperResult.raster, chipperResult.colorModel, renderHints)
+        image = ChipperUtil.optimizeRaster( chipperResult.raster, chipperResult.colorModel, renderHints )
       }
-      catch (e)
+      catch ( e )
       {
       }
     }
 //    def image = ChipperUtil.createImage( renderOpts, renderHints )
 
-      if(image) graphics.drawRenderedImage( image, identity )
-    }
-
-    @Override
-    public void dispose()
+    if ( image )
     {
-      super.preDispose()
-      super.dispose()
+      graphics.drawRenderedImage( image, identity )
     }
   }
+
+  @Override
+  public void dispose()
+  {
+    super.preDispose()
+    super.dispose()
+  }
+}

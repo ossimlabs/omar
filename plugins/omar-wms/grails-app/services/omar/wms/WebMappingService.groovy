@@ -69,13 +69,13 @@ class WebMappingService implements InitializingBean
       def rootAttributes = [version: version]
 
       mkp.declareNamespace(
-              xlink: "http://www.w3.org/1999/xlink",
+          xlink: "http://www.w3.org/1999/xlink",
       )
 
       if ( version == "1.3.0" )
       {
         mkp.declareNamespace(
-                xsi: "http://www.w3.org/2001/XMLSchema-instance"
+            xsi: "http://www.w3.org/2001/XMLSchema-instance"
         )
 
         rootAttributes['xmlns'] = "http://www.opengis.net/wms"
@@ -124,11 +124,11 @@ class WebMappingService implements InitializingBean
                 HTTP {
                   Get {
                     OnlineResource( 'xlink:type': "simple",
-                            'xlink:href': grailsLinkGenerator.link( absolute: true, controller: 'wms', action: 'getCapabilities' ) )
+                        'xlink:href': grailsLinkGenerator.link( absolute: true, controller: 'wms', action: 'getCapabilities' ) )
                   }
                   Post {
                     OnlineResource( 'xlink:type': "simple",
-                            'xlink:href': grailsLinkGenerator.link( absolute: true, controller: 'wms', action: 'getCapabilities' ) )
+                        'xlink:href': grailsLinkGenerator.link( absolute: true, controller: 'wms', action: 'getCapabilities' ) )
                   }
                 }
               }
@@ -141,7 +141,7 @@ class WebMappingService implements InitializingBean
                 HTTP {
                   Get {
                     OnlineResource( 'xlink:type': "simple",
-                            'xlink:href': grailsLinkGenerator.link( absolute: true, controller: 'wms', action: 'getMap' ) )
+                        'xlink:href': grailsLinkGenerator.link( absolute: true, controller: 'wms', action: 'getMap' ) )
                   }
                 }
               }
@@ -183,19 +183,19 @@ class WebMappingService implements InitializingBean
                 northBoundLatitude( serverData.Capability.Layer.BoundingBox.maxLat )
               }
               BoundingBox( CRS: serverData.Capability.Layer.BoundingBox.crs,
-                      minx: serverData.Capability.Layer.BoundingBox.minLon,
-                      miny: serverData.Capability.Layer.BoundingBox.minLat,
-                      maxx: serverData.Capability.Layer.BoundingBox.maxLon,
-                      maxy: serverData.Capability.Layer.BoundingBox.maxLat
+                  minx: serverData.Capability.Layer.BoundingBox.minLon,
+                  miny: serverData.Capability.Layer.BoundingBox.minLat,
+                  maxx: serverData.Capability.Layer.BoundingBox.maxLon,
+                  maxy: serverData.Capability.Layer.BoundingBox.maxLat
               )
             }
             else
             {
               LatLonBoundingBox(
-                      minx: serverData.Capability.Layer.BoundingBox.minLon,
-                      miny: serverData.Capability.Layer.BoundingBox.minLat,
-                      maxx: serverData.Capability.Layer.BoundingBox.maxLon,
-                      maxy: serverData.Capability.Layer.BoundingBox.maxLat
+                  minx: serverData.Capability.Layer.BoundingBox.minLon,
+                  miny: serverData.Capability.Layer.BoundingBox.minLat,
+                  maxx: serverData.Capability.Layer.BoundingBox.maxLon,
+                  maxy: serverData.Capability.Layer.BoundingBox.maxLat
               )
             }
             LayerInfo.list()?.each { layerInfo ->
@@ -235,15 +235,15 @@ class WebMappingService implements InitializingBean
                     else
                     {
                       LatLonBoundingBox(
-                              minx: geoBounds?.minX,
-                              miny: geoBounds?.minY,
-                              maxx: geoBounds?.maxX,
-                              maxy: geoBounds?.maxY
+                          minx: geoBounds?.minX,
+                          miny: geoBounds?.minY,
+                          maxx: geoBounds?.maxX,
+                          maxy: geoBounds?.maxY
                       )
                     }
                     BoundingBox( ( "${crsTag}" ): bounds?.proj?.id,
-                            minx: bounds?.minX, miny: bounds?.minY,
-                            maxx: bounds?.maxX, maxy: bounds?.maxY )
+                        minx: bounds?.minX, miny: bounds?.minY,
+                        maxx: bounds?.maxX, maxy: bounds?.maxY )
 //                  layerInfo?.styles?.each { style ->
 /*
                     [].each { style ->
@@ -291,120 +291,120 @@ class WebMappingService implements InitializingBean
 
     switch ( renderMode )
     {
-      case RenderMode.GEOSCRIPT:
-        log.trace "getMap: Using  RenderMode.GEOSCRIPT Method"
-        def images = wmsParams?.layers?.split( ',' )?.collect { [imageFile: it.toString()] }
-        def chipperLayer = new ChipperLayer( images )
+    case RenderMode.GEOSCRIPT:
+      log.trace "getMap: Using  RenderMode.GEOSCRIPT Method"
+      def images = wmsParams?.layers?.split( ',' )?.collect { [imageFile: it.toString()] }
+      def chipperLayer = new ChipperLayer( images )
 
-        def map = new GeoScriptMap(
-                fixAspectRatio: false,
-                width: wmsParams?.width,
-                height: wmsParams?.height,
-                type: wmsParams?.format?.split( '/' )?.last(),
-                proj: wmsParams?.srs,
-                bounds: new Bounds( *( wmsParams?.bbox?.split( ',' )?.collect { it.toDouble() } ), wmsParams?.srs ),
-                layers: [chipperLayer]
-        )
+      def map = new GeoScriptMap(
+          fixAspectRatio: false,
+          width: wmsParams?.width,
+          height: wmsParams?.height,
+          type: wmsParams?.format?.split( '/' )?.last(),
+          proj: wmsParams?.srs,
+          bounds: new Bounds( *( wmsParams?.bbox?.split( ',' )?.collect { it.toDouble() } ), wmsParams?.srs ),
+          layers: [chipperLayer]
+      )
 
-        map.render( ostream )
-        map.close()
-        break
+      map.render( ostream )
+      map.close()
+      break
 
-      case RenderMode.BLANK:
-        log.trace "getMap: Using  RenderMode.BLANK Method"
-        def image = new BufferedImage( wmsParams.width, wmsParams.height, BufferedImage.TYPE_INT_ARGB )
+    case RenderMode.BLANK:
+      log.trace "getMap: Using  RenderMode.BLANK Method"
+      def image = new BufferedImage( wmsParams.width, wmsParams.height, BufferedImage.TYPE_INT_ARGB )
 
-        ImageIO.write( image, wmsParams?.format?.split( '/' )?.last(), ostream )
-        break
+      ImageIO.write( image, wmsParams?.format?.split( '/' )?.last(), ostream )
+      break
 
-      case RenderMode.FILTER:
-        log.trace "getMap: Using  RenderMode.FILTER Method"
+    case RenderMode.FILTER:
+      log.trace "getMap: Using  RenderMode.FILTER Method"
 
-        def layerNames = wmsParams?.layers?.split( ',' )
-        def layers = []
-        layerNames?.each { layerName ->
-          def parts = layerName?.split( /[:\.]/ )
+      def layerNames = wmsParams?.layers?.split( ',' )
+      def layers = []
+      layerNames?.each { layerName ->
+        def parts = layerName?.split( /[:\.]/ )
 
-          def prefix, typeName, id
+        def prefix, typeName, id
 
-          switch ( parts?.size() )
-          {
-            case 2:
-              (prefix, typeName) = parts
-              break
-            case 3:
-              (prefix, typeName, id) = parts
-              break
-          }
+        switch ( parts?.size() )
+        {
+        case 2:
+          (prefix, typeName) = parts
+          break
+        case 3:
+          (prefix, typeName, id) = parts
+          break
+        }
 
 //        println "${prefix} ${typeName} ${id}"
 
-          def layerInfo = LayerInfo.where {
-            name == typeName && workspaceInfo.namespaceInfo.prefix == prefix
-          }.get()
+        def layerInfo = LayerInfo.where {
+          name == typeName && workspaceInfo.namespaceInfo.prefix == prefix
+        }.get()
 //          println "LAYER INFO ============= ${layerInfo}"
-          List images = null
+        List images = null
 
-//def maxCount = grailsApplication?.config.omar.wms.autoMosaic.maxCount
-//println "BEFORE: ${maxCount}"
-//maxCount = maxCount?:10
-//println maxCount
-//def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
-          HashMap workspaceParams = layerInfo.workspaceInfo.workspaceParams
+        //def maxCount = grailsApplication?.config.omar.wms.autoMosaic.maxCount
+        //println "BEFORE: ${maxCount}"
+        //maxCount = maxCount?:10
+        //println maxCount
+        //def sorting = grailsApplication?.config.omar.wms.autoMosaic.sorting
+        HashMap workspaceParams = layerInfo.workspaceInfo.workspaceParams
 
-          Workspace.withWorkspace(geoscriptService.getWorkspace(workspaceParams)) { Workspace workspace ->
-            def layer = workspace[typeName]
+        Workspace.withWorkspace( geoscriptService.getWorkspace( workspaceParams ) ) { Workspace workspace ->
+          def layer = workspace[typeName]
 
-            images = layer?.collectFromFeature(
-                      filter: (id) ? "in(${id})" : wmsParams?.filter,
-//sorting: sorting,
-//	max: maxCount, // will remove and change to have the wms plugin have defaults
-                    fields: ['id', 'ground_geom', 'filename', 'entry_id'] as List<String>
-            ) {
-              [id: it.get('id'), imageFile: it.filename, groundGeom:it.ground_geom, entry: it.entry_id?.toInteger()]
-            }
+          images = layer?.collectFromFeature(
+              filter: ( id ) ? "in(${id})" : wmsParams?.filter,
+          //sorting: sorting,
+          //	max: maxCount, // will remove and change to have the wms plugin have defaults
+              fields: ['id', 'ground_geom', 'filename', 'entry_id'] as List<String>
+          ) {
+            [id: it.get( 'id' ), imageFile: it.filename, groundGeom: it.ground_geom, entry: it.entry_id?.toInteger()]
           }
-          def ids = wmsParams?.filter?.find(/.*in[(](.*)[)].*/) { matcher, ids -> return ids }
-          if (ids)
-          {
-            def orderedImages = []
-            ids.split(",").collect({ it as Integer }).each() {
-              def idIndex = it
-              orderedImages << images.find { it.id == idIndex }
-            }
-            images = orderedImages
+        }
+        def ids = wmsParams?.filter?.find( /.*in[(](.*)[)].*/ ) { matcher, ids -> return ids }
+        if ( ids )
+        {
+          def orderedImages = []
+          ids.split( "," ).collect( { it as Integer } ).each() {
+            def idIndex = it
+            orderedImages << images.find { it.id == idIndex }
           }
-          def chipperLayer = new ChipperLayer(images)
-
-          layers << chipperLayer
+          images = orderedImages
         }
-        def coords = wmsParams?.bbox?.split( ',' )?.collect { it.toDouble() }
-        def proj = new Projection( ( wmsParams.version == "1.3.0" ) ? wmsParams?.crs : wmsParams?.srs )
-        def bbox
+        def chipperLayer = new ChipperLayer( images )
 
-        if ( wmsParams.version == "1.3.0" && proj?.crs?.unit?.toString() == '\u00b0' )
-        {
-          bbox = new Bounds( coords[1], coords[0], coords[3], coords[2], proj )
-        }
-        else
-        {
-          bbox = new Bounds( *coords, proj )
-        }
+        layers << chipperLayer
+      }
+      def coords = wmsParams?.bbox?.split( ',' )?.collect { it.toDouble() }
+      def proj = new Projection( ( wmsParams.version == "1.3.0" ) ? wmsParams?.crs : wmsParams?.srs )
+      def bbox
 
-        def renderParams = [
-                fixAspectRatio: false,
-                width: wmsParams?.width,
-                height: wmsParams?.height,
-                type: wmsParams?.format?.split( '/' )?.last(),
-                proj: bbox?.proj,
-                bounds: bbox,
-                layers: layers
-        ]
+      if ( wmsParams.version == "1.3.0" && proj?.crs?.unit?.toString() == '\u00b0' )
+      {
+        bbox = new Bounds( coords[1], coords[0], coords[3], coords[2], proj )
+      }
+      else
+      {
+        bbox = new Bounds( *coords, proj )
+      }
 
-        def map = new GeoScriptMap( renderParams )
-        map.render( ostream )
-        map.close()
-        break
+      def renderParams = [
+          fixAspectRatio: false,
+          width: wmsParams?.width,
+          height: wmsParams?.height,
+          type: wmsParams?.format?.split( '/' )?.last(),
+          proj: bbox?.proj,
+          bounds: bbox,
+          layers: layers
+      ]
+
+      def map = new GeoScriptMap( renderParams )
+      map.render( ostream )
+      map.close()
+      break
     }
 
     otherParams.endDate = new Date()
