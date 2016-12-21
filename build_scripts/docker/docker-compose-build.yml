@@ -10,8 +10,7 @@ services:
     build: ./o2-avro
     container_name: o2-avro
     environment:
-      ADDRASTERENDPOINTPORT: :8080
-      ADDRASTERENDPOINTURL: o2-stager
+      ADDRASTERENDPOINTURL: http://o2-stager:8080/o2-stager/dataManager/addRaster
       DBHOST: o2-db
       DBNAME: omar_prod
       DBPASS: abc123
@@ -172,7 +171,7 @@ services:
     environment:
       AWSDNS: sqs.us-east-1.amazonaws.com
       AWSQUEUEPATH: 320588532383/avro-tst
-      DESTINATION_POST_END_POINT: http://o2-avro/o2-avro/avro/addMessage
+      DESTINATION_POST_END_POINT: http://o2-avro:8080/o2-avro/avro/addMessage
       DESTINATION_POST_FIELD: message
       DESTINATION_TYPE: post
       DOCKER_HOST_IP: ${DOCKER_HOST_URL}
