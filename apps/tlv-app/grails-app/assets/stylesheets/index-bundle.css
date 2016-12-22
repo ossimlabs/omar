@@ -9,5 +9,6 @@
 *= require index-plugin
 *= require time-lapse
 *= require menus/search
+*= require image-properties
 *= require menus/view
 */

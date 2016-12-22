@@ -1,0 +1,12 @@
+#imagePropertiesDiv {
+	background: rgba(0, 0, 0, 0.4);
+	display: none;
+	left:50%;
+	position: absolute;
+	transform: translate(-50%, 0%);
+	z-index: 1000;
+}
+
+#imagePropertiesDiv .table {
+	background: none;
+}

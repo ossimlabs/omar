@@ -21,6 +21,7 @@
 					<g:render template = "/menus/search-menu"/>
 					<g:render template = "/menus/annotations-menu"/>
 					<g:render template = "/menus/export-menu"/>
+					<g:render template = "/menus/image-properties-menu"/>
 					<g:render template = "/menus/layers-menu"/>
 					<g:render template = "/menus/time-lapse-menu"/>
 					<g:render template = "/menus/view-menu"/>
