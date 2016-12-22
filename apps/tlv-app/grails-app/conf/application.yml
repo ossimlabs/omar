@@ -36,7 +36,6 @@ networkSpecific:
 securityClassification: UNCLASSIFIED
 
 server:
-  contextPath: /tlv
   port: 8080
 
 ---
