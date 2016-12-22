@@ -68,7 +68,7 @@
                     });
                 }
                 else {
-                    var baseUrl = "http://o2.radiantbluecloud.com/o2-omar"; //AppO2.APP_CONFIG.serverURL;
+                    var baseUrl = AppO2.APP_CONFIG.serverURL;
                     var twoFishesProxy = AppO2.APP_CONFIG.params.twofishes.proxy;
                     var twoFishesUrl = baseUrl + twoFishesProxy + "?" +
                         "autocompleteBias=BALANCED&" +
