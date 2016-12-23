@@ -27,6 +27,9 @@ This will take all the metdata from all the layers, convert it to a CSV file and
 * **Screenshot:**
 This will pretty much make the map take a selfie and then your browser will download the result.
 
+## Image Properties
+See [image properties](image-properties.md) for details.
+
 ## Layers
 * **Base Layer:**
 Select from an assortment of base layer options to bring context to your imagery.

@@ -32,5 +32,6 @@ pages:
   - AVRO Service (Docker): docker-install/docker-avro-app.md
 - User Guide:
   - Image Space: user-guide/image-space.md
+  - Image Properties: user-guide/image-properties.md
   - Search: user-guide/search.md
   - TLV: user-guide/tlv.md
