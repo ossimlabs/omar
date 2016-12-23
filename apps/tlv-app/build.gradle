@@ -88,8 +88,8 @@ assets {
         '**/*.js'
     ]
     includes = [
+        '**/bootswatch-slate/**/glyphicons*',
         '**/cesium/*/Build/Cesium/**',
-        '**/font-awesome-4.6.2.css',
         '**/index-bundle.*'
     ]
 }
