@@ -1,5 +1,10 @@
  <div id = "imagePropertiesDiv">
 	<div>
+        <div align = "right">
+            <button class = "btn btn-default btn-sm" onclick = 'javascript:$( "#imagePropertiesDiv" ).hide()' type = "button">
+                <span class = "glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
         <table class = "table">
             <tr>
                 <td>Bands:</td>
@@ -89,7 +94,5 @@
                     </select>
                 </td>
         </table>
-        <button class = "btn btn-default" onclick = 'javascript:$( "#imagePropertiesDiv" ).hide()' type = "button">Close</button>
-        <br>
 	</div>
 </div>

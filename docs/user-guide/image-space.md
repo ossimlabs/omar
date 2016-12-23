@@ -8,17 +8,8 @@ Download a raw image file. _Note: This will package the raw, overview and histog
 ## Geo-Jump
 There is an input box located above the map all the way to the right. The box is meant to take in various kinds of input and will automatically determine if a BE, coordinate or placename is entered. In all cases, if a match is found, the map will center to the appropriate area.
 
-## Image Adjustments
-* **Brightness:**
-Adjust the brightness value of each pixel.
-* **Contrast:**
-Adjust the contrast value of each pixel.
-* **Dynamic Range Adjustmet:**
-Select the method that adjusts the ratio between the brightest and darkest pixel.
-* **Interpolation:**
-Select the method by which unknown pixels are determined from known pixels.
-* **Sharpen Mode:**
-Select the kernel size used for sharpening.
+## Image Properties
+See [image properties](image-properties.md) for details.
 
 ## Map
 * **Rotation:**
