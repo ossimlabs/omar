@@ -1,4 +1,5 @@
 #!/bin/bash
+PS4='$LINENO: ' ; set -x
 
 # Assumes AWS account "rbt-modapps" (320588532383) UNLESS env var
 # USE_C2S_ACCOUNT exists and is set to "true", in which case the rbt-c2s
