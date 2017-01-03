@@ -10,6 +10,8 @@ baseLayers:
         visible: true
         url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
 
+baseUrl: http://localhost:8080
+
 beLookupUrl: http://localhost:8081/wfs
 
 defaultLocation: 48.8584, 2.2945
@@ -36,6 +38,7 @@ networkSpecific:
 securityClassification: UNCLASSIFIED
 
 server:
+  contextPath: 
   port: 8080
 
 ---
