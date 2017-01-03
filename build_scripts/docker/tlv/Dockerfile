@@ -11,7 +11,8 @@ LABEL com.radiantblue.version="0.1"\
       com.radiantblue.classification="UNCLASSIFIED"
 RUN yum -y install o2-tlv-app && yum clean all
 ADD tlv-app.yml /usr/share/omar/tlv-app/tlv-app.yml
-ENV BE_LOOKUP_URL=${BE_LOOKUP_URL}\
+ENV BASE_URL=${BASE_URL}\
+    BE_LOOKUP_URL=${BE_LOOKUP_URL}\
     DOCKER_HOST_IP=${DOCKER_HOST_IP}\
     DOCS_URL=${DOCS_URL}\
     GEOCODER_URL=${GEOCODER_URL}\
