@@ -549,6 +549,11 @@
               draw.on('drawstart',
                 function(evt) {
 
+                  // clear any measurements that may be there
+                  $timeout(function() {
+                    $rootScope.$broadcast('measure: updated', null);
+                  });
+
                   measureSource.clear();
 
                   // set sketch
@@ -873,7 +878,7 @@
                 return deferred.promise;
             }
 
-            this.getFootprintGeometry = function() { 
+            this.getFootprintGeometry = function() {
                 return new ol.geom.MultiPolygon( imageGeometry.coordinates );
             }
 

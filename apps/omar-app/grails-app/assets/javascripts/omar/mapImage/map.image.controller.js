@@ -444,74 +444,76 @@
     function changeMeasureOutputSystem(data, type){
 
       function linearCalc(val, multiplier){
-
         return (val * multiplier).toFixed(4);
-
       }
 
       function areaCalc(val, multiplier){
-
         if(!data.area){
           return
         } else {
           return (val * multiplier).toFixed(4);
         }
-
       }
 
-      switch (type){
-        case 'm':
-          vm.geodDist = linearCalc(data.gdist, 1) + ' ' + type;
-          vm.recDist = linearCalc(data.distance, 1) + ' ' + type;
-          vm.area = areaCalc(data.area, 1) + " m^2";
-        break;
-        case 'km':
-          vm.geodDist = linearCalc(data.gdist, 0.001) + ' ' + type;
-          vm.recDist = linearCalc(data.distance, 0.001) + ' ' + type;
-          vm.area = areaCalc(data.area, 0.000001) + " km^2";
-        break;
-        case 'ft':
-          vm.geodDist = linearCalc(data.gdist, 3.280839895) + ' ' + type;
-          vm.recDist = linearCalc(data.distance, 3.280839895) + ' ' + type;
-          vm.area = areaCalc(data.area, 10.763910416623611025) + " ft^2";
-        break;
-        case 'mi':
-          vm.geodDist = linearCalc(data.gdist, 0.00062137119224) + ' ' + type;
-          vm.recDist = linearCalc(data.distance, 0.00062137119224) + ' ' + type;
-          vm.area = areaCalc(data.area, .00000038610215854575) + " mi^2";
-        break;
-        case 'yd':
-          vm.geodDist = linearCalc(data.gdist, 1.0936132983) + ' ' + type;
-          vm.recDist = linearCalc(data.distance, 1.0936132983) + ' ' + type;
-          vm.area = areaCalc(data.area, 1.19598861218942) + " yd^2";
-        break;
-        case 'nmi':
-          vm.geodDist = linearCalc(data.gdist, 0.000539957) + ' ' + type;
-          vm.recDist = linearCalc(data.distance, 0.000539957) + ' ' + type;
-          vm.area = areaCalc(data.area, .000000291553) + " nmi^2";
-        break;
-      }
+      if (data) {
+        switch (type){
+          case 'm':
+            vm.geodDist = linearCalc(data.gdist, 1) + ' ' + type;
+            vm.recDist = linearCalc(data.distance, 1) + ' ' + type;
+            vm.area = areaCalc(data.area, 1) + " m^2";
+          break;
+          case 'km':
+            vm.geodDist = linearCalc(data.gdist, 0.001) + ' ' + type;
+            vm.recDist = linearCalc(data.distance, 0.001) + ' ' + type;
+            vm.area = areaCalc(data.area, 0.000001) + " km^2";
+          break;
+          case 'ft':
+            vm.geodDist = linearCalc(data.gdist, 3.280839895) + ' ' + type;
+            vm.recDist = linearCalc(data.distance, 3.280839895) + ' ' + type;
+            vm.area = areaCalc(data.area, 10.763910416623611025) + " ft^2";
+          break;
+          case 'mi':
+            vm.geodDist = linearCalc(data.gdist, 0.00062137119224) + ' ' + type;
+            vm.recDist = linearCalc(data.distance, 0.00062137119224) + ' ' + type;
+            vm.area = areaCalc(data.area, .00000038610215854575) + " mi^2";
+          break;
+          case 'yd':
+            vm.geodDist = linearCalc(data.gdist, 1.0936132983) + ' ' + type;
+            vm.recDist = linearCalc(data.distance, 1.0936132983) + ' ' + type;
+            vm.area = areaCalc(data.area, 1.19598861218942) + " yd^2";
+          break;
+          case 'nmi':
+            vm.geodDist = linearCalc(data.gdist, 0.000539957) + ' ' + type;
+            vm.recDist = linearCalc(data.distance, 0.000539957) + ' ' + type;
+            vm.area = areaCalc(data.area, .000000291553) + " nmi^2";
+          break;
+        }
 
-      // Azimuth calcuation on LineString
-      if (data.azimuth) {
-        vm.displayAzimuth = true;
-        vm.azimuth = data.azimuth.toFixed(3) + ' deg';
-      }
-      else if (!data.azimuth) {
-        vm.displayAzimuth = false;
-        vm.azimuth = '0';
-      }
+        // Azimuth calcuation on LineString
+        if (data.azimuth) {
+          vm.displayAzimuth = true;
+          vm.azimuth = data.azimuth.toFixed(3) + ' deg';
+        }
+        else if (!data.azimuth) {
+          vm.displayAzimuth = false;
+          vm.azimuth = '0';
+        }
 
-      // Area calculation on Polygons
-      if(data.area) {
-        vm.displayArea = true;
-        //vm.area = Math.round(data.area*1000)/1000 + ' m';;
+        // Area calculation on Polygons
+        if(data.area) {
+          vm.displayArea = true;
+          //vm.area = Math.round(data.area*1000)/1000 + ' m';;
+        }
+        else if (!data.area) {
+          vm.displayArea = false;
+          vm.area = '0';
+        }
       }
-      else if (!data.area) {
-        vm.displayArea = false;
-        vm.area = '0';
+      else {
+        vm.geodDist = "";
+        vm.recDist = "";
+        vm.area = "";
       }
-
     }
 
     vm.measure = function(show, type) {
