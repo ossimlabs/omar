@@ -42,6 +42,10 @@ Brief summary/description of the plugin.
 
     Closure doWithSpring() { {->
             // TODO Implement runtime spring config (optional)
+            wfsConfig( WFSConfig )
+            featureTypeNamespaceConverter( WFSConfig.FeatureTypeNamespaceConverter )
+            datastoreConverter( WFSConfig.DatastoreConverter )
+            featureTypeConverter( WFSConfig.FeatureTypeConverter )            
         }
     }
 
