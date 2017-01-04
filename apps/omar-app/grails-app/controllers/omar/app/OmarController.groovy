@@ -4,7 +4,7 @@ import omar.openlayers.OmarOpenlayersUtils
 import org.springframework.beans.factory.InitializingBean
 import grails.converters.JSON
 
-class OmarController implements InitializingBean
+class OmarController /*implements InitializingBean*/
 {
   def openlayers
 
@@ -12,19 +12,31 @@ class OmarController implements InitializingBean
 
   def index()
   {
-      println openLayersConfig
+      // println openLayersConfig as JSON
+      // println grailsApplication.config.omar.openlayers as JSON
 
-  		def clientConfig = new ConfigObject()
-  		clientConfig.params = grailsApplication.config.omar.app
+  		// def clientConfig = new ConfigObject()
+  		// clientConfig.params = grailsApplication.config.omar.app
+      //
+  		// clientConfig.openlayers = OmarOpenlayersUtils.openlayersConfig
+      // // clientConfig.openlayers = openlayers
+      //
+  		//  // Use Enhancer traits from omar-core getBaseUrl()
+  		// clientConfig.serverURL = getBaseUrl()
+      //
+  		// // Params to pass to client
+  		// def clientParams = grailsApplication.config.omar.app
 
-  		//clientConfig.openlayers = OmarOpenlayersUtils.openlayersConfig
-      clientConfig.openlayers = openlayers
+      if ( grailsApplication.config.spring.cloud.config.enabled ) {
+          openLayersConfig.baseMaps.each { println it }
+      }
 
-  		 // Use Enhancer traits from omar-core getBaseUrl()
-  		clientConfig.serverURL = getBaseUrl()
 
-  		// Params to pass to client
-  		def clientParams = grailsApplication.config.omar.app
+      def clientConfig = [
+        serverURL: getBaseUrl(),
+        openlayers: openLayersConfig,
+        params: grailsApplication.config.omar.app
+      ]
 
   		[
   				clientConfig: clientConfig

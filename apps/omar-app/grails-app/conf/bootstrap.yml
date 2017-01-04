@@ -3,7 +3,7 @@ spring:
     name: o2-omar
   cloud:
     config:
-      enabled: true
+      enabled: false
       uri: http://localhost:8888/omar-config-server
     discovery:
       enabled: false

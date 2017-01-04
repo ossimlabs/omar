@@ -8,11 +8,11 @@ import groovy.transform.ToString
 /**
  * Created by sbortman on 12/24/16.
  */
-@ConfigurationProperties(prefix="omar.openlayers")
+@ConfigurationProperties(prefix="omar.openlayers", merge=false)
 @ToString(includeNames=true)
 class OpenLayersConfig
 {
-  List<OpenLayersLayer> baseMaps
+  Set<OpenLayersLayer> baseMaps
 
   @ToString(includeNames=true)
   static class OpenLayersLayer {
