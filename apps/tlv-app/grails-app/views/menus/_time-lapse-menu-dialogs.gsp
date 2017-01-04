@@ -9,7 +9,7 @@
 
 					<label>Geo-Jump</label>
 					<div class = "input-group">
-						<input class = "form-control" id = "geoJumpLocationInput" placeholder = "e.g. ${grailsApplication.config.defaultLocation}" type = "text">
+						<input class = "form-control" id = "geoJumpLocationInput" placeholder = "BE, Coordinate or Placename" type = "text">
 						<span class = "input-group-btn">
 							<button class = "btn btn-primary"  onclick = "geoJump($('#geoJumpLocationInput').val()); $('#timeLapseDialog').modal('hide')" type = "button">Go!</button>
 						</span>

@@ -1,7 +1,5 @@
 # Image Space
 
-Welcome to the image space page..
-
 ## Download
 Download a raw image file. _Note: This will package the raw, overview and histogram files into a zip folder._
 
@@ -39,5 +37,5 @@ Get a sharable link of the image.
 ## Zoom
 * **Full Resolution:**
 Zooms the map to full resolution.
-* **Maxximum Extent:**
+* **Maximum Extent:**
 Zooms the map out until the entire image can fit in the viewport.
