@@ -11,6 +11,7 @@ class DataSourceService
 {
 	def grailsApplication
 	def messageSource
+	WFSConfig wfsConfig
 
 	static String expandEnvVars(String text) {
 
@@ -40,12 +41,12 @@ class DataSourceService
 	{
 		if ( NamespaceInfo.count() == 0 )
 		{
-			grailsApplication.config.wfs.featureTypeNamespaces.each {
+			wfsConfig.featureTypeNamespaces.each {
 				NamespaceInfo.findOrSaveByPrefixAndUri( it.prefix, it.uri )
 			}
 
 			def env = System.env;
-			grailsApplication.config.wfs.datastores.each { datastore ->
+			wfsConfig.datastores.each { datastore ->
 				def workspaceInfo = WorkspaceInfo.findOrCreateByName( datastore.datastoreId )
 
 				workspaceInfo.with {
@@ -63,7 +64,7 @@ class DataSourceService
 				}
 			}
 
-			grailsApplication.config.wfs.featureTypes.each { featureType ->
+			wfsConfig.featureTypes.each { featureType ->
 				WorkspaceInfo.withTransaction {
 					def workspaceInfo = WorkspaceInfo.findByName( featureType.datastoreId )
 					def layerInfo = LayerInfo.findOrCreateByNameAndWorkspaceInfo( featureType.name, workspaceInfo )
