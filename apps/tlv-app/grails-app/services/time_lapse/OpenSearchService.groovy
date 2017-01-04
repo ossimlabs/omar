@@ -44,7 +44,7 @@ class OpenSearchService {
 		xml.append( "		data:image/x-icon;base64,${base64} ")
 		xml.append( '	</Image>' )
 		xml.append( '	<InputEncoding>UTF-8</InputEncoding>' )
-		xml.append( "	<Url template = \"${ baseUrl }/${ contextPath }?location={searchTerms}\" type = \"text/html\"/>" )
+		xml.append( "	<Url template = \"${ baseUrl }${ contextPath }/?location={searchTerms}\" type = \"text/html\"/>" )
 		xml.append( '</OpenSearchDescription>' )
 
 
