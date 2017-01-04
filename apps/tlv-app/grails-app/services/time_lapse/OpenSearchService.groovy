@@ -18,11 +18,11 @@ class OpenSearchService {
 		def tlvLogo = assetResourceLocator.findAssetForURI( "logos/tlv.png" )
 
 		// scale a copy of the logo
-		def inputStream = new BufferedInputStream( tlvLogo.inputStream ?: this.getClass().getClassLoader().getResourceAsStream( "assets/logos/tlv.png" ) )
+		def inputStream = new BufferedInputStream( tlvLogo?.inputStream ?: this.getClass().getClassLoader().getResourceAsStream( "assets/logos/tlv.png" ) )
 		def originalImage = ImageIO.read( inputStream);
 		def scaledImage = originalImage.getScaledInstance( 16, 16, Image.SCALE_SMOOTH )
 
-		//create a base 64 representation of the icon
+		// create a base 64 representation of the icon
 		def iconImage = new BufferedImage( 16, 16, BufferedImage.TYPE_INT_ARGB )
 		def graphic = iconImage.createGraphics()
 		graphic.drawImage(scaledImage, 0, 0, null)
