@@ -45,12 +45,12 @@ Brief summary/description of the plugin.
 
     Closure doWithSpring() {
         log.trace("doWithSpring(): Entered.............")
-        OmarOpenlayersReflectionUtils.application = OmarOpenlayersUtils.application = grailsApplication
-
-        OmarOpenlayersUtils.resetOpenlayersConfig()
-        // force reload by getting the config object
-        OmarOpenlayersUtils.openlayersConfig
-
+        // OmarOpenlayersReflectionUtils.application = OmarOpenlayersUtils.application = grailsApplication
+        //
+        // OmarOpenlayersUtils.resetOpenlayersConfig()
+        // // force reload by getting the config object
+        // OmarOpenlayersUtils.openlayersConfig
+        //
         log.trace("doWithSpring(): Leaving.............")
 
         {->

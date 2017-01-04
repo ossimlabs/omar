@@ -8,8 +8,12 @@ class OmarController implements InitializingBean
 {
   def openlayers
 
+  OpenLayersConfig openLayersConfig
+
   def index()
   {
+      println openLayersConfig
+
   		def clientConfig = new ConfigObject()
   		clientConfig.params = grailsApplication.config.omar.app
 
