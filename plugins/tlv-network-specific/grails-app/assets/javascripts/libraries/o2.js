@@ -4,7 +4,7 @@ createImageLayerSource = function( layer ) {
 			return new ol.source.TileWMS({
 				crossOrigin: "anonymous",
 				params: {
-					FILTER: "index_id LIKE '" + layer.indexId + "'",
+					FILTER: "in(" + layer.metadata.id + ")",
 					FORMAT: "image/png",
 					IDENTIFIER: Math.floor(Math.random() * 1000000),
 					LAYERS: "omar:raster_entry",
@@ -15,7 +15,6 @@ createImageLayerSource = function( layer ) {
 						histOp: layer.histOp || "auto-minmax",
 						resamplerFilter: layer.resamplerFilter || "bilinear",
 						sharpenMode: layer.sharpenMode || "none"
-
 					}),
                     TRANSPARENT: true,
                     VERSION: "1.1.1"

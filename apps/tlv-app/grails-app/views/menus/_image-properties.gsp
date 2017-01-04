@@ -14,7 +14,7 @@
                             <option value = ${ it }>${ it.capitalize() }</option>
                         </g:each>
                     </select>
-                    <table id = "manualBandSelectTable" style = "display: none">
+                    <table id = "manualBandSelectTable" style = "background: none; display: none">
                         <tr align = "center">
                             <td>R</td>
                             <td>G</td>
