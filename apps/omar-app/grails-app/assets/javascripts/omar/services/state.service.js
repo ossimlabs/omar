@@ -36,6 +36,7 @@ angular
     _this.navState = {};
     _this.navStateUpdate = function(object) {
         _this.navState.titleLeft = object.titleLeft || "";
+        _this.navState.userGuideUrl = object.userGuideUrl || null;
 
         $rootScope.$broadcast('navState.updated', _this.navState);
     }

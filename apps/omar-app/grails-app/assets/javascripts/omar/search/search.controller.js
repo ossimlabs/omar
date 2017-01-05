@@ -12,7 +12,10 @@
     // #################################################################################
 
     // set header title
-    stateService.navStateUpdate({ titleLeft: "<h3>Search</h3>" });
+    stateService.navStateUpdate({
+        titleLeft: "<h3>Search</h3>",
+        userGuideUrl: "/user-guide/search"
+    });
 
     var vm = this;
 

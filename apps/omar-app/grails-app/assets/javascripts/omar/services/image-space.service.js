@@ -277,7 +277,10 @@
                 acquisitionDateText = moment.utc(acquisitionDateText).format('MM-DD-YYYY HH:mm:ss') + " z";
               }
 
-              stateService.navStateUpdate({ titleLeft: imageIdText + " <br> " + acquisitionDateText });
+              stateService.navStateUpdate({
+                titleLeft: imageIdText + " <br> " + acquisitionDateText,
+                userGuideUrl: "/user-guide/image-space"
+              });
             });
 
             filename = params.filename;
