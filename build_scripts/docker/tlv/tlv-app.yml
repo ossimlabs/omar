@@ -1,14 +1,16 @@
 baseLayers:
     osmBasic:
+        layers: o2-basemap-basic
         name: OSM Basic
-        type: xyz
-        url: http://o2.radiantbluecloud.com/o2-basemap/styles/basic-v9/rendered/{z}/{x}/{y}.png
+        type: wms
+        url: http://${BASE_URL}/o2-basemap-proxy/wms
         visible: false
     osmBright:
+        layers: o2-basemap-bright
         name: OSM Bright
-        type: xyz
+        type: wms
         visible: true
-        url: http://o2.radiantbluecloud.com/o2-basemap/styles/bright-v9/rendered/{z}/{x}/{y}.png
+        url: http://${BASE_URL}/o2-basemap-proxy/wms
 
 baseUrl: http://${BASE_URL}
 

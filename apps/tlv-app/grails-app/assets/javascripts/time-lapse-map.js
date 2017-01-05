@@ -3,17 +3,29 @@ function addBaseLayersToTheMap() {
 	$.each(
 		tlv.availableResources.baseLayers,
 		function(i, x) {
+			var source;
 			switch(x.type) {
-				case "xyz":
-					tlv.baseLayers[i] = new ol.layer.Tile({
-						source: new ol.source.XYZ({
-							url: x.url
-						}),
-						visible: x.visible
+				case "wms":
+					source = new ol.source.TileWMS({
+						params: {
+							FORMAT: "image/png",
+							LAYERS: x.layers,
+							TRANSPARENT: true,
+							VERSION: "1.1.1"
+						},
+						url: x.url
 					});
+					break;
+
+				case "xyz":
+					source = new ol.source.XYZ({ url: x.url });
 					break;
 			}
 
+			tlv.baseLayers[i] = new ol.layer.Tile({
+				source: source,
+				visible: x.visible
+			});
 			tlv.map.addLayer(tlv.baseLayers[i]);
 			if (x.visible) { $("#baseLayersSelect option[value='" + i + "']").prop("selected", true); }
 		}
