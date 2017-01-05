@@ -781,8 +781,8 @@
                         <i class="fa fa-share-alt fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="right"
-                         uib-tooltip="Share link"></i>
-                      </a>&nbsp;&nbsp;
+                         uib-tooltip="Share link"></i>&nbsp;&nbsp;
+                      </a>
                       <a ng-href="" target="_blank" ng-click="list.archiveDownload(image.properties.id)">
                         <i class="fa fa-download fa-border text-primary"
                           style="cursor: pointer;"
@@ -793,13 +793,13 @@
                         <i class="fa fa-file-image-o fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="top"
-                         uib-tooltip="JPIP image"></i>
-                      </a>&nbsp;
+                         uib-tooltip="JPIP image"></i>&nbsp;&nbsp;
+                      </a>
                       <a ng-show="{{list.jpipAppEnabled}}" href="" ng-click="list.getJpipStream($event, image.properties.filename, image.properties.entry_id, '4326', $index, 'ortho');">
                         <i class="fa fa-image fa-border text-primary"
                          style="cursor: pointer;"
                          tooltip-placement="top"
-                         uib-tooltip="JPIP ortho"></i>
+                         uib-tooltip="JPIP ortho"></i>&nbsp;&nbsp;
                       </a>
                     </p>
                   </div>
