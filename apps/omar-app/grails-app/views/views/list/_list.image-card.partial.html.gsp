@@ -154,6 +154,12 @@
             <h4>Metrics</h4>
             <div class="panel panel-primary">
               <ul>
+                <li>NIIRS:&nbsp;&nbsp;
+                  <span class="text-success">
+                    <span ng-show="!vm.selectedImage.properties.niirs">Unknown</span>
+                    {{vm.selectedImage.properties.niirs}}
+                  </span>
+                </li>
                 <li>Azimuth Angle:&nbsp;&nbsp;
                   <span class="text-success">
                     <span ng-show="!vm.selectedImage.properties.azimuth_angle">Unknown</span>

@@ -731,11 +731,10 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12" style="font-size: 13px;">
-                    Ingest Date:&nbsp;&nbsp;
+                    NIIRS:&nbsp;&nbsp;
                     <span class="text-success">
-                      <span ng-show="!image.properties.ingest_date">Unknown</span>
-                      {{image.properties.ingest_date | date:'MM/dd/yyyy HH:mm:ss' : 'UTC'}}
-                      <span ng-show="image.properties.ingest_date">z</span>
+                      <span ng-show="!image.properties.niirs">Unknown</span>
+                      {{image.properties.niirs}}
                     </span>
                   </div>
                 </div>
@@ -754,15 +753,6 @@
                     <span class="text-success">
                       <span ng-show="!image.properties.mission_id">Unknown</span>
                       {{image.properties.mission_id}}
-                    </span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12" style="font-size: 13px;">
-                    File Type:&nbsp;&nbsp;
-                    <span class="text-success">
-                      <span ng-show="!image.properties.file_type">Unknown</span>
-                      {{image.properties.file_type}}
                     </span>
                   </div>
                 </div>
