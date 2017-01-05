@@ -2,10 +2,10 @@
     'use strict';
     angular
         .module('omarApp')
-        .controller('ListController', ['wfsService', 'shareService', 'downloadService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'imageSpaceService', 'jpipService', '$scope', '$http', ListController]);
+        .controller('ListController', ['wfsService', 'shareService', 'downloadService', 'beNumberService', '$stateParams', '$uibModal', 'mapService', 'jpipService', '$scope', '$http', ListController]);
 
 
-    function ListController(wfsService, shareService, downloadService, beNumberService, $stateParams, $uibModal, mapService, imageSpaceService, jpipService, $scope, $http) {
+    function ListController(wfsService, shareService, downloadService, beNumberService, $stateParams, $uibModal, mapService, jpipService, $scope, $http) {
 
         // #################################################################################
         // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
@@ -258,7 +258,7 @@
             var modalInstance = $uibModal.open({
                 size: 'lg',
                 templateUrl: AppO2.APP_CONFIG.serverURL + '/views/list/list.image-card.partial.html',
-                controller: ['shareService', 'downloadService', '$uibModalInstance', 'imageSpaceService', 'beNumberService', '$scope', 'imageObj', 'imageSpaceDefaults', ImageModalController],
+                controller: ['shareService', 'downloadService', '$uibModalInstance', 'beNumberService', '$scope', 'imageObj', 'imageSpaceDefaults', ImageModalController],
                 controllerAs: 'vm',
                 resolve: {
                     imageObj: function() {
@@ -298,7 +298,7 @@
     }
 
     // Handles the selected image modal obj
-    function ImageModalController(shareService, downloadService, $uibModalInstance, imageSpaceService, beNumberService, $scope, imageObj, imageSpaceDefaults) {
+    function ImageModalController(shareService, downloadService, $uibModalInstance, beNumberService, $scope, imageObj, imageSpaceDefaults) {
 
         var vm = this;
         vm.beData = [];
@@ -411,14 +411,7 @@
             window.open(tlvUrl, "_blank");
         };
 
-        $uibModalInstance.opened.then(function() {
-            setTimeout(function() {
-                imageSpaceService.initImageSpaceMap(imageSpaceObj, true);
-            }, 100);
-        });
-
         $scope.$on('placemarks: updated', function(event, data) {
-
             // Update the DOM (card list)
             $scope.$apply(function() {
                 vm.beData = data;

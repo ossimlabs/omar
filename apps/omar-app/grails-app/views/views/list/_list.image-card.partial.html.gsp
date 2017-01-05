@@ -61,47 +61,6 @@
     </div>
     <div class="row">
       <uib-tabset>
-        <uib-tab heading="Image">
-          <div class="row">
-            <div class="col-md-12">
-              <button popover-placement="bottom" uib-popover-template="vm.imageMapHelpPopover.templateUrl" popover-title="{{vm.imageMapHelpPopover.title}}" type="button" class="btn btn-warning btn-xs pull-right"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;Image Help
-              </button>
-                <script type="text/ng-template" id="imageMapHelpTemplate.html">
-                  <div class="form-group">
-                    <label>Hotkeys:</label>
-                    <p class="text-warning"><kbd>{{vm.imageMapHelpPopover.zoomHotkey}}</kbd> left drag to zoom
-                    </p>
-                    <p class="text-warning"><kbd>{{vm.imageMapHelpPopover.rotateHotkey}}</kbd> to rotate the map</p>
-                    <p class="text-warning"><kbd>N</kbd> button rotates the map North</p>
-                    <p class="text-warning"><kbd>U</kbd> button rotates the map to "<em>Up is Up</em>"
-                    </p>
-                    <p class="text-warning"><kbd><i class="fa fa-arrows-h"></i></kbd> button toggles the map to and from fullscreen mode</p>
-                  </div>
-                </script>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="map imageMapModal" id="imageMap"></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <h4>Acquisition Date:&nbsp;&nbsp;<span class="text-success">
-                <span ng-show="!vm.selectedImage.properties.acquisition_date">Unknown</span>
-                {{vm.selectedImage.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss' : 'UTC'}}</span>
-                <span ng-show="vm.selectedImage.properties.acquisition_date">z</span>
-              </h4>
-            </div>
-            <div class="col-md-6">
-              <h4>Ingest Date:&nbsp;&nbsp;<span class="text-success">
-                <span ng-show="!vm.selectedImage.properties.ingest_date">Unknown</span>
-                {{vm.selectedImage.properties.ingest_date| date:'MM/dd/yyyy HH:mm:ss' : 'UTC'}}</span>
-                <span ng-show="vm.selectedImage.properties.ingest_date">z</span>
-              </h4>
-            </div>
-          </div>
-        </uib-tab>
         <uib-tab heading="Metadata">
           <div class="col-md-6">
             <h4>Source</h4>
@@ -313,6 +272,22 @@
           </div>
         </uib-tab>
       </uib-tabset>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Acquisition Date:&nbsp;&nbsp;<span class="text-success">
+          <span ng-show="!vm.selectedImage.properties.acquisition_date">Unknown</span>
+          {{vm.selectedImage.properties.acquisition_date | date:'MM/dd/yyyy HH:mm:ss' : 'UTC'}}</span>
+          <span ng-show="vm.selectedImage.properties.acquisition_date">z</span>
+        </h4>
+      </div>
+      <div class="col-md-6">
+        <h4>Ingest Date:&nbsp;&nbsp;<span class="text-success">
+          <span ng-show="!vm.selectedImage.properties.ingest_date">Unknown</span>
+          {{vm.selectedImage.properties.ingest_date| date:'MM/dd/yyyy HH:mm:ss' : 'UTC'}}</span>
+          <span ng-show="vm.selectedImage.properties.ingest_date">z</span>
+        </h4>
+      </div>
     </div>
   </div>
 </div>
