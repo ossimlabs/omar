@@ -7,7 +7,7 @@
   <input size="65" ng-model="vm.imageLink" class="ng-pristine ng-valid ng-touched" autofocus readonly></input>
 </div>
 <div class="modal-footer">
-  <a class="btn btn-primary" ng-href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body={{vm.imageLink}}" target="_blank">
+  <a class="btn btn-primary" ng-href="mailto:someone@theirsite.com?&subject=O2%20Image%20Share&body={{vm.emailLink}}" target="_blank">
         <i class="fa fa-envelope"
            style="cursor: pointer;"></i>&nbsp;Email Link&nbsp;&nbsp;
   </a>&nbsp;&nbsp;

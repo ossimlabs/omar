@@ -36,11 +36,12 @@
       }
 
       this.imageLink = imageLink;
+      this.emailLink = encodeURIComponent( imageLink );
 
       this.close = function() {
 
         $uibModalInstance.close();
-        
+
       };
 
     }
