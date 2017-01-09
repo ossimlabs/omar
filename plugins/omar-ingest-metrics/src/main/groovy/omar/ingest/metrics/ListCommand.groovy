@@ -14,4 +14,6 @@ class ListCommand implements Validateable
 
    Integer offset = 0
    Integer limit
+
+   String sortBy
 }
