@@ -553,7 +553,7 @@ class IngestMetricsController {
             @ApiImplicitParam( name = 'endDate', value = 'End date for the date range', dataType = 'string', required = false ),
             @ApiImplicitParam( name = 'limit', value = 'Max records to return', defaultValue= "10", dataType = 'integer', required = false ),
             @ApiImplicitParam( name = 'offset', value = 'End date for the date range',  defaultValue= "0", dataType = 'string', required = false ),
-            @ApiImplicitParam(name = 'sortBy', value = 'Sort by', paramType = 'query', dataType = 'string')
+            @ApiImplicitParam(name = 'sortBy', value = 'Sort by', paramType = 'query', defaultValue="startDate", dataType = 'string')
     ] )
     def list()
     {
