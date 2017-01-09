@@ -16,4 +16,5 @@ class ListCommand implements Validateable
    Integer limit
 
    String sortBy
+   String order
 }
