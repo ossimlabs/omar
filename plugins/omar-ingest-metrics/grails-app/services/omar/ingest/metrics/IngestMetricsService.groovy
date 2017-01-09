@@ -822,7 +822,7 @@ class IngestMetricsService
          baseCriteria()
       }
 
-      def records = IngestMetrics.createCriteria().list(max:cmd.limit, offset:cmd.offset){
+      def records = IngestMetrics.createCriteria().list(max:cmd.limit, offset:cmd.offset, sort:cmd.sortBy){
          baseCriteria.delegate = delegate
          baseCriteria()
       }
