@@ -1,6 +1,7 @@
 package omar.wms
 
 import groovy.util.logging.Slf4j
+import groovy.json.JsonSlurper
 import groovy.xml.StreamingMarkupBuilder
 
 import geoscript.workspace.Workspace
@@ -264,7 +265,7 @@ class WebMappingService implements InitializingBean
                 }
                 catch ( e )
                 {
-                  println e.message
+                  e.printStackTrace()
                 }
               }
             }
@@ -288,13 +289,22 @@ class WebMappingService implements InitializingBean
 //    println wmsParams
 
     def ostream = new ByteArrayOutputStream()
+    def style = [:]
+
+    try {
+      style = new JsonSlurper().parseText(wmsParams?.styles)
+    } catch ( e ) {
+      e.printStackTrace()
+    }
+
+    // println "style: ${style}"
 
     switch ( renderMode )
     {
     case RenderMode.GEOSCRIPT:
       log.trace "getMap: Using  RenderMode.GEOSCRIPT Method"
       def images = wmsParams?.layers?.split( ',' )?.collect { [imageFile: it.toString()] }
-      def chipperLayer = new ChipperLayer( images )
+      def chipperLayer = new ChipperLayer( images, style )
 
       def map = new GeoScriptMap(
           fixAspectRatio: false,
@@ -322,6 +332,8 @@ class WebMappingService implements InitializingBean
 
       def layerNames = wmsParams?.layers?.split( ',' )
       def layers = []
+
+
       layerNames?.each { layerName ->
         def parts = layerName?.split( /[:\.]/ )
 
@@ -374,10 +386,12 @@ class WebMappingService implements InitializingBean
           }
           images = orderedImages
         }
-        def chipperLayer = new ChipperLayer( images )
+
+        def chipperLayer = new ChipperLayer( images, style )
 
         layers << chipperLayer
       }
+
       def coords = wmsParams?.bbox?.split( ',' )?.collect { it.toDouble() }
       def proj = new Projection( ( wmsParams.version == "1.3.0" ) ? wmsParams?.crs : wmsParams?.srs )
       def bbox
@@ -402,6 +416,7 @@ class WebMappingService implements InitializingBean
       ]
 
       def map = new GeoScriptMap( renderParams )
+
       map.render( ostream )
       map.close()
       break
