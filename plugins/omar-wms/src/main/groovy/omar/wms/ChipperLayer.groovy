@@ -28,7 +28,7 @@ class ChipperLayer extends DirectLayer
   Map<String, Object> initHints = [:]
   Bounds bbox
 
-  public ChipperLayer(String imageFile, int entry = 0)
+  public ChipperLayer(String imageFile, int entry = 0, def style=[:])
   {
     def info = ImageInfoUtil.getImageInfoAsMap( imageFile )
 
@@ -41,10 +41,15 @@ class ChipperLayer extends DirectLayer
 
     initOpts = [
         operation: 'ortho',
-        hist_op: 'auto-minmax',
+
+        bands: style?.bands ?: 'default',
+        brightness: style?.brightness ?: '0',
+        contrast: style?.contrast ?: '1',
+        hist_op: style?.hist_op ?: 'auto-minmax',
+        resampler_filter: style?.resampler_filter ?: 'nearest-neighbor',
+        sharpen_mode: style?.sharpen_mode ?: 'none',
+
         srs: 'epsg:4326',
-        output_radiometry: 'U8',
-        three_band_out: 'true',
         'image0.file': imageFile,
         'image0.entry': String.valueOf( entry )
     ]
@@ -52,14 +57,19 @@ class ChipperLayer extends DirectLayer
     initHints = [transparent: true]
   }
 
-  public ChipperLayer(List images)
+  public ChipperLayer(List images, def style=[:])
   {
     initOpts = [
         operation: 'ortho',
-        hist_op: 'auto-minmax',
-        srs: 'epsg:4326',
-        output_radiometry: 'U8',
-        three_band_out: 'true',
+
+        bands: style?.bands ?: 'default',
+        brightness: style?.brightness ?: '0',
+        contrast: style?.contrast ?: '1',
+        hist_op: style?.hist_op ?: 'auto-minmax',
+        resampler_filter: style?.resampler_filter ?: 'nearest-neighbor',
+        sharpen_mode: style?.sharpen_mode ?: 'none',
+
+        srs: 'epsg:4326'
     ]
 
     images?.eachWithIndex { image, i ->
@@ -105,6 +115,7 @@ class ChipperLayer extends DirectLayer
                 'epsg:4326' )
           }
         }
+
         initOpts["image${i}.file"] = imageFile
         initOpts["image${i}.entry"] = entry
       }
@@ -117,7 +128,7 @@ class ChipperLayer extends DirectLayer
   @Override
   public ReferencedEnvelope getBounds()
   {
-    println "bbox?.env ==== ${bbox?.env}"
+    // println "bbox?.env ==== ${bbox?.env}"
     return bbox?.env
   }
 
@@ -128,10 +139,10 @@ class ChipperLayer extends DirectLayer
     def bbox = viewport.bounds
 
     def renderOpts = initOpts + [
-        cut_width: screenArea.@width as String,
-        cut_height: screenArea.@height as String,
+        cut_width: String.valueOf(screenArea.@width),
+        cut_height: String.valueOf(screenArea.@height),
         cut_wms_bbox: [bbox.minX, bbox.minY, bbox.maxX, bbox.maxY].join( ',' ),
-        srs: viewport.coordinateReferenceSystem.identifiers.first() as String
+        srs: viewport.coordinateReferenceSystem.identifiers.first()?.toString()
     ]
 
     def renderHints = initHints + [
@@ -155,9 +166,7 @@ class ChipperLayer extends DirectLayer
           chipperResult.raster = modifiedImage.data
           chipperResult.colorModel = modifiedImage.colorModel
         }
-
       }
-
 
       try
       {
@@ -165,9 +174,11 @@ class ChipperLayer extends DirectLayer
       }
       catch ( e )
       {
+        e.printStackTrace()
       }
     }
-//    def image = ChipperUtil.createImage( renderOpts, renderHints )
+
+    // def image = ChipperUtil.createImage( renderOpts, renderHints )
 
     if ( image )
     {
