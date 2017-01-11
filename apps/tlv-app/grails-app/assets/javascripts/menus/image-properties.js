@@ -22,8 +22,8 @@ pageLoad = function() {
 
 	var contrastSlider = $( "#contrastSliderInput" );
 	contrastSlider.slider({
-		max: 2000,
-		min: 1,
+		max: 100,
+		min: -100,
 		tooltip: "hide",
 		value: 100
 	});
@@ -57,7 +57,7 @@ function syncImageProperties() {
 		function( i, x ) {
 			var select = $( "#" + x + "GunSelect" );
 			select.html("");
-			for ( var bandNumber = 0; bandNumber < metadata.numberOfBands; bandNumber++) {
+			for ( var bandNumber = 1; bandNumber <= metadata.numberOfBands; bandNumber++) {
 				select.append( "<option value = " + bandNumber + " >" + bandNumber + "</option>");
 			}
 		}
@@ -84,9 +84,9 @@ function syncImageProperties() {
 	$( "#contrastSliderInput" ).slider( "setValue", styles.contrast * 100 );
 	$( "#contrastValueSpan" ).html(( styles.contrast ));
 
-	$( "#dynamicRangeSelect option[value='" + styles.histOp + "']" ).prop( "selected", true );
-	$( "#interpolationSelect option[value='" + styles.resamplerFilter + "']" ).prop( "selected", true );
-	$( "#sharpenModeSelect option[value='" + styles.sharpenMode + "']" ).prop( "selected", true );
+	$( "#dynamicRangeSelect option[value='" + styles.hist_op + "']" ).prop( "selected", true );
+	$( "#interpolationSelect option[value='" + styles.resample_filter + "']" ).prop( "selected", true );
+	$( "#sharpenModeSelect option[value='" + styles.sharpen_mode + "']" ).prop( "selected", true );
 }
 
 function updateImageProperties() {
@@ -103,9 +103,9 @@ function updateImageProperties() {
 			bands: bands,
 			brightness: $( "#brightnessSliderInput" ).slider( "getValue" ) / 100,
 			contrast: $( "#contrastSliderInput" ).slider( "getValue" ) / 100,
-			histOp: $( "#dynamicRangeSelect" ).val(),
-			interpolation: $( "#interpolationSelect" ).val(),
-			sharpenMode: $( "#sharpenModeSelect" ).val()
+			hist_op: $( "#dynamicRangeSelect" ).val(),
+			resampler_filter: $( "#interpolationSelect" ).val(),
+			sharpen_mode: $( "#sharpenModeSelect" ).val()
 		})
 	});
 	tlv.map.renderSync();

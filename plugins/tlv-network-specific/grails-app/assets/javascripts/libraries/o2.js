@@ -12,9 +12,9 @@ createImageLayerSource = function( layer ) {
 						bands: layer.bands || "default",
 						brightness: layer.brightness || 0,
 						contrast: layer.contrast || 1,
-						histOp: layer.histOp || "auto-minmax",
-						resamplerFilter: layer.resamplerFilter || "bilinear",
-						sharpenMode: layer.sharpenMode || "none"
+						hist_op: layer.histOp || "auto-minmax",
+						resampler_filter: layer.resamplerFilter || "bilinear",
+						sharpen_mode: layer.sharpenMode || "none"
 					}),
                     TRANSPARENT: true,
                     VERSION: "1.1.1"
