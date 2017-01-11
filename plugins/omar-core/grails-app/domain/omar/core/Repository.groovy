@@ -12,8 +12,8 @@ class Repository
   }
 
   static mapping = {
-    columns {
+      cache true
+      id generator: 'identity'
       baseDir column: 'repository_base_dir', index: 'repository_base_dir_idx' , unique:true
-    }
   }
 }

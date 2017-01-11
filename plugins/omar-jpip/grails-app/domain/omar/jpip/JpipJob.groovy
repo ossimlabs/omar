@@ -14,6 +14,8 @@ class JpipJob {
         projCode ( nullable:false )
     }
     static mapping = {
+        cache true
+        id generator: 'identity'
         jpipId index: 'jpip_job_jpip_id_idx'
     }
 

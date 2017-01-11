@@ -8,6 +8,8 @@ class OpirRasterDataSet {
     static constraints = {
     }
     static mapping = {
+      cache true
+      id generator: 'identity'
     }
     def getFileFromObjects(def type = "main")
     {

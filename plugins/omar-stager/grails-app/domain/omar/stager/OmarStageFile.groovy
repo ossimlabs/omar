@@ -29,6 +29,8 @@ class OmarStageFile {
     }
 
     static mapping = {
+        cache true
+        id generator: 'identity'
         processId index: 'omar_stage_file_process_id_idx'
         filename type: 'text', index: 'omar_stage_file_filename_idx'
         status index:"omar_stage_file_status_idx"

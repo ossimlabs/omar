@@ -9,6 +9,12 @@ class PredioAppId
     String queryUrl
     String name
     String accessKey
+
+    staic mapping = {
+      cache true
+      id generator: 'identity'
+    }
+
     static constraints = {
         name       unique:   true,  blank: false
         eventUrl   unique:   false, nullable: true

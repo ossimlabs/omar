@@ -40,6 +40,8 @@ class VideoDataSet
 	BigInteger styleId
 
 	static mapping = {
+      		cache true
+      		id generator: 'identity'
 		indexId index: 'video_data_set_index_id_idx', unique: true
 		filename index: 'video_data_set_filename_idx'
 		otherTagsXml type: 'text'//, index: 'video_data_set_metadata_other_tags_idx'
