@@ -87,7 +87,7 @@ function syncImageProperties() {
 	$( "#contrastValueSpan" ).html(( styles.contrast ));
 
 	$( "#dynamicRangeSelect option[value='" + styles.hist_op + "']" ).prop( "selected", true );
-	$( "#interpolationSelect option[value='" + styles.resample_filter + "']" ).prop( "selected", true );
+	$( "#interpolationSelect option[value='" + styles.resampler_filter + "']" ).prop( "selected", true );
 	$( "#sharpenModeSelect option[value='" + styles.sharpen_mode + "']" ).prop( "selected", true );
 }
 
