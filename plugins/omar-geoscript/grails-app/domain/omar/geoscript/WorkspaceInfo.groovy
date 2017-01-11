@@ -12,6 +12,11 @@ class WorkspaceInfo
 
   static hasMany = [layerInfoList: LayerInfo]
 
+  static mapping = {
+      cache true
+      id generator: 'identity'
+  }
+
   static constraints = {
     name( unique: true )
   }

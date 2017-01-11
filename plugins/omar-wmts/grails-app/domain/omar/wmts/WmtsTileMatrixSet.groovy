@@ -37,6 +37,8 @@ class WmtsTileMatrixSet {
         epsgCode nullable: false, blank: false
     }
     static mapping = {
+        cache true
+        id generator: 'identity'
         name index: 'omar_wmts_tile_matrix_set_name_idx'
     }
 

@@ -12,6 +12,11 @@ class LayerInfo
 
   static belongsTo = [workspaceInfo: WorkspaceInfo]
 
+  static mapping = {
+      cache true
+      id generator: 'identity'
+  }
+
   static constraints = {
     name()
     title()

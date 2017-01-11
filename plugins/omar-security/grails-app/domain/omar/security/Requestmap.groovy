@@ -29,7 +29,8 @@ class Requestmap implements Serializable {
 	}
 
 	static mapping = {
-		cache true
+                cache true
+                id generator: 'identity'
 		url index: 'requestmap_url_idx'
 	}
 }

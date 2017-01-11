@@ -36,6 +36,8 @@ class OpirRasterEntry {
     static hasMany = [fileObjects: OpirRasterEntryFile]
 
     static mapping = {
+        cache true
+        id generator: 'identity'
         filename index: 'opir_raster_entry_filename_idx'
         mission index: 'opir_raster_entry_mission_idx'
         acquisitionStart index: 'opir_raster_entry_acquisition_start_idx'

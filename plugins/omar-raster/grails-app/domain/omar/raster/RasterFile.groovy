@@ -15,6 +15,8 @@ class RasterFile
   }
 
   static mapping = {
+    cache true
+    id generator: 'identity'
     name index: 'raster_file_name_idx' //, unique: true
     type index: 'raster_file_type_idx'
     format index: 'raster_file_format_idx'

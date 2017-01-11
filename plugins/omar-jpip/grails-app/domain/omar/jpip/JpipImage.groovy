@@ -22,6 +22,8 @@ class JpipImage {
     }
 
     static mapping = {
+        cache true
+        id generator: 'identity'
         jpipId      index: 'jpip_image_jpip_id_idx'
         filename    index: 'jpip_image_filename_idx'
         entry       index: 'jpip_image_entry_idx'

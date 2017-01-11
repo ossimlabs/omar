@@ -15,6 +15,8 @@ class AvroPayload {
     dateCreated nullable: true
   }
   static mapping = {
+    cache true
+    id generator: 'identity'
     messageId type:'text', index: 'avro_payload_message_id_idx'
     message type: 'text'
     statusMessage type: 'text'

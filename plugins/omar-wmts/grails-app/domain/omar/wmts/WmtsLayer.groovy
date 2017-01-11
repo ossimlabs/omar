@@ -17,6 +17,8 @@ class WmtsLayer {
         sortBy nullable:true, blank:true
     }
     static mapping = {
+        cache true
+        id generator: 'identity'
         name index: 'omar_wmts_layer_name_idx'
         description type: 'text'
     }
