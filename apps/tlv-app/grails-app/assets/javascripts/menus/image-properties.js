@@ -19,17 +19,19 @@ pageLoad = function() {
 	brightnessSlider.on("change", function( event ) {
 		$( "#brightnessValueSpan" ).html( ( event.value.newValue / 100 ).toFixed( 2 ) );
 	});
+	brightnessSlider.on("slideStop", function( event ) { updateImageProperties(); });
 
 	var contrastSlider = $( "#contrastSliderInput" );
 	contrastSlider.slider({
-		max: 100,
-		min: -100,
+		max: 2000,
+		min: 1,
 		tooltip: "hide",
 		value: 100
 	});
 	contrastSlider.on("change", function( event ) {
 		$( "#contrastValueSpan" ).html( ( event.value.newValue / 100 ).toFixed( 2 ) );
 	});
+	contrastSlider.on("slideStop", function( event ) { updateImageProperties(); });
 }
 
 function selectBands( selectionMethod ) {

@@ -33,13 +33,13 @@
             <tr>
                 <td>Brightness: <span id = "brightnessValueSpan"></span></td>
                 <td>
-                    <input data-slider-id = "brightnessSlider" id = "brightnessSliderInput" onchange = updateImageProperties() type = "text"/>
+                    <input data-slider-id = "brightnessSlider" id = "brightnessSliderInput" type = "text"/>
                 </td>
             </tr>
             <tr>
                 <td>Contrast: <span id = "contrastValueSpan"></span></td>
                 <td>
-                    <input data-slider-id = "contrastSlider" id = "contrastSliderInput" onchange = updateImageProperties() type = "text"/>
+                    <input data-slider-id = "contrastSlider" id = "contrastSliderInput" type = "text"/>
                 </td>
             </tr>
             <tr>
