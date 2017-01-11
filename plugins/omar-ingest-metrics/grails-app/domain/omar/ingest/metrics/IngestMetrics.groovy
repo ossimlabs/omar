@@ -33,6 +33,8 @@ class IngestMetrics {
     String statusMessage
 
     static mapping = {
+        cache true
+        id generator: 'identity'
         ingestId      type: "text", index: 'ingest_metrics_object_id_idx'
         description   type:  'text'
         startDate     index: 'ingest_metrics_start_date_idx'

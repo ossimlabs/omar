@@ -22,7 +22,8 @@ class SecRole implements Serializable {
 	}
 
 	static mapping = {
-		cache true
+      		cache true
+      		id generator: 'identity'
 		authority index: 'sec_role_authority_idx'
 	}
 }

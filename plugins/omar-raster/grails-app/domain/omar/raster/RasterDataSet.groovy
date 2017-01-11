@@ -14,6 +14,8 @@ class RasterDataSet
     repository( nullable: true )
   }
   static mapping = {
+    cache true
+    id generator: 'identity'
     repository index: 'raster_data_set_repository_idx'
   }
 

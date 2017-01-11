@@ -19,6 +19,8 @@ class AvroFile {
       dateCreated nullable: true
    }
    static mapping = {
+      cache true
+      id generator: 'identity'
       processId index:"avro_file_process_id_idx"
       filename type: 'text', index: 'avro_file_filename_idx'
       status index:"avro_file_status_idx"

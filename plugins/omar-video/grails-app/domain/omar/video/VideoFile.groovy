@@ -18,6 +18,8 @@ class VideoFile
   }
 
   static mapping = {
+      cache true
+      id generator: 'identity'
       name index: 'video_file_name_idx', unique:true
       type index: 'video_file_type_idx'
       format index: 'video_file_format_idx'

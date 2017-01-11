@@ -44,6 +44,8 @@ class WmsLog
 		geometry( nullable: true )
 	}
 	static mapping = {
+      		cache true
+      		id generator: 'identity'
 		version false
 		url type: 'text'
 		layers type: 'text'

@@ -20,6 +20,8 @@ class PredioIndexJob {
         expirePeriod   nullable:true, blank:true
     }
     static mapping = {
+      cache true
+      id generator: 'identity'
         //url sqlType: "timestamp with time zone"
     }
 }
