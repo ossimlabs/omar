@@ -43,8 +43,8 @@ class ChipperLayer extends DirectLayer
         operation: 'ortho',
 
         bands: style?.bands ?: 'default',
-        brightness: style?.brightness ?: '0',
-        contrast: style?.contrast ?: '1',
+        brightness: (style?.brightness) ? style?.brightness?.toString() : '0',
+        contrast: (style?.contrast) ? style?.contrast?.toString() : '1',
         hist_op: style?.hist_op ?: 'auto-minmax',
         resampler_filter: style?.resampler_filter ?: 'nearest-neighbor',
         sharpen_mode: style?.sharpen_mode ?: 'none',
@@ -63,8 +63,8 @@ class ChipperLayer extends DirectLayer
         operation: 'ortho',
 
         bands: style?.bands ?: 'default',
-        brightness: style?.brightness ?: '0',
-        contrast: style?.contrast ?: '1',
+        brightness: (style?.brightness) ? style?.brightness?.toString() : '0',
+        contrast: (style?.contrast) ? style?.contrast?.toString() : '1',
         hist_op: style?.hist_op ?: 'auto-minmax',
         resampler_filter: style?.resampler_filter ?: 'nearest-neighbor',
         sharpen_mode: style?.sharpen_mode ?: 'none',
