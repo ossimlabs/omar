@@ -27,9 +27,9 @@ class OmarController /*implements InitializingBean*/
   		// // Params to pass to client
   		// def clientParams = grailsApplication.config.omar.app
 
-      if ( grailsApplication.config.spring.cloud.config.enabled ) {
-          openLayersConfig.baseMaps.each { println it }
-      }
+      // if ( grailsApplication.config.spring.cloud.config.enabled ) {
+      //     openLayersConfig.baseMaps.each { println it }
+     //  }
 
 
       def clientConfig = [
