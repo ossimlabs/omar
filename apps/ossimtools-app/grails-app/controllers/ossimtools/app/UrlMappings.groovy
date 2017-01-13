@@ -1,9 +1,9 @@
-package omar.app
+package ossimtools.app
 
 class UrlMappings {
 
     static mappings = {
-	"/views/**"(controller: 'views', action: 'renderView')
+        "/ossimTools/$action"(controller: 'ossimTools')
 
         "/$controller/$action?/$id?(.$format)?"{
             constraints {

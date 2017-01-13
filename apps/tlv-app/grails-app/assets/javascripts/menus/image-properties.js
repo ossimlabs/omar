@@ -19,17 +19,19 @@ pageLoad = function() {
 	brightnessSlider.on("change", function( event ) {
 		$( "#brightnessValueSpan" ).html( ( event.value.newValue / 100 ).toFixed( 2 ) );
 	});
+	brightnessSlider.on("slideStop", function( event ) { updateImageProperties(); });
 
 	var contrastSlider = $( "#contrastSliderInput" );
 	contrastSlider.slider({
-		max: 100,
-		min: -100,
+		max: 2000,
+		min: 1,
 		tooltip: "hide",
 		value: 100
 	});
 	contrastSlider.on("change", function( event ) {
 		$( "#contrastValueSpan" ).html( ( event.value.newValue / 100 ).toFixed( 2 ) );
 	});
+	contrastSlider.on("slideStop", function( event ) { updateImageProperties(); });
 }
 
 function selectBands( selectionMethod ) {
@@ -85,7 +87,7 @@ function syncImageProperties() {
 	$( "#contrastValueSpan" ).html(( styles.contrast ));
 
 	$( "#dynamicRangeSelect option[value='" + styles.hist_op + "']" ).prop( "selected", true );
-	$( "#interpolationSelect option[value='" + styles.resample_filter + "']" ).prop( "selected", true );
+	$( "#interpolationSelect option[value='" + styles.resampler_filter + "']" ).prop( "selected", true );
 	$( "#sharpenModeSelect option[value='" + styles.sharpen_mode + "']" ).prop( "selected", true );
 }
 
