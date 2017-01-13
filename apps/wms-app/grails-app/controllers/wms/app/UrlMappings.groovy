@@ -1,10 +1,8 @@
-package omar.app
+package wms.app
 
 class UrlMappings {
 
     static mappings = {
-	"/views/**"(controller: 'views', action: 'renderView')
-
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here
