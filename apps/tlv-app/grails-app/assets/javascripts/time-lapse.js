@@ -72,17 +72,19 @@ function calculateInitialViewBbox() {
         return [bbox.minLon, bbox.minLat, bbox.maxLon, bbox.maxLat];
 }
 
-function changeFrame(param) {
-	var layer = tlv.layers[tlv.currentLayer];
-	layer.mapLayer.setOpacity(0);
-	layer.mapLayer.setVisible(layer.keepVisible);
+function changeFrame( param ) {
+	var layer = tlv.layers[ tlv.currentLayer ];
+	layer.mapLayer.setOpacity( 0 );
+	layer.mapLayer.setVisible( layer.keepVisible );
 
-	if (param === "fastForward") { tlv.currentLayer = getNextFrameIndex(); }
-	else if (param === "rewind") { tlv.currentLayer = getPreviousFrameIndex(); }
-	else if (typeof param === "number") { tlv.currentLayer = param; }
+	if ( param === "fastForward" ) { tlv.currentLayer = getNextFrameIndex(); }
+	else if ( param === "rewind" ) { tlv.currentLayer = getPreviousFrameIndex(); }
+	else if ( typeof param === "number" ) { tlv.currentLayer = param; }
 
-	tlv.layers[tlv.currentLayer].mapLayer.setVisible(true);
-	tlv.layers[tlv.currentLayer].mapLayer.setOpacity(1);
+	layer = tlv.layers[ tlv.currentLayer ];
+	layer.mapLayer.setVisible( true );
+	var opacity = JSON.parse( layer.mapLayer.getSource().getParams().STYLES ).opacity;
+	layer.mapLayer.setOpacity( opacity );
 
 	tlv.map.renderSync();
 
