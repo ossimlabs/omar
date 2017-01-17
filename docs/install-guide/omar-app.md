@@ -79,7 +79,7 @@ omar:
       baseUrl: http://192.168.2.200/wms-app/imageSpace
       enabled: true
     thumbnails:
-      baseUrl: http://192.168.2.200/wms-app/imageSpace/getThumbnail?
+      baseUrl: http://192.168.2.200/wms-app/imageSpace/getThumbnail
     footprints:
       baseUrl: http://192.168.2.200/wms-app/footprints/getFootprints
     stagerApp:
