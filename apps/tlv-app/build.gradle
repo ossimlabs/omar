@@ -41,6 +41,7 @@ dependencyManagement {
 }
 
 dependencies {
+		compile project(':tlv-network-specific')
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
@@ -92,12 +93,4 @@ assets {
         '**/cesium/*/Build/Cesium/**',
         '**/index-bundle.*'
     ]
-}
-
-
-grails {
-	exploded = true
-	plugins {
-		compile project(':tlv-network-specific')
-	}
 }

@@ -44,9 +44,6 @@ dependencyManagement {
     }
     applyMavenExclusions false
 }
-grails {
-    exploded = true
-}
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"

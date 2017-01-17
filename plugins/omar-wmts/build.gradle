@@ -48,16 +48,10 @@ dependencyManagement {
     applyMavenExclusions false
 }
 
-grails {
-    exploded = true
-    plugins {
+dependencies {
       compile project( ':omar-geoscript')
       compile project( ':omar-hibernate-spatial' )
       compile project( ':omar-openlayers' )
-    }
-}
-
-dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"

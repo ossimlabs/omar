@@ -50,15 +50,9 @@ dependencyManagement {
   applyMavenExclusions false
 }
 
-grails {
-  exploded = true
-  plugins {
-    compile project( ':omar-core' )
-  }
-}
-
 dependencies {
 
+    compile project( ':omar-core' )
   compile( "org.geoscript:geoscript-groovy:1.7.0" ) {
     exclude module: 'ehcache'
     exclude module: "groovy-all"
