@@ -95,12 +95,14 @@ function syncImageProperties() {
 	}
 
 	$.each(
-		[ "brightness", "contrast", "opacity" ],
+		[ "brightness", "contrast" ],
 		function( i, x ) {
 			$( "#" + x + "SliderInput" ).slider( "setValue", styles[x] * 100 );
 			$( "#" + x + "ValueSpan" ).html( styles[x] );
 		}
 	);
+	$( "#opacitySliderInput" ).slider( "setValue", layer.mapLayer.getSource().getParams().OPACITY * 100 );
+	$( "#opacityValueSpan" ).html( layer.mapLayer.getSource().getParams().OPACITY );
 
 	$( "#dynamicRangeSelect option[value='" + styles.hist_op + "']" ).prop( "selected", true );
 	$( "#interpolationSelect option[value='" + styles.resampler_filter + "']" ).prop( "selected", true );
@@ -117,12 +119,12 @@ function updateImageProperties( refreshMap ) {
 	}
 
 	tlv.layers[tlv.currentLayer].mapLayer.getSource().updateParams({
+		OPACITY: $( "#opacitySliderInput" ).slider( "getValue" ) / 100,
 		STYLES: JSON.stringify({
 			bands: bands,
 			brightness: $( "#brightnessSliderInput" ).slider( "getValue" ) / 100,
 			contrast: $( "#contrastSliderInput" ).slider( "getValue" ) / 100,
 			hist_op: $( "#dynamicRangeSelect" ).val(),
-			opacity: $( "#opacitySliderInput" ).slider( "getValue" ) / 100,
 			resampler_filter: $( "#interpolationSelect" ).val(),
 			sharpen_mode: $( "#sharpenModeSelect" ).val()
 		})
