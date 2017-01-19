@@ -91,8 +91,8 @@
 
           var this_ = this;
 
-          var handleRotateNorth = function(e) { console.dir(northAngle);
-              this_.getMap().getView().setRotation(northAngle);
+          var handleRotateNorth = function( e ) {
+              this_.getMap().getView().setRotation( northAngle );
           };
 
           button.addEventListener('click', handleRotateNorth, false);
@@ -131,7 +131,7 @@
           var this_ = this;
 
           var handleRotateUp = function(e) {
-            this_.getMap().getView().setRotation(upAngle);
+            this_.getMap().getView().setRotation( upAngle );
           };
 
           button.addEventListener('click', handleRotateUp, false);
@@ -161,8 +161,6 @@
           filename = options.filename;
           entry = options.entry;
           format = options.format;
-          upAngle = options.upAngle;
-          northAngle = options.northAngle;
 
           var imageWidth = size[0];
           var imageHeight = size[1];
@@ -306,10 +304,15 @@
                 filename: filename,
                 entry: entry
               }
-            }).then(function successCallback(response) {
+            }).then(function successCallback( response ) {
 
               upAngle = response.data.upAngle;
               northAngle = response.data.northAngle;
+
+              // it is likely that the "sensor up" and "north up" are not the same
+              rotateNorthArrow( northAngle );
+              // default the view to be "up is up"
+              map.getView().setRotation( upAngle );
 
             }, function errorCallback(response) {
 
@@ -478,10 +481,9 @@
             $('.ol-rotate').removeClass('ol-rotate');
 
             // rotate the custom north arrow according to the view
-            rotateNorthArrow(northAngle);
-            map.getView().on('change:rotation', function(e) {
-              var rotation = e.target.get(e.key) + northAngle;
-              rotateNorthArrow(rotation);
+            map.getView().on('change:rotation', function( e ) {
+              var rotation = e.target.get( e.key ) - northAngle;
+              rotateNorthArrow( rotation );
             });
 
             // Begin Measure stuff
