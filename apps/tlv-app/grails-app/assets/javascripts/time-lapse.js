@@ -1,51 +1,61 @@
 function aFeatureHasBeenSelected(feature, event) {}
 
 function buildSummaryTable() {
-	var table = $("#timeLapseSummaryTable")[0];
+	var table = $( "#timeLapseSummaryTable" )[0];
 
-	for (var i = table.rows.length - 1; i >= 0; i--) { table.deleteRow(i); }
+	for ( var i = table.rows.length - 1; i >= 0; i-- ) { table.deleteRow( i ); }
 
-	var row = table.insertRow(0);
-	var cell = row.insertCell(row.cells.length);
-	row.insertCell(row.cells.length);
-	var keys = ["imageId", "acquisitionDate", "library"];
+	var row = table.insertRow( 0 );
+	var cell = row.insertCell( row.cells.length );
+	row.insertCell( row.cells.length );
+	var keys = [ "imageId", "acquisitionDate" ];
 	$.each(
 		keys,
-		function(i, x) {
-			var cell = row.insertCell(row.cells.length);
-			$(cell).append(x.capitalize().replace(/([A-Z])/g, " $1"));
+		function( i, x ) {
+			var cell = row.insertCell( row.cells.length );
+			$( cell ).append( x.capitalize().replace( /([A-Z])/g, " $1" ) );
 		}
 	);
 
 	$.each(
 		tlv.layers,
-		function(i, x) {
-			row = table.insertRow(table.rows.length);
-			cell = row.insertCell(row.cells.length);
-			$(cell).append(i + 1);
+		function( i, x ) {
+			row = table.insertRow( table.rows.length );
+			cell = row.insertCell( row.cells.length );
+			$( cell ).append( i + 1 );
 
-			cell = row.insertCell(row.cells.length);
-			$(cell).css("white-space", "nowrap");
+			cell = row.insertCell( row.cells.length );
+			$( cell ).css( "white-space", "nowrap" );
 			var downButton = "<span class = 'glyphicon glyphicon-arrow-down' title = 'Move Down'></span>";
 			var upButton = "<span class = 'glyphicon glyphicon-arrow-up' title = 'Move Up'></span>";
 
-			if (i == 0) {
-				$(cell).append("<a href = javascript:moveLayerDownInStack(" + i + ");buildSummaryTable();>" + downButton + "</a>");
+			if ( i == 0 ) {
+				$( cell ).append( "<a href = javascript:moveLayerDownInStack(" + i + ");buildSummaryTable();>" + downButton + "</a>" );
 			}
-			else if (i == tlv.layers.length - 1) { $(cell).append("<a href = javascript:moveLayerUpInStack(" + i + ");buildSummaryTable();>" + upButton + "</a>"); }
+			else if ( i == tlv.layers.length - 1 ) { $( cell ).append( "<a href = javascript:moveLayerUpInStack(" + i + ");buildSummaryTable();>" + upButton + "</a>" ); }
 			else {
-				$(cell).append("<a href = javascript:moveLayerUpInStack(" + i + ");buildSummaryTable();>" + upButton + "</a>");
-				$(cell).append("<a href = javascript:moveLayerDownInStack(" + i + ");buildSummaryTable();>" + downButton + "</a>");
+				$( cell ).append( "<a href = javascript:moveLayerUpInStack(" + i + ");buildSummaryTable();>" + upButton + "</a>" );
+				$( cell ).append( "<a href = javascript:moveLayerDownInStack(" + i + ");buildSummaryTable();>" + downButton + "</a>" );
 			}
 
-			cell = row.insertCell(row.cells.length);
-			$(cell).append(x.imageId);
+			cell = row.insertCell( row.cells.length );
+			$( cell ).append( x.imageId );
 
-			cell = row.insertCell(row.cells.length);
-			$(cell).append(x.acquisitionDate);
+			cell = row.insertCell( row.cells.length );
+			$( cell ).append( x.acquisitionDate );
 
-			cell = row.insertCell(row.cells.length);
-			$(cell).append(tlv.availableResources.complete[x.library].label);
+			cell = row.insertCell( row.cells.length );
+			var span = document.createElement( "span" );
+			span.className = "glyphicon glyphicon-trash";
+
+			var deleteButton = document.createElement( "button" );
+ 			deleteButton.className = "btn btn-primary btn-xs";
+ 			deleteButton.onclick = function() {
+				deleteFrame( i );
+				buildSummaryTable();
+			};
+			deleteButton.appendChild( span );
+			$( cell ).append( deleteButton );
 		}
 	);
 }
@@ -62,17 +72,19 @@ function calculateInitialViewBbox() {
         return [bbox.minLon, bbox.minLat, bbox.maxLon, bbox.maxLat];
 }
 
-function changeFrame(param) {
-	var layer = tlv.layers[tlv.currentLayer];
-	layer.mapLayer.setOpacity(0);
-	layer.mapLayer.setVisible(layer.keepVisible);
+function changeFrame( param ) {
+	var layer = tlv.layers[ tlv.currentLayer ];
+	layer.mapLayer.setOpacity( 0 );
+	layer.mapLayer.setVisible( layer.keepVisible );
 
-	if (param === "fastForward") { tlv.currentLayer = getNextFrameIndex(); }
-	else if (param === "rewind") { tlv.currentLayer = getPreviousFrameIndex(); }
-	else if (typeof param === "number") { tlv.currentLayer = param; }
+	if ( param === "fastForward" ) { tlv.currentLayer = getNextFrameIndex(); }
+	else if ( param === "rewind" ) { tlv.currentLayer = getPreviousFrameIndex(); }
+	else if ( typeof param === "number" ) { tlv.currentLayer = param; }
 
-	tlv.layers[tlv.currentLayer].mapLayer.setVisible(true);
-	tlv.layers[tlv.currentLayer].mapLayer.setOpacity(1);
+	layer = tlv.layers[ tlv.currentLayer ];
+	layer.mapLayer.setVisible( true );
+	var opacity = JSON.parse( layer.mapLayer.getSource().getParams().STYLES ).opacity;
+	layer.mapLayer.setOpacity( opacity );
 
 	tlv.map.renderSync();
 
@@ -80,15 +92,21 @@ function changeFrame(param) {
 	updateTileLoadingProgressBar();
 }
 
-function deleteFrame() {
-	changeFrame("rewind");
+function deleteFrame( index ) {
+	if ( index && index != tlv.currentLayer ) {
+		tlv.layers.splice( index, 1 );
+		if ( tlv.currentLayer > tlv.layers.length - 1 ) { tlv.currentLayer = tlv.layers.length - 1; }
+		changeFrame("rewind");
+		changeFrame("fastForward");
+	}
+	else {
+		changeFrame("rewind");
+		var nextFrameIndex = getNextFrameIndex();
+		tlv.layers.splice( nextFrameIndex, 1 );
 
-	var nextFrameIndex = getNextFrameIndex();
-	var spliceIndex = nextFrameIndex == 0 ? 0 : nextFrameIndex;
-	tlv.layers.splice(spliceIndex, 1);
-	if (tlv.currentLayer > tlv.layers.length - 1) { tlv.currentLayer = tlv.layers.length - 1; }
-
-	changeFrame("fastForward");
+		if ( tlv.currentLayer > tlv.layers.length - 1 ) { tlv.currentLayer = tlv.layers.length - 1; }
+		changeFrame("fastForward");
+	}
 }
 
 function geoJump(location) {

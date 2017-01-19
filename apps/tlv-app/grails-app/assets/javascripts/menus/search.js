@@ -35,20 +35,24 @@ function bookmarkSearchParams() {
 	var url = location.origin + tlv.contextPath + "?";
 
 	var searchParams = getSearchParams();
-	if (searchParams) {
-		var bookmarkParams = [];
-		$.each(
-			searchParams,
-			function(i, x) {
-				if (Array.isArray(x)) { bookmarkParams.push(i + "=" + x.join()); }
-				else { bookmarkParams.push(i + "=" + x); }
-			}
-		);
-		url += bookmarkParams.join("&");
+	if ( searchParams ) {
+		if ( searchParams.error ) { displayErrorDialog( searchParams.error ); }
+		else {
+			var bookmarkParams = [];
+			$.each(
+				searchParams,
+				function( i, x ) {
+					if ( Array.isArray( x ) ) { bookmarkParams.push( i + "=" + x.join() ); }
+					else { bookmarkParams.push( i + "=" + x ); }
+				}
+			);
+			url += bookmarkParams.join( "&" );
 
-		$("#searchBookmarkHref").attr("href", url);
-		$("#searchBookmarkDialog").modal("show");
+			$( "#searchBookmarkHref" ).attr( "href", url );
+			$( "#searchBookmarkDialog" ).modal( "show" );
+		}
 	}
+	else { displayErrorDialog( "Uh oh, something went wrong." ); }
 }
 
 function disableAllSensorCheckboxes() {
@@ -112,9 +116,9 @@ function getEndDate() {
 function getLocation() {
 	var locationString = $("#searchLocationInput").val() != "" ? $("#searchLocationInput").val() : tlv.defaultLocation;
 	var location = convertGeospatialCoordinateFormat(locationString);
-	
 
-	return location; 
+
+	return location;
 }
 
 function getLocationGps() {
@@ -138,7 +142,7 @@ function getSearchParams() {
 	searchObject.endSecond = endDate.second;
 
 	searchObject.filter = tlv.filter || null;
-	
+
 	var libraries = getSelectedLibraries();
 	if (libraries.length == 0) {
 		$("#searchDialog").modal("show");

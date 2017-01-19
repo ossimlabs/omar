@@ -13,11 +13,12 @@ createImageLayerSource = function( layer ) {
 						brightness: layer.brightness || 0,
 						contrast: layer.contrast || 1,
 						hist_op: layer.histOp || "auto-minmax",
+						opacity: layer.opacity || 1,
 						resampler_filter: layer.resamplerFilter || "bilinear",
 						sharpen_mode: layer.sharpenMode || "none"
 					}),
-                    TRANSPARENT: true,
-                    VERSION: "1.1.1"
+					TRANSPARENT: true,
+					VERSION: "1.1.1"
 				},
 				url: tlv.availableResources.complete.o2.viewUrl
 			});
