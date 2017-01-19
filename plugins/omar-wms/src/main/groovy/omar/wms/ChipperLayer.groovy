@@ -41,6 +41,7 @@ class ChipperLayer extends DirectLayer
 
     initOpts = [
         operation: 'ortho',
+        output_radiometry: 'U8',
 
         bands: style?.bands ?: 'default',
         brightness: (style?.brightness) ? style?.brightness?.toString() : '0',
@@ -61,6 +62,7 @@ class ChipperLayer extends DirectLayer
   {
     initOpts = [
         operation: 'ortho',
+        output_radiometry: 'U8',
 
         bands: style?.bands ?: 'default',
         brightness: (style?.brightness) ? style?.brightness?.toString() : '0',
