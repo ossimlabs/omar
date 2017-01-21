@@ -291,10 +291,12 @@ class WebMappingService implements InitializingBean
     def ostream = new ByteArrayOutputStream()
     def style = [:]
 
-    try {
-      style = new JsonSlurper().parseText(wmsParams?.styles)
-    } catch ( e ) {
-      e.printStackTrace()
+    if ( wmsParams?.styles?.trim() ) {      
+      try {
+        style = new JsonSlurper().parseText(wmsParams?.styles)
+      } catch ( e ) {
+        e.printStackTrace()
+      }
     }
 
     // println "style: ${style}"

@@ -37,7 +37,10 @@ networkSpecific:
     layers:
         enabled: true
 
-securityClassification: UNCLASSIFIED
+securityClassification:
+    backgroundColor: green
+    text: UNCLASSIFIED
+    textColor: black
 
 server:
   contextPath:

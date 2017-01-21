@@ -8,6 +8,7 @@ createImageLayerSource = function( layer ) {
 					FORMAT: "image/png",
 					IDENTIFIER: Math.floor(Math.random() * 1000000),
 					LAYERS: "omar:raster_entry",
+					OPACITY: layer.opacity || 1,
 					STYLES: JSON.stringify({
 						bands: layer.bands || "default",
 						brightness: layer.brightness || 0,
@@ -16,8 +17,8 @@ createImageLayerSource = function( layer ) {
 						resampler_filter: layer.resamplerFilter || "bilinear",
 						sharpen_mode: layer.sharpenMode || "none"
 					}),
-                    TRANSPARENT: true,
-                    VERSION: "1.1.1"
+					TRANSPARENT: true,
+					VERSION: "1.1.1"
 				},
 				url: tlv.availableResources.complete.o2.viewUrl
 			});

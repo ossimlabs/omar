@@ -19,7 +19,7 @@ pageLoad = function() {
 	brightnessSlider.on("change", function( event ) {
 		$( "#brightnessValueSpan" ).html( ( event.value.newValue / 100 ).toFixed( 2 ) );
 	});
-	brightnessSlider.on("slideStop", function( event ) { updateImageProperties(); });
+	brightnessSlider.on("slideStop", function( event ) { updateImageProperties( true ); });
 
 	var contrastSlider = $( "#contrastSliderInput" );
 	contrastSlider.slider({
@@ -31,21 +31,35 @@ pageLoad = function() {
 	contrastSlider.on("change", function( event ) {
 		$( "#contrastValueSpan" ).html( ( event.value.newValue / 100 ).toFixed( 2 ) );
 	});
-	contrastSlider.on("slideStop", function( event ) { updateImageProperties(); });
+	contrastSlider.on("slideStop", function( event ) { updateImageProperties( true ); });
+
+	var opacitySlider = $( "#opacitySliderInput" );
+	opacitySlider.slider({
+		max: 100,
+		min: 0,
+		tooltip: "hide",
+		value: 100
+	});
+	opacitySlider.on("change", function( event ) {
+		var opacity = event.value.newValue / 100;
+		$( "#opacityValueSpan" ).html( ( opacity ).toFixed( 2 ) );
+		tlv.layers[ tlv.currentLayer ].mapLayer.setOpacity( opacity );
+	});
+	opacitySlider.on("slideStop", function( event ) { updateImageProperties( false ); });
 }
 
 function selectBands( selectionMethod ) {
 	if ( selectionMethod == "manual" ) { $( "#manualBandSelectTable" ).show(); }
 	else { $( "#manualBandSelectTable" ).hide(); }
 
-	updateImageProperties();
+	updateImageProperties( true );
 }
 
 var setupTimeLapseImageProperties = setupTimeLapse;
 setupTimeLapse = function() {
 	setupTimeLapseImageProperties();
 
-	syncImageProperties();
+	syncImageProperties( true );
 }
 
 function syncImageProperties() {
@@ -80,18 +94,22 @@ function syncImageProperties() {
 		);
 	}
 
-	$( "#brightnessSliderInput" ).slider( "setValue", styles.brightness * 100 );
-	$( "#brightnessValueSpan" ).html(( styles.brightness ));
-
-	$( "#contrastSliderInput" ).slider( "setValue", styles.contrast * 100 );
-	$( "#contrastValueSpan" ).html(( styles.contrast ));
+	$.each(
+		[ "brightness", "contrast" ],
+		function( i, x ) {
+			$( "#" + x + "SliderInput" ).slider( "setValue", styles[x] * 100 );
+			$( "#" + x + "ValueSpan" ).html( styles[x] );
+		}
+	);
+	$( "#opacitySliderInput" ).slider( "setValue", layer.mapLayer.getSource().getParams().OPACITY * 100 );
+	$( "#opacityValueSpan" ).html( layer.mapLayer.getSource().getParams().OPACITY );
 
 	$( "#dynamicRangeSelect option[value='" + styles.hist_op + "']" ).prop( "selected", true );
 	$( "#interpolationSelect option[value='" + styles.resampler_filter + "']" ).prop( "selected", true );
 	$( "#sharpenModeSelect option[value='" + styles.sharpen_mode + "']" ).prop( "selected", true );
 }
 
-function updateImageProperties() {
+function updateImageProperties( refreshMap ) {
 	var bands = $( "#selectBandsMethodSelect" ).val();
  	if ( bands != "default" ) {
 		var red = $( "#redGunSelect" ).val();
@@ -101,6 +119,7 @@ function updateImageProperties() {
 	}
 
 	tlv.layers[tlv.currentLayer].mapLayer.getSource().updateParams({
+		OPACITY: $( "#opacitySliderInput" ).slider( "getValue" ) / 100,
 		STYLES: JSON.stringify({
 			bands: bands,
 			brightness: $( "#brightnessSliderInput" ).slider( "getValue" ) / 100,
@@ -110,5 +129,6 @@ function updateImageProperties() {
 			sharpen_mode: $( "#sharpenModeSelect" ).val()
 		})
 	});
-	tlv.map.renderSync();
+
+	if (refreshMap ) { tlv.map.renderSync(); }
 }
