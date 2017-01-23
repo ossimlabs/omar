@@ -3,14 +3,14 @@ baseLayers:
         layers: o2-basemap-basic
         name: OSM Basic
         type: wms
-        url: http://o2.radiantbluecloud.com/o2-basemap-proxy/wms
+        url: http://dev.o2.radiantbluecloud.com/o2-basemap-proxy/wms
         visible: false
     osmBright:
         layers: o2-basemap-bright
         name: OSM Bright
         type: wms
         visible: true
-        url: http://o2.radiantbluecloud.com/o2-basemap-proxy/wms
+        url: http://dev.o2.radiantbluecloud.com/o2-basemap-proxy/wms
 
 baseUrl: http://localhost:8080
 
@@ -20,7 +20,7 @@ defaultLocation: 48.8584, 2.2945
 
 docsUrl: http://ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs/user-guide/tlv
 
-geocoderUrl: http://o2.radiantbluecloud.com/twofishes
+geocoderUrl: http://dev.o2.radiantbluecloud.com/twofishes
 
 libraries:
     o2:
