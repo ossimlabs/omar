@@ -14,8 +14,8 @@ class IngestService implements ApplicationContextAware
 
 	def ingest( def oms, def baseDir = '/' )
 	{
-		def status
-		def message
+		def status  = HttpStatus.OK
+		def message = ""
 
 		if ( oms )
 		{
@@ -30,7 +30,7 @@ class IngestService implements ApplicationContextAware
 				{
 					if ( dataSet.save() )
 					{
-						status = 200
+						status = HttpStatus.OK
 						message = "Added dataset"
 					}
 					else
@@ -39,8 +39,8 @@ class IngestService implements ApplicationContextAware
 						message = ""
 						dataSet.errors.allErrors.each{
 
-							if(message)	message = "${message}\n${it}"
-							else message = it
+							if(message)	message = "${message}\n${it}".toString()
+							else message = it.toString()
 						}
 					}
 				}
