@@ -123,7 +123,7 @@ environments:
 ---
 
 environments:
-  dev:
+  development:
     wfs:
       featureTypeNamespaces:
           - prefix: omar
@@ -224,7 +224,7 @@ environments:
               - omar
               - video_data_set
               - features
-            datastoreId: omardb-1.9.0-prod    
+            datastoreId: omardb-1.9.0-prod
 ---
 wms:
   styles:
