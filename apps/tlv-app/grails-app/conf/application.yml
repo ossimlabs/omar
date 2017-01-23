@@ -3,14 +3,14 @@ baseLayers:
         layers: o2-basemap-basic
         name: OSM Basic
         type: wms
-        url: http://dev.o2.radiantbluecloud.com/o2-basemap-proxy/wms
+        url: http://mapproxy.dev.o2.radiantbluecloud.com/wms
         visible: false
     osmBright:
         layers: o2-basemap-bright
         name: OSM Bright
         type: wms
         visible: true
-        url: http://dev.o2.radiantbluecloud.com/o2-basemap-proxy/wms
+        url: http://mapproxy.dev.o2.radiantbluecloud.com/wms
 
 baseUrl: http://localhost:8080
 
