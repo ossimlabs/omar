@@ -21,4 +21,6 @@ class GetFootprintsRequest implements Validateable
   String layers
   String styles
   String filter
+
+  String time
 }
