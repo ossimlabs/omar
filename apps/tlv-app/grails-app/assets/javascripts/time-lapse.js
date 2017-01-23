@@ -83,8 +83,7 @@ function changeFrame( param ) {
 
 	layer = tlv.layers[ tlv.currentLayer ];
 	layer.mapLayer.setVisible( true );
-	var opacity = JSON.parse( layer.mapLayer.getSource().getParams().STYLES ).opacity;
-	layer.mapLayer.setOpacity( opacity );
+	layer.mapLayer.setOpacity( layer.mapLayer.getSource().getParams().OPACITY );
 
 	tlv.map.renderSync();
 

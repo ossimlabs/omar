@@ -29,7 +29,7 @@ class HttpUtils
       def input = new BufferedInputStream(connection.inputStream);
       def output = new FileOutputStream(file);
 
-      def buffer = new byte[1024];
+      def buffer = new byte[4096];
       long total = 0;
       int count=0;
       while (((count = input.read(buffer)) != -1)) {
@@ -37,6 +37,8 @@ class HttpUtils
          //            publishProgress((int) (total * 100 / fileLength - 1));
          output.write(buffer, 0, count);
       }
+      output?.flush();
+      output?.close();
    }
    static void downloadURIShell(String shellCommand, String destination, String sourceURI)
    {
