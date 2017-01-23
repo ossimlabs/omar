@@ -44,6 +44,7 @@ class StageFileJob {
             else
             {
                stagerService.updateFileStatus(fileRecord.processId, ProcessStatus.FINISHED, "File ${fileRecord.filename} successfully staged")
+               ingestMetricsService.setStatus(fileRecord.filename, ProcessStatus.FINISHED.toString(),  result?.message?:"File ${fileRecord.filename} successfully staged")
             }
          }
          catch(e)
