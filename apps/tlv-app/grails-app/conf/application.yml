@@ -40,7 +40,7 @@ networkSpecific:
 securityClassification:
     backgroundColor: green
     text: UNCLASSIFIED
-    textColor: black
+    textColor: white
 
 server:
   contextPath:
