@@ -52,13 +52,13 @@ class GetFeatureRequest implements Validateable
     String specifiedVersion = WfsParseUtil.findVersion( xml )
     def maxFeatures = xml?.@maxFeatures?.text()
     def startIndex = xml?.@startIndex?.text()
-//    def namespace = "xmlns(${namespacePrefix}=${namespaceUri})"
+
+    // println  groovy.xml.XmlUtil.serialize(xml)
+
     def propertyNames = xml?.Query?.first()?.PropertyName?.collect { it?.text()?.split( ':' )?.last() }?.join( ',' )
 
 
-//    println namespace
-
-    return new GetFeatureRequest(
+    def cmd = new GetFeatureRequest(
         service: 'WFS',
         version: specifiedVersion,
         request: 'GetFeature',
@@ -73,5 +73,8 @@ class GetFeatureRequest implements Validateable
         propertyName: propertyNames
     )
 
+//    println cmd
+
+    return cmd
   }
 }
