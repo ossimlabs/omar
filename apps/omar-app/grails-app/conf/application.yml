@@ -203,7 +203,7 @@ omar:
       baseUrl: http://localhost:8081/api
       enabled: true
     tlvApp:
-      baseUrl: http://o2.radiantbluecloud.com/tlv
+      baseUrl: http://localhost/tlv
       enabled: true
     twofishes:
       baseUrl: http://demo.twofishes.net

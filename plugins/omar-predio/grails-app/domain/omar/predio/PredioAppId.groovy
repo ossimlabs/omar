@@ -10,7 +10,7 @@ class PredioAppId
     String name
     String accessKey
 
-    staic mapping = {
+    static mapping = {
       cache true
       id generator: 'identity'
     }

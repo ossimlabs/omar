@@ -52,7 +52,9 @@ class GeoscriptService implements InitializingBean
           }
           break
         default:
-          options[wfsParamName] = wfsParams[wfsParamName]
+          if ( wfsParams[wfsParamName] ) {
+            options[wfsParamName] = wfsParams[wfsParamName]
+          }
         }
       }
       options
@@ -78,7 +80,7 @@ class GeoscriptService implements InitializingBean
 
     def namespaceInfo
 
-    if ( wfsParams?.namespace )
+    if ( !namespacePrefix && wfsParams?.namespace )
     {
       def pattern = /xmlns\(\w+=(.*)\)/
       def matcher = wfsParams?.namespace =~ pattern

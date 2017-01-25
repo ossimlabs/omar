@@ -38,16 +38,6 @@ repositories {
     maven { url "https://repo.grails.org/grails/core" }
 }
 
-grails {
-    exploded = true
-    plugins {
-//    compile project(':omar-openlayers')
-//    compile project(':omar-oms')
-      compile project(':omar-geoscript')
-      compile project(':omar-wms')
-    }
-}
-
 dependencyManagement {
     imports {
         mavenBom "org.grails:grails-bom:$grailsVersion"
@@ -56,6 +46,10 @@ dependencyManagement {
 }
 
 dependencies {
+//    compile project(':omar-openlayers')
+//    compile project(':omar-oms')
+      compile project(':omar-geoscript')
+      compile project(':omar-wms')
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"

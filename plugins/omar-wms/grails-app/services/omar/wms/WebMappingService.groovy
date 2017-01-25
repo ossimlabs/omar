@@ -286,12 +286,12 @@ class WebMappingService implements InitializingBean
     def renderMode = RenderMode.FILTER
     def otherParams = [startDate: new Date()]
 
-//    println wmsParams
+    println wmsParams
 
     def ostream = new ByteArrayOutputStream()
     def style = [:]
 
-    if ( wmsParams?.styles?.trim() ) {      
+    if (wmsParams?.styles?.trim()) {
       try {
         style = new JsonSlurper().parseText(wmsParams?.styles)
       } catch ( e ) {
