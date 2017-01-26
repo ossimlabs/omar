@@ -635,9 +635,9 @@ class WebFeatureService {
             def layer = workspace[layerInfo.name]
             def count = layer.count( wfsParams.filter ?: Filter.PASS )
 
-            def features = layer.collectFromFeature( options ) { feature ->
+            def features = (wfsParams.resultType != 'hits') ? layer.collectFromFeature( options ) { feature ->
                 return new JsonSlurper().parseText( feature.geoJSON )
-            }
+            } : []
 
             results = [
                 crs: [
