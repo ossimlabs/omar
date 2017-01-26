@@ -7,6 +7,7 @@ import org.joda.time.format.DateTimeFormatter
 import org.joda.time.DateTimeZone
 import org.apache.commons.io.FilenameUtils
 import groovy.util.logging.Slf4j
+import omar.core.DateUtil
 
 @Slf4j
 class AvroMessageUtils
@@ -23,23 +24,44 @@ class AvroMessageUtils
       String imageIdString = jsonObj."${OmarAvroUtils.avroConfig.imageIdField}"
 
       try{
-        DateTimeFormatter formatter = DateTimeFormat.forPattern(dateStringFormat)
-                    .withLocale(Locale.ROOT)
-                    .withChronology(ISOChronology.getInstanceUTC());
+         DateTime dt
+         if(dateStringFormat)
+         {
+            try{
+               DateTimeFormatter formatter = DateTimeFormat.forPattern(dateStringFormat)
+                       .withLocale(Locale.ROOT)
+                       .withChronology(ISOChronology.getInstanceUTC());
 
-        DateTime dt = formatter.parseDateTime(dateString);
+               dt = formatter.parseDateTime(dateString);
+
+            }
+            catch(e)
+            {
+
+            }
+         }
+         if(!dt)
+         {
+            dt = DateUtil.parseDateTime(dateString)
+         }
         DateTimeFormatter formatter2 = DateTimeFormat.forPattern("yyyy/MM/dd/HH")
 
         String datePart = formatter2.withZone(DateTimeZone.UTC).print(dt)
-        String imageId = jsonObj.Image_Id
-        result = new File(datePart, imageId).toString()
 
-        String ext = FilenameUtils.getExtension(new URL(sourceUri).path.toString())
-        if(ext)
+        if(datePart && imageIdString)
         {
-          result = "${result}.${ext}"
-        }
+           result = new File(datePart, imageIdString).toString()
 
+           String ext = FilenameUtils.getExtension(new URL(sourceUri).path.toString())
+           if(ext)
+           {
+              result = "${result}.${ext}"
+           }
+        }
+        else
+        {
+           result = ""
+        }
       }
       catch(e)
       {
