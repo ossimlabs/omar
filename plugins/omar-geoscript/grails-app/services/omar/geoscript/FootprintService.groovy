@@ -8,9 +8,13 @@ import geoscript.style.Composite
 import geoscript.workspace.Workspace
 import static geoscript.style.Symbolizers.*
 
+import grails.transaction.Transactional
+
+import omar.core.ISO8601DateParser
+
+@Transactional(readOnly=true)
 class FootprintService
 {
-  static transactional = false
   def grailsApplication
   def geoscriptService
 
@@ -57,6 +61,22 @@ class FootprintService
         filter = filter.and( new Filter( params.filter ) )
       }
 
+      // HACK - need to refactor this
+      if ( params.time ) {
+        def timePairs = ISO8601DateParser.parseOgcTimeStartEndPairs(params.time)
+
+        timePairs?.each { timePair ->
+          if ( timePair.start ) {
+              filter = filter.and("acquisition_date >= ${timePair.start}")
+          }
+          if ( timePair.end ) {
+              filter = filter.and("acquisition_date <= ${timePair.end}")
+          }
+        }
+      }
+
+      println filter
+      
       footprints.filter = filter
 
       def map = new GeoScriptMap(

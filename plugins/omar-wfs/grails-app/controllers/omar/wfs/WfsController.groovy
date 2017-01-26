@@ -74,6 +74,8 @@ class WfsController
         break
       }
 
+      //println "${request?.method?.toUpperCase()} - ${op} - ${cmd}"
+
       results = webFeatureService.describeFeatureType( cmd )
       break
     case "GETFEATURE":
@@ -85,13 +87,17 @@ class WfsController
       switch ( request?.method?.toUpperCase() )
       {
       case 'GET':
+        // println 'GET'
         BindUtil.fixParamNames( GetFeatureRequest, wfsParams )
         bindData( cmd, wfsParams )
         break
       case 'POST':
+        // println 'POST'
         cmd = cmd.fromXML( request.XML )
         break
       }
+
+      //println "${request?.method?.toUpperCase()} - ${op} - ${cmd}"
 
       results = webFeatureService.getFeature( cmd )
       break

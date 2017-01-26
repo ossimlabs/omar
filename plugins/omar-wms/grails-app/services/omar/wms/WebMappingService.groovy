@@ -286,12 +286,12 @@ class WebMappingService implements InitializingBean
     def renderMode = RenderMode.FILTER
     def otherParams = [startDate: new Date()]
 
-//    println wmsParams
+    println wmsParams
 
     def ostream = new ByteArrayOutputStream()
     def style = [:]
 
-    if ( wmsParams?.styles?.trim() ) {      
+    if (wmsParams?.styles?.trim()) {
       try {
         style = new JsonSlurper().parseText(wmsParams?.styles)
       } catch ( e ) {
@@ -378,6 +378,8 @@ class WebMappingService implements InitializingBean
             [id: it.get( 'id' ), imageFile: it.filename, groundGeom: it.ground_geom, entry: it.entry_id?.toInteger()]
           }
         }
+
+        // apply ordering for filters having:  in(1,2,3)
         def ids = wmsParams?.filter?.find( /.*in[(](.*)[)].*/ ) { matcher, ids -> return ids }
         if ( ids )
         {

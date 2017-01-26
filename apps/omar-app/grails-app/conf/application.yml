@@ -163,7 +163,7 @@ omar:
       -
         layerType: "tilewms"
         title: "OSM Basic"
-        url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
+        url: "http://mapproxy.dev.o2.radiantbluecloud.com/wms"
         params:
           layers: "o2-basemap-basic"
           format: "image/jpeg"
@@ -172,7 +172,7 @@ omar:
       -
         layerType: "tilewms"
         title: "OSM Bright"
-        url: "http://o2.radiantbluecloud.com/o2-basemap-proxy/wms"
+        url: "http://mapproxy.dev.o2.radiantbluecloud.com/wms"
         params:
           layers: "o2-basemap-bright"
           format: "image/jpeg"
@@ -203,7 +203,7 @@ omar:
       baseUrl: http://localhost:8081/api
       enabled: true
     tlvApp:
-      baseUrl: http://o2.radiantbluecloud.com/tlv
+      baseUrl: http://localhost/tlv
       enabled: true
     twofishes:
       baseUrl: http://demo.twofishes.net

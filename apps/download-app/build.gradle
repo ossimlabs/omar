@@ -57,14 +57,8 @@ dependencyManagement {
   applyMavenExclusions false
 }
 
-grails {
-  exploded = true
-  plugins {
-    compile project( ':omar-download' )
-  }
-}
-
 dependencies {
+    compile project( ':omar-download' )
   compile "org.grails.plugins:hibernate5"
   compile "org.hibernate:hibernate-core:5.0.10.Final"
   compile "org.hibernate:hibernate-ehcache:5.0.10.Final"

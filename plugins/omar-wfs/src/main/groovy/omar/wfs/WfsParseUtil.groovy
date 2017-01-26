@@ -32,6 +32,6 @@ class WfsParseUtil
 
   static String getFilterAsString(GPathResult x)
   {
-    x.Query.collect { new StreamingMarkupBuilder().bindNode( it.Filter ).toString().trim() }?.first()
+    (x?.Query?.Filter) ? x.Query.collect { new StreamingMarkupBuilder().bindNode( it.Filter ).toString().trim() }?.first() : null
   }
 }

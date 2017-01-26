@@ -45,17 +45,11 @@ dependencyManagement {
     applyMavenExclusions false
 }
 
-grails {
-    exploded = true
-    plugins {
+dependencies {
         compile project(':omar-core')
         compile project(':omar-oms')
         compile project(':omar-hibernate-spatial')
         compile project(':omar-ingest-metrics')
-    }
-}
-
-dependencies {
     compile 'commons-io:commons-io:2.4'
     compile 'org.grails.plugins:quartz:2.0.9'
 

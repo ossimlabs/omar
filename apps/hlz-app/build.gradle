@@ -59,15 +59,9 @@ dependencyManagement {
   applyMavenExclusions false
 }
 
-grails {
-    exploded = true
-    plugins {          
+dependencies {
       compile project(':omar-oms')
       compile project(':omar-geoscript')
-    }
-}
-
-dependencies {
 
   compile 'org.webjars.bower:bootstrap:3.3.5'
   compile 'org.webjars:bootswatch-superhero:3.3.5'

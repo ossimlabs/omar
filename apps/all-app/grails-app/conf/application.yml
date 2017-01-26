@@ -3,6 +3,9 @@ grails:
     profile: web
     codegen:
         defaultPackage: all.app
+    resources:
+        pattern: '/**'
+        
 info:
     app:
         name: '@info.app.name@'
@@ -120,237 +123,112 @@ environments:
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
+---
 
-wfs:
-#  geoserverHome: /Applications/GeoServer.app/Contents/Java
-
-  featureTypeNamespaces:
-#      - prefix: it.geosolutions
-#        uri: http://www.geo-solutions.it
-#      - prefix: cite
-#        uri: http://www.opengeospatial.net/cite
-      - prefix: omar
-        uri: http://omar.ossim.org
-#      - prefix: tiger
-#        uri: http://www.census.gov
-#      - prefix: sde
-#        uri: http://geoserver.sf.net
-#      - prefix: topp
-#        uri: http://www.openplans.org/topp
-#      - prefix: sf
-#        uri: http://www.openplans.org/spearfish
-#      - prefix: nurc
-#        uri: http://www.nurc.nato.int
-
-  datastores:
-#      - namespaceId: tiger
-#        datastoreId: tiger
-#        datastoreParams:
-#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/nyc
-#          namespace: http://www.census.gov
-
-#      - namespaceId: sf
-#        datastoreId: sf
-#        datastoreParams:
-#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/sf
-#          namespace: http://www.openplans.org/spearfish
-
-#      - namespaceId: topp
-#        datastoreId: states_shapefile
-#        datastoreParams:
-#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/shapefiles
-#          namespace: http://www.openplans.org/topp
-
-#      - namespaceId: topp
-#        datastoreId: taz_shapes
-#        datastoreParams:
-#          url: file:///Applications/GeoServer.app/Contents/Java/data_dir/data/taz_shapes
-#          namespace: http://www.openplans.org/topp
-
-      - namespaceId: omar
-        datastoreId: omardb-1.9.0-dev
-        datastoreParams:
-          dbtype: postgis
-          host: localhost
-          port: '5432'
-          database: omardb-1.9.0-dev
-          user: postgres
-          passwd: postgres
-          'Expose primary keys': 'true'
-          namespace: http://omar.ossim.org
-
-  featureTypes:
-#      - name: poly_landmarks
-#        title: Manhattan (NY) landmarks
-#        description: Manhattan landmarks, identifies water, lakes, parks, interesting buildings
-#        keywords:
-#          - landmarks
-#          - DS_poly_landmarks
-#          - manhattan
-#          - poly_landmarks
-#        datastoreId: tiger
-#      - name: poi
-#        title: Manhattan (NY) points of interest
-#        description: Points of interest in New York, New York (on Manhattan). One of the attributes contains the name of a file with a picture of the point of interest.
-#        keywords:
-#          - poi
-#          - Manhattan
-#          - DS_poi
-#          - points_of_interest
-#        datastoreId: tiger
-#
-#      - name: tiger_roads
-#        title: Manhattan (NY) roads
-#        description: Highly simplified road layout of Manhattan in New York..
-#        keywords:
-#          - DS_tiger_roads
-#          - tiger_roads
-#          - roads
-#        datastoreId: tiger
-#
-#      - name: archsites
-#        title: Spearfish archeological sites
-#        description: Sample data from GRASS, archeological sites location, Spearfish, South Dakota, USA
-#        keywords:
-#          - archsites
-#          - spearfish
-#          - sfArchsites
-#          - archeology
-#        datastoreId: sf
-#
-#      - name: bugsites
-#        title: Spearfish bug locations
-#        description: Sample data from GRASS, bug sites location, Spearfish, South Dakota, USA
-#        keywords:
-#          - spearfish
-#          - sfBugsites
-#          - insects
-#          - bugsites
-#          - tiger_beetles
-#        datastoreId: sf
-#
-#      - name: restricted
-#        title: Spearfish restricted areas
-#        description: Sample data from GRASS, restricted areas, Spearfish, South Dakota, USA
-#        keywords:
-#          - spearfish
-#          - restricted
-#          - areas
-#          - sfRestricted
-#        datastoreId: sf
-#
-#      - name: roads
-#        title: Spearfish roads
-#        description: Sample data from GRASS, road layout, Spearfish, South Dakota, USA
-#        keywords:
-#          - sfRoads
-#          - spearfish
-#          - roads
-#        datastoreId: sf
-#
-#      - name: streams
-#        title: Spearfish streams
-#        description: Sample data from GRASS, streams, Spearfish, South Dakota, USA
-#        keywords:
-#          - spearfish
-#          - sfStreams
-#          - streams
-#        datastoreId: sf
-#
-#      - name: tasmania_cities
-#        title: Tasmania cities
-#        description: Cities in Tasmania (actually, just the capital)
-#        keywords:
-#          - cities
-#          - Tasmania
-#        datastoreId: taz_shapes
-#
-#      - name: tasmania_roads
-#        title: Tasmania roads
-#        description: Main Tasmania roads
-#        keywords:
-#          - Roads
-#          - Tasmania
-#        datastoreId: taz_shapes
-#
-#      - name: tasmania_state_boundaries
-#        title: Tasmania state boundaries
-#        description: Tasmania state boundaries
-#        keywords:
-#          - boundaries
-#          - tasmania_state_boundaries
-#          - Tasmania
-#        datastoreId: taz_shapes
-#
-#      - name: tasmania_water_bodies
-#        title: Tasmania water bodies
-#        description: Tasmania water bodies
-#        keywords:
-#          - Lakes
-#          - Bodies
-#          - Australia
-#          - Water
-#          - Tasmania
-#        datastoreId: taz_shapes
-#
-#      - name: states
-#        title: USA Population
-#        description: This is some census data on the states.
-#        keywords:
-#          - census
-#          - united
-#          - boundaries
-#          - state
-#          - states
-#        datastoreId: states_shapefile
-#
-#      - name: giant_polygon
-#        title: World rectangle
-#        description: A simple rectangular polygon covering most of the world, it's only used for the purpose of providing a background (WMS bgcolor could be used instead)
-#        keywords:
-#          - DS_giant_polygon
-#          - giant_polygon
-#        datastoreId: tiger
-
-# needs to be uncommented for C2S deployment
-#      - name: be_number
-#        title: be_number
-#        description: ''
-#        keywords:
-#          - omar
-#          - be_number
-#          - features
-#        datastoreId: omardb-1.9.0-dev
-
-      - name: raster_entry
-        title: raster_entry
-        description: ''
-        keywords:
-          - omar
-          - raster_entry
-          - features
-        datastoreId: omardb-1.9.0-dev
-
-      - name: opir_raster_entry
-        title: opir_raster_entry
-        description: ''
-        keywords:
-          - omar
-          - opir_raster_entry
-          - features
-        datastoreId: omardb-1.9.0-dev
-
-      - name: video_data_set
-        title: video_data_set
-        description: ''
-        keywords:
-          - omar
-          - video_data_set
-          - features
-        datastoreId: omardb-1.9.0-dev
-
--- grails.serverURL:
-
+environments:
+  development:
+    wfs:
+      featureTypeNamespaces:
+          - prefix: omar
+            uri: http://omar.ossim.org
+      datastores:
+          - namespaceId: omar
+            datastoreId: omardb-1.9.0-dev
+            datastoreParams:
+              dbtype: postgis
+              host: localhost
+              port: '5432'
+              database: omardb-1.9.0-dev
+              user: postgres
+              passwd: postgres
+              'Expose primary keys': 'true'
+              namespace: http://omar.ossim.org
+      featureTypes:
+    # needs to be uncommented for C2S deployment
+    #      - name: be_number
+    #        title: be_number
+    #        description: ''
+    #        keywords:
+    #          - omar
+    #          - be_number
+    #          - features
+    #        datastoreId: omardb-1.9.0-dev
+          - name: raster_entry
+            title: raster_entry
+            description: ''
+            keywords:
+              - omar
+              - raster_entry
+              - features
+            datastoreId: omardb-1.9.0-dev
+          - name: opir_raster_entry
+            title: opir_raster_entry
+            description: ''
+            keywords:
+              - omar
+              - opir_raster_entry
+              - features
+            datastoreId: omardb-1.9.0-dev
+          - name: video_data_set
+            title: video_data_set
+            description: ''
+            keywords:
+              - omar
+              - video_data_set
+              - features
+            datastoreId: omardb-1.9.0-dev
+  production:
+    wfs:
+      featureTypeNamespaces:
+          - prefix: omar
+            uri: http://omar.ossim.org
+      datastores:
+          - namespaceId: omar
+            datastoreId: omardb-1.9.0-prod
+            datastoreParams:
+              dbtype: postgis
+              host: localhost
+              port: '5432'
+              database: omardb-1.9.0-prod
+              user: postgres
+              passwd: postgres
+              'Expose primary keys': 'true'
+              namespace: http://omar.ossim.org
+      featureTypes:
+    # needs to be uncommented for C2S deployment
+    #      - name: be_number
+    #        title: be_number
+    #        description: ''
+    #        keywords:
+    #          - omar
+    #          - be_number
+    #          - features
+    #        datastoreId: omardb-1.9.0-prod
+          - name: raster_entry
+            title: raster_entry
+            description: ''
+            keywords:
+              - omar
+              - raster_entry
+              - features
+            datastoreId: omardb-1.9.0-prod
+          - name: opir_raster_entry
+            title: opir_raster_entry
+            description: ''
+            keywords:
+              - omar
+              - opir_raster_entry
+              - features
+            datastoreId: omardb-1.9.0-prod
+          - name: video_data_set
+            title: video_data_set
+            description: ''
+            keywords:
+              - omar
+              - video_data_set
+              - features
+            datastoreId: omardb-1.9.0-prod
+---
 wms:
   styles:
       byFileType:

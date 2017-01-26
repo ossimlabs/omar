@@ -20,6 +20,7 @@ class WmsInterceptor
       break
     case 'GETMAP':
       BindUtil.fixParamNames( GetMapRequest, params )
+      OldMARCompatibility.translate(params)
       break
     }
 

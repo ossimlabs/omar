@@ -105,8 +105,15 @@ class WebFeatureService {
         String schemaLocation = grailsLinkGenerator.serverBaseURL
         def xml = null
 
-        try {
-            Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) ) {
+        try
+        {
+          //println layerInfo
+
+            def workspaceParams = layerInfo?.workspaceInfo?.workspaceParams
+
+            //println workspaceParams
+
+            Workspace.withWorkspace( geoscriptService.getWorkspace( workspaceParams ) ) {
                 Workspace workspace ->
 
                 Schema schema = workspace[layerInfo.name].schema
@@ -379,10 +386,13 @@ class WebFeatureService {
     }
 
     def getFeature(GetFeatureRequest wfsParams) {
+        // println wfsParams
+
         HashMap result = [status: HttpStatus.OK, buffer: "", contentType: "text/xml", buffer: ""]
 
         switch ( wfsParams?.outputFormat?.toUpperCase() ) {
             case 'GML3':
+            case 'TEXT/XML; SUBTYPE=GML/3.1.1':
                 try {
                     def buffer = getFeatureGML3( wfsParams )
                     result.contentType = 'text/xml'
@@ -390,6 +400,7 @@ class WebFeatureService {
                     result.buffer = buffer
                 }
                 catch ( e ) {
+                    e.printStackTrace()
                     result.contentType = "plain/text"
                     result.buffer = "${e}"
                     result.status = HttpStatus.INTERNAL_SERVER_ERROR
@@ -438,13 +449,15 @@ class WebFeatureService {
                 }
                 break
             default:
+                // println "outputFormat - ${wfsParams?.outputFormat}"
                 try {
-                    def buffer = getFeatureGML3( wfsParams )
+                    def buffer = ( wfsParams )
                     result.contentType = 'text/xml'
                     //result.filename = "wfs.xml"
                     result.buffer = buffer
                 }
                 catch ( e ) {
+                    e.printStackTrace()
                     result.contentType = "plain/text"
                     result.buffer = "${e}"
                     result.status = HttpStatus.INTERNAL_SERVER_ERROR
@@ -554,7 +567,12 @@ class WebFeatureService {
 
         def options = geoscriptService.parseOptions( wfsParams )
 
-        Workspace.withWorkspace( geoscriptService.getWorkspace( layerInfo?.workspaceInfo?.workspaceParams ) ) {
+
+        def workspaceParams = layerInfo?.workspaceInfo?.workspaceParams
+
+        // println "workspaceParams: ${workspaceParams}"
+
+        Workspace.withWorkspace( geoscriptService.getWorkspace( workspaceParams ) ) {
             workspace ->
             def layer = workspace[layerInfo.name]
             def matched = layer?.count( wfsParams.filter ?: Filter.PASS )
@@ -573,9 +591,6 @@ class WebFeatureService {
                 grailsLinkGenerator.link( absolute: true, uri: '/schemas/wfs/1.1.0/wfs.xsd' )
             ]
 
-            def features = layer.collectFromFeature( options ) { feature ->
-                return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
-            }
 
             def x = {
                 mkp.xmlDeclaration()
@@ -590,6 +605,10 @@ class WebFeatureService {
                     startIndex: wfsParams.startIndex ?: '0'
                 ) {
                     if ( !( wfsParams?.resultType?.toLowerCase() == 'hits' ) ) {
+                        def features = layer.collectFromFeature( options ) { feature ->
+                            return feature.getGml( version: 3, format: false, bounds: false, xmldecl: false, nsprefix: namespaceInfo.prefix )
+                        }
+
                         gml.featureMembers {
                             features?.each { feature ->
                                 mkp.yieldUnescaped( feature )
@@ -616,9 +635,9 @@ class WebFeatureService {
             def layer = workspace[layerInfo.name]
             def count = layer.count( wfsParams.filter ?: Filter.PASS )
 
-            def features = layer.collectFromFeature( options ) { feature ->
+            def features = (wfsParams.resultType != 'hits') ? layer.collectFromFeature( options ) { feature ->
                 return new JsonSlurper().parseText( feature.geoJSON )
-            }
+            } : []
 
             results = [
                 crs: [
