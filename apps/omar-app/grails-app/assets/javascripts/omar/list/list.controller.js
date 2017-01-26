@@ -193,7 +193,7 @@
         };
 
         vm.currentAttrFilter = wfsService.attrObj;
-        vm.currentSortText = "Acquired (Newest)";
+        vm.currentSortText = "Acquired (New)";
 
         vm.currentStartIndex = 1; //wfsService.attrObj.startIndex;
         vm.itemsPerPage = 10;
@@ -246,7 +246,15 @@
             // Update the DOM (card list)
             $scope.$apply(function() {
                 vm.wfsData = data;
-                //console.log('scope.on wfs updated: ', vm.wfsData);
+            });
+
+        });
+
+        $scope.$on('wfs features: updated', function(event, features) {
+
+            // Update the total feature count
+            $scope.$apply(function() {
+                vm.wfsFeatures = features;
             });
 
         });

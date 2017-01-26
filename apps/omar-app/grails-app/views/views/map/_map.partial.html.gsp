@@ -634,11 +634,11 @@
                aria-haspopup="true" aria-expanded="false">
                {{list.currentSortText}}<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li ng-click="list.sortWfs('acquisition_date', '+D', 'Acquired (Newest)');"><a>Acquired (Newest)</a></li>
-                <li ng-click="list.sortWfs('acquisition_date', '+A', 'Acquired (Oldest)');"><a>Acquired (Oldest)</a></li>
+                <li ng-click="list.sortWfs('acquisition_date', '+D', 'Acquired (New)');"><a>Acquired (New)</a></li>
+                <li ng-click="list.sortWfs('acquisition_date', '+A', 'Acquired (Old)');"><a>Acquired (Old)</a></li>
                 <li role="separator" class="divider"></li>
-                <li ng-click="list.sortWfs('ingest_date', '+D', 'Ingest (Newest)');"><a>Ingested (Newest)</a></li>
-                <li ng-click="list.sortWfs('ingest_date', '+A', 'Ingest (Oldest)');"><a>Ingested (Oldest)</a></li>
+                <li ng-click="list.sortWfs('ingest_date', '+D', 'Ingest (New)');"><a>Ingested (New)</a></li>
+                <li ng-click="list.sortWfs('ingest_date', '+A', 'Ingest (Old)');"><a>Ingested (Old)</a></li>
                 <li role="separator" class="divider"></li>
                 <li ng-click="list.sortWfs('title', '+D', 'Image ID (Desc)');"><a>Image ID (Desc)</a></li>
                 <li ng-click="list.sortWfs('title', '+A', 'Image ID (Asc)');"><a>Image ID (Asc)</a></li>
@@ -666,7 +666,7 @@
             </li>
           </ul>
           <p class="navbar-text pull-right">&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="label label-primary">{{list.wfsData.length}}</span>
+            <span class="label label-primary">{{list.wfsFeatures}}</span>
           </p>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

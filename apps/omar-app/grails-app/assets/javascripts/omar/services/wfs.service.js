@@ -122,17 +122,28 @@
       // http://o2.cloudapps.ossimc2s.com/o2-wfs/wfs?service=wfs&version=1.1.0&request=GetFeature&typeName=omar:raster_entry&outputFormat=json&resultType=hits
       // TODO: append &resultType=hits to the url, and get a count of the images in the current filter
 
+      var wfsFeaturesUrl = wfsRequestUrl +
+        "service=WFS" +
+        "&version=" + wfsRequest.version +
+        "&request=GetFeature" +
+        "&typeName=" + wfsRequest.typeName +
+        "&filter=" + encodeURIComponent(wfsRequest.cql) +
+        "&outputFormat=" + wfsRequest.outputFormat +
+        "&sortBy=" + wfsRequest.sortField + wfsRequest.sortType +
+        "&startIndex=" + wfsRequest.startIndex +
+        "&resultType=hits"
+
       $http({
         method: 'GET',
-        url: wfsUrl + '&resultType=hits'
+        url: wfsFeaturesUrl
       })
       .then(function (response) {
-        var data;
-        data = response.data.features;
-        console.log('resultType=hits: ', data);
+        var features;
+        features = response.data.totalFeatures;
+        
         // $timeout needed: http://stackoverflow.com/a/18996042
         $timeout(function () {
-            //$rootScope.$broadcast('wfs: updated', data);
+            $rootScope.$broadcast('wfs features: updated', features);
           });
       });
 
