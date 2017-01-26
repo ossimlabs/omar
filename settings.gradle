@@ -5,6 +5,7 @@ include 'all-app',
 		'jpip-app',
 		'mensa-app',
 		'superoverlay-app',
+		'oldmar-app',
 		'omar-app',
 		'omar-avro',
 		'omar-core',
@@ -82,3 +83,4 @@ project(':wcs-app').projectDir = 'apps/wcs-app' as File
 project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':wms-app').projectDir = 'apps/wms-app' as File
 project(':wmts-app').projectDir = 'apps/wmts-app' as File
+project(':oldmar-app').projectDir = 'apps/oldmar-app' as File
