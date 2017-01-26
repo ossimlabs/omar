@@ -61,11 +61,19 @@ class AvroMessageUtils
         else
         {
            result = ""
+           if(sourceUri)
+           {
+              result = new URL(sourceUri).path.toString()
+           }
         }
       }
       catch(e)
       {
         log.error "Unable to convert date: ${dateString} with format ${OmarAvroUtils.avroConfig.dateFieldFormat}"
+        if(sourceUri)
+        {
+           result = new URL(sourceUri).path.toString()
+        }
       }
     }
     else if(sourceUri)
