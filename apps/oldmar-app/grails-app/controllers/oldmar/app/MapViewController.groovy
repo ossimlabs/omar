@@ -13,13 +13,13 @@ class MapViewController
   @Value( '${oldmar.mapView.baseLayer.format}' )
   String baseLayerFormat
 
-  @Value( '${oldmar.mapView.defaultWmsLayers}' )
+  @Value( '${oldmar.mapView.defaults.wms.layers}' )
   String defaultWmsLayers
 
-  @Value( '${oldmar.mapView.defaultFootprintsTime}' )
+  @Value( '${oldmar.mapView.defaults.footprints.time}' )
   String defaultFootprintsTime
 
-  @Value( '${oldmar.mapView.useDefaultFootprintsTime}' )
+  @Value( '${oldmar.mapView.defaults.footprints.useDefault}' )
   Boolean useDefaultFootprintsTime
 
   def index()
