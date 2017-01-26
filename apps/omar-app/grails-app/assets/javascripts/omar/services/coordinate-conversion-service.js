@@ -7,7 +7,7 @@
         function coordinateConversionService( $http, $rootScope) {
 
             this.convert = function( location ) {
-                var bePattern = /(.{10})/;
+                var bePattern = /(\d{4}[a-z|\-{1}][a-z|0-9]\d{4})/i;
                 var ddPattern = /(\-?\d{1,2}[.]?\d*)[\s+|,?]\s*(\-?\d{1,3}[.]?\d*)/;
                 var dmsPattern = /(\d{2})[^\d]*(\d{2})[^\d]*(\d{2}[.]?\d*)\s*([n|N|s|S])[^\w]*(\d{3})[^\d]*(\d{2})[^d]*(\d{2}[.]?\d*)\s*([e|E|w|W])/;
                 var mgrsPattern = /(\d{1,2})([a-zA-Z])[^\w]*([a-zA-Z])([a-zA-Z])[^\w]*(\d{5})[^\w]*(\d{5})/;
@@ -45,6 +45,7 @@
                     var columnName = AppO2.APP_CONFIG.params.misc.placemarks.columnName;
                     var tableName = AppO2.APP_CONFIG.params.misc.placemarks.tableName;
 
+                    var beNumber = RegExp.$1;
                     var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
                         "filter=" + columnName + " LIKE '" + beNumber + "'" +
                         "&maxFeatures=1" +

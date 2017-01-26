@@ -2,7 +2,7 @@ var convertGeospatialCoordinateFormatPlugin = convertGeospatialCoordinateFormat;
 convertGeospatialCoordinateFormat = function( inputString, callbackFunction ) {
 	var location = convertGeospatialCoordinateFormatPlugin( inputString );
 
-	var bePattern = /(.{10})/;
+	var bePattern = /\d{4}[a-z|\-{1}][a-z|0-9]\d{4}/i;
 
 	if ( location ) {
 		if ( callbackFunction ) { callbackFunction( location ); }
@@ -10,8 +10,7 @@ convertGeospatialCoordinateFormat = function( inputString, callbackFunction ) {
 	}
 	else if ( callbackFunction ) {
 		displayLoadingDialog( "We're checking our maps for that location... BRB!" );
-		if (false) {}
-		/*if ( inputString.match( bePattern ) ) {
+		if ( inputString.match( bePattern ) ) {
 			$.ajax({
 				data: "beNumber=" + inputString,
 				dataType: "json",
@@ -28,7 +27,7 @@ convertGeospatialCoordinateFormat = function( inputString, callbackFunction ) {
 				},
 				url: tlv.contextPath + "/be"
 			});
-		}*/
+		}
 		// assume it's a placename
 		else {
 			$.ajax({
