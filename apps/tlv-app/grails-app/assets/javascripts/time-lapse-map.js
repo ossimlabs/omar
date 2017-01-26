@@ -34,12 +34,15 @@ function addBaseLayersToTheMap() {
 	if (tlv.baseLayer) { changeBaseLayer(tlv.baseLayer); }
 }
 
-function addLayerToTheMap(layer) {
-	var source = createImageLayerSource(layer);
-	source.on("tileloadstart", function(event) { theTileHasStartedLoadingMap(this); });
-	source.on("tileloadend", function(event) { theTileHasFinishedLoadingMap(this); });
+function addLayerToTheMap( layer ) {
+	var source = createImageLayerSource( layer );
+	source.on("tileloadstart", function( event ) { theTileHasStartedLoadingMap( this ); });
+	source.on("tileloadend", function( event ) { theTileHasFinishedLoadingMap( this ); });
 
+	var footprint = layer.metadata.footprint.coordinates;
+	var extent = footprint ? new ol.geom.MultiPolygon( footprint ).getExtent() : null;
 	layer.mapLayer = new ol.layer.Tile({
+		extent: extent ? ol.proj.transformExtent( extent, "EPSG:4326", "EPSG:3857" ) : undefined,
 		opacity: 0,
 		source: source,
 		visible: false

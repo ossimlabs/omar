@@ -814,9 +814,9 @@
                       var pqeErrorModFeature = formatModError.readFeature(pqeErrorModWkt);
                       measureSource.addFeature(pqeErrorModFeature);
 
-                      var pqeCenterWkt =  'POINT(' + centerPoint[0] + ' ' + centerPoint[1] + ')';
-                      var pqeCenterFeature = formatModError.readFeature(pqeCenterWkt);
-                      measureSource.addFeature(pqeCenterFeature);
+                      //var pqeCenterWkt =  'POINT(' + centerPoint[0] + ' ' + centerPoint[1] + ')';
+                      //var pqeCenterFeature = formatModError.readFeature(pqeCenterWkt);
+                      //measureSource.addFeature(pqeCenterFeature);
 
                       //var pqeExtent = pqeErrorModFeature.getGeometry().getExtent();
                       //var deltaX = pqeExtent[2]-pqeExtent[0];

@@ -117,6 +117,16 @@ setupMap = function() {
 	initializeSwipeSlider();
 }
 
+function terrainWireframeToggle() {
+	var state = $( "#terrainWireframeSelect" ).val();
+	if ( state == "on" ) {
+		var dimensions = $( "#dimensionsSelect" ).val();
+		if ( dimensions == 2 ) { displayErrorDialog( "This only works in 3 dimensions." ); }
+		else { tlv.globe.getCesiumScene().globe._surface.tileProvider._debug.wireframe = true; }
+	}
+	else { tlv.globe.getCesiumScene().globe._surface.tileProvider._debug.wireframe = false; }
+}
+
 function turnOffSwipe() {
 	$(".ol-full-screen").show();
 	$(".ol-mouse-position").show();

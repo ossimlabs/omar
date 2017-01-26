@@ -184,7 +184,7 @@ class StagerService
 
 					ingestMetricsService.endStaging(filename)
 
-					results = [status:status, message:message]
+					results = [status:status, message:message.toString()]
 				}
 				else
 				{

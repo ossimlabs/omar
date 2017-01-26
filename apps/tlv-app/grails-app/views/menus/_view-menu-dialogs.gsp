@@ -15,6 +15,12 @@
 						<option value = "off">OFF</option>
 						<option value = "on">ON</option>
 					</select>
+
+					<label>Terrain Wireframe</label>
+					<select class = "form-control" id = "terrainWireframeSelect" onchange = "terrainWireframeToggle(); $('#viewDialog').modal('hide');">
+						<option value = "off">OFF</option>
+						<option value = "on">ON</option>
+					</select>
 				</div>
 			</div>
 			<div class = "modal-footer">

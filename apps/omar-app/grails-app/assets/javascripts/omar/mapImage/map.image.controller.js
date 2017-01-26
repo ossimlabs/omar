@@ -668,8 +668,8 @@
 
       vm.showPqePosOutput = true;
 
-      vm.lat = pqeObj.lat.toFixed(4);
-      vm.lon = pqeObj.lon.toFixed(4);
+      vm.lat = pqeObj.lat.toFixed(7);
+      vm.lon = pqeObj.lon.toFixed(7);
       vm.hgt = pqeObj.hgt.toFixed(4);
       vm.hgtMsl = pqeObj.hgtMsl.toFixed(4) + ' m';
       vm.imageX = pqeObj.x.toFixed(4);
