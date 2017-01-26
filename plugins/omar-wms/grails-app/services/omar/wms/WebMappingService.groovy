@@ -378,6 +378,8 @@ class WebMappingService implements InitializingBean
             [id: it.get( 'id' ), imageFile: it.filename, groundGeom: it.ground_geom, entry: it.entry_id?.toInteger()]
           }
         }
+
+        // apply ordering for filters having:  in(1,2,3)
         def ids = wmsParams?.filter?.find( /.*in[(](.*)[)].*/ ) { matcher, ids -> return ids }
         if ( ids )
         {

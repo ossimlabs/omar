@@ -131,9 +131,12 @@ oldmar:
       url:  https://ahocevar.com/geoserver/wms
       layers: ne:NE1_HR_LC_SR_W_DR
       format: image/jpeg
-    defaultWmsLayers: 38
-    defaultFootprintsTime: '1990-04-09T00:00:00Z/2017-12-31T00:00:00Z'
-    useDefaultFootprintsTime: true
+    defaults:
+      wms:
+        layers: 38
+      footprints:
+        time: '1990-04-09T00:00:00Z/2017-12-31T00:00:00Z'
+        useDefault: true
   wms:
     endpoint: http://localhost/o2-wms/wms
   wfs:
