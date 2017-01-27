@@ -22,6 +22,9 @@ class MapViewController
   @Value( '${oldmar.mapView.defaults.footprints.useDefault}' )
   Boolean useDefaultFootprintsTime
 
+  @Value( '${oldmar.mapView.defaults.footprints.format}' )
+  String footprintsFormat
+
   def index()
   {
     if ( params.containsKey( 'useDefaultFootprintsTime' ) )
@@ -33,7 +36,8 @@ class MapViewController
         baseLayer: [url: baseLayerUrl, layers: baseLayerNames, format: baseLayerFormat],
         contextPath: grailsApplication.config.server.contextPath ?: "",
         wmsLayers: params.wmsLayers ?: defaultWmsLayers,
-        footprintsTime: params.footprintsTime ?: ( useDefaultFootprintsTime ) ? defaultFootprintsTime : ''
+        footprintsTime: params.footprintsTime ?: ( useDefaultFootprintsTime ) ? defaultFootprintsTime : '',
+        footprintsFormat: footprintsFormat
     ]
 
     [mapViewParams: mapViewParams]

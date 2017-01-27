@@ -9,14 +9,17 @@ class FootprintsProxyService
   @Value( '${oldmar.footprints.endpoint}' )
   String footprintsEndpoint
 
+  @Value( '${oldmar.footprints.overrideFormat}' )
+  String overrideFormat
+
   @Value( '${oldmar.footprints.defaultStyle}' )
   String defaultStyle
 
   def handleRequest(def params)
   {
 //    println params
-
-    def contentType = params.find { it.key.toUpperCase() == 'FORMAT' }?.value ?: 'image/png'
+    def format = params.find { it.key.toUpperCase() == 'FORMAT' }?.value
+    def contentType = (overrideFormat || !format) ? overrideFormat : format
 
     def newParams = params.inject( [:] ) { a, b ->
       switch ( b.key?.toUpperCase() )
@@ -40,16 +43,34 @@ class FootprintsProxyService
           a['TIME'] = b.value
         }
         break
+      case 'FORMAT':
+        if ( overrideFormat?.trim()) {
+          println "overrideFormat = ${overrideFormat}"
+          a['FORMAT'] = overrideFormat
+        } else {
+          a['FORMAT'] = b.value
+        }
+        break
       case 'CONTROLLER':
         break
       default:
         a[b.key] = b.value
       }
       a
-    }.collect { "${it.key}=${URLEncoder.encode( it.value as String, 'UTF-8' )}" }.join( '&' )
+    }
+
+    // println newParams
+    newParams = newParams.collect { "${it.key}=${URLEncoder.encode( it.value as String, 'UTF-8' )}" }.join( '&' )
 
     def url = "${footprintsEndpoint}?${newParams}".toURL()
+    def bytes
 
-    [contentType: contentType, file: url.bytes]
+    try {
+      bytes = url.bytes
+    } catch ( e ) {
+        e.printStackTrace()
+    }
+
+    [contentType: contentType, file: bytes]
   }
 }
