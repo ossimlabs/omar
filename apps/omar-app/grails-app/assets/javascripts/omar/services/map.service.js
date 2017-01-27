@@ -116,7 +116,8 @@ function mapService(stateService, wfsService) {
           FILTER: "",
           VERSION: '1.1.1',
           LAYERS: 'omar:raster_entry',
-          STYLES: 'byFileType'
+          STYLES: 'byFileType',
+          FORMAT: 'image/gif'
         },
 	wrapX: false
       }),
@@ -133,7 +134,7 @@ function mapService(stateService, wfsService) {
     function addBaseMapLayers(layerObj) {
 
       var baseMapLayer;
-      
+
       switch (layerObj.layerType.toLowerCase()){
         case 'tilewms':
           baseMapLayer = new ol.layer.Tile({

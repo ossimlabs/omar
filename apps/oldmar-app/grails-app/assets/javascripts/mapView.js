@@ -41,6 +41,7 @@ var MapView = (function ()
                         'VERSION': '1.1.1',
                         'LAYERS': 'Imagery',
                         'STYLES': 'green',
+                        'FORMAT': params.footprintsFormat,
                         'TIME': params.footprintsTime
                     }
                 } )
