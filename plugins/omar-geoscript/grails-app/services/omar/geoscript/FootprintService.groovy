@@ -75,8 +75,8 @@ class FootprintService
         }
       }
 
-      println filter
-      
+      // println filter
+
       footprints.filter = filter
 
       def map = new GeoScriptMap(
@@ -87,6 +87,10 @@ class FootprintService
           proj: viewBbox.proj,
           layers: [footprints]
       )
+
+      if ( map?.type?.equalsIgnoreCase('gif') ) {
+        map.@renderers['gif'] = new TransparentGif()
+      }
 
       map.render( ostream )
       map.close()

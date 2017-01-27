@@ -137,6 +137,7 @@ oldmar:
       footprints:
         time: '1990-04-09T00:00:00Z/2017-12-31T00:00:00Z'
         useDefault: true
+        format: image/gif
   wms:
     endpoint: http://localhost/o2-wms/wms
   wfs:
@@ -144,6 +145,7 @@ oldmar:
   footprints:
     endpoint: http://localhost/o2-wms/footprints/getFootprints
     defaultStyle: byFileType
+    overrideFormat: ''
 
 server:
   contextPath: /omar
