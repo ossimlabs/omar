@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: service-proxy
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8888/omar-config-server
+    discovery:
+      enabled: true
+---
+spring:
+  profiles: production
+  cloud:
+    config:
+      uri: http://omar-config-server:8888/omar-config-server
