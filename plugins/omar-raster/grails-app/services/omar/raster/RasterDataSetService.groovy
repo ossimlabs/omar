@@ -45,13 +45,8 @@ class RasterDataSetService implements ApplicationContextAware {
 
 		if(!scheme || (scheme=="file"))
 		{
-			println new Date()
-			println "Starting delay of 10 seconds..."
-			sleep(10000)
-			println "End of delay..."
 			File testFile = filename as File
 			if (!testFile?.exists()) {
-				println new Date()
 				httpStatusMessage?.status = HttpStatus.NOT_FOUND
 				httpStatusMessage?.message = "Not Found: ${filename}"
 				log.error(httpStatusMessage?.message)
@@ -148,7 +143,7 @@ class RasterDataSetService implements ApplicationContextAware {
 			}
 		}
 
-      
+
       httpStatusMessage
 	}
 
