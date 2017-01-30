@@ -2,7 +2,9 @@ package oldmar.app
 
 import grails.transaction.Transactional
 import org.springframework.beans.factory.annotation.Value
+import groovy.json.JsonSlurper
 import groovy.xml.StreamingMarkupBuilder
+import groovy.xml.XmlUtil
 
 @Transactional( readOnly = true )
 class WfsProxyService
@@ -11,6 +13,90 @@ class WfsProxyService
   String wfsEndpoint
 
   def grailsLinkGenerator
+
+  static final def featureTypes = [[
+      name: 'omar:raster_entry',
+      title: 'raster_entry',
+      description: '',
+      keywords: ['raster_entry', 'features'],
+      proj: 'EPSG:4326',
+      geoBbox: [maxx: "180.0", maxy: "90.0", minx: "-180.0", miny: "-90.0"],
+      fields: [
+          [maxOccurs: "1", minOccurs: "1", name: "id", nillable: "false", type: "xsd:long"],
+          [maxOccurs: "1", minOccurs: "1", name: "version", nillable: "false", type: "xsd:long"],
+          [maxOccurs: "1", minOccurs: "0", name: "access_date", nillable: "true", type: "xsd:dateTime"],
+          [maxOccurs: "1", minOccurs: "0", name: "acquisition_date", nillable: "true", type: "xsd:dateTime"],
+          [maxOccurs: "1", minOccurs: "0", name: "azimuth_angle", nillable: "true", type: "xsd:double"],
+          [maxOccurs: "1", minOccurs: "0", name: "be_number", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "1", name: "bit_depth", nillable: "false", type: "xsd:int"],
+          [maxOccurs: "1", minOccurs: "0", name: "class_name", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "cloud_cover", nillable: "true", type: "xsd:double"],
+          [maxOccurs: "1", minOccurs: "0", name: "country_code", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "1", name: "data_type", nillable: "false", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "description", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "1", name: "entry_id", nillable: "false", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "exclude_policy", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "file_type", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "filename", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "grazing_angle", nillable: "true", type: "xsd:double"],
+          [maxOccurs: "1", minOccurs: "1", name: "ground_geom", nillable: "false", type: "gml:MultiPolygonPropertyType"],
+          [maxOccurs: "1", minOccurs: "0", name: "gsd_unit", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "gsdx", nillable: "true", type: "xsd:double"],
+          [maxOccurs: "1", minOccurs: "0", name: "gsdy", nillable: "true", type: "xsd:double"],
+          [maxOccurs: "1", minOccurs: "1", name: "height", nillable: "false", type: "xsd:long"],
+          [maxOccurs: "1", minOccurs: "0", name: "image_category", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "image_id", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "image_representation", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "1", name: "index_id", nillable: "false", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "ingest_date", nillable: "true", type: "xsd:dateTime"],
+          [maxOccurs: "1", minOccurs: "0", name: "isorce", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "keep_forever", nillable: "true", type: "xsd:boolean"],
+          [maxOccurs: "1", minOccurs: "0", name: "mission_id", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "niirs", nillable: "true", type: "xsd:double"],
+          [maxOccurs: "1", minOccurs: "1", name: "number_of_bands", nillable: "false", type: "xsd:int"],
+          [maxOccurs: "1", minOccurs: "0", name: "number_of_res_levels", nillable: "true", type: "xsd:int"],
+          [maxOccurs: "1", minOccurs: "0", name: "organization", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "other_tags_xml", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "product_id", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "1", name: "raster_data_set_id", nillable: "false", type: "xsd:long"],
+          [maxOccurs: "1", minOccurs: "0", name: "receive_date", nillable: "true", type: "xsd:dateTime"],
+          [maxOccurs: "1", minOccurs: "0", name: "release_id", nillable: "true", type: "xsd:decimal"],
+          [maxOccurs: "1", minOccurs: "0", name: "security_classification", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "security_code", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "sensor_id", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "style_id", nillable: "true", type: "xsd:decimal"],
+          [maxOccurs: "1", minOccurs: "0", name: "sun_azimuth", nillable: "true", type: "xsd:double"],
+          [maxOccurs: "1", minOccurs: "0", name: "sun_elevation", nillable: "true", type: "xsd:double"],
+          [maxOccurs: "1", minOccurs: "0", name: "target_id", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "tie_point_set", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "title", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "valid_model", nillable: "true", type: "xsd:int"],
+          [maxOccurs: "1", minOccurs: "0", name: "wac_code", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "1", name: "width", nillable: "false", type: "xsd:long"],
+          [maxOccurs: "1", minOccurs: "0", name: "crosses_dateline", nillable: "true", type: "xsd:boolean"]
+      ]
+  ], [
+      name: 'omar:video_data_set',
+      title: 'video_data_set',
+      description: '',
+      keywords: ['video_data_set', 'features'],
+      proj: 'EPSG:4326',
+      geoBbox: [maxx: "180.0", maxy: "90.0", minx: "-180.0", miny: "-90.0"],
+      fields: [
+          [maxOccurs: "1", minOccurs: "1", name: "id", nillable: "false", type: "xsd:long"],
+          [maxOccurs: "1", minOccurs: "1", name: "version", nillable: "false", type: "xsd:long"],
+          [maxOccurs: "1", minOccurs: "0", name: "end_date", nillable: "true", type: "xsd:dateTime"],
+          [maxOccurs: "1", minOccurs: "0", name: "filename", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "ground_geom", nillable: "true", type: "gml:MultiPolygonPropertyType"],
+          [maxOccurs: "1", minOccurs: "1", name: "height", nillable: "false", type: "xsd:long"],
+          [maxOccurs: "1", minOccurs: "1", name: "index_id", nillable: "false", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "other_tags_xml", nillable: "true", type: "xsd:string"],
+          [maxOccurs: "1", minOccurs: "0", name: "repository_id", nillable: "true", type: "xsd:long"],
+          [maxOccurs: "1", minOccurs: "0", name: "start_date", nillable: "true", type: "xsd:dateTime"],
+          [maxOccurs: "1", minOccurs: "0", name: "style_id", nillable: "true", type: "xsd:decimal"],
+          [maxOccurs: "1", minOccurs: "1", name: "width", nillable: "false", type: "xsd:long"]
+      ]
+  ]]
 
   static final def getFeatureOutputFormats = [
       'CSV',
@@ -269,18 +355,16 @@ class WfsProxyService
       [nArgs: "-4", name: "VectorToRaster"],
       [nArgs: "3", name: "VectorZonalStatistics"],
       [nArgs: "1", name: "vertices"],
-      [nArgs: "2", name: "within"],
-
-
+      [nArgs: "2", name: "within"]
   ]
 
   def handleRequestGET(def params)
   {
-    println "GET: ${params}"
+//    println "GET: ${params}"
 
     def op = params.find { it.key.toUpperCase() == 'REQUEST' }.value
 
-    println "${op} ${params}"
+//    println "${op} ${params}"
 
     def contentType = 'text/xml'
     def results
@@ -293,10 +377,16 @@ class WfsProxyService
       results = [contentType: contentType, text: doc]
       break
     case 'DESCRIBEFEATURETYPE':
-      results = [contentType: contentType, text: '']
+      def typeName = params.find { it.key.toUpperCase() == 'TYPENAME' }?.value
+      def doc = describeFeatureType( typeName )
+      results = [contentType: 'text/xml', text: doc]
       break
     case 'GETFEATURE':
-      results = [contentType: contentType, text: '']
+      def typeName = params.find { it.key.toUpperCase() == 'TYPENAME' }?.value
+      def filter = params.find { it.key.toUpperCase() == 'FILTER' }?.value
+      def outputFormat = params.find { it.key.toUpperCase() == 'OUTPUTFORMAT' }?.value
+      def doc = getFeature( typeName, filter, outputFormat )
+      results = [contentType: 'text/xml', text: doc]
       break
     }
 
@@ -305,9 +395,41 @@ class WfsProxyService
 
   def handleRequestPOST(def xml)
   {
-    println "POST ${xml}"
+//    println "POST:"
 
-    [contentType: contentType, file: [] as byte[]]
+    def op = xml.name()
+
+//    println "${op} ${XmlUtil.serialize( xml )}"
+
+
+    def results
+
+    switch ( op?.toUpperCase() )
+    {
+    case 'GETCAPABILITIES':
+      def doc = getCapabilities()
+
+      results = [contentType: contentType, text: doc]
+      break
+    case 'DESCRIBEFEATURETYPE':
+      def typeName = xml.TypeName.text() as String
+      def doc = describeFeatureType( typeName )
+      results = [contentType: 'text/xml', text: doc]
+      break
+    case 'GETFEATURE':
+      def typeName = xml.Query.@typeName.text() as String
+
+      def filter = ( xml?.Query?.Filter ) ? xml?.Query?.collect {
+        new StreamingMarkupBuilder().bindNode( it.Filter ).toString().trim()
+      }?.first() : null
+
+      def outputFormat = null
+      def doc = getFeature( typeName, filter, outputFormat )
+      results = [contentType: 'text/xml', text: doc]
+      break
+    }
+
+    results
   }
 
   def getCapabilities()
@@ -342,7 +464,7 @@ class WfsProxyService
               }
               DCPType {
                 HTTP {
-                  Post( onlineResource: wfsUrl) // changeme
+                  Post( onlineResource: wfsUrl ) // changeme
                 }
               }
             }
@@ -370,7 +492,7 @@ class WfsProxyService
               }
               DCPType {
                 HTTP {
-                  Post( onlineResource: wfsUrl) // changeme
+                  Post( onlineResource: wfsUrl ) // changeme
                 }
               }
             }
@@ -380,21 +502,15 @@ class WfsProxyService
           Operations {
             Query()
           }
-          FeatureType {
-            Name( 'omar:raster_entry' )
-            Title( 'raster_entry' )
-            Abstract()
-            Keywords( 'raster_entry, features' )
-            SRS( 'EPSG:4326' )
-            LatLongBoundingBox( maxx: "180.0", maxy: "90.0", minx: "-180.0", miny: "-90.0" )
-          }
-          FeatureType {
-            Name( 'omar:video_data_set ' )
-            Title( 'video_data_set' )
-            Abstract()
-            Keywords( 'video_data_set, features' )
-            SRS( 'EPSG:4326' )
-            LatLongBoundingBox( maxx: "180.0", maxy: "90.0", minx: "-180.0", miny: "-90.0" )
+          featureTypes.each { featureType ->
+            FeatureType {
+              Name( featureType.name )
+              Title( featureType.title )
+              Abstract( featureType.description )
+              Keywords( featureType?.keywords?.join( ', ' ) )
+              SRS( featureType.proj )
+              LatLongBoundingBox( featureType.geoBbox )
+            }
           }
         }
         ogc.Filter_Capabilities {
@@ -429,8 +545,94 @@ class WfsProxyService
     new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x ).toString()
   }
 
-  def fetch()
+  def describeFeatureType(def typeName)
   {
+    def featureType = featureTypes.find { it.name == typeName }
+
+    def x = {
+      mkp.xmlDeclaration()
+      mkp.declareNamespace(
+          omar: "http://omar.ossim.org",
+          xsd: "http://www.w3.org/2001/XMLSchema",
+          gml: "http://www.opengis.net/gml"
+      )
+      xsd.schema( elementFormDefault: "qualified", targetNamespace: "http://omar.ossim.org" ) {
+        xsd.import( namespace: "http://www.opengis.net/gml", schemaLocation: "http://schemas.opengis.net/gml/2.1.2/feature.xsd" )
+        xsd.complexType( name: "${featureType.title}Type" ) {
+          xsd.complexContent {
+            xsd.extension( base: "gml:AbstractFeatureType" ) {
+              xsd.sequence {
+                featureType?.fields?.each { field ->
+                  xsd.element( field )
+                }
+              }
+            }
+          }
+        }
+        xsd.element( name: "${featureType.title}", substitutionGroup: "gml:_Feature", type: "${featureType.name}Type" )
+      }
+    }
+
+    new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x ).toString()
+  }
+
+  def getFeature(def typeName, def filter, def outputFormat)
+  {
+    def featureJSON = fetchJSON( typeName, filter )
+    def (prefix, layerName) = typeName?.split( ':' )
+
+    def x = {
+      mkp.xmlDeclaration()
+      mkp.declareNamespace(
+          wfs: "http://www.opengis.net/wfs",
+          gml: "http://www.opengis.net/gml",
+          omar: "http://omar.ossim.org",
+          xsi: "http://www.w3.org/2001/XMLSchema-instance",
+      )
+
+      def featureSchemaURL = grailsLinkGenerator.link( absolute: true, uri: '/wfs', params: [
+          service: 'WFS',
+          version: '1.0.0',
+          request: 'DescribeFeatureType',
+          typeName: typeName
+      ] )
+      wfs.FeatureCollection( xmlns: "http://www.opengis.net/wfs", 'xsi:schemaLocation': "${featureSchemaURL} http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd" ) {
+
+        gml.boundedBy {
+          gml.null( 'unknown' )
+        }
+
+        featureJSON?.features?.each { featureMember ->
+          gml.featureMember {
+            "${prefix}:${layerName}"( fid: "${featureMember.id}" ) {
+              featureMember?.properties?.each { property ->
+                "${prefix}:${property.key}"( property.value )
+              }
+              omar.ground_geom {
+                gml.MultiPolygon( srsName: "http://www.opengis.net/gml/srs/epsg.xml#4326" ) {
+                  gml.polygonMember {
+                    gml.Polygon {
+                      gml.outerBoundaryIs {
+                        gml.LinearRing {
+                          def coords = featureMember?.geometry?.coordinates[0][0].collect { it.join( ',' ) }.join( ' ' )
+                          gml.coordinates( decimal: ".", cs: ",", ts: " ", coords )
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x ).toString()
+  }
+
+//  def fetch()
+//  {
 //    def newParams = params.inject( [:] ) { a, b ->
 //      switch ( b.key?.toUpperCase() )
 //      {
@@ -446,6 +648,25 @@ class WfsProxyService
 //    def urlConnection = url.openConnection();
 //    //def contentType = urlConnection.getHeaderField( "Content-Type" );
 //    def contentType = 'text/xml'
+//
+//  }
 
+
+  def fetchJSON(def typeName, def filter)
+  {
+    def wfsParams = [
+        service: 'WFS',
+        version: '1.1.0',
+        request: 'GetFeature',
+        typeName: typeName,
+        filter: filter ?: "",
+        outputFormat: 'JSON'
+    ].collect {
+      "${it.key}=${URLEncoder.encode( it.value as String, 'utf-8' )}"
+    }.join( '&' )
+
+    def url = "${wfsEndpoint}?${wfsParams}".toURL()
+
+    new JsonSlurper().parse( url )
   }
 }
