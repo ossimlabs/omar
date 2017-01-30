@@ -5,6 +5,7 @@ import omar.core.HttpStatus
 import sun.awt.image.ToolkitImage
 
 import javax.media.jai.PlanarImage
+import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Font
 import java.awt.Point
@@ -138,6 +139,19 @@ class ImageSpaceService
 
   def getTile(GetTileCommand cmd)
   {
+    // Check to see if file exists
+    if ( ! new File(cmd.filename).exists() )
+    {
+      def image = getDefaultImage(cmd.size, cmd.size)
+      def ostream = new ByteArrayOutputStream()
+      ImageIO.write(image, cmd.format, ostream)
+
+      return [ status     : HttpStatus.OK,
+               contentType: "image/${hints.type}",
+               buffer     : ostream.toByteArray()
+      ]
+    }
+
       def imageInfo = readImageInfo(cmd.filename)
       def result = [status     : HttpStatus.NOT_FOUND,
                     contentType: "plane/text",
@@ -330,6 +344,16 @@ class ImageSpaceService
 
   def getThumbnail(GetThumbnailCommand cmd)
   {
+    // Check to see if file exists
+    if ( ! new File(cmd.filename).exists() )
+    {
+      def image = getDefaultImage(cmd.size, cmd.size)
+      def ostream = new ByteArrayOutputStream()
+      ImageIO.write(image, cmd.format, ostream)
+
+      return [contentType: "image/${cmd.format}", buffer: ostream.toByteArray()]
+    }
+
     def opts = [
         hist_op: 'auto-minmax',
         'image0.file': cmd.filename,
@@ -391,4 +415,19 @@ class ImageSpaceService
 //
 //    [contentType: "image/${cmd.format}", buffer: buffer]
 //  }
+
+  def getDefaultImage(int width, int height)
+  {
+    def image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
+    def g2d = image.createGraphics()
+
+    g2d.paint = Color.red
+    g2d.stroke = new BasicStroke(3)
+    g2d.drawRect(0, 0, width, height)
+    g2d.drawLine(0, 0, width, height)
+    g2d.drawLine(width, 0, 0,  height)
+    g2d.dispose()
+
+    image
+  }
 }

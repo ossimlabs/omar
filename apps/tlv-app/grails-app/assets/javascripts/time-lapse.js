@@ -42,7 +42,7 @@ function buildSummaryTable() {
 			$( cell ).append( x.imageId );
 
 			cell = row.insertCell( row.cells.length );
-			$( cell ).append( x.acquisitionDate );
+			$( cell ).append( x.acquisitionDate + "z" );
 
 			cell = row.insertCell( row.cells.length );
 			var span = document.createElement( "span" );

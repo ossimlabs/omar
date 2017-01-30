@@ -94,3 +94,9 @@ assets {
         '**/index-bundle.*'
     ]
 }
+
+grails {
+	plugins {
+		compile project(':tlv-network-specific')
+	}
+}
