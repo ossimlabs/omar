@@ -6,6 +6,7 @@ avro{
   createDirectoryRetry="3"
   createDirectoryRetryWaitInMillis="100"
   jsonSubFieldPath=""
+  stagingDelay=0
   download{
     directory="/data"
 

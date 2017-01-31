@@ -26,6 +26,7 @@ class AvroFileProcessingJob {
                ingestMetricsService.endIngest(fileRecord.processId)
                break
             case "post":
+               sleep( config.stagingDelay ) // ensure that the NFS has enough time to flush bits 
                String url   = config.destination.post.addRasterEndPoint
                String field = config.destination.post.addRasterEndPointField
                HashMap params = config.destination.post.addRasterEndPointParams as HashMap

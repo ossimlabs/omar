@@ -143,7 +143,7 @@ class RasterDataSetService implements ApplicationContextAware {
 			}
 		}
 
-      
+
       httpStatusMessage
 	}
 
