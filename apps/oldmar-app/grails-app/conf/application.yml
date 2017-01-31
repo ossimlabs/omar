@@ -126,6 +126,7 @@ endpoints:
 
 ---
 oldmar:
+  defaultTitle: 'OMAR 1.8.21: Login'
   mapView:
     baseLayer:
       url:  https://ahocevar.com/geoserver/wms

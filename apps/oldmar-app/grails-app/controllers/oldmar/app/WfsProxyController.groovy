@@ -6,6 +6,14 @@ class WfsProxyController
 
   def index()
   {
-    render wfsProxyService.handleRequest( params )
+    switch ( request.method.toUpperCase()  )
+    {
+    case 'GET':
+      render wfsProxyService.handleRequestGET( params )
+      break
+    case 'POST':
+      render wfsProxyService.handleRequestPOST( request.XML )
+      break
+    }
   }
 }
