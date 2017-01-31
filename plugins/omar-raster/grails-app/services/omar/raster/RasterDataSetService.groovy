@@ -47,6 +47,7 @@ class RasterDataSetService implements ApplicationContextAware {
 		{
 			File testFile = filename as File
 			if (!testFile?.exists()) {
+				println new Date()
 				httpStatusMessage?.status = HttpStatus.NOT_FOUND
 				httpStatusMessage?.message = "Not Found: ${filename}"
 				log.error(httpStatusMessage?.message)
