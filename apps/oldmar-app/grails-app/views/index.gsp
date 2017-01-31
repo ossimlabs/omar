@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>${grailsApplication.config.oldmar.defaultTitle}</title>
+    <title>${grailsApplication.config.oldmar.defaultTitle.trim()}</title>
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
 </head>
