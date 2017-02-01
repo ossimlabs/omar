@@ -24,7 +24,7 @@ class MapViewController
 
   @Value( '${oldmar.mapView.defaults.footprints.format}' )
   String footprintsFormat
-
+  
   def index()
   {
     if ( params.containsKey( 'useDefaultFootprintsTime' ) )

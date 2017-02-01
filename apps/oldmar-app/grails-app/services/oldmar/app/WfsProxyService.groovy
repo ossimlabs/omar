@@ -423,9 +423,13 @@ class WfsProxyService
         new StreamingMarkupBuilder().bindNode( it.Filter ).toString().trim()
       }?.first() : null
 
+      def maxFeatures = xml.@maxFeatures?.text()
+      def resultType = xml.@resultType?.text()
       def outputFormat = null
-      def doc = getFeature( typeName, filter, outputFormat )
+      def doc = getFeature( typeName, filter, outputFormat, maxFeatures, resultType )
+
       results = [contentType: 'text/xml', text: doc]
+
       break
     }
 
@@ -576,9 +580,11 @@ class WfsProxyService
     new StreamingMarkupBuilder( encoding: 'utf-8' ).bind( x ).toString()
   }
 
-  def getFeature(def typeName, def filter, def outputFormat)
+  def getFeature(def typeName, def filter, def outputFormat, def maxFeatures = 10, def resultType = 'results')
   {
-    def featureJSON = fetchJSON( typeName, filter )
+
+    def featureJSON = fetchJSON( typeName, filter, maxFeatures, resultType )
+    
     def (prefix, layerName) = typeName?.split( ':' )
 
     def x = {
@@ -596,7 +602,10 @@ class WfsProxyService
           request: 'DescribeFeatureType',
           typeName: typeName
       ] )
-      wfs.FeatureCollection( xmlns: "http://www.opengis.net/wfs", 'xsi:schemaLocation': "${featureSchemaURL} http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd" ) {
+      wfs.FeatureCollection( xmlns: "http://www.opengis.net/wfs",
+          'xsi:schemaLocation': "${featureSchemaURL} http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd",
+          numberOfFeatures: featureJSON?.totalFeatures, timeStamp: new Date().format( "yyy-MM-dd'T'HH:mm:ss.SSSZ" )
+      ) {
 
         gml.boundedBy {
           gml.null( 'unknown' )
@@ -652,7 +661,7 @@ class WfsProxyService
 //  }
 
 
-  def fetchJSON(def typeName, def filter)
+  def fetchJSON(def typeName, def filter, def maxFeatures, def resultType)
   {
     def wfsParams = [
         service: 'WFS',
@@ -660,7 +669,9 @@ class WfsProxyService
         request: 'GetFeature',
         typeName: typeName,
         filter: filter ?: "",
-        outputFormat: 'JSON'
+        outputFormat: 'JSON',
+        maxFeatures: maxFeatures,
+        resultType: resultType
     ].collect {
       "${it.key}=${URLEncoder.encode( it.value as String, 'utf-8' )}"
     }.join( '&' )
