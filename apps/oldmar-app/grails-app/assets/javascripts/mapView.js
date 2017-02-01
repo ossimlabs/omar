@@ -132,10 +132,9 @@ var MapView = (function ()
 
     function getFeature( results )
     {
-        // var $features = $.parseXML( results );
-        // var count = $features.find( '[numberOfFeatures]' );
-        // console.log( count );
-        console.log( results );
+        var $features = $( $.parseXML( results ) );
+        var count = $features.find( 'FeatureCollection' ).attr( 'numberOfFeatures' );
+        console.log( JSON.stringify( {numberOfFeatures: count} ) );
     }
 
     return {
