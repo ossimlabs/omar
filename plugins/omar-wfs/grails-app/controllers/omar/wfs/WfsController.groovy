@@ -13,6 +13,7 @@ class WfsController
 
   static defaultAction = "index"
 
+  static allowedMethods = [index: ['GET', 'POST', 'OPTIONS']]
 
   def index()
   {
@@ -26,6 +27,11 @@ class WfsController
       break
     case 'POST':
       op = request?.XML?.name()
+      break
+    case 'OPTIONS':
+      def timestamp = new Date().format( "yyyy-MM-dd'T'HH:mm:ss.SSSZ" )
+//      println "OPTIONS: ${timestamp}"
+      render contentType: 'text/plain', text: timestamp
       break
     }
 
@@ -127,7 +133,9 @@ class WfsController
 
     def results = webFeatureService.getCapabilities( wfsParams )
 
-    if(results.status != null) response.status = results.status
+    if(results.status != null) {
+response.status = results.status
+}
 
     render contentType: results.contentType, text: results.buffer
   }
@@ -146,7 +154,9 @@ class WfsController
     BindUtil.fixParamNames( DescribeFeatureTypeRequest, params )
     bindData( wfsParams, params )
     def results = webFeatureService.describeFeatureType( wfsParams )
-    if(results.status != null) response.status = results.status
+    if(results.status != null) {
+response.status = results.status
+}
 
     render contentType: results.contentType, text: results.buffer
   }
@@ -174,9 +184,13 @@ class WfsController
     bindData( wfsParams, params )
 
     def results = webFeatureService.getFeature( wfsParams )
-    if(results.status != null) response.status = results.status
+    if(results.status != null) {
+response.status = results.status
+}
 
-    if(results.filename) response.setHeader("Content-Disposition", "attachment;filename=${results.filename}");
+    if(results.filename) {
+response.setHeader("Content-Disposition", "attachment;filename=${results.filename}")
+};
 
     render contentType: results.contentType, text: results.buffer
   }
