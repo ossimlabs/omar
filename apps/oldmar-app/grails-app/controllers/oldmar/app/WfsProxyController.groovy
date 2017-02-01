@@ -17,7 +17,9 @@ class WfsProxyController
       render wfsProxyService.handleRequestPOST( request.XML )
       break
     case 'OPTIONS':
-      render contextPath: 'text/plain', text: "${new Date().format( "yyyy-MM-dd'T'HH:mm:ss.SSSZ" )}"
+      def timestamp = new Date().format( "yyyy-MM-dd'T'HH:mm:ss.SSSZ" )
+      println "OPTIONS: ${timestamp}"
+      render contentType: 'text/plain', text: timestamp
       break
     }
   }
