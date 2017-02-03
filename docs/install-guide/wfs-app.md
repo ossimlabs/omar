@@ -101,106 +101,6 @@ wfs:
           - features
         datastoreId: omardb-prod
 
-wms:
-  styles:
-    byFileType:
-      adrg:
-        filter: file_type='adrg'
-        color:
-          r: 50
-          g: 111
-          b: 111
-          a: 255
-      aaigrid:
-        filter: file_type='aaigrid'
-        color: pink
-      cadrg:
-        filter: file_type='cadrg'
-        color:
-          r: 0
-          g: 255
-          b: 255
-          a: 255
-      ccf:
-        filter: file_type='ccf'
-        color:
-          r: 128
-          g: 100
-          b: 255
-          a: 255
-      cib:
-        filter: file_type='cib'
-        color:
-          r: 0
-          g: 128
-          b: 128
-          a: 255
-      doqq:
-        filter: file_type='doqq'
-        color: purple
-      dted:
-        filter: file_type='dted'
-        color:
-          r: 0
-          g: 255
-          b: 0
-          a: 255
-      imagine_hfa:
-        filter: file_type='imagine_hfa'
-        color: lightGray
-      jpeg:
-        filter: file_type='jpeg'
-        color:
-          r: 255
-          g: 255
-          b: 0
-          a: 255
-      jpeg2000:
-        filter: file_type='jpeg2000'
-        color:
-          r: 255
-          g: 200
-          b: 0
-          a: 255
-      landsat7:
-        filter: file_type='landsat7'
-        color:
-          r: 255
-          g: 0
-          b: 255
-          a: 255
-      mrsid:
-        filter: file_type='mrsid'
-        color:
-          r: 0
-          g: 188
-          b: 0
-          a: 255
-      nitf:
-        filter: file_type='nitf'
-        color:
-          r: 0
-          g: 0
-          b: 255
-          a: 255
-      tiff:
-        filter: file_type='tiff'
-        color:
-          r: 255
-          g: 0
-          b: 0
-          a: 255
-      mpeg:
-        filter: file_type='mpeg'
-        color:
-          r: 164
-          g: 254
-          b: 255
-          a: 255
-      unspecified:
-        filter: file_type='unspecified'
-        color: white
-
 endpoints:
   health:
     enabled: true
@@ -213,7 +113,6 @@ grails:
 
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
 * **wfs** This entry stores both the datastore information and the feature types.  The only thing that will change in these two is the location of the postgres datastore location identified in the **datastoreParams** section by the host, port, and database.  The Feature type uses the database ans the datastore ID.  Internally this is used to query the features.
-* **wms.styles** is used for footprint styling for the WMS footprint drawing.  You can define different color definitions and group them by a style name.  wms footprint interface can be defined with this service to allow one to draw the footprints of the WFS holdings.
 
 ##Executing
 
