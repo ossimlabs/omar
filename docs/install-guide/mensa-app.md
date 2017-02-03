@@ -47,6 +47,17 @@ endpoints:
   health:
     enabled: true
 
+environments:
+  production:
+    dataSource:
+      pooled: true
+      jmxExport: true
+      driverClassName: org.postgresql.Driver
+      username: postgres
+      password:
+      dialect: 'org.hibernate.spatial.dialect.postgis.PostgisDialect'
+      url: jdbc:postgresql://192.168.2.100:5432/omardb-prod
+      
 ---
 grails:
   serverURL: http://192.168.2.200/mensa-app
