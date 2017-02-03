@@ -46,8 +46,14 @@ dependencyManagement {
 }
 
 dependencies {
-        compile project( ':omar-geoscript')
-        compile project( ':omar-oms' )
+//    compile project( ':omar-geoscript')
+   compile( "org.geoscript:geoscript-groovy:1.7.0" ) {
+      exclude module: 'ehcache'
+      exclude module: "groovy-all"
+      exclude module: "slf4j-log4j12"
+      exclude module: "xml-apis"
+   }
+    compile project( ':omar-oms' )
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
