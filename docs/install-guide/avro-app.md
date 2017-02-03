@@ -59,10 +59,10 @@ environments:
 
 omar:
   avro:
-    sourceUriField: "S3_URI_Nitf"
-    dateField: "Observation_Date"
+    sourceUriField: "uRL"
+    dateField: "observationDateTime"
     dateFieldFormat: "yyyyMMddHHmmss"
-    imageIdField: "Image_Id"
+    imageIdField: "imageId"
     jsonSubFieldPath: "Message"
     download:
       directory: "/data/s3"
@@ -86,7 +86,7 @@ endpoints:
 
 * **sourceUriField** Is the source URI field name in the JSON Avro record.
 * **dateField (optional)** Is the date field in the JSON Avro Record.  This field is optional and is used as a way to encode the **directory** for storing the image.  If this is not given then the directory suffix will be the path of the **sourceUriField**
-* **dateFieldFormat** Is the format of the date field.
+* **dateFieldFormat** Is the format of the date field.  If you leave this blank "" then it will default to parsing an ISO8601 date.
 * **imageIdField** Is the image Id field used to identify the image
 * **jsonSubFieldPath** Allows one to specify a path separated by "." to the submessage to where all the image information resides.  For example, if you pass a Message wrapped within the SNS notification it will be a subfield of the SNS message.  This allows one to specify a path to the message to be handled.
 * **download** This is the download specifications

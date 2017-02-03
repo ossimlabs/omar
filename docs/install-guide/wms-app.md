@@ -223,7 +223,7 @@ grails:
 The wfs definitions are used to query the database for feature information that will be used to satisfy the Chip request.
 
 * **contextPath:**, **port:**, **dataSource** Was already covered in the common [OMAR Common Install Guide](common.md).
-* **wfs** This entry stores both the datastore information and the feature types.  The only thing that will change in these two is the location of the postgres datastore location identified in the **datastoreParams** section by the host, port, and database.  The Feature type uses the database and the datastore ID.
+* **wfs** This entry stores both the datastore information and the feature types.  The only thing that will change in these two is the location of the postgres datastore location identified in the **datastoreParams** section by the host, port, and database.  The Feature type uses the database and the datastore ID.  **Note:** You can use Unix env variable for the values in this section.  For example dbhost: ${DBHOST} would use the environment variable call DBHOST. 
 * **wms.styles** is used for footprint styling for the WMS footprint drawing.  You can define different color definitions and group them by a style name.   
 
 ##Elevation Configuration
