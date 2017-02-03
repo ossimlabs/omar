@@ -235,7 +235,8 @@ omar:
         #columnName: be
         #geomName: location
         #maxResults: 100
-
+      totalPaginationCount: 1000
+      pageLimit: 10
 
 ---
 classificationBanner:

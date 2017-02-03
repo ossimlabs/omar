@@ -6,7 +6,7 @@
 
         function WfsController ($scope, $log, $q, usSpinnerService) {
 
-                OpenLayers.ProxyHost = "../proxy/index?url=";
+                //OpenLayers.ProxyHost = "../proxy/index?url=";
 
                 $scope.source = [];
                 //$scope.endPoint = 'http://demo.boundlessgeo.com/geoserver/wfs';
