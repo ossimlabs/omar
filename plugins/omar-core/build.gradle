@@ -55,6 +55,7 @@ dependencies {
     compile "org.grails:grails-web-boot"
     compile "org.grails.plugins:cache"
     compile "org.grails.plugins:scaffolding"
+    runtime "com.h2database:h2"
 //    compile "org.apache.httpcomponents:httpclient:4.5.2"
     console "org.grails:grails-console"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
