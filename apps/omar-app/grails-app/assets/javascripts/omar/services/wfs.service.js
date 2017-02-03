@@ -36,7 +36,12 @@
       sortField: "acquisition_date",
       sortType: "+D",
       startIndex: 0,
+      pageLimit: 10
     };
+
+    if (AppO2.APP_CONFIG.params.misc.pageLimit != undefined) {
+      this.attrObj.pageLimit = AppO2.APP_CONFIG.params.misc.pageLimit;
+    }
 
     this.updateSpatialFilter = function(filter) {
 
@@ -71,7 +76,23 @@
 
     };
 
-    this.executeWfsQuery = function () {
+    this.updateAttrFilterPaginate = function(startIndex){
+
+      var boolUpdate = false;
+      if (startIndex !== undefined){
+        if (this.attrObj.startIndex != startIndex){
+          boolUpdate = true;
+          this.attrObj.startIndex = startIndex;
+        }
+      }
+      if(boolUpdate){
+        $rootScope.$broadcast(
+          'attrObj.updated', this.attrObj.filter
+        );
+      }
+    }
+
+    this.executeWfsQuery = function() {
 
       if (this.attrObj.filter === "") {
 
@@ -93,6 +114,7 @@
       wfsRequest.sortField = this.attrObj.sortField;
       wfsRequest.sortType = this.attrObj.sortType;
       wfsRequest.startIndex = this.attrObj.startIndex;
+      wfsRequest.pageLimit = this.attrObj.pageLimit;
 
       var wfsUrl = wfsRequestUrl +
         "service=WFS" +
@@ -103,7 +125,7 @@
         "&outputFormat=" + wfsRequest.outputFormat +
         "&sortBy=" + wfsRequest.sortField + wfsRequest.sortType +
         "&startIndex=" + wfsRequest.startIndex +
-        "&maxFeatures=" + wfsRequest.maxFeatures;
+        "&maxFeatures=" +  wfsRequest.pageLimit; // wfsRequest.maxFeatures;
 
       $http({
         method: 'GET',
@@ -140,7 +162,7 @@
       .then(function (response) {
         var features;
         features = response.data.totalFeatures;
-        
+
         // $timeout needed: http://stackoverflow.com/a/18996042
         $timeout(function () {
             $rootScope.$broadcast('wfs features: updated', features);

@@ -107,8 +107,16 @@ omar:
       baseUrl: http://localhost:8081/api
       enabled: true
     misc:
+      #beLookupEnabled: true
       icons:
-        green-marker: search_marker_green.png
+        greenMarker: assets/search_marker_green.png
+      #placemarks:
+        #tableName: omar:be_number
+        #columnName: be
+        #geomName: location
+        #maxResults: 100
+      totalPaginationCount: 1000
+      pageLimit: 10
 
 endpoints:
   health:

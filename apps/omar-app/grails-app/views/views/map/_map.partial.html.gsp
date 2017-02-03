@@ -687,9 +687,12 @@
             appropriate extent for your search.</p>
         </div>
       </div>
-      <div ng-show="list.wfsData.length >= 1"
+      <!-- <div ng-show="list.wfsData.length >= 1"
        ng-repeat="image in list.wfsData.slice(((list.currentStartIndex-1)*list.itemsPerPage), ((list.currentStartIndex)*list.itemsPerPage))" ng-init="list.showProcessInfo=[]"
-       ng-model="image">
+       ng-model="image"> -->
+      <div ng-show="list.wfsFeatures >= 1"
+        ng-repeat="image in list.wfsData" ng-init="list.showProcessInfo=[]"
+        ng-model="image">
         <div class="panel panel-default" >
           <div class="panel-body"
            ng-mouseenter="list.displayFootprint(image);"
@@ -809,6 +812,7 @@
           </div>
         </div>
       </div>
+
     </div>
     <!-- right-click context menu -->
     <div class="modal" id="contextMenuDialog" role="dialog" tabindex="-1">
@@ -825,7 +829,8 @@
     </div>
     <div class="text-center">
       <uib-pagination style="margin: 8px;"
-        total-items="list.wfsData.length"
+        total-items="list.wfsFeaturesTotalPaginationCount"
+        items-per-page="list.pageLimit"
         ng-model="list.currentStartIndex"
         ng-change="list.pagingChanged()"
         max-size="5"

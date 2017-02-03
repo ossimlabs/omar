@@ -16,6 +16,16 @@
         /* jshint validthis: true */
         var vm = this;
 
+        vm.totalPaginationCount = 1000;
+        vm.pageLimit = 10;
+
+        if (AppO2.APP_CONFIG.params.misc.totalPaginationCount != undefined) {
+          vm.totalPaginationCount = AppO2.APP_CONFIG.params.misc.totalPaginationCount;
+        }
+        if (AppO2.APP_CONFIG.params.misc.pageLimit != undefined) {
+          vm.pageLimit = AppO2.APP_CONFIG.params.misc.pageLimit;
+        }
+
         //vm.thumbPath = '/o2/imageSpace/getThumbnail?';
         vm.thumbPath = AppO2.APP_CONFIG.params.thumbnails.baseUrl;
         vm.thumbFilename = 'filename='; // Parameter provided by image.properties.filename
@@ -44,8 +54,6 @@
         }
 
         vm.thumbBorder = function( imageType ) {
-
-            //console.log(imageType);
 
             var border = {
                 "border-color": "white",
@@ -130,11 +138,7 @@
             vm.jpipLink = AppO2.APP_CONFIG.params.jpipApp.baseUrl;
         }
 
-        //AppO2.APP_PATH is passed down from the .gsp
-        // {{list.o2baseUrl}}/#{{list.o2contextPath}}/mapOrtho?layers={{image.properties.id}}
-
         vm.o2baseUrl = AppO2.APP_CONFIG.serverURL + '/omar';
-        //console.log('vm.o2baseUrl: ', vm.o2baseUrl);
         //vm.o2contextPath = AppO2.APP_CONTEXTPATH;
 
         var imageSpaceDefaults = {
@@ -180,7 +184,6 @@
                 // Update the DOM (card list)
                 $scope.$apply(function() {
 
-                    // console.log('We are in the jpip: updated $on');
                     vm.showProcessInfo[index] = false;
 
                 });
@@ -192,17 +195,15 @@
             }
         };
 
-        vm.currentAttrFilter = wfsService.attrObj;
         vm.currentSortText = "Acquired (New)";
 
-        vm.currentStartIndex = 1; //wfsService.attrObj.startIndex;
-        vm.itemsPerPage = 10;
+        vm.currentStartIndex = 1;
 
-        // vm.pagingChanged = function() {
-        //
-        //     //console.log('Page changed');
-        //
-        // };
+        vm.pagingChanged = function() {
+
+          wfsService.updateAttrFilterPaginate((vm.currentStartIndex - 1)* wfsService.attrObj.pageLimit);
+
+        };
 
         vm.sortWfs = function(field, type, text) {
 
@@ -226,16 +227,11 @@
         // wfs.spatial and wfs.attr filters
         $scope.$on('spatialObj.updated', function(event, filter) {
 
-            //console.log('$on spatialObj filter updated', filter);
-
-            //wfsService.executeWfsQuery(filter, null);
             wfsService.executeWfsQuery();
 
         });
 
         $scope.$on('attrObj.updated', function(event, filter) {
-
-            //console.log('$on attrObj filter updated', filter);
 
             wfsService.executeWfsQuery();
 
@@ -243,9 +239,10 @@
 
         $scope.$on('wfs: updated', function(event, data) {
 
-            // Update the DOM (card list)
+            // Update the DOM (card list) with the data
             $scope.$apply(function() {
                 vm.wfsData = data;
+                $("#list").animate({ scrollTop: 0 }, "fast");
             });
 
         });
@@ -254,14 +251,15 @@
 
             // Update the total feature count
             $scope.$apply(function() {
-                vm.wfsFeatures = features;
+              vm.wfsFeatures = features;
+              if (features != undefined){
+                vm.wfsFeaturesTotalPaginationCount = Math.min(vm.totalPaginationCount, vm.wfsFeatures);
+              }
             });
 
         });
 
         vm.showImageModal = function(imageObj, imageSpaceDefaults) {
-
-            //console.log('imageObj', imageObj);
 
             var modalInstance = $uibModal.open({
                 size: 'lg',
@@ -279,7 +277,6 @@
             });
 
             modalInstance.result.then(function() {
-                //console.log('Modal closed at: ' + new Date());
 
             }, function() {
                 //console.log('Modal dismissed at: ' + new Date());
@@ -314,10 +311,8 @@
         vm.selectedImage = imageObj;
         //used in the modal _list.image-card.partial.html.gsp
         vm.imageSpaceDefaults = imageSpaceDefaults;
-        //console.log(vm.selectedImage);
 
         //modal.rendered = false;
-        //console.log('modal', modal);
 
         //AppO2.APP_PATH is passed down from the .gsp
         vm.o2baseUrlModal = AppO2.APP_CONFIG.serverURL + '/omar';
@@ -372,9 +367,7 @@
         }
 
         vm.loadBeData = function loadBeData(geom) {
-            console.log('loadBeData geometry: ', imageObj.geometry);
             vm.beData = beNumberService.getBeData(new ol.geom.MultiPolygon(imageObj.geometry.coordinates));
-            console.log('vm.beData: ', vm.beData);
         };
 
         vm.calcRes = function calcRes() {
@@ -385,12 +378,10 @@
         };
 
         vm.cancel = function() {
-            //console.log( 'closing...' );
             $uibModalInstance.close('paramObj');
         };
 
         vm.dismiss = function() {
-            console.log('dismissing...');
             $uibModalInstance.dismiss('cancel');
         };
 
