@@ -224,7 +224,7 @@ omar:
       baseUrl: http://omar.ossim.org/piwik/
       enabled: false
     userGuide:
-      baseUrl: http://ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs
+      baseUrl: http://localhost/o2-docs
       enabled: true
     misc:
       #beLookupEnabled: true
