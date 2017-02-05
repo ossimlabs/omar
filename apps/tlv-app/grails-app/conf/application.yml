@@ -18,7 +18,7 @@ beLookupUrl: http://localhost:8081/wfs
 
 defaultLocation: 48.8584, 2.2945
 
-docsUrl: http://ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs/user-guide/tlv
+docsUrl: http://localhost:80/o2-docs
 
 geocoderUrl: http://dev.o2.radiantbluecloud.com/twofishes
 
