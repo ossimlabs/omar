@@ -42,11 +42,21 @@ class GeoscriptService implements InitializingBean
           if ( wfsParams[wfsParamName]?.trim() )
           {
             options['sort'] = wfsParams[wfsParamName].split( ',' )?.collect {
-              def props = it.split( ' ' ) as List
-              if ( props.size() == 2 )
+              def props = [it] as List
+              if(it.contains(" "))
+              {
+                props = it.split( ' ' ) as List
+              }
+              else if(it.contains("+"))
+              {
+                props = it.split( '+' ) as List
+              }
+
+              if ( props?.size() == 2 )
               {
                 props[1] = ( props[1].equalsIgnoreCase( 'D' ) ) ? 'DESC' : 'ASC'
               }
+
               props
             }
           }
