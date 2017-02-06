@@ -49,14 +49,13 @@ class GeoscriptService implements InitializingBean
               }
               else if(it.contains("+"))
               {
-                props = it.split( '+' ) as List
+                props = it.split( "\\+" ) as List
               }
 
               if ( props?.size() == 2 )
               {
                 props[1] = ( props[1].equalsIgnoreCase( 'D' ) ) ? 'DESC' : 'ASC'
               }
-
               props
             }
           }
@@ -69,6 +68,7 @@ class GeoscriptService implements InitializingBean
       }
       options
     }
+
     options
   }
 
