@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: tlv
+  cloud:
+    config:
+      enabled: false
+      uri: http://localhost:8888/omar-config-server
+    discovery:
+      enabled: false
+---
+spring:
+  profiles: production
+  cloud:
+    config:
+      uri: http://omar-config-server:8888/omar-config-server
