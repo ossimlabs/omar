@@ -108,16 +108,46 @@ function mapService(stateService, wfsService) {
       maxZoom: 18
     });
 
+    var version="1.1.1";
+    var layers="omar:raster_entry";
+    var styles="byFileType";
+    var format="image/gif";
+    var name="Image Footprints";
+
+    if(AppO2.APP_CONFIG.params.footprints.params != undefined )
+    {
+      if( AppO2.APP_CONFIG.params.footprints.params.version != undefined)
+      {
+        version = AppO2.APP_CONFIG.params.footprints.params.version;
+      }
+      if( AppO2.APP_CONFIG.params.footprints.params.layers != undefined)
+      {
+        layers = AppO2.APP_CONFIG.params.footprints.params.layers;
+      }
+      if( AppO2.APP_CONFIG.params.footprints.params.styles != undefined)
+      {
+        styles = AppO2.APP_CONFIG.params.footprints.params.styles;
+      }
+      if( AppO2.APP_CONFIG.params.footprints.params.format != undefined)
+      {
+        format = AppO2.APP_CONFIG.params.footprints.params.format;
+      }
+      if( AppO2.APP_CONFIG.params.footprints.params.name != undefined)
+      {
+        name = AppO2.APP_CONFIG.params.footprints.params.name;
+      }
+
+    }
     footPrints = new ol.layer.Tile({
-      title: 'Image Footprints',
+      title: name,
       source: new ol.source.TileWMS({
         url: AppO2.APP_CONFIG.params.footprints.baseUrl,
         params: {
           FILTER: "",
-          VERSION: '1.1.1',
-          LAYERS: 'omar:raster_entry',
-          STYLES: 'byFileType',
-          FORMAT: 'image/gif'
+          VERSION: version,
+          LAYERS: layers,
+          STYLES: styles,
+          FORMAT: format
         },
 	wrapX: false
       }),
