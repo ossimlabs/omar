@@ -82,6 +82,12 @@ omar:
       baseUrl: http://192.168.2.200/wms-app/imageSpace/getThumbnail
     footprints:
       baseUrl: http://192.168.2.200/wms-app/footprints/getFootprints
+      params:
+        name: "Image Footprints"
+        version: '1.1.1'
+        layers: 'omar:raster_entry'
+        styles: 'byFileType'
+        format: 'image/gif'
     stagerApp:
       baseUrl: http://192.168.2.200/stager-app
     downloadApp:
