@@ -31,6 +31,7 @@ class AvroFileProcessingJob {
                String field = config.destination.post.addRasterEndPointField
                HashMap params = config.destination.post.addRasterEndPointParams as HashMap
                params.filename = fileRecord.filename
+               println params
                def result   = HttpUtils.postMessage(url, params)
 
                // is a 200 range response
@@ -47,6 +48,7 @@ class AvroFileProcessingJob {
                }
                else
                {
+                  println result?.status
                   log.error "Post failed to ${url} for  ${fileRecord.filename} with post field ${field}"
                   avroService.updateFileStatus(fileRecord.processId, ProcessStatus.FAILED, "Failed to post file to stager")
                   ingestMetricsService.setStatus(fileRecord.processId, ProcessStatus.FAILED.toString(), "Failed to post file to stager")
