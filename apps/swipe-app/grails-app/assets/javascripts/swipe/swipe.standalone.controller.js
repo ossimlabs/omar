@@ -298,7 +298,7 @@
                                 url: vm.url,
                                 params: {
                                     'LAYERS': 'omar:raster_entry',
-                                    'FILTER': "strToUpperCase(title) like '%" + i + "%'",
+                                    'FILTER': "title like '%" + i + "%'",
                                     'TILED': true,
                                     'VERSION': '1.1.1'
                                 }
@@ -344,7 +344,7 @@
                             url: vm.url,
                             params: {
                                 'LAYERS': 'omar:raster_entry',
-                                'FILTER': "strToUpperCase(title) like '%" + i + "%'",
+                                'FILTER': "title like '%" + i + "%'",
                                 'TILED': true,
                                 'VERSION': '1.1.1'
                             }

@@ -289,7 +289,6 @@
             }
 
             function pushKeywordToArray(dbName, formField) {
-//                var clause = ["strToUpperCase(" + dbName + ") LIKE '%", formField.trim().toUpperCase(), "%'"].join("");
                 var clause = [dbName + " LIKE '%", formField.trim().toUpperCase(), "%'"].join("");
 
                 var placemarksConfig = AppO2.APP_CONFIG.params.misc.placemarks;
