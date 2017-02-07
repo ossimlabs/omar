@@ -69,7 +69,7 @@ class SearchO2Service {
 			filter += " AND "
 
 			// niirs
-			filter += "(niirs < ${params.minNiirs} OR niirs IS NULL)"
+			filter += "(niirs > ${params.minNiirs} OR niirs IS NULL)"
 
 			// sensors
 			if (params.sensors.find { it == "all" } != "all") {
