@@ -14,13 +14,14 @@ class BeService {
 	def serviceMethod( params ) {
 
 		def url = "${grailsApplication.config.beLookupUrl}?" +
-			"filter=" + URLEncoder.encode( "be LIKE '${ params.beNumber }'" ) + "&" +
+			"filter=" + URLEncoder.encode( "be_number LIKE '${ params.beNumber }'" ) + "&" +
 			"maxFeatures=1&" +
 			"outputFormat=JSON&" +
 			"request=GetFeature&" +
 			"service=WFS&" +
-			"typeName=omar:be_number&" +
+			"typeName=omar:facility&" +
 			"version=1.1.0"
+
 		def json = httpDownloadService.serviceMethod( [url: url] )
 
 		def location = []
