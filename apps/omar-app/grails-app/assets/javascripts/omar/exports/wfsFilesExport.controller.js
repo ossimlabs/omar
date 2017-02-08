@@ -40,7 +40,7 @@
               pointLatLon = center.slice().reverse().join(', ');
             }
             var bbox = mapService.calculateExtent().join(',');
-            var tlvURL = encodeURI( tlvBaseUrl + '/?bbox=' + bbox + '&filter=' + filter + '&location=' + pointLatLon);
+            var tlvURL = encodeURI( tlvBaseUrl + '/?bbox=' + bbox + '&filter=' + filter + '&location=' + pointLatLon + '&maxResults=100');
             $window.open( tlvURL, '_blank' );
         }
       };
