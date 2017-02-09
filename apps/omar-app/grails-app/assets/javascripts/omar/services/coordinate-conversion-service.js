@@ -47,7 +47,7 @@
 
                     var beNumber = RegExp.$1;
                     var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
-                        "filter=" + columnName + " LIKE '" + beNumber + "'" +
+                        "filter=" + columnName + " = '" + beNumber + "'" +
                         "&maxFeatures=1" +
                         "&outputFormat=JSON" +
                         "&request=GetFeature" +

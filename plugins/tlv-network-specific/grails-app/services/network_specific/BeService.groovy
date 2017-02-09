@@ -14,7 +14,7 @@ class BeService {
 	def serviceMethod( params ) {
 
 		def url = "${grailsApplication.config.beLookupUrl}?" +
-			"filter=" + URLEncoder.encode( "be_number LIKE '${ params.beNumber }'" ) + "&" +
+			"filter=" + URLEncoder.encode( "be_number = '${ params.beNumber }'" ) + "&" +
 			"maxFeatures=1&" +
 			"outputFormat=JSON&" +
 			"request=GetFeature&" +
