@@ -46,6 +46,8 @@ server:
   contextPath:
   port: 8080
 
+terrainProvider: //assets.agi.com/stk-terrain/world
+
 ---
 hibernate:
     cache:
