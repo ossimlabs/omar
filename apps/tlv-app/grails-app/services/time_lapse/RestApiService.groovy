@@ -9,7 +9,7 @@ class RestApiService {
 
 	def grailsApplication
 
-    
+
 	def serviceMethod(params) {
 		params.remove("action")
 		params.remove("controller")
@@ -46,6 +46,7 @@ class RestApiService {
 
 		params.availableResources.libraries = grailsApplication.config.libraries.collect({ it.key })
 		params.availableResources.sensors = grailsApplication.config.libraries.collect({ it.value.sensors }).flatten().unique({ it.name }).sort({ it.name })
+		params.availableResources.terrainProvider = grailsApplication.config.terrainProvider
 
 		params.defaultLocation = grailsApplication.config.defaultLocation
 
