@@ -284,9 +284,12 @@ class WebMappingService implements InitializingBean
   {
     log.trace "getMap: Entered ................"
     def renderMode = RenderMode.FILTER
-    def otherParams = [startDate: new Date()]
+    def otherParams = [startDate: new Date()
+                       ]
+    otherParams.startTime = System.currentTimeMillis()
+    otherParams.internalTime = otherParams.startTime
 
-    println wmsParams
+//    println wmsParams
 
     def ostream = new ByteArrayOutputStream()
     def style = [:]
@@ -320,6 +323,7 @@ class WebMappingService implements InitializingBean
 
       map.render( ostream )
       map.close()
+      otherParams.internalTime = System.currentTimeMillis()
       break
 
     case RenderMode.BLANK:
@@ -423,10 +427,11 @@ class WebMappingService implements InitializingBean
 
       map.render( ostream )
       map.close()
+      otherParams.internalTime = System.currentTimeMillis()
       break
     }
 
-    otherParams.endDate = new Date()
+    //otherParams.endDate = new Date()
 
     log.trace "getMap: Leaving ................"
     [contentType: wmsParams.format, buffer: ostream.toByteArray(), metrics: otherParams]
