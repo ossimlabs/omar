@@ -284,21 +284,28 @@
 
         };
 
-        vm.viewOrtho = function(image) {
-            var feature = new ol.format.GeoJSON().readFeature(image);
+        vm.viewOrtho = function( image, location ) {
+            var feature = new ol.format.GeoJSON().readFeature( image );
 
-            var extent = feature.getGeometry().getExtent();
-            var centerLat = (extent[1] + extent[3]) / 2;
-            var centerLon = (extent[0] + extent[2]) / 2;
+            var centerLat, centerLon;
+            if ( location ) {
+                centerLat = location[ 1 ];
+                centerLon = location[ 0 ];
+            }
+            else {
+                var extent = feature.getGeometry().getExtent();
+                centerLat = ( extent[ 1 ] + extent[ 3 ] ) / 2;
+                centerLon = ( extent[ 0 ] + extent[ 2 ] ) / 2;
+            }
 
             var filter = "in(" + feature.getProperties().id + ")";
 
             var tlvUrl = AppO2.APP_CONFIG.params.tlvApp.baseUrl + "?" +
-                "bbox=" + extent.join(",") + "&" +
+                "bbox=" + extent.join( "," ) + "&" +
                 "filter=" + filter + "&" +
-                "location=" + [centerLat, centerLon].join(",");
+                "location=" + [ centerLat, centerLon ].join( "," );
 
-            window.open(tlvUrl, "_blank");
+            window.open( tlvUrl, "_blank" );
         };
     }
 
@@ -393,12 +400,19 @@
           downloadService.downloadFiles( imageId );
         };
 
-        vm.viewOrtho = function(image) {
-            var feature = new ol.format.GeoJSON().readFeature(image);
+        vm.viewOrtho = function( image, location ) {
+            var feature = new ol.format.GeoJSON().readFeature( image );
 
-            var extent = feature.getGeometry().getExtent();
-            var centerLat = (extent[1] + extent[3]) / 2;
-            var centerLon = (extent[0] + extent[2]) / 2;
+            var centerLat, centerLon;
+            if ( location ) {
+                centerLat = location[ 1 ];
+                centerLon = location[ 0 ];
+            }
+            else {
+                var extent = feature.getGeometry().getExtent();
+                centerLat = ( extent[ 1 ] + extent[ 3 ] ) / 2;
+                centerLon = ( extent[ 0 ] + extent[ 2 ] ) / 2;
+            }
 
             var filter = "in(" + feature.getProperties().id + ")";
 

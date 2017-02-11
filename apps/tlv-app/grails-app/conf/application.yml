@@ -46,18 +46,7 @@ server:
   contextPath:
   port: 8080
 
----
-# grails:
-#   serverURL: http://${DOCKER_HOST_IP}/tlv
-#   assets:
-#     url: http://${DOCKER_HOST_IP}/tlv/assets/
-
-spring:
-  cloud:
-    config:
-      enabled: false
-    discovery:
-      enabled: false
+terrainProvider: //assets.agi.com/stk-terrain/world
 
 ---
 hibernate:

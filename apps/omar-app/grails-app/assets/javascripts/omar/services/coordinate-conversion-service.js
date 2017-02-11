@@ -47,7 +47,7 @@
 
                     var beNumber = RegExp.$1;
                     var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
-                        "filter=" + columnName + " LIKE '" + beNumber + "'" +
+                        "filter=" + columnName + " = '" + beNumber + "'" +
                         "&maxFeatures=1" +
                         "&outputFormat=JSON" +
                         "&request=GetFeature" +
@@ -61,7 +61,7 @@
                         var features = response.data.features;
 
                         if ( features.length > 0 ) {
-                            $rootScope.$broadcast( 'coordService: updated', features[0].geometry.coordinates );
+                            $rootScope.$broadcast( 'coordService: updated', { coordinate: features[0].geometry.coordinates } );
                         }
                         else {
                             $rootScope.$broadcast('coordService: be_search_error', "Sorry, we couldn't find a matching BE number for this image.");

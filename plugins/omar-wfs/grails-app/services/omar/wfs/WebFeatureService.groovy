@@ -94,6 +94,7 @@ class WebFeatureService {
         'MultiLineString': 'gml:MultiLineStringPropertyType',
         'MultiPolygon': 'gml:MultiPolygonPropertyType',
         'Polygon': 'gml:PolygonPropertyType',
+        'Point': 'gml:PointPropertyType',
         'String': 'xsd:string',
         'java.sql.Timestamp': 'xsd:dateTime'
     ]
@@ -386,7 +387,7 @@ class WebFeatureService {
     }
 
     def getFeature(GetFeatureRequest wfsParams) {
-        // println wfsParams
+        //println wfsParams
 
         HashMap result = [status: HttpStatus.OK, buffer: "", contentType: "text/xml", buffer: ""]
         def outputFormat = wfsParams?.outputFormat?.toUpperCase() ?: 'GML3'
