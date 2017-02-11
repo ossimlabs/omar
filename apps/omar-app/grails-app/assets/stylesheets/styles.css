@@ -879,3 +879,12 @@ body {
 #imgLinkButtons a:active {
     text-decoration: none;
 }
+
+
+/* needed for ui-select multiple */
+.ui-select-bootstrap .ui-select-choices-row > a {
+    background-color: white;
+}
+
+.ui-select-search.input-xs.ng-pristine.ng-untouched.ng-valid {
+    width: 100% !important;
