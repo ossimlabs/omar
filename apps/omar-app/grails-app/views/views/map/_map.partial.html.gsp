@@ -52,17 +52,16 @@
                             <input type="checkbox" ng-model="filter.missionIdCheck">
                           </span>
                           <span class="input-group-addon name">Mission</span>
-                          <ui-select
-                           id = "missionIdInput"
-                           ng-blur = "filter.missionIdCheck = filter.missionId === '' ? false : true"
-                           ng-click = "filter.missionIdCheck = true; filter.getDistinctValues('missionId');"
-                           ng-model = "filter.missionId"
-                           theme = "selectize">
-                            <ui-select-match placeholder = "Mission ID">
-                              {{$select.selected}}
-                            </ui-select-match>
+                          <ui-select multiple
+                            close-on-select = "true"
+                            id = "missionIdInput"
+                            ng-blur = "filter.missionIdCheck = filter.missionId === '' ? false : true"
+                            ng-click = "filter.missionIdCheck = true; filter.getDistinctValues('missionId');"
+                            ng-model = "filter.missionId"
+                            theme = "bootstrap">
+                            <ui-select-match>{{$item}}</ui-select-match>
                             <ui-select-choices repeat = "val in missionIdTypes | filter: $select.search">
-                              {{val}}
+                                {{val}}
                             </ui-select-choices>
                           </ui-select>
                         </div>
@@ -96,14 +95,14 @@
                             <input type="checkbox" ng-model="filter.sensorIdCheck">
                           </span>
                           <span class="input-group-addon name">Sensor&nbsp;</span>
-                          <ui-select
+                          <ui-select multiple
                            id = "sensorIdInput"
                            ng-blur = "filter.sensorIdCheck = filter.sensorId === '' ? false : true"
                            ng-click = "filter.sensorIdCheck = true; filter.getDistinctValues('sensorId');"
                            ng-model = "filter.sensorId"
-                           theme = "selectize">
-                            <ui-select-match placeholder = "Sensor ID">
-                              {{$select.selected}}
+                           theme = "bootstrap">
+                            <ui-select-match>
+                              {{$item}}
                             </ui-select-match>
                             <ui-select-choices repeat = "val in sensorIdTypes | filter: $select.search">
                               {{val}}
