@@ -59,7 +59,9 @@
                             ng-click = "filter.missionIdCheck = true; filter.getDistinctValues('missionId');"
                             ng-model = "filter.missionId"
                             theme = "bootstrap">
-                            <ui-select-match>{{$item}}</ui-select-match>
+                            <ui-select-match placeholder = "Mission ID">
+                                {{$item}}
+                            </ui-select-match>
                             <ui-select-choices repeat = "val in missionIdTypes | filter: $select.search">
                                 {{val}}
                             </ui-select-choices>
@@ -101,7 +103,7 @@
                            ng-click = "filter.sensorIdCheck = true; filter.getDistinctValues('sensorId');"
                            ng-model = "filter.sensorId"
                            theme = "bootstrap">
-                            <ui-select-match>
+                            <ui-select-match placeholder = "Sensor ID">
                               {{$item}}
                             </ui-select-match>
                             <ui-select-choices repeat = "val in sensorIdTypes | filter: $select.search">
