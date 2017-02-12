@@ -886,5 +886,10 @@ body {
     background-color: white;
 }
 
-.ui-select-search.input-xs.ng-pristine.ng-untouched.ng-valid {
-    width: 100% !important;
+.ui-select-search.input-xs.ng-pristine.ng-valid.ng-touched,
+.ui-select-search.input-xs.ng-pristine.ng-untouched.ng-valid,
+.ui-select-search.input-xs.ng-untouched.ng-valid.ng-dirty.ng-valid-parse,
+.ui-select-search.input-xs.ng-valid.ng-dirty.ng-touched,
+.ui-select-search.input-xs.ng-valid.ng-dirty.ng-valid-parse.ng-touched {
+    width: auto !important;
+}
