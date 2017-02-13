@@ -6,21 +6,21 @@
 
         function coordinateConversionService( $http, $rootScope) {
 
+            function dmsToDd( degrees, minutes, seconds, position ) {
+                var dd = Math.abs( degrees ) + Math.abs( minutes / 60 ) + Math.abs( seconds / 3600 );
+                if ( position.toUpperCase() == "S" || position.toUpperCase() == "W" ) { dd = -dd; }
+
+                return dd;
+            }
+
             this.convert = function( location ) {
                 var bePattern = /(\d{4}[a-z|\-{1}][a-z|0-9]\d{4})/i;
                 var ddPattern = /(\-?\d{1,2}[.]?\d*)[\s+|,?]\s*(\-?\d{1,3}[.]?\d*)/;
-                var dmsPattern = /(\d{2})[^\d]*(\d{2})[^\d]*(\d{2}[.]?\d*)\s*([n|N|s|S])[^\w]*(\d{3})[^\d]*(\d{2})[^d]*(\d{2}[.]?\d*)\s*([e|E|w|W])/;
+                var dmsPattern = /(\d{1,2})[^\d]*(\d{2})[^\d]*(\d{2}[.]?\d*)[^\d]*\s*([n|N|s|S])[^\w]*(\d{1,3})[^\d]*(\d{2})[^d]*(\d{2}[.]?\d*)[^\d]*\s*([e|E|w|W])/;
                 var mgrsPattern = /(\d{1,2})([a-zA-Z])[^\w]*([a-zA-Z])([a-zA-Z])[^\w]*(\d{5})[^\w]*(\d{5})/;
 
                 // dms must be first
-                if ( location.match( dmsPattern ) ) {
-                    function dmsToDd( degrees, minutes, seconds, position ) {
-                        var dd = Math.abs( degrees ) + Math.abs( minutes / 60 ) + Math.abs( seconds / 3600 );
-                        if ( position.toUpperCase() == "S" || position.toUpperCase() == "W" ) { dd = -dd; }
-
-                        return dd;
-                    }
-
+                if ( location.match( dmsPattern ) ) { 
                     var latitude = dmsToDd( RegExp.$1, RegExp.$2, RegExp.$3, RegExp.$4 );
                     var longitude = dmsToDd( RegExp.$5, RegExp.$6, RegExp.$7, RegExp.$8 );
 

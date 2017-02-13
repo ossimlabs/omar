@@ -74,7 +74,7 @@
         }).then(function( response ) {
                 var features = response.data.features;
 
-                if ( features.length > 0 ) {
+                if ( features && features.length > 0 ) {
                     searchByImageId({
                         imageId: input,
                         images: features
