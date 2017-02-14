@@ -33,6 +33,7 @@ include 'all-app',
 		'pki-app',
 		'predio-app',
 		'stager-app',
+		'three-disa',
 		'tlv-app',
 		'tlv-network-specific',
 		'wcs-app',
@@ -62,6 +63,7 @@ project(':omar-wcs').projectDir = 'plugins/omar-wcs' as File
 project(':omar-wfs').projectDir = 'plugins/omar-wfs' as File
 project(':omar-wms').projectDir = 'plugins/omar-wms' as File
 project(':omar-wmts').projectDir = 'plugins/omar-wmts' as File
+project(':three-disa').projectDir = 'plugins/three-disa' as File
 project(':tlv-network-specific').projectDir = 'plugins/tlv-network-specific' as File
 
 // Apps
