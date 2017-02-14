@@ -134,3 +134,51 @@ omar:
       url: "http://localhost:8081/footprints/getFootprints"
       layers: "omar:raster_entry"
       styles: "byFileType"
+  openlayers:
+    baseMaps:
+      -
+        layerType: "tilewms"
+        title: "Open Street Map"
+        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        params:
+          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "Natural Earth"
+        url: "http://demo.boundlessgeo.com/geoserver/wms"
+        params:
+          layers: "ne:NE1_HR_LC_SR_W_DR"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "Blue Marble"
+        url: "http://demo.opengeo.org/geoserver/wms"
+        params:
+          layers: "nasa:bluemarble"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "OSM Basic"
+        url: "http://mapproxy.dev.o2.radiantbluecloud.com/wms"
+        params:
+          layers: "o2-basemap-basic"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "OSM Bright"
+        url: "http://mapproxy.dev.o2.radiantbluecloud.com/wms"
+        params:
+          layers: "o2-basemap-bright"
+          format: "image/jpeg"
+        options:
+          visible: true
+

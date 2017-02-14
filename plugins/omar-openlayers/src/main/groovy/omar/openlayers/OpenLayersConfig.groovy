@@ -1,4 +1,4 @@
-package omar.app
+package omar.openlayers
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding

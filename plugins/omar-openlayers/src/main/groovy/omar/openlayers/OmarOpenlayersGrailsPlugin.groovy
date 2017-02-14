@@ -44,17 +44,18 @@ Brief summary/description of the plugin.
 //    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
 
     Closure doWithSpring() {
-        log.trace("doWithSpring(): Entered.............")
+        // log.trace("doWithSpring(): Entered.............")
         // OmarOpenlayersReflectionUtils.application = OmarOpenlayersUtils.application = grailsApplication
         //
         // OmarOpenlayersUtils.resetOpenlayersConfig()
         // // force reload by getting the config object
         // OmarOpenlayersUtils.openlayersConfig
         //
-        log.trace("doWithSpring(): Leaving.............")
+        // log.trace("doWithSpring(): Leaving.............")
 
         {->
-            // TODO Implement runtime spring config (optional)
+          openLayersConfig( OpenLayersConfig )
+          openLayersLayerConverter( OpenLayersConfig.OpenLayersLayerConverter )        \
         }
     }
 
