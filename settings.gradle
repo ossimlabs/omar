@@ -38,7 +38,8 @@ include 'all-app',
 		'wcs-app',
 		'wfs-app',
 		'wms-app',
-		'wmts-app'
+		'wmts-app',
+		'geoscript-app'
 
 // Plugins
 project(':omar-avro').projectDir = 'plugins/omar-avro' as File
@@ -84,3 +85,4 @@ project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':wms-app').projectDir = 'apps/wms-app' as File
 project(':wmts-app').projectDir = 'apps/wmts-app' as File
 project(':oldmar-app').projectDir = 'apps/oldmar-app' as File
+project(':geoscript-app').projectDir = 'apps/geoscript-app' as File
