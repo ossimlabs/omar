@@ -25,9 +25,9 @@ class SearchO2Service {
 		def images = []
 		features.each() {
 			def metadata = extractMetadata(it)
-			def acquisitionDate = Date.parse('yyyy-MM-dd HH:mm:ss', metadata.acquisition_date.replaceAll("T", " "))
+			def acquisitionDate = metadata.acquisition_date ? Date.parse('yyyy-MM-dd HH:mm:ss', metadata.acquisition_date.replaceAll("T", " ")) : null
 			images.push([
-				acquisitionDate: acquisitionDate.format('yyyy-MM-dd HH:mm:ss'),
+				acquisitionDate: acquisitionDate ? acquisitionDate.format('yyyy-MM-dd HH:mm:ss') : "N/A",
 				imageId: metadata.image_id ?: ( metadata.title ?: new File( metadata.filename ).name ),
 				library: library.name,
 				metadata: metadata,
