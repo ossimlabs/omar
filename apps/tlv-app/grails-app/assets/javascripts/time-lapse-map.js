@@ -10,6 +10,7 @@ function addBaseLayersToTheMap() {
 						params: {
 							FORMAT: "image/png",
 							LAYERS: x.layers,
+							STYLES: x.styles || "",
 							TRANSPARENT: true,
 							VERSION: "1.1.1"
 						},

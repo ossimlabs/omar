@@ -2,12 +2,14 @@ baseLayers:
     osmBasic:
         layers: o2-basemap-basic
         name: OSM Basic
+        styles:
         type: wms
         url: http://mapproxy.dev.o2.radiantbluecloud.com/wms
         visible: false
     osmBright:
         layers: o2-basemap-bright
         name: OSM Bright
+        styles:
         type: wms
         visible: true
         url: http://mapproxy.dev.o2.radiantbluecloud.com/wms
@@ -36,6 +38,7 @@ libraries:
 
 plugins:
     networkSpecific:
+        navigationMenu: false
     threeDisa:
         navigationMenu: true
 
