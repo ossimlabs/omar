@@ -54,13 +54,12 @@
         // Takes a map layer obj, and adds
         // the layer to the map layers array.
         function addBaseMapLayers(layerObj){
-
           var baseMapLayer;
-          if (layerObj.layerType.toLowerCase() === 'tile'){
+          if (layerObj.layerType.toLowerCase() === 'tilewms'){
 
             baseMapLayer = new ol.layer.Tile({
                 title: layerObj.title,
-                //type: 'base',
+                type: 'base',
                 visible: layerObj.options.visible,
                 source: new ol.source.TileWMS({
                     url: layerObj.url,
@@ -76,7 +75,6 @@
           }
 
           if (baseMapLayer != null) {
-
             // Add layer(s) to the layerSwitcher control
             baseMaps.getLayers().push(baseMapLayer);
 
