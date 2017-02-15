@@ -23,7 +23,7 @@ class WmtsAppController {
     //
 
       def clientConfig = [
-        wmts: grailsApplication.config.wmts,
+        wmts: grailsApplication.config.omar.wmts,
         serverURL: getBaseUrl(),
         openlayers: openLayersConfig,
         params: grailsApplication.config.omar.app,
