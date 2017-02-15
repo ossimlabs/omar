@@ -25,6 +25,8 @@
 
 .ol-touch .ol-full-screen { top: 120px; }
 
+#selectImagesButton { display: none; }
+
 #tileLoadProgressBar {
 	background: rgba(255, 255, 255, 1);
 	height: 1px;
