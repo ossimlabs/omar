@@ -6,6 +6,7 @@
 				<table class = "table table-condensed table-striped" id = "timeLapseSummaryTable"></table>
 			</div>
 			<div class = "modal-footer">
+				<button type = "button" class = "btn btn-primary" data-dismiss = "modal" id = "selectImagesButton">Select</button>
 				<button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
  			</div>
 		</div>
