@@ -25,6 +25,12 @@
 					<g:render template = "/menus/layers-menu"/>
 					<g:render template = "/menus/time-lapse-menu"/>
 					<g:render template = "/menus/view-menu"/>
+
+					<g:each in = "${ grailsApplication.config.plugins }">
+						<g:if test = "${ it.value?.navigationMenu == true }">
+							<g:render template = "/navigation-menu-${ it.key }"/>
+						</g:if>
+					</g:each>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href = "${ grailsApplication.config.docsUrl }" target = "_blank")>Help</a></li>

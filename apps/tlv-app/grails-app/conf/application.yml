@@ -14,7 +14,10 @@ baseLayers:
 
 baseUrl: http://localhost:8080
 
-beLookupUrl: http://localhost:8081/wfs
+beLookup:
+    columnName: be_number
+    typeName: omar:facility
+    url: http://localhost:8081/wfs
 
 defaultLocation: 48.8584, 2.2945
 
@@ -31,11 +34,10 @@ libraries:
         queryUrl: http://localhost:8081/wfs
         viewUrl: http://localhost:8081/wms
 
-networkSpecific:
-    dialogs:
-        enabled: true
-    layers:
-        enabled: true
+plugins:
+    networkSpecific:
+    threeDisa:
+        navigationMenu: true
 
 securityClassification:
     backgroundColor: green
