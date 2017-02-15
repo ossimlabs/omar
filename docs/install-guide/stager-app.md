@@ -25,6 +25,7 @@ This plugin uses JNI bindings to the ossim core C++ engine.  By default it shoul
 ```
 yum install ossim
 yum install ossim-kakadu-plugin
+yum install ossim-jpeg12-plugin
 yum install ossim-sqlite-plugin
 yum install ossim-hdf5-plugin
 yum install ossim-geopdf-plugin
@@ -34,7 +35,13 @@ yum install ossim-png-plugin
 **Additional**
 
 ```
-yum install ossim-gdal-plugin.x86_64
+sudo yum install ossim-gdal-plugin.x86_64
+```
+
+and if Available:
+
+```
+sudo yum -y install ossim-ntm-plugin
 ```
 
 ##Configuration
