@@ -23,7 +23,7 @@
                         <tr>
                             <g:each in = "${[ "red", "green", "blue" ]}">
                                 <td>
-                                    <select class = "form-control" id = "${it}GunSelect" onchange = updateImageProperties( true )></select>
+                                    <select class = "form-control" id = "${it}GunSelect" onchange = "updateImageProperties( true )"></select>
                                 </td>
                             </g:each>
                         </tr>
@@ -45,7 +45,7 @@
             <tr>
                 <td>DRA:</td>
                 <td>
-                    <select class = "form-control" id = "dynamicRangeSelect" onchange = updateImageProperties( true )>
+                    <select class = "form-control" id = "dynamicRangeSelect" onchange = "updateImageProperties( true )">
                         <g:each in = "${[
                             [ name: "None", value: "none" ],
                             [ name: "Auto", value: "auto-minmax" ],
@@ -61,7 +61,7 @@
             <tr>
                 <td>Interpolation:</td>
                 <td>
-                    <select class = "form-control" id = "interpolationSelect" onchange = updateImageProperties( true )>
+                    <select class = "form-control" id = "interpolationSelect" onchange = "updateImageProperties( true )">
                         <g:each in = "${[
                             "bessel",
                             "bilinear",
@@ -93,7 +93,7 @@
             <tr>
                 <td>Sharpen Mode:</td>
                 <td>
-                    <select class = "form-control" id = "sharpenModeSelect" onchange = updateImageProperties( true )>
+                    <select class = "form-control" id = "sharpenModeSelect" onchange = "updateImageProperties( true )">
                         <g:each in = "${[ "none", "light", "heavy" ]}">
                             <option value = ${ it }>${ it.capitalize() }</option>
                         </g:each>

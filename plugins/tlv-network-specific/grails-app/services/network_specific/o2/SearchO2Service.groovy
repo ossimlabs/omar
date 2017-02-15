@@ -31,6 +31,7 @@ class SearchO2Service {
 				imageId: metadata.image_id ?: ( metadata.title ?: new File( metadata.filename ).name ),
 				library: library.name,
 				metadata: metadata,
+				numberOfBands: metadata.number_of_bands ?: 1,
 				type: library.layerType
 			])
 		}
