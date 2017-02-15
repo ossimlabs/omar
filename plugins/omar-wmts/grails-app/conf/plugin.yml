@@ -1,0 +1,8 @@
+wmts:
+   wfsUrl: http://localhost:8081/wfs
+   wmsUrl: http://localhost:8081/wms
+   legacyWmsFlag: false
+   footprints:
+      url: ""
+      layers: omar:raster_entry
+      styles: byFileType

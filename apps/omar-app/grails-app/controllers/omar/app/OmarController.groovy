@@ -1,6 +1,7 @@
 package omar.app
 
 import omar.openlayers.OmarOpenlayersUtils
+import omar.openlayers.OpenLayersConfig
 import org.springframework.beans.factory.InitializingBean
 import grails.converters.JSON
 

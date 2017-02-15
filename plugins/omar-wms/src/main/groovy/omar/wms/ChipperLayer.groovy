@@ -51,9 +51,14 @@ class ChipperLayer extends DirectLayer
         sharpen_mode: style?.sharpen_mode ?: 'none',
 
         srs: 'epsg:4326',
-        'image0.file': imageFile,
-        'image0.entry': String.valueOf( entry )
     ]
+
+    // Check to see if file is accessible
+    if ( ( imageFile as File ).exists() )
+    {
+      initOpts.'image0.file' = imageFile
+      initOpts.'image0.entry' = String.valueOf( entry )
+    }
 
     initHints = [transparent: true]
   }
@@ -73,6 +78,9 @@ class ChipperLayer extends DirectLayer
 
         srs: 'epsg:4326'
     ]
+
+    // Check to see if file is accessible
+    images = images?.grep { (it.imageFile as File).exists() }
 
     images?.eachWithIndex { image, i ->
 
