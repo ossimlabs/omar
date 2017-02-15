@@ -84,7 +84,6 @@
 
         // Map over each layer item in the baseMaps array
         AppWmts.APP_CONFIG.openlayers.baseMaps.map(addBaseMapLayers);
-        baseMaps.getLayers().push(footprints);
 
         var layers = [
           baseMaps,
@@ -165,7 +164,7 @@
           // Create a new WMTS tile layer
           var wmtsLayer = new ol.layer.Tile({
             title: layerName,
-            type: 'base',
+            //type: 'base',
             visible: true,
             opacity: 1.0,
             source: new ol.source.WMTS({
@@ -184,8 +183,9 @@
               wrapX: true
             })
           });
-          //console.log('wmtsLayer: ', wmtsLayer);
+
           overlayGroup.getLayers().push(wmtsLayer);
+          overlayGroup.getLayers().push(footprints);
 
         }
 
