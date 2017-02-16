@@ -336,7 +336,12 @@
                         'Error', {
                             closeButton: true
                         });
-                } else {
+                }
+                else if ( dbName == "niirs" ) {
+                    var clause = "(( niirs >= " + min + " AND " + dbName + " <= " + max + ") OR niirs IS NULL)";
+                    filterArray.push( clause );
+                }
+                else {
                     filterArray.push([dbName, ">=", min, "AND", dbName, "<=", max].join(" "));
                 }
 
@@ -411,7 +416,7 @@
                             closeButton: true
                         });
                 } else {
-                    filterArray.push(["cloud_cover", "<= " + vm.cloudCover].join(" "));
+                    filterArray.push( "(cloud_cover <= " + vm.cloudCover + " OR cloud_cover IS NULL)" );
                 }
 
             }
