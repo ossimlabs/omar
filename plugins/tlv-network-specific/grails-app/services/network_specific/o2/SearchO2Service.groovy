@@ -59,7 +59,7 @@ class SearchO2Service {
 			filter += " AND "
 
 			// cloud cover
-			filter += "(cloud_cover < ${params.maxCloudCover} OR cloud_cover IS NULL)"
+			filter += "(cloud_cover <= ${params.maxCloudCover} OR cloud_cover IS NULL)"
 
 			filter += " AND "
 
@@ -70,7 +70,7 @@ class SearchO2Service {
 			filter += " AND "
 
 			// niirs
-			filter += "(niirs > ${params.minNiirs} OR niirs IS NULL)"
+			filter += "(niirs >= ${params.minNiirs} OR niirs IS NULL)"
 
 			// sensors
 			if (params.sensors.find { it == "all" } != "all") {
