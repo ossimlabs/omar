@@ -297,13 +297,13 @@
                     $.each(
                         formField,
                         function( index, value ) {
-                            clauses.push("strToUpperCase(" + dbName + ") LIKE '%" + value.trim().toUpperCase() + "%'");
+                            clauses.push(dbName + " LIKE '%" + value.trim().toUpperCase() + "%'");
                         }
                     );
                     clause = "(" + clauses.join(" OR ") + ")";
                 }
                 else {
-                    clause = ["strToUpperCase(" + dbName + ") LIKE '%", formField.trim().toUpperCase(), "%'"].join("");
+                    clause = [dbName + " LIKE '%", formField.trim().toUpperCase(), "%'"].join("");
                 }
 
                 var placemarksConfig = AppO2.APP_CONFIG.params.misc.placemarks;
