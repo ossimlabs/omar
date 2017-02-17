@@ -8,7 +8,7 @@ REGISTRY_PROJECT_NAME=o2
 OPENSHIFT_URL=https://openshift-master.radiantbluecloud.com:8443
 
 ./gradlew assemble
-sed -e s/REGISTRY_URI/$DOCKER_REGISTRY_URL/g -e s/TAG_PLACEHOLDER/$APP_TAG/g Dockerfile > Dockerfile.tmp
+sed -e s/REGISTRY_URI/$DOCKER_REGISTRY_URL/g -e s/PROJECT_PLACEHOLDER/$REGISTRY_PROJECT_NAME/g -e s/TAG_PLACEHOLDER/$APP_TAG/g Dockerfile > Dockerfile.tmp
 docker build -f Dockerfile.tmp -t $APP_NAME:$APP_TAG .
 rm -f Dockerfile.tmp
 docker tag $APP_NAME:latest $DOCKER_REGISTRY_URL/$REGISTRY_PROJECT_NAME/$APP_NAME:$APP_TAG
