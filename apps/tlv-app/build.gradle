@@ -85,7 +85,7 @@ assets {
     excludes = [
         '**/bootstrap/**',
         '**/bootswatch-slate/**',
-        '**/cesium/**',
+        '**/Cesium/**',
         '**/jquery/**',
         '**/momentjs/**',
         '**/requirejs/**',
@@ -94,7 +94,8 @@ assets {
     ]
     includes = [
         '**/bootswatch-slate/**/glyphicons*',
-        '**/cesium/*/Build/Cesium/**',
+        '**/Cesium/Assets/**',
+        '**/Cesium/Workers/**',
         '**/index-bundle.*'
     ]
 }
