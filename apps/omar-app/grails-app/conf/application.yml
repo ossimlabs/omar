@@ -163,7 +163,7 @@ omar:
       -
         layerType: "tilewms"
         title: "OSM Basic"
-        url: "http://mapproxy.dev.o2.radiantbluecloud.com/wms"
+        url: "http://dev.o2.ossimc2s.com/service-proxy/wmsProxy"
         params:
           layers: "o2-basemap-basic"
           format: "image/jpeg"
@@ -172,7 +172,7 @@ omar:
       -
         layerType: "tilewms"
         title: "OSM Bright"
-        url: "http://mapproxy.dev.o2.radiantbluecloud.com/wms"
+        url: "http://dev.o2.ossimc2s.com/service-proxy/wmsProxy"
         params:
           layers: "o2-basemap-bright"
           format: "image/jpeg"
@@ -193,6 +193,12 @@ omar:
       baseUrl: http://localhost:8081/imageSpace/getThumbnail
     footprints:
       baseUrl: http://localhost:8081/footprints/getFootprints
+      params:
+        name: "Image Footprints"
+        version: '1.1.1'
+        layers: 'omar:raster_entry'
+        styles: 'byFileType'
+        format: 'image/gif'
     mensaApp:
       baseUrl: http://localhost:8081/mensa
     stagerApp:
