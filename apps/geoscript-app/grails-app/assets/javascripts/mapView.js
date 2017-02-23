@@ -17,7 +17,7 @@ var MapView = (function(){
             }),
             new ol.layer.Tile({
               source: new ol.source.TileWMS({
-                url: '/evwhs/wms',
+                url:  (params.contextPath || '') + '/evwhs/wms',
                 params: {
                 }
               })

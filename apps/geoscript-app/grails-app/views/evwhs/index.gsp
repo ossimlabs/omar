@@ -11,7 +11,8 @@
     <asset:javascript src='mapView.js'/>
     <asset:script>
       $(document).ready(function(){
-        MapView.init();
+        var params = ${raw(mapViewParams.encodeAsJSON() as String)};
+        MapView.init(params);
       });
     </asset:script>
     <asset:deferredScripts/>

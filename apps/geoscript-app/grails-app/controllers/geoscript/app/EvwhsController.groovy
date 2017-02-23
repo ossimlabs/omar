@@ -6,12 +6,7 @@ class EvwhsController
 
     def index()
     {
-
-    }
-
-    def blah()
-    {
-      render evwhsService.blah(params)      
+      [mapViewParams: [contextPath: grailsApplication.config.server.contextPath]]
     }
 
     def wms()
