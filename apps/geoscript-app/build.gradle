@@ -30,6 +30,12 @@ ext {
 
 repositories {
     mavenLocal()
+    maven { url 'https://repo.boundlessgeo.com/main' }
+    maven { url 'http://download.osgeo.org/webdav/geotools' }
+    mavenCentral()
+    maven { url 'http://maven.geo-solutions.it' }
+    maven { url 'https://artifacts.unidata.ucar.edu/content/repositories/unidata' }
+    maven { url 'https://github.com/ElectronicChartCentre/ecc-mvn-repo/raw/master/releases' }
     maven { url "https://repo.grails.org/grails/core" }
 }
 
@@ -43,7 +49,16 @@ dependencyManagement {
 dependencies {
     runtime 'org.grails.plugins:grails-console:2.0.8'
 
-    compile project(':omar-geoscript')
+    compile project(':omar-openlayers')
+
+    compile ( "org.geoscript:geoscript-groovy:1.9-SNAPSHOT" ) {
+          exclude module: 'commons-beanutils'
+          exclude module: 'ehcache'
+          exclude module: "groovy-all"
+          exclude module: "slf4j-log4j12"
+          exclude module: "xml-apis"
+    }
+    compile "commons-beanutils:commons-beanutils:1.9.2"
 
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
