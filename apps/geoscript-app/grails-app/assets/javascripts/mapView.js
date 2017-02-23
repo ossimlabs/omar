@@ -5,8 +5,8 @@
 var MapView = (function(){
   function init(params)
   {
-    console.console.log(params);
-    
+    console.log(params);
+
     var layers = [
       new ol.layer.Tile({
         source: new ol.source.TileWMS({

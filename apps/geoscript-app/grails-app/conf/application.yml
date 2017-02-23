@@ -139,6 +139,5 @@ server:
 geoscript:
   app:
     refMap:
-#      url: 'http://web.dev.o2.ossimc2s.com/service-proxy/wmsProxy'
-      url: http://dev.o2.radiantbluecloud.com/service-proxy/wmsProxy
-      layer: 'o2-basemap-basic'
+      url: 'http://web.dev.o2.ossimc2s.com/service-proxy/wmsProxy'
+      layer: 'o2-basemap-bright'

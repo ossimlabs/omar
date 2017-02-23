@@ -24,7 +24,7 @@ class EvwhsService
 
     def wms(def params)
     {
-      println params
+      println (params + [url: evwhsURL, username: evwhsUsername, password: evwhsPassword])
 
       def wmsServer = evwhsURL
       def options = [user: evwhsUsername, password: evwhsPassword]
