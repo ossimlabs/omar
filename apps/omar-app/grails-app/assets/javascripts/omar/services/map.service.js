@@ -10,7 +10,7 @@ function mapService(stateService, wfsService) {
   // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
   // provides access to various client params in application.yml
   // #################################################################################
-  // console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
+  console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
 
   var zoomToLevel = 16;
   var map,
@@ -105,7 +105,7 @@ function mapService(stateService, wfsService) {
       projection: 'EPSG:4326',
       zoom: 12,
       minZoom: 1,
-      maxZoom: 18
+      //maxZoom: 18
     });
 
     var version="1.1.1";
@@ -149,7 +149,7 @@ function mapService(stateService, wfsService) {
           STYLES: styles,
           FORMAT: format
         },
-	wrapX: false
+        wrapX: false
       }),
       name: 'Image Footprints'
     });
@@ -178,7 +178,7 @@ function mapService(stateService, wfsService) {
                 'LAYERS': layerObj.params.layers,
                 'FORMAT': layerObj.params.format
               },
-	      wrapX: false
+	            wrapX: false
             }),
             name: layerObj.title
             });
@@ -190,7 +190,7 @@ function mapService(stateService, wfsService) {
             visible: layerObj.options.visible,
             source: new ol.source.XYZ({
               url: layerObj.url,
-	      wrapX: false
+	            wrapX: false
             }),
             name: layerObj.title
           });
@@ -198,26 +198,50 @@ function mapService(stateService, wfsService) {
       }
 
       if (baseMapLayer != null) {
-
-          // Add layer(s) to the layerSwitcher control
-          baseMapGroup.getLayers().push(baseMapLayer);
-
+        // Add layer(s) to the layerSwitcher control
+        baseMapGroup.getLayers().push(baseMapLayer);
       }
 
     }
 
-    // Map over each layer item in the baseMaps array
+    var overlayGroup = new ol.layer.Group({
+      title: 'Overlays',
+      layers: [
+        footPrints
+      ]
+    });
+
+    // Takes a layer obj, and adds
+    // the layer to the overlay layers array.
+    function addOverlayLayers(layerObj) {
+
+      var overlayMapLayer = new ol.layer.Tile({
+        title: layerObj.title,
+        visible: layerObj.options.visible,
+        source: new ol.source.TileWMS({
+          url: layerObj.url,
+          params: {
+              FILTER: layerObj.params.filter,
+              VERSION: layerObj.params.version,
+              LAYERS: layerObj.params.layers,
+              STYLES: layerObj.params.styles,
+              FORMAT: layerObj.params.format,
+          }
+        })
+      });
+      overlayGroup.getLayers().push(overlayMapLayer);
+    }
+
+    // Map over each map item in the baseMaps array
     AppO2.APP_CONFIG.openlayers.baseMaps.map(addBaseMapLayers);
+
+    // Map over each layer item in the overlayLayers array
+    AppO2.APP_CONFIG.openlayers.overlayLayers.map(addOverlayLayers);
 
     map = new ol.Map({
       layers: [
         baseMapGroup,
-        new ol.layer.Group({
-          title: 'Overlays',
-          layers: [
-            footPrints
-          ]
-        })
+        overlayGroup
       ],
       controls: ol.control.defaults().extend([
         new ol.control.ScaleLine()
@@ -227,7 +251,6 @@ function mapService(stateService, wfsService) {
       target: 'map',
       view: mapView
     });
-
 
     setupContextDialog();
 
@@ -248,7 +271,6 @@ function mapService(stateService, wfsService) {
             }
         );
     }
-
 
     var layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Layers' // Optional label for button
@@ -339,7 +361,6 @@ function mapService(stateService, wfsService) {
   }
 
   this.viewPortFilter = function(status) {
-
 
     if (status) {
 
