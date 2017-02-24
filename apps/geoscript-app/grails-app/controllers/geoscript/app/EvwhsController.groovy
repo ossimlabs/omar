@@ -1,25 +1,18 @@
 package geoscript.app
 
-import org.springframework.beans.factory.annotation.Value
+import omar.openlayers.OpenLayersConfig
 
 class EvwhsController
 {
     def evwhsService
 
-    @Value('${geoscript.app.refMap.url}')
-    def refMapURL
-
-    @Value('${geoscript.app.refMap.layer}')
-    def refMapLayer
+    OpenLayersConfig openLayersConfig
 
     def index()
     {
       [mapViewParams: [
         contextPath: grailsApplication.config.server.contextPath,
-        refMap: [
-          url: refMapURL,
-          layer: refMapLayer
-          ]
+        openlayers: openLayersConfig
         ]
       ]
     }

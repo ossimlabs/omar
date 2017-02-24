@@ -36,7 +36,7 @@ class EvwhsService
       def bbox = params?.find { it.key.equalsIgnoreCase('BBOX')}?.value?.split(',')?.collect { it?.toDouble() }
       def width = params?.find { it.key.equalsIgnoreCase('WIDTH')}?.value?.toInteger()
       def height = params?.find { it.key.equalsIgnoreCase('HEIGHT')}?.value?.toInteger()
-      def srs = params.find { it.key.equalsIgnoreCase('CRS')}.value ?: params.find { it.equalsIgnoreCase('SRS')}?.value
+      def srs = params.find { it.key.equalsIgnoreCase('CRS')}?.value ?: params.find { it.key.equalsIgnoreCase('SRS')}?.value
       def ostream = new ByteArrayOutputStream()
 
       // println ([bbox, width, height, srs])

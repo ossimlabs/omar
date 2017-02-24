@@ -10,10 +10,10 @@ var MapView = (function(){
     var layers = [
       new ol.layer.Tile({
         source: new ol.source.TileWMS({
-          url: params.refMap.url,
+          url: params.openlayers.baseMaps[4].url,
           params: {
-            'LAYERS': params.refMap.layer,
-            'FORMAT': 'image/jpeg'
+            'LAYERS': params.openlayers.baseMaps[4].params.layers,
+            'FORMAT': params.openlayers.baseMaps[4].params.format
           }
         })
       }),
