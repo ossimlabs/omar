@@ -11,4 +11,6 @@
 *= require menus/search
 *= require image-properties
 *= require menus/view
+*=
+*= require index-bundle-plugin
 */

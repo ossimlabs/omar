@@ -43,7 +43,7 @@ class SearchO2Service {
 	def searchLibrary(params) {
 		library = grailsApplication.config.libraries.o2
 
-		def queryUrl = library.queryUrl
+		def queryUrl = library.wfsUrl
 
 		def filter = ""
 		if (params.filter) { filter = params.filter }
