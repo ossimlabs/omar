@@ -1,0 +1,7 @@
+.modal.modal-xl .modal-dialog {
+    width: 90%;
+}
+
+.modal-xl .modal-body {
+    overflow-y: auto;
+}

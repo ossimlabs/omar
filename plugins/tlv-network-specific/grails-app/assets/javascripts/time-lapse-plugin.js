@@ -6,7 +6,7 @@ function buildSummaryTable() {
     var row = table.insertRow( 0 );
     var cell = row.insertCell( row.cells.length );
     row.insertCell( row.cells.length );
-    var keys = [ "imageId", "acquisitionDate", "niirs" ];
+    var keys = [ "imageId", "acquisitionDate", "NIIRS" ];
     $.each(
         keys,
         function( i, x ) {
@@ -19,16 +19,6 @@ function buildSummaryTable() {
         tlv.layers,
         function( i, x ) {
             row = table.insertRow( table.rows.length );
-            $( row ).click( function() {
-                if ( $( this ).hasClass( "success" ) ) {
-                    $( this ).removeClass( "success" );
-                }
-                else { $( this ).addClass( "success" ); }
-            } );
-            $( row ).css( "cursor", "pointer" );
-            $( row ).mouseout( function() { $( this ).removeClass( "info" ); } );
-            $( row ).mouseover( function() { $(  this ).addClass( "info" ); } );
-
             cell = row.insertCell( row.cells.length );
             $( cell ).append( i + 1 );
 
@@ -69,21 +59,4 @@ function buildSummaryTable() {
             $( cell ).append( deleteButton );
         }
     );
-}
-
-function getSelectedImages() {
-    var selectedImages = [];
-    var table = $( "#timeLapseSummaryTable" )[ 0 ];
-    $.each(
-        tlv.layers,
-        function( i, x ) {
-            var row = table.rows[ i ];
-            if ( $( row ).hasClass( "success" ) ) {
-                selectedImages.push( i );
-            }
-        }
-    );
-
-
-    return selectedImages;
 }
