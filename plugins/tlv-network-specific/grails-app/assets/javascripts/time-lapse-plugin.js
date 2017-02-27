@@ -4,6 +4,7 @@ function buildSummaryTable() {
     for ( var i = table.rows.length - 1; i >= 0; i-- ) { table.deleteRow( i ); }
 
     var row = table.insertRow( 0 );
+    $( row ).css( "white-space", "nowrap" );
     var cell = row.insertCell( row.cells.length );
     row.insertCell( row.cells.length );
     var keys = [ "imageId", "acquisitionDate", "NIIRS" ];
@@ -11,7 +12,7 @@ function buildSummaryTable() {
         keys,
         function( i, x ) {
             var cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.capitalize().replace( /([A-Z])/g, " $1" ) );
+            $( cell ).append( x.capitalize().replace( /[a-z]([A-Z])/g, " $1" ) );
         }
     );
 
