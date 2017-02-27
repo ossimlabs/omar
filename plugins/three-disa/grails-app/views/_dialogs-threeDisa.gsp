@@ -26,8 +26,12 @@
                 <div id = "tiePointMaps"></div>
 			</div>
 			<div class = "modal-footer">
-				<button type = "button" class = "btn btn-primary" onclick = "changeTiePointFrame( 'rewind' )">Previous</button>
-				<button type = "button" class = "btn btn-primary" onclick = "changeTiePointFrame( 'fastForward' )">Next</button>
+				<button class = "btn btn-primary" onclick = "changeTiePointFrame( 'rewind' )" type = "button">
+					<span class = "glyphicon glyphicon-step-backward"></span>
+				</button>
+				<button class = "btn btn-primary" onclick = "changeTiePointFrame( 'fastForward' )" type = "button">
+					<span class = "glyphicon glyphicon-step-forward"></span>
+				</button>
 				<button type = "button" class = "btn btn-primary" onclick = addTiePoint()>Add Tie Point</button>
 				<button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
 			</div>

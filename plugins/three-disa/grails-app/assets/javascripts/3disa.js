@@ -11,18 +11,18 @@ function aTiePointHasBeenAdded( event ) {
 
     var pixel = feature.getGeometry().getCoordinates();
     var currentLayer = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ];
-    imagePointsToGround( [ pixel[0], -pixel[1] ], currentLayer, function( coordinate, layer ) {
+    currentLayer.map.removeInteraction( currentLayer.drawInteraction );
+    imagePointsToGround( [[ pixel[ 0 ], -pixel[ 1 ] ]], currentLayer, function( coordinates, layer ) {
         $.each(
             tlv[ "3disa" ].layers,
             function( index, layer ) {
                 var source = layer.vectorLayer.getSource();
                 if ( source.getFeatures().length < numberOfFeatures ) {
-                    console.dir(numberOfFeatures);
                     // add a point in the same spot
-                    groundToImagePoints( coordinate, layer, function( pixel, layer ) {
+                    groundToImagePoints( coordinates, layer, function( pixels, layer ) {
                         var newFeature = feature.clone();
 
-                        var geometry = new ol.geom.Point( [ pixel[0], -pixel[1] ] );
+                        var geometry = new ol.geom.Point( [ pixel[ 0 ][ 0 ], -pixel[ 0 ][ 1 ] ] );
                         newFeature.setGeometry( geometry );
 
                         var newStyle = newFeature.getStyle();
@@ -33,7 +33,8 @@ function aTiePointHasBeenAdded( event ) {
                         layer.vectorLayer.getSource().addFeature( newFeature );
                     });
                 }
-                layer.map.removeInteraction( layer.drawInteraction );
+
+                if ( index != tlv[ "3disa" ].currentLayer ) { layer.map.removeInteraction( layer.drawInteraction ); }
             }
         );
     });
@@ -72,13 +73,14 @@ function buildSourceSelectionTable() {
     for ( var i = table.rows.length - 1; i >= 0; i-- ) { table.deleteRow( i ); }
 
     var row = table.insertRow( 0 );
+    $( row ).css( "white-space", "nowrap" );
     var cell = row.insertCell( row.cells.length );
     var keys = [ "imageId", "acquisitionDate", "NIIRS", "grazingAngle", "elevationAngle", "CE", "LE" ];
     $.each(
         keys,
         function( i, x ) {
             var cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.capitalize().replace( /([A-Z])/g, " $1" ) );
+            $( cell ).append( x.capitalize().replace( /[a-z]([A-Z])/g, " $1" ) );
         }
     );
 
@@ -169,7 +171,7 @@ function changeTiePointFrame( param ) {
     tlv[ "3disa" ].currentZoom = currentLayer.map.getView().getZoom();
 
     var center = currentLayer.map.getView().getCenter();
-    imagePointsToGround( [center[0], -center[1] ], currentLayer, function( coordinate, layer ) {
+    imagePointsToGround( [[ center[0], -center[1] ]], currentLayer, function( coordinates, layer ) {
         if ( param == "fastForward" ) {
             tlv[ "3disa" ].currentLayer = tlv[ "3disa" ].currentLayer >= tlv[ "3disa" ].layers.length - 1 ? 0 : tlv[ "3disa" ].currentLayer + 1;
         }
@@ -178,14 +180,15 @@ function changeTiePointFrame( param ) {
         }
         var newLayer = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ];
 
-        groundToImagePoints( coordinate, newLayer, function( pixel, layer ) {
+        groundToImagePoints( coordinates, newLayer, function( pixels, layer ) {
             $( "#" + currentLayer.map.getTarget() ).hide();
 
-            layer.map.getView().setCenter( [ pixel[0], -pixel[1] ] );
-            layer.map.getView().setZoom( tlv[ "3disa" ].currentZoom );
+            var view = layer.map.getView();
+            view.setCenter( [ pixel[ 0 ][ 0 ], -pixel[ 0 ][ 1 ] ] );
+            view.setZoom( tlv[ "3disa" ].currentZoom );
             $( "#" + layer.map.getTarget() ).show();
-        } );
-    } );
+        });
+    });
 }
 
 function cleanup3Disa() {
@@ -194,10 +197,16 @@ function cleanup3Disa() {
 }
 
 function createTiePointStyle() {
-    return new ol.style.Text({
-        fill: new ol.style.Fill({ color: "rgba(255, 255, 0, 1)" }),
-        offsetY: 20,
-        textBaseline: "bottom"
+    return new ol.style.Style({
+        image: new ol.style.Circle({
+            fill: new ol.style.Fill({ color: "rgba(255, 255, 0, 1)" }),
+            radius: 5
+        }),
+        text: new ol.style.Text({
+            fill: new ol.style.Fill({ color: "rgba(255, 255, 0, 1)" }),
+            offsetY: 20,
+            textBaseline: "bottom"
+        })
     });
 }
 
@@ -223,31 +232,37 @@ function getSelectedImages() {
     return images;
 }
 
-function groundToImagePoints( coordinate, layer, callback ) {
+function groundToImagePoints( coordinates, layer, callback ) {
     $.ajax({
         contentType: "application/json",
         data: JSON.stringify({
             "entryId": 0,
             "filename": layer.metadata.filename,
-            "pointList": [ { "lat": coordinate[1], "lon": coordinate[0] } ],
+            "pointList": coordinates.map(
+                function( coordinate ) { return { "lat": coordinate[1], "lon": coordinate[0] }; }
+            ),
         }),
         dataType: "json",
         success: function( data ) {
-            var pixel = [ data.data[0].x, data.data[0].y ];
-            callback( pixel, layer );
+            var pixels = data.data.map(
+                function( point ) { return [ point.x, point.y ] }
+            );
+            callback( pixels, layer );
         },
         type: "post",
         url: tlv.availableResources.complete[ layer.library ].mensaUrl + "/groundToImagePoints"
     });
 }
 
-function imagePointsToGround( pixel, layer, callback ) {
+function imagePointsToGround( pixels, layer, callback ) {
     $.ajax({
         contentType: "application/json",
         data: JSON.stringify({
             "entryId": 0,
             "filename": layer.metadata.filename,
-            "pointList": [ { "x": pixel[0], "y": pixel[1] } ],
+            "pointList": pixels.map(
+                function( pixel ) { return { "x": pixel[0], "y": pixel[1] }; }
+            ),
             "pqeEllipseAngularIncrement": 10,
             "pqeEllipsePointType" : "none",
             "pqeIncludePositionError": false,
@@ -255,8 +270,10 @@ function imagePointsToGround( pixel, layer, callback ) {
         }),
         dataType: "json",
         success: function( data ) {
-            var coordinate = [ data.data[0].lon, data.data[0].lat ];
-            callback( coordinate, layer );
+            var coordinates = data.data.map(
+                function( point ) { return [ point.lon, point.lat ]; }
+            );
+            callback( coordinates, layer );
         },
         type: "post",
         url: tlv.availableResources.complete[ layer.library ].mensaUrl + "/imagePointsToGround"
@@ -280,7 +297,12 @@ function setupTiePointSelectionDialog() {
     $.each(
         selectedImages,
         function( index, layer ) {
-            tlv[ "3disa" ].layers.push( { metadata: layer.metadata } );
+            tlv[ "3disa" ].layers.push({
+                acquisitionDate: layer.acquisitionDate,
+                imageId: layer.imageId,
+                library: layer.library,
+                metadata: layer.metadata
+            });
 
             var filename = layer.metadata.filename;
             var imageHeight = layer.metadata.height;
@@ -316,7 +338,7 @@ function setupTiePointSelectionDialog() {
                         extent: [ 0, 0, imageWidth, imageHeight ],
                         units: "pixels"
                     }),
-                    zoom: 3
+                    resolution: tlv.map.getView().getResolution()
                 })
             });
 
@@ -324,9 +346,27 @@ function setupTiePointSelectionDialog() {
 
             if ( index != 0 ) { $( "#tiePointMap" + index ).hide(); }
             else {
-                var center = ol.proj.transform( tlv.map.getView().getCenter(), "EPSG:3857", "EPSG:4326" );
-                groundToImagePoints( center, tlv[ "3disa" ].layers[ 0 ], function( pixel, layer ) {
-                    tlv[ "3disa" ].layers[ 0 ].map.getView().setCenter( [ pixel[0], -pixel[1] ] );
+                var view = tlv.map.getView();
+                var center = ol.proj.transform( view.getCenter(), "EPSG:3857", "EPSG:4326" );
+                var extent = ol.proj.transform( view.calculateExtent( tlv.map.getSize() ), "EPSG:3857", "EPSG:4326" );
+                var coordinates = [
+                    center,
+                    [ extent[ 0 ], center[ 1 ] ],
+                    [ center[ 0 ], extent[ 1 ] ],
+                    [ extent[ 2 ], center[ 1 ] ],
+                    [ center[ 0 ], extent[ 3 ] ]
+                ];
+
+                groundToImagePoints( coordinates, tlv[ "3disa" ].layers[ 0 ], function( pixels, layer ) {
+                    var center = [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ];
+                    var extent = [
+                        pixels[ 1 ][ 0 ],
+                        -pixels[ 2 ][ 1 ],
+                        pixels[ 3 ][ 0 ],
+                        -pixels[ 4 ][ 1 ]
+                    ];
+
+                    tlv[ "3disa" ].layers[ 0 ].map.getView().setCenter( center );
                 });
             }
         }
