@@ -63,7 +63,19 @@ class EvwhsService
             layers: [layer]
         )
 
-        map.render(ostream)
+        try
+        {
+          map.render(ostream)
+        }
+        catch ( e )
+        {
+            def image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
+
+            ostream = new ByteArrayOutputStream()
+            ImageIO.write(image, 'png', ostream)
+            println e.message
+        }
+
         map.close()
       }
       else
@@ -90,7 +102,19 @@ class EvwhsService
             layers: [raster]
         )
 
-        map.render(ostream)
+        try
+        {
+          map.render(ostream)
+        }
+        catch ( e )
+        {
+            def image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
+
+            ostream = new ByteArrayOutputStream()
+            ImageIO.write(image, 'png', ostream)
+            println e.message
+        }
+
         map.close()
       }
 
