@@ -282,9 +282,9 @@ function setupTiePointSelectionDialog() {
         function( index, layer ) {
             tlv[ "3disa" ].layers.push( { metadata: layer.metadata } );
 
-            var filename = image.metadata.filename;
-            var imageHeight = image.metadata.height;
-            var imageWidth = image.metadata.width;
+            var filename = layer.metadata.filename;
+            var imageHeight = layer.metadata.height;
+            var imageWidth = layer.metadata.width;
 
             var extent = [ 0, -imageHeight, imageWidth, 0 ];
             tlv[ "3disa" ].layers[ index ].mapLayer = new ol.layer.Tile({
