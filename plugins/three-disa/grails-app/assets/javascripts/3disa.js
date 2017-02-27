@@ -279,8 +279,8 @@ function setupTiePointSelectionDialog() {
     var selectedImages = getSelectedImages();
     $.each(
         selectedImages,
-        function( index, image ) {
-            tlv[ "3disa" ].layers.push( { metadata: image.metadata } );
+        function( index, layer ) {
+            tlv[ "3disa" ].layers.push( { metadata: layer.metadata } );
 
             var filename = image.metadata.filename;
             var imageHeight = image.metadata.height;
@@ -298,7 +298,7 @@ function setupTiePointSelectionDialog() {
                     tileUrlFunction: function( tileCoord, pixelRatio, projection ) {
 
 
-                        return tileUrlFunction( image, tileCoord, pixelRatio, projection )
+                        return tileUrlFunction( layer, tileCoord, pixelRatio, projection )
                     }
                 })
             });
