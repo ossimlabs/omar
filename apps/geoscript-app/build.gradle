@@ -30,12 +30,19 @@ ext {
 
 repositories {
     mavenLocal()
+    maven { url 'https://repo.boundlessgeo.com/main' }
+    maven { url 'http://download.osgeo.org/webdav/geotools' }
+    mavenCentral()
+    maven { url 'http://maven.geo-solutions.it' }
+    maven { url 'https://artifacts.unidata.ucar.edu/content/repositories/unidata' }
+    maven { url 'https://github.com/ElectronicChartCentre/ecc-mvn-repo/raw/master/releases' }
     maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
     imports {
         mavenBom "org.grails:grails-bom:$grailsVersion"
+        mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7'
     }
     applyMavenExclusions false
 }
@@ -43,7 +50,16 @@ dependencyManagement {
 dependencies {
     runtime 'org.grails.plugins:grails-console:2.0.8'
 
-    compile project(':omar-geoscript')
+    compile project(':omar-openlayers')
+
+    compile ( "org.geoscript:geoscript-groovy:1.9-SNAPSHOT" ) {
+          exclude module: 'commons-beanutils'
+          exclude module: 'ehcache'
+          exclude module: "groovy-all"
+          exclude module: "slf4j-log4j12"
+          exclude module: "xml-apis"
+    }
+    compile "commons-beanutils:commons-beanutils:1.9.2"
 
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
@@ -64,9 +80,25 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+
+    compile "org.springframework.cloud:spring-cloud-starter-config"
+    compile "org.springframework.cloud:spring-cloud-starter-eureka"    
 }
 
 assets {
     minifyJs = true
     minifyCss = true
+    excludes = [
+    '**/application.js',
+    '**/i18n/**',
+    '**/jquery*',
+    '**/omar/**',
+    '**/webjars/**',
+    '**/*-debug.js',
+    '**/*-deps.js',
+    '**/*-openlayers*',
+    '**/*.gz',
+    '**/*.html',
+    '**/*.txt',
+  ]
 }
