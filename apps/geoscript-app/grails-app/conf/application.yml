@@ -136,13 +136,7 @@ endpoints:
 server:
   contextPath: /geoscript-app
 
-geoscript:
-  app:
-    refMap:
-      # url: 'http://web.dev.o2.ossimc2s.com/service-proxy/wmsProxy'
-      url: 'http://dev.o2.ossimc2s.com/service-proxy/wmsProxy'
-      layer: 'o2-basemap-bright'
-
+---
 omar:
   openlayers:
     baseMaps:
