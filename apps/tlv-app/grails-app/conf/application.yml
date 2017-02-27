@@ -31,15 +31,19 @@ libraries:
     o2:
         label: O2
         layerType: wms
+        mensaUrl: http://localhost:8081/mensa
         name: o2
         sensors: []
-        queryUrl: http://localhost:8081/wfs
+        tileUrl: http://localhost:8081/imageSpace/getTile
         viewUrl: http://localhost:8081/wms
+        wfsUrl: http://localhost:8081/wfs
 
 plugins:
     networkSpecific:
+        dialogs: false
         navigationMenu: false
     threeDisa:
+        dialogs: true
         navigationMenu: true
 
 securityClassification:

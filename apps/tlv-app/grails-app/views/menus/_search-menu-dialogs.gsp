@@ -1,6 +1,7 @@
 <div class = "modal" id = "searchBookmarkDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog">
  		<div class = "modal-content">
+			<div class = "modal-header"></div>
 			<div class = "modal-body">
 				<a id = "searchBookmarkHref">This</a> URL captures ALL of the current search parameters. Keep what you want and delete the rest. Then, bookmark it!
 			</div>

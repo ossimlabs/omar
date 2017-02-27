@@ -2,6 +2,7 @@
 	<button aria-label = "Close" class = "close" onclick = hideErrorDialog() type = "button">
 		<span aria-hidden = "true">&times;</span>
 	</button>
+	<div></div>
 </div>
 
 <div class = "modal" id = "loadingDialog" role = "dialog" style = "z-index: 2147483647" tabindex = "-1">
@@ -26,3 +27,9 @@
 <g:render template = "/menus/search-menu-dialogs"/>
 <g:render template = "/menus/time-lapse-menu-dialogs"/>
 <g:render template = "/menus/view-menu-dialogs"/>
+
+<g:each in = "${ grailsApplication.config.plugins }">
+	<g:if test = "${ it.value?.dialogs == true }">
+		<g:render template = "/dialogs-${ it.key }"/>
+	</g:if>
+</g:each>

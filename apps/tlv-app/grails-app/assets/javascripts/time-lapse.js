@@ -279,7 +279,7 @@ function updateAcquisitionDate() {
 		var timeToPreviousImage = getTimeToAdjacentImage(tlv.currentLayer, "previous");
 		$("#acquisitionDateDiv").html(
 			(timeToPreviousImage ? timeToPreviousImage + " <- " : "") +
-			acquisitionDate + "z" +
+			acquisitionDate + (acquisitionDate != "N/A" ? "z" : "") +
 			(timeToNextImage ? " -> " + timeToNextImage : "")
 		);
 	}
