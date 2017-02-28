@@ -22,7 +22,7 @@ function aTiePointHasBeenAdded( event ) {
                     groundToImagePoints( coordinates, layer, function( pixels, layer ) {
                         var newFeature = feature.clone();
 
-                        var geometry = new ol.geom.Point( [ pixel[ 0 ][ 0 ], -pixel[ 0 ][ 1 ] ] );
+                        var geometry = new ol.geom.Point( [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ] );
                         newFeature.setGeometry( geometry );
 
                         var newStyle = newFeature.getStyle();
@@ -184,7 +184,7 @@ function changeTiePointFrame( param ) {
             $( "#" + currentLayer.map.getTarget() ).hide();
 
             var view = layer.map.getView();
-            view.setCenter( [ pixel[ 0 ][ 0 ], -pixel[ 0 ][ 1 ] ] );
+            view.setCenter( [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ] );
             view.setZoom( tlv[ "3disa" ].currentZoom );
             $( "#" + layer.map.getTarget() ).show();
         });
