@@ -75,12 +75,11 @@ function buildSourceSelectionTable() {
     var row = table.insertRow( 0 );
     $( row ).css( "white-space", "nowrap" );
     var cell = row.insertCell( row.cells.length );
-    var keys = [ "imageId", "acquisitionDate", "NIIRS", "grazingAngle", "elevationAngle", "CE", "LE" ];
     $.each(
-        keys,
-        function( i, x ) {
+        [ "Image ID", "Acquisition Date", "NIIRS", "Grazing Angle", "Elevation Angle", "CE", "LE" ],
+        function( index, value ) {
             var cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.capitalize().replace( /[a-z]([A-Z])/g, " $1" ) );
+            $( cell ).append( value );
         }
     );
 
@@ -219,6 +218,21 @@ function generateDem() {
     $( "#selectImagesButton" ).click( function() { setupTiePointSelectionDialog(); } );
 }
 
+function getNorthAndUpAngles( layer ) {
+    $.ajax({
+        data: "entry=0&filename=" + layer.metadata.filename,
+        dataType: "json",
+        success: function( data ) {
+            layer.northAngle = data.northAngle;
+            layer.upAngle = data.upAngle;
+
+            rotateNorthArrow( layer, layer.northAngle );
+            layer.map.getView().setRotation( layer.upAngle );
+        },
+        url: tlv.availableResources.complete[ layer.library ].imageSpaceUrl + "/getAngles"
+    });
+}
+
 function getSelectedImages() {
     var images = [];
     $.each(
@@ -287,6 +301,14 @@ pageLoad = function() {
 	tlv[ "3disa" ] = {};
 }
 
+function rotateNorthArrow( layer, radians ) {
+    var transform = 'rotate(' + radians + 'rad)';
+    var arrow = $('.ol-compass');
+    arrow.css('msTransform', transform);
+    arrow.css('transform', transform);
+    arrow.css('webkitTransform', transform);
+}
+
 function setupTiePointSelectionDialog() {
     cleanup3Disa();
     tlv[ "3disa" ].layers = [];
@@ -326,21 +348,31 @@ function setupTiePointSelectionDialog() {
             });
 
             $( "#tiePointMaps" ).append( "<div class = 'map' id = 'tiePointMap" + index + "'></div>" );
+            var view = new ol.View({
+                center: [ imageWidth / 2, -imageHeight / 2 ],
+                extent: extent,
+                projection: new ol.proj.Projection({
+                    code: "ImageSpace",
+                    extent: [ 0, 0, imageWidth, imageHeight ],
+                    units: "pixels"
+                }),
+                resolution: tlv.map.getView().getResolution()
+            });
+            view.on('change:rotation', function( event ) {
+                if ( layer.northAngle ) {
+                    var rotation = event.target.get( event.key ) - layer.northAngle;
+                    rotateNorthArrow( layer, rotation );
+                }
+            });
+
             tlv[ "3disa" ].layers[ index ].map = new ol.Map({
                 layers: [ tlv[ "3disa" ].layers[ index ].mapLayer ],
                 logo: false,
                 target: "tiePointMap" + index,
-                view: new ol.View({
-                    center: [ imageWidth / 2, -imageHeight / 2 ],
-                    extent: extent,
-                    projection: new ol.proj.Projection({
-                        code: "ImageSpace",
-                        extent: [ 0, 0, imageWidth, imageHeight ],
-                        units: "pixels"
-                    }),
-                    resolution: tlv.map.getView().getResolution()
-                })
+                view: view
             });
+
+            getNorthAndUpAngles( tlv[ "3disa" ].layers[ index ] );
 
             addTiePointVectorLayer( index );
 
@@ -393,6 +425,6 @@ function tileUrlFunction( image, tileCoord, pixelRatio, projection ) {
         ];
 
 
-        return tlv.availableResources.complete[ image.library ].tileUrl + "?" + params.join( "&" );
+        return tlv.availableResources.complete[ image.library ].imageSpaceUrl + "/getTile?" + params.join( "&" );
     }
 }
