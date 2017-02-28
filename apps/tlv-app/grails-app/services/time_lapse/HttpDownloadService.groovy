@@ -16,6 +16,7 @@ class HttpDownloadService {
 
 	def serviceMethod(params) {
 		def http = new HTTPBuilder(params.url)
+		http.ignoreSSLIssues()
 
 		def keyStoreFile = getClass().getResource("/keyStore.jks")
 		def trustStoreFile = getClass().getResource("/trustStore.jks")
