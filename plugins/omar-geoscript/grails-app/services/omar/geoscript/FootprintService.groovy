@@ -38,12 +38,10 @@ class FootprintService
 
       def x = outlineLookupTable.keySet().collect { "'${it}'" }.join( ',' )
 
-      // this is hard coded to assume we are always querying on file_type. When we query based on
-      // mission_id or some other field then it will always draw a black outline for this will alwasy match
-      // a layer.  Will comment this out for now.
-      //
-      //
-      //style << ( stroke( color: '#000000' ) + fill( opacity: 0.0 ) ).where( "file_type not in (${x})" )
+      // Add the negation of all filters so that things that don't match still show up
+      def allFilters = outlineLookupTable.values().collect { it.filter }?.join(' or ')
+
+      style << ( stroke( color: '#000000' ) + fill( opacity: 0.0 ) ).where( "not (${allFilters})" )
 
       def footprints = new QueryLayer( workspace[layerName], style as Composite )
       def viewBbox = new Bounds( *( params.bbox.split( ',' )*.toDouble() ), params.srs )

@@ -211,6 +211,8 @@ omar:
         version: '1.1.1'
         layers: 'omar:raster_entry'
         styles: 'byFileType'
+#        styles: 'bySensorType'
+#        styles: 'byMissionType'        
         format: 'image/gif'
     mensaApp:
       baseUrl: http://localhost:8081/mensa

@@ -63,58 +63,58 @@
             };
 
             switch (imageType) {
-                case "adrg":
-                    border["border-color"] = "#326F6F"; // atoll
-                    break;
-                case "aaigrid":
-                    border["border-color"] = "pink";
-                    break;
-                case "cadrg":
-                    border["border-color"] = "#00FFFF"; // cyan
-                    border["border-width"] = "2px"; // makes it look the same size as others
-                    break;
-                case "ccf":
-                    border["border-color"] = "#8064FF"; // light slate blue
-                    break;
-                case "cib":
-                    border["border-color"] = "#008080"; // teal
-                    border["border-width"] = "2px"; // makes it look the same size as others
-                    break;
-                case "doqq":
-                    border["border-color"] = "purple";
-                    break;
-                case "dted":
-                    border["border-color"] = "#00FF00"; // green
-                    break;
-                case "imagine_hfa":
-                    border["border-color"] = "lightGrey";
-                    //border["border-width"] = "1.5px"; // makes it look the same size as others
-                    break;
-                case "jpeg":
-                    border["border-color"] = "#FFFF00"; // yellow
-                    break;
-                case "jpeg2000":
-                    border["border-color"] = "#FFC800"; // orange
-                    break;
-                case "landsat7":
-                    border["border-color"] = "#FF00FF"; // pink
-                    break;
-                case "mrsid":
-                    border["border-color"] = "#00BC00"; // light green
-                    break;
-                case "nitf":
-                    border["border-color"] = "#0000FF"; // blue
-                    break;
-                case "tiff":
-                    border["border-color"] = "#FF0000"; // red
-                    break;
-                case "mpeg":
-                    border["border-color"] = "#A4FEFF"; // red
-                    break;
-                case "unspecified":
-                    border["border-color"] = "white";
-                    //border["border-width"] = "1.5px"; // makes it look the same size as others
-                    break;
+                // case "adrg":
+                //     border["border-color"] = "#326F6F"; // atoll
+                //     break;
+                // case "aaigrid":
+                //     border["border-color"] = "pink";
+                //     break;
+                // case "cadrg":
+                //     border["border-color"] = "#00FFFF"; // cyan
+                //     border["border-width"] = "2px"; // makes it look the same size as others
+                //     break;
+                // case "ccf":
+                //     border["border-color"] = "#8064FF"; // light slate blue
+                //     break;
+                // case "cib":
+                //     border["border-color"] = "#008080"; // teal
+                //     border["border-width"] = "2px"; // makes it look the same size as others
+                //     break;
+                // case "doqq":
+                //     border["border-color"] = "purple";
+                //     break;
+                // case "dted":
+                //     border["border-color"] = "#00FF00"; // green
+                //     break;
+                // case "imagine_hfa":
+                //     border["border-color"] = "lightGrey";
+                //     //border["border-width"] = "1.5px"; // makes it look the same size as others
+                //     break;
+                // case "jpeg":
+                //     border["border-color"] = "#FFFF00"; // yellow
+                //     break;
+                // case "jpeg2000":
+                //     border["border-color"] = "#FFC800"; // orange
+                //     break;
+                // case "landsat7":
+                //     border["border-color"] = "#FF00FF"; // pink
+                //     break;
+                // case "mrsid":
+                //     border["border-color"] = "#00BC00"; // light green
+                //     break;
+                // case "nitf":
+                //     border["border-color"] = "#0000FF"; // blue
+                //     break;
+                // case "tiff":
+                //     border["border-color"] = "#FF0000"; // red
+                //     break;
+                // case "mpeg":
+                //     border["border-color"] = "#A4FEFF"; // red
+                //     break;
+                // case "unspecified":
+                //     border["border-color"] = "white";
+                //     //border["border-width"] = "1.5px"; // makes it look the same size as others
+                //     break;
                 default:
                     border["border-color"] = "white";
                     //border["border-width"] = "2px"; // makes it look the same size as others
