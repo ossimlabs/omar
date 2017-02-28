@@ -7,12 +7,11 @@ function buildSummaryTable() {
     $( row ).css( "white-space", "nowrap" );
     var cell = row.insertCell( row.cells.length );
     row.insertCell( row.cells.length );
-    var keys = [ "imageId", "acquisitionDate", "NIIRS" ];
     $.each(
-        keys,
-        function( i, x ) {
+        [ "Image ID", "Acquisition Date", "NIIRS" ],
+        function( index, value ) {
             var cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.capitalize().replace( /[a-z]([A-Z])/g, " $1" ) );
+            $( cell ).append( value );
         }
     );
 

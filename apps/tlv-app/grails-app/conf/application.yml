@@ -4,7 +4,7 @@ baseLayers:
         name: OSM Basic
         styles:
         type: wms
-        url: http://mapproxy.dev.o2.radiantbluecloud.com/wms
+        url: https://mapproxy.dev.o2.radiantbluecloud.com/wms
         visible: false
     osmBright:
         layers: o2-basemap-bright
@@ -12,7 +12,7 @@ baseLayers:
         styles:
         type: wms
         visible: true
-        url: http://mapproxy.dev.o2.radiantbluecloud.com/wms
+        url: https://mapproxy.dev.o2.radiantbluecloud.com/wms
 
 baseUrl: http://localhost:8080
 
@@ -29,12 +29,12 @@ geocoderUrl: http://dev.o2.radiantbluecloud.com/twofishes
 
 libraries:
     o2:
+        imageSpaceUrl: http://localhost:8081/imageSpace
         label: O2
         layerType: wms
         mensaUrl: http://localhost:8081/mensa
         name: o2
         sensors: []
-        tileUrl: http://localhost:8081/imageSpace/getTile
         viewUrl: http://localhost:8081/wms
         wfsUrl: http://localhost:8081/wfs
 
