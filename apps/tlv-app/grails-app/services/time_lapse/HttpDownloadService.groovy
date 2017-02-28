@@ -12,8 +12,6 @@ class HttpDownloadService {
 
 
 	def serviceMethod(params) {
-		//def http = new HTTPBuilder( params.url )
-
 		try {
 			def command = "curl -Lk ${ params.url }"
 println command

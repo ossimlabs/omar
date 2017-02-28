@@ -132,3 +132,69 @@ grails:
 endpoints:
     jmx:
         unique-names: true
+---
+server:
+  contextPath: /geoscript-app
+
+---
+omar:
+  openlayers:
+    baseMaps:
+      -
+        layerType: "tilewms"
+        title: "Open Street Map"
+        url: "http://vmap0.tiles.osgeo.org/wms/vmap0"
+        params:
+          layers: "basic,coastline_01,coastline_02,priroad,secroad,rail,ferry,tunnel,bridge,trail,CAUSE,clabel,statelabel,ctylabel"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "Natural Earth"
+        url: "http://demo.boundlessgeo.com/geoserver/wms"
+        params:
+          layers: "ne:NE1_HR_LC_SR_W_DR"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "Blue Marble"
+        url: "http://demo.opengeo.org/geoserver/wms"
+        params:
+          layers: "nasa:bluemarble"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "OSM Basic"
+        url: "http://web.dev.o2.ossimc2s.com/service-proxy/wmsProxy"
+        params:
+          layers: "o2-basemap-basic"
+          format: "image/jpeg"
+        options:
+          visible: false
+      -
+        layerType: "tilewms"
+        title: "OSM Bright"
+        url: "http://web.dev.o2.ossimc2s.com/service-proxy/wmsProxy"
+        params:
+          layers: "o2-basemap-bright"
+          format: "image/jpeg"
+        options:
+          visible: true
+    overlayLayers:
+      -
+        layerType: "tilewms"
+        title: "DGI"
+        url: "http://geoscript.dev.o2.ossimc2s.com/geoscript-app/evwhs/wms"
+        params:
+          filter: ""
+          version: "1.3.0"
+          layers: ""
+          styles: ""
+          format: "image/png"
+        options:
+          visible: false      
