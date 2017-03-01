@@ -13,7 +13,7 @@ class HttpDownloadService {
 
 	def serviceMethod(params) {
 		try {
-			def command = "curl -Lk ${ params.url }"
+			def command = "wget -qO- --no-check-certificate ${ params.url }"
 println command
 			def process = command.execute()
 			process.waitFor()
