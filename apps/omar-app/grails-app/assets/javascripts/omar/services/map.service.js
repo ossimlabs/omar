@@ -10,7 +10,7 @@ function mapService(stateService, wfsService) {
   // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
   // provides access to various client params in application.yml
   // #################################################################################
-  console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
+  //console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
 
   var zoomToLevel = 16;
   var map,
@@ -31,8 +31,6 @@ function mapService(stateService, wfsService) {
 
   var baseServerUrl = AppO2.APP_CONFIG.serverURL;
   var markerUrl = baseServerUrl + '/' + AppO2.APP_CONFIG.params.misc.icons.greenMarker;
-
-  // console.log(AppO2.APP_CONFIG);
 
   iconStyle = new ol.style.Style({
     image: new ol.style.Icon(({
@@ -206,9 +204,7 @@ function mapService(stateService, wfsService) {
 
     var overlayGroup = new ol.layer.Group({
       title: 'Overlays',
-      layers: [
-        footPrints
-      ]
+      layers: []
     });
 
     // Takes a layer obj, and adds
@@ -237,6 +233,7 @@ function mapService(stateService, wfsService) {
 
     // Map over each layer item in the overlayLayers array
     AppO2.APP_CONFIG.openlayers.overlayLayers.map(addOverlayLayers);
+    overlayGroup.getLayers().push(footPrints);
 
     map = new ol.Map({
       layers: [
@@ -273,7 +270,7 @@ function mapService(stateService, wfsService) {
     }
 
     var layerSwitcher = new ol.control.LayerSwitcher({
-        tipLabel: 'Layers' // Optional label for button
+      tipLabel: 'Layers' // Optional label for button
     });
     map.addControl(layerSwitcher);
 
@@ -449,13 +446,9 @@ function mapService(stateService, wfsService) {
 
     clearLayerSource(searchLayerVector);
 
-console.log(imageObj.geometry.coordinates);
-
     var footprintFeature = new ol.Feature({
         geometry: new ol.geom.MultiPolygon(imageObj.geometry.coordinates)
     });
-
-
 
     var color = setFootprintColors(imageObj.properties.file_type);
 
@@ -467,8 +460,6 @@ console.log(imageObj.geometry.coordinates);
     searchLayerVector.getSource().addFeature(footprintFeature);
 
     var featureExtent = footprintFeature.getGeometry().getExtent();
-
-    console.log(featureExtent);
 
     var featureExtentCenter = new ol.extent.getCenter(featureExtent);
 
