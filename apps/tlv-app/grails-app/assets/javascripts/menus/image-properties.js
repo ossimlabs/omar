@@ -64,7 +64,6 @@ setupTimeLapse = function() {
 
 function syncImageProperties() {
 	var layer = tlv.layers[ tlv.currentLayer ];
-	var metadata = layer.metadata;
 	var styles = JSON.parse( layer.mapLayer.getSource().getParams().STYLES );
 
 
@@ -73,7 +72,7 @@ function syncImageProperties() {
 		function( i, x ) {
 			var select = $( "#" + x + "GunSelect" );
 			select.html("");
-			for ( var bandNumber = 1; bandNumber <= metadata.numberOfBands; bandNumber++) {
+			for ( var bandNumber = 1; bandNumber <= layer.numberOfBands; bandNumber++) {
 				select.append( "<option value = " + bandNumber + " >" + bandNumber + "</option>");
 			}
 		}

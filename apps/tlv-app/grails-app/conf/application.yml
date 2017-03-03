@@ -2,19 +2,24 @@ baseLayers:
     osmBasic:
         layers: o2-basemap-basic
         name: OSM Basic
+        styles:
         type: wms
-        url: http://mapproxy.dev.o2.radiantbluecloud.com/wms
+        url: https://mapproxy.dev.o2.radiantbluecloud.com/wms
         visible: false
     osmBright:
         layers: o2-basemap-bright
         name: OSM Bright
+        styles:
         type: wms
         visible: true
-        url: http://mapproxy.dev.o2.radiantbluecloud.com/wms
+        url: https://mapproxy.dev.o2.radiantbluecloud.com/wms
 
 baseUrl: http://localhost:8080
 
-beLookupUrl: http://localhost:8081/wfs
+beLookup:
+    columnName: be_number
+    typeName: omar:facility
+    url: http://localhost:8081/wfs
 
 defaultLocation: 48.8584, 2.2945
 
@@ -24,18 +29,22 @@ geocoderUrl: http://dev.o2.radiantbluecloud.com/twofishes
 
 libraries:
     o2:
+        imageSpaceUrl: http://localhost:8081/imageSpace
         label: O2
         layerType: wms
+        mensaUrl: http://localhost:8081/mensa
         name: o2
         sensors: []
-        queryUrl: http://localhost:8081/wfs
         viewUrl: http://localhost:8081/wms
+        wfsUrl: http://localhost:8081/wfs
 
-networkSpecific:
-    dialogs:
-        enabled: true
-    layers:
-        enabled: true
+plugins:
+    networkSpecific:
+        dialogs: false
+        navigationMenu: false
+    threeDisa:
+        dialogs: true
+        navigationMenu: true
 
 securityClassification:
     backgroundColor: green
@@ -46,18 +55,7 @@ server:
   contextPath:
   port: 8080
 
----
-# grails:
-#   serverURL: http://${DOCKER_HOST_IP}/tlv
-#   assets:
-#     url: http://${DOCKER_HOST_IP}/tlv/assets/
-
-spring:
-  cloud:
-    config:
-      enabled: false
-    discovery:
-      enabled: false
+terrainProvider: //assets.agi.com/stk-terrain/world
 
 ---
 hibernate:

@@ -26,7 +26,7 @@
 				<div class = "row" id = "mouseClickDiv"></div>
 				<hr>
 				<div align = "center" class = "row"><b><i>Image Metadata:</i></b></div>
-				<div class = "row" id = "imageMetadataDiv"></div>
+				<pre id = "imageMetadataPre" style = "background: none; color: #c8c8c8"></pre>
 			</div>
 			<div class = "modal-footer">
 				<button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>

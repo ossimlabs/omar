@@ -33,12 +33,14 @@ include 'all-app',
 		'pki-app',
 		'predio-app',
 		'stager-app',
+		'three-disa',
 		'tlv-app',
 		'tlv-network-specific',
 		'wcs-app',
 		'wfs-app',
 		'wms-app',
-		'wmts-app'
+		'wmts-app',
+		'geoscript-app'
 
 // Plugins
 project(':omar-avro').projectDir = 'plugins/omar-avro' as File
@@ -62,6 +64,7 @@ project(':omar-wcs').projectDir = 'plugins/omar-wcs' as File
 project(':omar-wfs').projectDir = 'plugins/omar-wfs' as File
 project(':omar-wms').projectDir = 'plugins/omar-wms' as File
 project(':omar-wmts').projectDir = 'plugins/omar-wmts' as File
+project(':three-disa').projectDir = 'plugins/three-disa' as File
 project(':tlv-network-specific').projectDir = 'plugins/tlv-network-specific' as File
 
 // Apps
@@ -84,3 +87,4 @@ project(':wfs-app').projectDir = 'apps/wfs-app' as File
 project(':wms-app').projectDir = 'apps/wms-app' as File
 project(':wmts-app').projectDir = 'apps/wmts-app' as File
 project(':oldmar-app').projectDir = 'apps/oldmar-app' as File
+project(':geoscript-app').projectDir = 'apps/geoscript-app' as File

@@ -86,7 +86,7 @@ class WmtsController {
             @ApiImplicitParam( name = 'tileMatrixSet', value = 'Tile matrix set', defaultValue = "WorldGeographic", paramType = 'query', dataType = 'string', required = false ),
     ] )
     def index() {
-        def jsonData = request.JSON?request.JSON as HashMap:null
+        def jsonData = request.JSON ? request.JSON as HashMap : null
         def requestParams = params - params.subMap( ['controller', 'action'] )
         def cmd = new WmtsCommand()
 
@@ -118,9 +118,9 @@ class WmtsController {
         }
         catch ( e )
         {
+          println e.message
             log.error e.message.toString()
             response.status = 400
-           // println e.message
             render e.toString()
           //  render contentType: 'application/xml', text: exceptionService.createMessage( e.message )
         }
@@ -256,7 +256,7 @@ class WmtsController {
     ] )
     def getTile()
     {
-        def jsonData = request.JSON?request.JSON as HashMap:null
+        def jsonData = request.JSON ? request.JSON as HashMap : null
         def requestParams = params - params.subMap( ['controller', 'action'] )
         def cmd = new GetTileCommand()
 
@@ -265,6 +265,8 @@ class WmtsController {
         BindUtil.fixParamNames( GetTileCommand, requestParams )
         bindData( cmd, requestParams )
 
+
+        //println cmd
 
         // Getting the outputStream then testing in the finally will get rid
         // of the exceptions that state:
@@ -288,6 +290,7 @@ class WmtsController {
         catch ( e )
         {
             log.debug(e.toString())
+            println e.message
         }
         finally{
             if(outputStream!=null)
@@ -298,6 +301,7 @@ class WmtsController {
                 catch(e)
                 {
                     log.debug(e.toString())
+                    println e.message
                 }
             }
         }

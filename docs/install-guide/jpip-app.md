@@ -17,6 +17,36 @@ The installation sets up
 * Creates a var run directory with user *omar* permissions under /var/run/jpip-app
 * Adds the fat jar and shell scripts under the directory /usr/share/omar/jpip-app location
 
+
+##Dependencies
+
+This plugin uses JNI bindings to the ossim core C++ engine.  By default it should install the JNI C++ bindings but will not install any optional plugins for handling additional file formats.  Here is a suggested list of plugins to add to your installation:
+
+**Sugested Packages**
+
+```
+yum install ossim
+yum install ossim-kakadu-plugin
+yum install ossim-jpeg12-plugin
+yum install ossim-sqlite-plugin
+yum install ossim-hdf5-plugin
+yum install ossim-geopdf-plugin
+yum install ossim-png-plugin
+```
+
+**Additional**
+
+```
+sudo yum install ossim-gdal-plugin.x86_64
+```
+
+and if Available:
+
+```
+sudo yum -y install ossim-ntm-plugin
+```
+
+
 ##Configuration
 
 **Assumptions**:

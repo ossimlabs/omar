@@ -2,7 +2,7 @@
 	<nav class = "navbar navbar-default navbar-static-top" id = "navigationMenu" role = "navigation">
 		<div class = "container-fluid">
 			<div class = "navbar-header">
-				<a class = "navbar-brand" href = "${ request.contextPath }" style = "padding-top: 5px">
+				<a class = "navbar-brand" href = "${ grailsApplication.config.server.contextPath }" style = "padding-top: 5px">
 					<asset:image height = "40px" src = "logos/tlv.png" title = "TLV Home"/>
 				</a>
 
@@ -25,6 +25,12 @@
 					<g:render template = "/menus/layers-menu"/>
 					<g:render template = "/menus/time-lapse-menu"/>
 					<g:render template = "/menus/view-menu"/>
+
+					<g:each in = "${ grailsApplication.config.plugins }">
+						<g:if test = "${ it.value?.navigationMenu == true }">
+							<g:render template = "/navigation-menu-${ it.key }"/>
+						</g:if>
+					</g:each>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href = "${ grailsApplication.config.docsUrl }" target = "_blank")>Help</a></li>

@@ -3,8 +3,8 @@
 //= require webjars/momentjs/2.10.6/moment.js
 //= require bootstrap-datetimepicker-4.15.35
 //= require bootstrap-slider
-//= require webjars/cesium/1.21.0/Build/Cesium/Cesium.js
-//= require ol3-cesium-1.16
+//= require Cesium/Cesium.js
+//= require ol3-cesium-debug-1.23
 //= require coordinate-conversion
 
 //= require prototype

@@ -105,8 +105,12 @@ class WmsController
 			{
 				outputStream << result.buffer
 			}
+
 			def otherParams = result.metrics
+
 			otherParams.ip = IpUtil.getClientIpAddr(request)
+			otherParams.endDate = new Date()
+			otherParams.endTime = System.currentTimeMillis()
 			wmsLogService.logGetMapRequest( wmsParams, otherParams )
 		}
 		catch ( e )

@@ -5,7 +5,7 @@ grails:
         defaultPackage: all.app
     resources:
         pattern: '/**'
-        
+
 info:
     app:
         name: '@info.app.name@'
@@ -330,68 +330,104 @@ wms:
             color: white
       bySensorType:
           'ACES_YOGI-HRI1':
-            filter: mission_id='ACES_YOGI-HRI1'
+            filter: sensor_id='ACES_YOGI-HRI1'
             color:
               r: 255
               g: 0
               b: 0
               a: 255
           'ACES_YOGI-HRI2':
-            filter: mission_id='ACES_YOGI-HRI2'
+            filter: sensor_id='ACES_YOGI-HRI2'
             color:
               r: 255
               g: 0
               b: 0
               a: 255
           'ACES_YOGI-HRI3':
-            filter: mission_id='ACES_YOGI-HRI3'
+            filter: sensor_id='ACES_YOGI-HRI3'
             color:
               r: 255
               g: 0
               b: 0
               a: 255
           'ACES_YOGI-HSI':
-            filter: mission_id='ACES_YOGI-HSI'
+            filter: sensor_id='ACES_YOGI-HSI'
             color:
               r: 255
               g: 255
               b: 0
               a: 255
           ALPHA:
-            filter: mission_id='ALPHA'
+            filter: sensor_id='ALPHA'
             color:
               r: 255
               g: 0
               b: 255
               a: 255
           BRAVO:
-            filter: mission_id='BRAVO'
+            filter: sensor_id='BRAVO'
             color:
               r: 0
               g: 255
               b: 0
               a: 255
           CHARLIE:
-            filter: mission_id='CHARLIE'
+            filter: sensor_id='CHARLIE'
             color:
               r: 0
               g: 255
               b: 255
               a: 255
           DELTA:
-            filter: mission_id='DELTA'
+            filter: sensor_id='DELTA'
             color:
               r: 0
               g: 0
               b: 255
               a: 255
           unspecified:
-            filter: mission_id='unspecified'
+            filter: sensor_id='unspecified'
             color:
               r: 255
               g: 255
               b: 255
               a: 255
+      byMissionType:
+        INUKA:
+          filter: mission_id='INUKA'
+          color:
+            r: 255
+            g: 0
+            b: 0
+            a: 255
+        KODIAK:
+          filter: mission_id='KODIAK'
+          color:
+            r: 0
+            g: 255
+            b: 0
+            a: 255
+        SAMI:
+          filter: mission_id='SAMI'
+          color:
+            r: 0
+            g: 0
+            b: 255
+            a: 255
+        Y1:
+          filter: mission_id='Y1'
+          color:
+            r: 255
+            g: 255
+            b: 0
+            a: 255
+        YL:
+          filter: mission_id='YL'
+          color:
+            r: 0
+            g: 255
+            b: 255
+            a: 255
       byVideoType:
           mpeg:
             filter: filename like '%mpg'

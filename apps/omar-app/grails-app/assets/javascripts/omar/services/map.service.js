@@ -10,7 +10,7 @@ function mapService(stateService, wfsService) {
   // AppO2.APP_CONFIG is passed down from the .gsp, and is a global variable.  It
   // provides access to various client params in application.yml
   // #################################################################################
-  // console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
+  //console.log('AppO2.APP_CONFIG in mapService: ', AppO2.APP_CONFIG);
 
   var zoomToLevel = 16;
   var map,
@@ -31,8 +31,6 @@ function mapService(stateService, wfsService) {
 
   var baseServerUrl = AppO2.APP_CONFIG.serverURL;
   var markerUrl = baseServerUrl + '/' + AppO2.APP_CONFIG.params.misc.icons.greenMarker;
-
-  // console.log(AppO2.APP_CONFIG);
 
   iconStyle = new ol.style.Style({
     image: new ol.style.Icon(({
@@ -105,7 +103,7 @@ function mapService(stateService, wfsService) {
       projection: 'EPSG:4326',
       zoom: 12,
       minZoom: 1,
-      maxZoom: 18
+      //maxZoom: 18
     });
 
     var version="1.1.1";
@@ -149,7 +147,7 @@ function mapService(stateService, wfsService) {
           STYLES: styles,
           FORMAT: format
         },
-	wrapX: false
+        wrapX: false
       }),
       name: 'Image Footprints'
     });
@@ -178,7 +176,7 @@ function mapService(stateService, wfsService) {
                 'LAYERS': layerObj.params.layers,
                 'FORMAT': layerObj.params.format
               },
-	      wrapX: false
+	            wrapX: false
             }),
             name: layerObj.title
             });
@@ -190,7 +188,7 @@ function mapService(stateService, wfsService) {
             visible: layerObj.options.visible,
             source: new ol.source.XYZ({
               url: layerObj.url,
-	      wrapX: false
+	            wrapX: false
             }),
             name: layerObj.title
           });
@@ -198,26 +196,49 @@ function mapService(stateService, wfsService) {
       }
 
       if (baseMapLayer != null) {
-
-          // Add layer(s) to the layerSwitcher control
-          baseMapGroup.getLayers().push(baseMapLayer);
-
+        // Add layer(s) to the layerSwitcher control
+        baseMapGroup.getLayers().push(baseMapLayer);
       }
 
     }
 
-    // Map over each layer item in the baseMaps array
+    var overlayGroup = new ol.layer.Group({
+      title: 'Overlays',
+      layers: []
+    });
+
+    // Takes a layer obj, and adds
+    // the layer to the overlay layers array.
+    function addOverlayLayers(layerObj) {
+
+      var overlayMapLayer = new ol.layer.Tile({
+        title: layerObj.title,
+        visible: layerObj.options.visible,
+        source: new ol.source.TileWMS({
+          url: layerObj.url,
+          params: {
+              FILTER: layerObj.params.filter,
+              VERSION: layerObj.params.version,
+              LAYERS: layerObj.params.layers,
+              STYLES: layerObj.params.styles,
+              FORMAT: layerObj.params.format,
+          }
+        })
+      });
+      overlayGroup.getLayers().push(overlayMapLayer);
+    }
+
+    // Map over each map item in the baseMaps array
     AppO2.APP_CONFIG.openlayers.baseMaps.map(addBaseMapLayers);
+
+    // Map over each layer item in the overlayLayers array
+    AppO2.APP_CONFIG.openlayers.overlayLayers.map(addOverlayLayers);
+    overlayGroup.getLayers().push(footPrints);
 
     map = new ol.Map({
       layers: [
         baseMapGroup,
-        new ol.layer.Group({
-          title: 'Overlays',
-          layers: [
-            footPrints
-          ]
-        })
+        overlayGroup
       ],
       controls: ol.control.defaults().extend([
         new ol.control.ScaleLine()
@@ -227,7 +248,6 @@ function mapService(stateService, wfsService) {
       target: 'map',
       view: mapView
     });
-
 
     setupContextDialog();
 
@@ -249,9 +269,8 @@ function mapService(stateService, wfsService) {
         );
     }
 
-
     var layerSwitcher = new ol.control.LayerSwitcher({
-        tipLabel: 'Layers' // Optional label for button
+      tipLabel: 'Layers' // Optional label for button
     });
     map.addControl(layerSwitcher);
 
@@ -340,7 +359,6 @@ function mapService(stateService, wfsService) {
 
   this.viewPortFilter = function(status) {
 
-
     if (status) {
 
         map.on('moveend', filterByViewPort);
@@ -428,7 +446,6 @@ function mapService(stateService, wfsService) {
 
     clearLayerSource(searchLayerVector);
 
-
     var footprintFeature = new ol.Feature({
         geometry: new ol.geom.MultiPolygon(imageObj.geometry.coordinates)
     });
@@ -443,6 +460,7 @@ function mapService(stateService, wfsService) {
     searchLayerVector.getSource().addFeature(footprintFeature);
 
     var featureExtent = footprintFeature.getGeometry().getExtent();
+
     var featureExtentCenter = new ol.extent.getCenter(featureExtent);
 
     var missionID = "Unknown";
@@ -632,54 +650,54 @@ function mapService(stateService, wfsService) {
     var color = "rgba(255, 255, 50, 0.6)";
 
     switch (imageType) {
-      case "adrg":
-          color = "rgba(50, 111, 111, 0.6)"; // atoll
-          break;
-      case "aaigrid":
-          color = "rgba(255, 192, 203, 0.6)"; // pink
-          break;
-      case "cadrg":
-          color = "rgba(0, 255, 255, 0.6)"; // cyan
-          break;
-      case "ccf":
-          color = "rgba(128, 100, 255, 0.6)"; // light slate blue
-          break;
-      case "cib":
-          color = "rgba(0, 128, 128, 0.6)"; // teal
-          break;
-      case "doqq":
-          color = "rgba(128, 0, 128, 0.6)"; // purple
-          break;
-      case "dted":
-          color = "rgba(0, 255, 0, 0.6)"; // green
-          break;
-      case "imagine_hfa":
-          color = "rgba(211, 211, 211, 0.6)"; // lightGrey
-          break;
-      case "jpeg":
-          color = "rgba(255, 255, 0, 0.6)"; // yellow
-          break;
-      case "jpeg2000":
-          color = "rgba(255, 200, 0, 0.6)"; // orange
-          break;
-      case "landsat7":
-          color = "rgba(255, 0, 255, 0.6)"; // pink
-          break;
-      case "mrsid":
-          color = "rgba(0, 188, 0, 0.6)"; // light green
-          break;
-      case "nitf":
-          color = "rgba(0, 0, 255, 0.6)"; // blue
-          break;
-      case "tiff":
-          color = "rgba(255, 0, 0, 0.6)"; // red
-          break;
-      case "mpeg":
-          color = "rgba(164, 254, 255, 0.6)"; // red
-          break;
-      case "unspecified":
-          color = "rgba(255, 255, 255, 0.6)"; // white
-          break;
+      // case "adrg":
+      //     color = "rgba(50, 111, 111, 0.6)"; // atoll
+      //     break;
+      // case "aaigrid":
+      //     color = "rgba(255, 192, 203, 0.6)"; // pink
+      //     break;
+      // case "cadrg":
+      //     color = "rgba(0, 255, 255, 0.6)"; // cyan
+      //     break;
+      // case "ccf":
+      //     color = "rgba(128, 100, 255, 0.6)"; // light slate blue
+      //     break;
+      // case "cib":
+      //     color = "rgba(0, 128, 128, 0.6)"; // teal
+      //     break;
+      // case "doqq":
+      //     color = "rgba(128, 0, 128, 0.6)"; // purple
+      //     break;
+      // case "dted":
+      //     color = "rgba(0, 255, 0, 0.6)"; // green
+      //     break;
+      // case "imagine_hfa":
+      //     color = "rgba(211, 211, 211, 0.6)"; // lightGrey
+      //     break;
+      // case "jpeg":
+      //     color = "rgba(255, 255, 0, 0.6)"; // yellow
+      //     break;
+      // case "jpeg2000":
+      //     color = "rgba(255, 200, 0, 0.6)"; // orange
+      //     break;
+      // case "landsat7":
+      //     color = "rgba(255, 0, 255, 0.6)"; // pink
+      //     break;
+      // case "mrsid":
+      //     color = "rgba(0, 188, 0, 0.6)"; // light green
+      //     break;
+      // case "nitf":
+      //     color = "rgba(0, 0, 255, 0.6)"; // blue
+      //     break;
+      // case "tiff":
+      //     color = "rgba(255, 0, 0, 0.6)"; // red
+      //     break;
+      // case "mpeg":
+      //     color = "rgba(164, 254, 255, 0.6)"; // red
+      //     break;
+      // case "unspecified":
+      //     color = "rgba(255, 255, 255, 0.6)"; // white
+      //     break;
       default:
           color = "rgba(255, 255, 255, 0.6)"; // white
 

@@ -2,8 +2,8 @@
 *= require webjars/bootswatch-slate/3.3.5+4/css/bootstrap.css
 *= require bootstrap-datetimepicker-4.15.35
 *= require bootstrap-slider
-*= require ol-3.15.1
-*= require webjars/cesium/1.21.0/Build/Cesium/Widgets/widgets.css
+*= require ol-3.20
+*= require Cesium/Widgets/widgets.css
 *=
 *= require index
 *= require index-plugin
@@ -11,4 +11,6 @@
 *= require menus/search
 *= require image-properties
 *= require menus/view
+*=
+*= require index-bundle-plugin
 */

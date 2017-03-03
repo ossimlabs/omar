@@ -41,6 +41,12 @@ yum install ossim-png-plugin
 sudo yum install ossim-gdal-plugin.x86_64
 ```
 
+and if Available:
+
+```
+sudo yum -y install ossim-ntm-plugin
+```
+
 ##Configuration
 
 **Assumptions**:

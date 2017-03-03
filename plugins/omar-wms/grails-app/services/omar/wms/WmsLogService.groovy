@@ -22,6 +22,14 @@ class WmsLogService
 				endDate: otherParams.endDate,
 				ip: otherParams.ip
 		)
+		if((otherParams.internalTime!=null)&&
+				(otherParams.startTime!=null)&&
+				(otherParams.endTime!=null))
+		{
+			wmsLog.internalTime =  (otherParams.internalTime-otherParams.startTime)/1000
+			wmsLog.renderTime   = (otherParams.endTime-otherParams.internalTime)/1000
+			wmsLog.totalTime    = (otherParams.endTime-otherParams.startTime)/1000
+		}
 
 		def bounds = new Bounds( *( wmsParams?.bbox?.split( ',' )?.collect {
 			it.toDouble()

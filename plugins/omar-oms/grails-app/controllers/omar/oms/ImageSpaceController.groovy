@@ -189,6 +189,8 @@ class ImageSpaceController
          if(result.status != null) response.status        = result.status
          if(result.contentType) response.contentType      = result.contentType
          if(result.buffer?.length) response.contentLength = result.buffer.length
+	      //  response.setHeader('Cache-Control', 'max-age=3600')
+          response.setDateHeader('Expires', System.currentTimeMillis() + 60*60*1000)
          if(outputStream)
          {
           outputStream << result.buffer

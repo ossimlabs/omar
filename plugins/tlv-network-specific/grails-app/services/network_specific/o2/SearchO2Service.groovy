@@ -25,12 +25,13 @@ class SearchO2Service {
 		def images = []
 		features.each() {
 			def metadata = extractMetadata(it)
-			def acquisitionDate = Date.parse('yyyy-MM-dd HH:mm:ss', metadata.acquisition_date.replaceAll("T", " "))
+			def acquisitionDate = metadata.acquisition_date ? Date.parse('yyyy-MM-dd HH:mm:ss', metadata.acquisition_date.replaceAll("T", " ")) : null
 			images.push([
-				acquisitionDate: acquisitionDate.format('yyyy-MM-dd HH:mm:ss'),
+				acquisitionDate: acquisitionDate ? acquisitionDate.format('yyyy-MM-dd HH:mm:ss') : "N/A",
 				imageId: metadata.image_id ?: ( metadata.title ?: new File( metadata.filename ).name ),
 				library: library.name,
 				metadata: metadata,
+				numberOfBands: metadata.number_of_bands ?: 1,
 				type: library.layerType
 			])
 		}
@@ -42,7 +43,7 @@ class SearchO2Service {
 	def searchLibrary(params) {
 		library = grailsApplication.config.libraries.o2
 
-		def queryUrl = library.queryUrl
+		def queryUrl = library.wfsUrl
 
 		def filter = ""
 		if (params.filter) { filter = params.filter }
@@ -58,7 +59,7 @@ class SearchO2Service {
 			filter += " AND "
 
 			// cloud cover
-			filter += "(cloud_cover < ${params.maxCloudCover} OR cloud_cover IS NULL)"
+			filter += "(cloud_cover <= ${params.maxCloudCover} OR cloud_cover IS NULL)"
 
 			filter += " AND "
 
@@ -69,7 +70,7 @@ class SearchO2Service {
 			filter += " AND "
 
 			// niirs
-			filter += "(niirs > ${params.minNiirs} OR niirs IS NULL)"
+			filter += "(niirs >= ${params.minNiirs} OR niirs IS NULL)"
 
 			// sensors
 			if (params.sensors.find { it == "all" } != "all") {

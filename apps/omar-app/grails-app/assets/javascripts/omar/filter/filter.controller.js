@@ -21,8 +21,10 @@
             vm.polygonSpatial = false;
         };
 
+        $scope["missionIdTypes"] = [];
+        $scope["sensorIdTypes"] = [];
         vm.getDistinctValues = function(property) {
-            if (!$scope[property + "Types"]) {
+            if (!$scope[property + "Types"] || $scope[property + "Types"].length == 0) {
                 var url = AppO2.APP_CONFIG.params.stagerApp.baseUrl +
                     "/dataManager/getDistinctValues?property=" + property;
                 $http({
@@ -106,10 +108,10 @@
             vm.imageId = "";
 
             vm.missionIdCheck = false;
-            vm.missionId = "";
+            vm.missionId = [];
 
             vm.sensorIdCheck = false;
-            vm.sensorId = "";
+            vm.sensorId = [];
 
             vm.beNumberCheck = false;
             vm.beNumber = "";
@@ -288,8 +290,21 @@
                     break;
             }
 
-            function pushKeywordToArray(dbName, formField) {
-                var clause = [dbName + " LIKE '%", formField.trim().toUpperCase(), "%'"].join("");
+            function pushKeywordToArray(dbName, formField) { console.dir(formField);
+                var clause = "";
+                if (dbName === 'mission_id' || dbName === 'sensor_id') {
+                    var clauses = [];
+                    $.each(
+                        formField,
+                        function( index, value ) {
+                            clauses.push(dbName + " LIKE '%" + value.trim().toUpperCase() + "%'");
+                        }
+                    );
+                    clause = "(" + clauses.join(" OR ") + ")";
+                }
+                else {
+                    clause = [dbName + " LIKE '%", formField.trim().toUpperCase(), "%'"].join("");
+                }
 
                 var placemarksConfig = AppO2.APP_CONFIG.params.misc.placemarks;
 
@@ -321,7 +336,12 @@
                         'Error', {
                             closeButton: true
                         });
-                } else {
+                }
+                else if ( dbName == "niirs" ) {
+                    var clause = "(( niirs >= " + min + " AND " + dbName + " <= " + max + ") OR niirs IS NULL)";
+                    filterArray.push( clause );
+                }
+                else {
                     filterArray.push([dbName, ">=", min, "AND", dbName, "<=", max].join(" "));
                 }
 
@@ -340,10 +360,10 @@
             if (vm.imageIdCheck && vm.imageId != '') {
                 pushKeywordToArray("title", vm.imageId);
             }
-            if (vm.missionIdCheck && vm.missionId != '') {
+            if (vm.missionIdCheck && vm.missionId.length != 0) {
                 pushKeywordToArray("mission_id", vm.missionId);
             }
-            if (vm.sensorIdCheck && vm.sensorId != '') {
+            if (vm.sensorIdCheck && vm.sensorId.length != 0) {
                 pushKeywordToArray("sensor_id", vm.sensorId);
             }
             if (vm.targetIdCheck && vm.targetId != '') {
@@ -396,7 +416,7 @@
                             closeButton: true
                         });
                 } else {
-                    filterArray.push(["cloud_cover", "<= " + vm.cloudCover].join(" "));
+                    filterArray.push( "(cloud_cover <= " + vm.cloudCover + " OR cloud_cover IS NULL)" );
                 }
 
             }

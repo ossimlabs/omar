@@ -4,7 +4,7 @@ function beginSearch() {
 	else {
 		displayLoadingDialog("We are searching the libraries for imagery... fingers crossed!");
 		$.ajax({
-			data: "searchParams=" + JSON.stringify(searchParams),
+			data: "searchParams=" + encodeURIComponent( JSON.stringify( searchParams ) ),
 			dataType: "json",
 			error: function(jqXhr, textStatus, errorThrown) {
 				hideLoadingDialog();

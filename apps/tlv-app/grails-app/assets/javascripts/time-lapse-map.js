@@ -10,6 +10,7 @@ function addBaseLayersToTheMap() {
 						params: {
 							FORMAT: "image/png",
 							LAYERS: x.layers,
+							STYLES: x.styles || "",
 							TRANSPARENT: true,
 							VERSION: "1.1.1"
 						},
@@ -79,14 +80,7 @@ function createContextMenuContent(coordinate) {
 	$("#mouseClickDiv").html("<div align = 'center' class = 'row'>" + dd + " // " + dms + " // " + mgrs + "</div>");
 
 
-	$("#imageMetadataDiv").html("");
-	$.each(
-		tlv.layers[tlv.currentLayer].metadata,
-		function(i, x) {
-			var key = i.capitalize().replace(/([A-Z])/g, " $1");
-			$("#imageMetadataDiv").append("<b>" + key + "</b>: " + x + "<br>");
-		}
-	);
+	$("#imageMetadataPre").html( JSON.stringify( tlv.layers[tlv.currentLayer].metadata, null, 2 ) );
 }
 
 function createImageLayerSource(layer) {}

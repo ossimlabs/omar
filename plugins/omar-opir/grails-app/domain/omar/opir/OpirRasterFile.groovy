@@ -18,4 +18,18 @@ class OpirRasterFile {
         type index: 'opir_raster_file_type_idx'
         opirRasterDataSet index: 'opir_raster_file_raster_entry_idx'
     }
+
+    static OpirRasterFile initRasterFile(def rasterFileNode)
+    {
+        def rasterFile = new OpirRasterFile()
+
+        rasterFile.name = rasterFileNode?.name?.text()
+        rasterFile.format = rasterFileNode?.@format?.text()
+        rasterFile.type = rasterFileNode?.@type?.text()
+
+        if(!rasterFile.type) rasterFile.type = "opir"
+        
+        return rasterFile
+    }
+
 }

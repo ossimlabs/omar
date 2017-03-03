@@ -181,7 +181,7 @@ class WebMapTileService implements InitializingBean{
         [ contentType: 'text/xml', buffer: xml ]
     }
 
-    def createBufferedImage(GetTileCommand cmd)
+    def createBufferedImage(GetTileCommand cmd, int tileWidth, int tileHeight)
     {
         def imageType = cmd?.format?.split( '/' )?.last()
         def image
@@ -207,7 +207,7 @@ class WebMapTileService implements InitializingBean{
         def imageType = cmd?.format?.split( '/' )?.last()
         def outputStream = new ByteArrayOutputStream()
 
-        def image = createBufferedImage(cmd)
+        def image = createBufferedImage(cmd, 256, 256)
 
         ImageIO.write( image, cmd?.format?.split( '/' )?.last(), outputStream )
 
@@ -286,6 +286,7 @@ class WebMapTileService implements InitializingBean{
             }
             catch(e)
             {
+                println e.message
                 log.debug(e.toString())
                 //  println e
                 wfsUrlText=""
@@ -297,6 +298,7 @@ class WebMapTileService implements InitializingBean{
             }
             catch(e)
             {
+                println e.message
                 log.debug(e.toString())
                 //  println e
                 obj = null
@@ -340,6 +342,7 @@ class WebMapTileService implements InitializingBean{
                 }
                 catch(e)
                 {
+                    println e.message
                     log.debug(e.toString())
                     result.status = 400
                 }
@@ -348,6 +351,7 @@ class WebMapTileService implements InitializingBean{
 
         if(result.status != 200)
         {
+            //println 'BLANK!!!!'
             log.debug("WMTS: Returning blank Image")
             result = createBlankImageOutput(cmd)
             result.status = 404

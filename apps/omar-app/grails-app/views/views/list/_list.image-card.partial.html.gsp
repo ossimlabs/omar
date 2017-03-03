@@ -266,7 +266,7 @@
               <tbody>
                 <tr ng-repeat="foo in vm.beData">
                   <td>
-                    <a href="{{vm.o2baseUrlModal}}/#/mapOrtho?layers={{vm.selectedImage.properties.id}}&lat={{foo.geometry.coordinates[1]}}&lon={{foo.geometry.coordinates[0]}}&resolution={{vm.calcRes()}}" target="_blank">
+                    <a href="" ng-click="vm.viewOrtho( vm.selectedImage, foo.geometry.coordinates )" target="_blank">
                     {{foo.properties[vm.placemarkConfig.columnName]}}
                   </a>
                   </td>
