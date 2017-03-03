@@ -47,9 +47,7 @@ dependencyManagement {
 }
 
 dependencies {
-        compile project(':omar-core')
-        compile project(':omar-oms')
-        compile project(':omar-hibernate-spatial')
+    compile project( ':omar-stager' )
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
