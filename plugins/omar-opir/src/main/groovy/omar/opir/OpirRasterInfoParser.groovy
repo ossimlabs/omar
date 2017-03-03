@@ -2,6 +2,7 @@ package omar.opir
 
 import groovy.util.slurpersupport.GPathResult
 import omar.core.Repository
+import omar.stager.OmsInfoParser
 
 /**
  * Created by gpotts on 3/3/17.
