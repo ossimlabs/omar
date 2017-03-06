@@ -1,11 +1,15 @@
 /*
 *= require webjars/openlayers/3.17.1/ol.css
+*= require ol3-layerswitcher.css
 *= require_self
 */
 
 #map {
-  width: 512px;
-  height: 512px;
-  border: thin solid green;
+  width: 100%;
+  height: 90%;
   margin: auto;
+}
+
+input[type=range] {
+  width: 100%;
 }

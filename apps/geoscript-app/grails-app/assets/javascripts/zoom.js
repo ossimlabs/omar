@@ -1,126 +1,31 @@
-//= require jquery-2.2.0.min.js
-//= require webjars/openlayers/3.17.1/ol.js
-//= require ol3-layerswitcher.js
+var ZoomTo = (function () {
+    "use strict";
+    // An Openlayers 3 module for 'zooming' to a particular location on the map based on
+    // input via Decimal Degrees, Degrees Minutes Seconds, or Military Grid Reference System.
 
-//= require_self
+    // Dependencies:
+    // 1.) Openlayer3: http://openlayers.org/download/
+    // 2.) The mgrs.js library for parsing mgrs coordinates: https://github.com/proj4js/mgrs
+    // 3.) The feedback mechanism for errors uses toastr.js: https://github.com/CodeSeven/toastr
 
-var MapView = (function() {
-  function init(params) {
+    // Test coordinates in various formats
+    // TODO: move to Jasmine for testing
+    // 12356N 1234567E
+    // 12356.00N 1234567.00E
+    // 12°34'56N 123°45'67E
+    // 12°34'56.00 N 123°45'67.00 E
+    // 12°34'56.00N 3°45'67.00E
+    // 12 34 56N 123 45 67E
+    // 12:34:56 N 123:45:67 E
+    // 12:34:56.00N 123:45:67.00E
+    // 34°36'57.0"S 58°25'60.0"W (Buenos Aires)
+    // 35°32'20.2"N 82°33'55.5"W (Asheville, NC)
+    // 18S UJ 23480 06470 (Washington D.C.)
 
-    // ########################
-    console.log(params);
-    // ########################
-
-    var baseMapGroup = new ol.layer.Group({
-        'title': 'Base maps',
-        layers: []
-    });
-
-    // Takes a map layer obj, and adds
-    // the layer to the map layers array.
-    function addBaseMapLayers(layerObj) {
-
-      var baseMapLayer;
-
-      switch (layerObj.layerType.toLowerCase()){
-        case 'tilewms':
-          baseMapLayer = new ol.layer.Tile({
-            title: layerObj.title,
-            type: 'base',
-            visible: layerObj.options.visible,
-            source: new ol.source.TileWMS({
-              url: layerObj.url,
-              params: {
-                'VERSION': '1.1.1',
-                'LAYERS': layerObj.params.layers,
-                'FORMAT': layerObj.params.format
-              },
-	            wrapX: false
-            }),
-            name: layerObj.title
-            });
-          break;
-        case 'xyz':
-          baseMapLayer = new ol.layer.Tile({
-            title: layerObj.title,
-            type: 'base',
-            visible: layerObj.options.visible,
-            source: new ol.source.XYZ({
-              url: layerObj.url,
-	            wrapX: false
-            }),
-            name: layerObj.title
-          });
-          break;
-      }
-
-      if (baseMapLayer != null) {
-        // Add layer(s) to the layerSwitcher control
-        baseMapGroup.getLayers().push(baseMapLayer);
-      }
-
-    }
-
-    var overlayGroup = new ol.layer.Group({
-      title: 'Overlays',
-      layers: []
-    });
-
-    var dgi = new ol.layer.Tile({
-        title: 'DGI Imagery',
-        source: new ol.source.TileWMS({
-            url: (params.contextPath || '') + '/evwhs/wms',
-            params: {}
-        })
-    });
-    overlayGroup.getLayers().push(dgi);
-
-    // Map over each map item in the baseMaps array
-    params.openlayers.baseMaps.map(addBaseMapLayers);
-
-    var osm = new ol.layer.Tile({
-      title: 'Open Street Map',
-      type: 'base',
-      source: new ol.source.OSM()
-    });
-    baseMapGroup.getLayers().push(osm);
-
-    var layers = [
-        baseMapGroup,
-        overlayGroup,
-    ];
-
-    var map = new ol.Map({
-        controls: ol.control.defaults().extend([new ol.control.ScaleLine()]),
-        layers: layers,
-        target: 'map',
-        view: new ol.View({
-            projection: 'EPSG:4326',
-            center: [32.4325101, 15.501501],
-            //extent: [28.4765625,4.740675384778361,28.564453124999996,4.8282597468669755],
-            //extent: [20.6879993,-0.0313078,33.0690212,11.5219801],
-            minZoom: 11,
-            maxZoom: 22,
-            zoom: 11
-        })
-    });
-
-    var layerSwitcher = new ol.control.LayerSwitcher({
-      tipLabel: 'Layers' // Optional label for button
-    });
-    map.addControl(layerSwitcher);
-
-    zoomslider = new ol.control.ZoomSlider();
-    map.addControl(zoomslider);
-
-    overlayGroup.setOpacity(0.75);
-    var opacityInput = $('.opacity');
-    opacityInput.on('input change', function(){
-      overlayGroup.setOpacity(parseFloat(this.value));
-    });
-    opacityInput.val(String(overlayGroup.getOpacity()));
-
-    var zoomToLevel = 11; // Change this to desired zoom level
+    // Config:
+    // ********************************************************************
+    var map = mapZoom;  // Change to your map name
+    var zoomToLevel = 12; // Change this to desired zoom level
 
     // Cache DOM elements.  Modify to your form element names.
     var $zoomToForm = $('#zoomToForm');
@@ -395,8 +300,7 @@ var MapView = (function() {
         });
 
         map.beforeRender(zoom,pan);
-        //map.getView().setCenter(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'));
-        map.getView().setCenter([parseFloat(lon), parseFloat(lat)]);
+        map.getView().setCenter(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'));
         map.getView().setZoom(zoomToLevel);
 
     }
@@ -420,11 +324,5 @@ var MapView = (function() {
     //     initialize: initialize
 
     // };
-
-  } // end init
-
-  return {
-    init: init,
-  };
 
 })();
