@@ -253,7 +253,7 @@ function setupTimeLapse() {
 	tlv.currentLayer = 0;
 
 	var extent = ol.proj.transformExtent(tlv.bbox, "EPSG:4326", "EPSG:3857");
-	tlv.map.getView().fit(extent, tlv.map.getSize());
+	tlv.map.getView().fit( extent, tlv.map.getSize() );
 
 	// register map listeners
 	tlv.map.on("moveend", theMapHasMoved);
