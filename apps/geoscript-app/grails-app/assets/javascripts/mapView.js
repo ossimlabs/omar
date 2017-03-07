@@ -1,6 +1,8 @@
 //= require jquery-2.2.0.min.js
 //= require webjars/openlayers/3.17.1/ol.js
 //= require ol3-layerswitcher.js
+//= require geopoint.js
+//= require mgrs.js
 
 //= require_self
 
@@ -8,7 +10,7 @@ var MapView = (function() {
   function init(params) {
 
     // ########################
-    console.log(params);
+    //console.log(params);
     // ########################
 
     var baseMapGroup = new ol.layer.Group({
@@ -73,54 +75,156 @@ var MapView = (function() {
             params: {}
         })
     });
+    dgi.setOpacity(0.75);
     overlayGroup.getLayers().push(dgi);
+
+    // TODO: This needs to come from the app.yml
+    var wkt = "POLYGON ((24.5702488 11.5219801, 33.0690212 4.2862353, 30.075652 -0.0313078, 20.6879993 6.8059724, 21.4633531 11.0584089, 24.5702488 11.5219801))"
+
+    var format = new ol.format.WKT();
+
+    var feature = format.readFeature(wkt);
+
+    var vector = new ol.layer.Vector({
+      title: 'Project Area',
+      source: new ol.source.Vector({
+        features: [feature]
+      })
+    });
+
+    wktStyle = new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        width: 5.5,
+        color: 'rgba(255, 100, 50, 0.8)'
+      })
+    });
+    vector.setStyle(wktStyle);
+    overlayGroup.getLayers().push(vector);
 
     // Map over each map item in the baseMaps array
     params.openlayers.baseMaps.map(addBaseMapLayers);
 
     var osm = new ol.layer.Tile({
-      title: 'Open Street Map',
+      title: 'OSM Nightly',
       type: 'base',
+      visible: false,
       source: new ol.source.OSM()
     });
     baseMapGroup.getLayers().push(osm);
 
     var layers = [
         baseMapGroup,
-        overlayGroup,
+        overlayGroup
     ];
 
-    var map = new ol.Map({
-        controls: ol.control.defaults().extend([new ol.control.ScaleLine()]),
-        layers: layers,
-        target: 'map',
-        view: new ol.View({
-            projection: 'EPSG:4326',
-            center: [32.4325101, 15.501501],
-            //extent: [28.4765625,4.740675384778361,28.564453124999996,4.8282597468669755],
-            //extent: [20.6879993,-0.0313078,33.0690212,11.5219801],
-            minZoom: 11,
-            maxZoom: 22,
-            zoom: 11
-        })
+    var mousePositionControl = new ol.control.MousePosition({
+      coordinateFormat: function (coord) {
+        var html = "";
+        var point = new GeoPoint( coord[0], coord[1] );
+        switch(mousePositionControl.coordFormat) {
+          // dd
+          case 0: html = coord[1].toFixed( 6 ) + ', ' + coord[0].toFixed( 6 ); break;
+          // dms w/cardinal direction
+          case 1: html = point.getLatDegCard() + ', ' + point.getLonDegCard(); break;
+          // dms w/o cardinal direction
+          case 2: html = point.getLatDeg() + ', ' + point.getLonDeg(); break;
+          // mgrs
+          case 3: html = mgrs.forward( coord, 5 ); break;
+        }
+        document.getElementById( 'mouseCoords').innerHTML = html;
+      },
+      projection: 'EPSG:4326',
+      // comment the following two lines to have the mouse position
+      // be placed within the map.
+      className: 'custom-mouse-position',
+      //target: document.getElementById('mouse-position'),
+      undefinedHTML: '&nbsp;'
+    });
+    mousePositionControl.coordFormat = 0;
+    $('#mouseCoords').click(function() {
+      mousePositionControl.coordFormat = mousePositionControl.coordFormat >= 3 ? 0 : mousePositionControl.coordFormat + 1;
     });
 
+    var map = new ol.Map({
+      controls: ol.control.defaults().extend([new ol.control.ScaleLine(), mousePositionControl]),
+      interactions: ol.interaction.defaults().extend([
+        new ol.interaction.DragRotateAndZoom()
+      ]),
+      layers: layers,
+      target: 'map',
+      view: new ol.View({
+        projection: 'EPSG:4326',
+        center: [26.5471866799007, 6.088309418728136],
+        extent: [20.6879993,-0.0313078,33.0690212,11.5219801],
+        minZoom: 5,
+        maxZoom: 22,
+        zoom: 5
+      }),
+      logo: false
+    });
+
+    setupContextDialog();
+
+    function setupContextDialog() {
+      map.getViewport().addEventListener("contextmenu",
+        function (event) {
+          event.preventDefault();
+          var pixel = [event.layerX, event.layerY];
+          var coord = map.getCoordinateFromPixel(pixel);
+          if (coord) {
+            var point = new GeoPoint(coord[0], coord[1]);
+            var ddPoint = point.getLatDec().toFixed(6) + ', ' + point.getLonDec().toFixed(6);
+            var dmsPoint = point.getLatDegCard() + ' ' + point.getLonDegCard();
+            var mgrsPoint = mgrs.forward(coord, 5);
+            $('#contextMenuDialog .modal-body').html(ddPoint + " // " + dmsPoint + " // " + mgrsPoint);
+            $('#contextMenuDialog').modal('show');
+          }
+        }
+      );
+    }
+
     var layerSwitcher = new ol.control.LayerSwitcher({
-      tipLabel: 'Layers' // Optional label for button
+      tipLabel: 'Layers'
     });
     map.addControl(layerSwitcher);
 
     zoomslider = new ol.control.ZoomSlider();
     map.addControl(zoomslider);
 
-    overlayGroup.setOpacity(0.75);
-    var opacityInput = $('.opacity');
-    opacityInput.on('input change', function(){
-      overlayGroup.setOpacity(parseFloat(this.value));
+    var $opacityInput = $('.opacity');
+    $opacityInput.on('input change', function(){
+      dgi.setOpacity(parseFloat(this.value));
     });
-    opacityInput.val(String(overlayGroup.getOpacity()));
+    $opacityInput.val(String(dgi.getOpacity()));
 
-    var zoomToLevel = 11; // Change this to desired zoom level
+    var $zoomLevelSpan = $('#zoomLevel');
+    map.on('moveend', function() {
+      $zoomLevelSpan.html(map.getView().getZoom());
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Begin Zoom Stuffs
+    //####################################################################
+
+    var zoomToLevel = 16; // Change this to desired zoom level
 
     // Cache DOM elements.  Modify to your form element names.
     var $zoomToForm = $('#zoomToForm');
