@@ -5,4 +5,4 @@
 
 //= require_tree libraries
 
-//= require 3disa
+//= require 3disa-bundle
