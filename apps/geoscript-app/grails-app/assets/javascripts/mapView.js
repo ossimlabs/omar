@@ -147,9 +147,9 @@ var MapView = (function() {
 
     var map = new ol.Map({
       controls: ol.control.defaults().extend([new ol.control.ScaleLine(), mousePositionControl]),
-      interactions: ol.interaction.defaults().extend([
-        new ol.interaction.DragRotateAndZoom()
-      ]),
+      // interactions: ol.interaction.defaults().extend([
+      //   new ol.interaction.DragRotateAndZoom()
+      // ]),
       layers: layers,
       target: 'map',
       view: new ol.View({
@@ -187,9 +187,6 @@ var MapView = (function() {
       tipLabel: 'Layers'
     });
     map.addControl(layerSwitcher);
-
-    zoomslider = new ol.control.ZoomSlider();
-    map.addControl(zoomslider);
 
     var $opacityInput = $('.opacity');
     $opacityInput.on('input change', function(){
