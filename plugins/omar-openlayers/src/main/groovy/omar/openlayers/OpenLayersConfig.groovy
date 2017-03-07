@@ -21,7 +21,7 @@ class OpenLayersConfig
     String title
     String url
     HashMap<String,String> params
-    HashMap<String,String> options
+    HashMap<String,Object> options
   }
 
   @ConfigurationPropertiesBinding

@@ -163,7 +163,7 @@ omar:
       -
         layerType: "tilewms"
         title: "OSM Basic"
-        url: "https://dev.o2.ossimc2s.com/service-proxy/wmsProxy"
+        url: "http://dev.o2.ossimc2s.com/service-proxy/wmsProxy"
         params:
           layers: "o2-basemap-basic"
           format: "image/jpeg"
@@ -172,7 +172,7 @@ omar:
       -
         layerType: "tilewms"
         title: "OSM Bright"
-        url: "https://dev.o2.ossimc2s.com/service-proxy/wmsProxy"
+        url: "http://dev.o2.ossimc2s.com/service-proxy/wmsProxy"
         params:
           layers: "o2-basemap-bright"
           format: "image/jpeg"
@@ -190,7 +190,7 @@ omar:
           styles: ""
           format: "image/png"
         options:
-          visible: false
+          visible: true
   app:
     wfs:
       baseUrl: http://localhost:8081/wfs?
