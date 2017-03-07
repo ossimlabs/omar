@@ -17,7 +17,7 @@
       </div> -->
     </div>
     <div id='map'>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <form role="search" id="zoomToForm" class="searchForm">
           <div class="form-group">
             <div class="input-group" id="zoom-input-group">

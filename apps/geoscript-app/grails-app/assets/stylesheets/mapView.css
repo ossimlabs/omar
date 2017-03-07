@@ -18,10 +18,35 @@ input[type=range] {
   top: 5.5em !important;
 }
 
+#map .ol-zoom .ol-zoom-out {
+  margin-top: 204px;
+}
+#map .ol-zoomslider {
+  background-color: transparent;
+  top: 2.3em;
+}
+
+#map .ol-touch .ol-zoom .ol-zoom-out {
+  margin-top: 212px;
+}
+#map .ol-touch .ol-zoomslider {
+  top: 2.75em;
+}
+
+#map .ol-zoom-in.ol-has-tooltip:hover [role=tooltip],
+#map .ol-zoom-in.ol-has-tooltip:focus [role=tooltip] {
+  top: 3px;
+}
+
+#map .ol-zoom-out.ol-has-tooltip:hover [role=tooltip],
+#map .ol-zoom-out.ol-has-tooltip:focus [role=tooltip] {
+  top: 232px;
+}
+
 .searchForm {
   position: absolute;
-  top: 0.8em;
-  left: 2.9em;
+  top: 0.6em;
+  left: 2.8em;
 }
 
 .searchForm-button {
