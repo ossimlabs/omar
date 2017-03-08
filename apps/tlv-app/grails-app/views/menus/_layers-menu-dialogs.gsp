@@ -5,19 +5,19 @@
 			<div class = "modal-body">
 				<div class = "form-group">
 					<label>Base Layer</label>
-					<select class = "form-control" id = "baseLayersSelect" onchange = changeBaseLayer(this.value)>
+					<select class = "form-control" id = "baseLayersSelect" onchange = "changeBaseLayer( this.value )">
 						<option value = "">None</option>
-						<g:each in = "${grailsApplication.config.baseLayers}">
-							<option value = "${it.key}">${it.value.name}</option>
+						<g:each in = "${ grailsApplication.config.baseLayers }">
+							<option value = "${ it.key }">${ it.value.name }</option>
 						</g:each>
 					</select>
 
-                                        <label>Cross-Hair</label>
+					<label>Cross-Hair</label>
 					<select class = "form-control" id = "layersCrossHairSelect" onchange = crossHairLayerToggle()>
 						<option value = "off">OFF</option>
 						<option value = "on">ON</option>
 					</select>
-		
+
 					<label>Search Origin</label>
 					<select class = "form-control" id = "layersSearchOriginSelect" onchange = searchOriginLayerToggle()>
 						<option value = "off">OFF</option>
@@ -33,6 +33,6 @@
 </div>
 
 <g:javascript>
-	$("#layersDialog").on("hidden.bs.modal", function (event) { hideDialog("layersDialog"); });
-	$("#layersDialog").on("shown.bs.modal", function (event) { displayDialog("layersDialog"); });
+	$( "#layersDialog" ).on( "hidden.bs.modal", function (event) { hideDialog( "layersDialog" ); } );
+	$( "#layersDialog" ).on( "shown.bs.modal", function (event) { displayDialog( "layersDialog" ); } );
 </g:javascript>
