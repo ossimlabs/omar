@@ -1,227 +1,31 @@
-//= require jquery-2.2.0.min.js
-//= require webjars/openlayers/3.17.1/ol.js
-//= require ol3-layerswitcher.js
-//= require geopoint.js
-//= require mgrs.js
+var ZoomTo = (function () {
+    "use strict";
+    // An Openlayers 3 module for 'zooming' to a particular location on the map based on
+    // input via Decimal Degrees, Degrees Minutes Seconds, or Military Grid Reference System.
 
-//= require_self
+    // Dependencies:
+    // 1.) Openlayer3: http://openlayers.org/download/
+    // 2.) The mgrs.js library for parsing mgrs coordinates: https://github.com/proj4js/mgrs
+    // 3.) The feedback mechanism for errors uses toastr.js: https://github.com/CodeSeven/toastr
 
-var MapView = (function() {
-  function init(params) {
+    // Test coordinates in various formats
+    // TODO: move to Jasmine for testing
+    // 12356N 1234567E
+    // 12356.00N 1234567.00E
+    // 12°34'56N 123°45'67E
+    // 12°34'56.00 N 123°45'67.00 E
+    // 12°34'56.00N 3°45'67.00E
+    // 12 34 56N 123 45 67E
+    // 12:34:56 N 123:45:67 E
+    // 12:34:56.00N 123:45:67.00E
+    // 34°36'57.0"S 58°25'60.0"W (Buenos Aires)
+    // 35°32'20.2"N 82°33'55.5"W (Asheville, NC)
+    // 18S UJ 23480 06470 (Washington D.C.)
 
-    // ########################
-    //console.log(params);
-    // ########################
-
-    var baseMapGroup = new ol.layer.Group({
-        'title': 'Base maps',
-        layers: []
-    });
-
-    // Takes a map layer obj, and adds
-    // the layer to the map layers array.
-    function addBaseMapLayers(layerObj) {
-
-      var baseMapLayer;
-
-      switch (layerObj.layerType.toLowerCase()){
-        case 'tilewms':
-          baseMapLayer = new ol.layer.Tile({
-            title: layerObj.title,
-            type: 'base',
-            visible: layerObj.options.visible,
-            source: new ol.source.TileWMS({
-              url: layerObj.url,
-              params: {
-                'VERSION': '1.1.1',
-                'LAYERS': layerObj.params.layers,
-                'FORMAT': layerObj.params.format
-              },
-	            wrapX: false
-            }),
-            name: layerObj.title
-            });
-          break;
-        case 'xyz':
-          baseMapLayer = new ol.layer.Tile({
-            title: layerObj.title,
-            type: 'base',
-            visible: layerObj.options.visible,
-            source: new ol.source.XYZ({
-              url: layerObj.url,
-	            wrapX: false
-            }),
-            name: layerObj.title
-          });
-          break;
-      }
-
-      if (baseMapLayer != null) {
-        // Add layer(s) to the layerSwitcher control
-        baseMapGroup.getLayers().push(baseMapLayer);
-      }
-
-    }
-
-    var overlayGroup = new ol.layer.Group({
-      title: 'Overlays',
-      layers: []
-    });
-
-    var dgi = new ol.layer.Tile({
-        title: 'DGI Imagery',
-        source: new ol.source.TileWMS({
-            url: (params.contextPath || '') + '/evwhs/wms',
-            params: {}
-        })
-    });
-    dgi.setOpacity(0.75);
-    overlayGroup.getLayers().push(dgi);
-
-    // TODO: This needs to come from the app.yml
-    var wkt = "POLYGON ((24.5702488 11.5219801, 33.0690212 4.2862353, 30.075652 -0.0313078, 20.6879993 6.8059724, 21.4633531 11.0584089, 24.5702488 11.5219801))"
-
-    var format = new ol.format.WKT();
-
-    var feature = format.readFeature(wkt);
-
-    var vector = new ol.layer.Vector({
-      title: 'Project Area',
-      source: new ol.source.Vector({
-        features: [feature]
-      })
-    });
-
-    wktStyle = new ol.style.Style({
-      stroke: new ol.style.Stroke({
-        width: 5.5,
-        color: 'rgba(255, 100, 50, 0.8)'
-      })
-    });
-    vector.setStyle(wktStyle);
-    overlayGroup.getLayers().push(vector);
-
-    // Map over each map item in the baseMaps array
-    params.openlayers.baseMaps.map(addBaseMapLayers);
-
-    var osm = new ol.layer.Tile({
-      title: 'OSM Nightly',
-      type: 'base',
-      visible: false,
-      source: new ol.source.OSM()
-    });
-    baseMapGroup.getLayers().push(osm);
-
-    var layers = [
-        baseMapGroup,
-        overlayGroup
-    ];
-
-    var mousePositionControl = new ol.control.MousePosition({
-      coordinateFormat: function (coord) {
-        var html = "";
-        var point = new GeoPoint( coord[0], coord[1] );
-        switch(mousePositionControl.coordFormat) {
-          // dd
-          case 0: html = coord[1].toFixed( 6 ) + ', ' + coord[0].toFixed( 6 ); break;
-          // dms w/cardinal direction
-          case 1: html = point.getLatDegCard() + ', ' + point.getLonDegCard(); break;
-          // dms w/o cardinal direction
-          case 2: html = point.getLatDeg() + ', ' + point.getLonDeg(); break;
-          // mgrs
-          case 3: html = mgrs.forward( coord, 5 ); break;
-        }
-        document.getElementById( 'mouseCoords').innerHTML = html;
-      },
-      projection: 'EPSG:4326',
-      // comment the following two lines to have the mouse position
-      // be placed within the map.
-      className: 'custom-mouse-position',
-      //target: document.getElementById('mouse-position'),
-      undefinedHTML: '&nbsp;'
-    });
-    mousePositionControl.coordFormat = 0;
-    $('#mouseCoords').click(function() {
-      mousePositionControl.coordFormat = mousePositionControl.coordFormat >= 3 ? 0 : mousePositionControl.coordFormat + 1;
-    });
-
-    var map = new ol.Map({
-      controls: ol.control.defaults().extend([new ol.control.ScaleLine(), mousePositionControl]),
-      // interactions: ol.interaction.defaults().extend([
-      //   new ol.interaction.DragRotateAndZoom()
-      // ]),
-      layers: layers,
-      target: 'map',
-      view: new ol.View({
-        projection: 'EPSG:4326',
-        center: [26.5471866799007, 6.088309418728136],
-        extent: [20.6879993,-0.0313078,33.0690212,11.5219801],
-        minZoom: 5,
-        maxZoom: 22,
-        zoom: 5
-      }),
-      logo: false
-    });
-
-    setupContextDialog();
-
-    function setupContextDialog() {
-      map.getViewport().addEventListener("contextmenu",
-        function (event) {
-          event.preventDefault();
-          var pixel = [event.layerX, event.layerY];
-          var coord = map.getCoordinateFromPixel(pixel);
-          if (coord) {
-            var point = new GeoPoint(coord[0], coord[1]);
-            var ddPoint = point.getLatDec().toFixed(6) + ', ' + point.getLonDec().toFixed(6);
-            var dmsPoint = point.getLatDegCard() + ' ' + point.getLonDegCard();
-            var mgrsPoint = mgrs.forward(coord, 5);
-            $('#contextMenuDialog .modal-body').html(ddPoint + " // " + dmsPoint + " // " + mgrsPoint);
-            $('#contextMenuDialog').modal('show');
-          }
-        }
-      );
-    }
-
-    var layerSwitcher = new ol.control.LayerSwitcher({
-      tipLabel: 'Layers'
-    });
-    map.addControl(layerSwitcher);
-
-    var $opacityInput = $('.opacity');
-    $opacityInput.on('input change', function(){
-      dgi.setOpacity(parseFloat(this.value));
-    });
-    $opacityInput.val(String(dgi.getOpacity()));
-
-    var $zoomLevelSpan = $('#zoomLevel');
-    map.on('moveend', function() {
-      $zoomLevelSpan.html(map.getView().getZoom());
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Begin Zoom Stuffs
-    //####################################################################
-
-    var zoomToLevel = 16; // Change this to desired zoom level
+    // Config:
+    // ********************************************************************
+    var map = mapZoom;  // Change to your map name
+    var zoomToLevel = 12; // Change this to desired zoom level
 
     // Cache DOM elements.  Modify to your form element names.
     var $zoomToForm = $('#zoomToForm');
@@ -496,8 +300,7 @@ var MapView = (function() {
         });
 
         map.beforeRender(zoom,pan);
-        //map.getView().setCenter(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'));
-        map.getView().setCenter([parseFloat(lon), parseFloat(lat)]);
+        map.getView().setCenter(ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857'));
         map.getView().setZoom(zoomToLevel);
 
     }
@@ -521,11 +324,5 @@ var MapView = (function() {
     //     initialize: initialize
 
     // };
-
-  } // end init
-
-  return {
-    init: init,
-  };
 
 })();

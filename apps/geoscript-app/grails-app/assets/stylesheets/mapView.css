@@ -1,11 +1,65 @@
 /*
 *= require webjars/openlayers/3.17.1/ol.css
+*= require ol3-layerswitcher.css
 *= require_self
 */
 
 #map {
-  width: 512px;
-  height: 512px;
-  border: thin solid green;
+  width: 100%;
+  height: 100%;
   margin: auto;
+}
+
+input[type=range] {
+  width: 100%;
+}
+
+.ol-rotate {
+  top: 5.5em !important;
+}
+
+.searchForm {
+  position: absolute;
+  top: 0.6em;
+  left: 3.0em;
+}
+
+.searchForm-button {
+  box-shadow: 0px 6px 5px #808080;
+}
+
+.map-display-element {
+  background-color: #95b9e6;
+  background: rgba(0,60,136,0.4);
+  border-radius: 4px;
+  color: white;
+  z-index: 9999;
+}
+
+.dgi-opacitySlider {
+  position: absolute;
+  bottom: 2.5em;
+  left: 0.6em;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.map-zoomLevel {
+  position: absolute;
+  bottom: 0.6em;
+  right: 0.8em;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.dgi-label {
+  position: absolute;
+  bottom: 5.1em;
+  left: 0.6em;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#contextMenuDialog {
+  top: 15%;
 }
