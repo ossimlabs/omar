@@ -1,3 +1,3 @@
 <li>
-	<a href = javascript:void(0) onclick = "$('#searchDialog').modal('show'); $('.navbar-collapse').collapse('hide');">Search</a>
+	<a href = javascript:void(0) onclick = "$( '#searchDialog' ).modal('show')">Search</a>
 </li>
