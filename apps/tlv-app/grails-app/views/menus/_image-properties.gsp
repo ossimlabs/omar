@@ -9,7 +9,7 @@
             <tr>
                 <td>Bands:</td>
                 <td>
-                    <select class = "form-control" id = "selectBandsMethodSelect" onchange = selectBands(this.value)>
+                    <select class = "form-control" id = "selectBandsMethodSelect" onchange = "selectBands( this.value )">
                         <g:each in = "${[ "default", "manual" ]}">
                             <option value = ${ it }>${ it.capitalize() }</option>
                         </g:each>
@@ -23,7 +23,7 @@
                         <tr>
                             <g:each in = "${[ "red", "green", "blue" ]}">
                                 <td>
-                                    <select class = "form-control" id = "${it}GunSelect" onchange = "updateImageProperties( true )"></select>
+                                    <select class = "form-control" id = "${ it }GunSelect" onchange = "updateImageProperties( true )"></select>
                                 </td>
                             </g:each>
                         </tr>
