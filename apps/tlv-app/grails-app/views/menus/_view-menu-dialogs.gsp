@@ -31,6 +31,6 @@
 </div>
 
 <g:javascript>
-	$("#viewDialog").on("hidden.bs.modal", function (event) { hideDialog("viewDialog"); });
-	$("#viewDialog").on("shown.bs.modal", function (event) { displayDialog("viewDialog"); });
+	$( "#viewDialog" ).on( "hidden.bs.modal", function (event) { hideDialog( "viewDialog" ); } );
+	$( "#viewDialog" ).on( "shown.bs.modal", function (event) { displayDialog( "viewDialog" ); } );
 </g:javascript>
