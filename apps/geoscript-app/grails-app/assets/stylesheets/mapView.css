@@ -29,27 +29,33 @@ input[type=range] {
 }
 
 .map-display-element {
-
   background-color: #95b9e6;
   background: rgba(0,60,136,0.4);
   border-radius: 4px;
   color: white;
   z-index: 9999;
-
 }
 
 .dgi-opacitySlider {
   position: absolute;
-  bottom: 2.8em;
-  right: 0.8em;
+  bottom: 2.5em;
+  left: 0.6em;
   padding-left: 5px;
   padding-right: 5px;
 }
 
 .map-zoomLevel {
   position: absolute;
-  bottom: 2.8em;
-  left: 0.8em;
+  bottom: 0.6em;
+  right: 0.8em;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.dgi-label {
+  position: absolute;
+  bottom: 5.1em;
+  left: 0.6em;
   padding-left: 5px;
   padding-right: 5px;
 }

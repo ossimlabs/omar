@@ -35,9 +35,14 @@
       <small>Imagery Opacity</small>
       <input type="range" class="opacity" min="0" max="1" step="0.01" />
     </div>
+
     <div class="map-display-element map-zoomLevel">
-      <div id="mouseCoords" class="map-cord-div" tooltip-placement="top"></div>
-      <small>Zoom Level: <span id="zoomLevel"></span></small>
+      <small>Zoom Level: <span id="zoomLevel"></span></small><br>
+      <small><em>Imagery not visible above level 11</em></small>
+    </div>
+
+    <div class="map-display-element dgi-label">
+      <small id="mouseCoords" class="map-cord-div" tooltip-placement="top"></small>
     </div>
 
     <!-- Right-click context menu -->
