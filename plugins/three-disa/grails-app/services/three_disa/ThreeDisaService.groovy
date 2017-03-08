@@ -14,8 +14,6 @@ class ThreeDisaService {
 
         def results = []
         jobs.each {
-            def imageRegistration = [:]
-
             def tiePoints = []
             it.imageRegistration.tiePoints.each {
                 def tiePoint = [
@@ -27,15 +25,20 @@ class ThreeDisaService {
             }
 
             results << [
+                demGeneration: [
+                    finish: it.imageRegistration.demGeneration?.finish,
+                    start: it.imageRegistration.demGeneration?.start,
+                    status: it.imageRegistration.demGeneration?.status
+                ],
                 imageRegistration: [
-                    finish: it.imageRegistration.finish,
-                    strat: it.imageRegistration.start,
+                    finish: it.imageRegistration.finish?.format( "yyyy-MM-dd HH:mm:ss" ),
+                    start: it.imageRegistration.start?.format( "yyyy-MM-dd HH:mm:ss" ),
                     status: it.imageRegistration.status,
                     tiePoints: tiePoints
                 ],
                 name: it.name,
                 sensorModel: it.sensorModel,
-                submitted: it.submitted.format("yyyy-MM-dd HH:mm:ss")
+                submitted: it.submitted.format( "yyyy-MM-dd HH:mm:ss" )
             ]
 
         }
@@ -45,7 +48,13 @@ class ThreeDisaService {
     }
 
 	def submitJob( params, request ) {
-        def imageRegistration = new ImageRegistration( status: "NOT STARTED" )
+        def demGeneration = params.demGeneration ? new DemGeneration( status: "NOT STARTED" ) : null
+
+        def imageRegistration = new ImageRegistration(
+            demGeneration: demGeneration,
+            status: "NOT STARTED"
+        )
+
         params.layers.each {
             def layer = it
 

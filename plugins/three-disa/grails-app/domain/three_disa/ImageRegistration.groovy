@@ -11,9 +11,12 @@ class ImageRegistration {
     static belongsTo = [ job: Job ]
 
     static constraints = {
+        demGeneration nullable: true
         finish nullable: true
         start nullable: true
     }
 
     static hasMany = [ tiePoints: TiePoint ]
+
+    static hasOne = [ demGeneration: DemGeneration ]
 }
