@@ -13,8 +13,8 @@
 </div>
 
 <g:javascript>
-        $("#searchBookmarkDialog").on("hidden.bs.modal", function (event) { hideDialog("searchBookmarkDialog"); });
-        $("#searchBookmarkDialog").on("shown.bs.modal", function (event) { displayDialog("searchBookmarkDialog"); });
+        $( "#searchBookmarkDialog" ).on( "hidden.bs.modal", function (event) { hideDialog( "searchBookmarkDialog" ); } );
+        $( "#searchBookmarkDialog" ).on( "shown.bs.modal", function (event) { displayDialog( "searchBookmarkDialog" ); } );
 </g:javascript>
 
 <div class = "modal" id = "searchDialog" role = "dialog" tabindex = "-1">
@@ -54,10 +54,10 @@
 							<label class = "btn btn-primary" id = "searchSensorAllLabel" onchange = librarySensorCheck()>
 								<input id = "searchSensorAllCheckbox" type = "checkbox">ALL
 							</label>
-							<g:each in = "${params.availableResources.sensors}">
-								<label class = "btn btn-primary" id = "searchSensor${it.name.capitalize()}Label" title = "${it.description}">
-									<input id = "searchSensor${it.name.capitalize()}Checkbox" type = "checkbox">
-									${it.name.toUpperCase()}
+							<g:each in = "${ params.availableResources.sensors }">
+								<label class = "btn btn-primary" id = "searchSensor${ it.name.capitalize() }Label" title = "${ it.description }">
+									<input id = "searchSensor${ it.name.capitalize() }Checkbox" type = "checkbox">
+									${ it.name.toUpperCase() }
 								</label>
 							</g:each>
 						</div>
@@ -71,8 +71,8 @@
 
 					<label>Max. Results</label>
 					<select class = "form-control" id = "searchMaxResultsSelect">
-						<g:each in = "${[5, 10, 25, 50, 75, 100, 250, 500]}">
-							<option value = ${it}>${it}</option>
+						<g:each in = "${ [ 5, 10, 25, 50, 75, 100, 250, 500 ] }">
+							<option value = ${ it }>${ it }</option>
 						</g:each>
 					</select>
 				</div>
@@ -87,6 +87,6 @@
 </div>
 
 <g:javascript>
-	$("#searchDialog").on("hidden.bs.modal", function (event) { hideDialog("searchDialog"); });
-	$("#searchDialog").on("shown.bs.modal", function (event) { displayDialog("searchDialog"); });
+	$( "#searchDialog" ).on( "hidden.bs.modal", function (event) { hideDialog( "searchDialog" ); } );
+	$( "#searchDialog" ).on( "shown.bs.modal", function (event) { displayDialog( "searchDialog" ); } );
 </g:javascript>
