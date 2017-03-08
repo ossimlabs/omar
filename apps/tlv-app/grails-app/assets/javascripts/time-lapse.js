@@ -25,7 +25,7 @@ function changeFrame( param ) {
 
 	layer = tlv.layers[ tlv.currentLayer ];
 	layer.mapLayer.setVisible( true );
-	layer.mapLayer.setOpacity( layer.mapLayer.getSource().getParams().OPACITY );
+	layer.mapLayer.setOpacity( layer.opacity );
 
 	tlv.map.renderSync();
 

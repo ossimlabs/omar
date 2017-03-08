@@ -51,6 +51,7 @@ class ImageSpaceController
           @ApiImplicitParam(name = 'entry', value = 'Image entry id(typically 0)', defaultValue="0", paramType = 'query', dataType = 'string', required=false),
           @ApiImplicitParam(name = 'bands', value = 'Bands', defaultValue="", paramType = 'query', dataType = 'string', required=false),
           @ApiImplicitParam(name = 'histOp', value = 'Histogram Operation',allowableValues="[none,auto-minmax,std-stretch-1,std-stretch-2,std-stretch-3]", defaultValue="auto-minmax", paramType = 'query', dataType = 'string', required=false),
+          @ApiImplicitParam(name = 'histOpRegion', value = 'Histogram Region Operation',allowableValues="[global,viewport]", defaultValue="viewport", paramType = 'query', dataType = 'string', required=false),
           @ApiImplicitParam(name = 'sharpenMode', value = 'Sharpen Operation',allowableValues="[none,light,heavy]", defaultValue="none", paramType = 'query', dataType = 'string', required=false),
           @ApiImplicitParam(name = 'resamplerFilter', value = 'Interpolation Operation',allowableValues="[nearest,bilinear,cubic,gaussian,magic,bessel,blackman,bspline,catrom,hanning,hamming,hermite,lanczos,mitchell,quadratic,sinc]", defaultValue="none", paramType = 'query', dataType = 'string', required=false),
           @ApiImplicitParam(name = 'brightness', value = 'Brightness Operation',defaultValue="0.0", paramType = 'query', dataType = 'float', required=false),
