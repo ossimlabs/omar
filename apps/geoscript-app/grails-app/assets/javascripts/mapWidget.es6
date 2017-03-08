@@ -1,13 +1,12 @@
 //= require jquery-2.2.0.min.js
-//= require webjars/openlayers/3.17.1/ol.js
+//= require omar-openlayers.js
 //= require ol3-layerswitcher.js
+//= require webjars/bootstrap/3.3.5/js/bootstrap.js
 //= require geopoint.js
 //= require mgrs.js
-
-//= require_self
-
-var MapView = (function() {
-  function init(params) {
+'use strict'
+class MapWidget {
+  constructor(params) {
 
     // ########################
     //console.log(params);
@@ -37,7 +36,7 @@ var MapView = (function() {
                 'LAYERS': layerObj.params.layers,
                 'FORMAT': layerObj.params.format
               },
-	            wrapX: false
+              wrapX: false
             }),
             name: layerObj.title
             });
@@ -49,7 +48,7 @@ var MapView = (function() {
             visible: layerObj.options.visible,
             source: new ol.source.XYZ({
               url: layerObj.url,
-	            wrapX: false
+              wrapX: false
             }),
             name: layerObj.title
           });
@@ -92,7 +91,7 @@ var MapView = (function() {
       })
     });
 
-    wktStyle = new ol.style.Style({
+    var wktStyle = new ol.style.Style({
       stroke: new ol.style.Stroke({
         width: 5.5,
         color: 'rgba(255, 100, 50, 0.8)'
@@ -158,7 +157,7 @@ var MapView = (function() {
         extent: [20.6879993,-0.0313078,33.0690212,11.5219801],
         minZoom: 5,
         maxZoom: 22,
-        zoom: 5
+        zoom: 6
       }),
       logo: false
     });
@@ -198,24 +197,6 @@ var MapView = (function() {
     map.on('moveend', function() {
       $zoomLevelSpan.html(map.getView().getZoom());
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // Begin Zoom Stuffs
@@ -523,9 +504,4 @@ var MapView = (function() {
     // };
 
   } // end init
-
-  return {
-    init: init,
-  };
-
-})();
+}
