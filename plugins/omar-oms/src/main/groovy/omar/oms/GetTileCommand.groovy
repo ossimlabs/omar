@@ -18,10 +18,10 @@ class GetTileCommand implements Validateable
   int entry = 0
   String bands
   String histOp
-  String histOpRegion
   Double brightness = 0.0
   Double contrast  = 1.0
   String sharpenMode = "none"
   String resamplerFilter = "nearest"
 //  String styles
+  Boolean histCenterTile = false
 }

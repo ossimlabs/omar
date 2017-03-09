@@ -323,14 +323,14 @@
 
     $scope.draRegionType = {};
     $scope.draRegionTypes = [
-        { 'name': 'Global', 'value': 'global' },
-        { 'name': 'Viewport', 'value': 'viewport' }
+        { 'name': 'Global', 'value': 'false' },
+        { 'name': 'Viewport', 'value': 'true' }
     ];
 
     $scope.draRegionType = $scope.draRegionTypes[1];
 
     angular.forEach( $scope.draRegionTypes, function( value, key ) {
-      if ( value.value == imageSpaceObj.histOpRegion ) {
+      if ( value.value == imageSpaceObj.histCenterTile ) {
         $scope.draRegionType = { 'name': value.name, 'value': value.value };
       }
     });
@@ -404,7 +404,7 @@
           brightness: brightness,
           contrast: contrast,
           histOp: $stateParams.histOp,
-          histOpRegion: $stateParams.histOpRegion,
+          histCenterTile: $stateParams.histCenterTile,
           resamplerFilter: $stateParams.resamplerFilter,
           sharpenMode: $stateParams.sharpenMode
         };
@@ -419,8 +419,8 @@
                           imageSpaceObj.imageId + '&brightness=' +
                           imageSpaceObj.brightness + '&contrast=' +
                           imageSpaceObj.contrast + '&histOp=' +
-                          imageSpaceObj.histOp + '&histOpRegion=' +
-                          imageSpaceObj.histOpRegion + '&resamplerFilter' +
+                          imageSpaceObj.histOp + '&histCenterTile=' +
+                          imageSpaceObj.histCenterTile + '&resamplerFilter' +
                           imageSpaceObj.resamplerFilter + '&sharpenMode'
                           imageSpaceObj.sharpenMode;
 

@@ -57,7 +57,7 @@ class OpirRasterEntry {
         bitDepth index: 'opir_raster_entry_bit_depth_idx'
         dataType index: 'opir_raster_entry_data_type_idx'
         indexId index: 'opir_raster_entry_index_id_idx', unique:true
-        entryId index: 'raster_entry_entry_id_idx'
+        entryId index: 'opir_raster_entry_entry_id_idx'
         mission index: 'opir_raster_entry_mission_idx'
         acquisitionStart index: 'opir_raster_entry_acquisition_start_idx'
         acquisitionEnd index: 'opir_raster_entry_acquistion_end_idx'

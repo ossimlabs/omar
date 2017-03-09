@@ -286,24 +286,9 @@ function setupTiePointSelectionDialog() {
             else {
                 var view = tlv.map.getView();
                 var center = ol.proj.transform( view.getCenter(), "EPSG:3857", "EPSG:4326" );
-                var extent = ol.proj.transform( view.calculateExtent( tlv.map.getSize() ), "EPSG:3857", "EPSG:4326" );
-                var coordinates = [
-                    center,
-                    [ extent[ 0 ], center[ 1 ] ],
-                    [ center[ 0 ], extent[ 1 ] ],
-                    [ extent[ 2 ], center[ 1 ] ],
-                    [ center[ 0 ], extent[ 3 ] ]
-                ];
 
-                groundToImagePoints( coordinates, tlv[ "3disa" ].layers[ 0 ], function( pixels, layer ) {
+                groundToImagePoints( [ center ], tlv[ "3disa" ].layers[ 0 ], function( pixels, layer ) {
                     var center = [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ];
-                    var extent = [
-                        pixels[ 1 ][ 0 ],
-                        -pixels[ 2 ][ 1 ],
-                        pixels[ 3 ][ 0 ],
-                        -pixels[ 4 ][ 1 ]
-                    ];
-
                     tlv[ "3disa" ].layers[ 0 ].map.getView().setCenter( center );
                 });
             }
@@ -322,8 +307,8 @@ function tileUrlFunction( image, tileCoord, pixelRatio, projection ) {
             "entry=0&",
             "filename=" + image.metadata.filename,
             "format=jpeg&",
+            "histCenterTile=" + styles[ "histogram-center-tile" ],
             "histOp=" + styles.hist_op,
-            "histOpRegion=" + styles.hist_op_region,
             "resamplerFilter=" + styles.resampler_filter,
             "sharpenMOde=" + styles.sharpen_mode,
             "x=" + tileCoord[1],

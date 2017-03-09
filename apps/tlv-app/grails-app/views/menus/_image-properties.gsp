@@ -63,8 +63,8 @@
                 <td>
                     <select class = "form-control" id = "dynamicRangeRegionSelect" onchange = "updateImageProperties( true )">
                         <g:each in = "${[
-                            [ name: "Global", value: "global" ],
-                            [ name: "Viewport", value: "viewport" ]
+                            [ name: "Global", value: "false" ],
+                            [ name: "Viewport", value: "true" ]
                         ]}">
                             <option value = ${ it.value }>${ it.name }</option>
                         </g:each>

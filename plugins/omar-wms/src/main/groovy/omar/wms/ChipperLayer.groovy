@@ -53,6 +53,10 @@ class ChipperLayer extends DirectLayer
         srs: 'epsg:4326',
     ]
 
+    if ( style?.containsKey( 'histogram-center-tile' ) && style['histogram-center-tile']?.toString() == 'true') {
+      initOpts['hist_center'] = 'true'
+    }
+
     // Check to see if file is accessible
     if ( ( imageFile as File ).exists() )
     {
@@ -78,6 +82,12 @@ class ChipperLayer extends DirectLayer
 
         srs: 'epsg:4326'
     ]
+
+    if ( style?.containsKey( 'histogram-center-tile' ) && style['histogram-center-tile']?.toString() == 'true') {
+      initOpts['hist_center'] = 'true'
+    }
+
+    //println initOpts
 
     // Check to see if file is accessible
     images = images?.grep { (it.imageFile as File).exists() }

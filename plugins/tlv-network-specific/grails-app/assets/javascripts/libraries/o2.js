@@ -13,7 +13,7 @@ createImageLayerSource = function( layer ) {
 						brightness: layer.brightness || 0,
 						contrast: layer.contrast || 1,
 						hist_op: layer.histOp || "auto-minmax",
-						hist_op_region: layer.histOpRegion || "viewport",
+						"histogram-center-tile": true,
 						resampler_filter: layer.resamplerFilter || "bilinear",
 						sharpen_mode: layer.sharpenMode || "none"
 					}),
