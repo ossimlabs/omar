@@ -321,6 +321,24 @@
         imageSpaceService.setDynamicRange( value );
     };
 
+    $scope.draRegionType = {};
+    $scope.draRegionTypes = [
+        { 'name': 'Global', 'value': 'global' },
+        { 'name': 'Viewport', 'value': 'viewport' }
+    ];
+
+    $scope.draRegionType = $scope.draRegionTypes[1];
+
+    angular.forEach( $scope.draRegionTypes, function( value, key ) {
+      if ( value.value == imageSpaceObj.histOpRegion ) {
+        $scope.draRegionType = { 'name': value.name, 'value': value.value };
+      }
+    });
+
+    $scope.onDraRegionSelect = function( value ) {
+        imageSpaceService.setDynamicRangeRegion( value );
+    };
+
     $scope.resamplerFilterType = {};
     $scope.resamplerFilterTypes = [
         { 'name': 'Bessel', 'value': 'bessel' },
@@ -386,6 +404,7 @@
           brightness: brightness,
           contrast: contrast,
           histOp: $stateParams.histOp,
+          histOpRegion: $stateParams.histOpRegion,
           resamplerFilter: $stateParams.resamplerFilter,
           sharpenMode: $stateParams.sharpenMode
         };
@@ -400,7 +419,8 @@
                           imageSpaceObj.imageId + '&brightness=' +
                           imageSpaceObj.brightness + '&contrast=' +
                           imageSpaceObj.contrast + '&histOp=' +
-                          imageSpaceObj.histOp + '&resamplerFilter' +
+                          imageSpaceObj.histOp + '&histOpRegion=' +
+                          imageSpaceObj.histOpRegion + '&resamplerFilter' +
                           imageSpaceObj.resamplerFilter + '&sharpenMode'
                           imageSpaceObj.sharpenMode;
 

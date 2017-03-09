@@ -2,7 +2,7 @@
   <div class="row">
     <div class="list-card-modal-header-links">
       <div class="text-primary list-card-image-modal-links" style="margin-top:.2em;">
-        <a href="{{vm.o2baseUrlModal}}/#/mapImage?filename={{vm.selectedImage.properties.filename}}&entry_id={{vm.selectedImage.properties.entry_id}}&width={{vm.selectedImage.properties.width}}&height={{vm.selectedImage.properties.height}}&bands={{vm.imageSpaceDefaults.bands}}&numOfBands={{vm.selectedImage.properties.number_of_bands}}&imageId={{vm.selectedImage.properties.id}}&brightness={{vm.imageSpaceDefaults.brightness}}&contrast={{vm.imageSpaceDefaults.contrast}}&histOp={{vm.imageSpaceDefaults.histOp}}&resamplerFilter={{vm.imageSpaceDefaults.resamplerFilter}}&sharpenMode={{vm.imageSpaceDefaults.sharpenMode}}" target="_blank">
+        <a href="{{vm.o2baseUrlModal}}/#/mapImage?filename={{vm.selectedImage.properties.filename}}&entry_id={{vm.selectedImage.properties.entry_id}}&width={{vm.selectedImage.properties.width}}&height={{vm.selectedImage.properties.height}}&bands={{vm.imageSpaceDefaults.bands}}&numOfBands={{vm.selectedImage.properties.number_of_bands}}&imageId={{vm.selectedImage.properties.id}}&brightness={{vm.imageSpaceDefaults.brightness}}&contrast={{vm.imageSpaceDefaults.contrast}}&histOp={{vm.imageSpaceDefaults.histOp}}&histOpRegion={{vm.imageSpaceDefaults.histOpRegion}}&resamplerFilter={{vm.imageSpaceDefaults.resamplerFilter}}&sharpenMode={{vm.imageSpaceDefaults.sharpenMode}}" target="_blank">
           <i class="fa fa-desktop fa-border text-primary"
            style="cursor: pointer;"
            tooltip-placement="top"

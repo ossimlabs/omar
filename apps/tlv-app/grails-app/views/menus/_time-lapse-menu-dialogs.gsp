@@ -33,6 +33,6 @@
 </div>
 
 <g:javascript>
-	$("#timeLapseDialog").on("hidden.bs.modal", function (event) { hideDialog("timeLapseDialog"); });
-	$("#timeLapseDialog").on("shown.bs.modal", function (event) { displayDialog("timeLapseDialog"); });
+	$( "#timeLapseDialog" ).on( "hidden.bs.modal", function (event) { hideDialog( "timeLapseDialog" ); } );
+	$( "#timeLapseDialog" ).on( "shown.bs.modal", function (event) { displayDialog( "timeLapseDialog" ); } );
 </g:javascript>

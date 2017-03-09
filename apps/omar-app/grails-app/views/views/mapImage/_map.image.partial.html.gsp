@@ -318,6 +318,23 @@
             </ui-select>
           </div>
         </div>
+        <!-- Dynamic Range Region Panel -->
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <small class="text text-info">Dynamic Range Region</small>
+            <ui-select
+              ng-model="draRegionType"
+              on-select="onDraRegionSelect($select.selected.value)"
+              theme="selectize">
+              <ui-select-match>
+                <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="val in draRegionTypes">
+                <span ng-bind="val.name"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
         <!-- Interpolation Panel -->
         <div class="panel panel-info">
           <div class="panel-body">

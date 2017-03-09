@@ -33,9 +33,9 @@
 </div>
 
 <g:javascript>
-	$("#annotationsDialog").on("hidden.bs.modal", function (event) {
-		hideDialog("annotationsDialog");
+	$( "#annotationsDialog" ).on( "hidden.bs.modal", function (event) {
+		hideDialog( "annotationsDialog" );
 		removeInteractions();
 	});
-	$("#annotationsDialog").on("shown.bs.modal", function (event) { displayDialog("annotationsDialog"); });
+	$( "#annotationsDialog" ).on( "shown.bs.modal", function (event) { displayDialog( "annotationsDialog" ); } );
 </g:javascript>
