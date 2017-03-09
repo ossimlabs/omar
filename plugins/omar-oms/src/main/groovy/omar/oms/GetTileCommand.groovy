@@ -24,4 +24,5 @@ class GetTileCommand implements Validateable
   String sharpenMode = "none"
   String resamplerFilter = "nearest"
 //  String styles
+  Boolean histCenterTile = false
 }

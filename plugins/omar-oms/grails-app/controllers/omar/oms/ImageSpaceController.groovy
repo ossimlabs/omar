@@ -55,7 +55,8 @@ class ImageSpaceController
           @ApiImplicitParam(name = 'sharpenMode', value = 'Sharpen Operation',allowableValues="[none,light,heavy]", defaultValue="none", paramType = 'query', dataType = 'string', required=false),
           @ApiImplicitParam(name = 'resamplerFilter', value = 'Interpolation Operation',allowableValues="[nearest,bilinear,cubic,gaussian,magic,bessel,blackman,bspline,catrom,hanning,hamming,hermite,lanczos,mitchell,quadratic,sinc]", defaultValue="none", paramType = 'query', dataType = 'string', required=false),
           @ApiImplicitParam(name = 'brightness', value = 'Brightness Operation',defaultValue="0.0", paramType = 'query', dataType = 'float', required=false),
-          @ApiImplicitParam(name = 'contrast', value = 'Contrast Operation',defaultValue="1.0",  paramType = 'query', dataType = 'float', required=false)
+          @ApiImplicitParam(name = 'contrast', value = 'Contrast Operation',defaultValue="1.0",  paramType = 'query', dataType = 'float', required=false),
+          @ApiImplicitParam(name = 'histCenterTile', value = 'Use Center File for Histogram', defaultValue="false",  paramType = 'query', dataType = 'Boolean', required=false)
 
   ])
   def getTile(/*GetTileCommand cmd*/)
