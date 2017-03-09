@@ -1,5 +1,4 @@
 /*
-*= require webjars/openlayers/3.17.1/ol.css
 *= require ol3-layerswitcher.css
 *= require_self
 */
@@ -54,8 +53,8 @@ input[type=range] {
 
 .dgi-label {
   position: absolute;
-  bottom: 5.1em;
-  left: 0.6em;
+  bottom: 3.5em;
+  right: 0.8em;
   padding-left: 5px;
   padding-right: 5px;
 }
