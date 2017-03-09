@@ -52,10 +52,6 @@ class ChipperUtil
         {
           opts.hist_op = stylesObj.histOp
         }
-        if(stylesObj?.histOpRegion)
-        {
-          opts.hist_op_region = stylesObj.histOpRegion
-        }
       }
       catch(e)
       {
