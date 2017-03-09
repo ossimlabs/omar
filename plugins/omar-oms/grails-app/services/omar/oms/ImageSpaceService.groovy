@@ -170,6 +170,7 @@ class ImageSpaceService
                 "scale_2_8_bit"   : "true",
                 "rrds"            : "${rrds}".toString(),
                 'hist_op'         : cmd.histOp ?: 'auto-minmax',
+                'hist_op_region'  : cmd.histOpRegion ?: 'viewport',
                 'brightness'      : cmd.brightness ? cmd.brightness.toString() : "0.0",
                 'contrast'        : cmd.contrast ? cmd.contrast.toString() : "1.0",
                 'sharpen_mode'    : cmd.sharpenMode ?: "none",

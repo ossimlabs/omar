@@ -52,6 +52,7 @@ function addLayerToTheMap( layer ) {
 	layer.layerLoaded = false;
 	layer.tilesLoaded = 0;
 	layer.tilesLoading = 0;
+	if ( !layer.opacity ) { layer.opacity = 1; }
 
 	tlv.map.addLayer(layer.mapLayer);
 }

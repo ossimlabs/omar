@@ -323,6 +323,7 @@ function tileUrlFunction( image, tileCoord, pixelRatio, projection ) {
             "filename=" + image.metadata.filename,
             "format=jpeg&",
             "histOp=" + styles.hist_op,
+            "histOpRegion=" + styles.hist_op_region,
             "resamplerFilter=" + styles.resampler_filter,
             "sharpenMOde=" + styles.sharpen_mode,
             "x=" + tileCoord[1],

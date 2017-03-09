@@ -59,6 +59,19 @@
                 </td>
             </tr>
             <tr>
+                <td>DRA Region:</td>
+                <td>
+                    <select class = "form-control" id = "dynamicRangeRegionSelect" onchange = "updateImageProperties( true )">
+                        <g:each in = "${[
+                            [ name: "Global", value: "global" ],
+                            [ name: "Viewport", value: "viewport" ]
+                        ]}">
+                            <option value = ${ it.value }>${ it.name }</option>
+                        </g:each>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td>Interpolation:</td>
                 <td>
                     <select class = "form-control" id = "interpolationSelect" onchange = "updateImageProperties( true )">

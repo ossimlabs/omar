@@ -36,7 +36,7 @@
             templateUrl: AppO2.APP_CONFIG.serverURL + '/views/mapOrtho/map.ortho.partial.html'
           })
           .state('mapImage', {
-            url: '/mapImage?filename=&entry_id=&width=&height&bands=&numOfBands=&imageId=&brightness=&contrast=&histOp=&resamplerFilter=&sharpenMode=',
+            url: '/mapImage?filename=&entry_id=&width=&height&bands=&numOfBands=&imageId=&brightness=&contrast=&histOp=&histOpRegion=&resamplerFilter=&sharpenMode=',
             templateUrl: AppO2.APP_CONFIG.serverURL + '/views/mapImage/map.image.partial.html'
           })
           .state('wfs', {
