@@ -19,7 +19,7 @@ class BeService {
 			"outputFormat=JSON&" +
 			"request=GetFeature&" +
 			"service=WFS&" +
-			"typeName=%{ grailsApplication.config.beLookup.typeName }&" +
+			"typeName=${ grailsApplication.config.beLookup.typeName }&" +
 			"version=1.1.0"
 
 		def json = httpDownloadService.serviceMethod( [url: url] )
