@@ -53,24 +53,27 @@ function convertRadiusToBbox(x, y, radius) {
 }
 
 function disableMenuButtons() {
-	var menuButtons = $(".navbar-header")[0].children;
-	for (var i = 1; i < menuButtons.length - 1; i++) { $(menuButtons[i]).hide(); }
+	var menuButtons = $( ".navbar-header" )[ 0 ].children;
+	for ( var i = 1; i < menuButtons.length - 1; i++ ) { $( menuButtons[ i ] ).hide(); }
 
-	var menuButtons = $(".navbar-nav")[0].children;
-	for (var i = 1; i < menuButtons.length; i++) { $(menuButtons[i]).hide(); }
+	var menuButtons = $( ".navbar-nav" )[ 0 ].children;
+	for ( var i = 1; i < menuButtons.length; i++ ) { $( menuButtons[ i ] ).hide(); }
 }
 
-function displayDialog(dialog) {
-	var header = $("#" + dialog + " .modal-header");
+function displayDialog( dialog ) {
+	var header = $( "#" + dialog + " .modal-header" );
 	var paddingHeight = header.offset().top;
 	var headerHeight = header.outerHeight();
-	var footerHeight = $("#" + dialog + " .modal-footer").outerHeight();
+	var footerHeight = $( "#" + dialog + " .modal-footer" ).outerHeight();
 
-	var body = $("#" + dialog + " .modal-body");
-	var maxBodyHeight = ($(window).height() - paddingHeight - headerHeight - footerHeight) * 0.9;
+	var body = $( "#" + dialog + " .modal-body" );
+	body.css( "max-height", "" );
+	body.css( "overflow-y", "" );
+
+	var maxBodyHeight = ( $( window ).height() - paddingHeight - headerHeight - footerHeight ) * 0.9;
 	var bodyIsTooTall = body.outerHeight() > maxBodyHeight;
-	body.css("max-height", bodyIsTooTall ? maxBodyHeight : "");
-	body.css("overflow-y", bodyIsTooTall ? "auto" : "");
+	body.css( "max-height", bodyIsTooTall ? maxBodyHeight : "" );
+	body.css( "overflow-y", bodyIsTooTall ? "auto" : "" );
 }
 
 function displayErrorDialog(message) {
