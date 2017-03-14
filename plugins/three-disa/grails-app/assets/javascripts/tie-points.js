@@ -109,6 +109,7 @@ function changeTiePointFrame( param ) {
         }
         var newLayer = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ];
 
+        newLayer.mapLayer.setVisible( true );
         groundToImagePoints( coordinates, newLayer, function( pixels, layer ) {
             $( "#" + currentLayer.map.getTarget() ).hide();
 
@@ -250,7 +251,8 @@ function setupTiePointSelectionDialog() {
 
                         return tileUrlFunction( layer, tileCoord, pixelRatio, projection )
                     }
-                })
+                }),
+                visible: false
             });
 
             $( "#tiePointMaps" ).append( "<div class = 'map' id = 'tiePointMap" + index + "'></div>" );
@@ -294,6 +296,7 @@ function setupTiePointSelectionDialog() {
                     [ extent[ 2 ], center[ 1 ] ],
                     [ center[ 0 ], extent[ 3 ] ]
                 ];
+                tlv[ "3disa" ].layers[ 0 ].mapLayer.setVisible( true );
 
                 groundToImagePoints( coordinates, tlv[ "3disa" ].layers[ 0 ], function( pixels, layer ) {
                     var center = [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ];
