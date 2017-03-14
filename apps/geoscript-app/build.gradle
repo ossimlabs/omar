@@ -10,6 +10,7 @@ buildscript {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
         classpath "org.grails.plugins:hibernate4:5.0.10"
+        classpath "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
     }
 }
 
@@ -52,7 +53,7 @@ dependencies {
 
     compile project(':omar-openlayers')
 
-    compile ( "org.geoscript:geoscript-groovy:1.9-SNAPSHOT" ) {
+    compile ( "org.geoscript:geoscript-groovy:1.8.0" ) {
           exclude module: 'commons-beanutils'
           exclude module: 'ehcache'
           exclude module: "groovy-all"
@@ -82,7 +83,11 @@ dependencies {
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
 
     compile "org.springframework.cloud:spring-cloud-starter-config"
-    compile "org.springframework.cloud:spring-cloud-starter-eureka"    
+    compile "org.springframework.cloud:spring-cloud-starter-eureka"
+
+    compile 'net.errbuddy.plugins:babel-asset-pipeline:2.1.0'
+
+    compile 'org.webjars:bootstrap:3.3.5'
 }
 
 assets {

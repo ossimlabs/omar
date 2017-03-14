@@ -16,8 +16,8 @@
           filename,
           entry,
           format,
+          histCenterTile,
           histOp,
-          histOpRegion,
           imageGeometry,
           imageProperties,
           imgWidth,
@@ -233,7 +233,7 @@
               return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
                 '&x=' + tileX + '&y=' + tileY + '&format=' + format +
                 '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp +
-                '&histOpRegion=' + histOpRegion + '&brightness=' + brightness + '&contrast=' + contrast +
+                '&histCenterTile=' + histCenterTile + '&brightness=' + brightness + '&contrast=' + contrast +
                 '&resamplerFilter=' + resamplerFilter + '&sharpenMode=' + sharpenMode;
               }
           }
@@ -285,7 +285,7 @@
             filename = params.filename;
             entry = params.entry;
             histOp = params.histOp || "auto-minmax";
-            histOpRegion = params.histOpRegion || "viewport";
+            histCenterTile = params.histCenterTile || "true";
             imgWidth = params.imgWidth;
             imgHeight = params.imgHeight;
             numOfBands = params.numOfBands;
@@ -346,7 +346,7 @@
               brightness: brightness,
               contrast: contrast,
               histOp: histOp,
-              histOpRegion: histOpRegion,
+              histCenterTile: histCenterTile,
               resamplerFilter: resamplerFilter,
               sharpenMode: sharpenMode
             });
@@ -441,7 +441,7 @@
                   '&height=' + imgHeight + '&bands=' + bands +
                   '&numOfBands=' + numOfBands + '&imageId=' + imgID +
                   '&brightness=' + brightness + '&contrast=' + contrast +
-                  '&histOp=' + histOp + '&histOpRegion=' + histOpRegion +
+                  '&histOp=' + histOp + '&histCenterTile=' + histCenterTile +
                   '&resamplerFilter=' + resamplerFilter + '&sharpenMode=' + sharpenMode;
 
               return urlString;
@@ -453,7 +453,7 @@
             };
 
             this.setDynamicRangeRegion = function(value) {
-              histOpRegion = value;
+              histCenterTile = value;
               source.refresh();
             };
 

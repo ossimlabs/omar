@@ -60,13 +60,15 @@
       </div>
     </div>
 
-    <asset:javascript src='mapView.js'/>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <asset:javascript src='mapView.es6'/>
+
     <asset:script>
+
       $(document).ready(function(){
         var params = ${raw(mapViewParams.encodeAsJSON() as String)};
         MapView.init(params);
       });
+
     </asset:script>
     <asset:deferredScripts/>
   </body>

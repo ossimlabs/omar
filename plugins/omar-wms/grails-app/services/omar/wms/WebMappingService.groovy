@@ -302,7 +302,7 @@ class WebMappingService implements InitializingBean
       }
     }
 
-    // println "style: ${style}"
+    //println "style: ${style}"
 
     switch ( renderMode )
     {
