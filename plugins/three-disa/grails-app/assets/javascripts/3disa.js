@@ -45,7 +45,7 @@ function getJobDetails() {
                 ( tlv.bbox[1] + tlv.bbox[3] ) / 2
             ];
             tlv.layers = [];
-console.dir(job);
+
             var filenames = job.imageRegistration.tiePoints.unique( "filename" );
             getImageMetadata( filenames );
         },
@@ -98,6 +98,7 @@ pageLoad = function() {
     else if ( tlv.demGeneration ) {
         $("#searchDialog").modal("hide");
         tlv.dimensions = 3;
+        tlv.tilt = 60;
         tlv[ "3disa" ] = tlv.demGeneration;
         getJobDetails();
     }

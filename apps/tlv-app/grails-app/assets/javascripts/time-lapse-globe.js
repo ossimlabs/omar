@@ -59,9 +59,10 @@ function setupGlobe() {
 		}
 	);
 
-	if (tlv.dimensions == "3") {
-		$("#dimensionsSelect").val(3);
+	if ( tlv.dimensions == "3" ) {
+		$( "#dimensionsSelect" ).val( 3 );
 		addDimension();
+		if ( tlv.tilt ) { tlv.globe.getCamera().setTilt( Math.PI / 180 * tlv.tilt ); }
 	}
 }
 
