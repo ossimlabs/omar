@@ -309,7 +309,7 @@ function tileUrlFunction( image, tileCoord, pixelRatio, projection ) {
             "entry=0&",
             "filename=" + image.metadata.filename,
             "format=jpeg&",
-            "histCenterTile=" + styles[ "histogram-center-tile" ],
+            "histCenterTile=" + styles[ "hist_center" ],
             "histOp=" + styles.hist_op,
             "resamplerFilter=" + styles.resampler_filter,
             "sharpenMOde=" + styles.sharpen_mode,
