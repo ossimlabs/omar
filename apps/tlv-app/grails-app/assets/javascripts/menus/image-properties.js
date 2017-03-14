@@ -104,7 +104,7 @@ function syncImageProperties() {
 	$( "#opacityValueSpan" ).html( layer.opacity );
 
 	$( "#dynamicRangeSelect option[value='" + styles.hist_op + "']" ).prop( "selected", true );
-	$( "#dynamicRangeRegionSelect option[value='" + styles["histogram-center-tile"] + "']" ).prop( "selected", true );
+	$( "#dynamicRangeRegionSelect option[value='" + styles["hist_center"] + "']" ).prop( "selected", true );
 	$( "#interpolationSelect option[value='" + styles.resampler_filter + "']" ).prop( "selected", true );
 	$( "#sharpenModeSelect option[value='" + styles.sharpen_mode + "']" ).prop( "selected", true );
 }
@@ -129,7 +129,7 @@ function updateImageProperties( refreshMap ) {
 				brightness: $( "#brightnessSliderInput" ).slider( "getValue" ) / 100,
 				contrast: $( "#contrastSliderInput" ).slider( "getValue" ) / 100,
 				hist_op: $( "#dynamicRangeSelect" ).val(),
-				"histogram-center-tile": $( "#dynamicRangeRegionSelect" ).val(),
+				"hist_center": $( "#dynamicRangeRegionSelect" ).val(),
 				resampler_filter: $( "#interpolationSelect" ).val(),
 				sharpen_mode: $( "#sharpenModeSelect" ).val()
 			})
