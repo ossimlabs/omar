@@ -183,15 +183,21 @@ function imagePointsToGround( pixels, layer, callback ) {
             ),
             "pqeEllipseAngularIncrement": 10,
             "pqeEllipsePointType" : "none",
-            "pqeIncludePositionError": false,
+            "pqeIncludePositionError": true,
             "pqeProbabilityLevel" : 0.9,
         }),
         dataType: "json",
-        success: function( data ) {
+        success: function( data ) { console.dir(data);
             var coordinates = data.data.map(
                 function( point ) { return [ point.lon, point.lat ]; }
             );
-            callback( coordinates, layer );
+            var errors = data.data.map(
+                function( point ) {
+                    if ( point.pqe.pqeValid ) { return { CE: point.pqe.CE, LE: point.pqe.LE } }
+                    else { return { CE: null, LE: null } }
+                }
+            );
+            callback( coordinates, layer, errors );
         },
         type: "post",
         url: tlv.availableResources.complete[ layer.library ].mensaUrl + "/imagePointsToGround"
