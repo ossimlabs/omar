@@ -187,7 +187,7 @@ function imagePointsToGround( pixels, layer, callback ) {
             "pqeProbabilityLevel" : 0.9,
         }),
         dataType: "json",
-        success: function( data ) { console.dir(data);
+        success: function( data ) { 
             var coordinates = data.data.map(
                 function( point ) { return [ point.lon, point.lat ]; }
             );
