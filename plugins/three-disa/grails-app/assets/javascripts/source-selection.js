@@ -16,7 +16,7 @@ function buildSourceSelectionTable() {
 
     $.each(
         tlv.layers,
-        function( i, x ) {
+        function( index, layer ) {
             row = table.insertRow( table.rows.length );
             $( row ).addClass( "success" );
             $( row ).click( function() {
@@ -28,28 +28,30 @@ function buildSourceSelectionTable() {
             $( row ).mouseover( function() { $(  this ).addClass( "info" ); } );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( i + 1 );
+            $( cell ).append( index + 1 );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.imageId );
+            $( cell ).append( layer.imageId );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.acquisitionDate + "z" );
+            $( cell ).append( layer.acquisitionDate + "z" );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.metadata.niirs );
+            $( cell ).append( layer.metadata.niirs );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.metadata.grazing_angle );
+            $( cell ).append( layer.metadata.grazing_angle );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.metadata.elevation_angle );
+            $( cell ).append( layer.metadata.elevation_angle );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.metadata.ce );
+            $( cell ).append( layer.CE );
+            $( cell ).attr( "id", layer.metadata.index_id + "CE" );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( x.metadata.le );
+            $( cell ).append( layer.LE );
+            $( cell ).attr( "id", layer.metadata.index_id + "LE" );
 
             cell = row.insertCell( row.cells.length );
             var span = document.createElement( "span" );
@@ -63,6 +65,33 @@ function buildSourceSelectionTable() {
             };
             deleteButton.appendChild( span );
             $( cell ).append( deleteButton );
+        }
+    );
+
+    getErrorValues();
+}
+
+function getErrorValues() {
+    var center = ol.proj.transform( tlv.map.getView().getCenter(), "EPSG:3857", "EPSG:4326" );
+    $.each(
+        tlv.layers,
+        function( index, layer ) {
+                var callback = function( pixels, layer  ) {
+                    var callback2 = function( coordinates, layer, errors ) {
+                        layer.CE = errors[0].CE;
+                        console.dir(layer.CE);
+                        console.dir(isNaN( layer.CE ));
+                        $( "#" + layer.metadata.index_id + "CE" ).html(
+                            isNaN( parseFloat( layer.CE ) ) ? "N/A" : layer.CE.toFixed( 2 )
+                        );
+                        layer.LE = errors[0].LE;
+                        $( "#" + layer.metadata.index_id + "LE" ).html(
+                            isNaN( parseFloat( layer.LE ) ) ? "N/A" : layer.LE.toFixed( 2 )
+                        );
+                    }
+                    imagePointsToGround( pixels, layer, callback2 );
+                }
+                groundToImagePoints( [ center ], layer, callback );
         }
     );
 }
