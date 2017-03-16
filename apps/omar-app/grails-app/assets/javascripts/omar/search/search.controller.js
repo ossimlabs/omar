@@ -60,7 +60,7 @@
 
         var input = searchInput.val().trim();
         var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
-            "filter=title LIKE '%" + input.toUpperCase() + "%'" +
+            "filter=" + encodeURIComponent( "title LIKE '%" + input.toUpperCase() + "%'" ) +
             "&maxFeatures=100" +
             "&outputFormat=JSON" +
             "&request=GetFeature" +
@@ -70,7 +70,7 @@
 
         $http({
             method: 'GET',
-            url: encodeURI( wfsUrl )
+            url: wfsUrl
         }).then(function( response ) {
                 var features = response.data.features;
 

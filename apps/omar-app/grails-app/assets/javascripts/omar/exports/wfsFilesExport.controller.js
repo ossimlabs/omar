@@ -15,15 +15,15 @@
         var version = '1.1.0';
         var typeName = 'omar:raster_entry';
         var wfsUrl = wfsRequestUrl +
-                    'service=WFS' +
-                    '&version=' + version +
-                    '&request=GetFeature' +
-                    '&typeName=' + typeName +
-                    '&filter=' + wfsService.spatialObj.filter +
-                    '&outputFormat=' + outputFormat +
-                    '&sortBy=' + wfsService.attrObj.sortField + wfsService.attrObj.sortType +
-                    '&startIndex=' + wfsService.attrObj.startIndex;
-        vm.url = encodeURI( wfsUrl );
+            'service=WFS' +
+            '&version=' + version +
+            '&request=GetFeature' +
+            '&typeName=' + typeName +
+            '&filter=' + encodeURIComponent( wfsService.spatialObj.filter ) +
+            '&outputFormat=' + outputFormat +
+            '&sortBy=' + wfsService.attrObj.sortField + wfsService.attrObj.sortType +
+            '&startIndex=' + wfsService.attrObj.startIndex;
+        vm.url = wfsUrl;
         $window.open( vm.url.toString(), '_blank' );
       };
 
@@ -44,7 +44,7 @@
 
             var bbox = mapService.calculateExtent().join( ',' );
             if ( vm.attrFilter ) { filter += " AND " + vm.attrFilter; }
-            var tlvURL = encodeURI( tlvBaseUrl + '/?bbox=' + bbox + '&filter=' + filter + '&location=' + pointLatLon + '&maxResults=100');
+            var tlvURL = tlvBaseUrl + '/?bbox=' + bbox + '&filter=' + encodeURIComponent( filter ) + '&location=' + pointLatLon + '&maxResults=100';
             $window.open( tlvURL, '_blank' );
         }
       };

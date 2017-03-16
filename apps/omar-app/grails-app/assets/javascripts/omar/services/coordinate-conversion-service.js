@@ -47,7 +47,7 @@
 
                     var beNumber = RegExp.$1;
                     var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
-                        "filter=" + columnName + " = '" + beNumber + "'" +
+                        "filter=" + encodeURIComponent( columnName + " = '" + beNumber + "'" ) +
                         "&maxFeatures=1" +
                         "&outputFormat=JSON" +
                         "&request=GetFeature" +
@@ -56,7 +56,7 @@
                         "&version=1.1.0";
                     $http({
                         method: 'GET',
-                        url: encodeURI( wfsUrl )
+                        url: wfsUrl
                     }).then(function( response ) {
                         var features = response.data.features;
 
@@ -74,12 +74,12 @@
                     var twoFishesUrl = baseUrl + twoFishesProxy + "?" +
                         "autocompleteBias=BALANCED&" +
                         "maxInterpretations=1&" +
-                        "query=" + location + "&" +
+                        "query=" + encodeURIComponent( location ) + "&" +
                         "responseIncludes=WKT_GEOMETRY_SIMPLIFIED";
 
                     $http({
                         method: 'GET',
-                        url: encodeURI( twoFishesUrl )
+                        url: twoFishesUrl
                     }).then(function( response ) {
                         var features = response.data.interpretations;
 

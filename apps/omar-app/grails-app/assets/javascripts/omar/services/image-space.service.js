@@ -255,7 +255,7 @@
 
           // Sets header title
           var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
-            "filter=filename LIKE '" + params.filename + "'" +
+            "filter=" + encodeURIComponent( "filename LIKE '" + params.filename + "'" ) +
             "&outputFormat=JSON" +
             "&request=GetFeature" +
             "&service=WFS" +
@@ -265,7 +265,7 @@
             $http({
 
               method: 'GET',
-              url: encodeURI(wfsUrl)
+              url: wfsUrl
 
             }).then(function(response) {
               imageGeometry = response.data.features[0].geometry;
