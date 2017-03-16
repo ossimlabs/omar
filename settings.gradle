@@ -1,4 +1,4 @@
-include 'all-app',
+/*include 'all-app',
 		'avro-app',
 		'download-app',
 		'ingest-metrics-app',
@@ -88,3 +88,4 @@ project(':wms-app').projectDir = 'apps/wms-app' as File
 project(':wmts-app').projectDir = 'apps/wmts-app' as File
 project(':oldmar-app').projectDir = 'apps/oldmar-app' as File
 project(':geoscript-app').projectDir = 'apps/geoscript-app' as File
+*/

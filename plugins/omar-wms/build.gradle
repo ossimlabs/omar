@@ -10,11 +10,13 @@ buildscript {
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
     }
 }
 
 plugins {
     id 'com.github.ben-manes.versions' version '0.13.0'
+    id 'com.jfrog.artifactory' version '4.4.13'
 }
 
 version "0.1"
@@ -51,15 +53,18 @@ dependencyManagement {
 }
 
 dependencies {
-      compile project( ':omar-oms' )
-      compile project( ':omar-geoscript' )
-      compile project( ':omar-hibernate-spatial' )
+    //compile project( ':omar-oms' )
+    //compile project( ':omar-geoscript' )
+    //compile project( ':omar-hibernate-spatial' )
+    compile(group: 'io.ossim.omar.plugins', name: 'omar-oms', version: '1.0.0-SNAPSHOT')
+    compile(group: 'io.ossim.omar.plugins', name: 'omar-geoscript', version: '1.0.0-SNAPSHOT')
+    compile(group: 'io.ossim.omar.plugins', name: 'omar-hibernate-spatial', version: '1.0.0-SNAPSHOT')
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies"
+    compile "org.grails:grails-dependencies:3.2.7"
     compile "org.grails:grails-web-boot"
     compile "org.grails.plugins:cache"
     compile "org.grails.plugins:scaffolding"
@@ -85,9 +90,50 @@ grailsPublish {
     desc = "Full plugin description"
     developers = [johndoe:"John Doe"]
     portalUser = ""
-    portalPassword = ""    
+    portalPassword = ""
 }
 
 assets {
     packagePlugin = true
+}
+
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    group = 'io.ossim.omar.plugins'
+    version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+artifactory {
+    contextUrl = "${System.env.ARTIFACTORY_CONTEXT_URL}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'plugins-snapshot-local'
+            username = "${System.env.ARTIFACTORY_USER}"
+            password = "${System.env.ARTIFACTORY_PASSWORD}"
+            maven = true
+
+        }
+        defaults{
+          publications('mavenJava')
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'plugins-snapshot'
+            username = "${System.env.ARTIFACTORY_USER}"
+            password = "${System.env.ARTIFACTORY_PASSWORD}"
+            maven = true
+
+        }
+    }
 }

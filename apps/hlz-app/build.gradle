@@ -11,11 +11,13 @@ buildscript {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
     classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
     classpath "org.grails.plugins:hibernate:4.3.10.5"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
   }
 }
 
 plugins {
   id "io.spring.dependency-management" version "0.5.4.RELEASE"
+  id 'com.jfrog.artifactory' version '4.4.13'
 }
 
 evaluationDependsOnChildren()
@@ -60,9 +62,11 @@ dependencyManagement {
 }
 
 dependencies {
-      compile project(':omar-oms')
-      compile project(':omar-geoscript')
+  //compile project(':omar-oms')
+  //compile project(':omar-geoscript')
 
+  compile(group: 'io.ossim.omar.plugins', name: 'omar-oms', version: '1.0.0-SNAPSHOT')
+  compile(group: 'io.ossim.omar.plugins', name: 'omar-geoscript', version: '1.0.0-SNAPSHOT')
   compile 'org.webjars.bower:bootstrap:3.3.5'
   compile 'org.webjars:bootswatch-superhero:3.3.5'
 
@@ -71,7 +75,7 @@ dependencies {
   compile "org.springframework.boot:spring-boot-starter-actuator"
   compile "org.springframework.boot:spring-boot-autoconfigure"
   compile "org.springframework.boot:spring-boot-starter-tomcat"
-  compile "org.grails:grails-dependencies"
+  compile "org.grails:grails-dependencies:3.2.7"
   compile "org.grails:grails-web-boot"
 
   compile "org.grails.plugins:hibernate"
@@ -93,4 +97,45 @@ dependencies {
 
 task wrapper( type: Wrapper ) {
   gradleVersion = gradleWrapperVersion
+}
+
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    group = 'io.ossim.omar.apps'
+    version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+artifactory {
+    contextUrl = "${System.env.ARTIFACTORY_CONTEXT_URL}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'libs-snapshot-local'
+            username = "${System.env.ARTIFACTORY_USER}"
+            password = "${System.env.ARTIFACTORY_PASSWORD}"
+            maven = true
+
+        }
+        defaults{
+          publications('mavenJava')
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'libs-snapshot'
+            username = "${System.env.ARTIFACTORY_USER}"
+            password = "${System.env.ARTIFACTORY_PASSWORD}"
+            maven = true
+
+        }
+    }
 }

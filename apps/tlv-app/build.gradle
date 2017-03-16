@@ -4,13 +4,19 @@ buildscript {
     }
     repositories {
         mavenLocal()
+        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
         maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.7.4"
         classpath "org.grails.plugins:hibernate4:5.0.4"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
     }
+}
+
+plugins {
+    id 'com.jfrog.artifactory' version '4.4.13'
 }
 
 version "0.1"
@@ -30,6 +36,7 @@ ext {
 
 repositories {
     mavenLocal()
+    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
     maven { url "https://repo.grails.org/grails/core" }
 }
 
@@ -42,14 +49,16 @@ dependencyManagement {
 }
 
 dependencies {
-    compile project(':three-disa')
-	compile project(':tlv-network-specific')
+    //compile project(':three-disa')
+    //compile project(':tlv-network-specific')
+    compile(group: 'io.ossim.omar.plugins', name: 'three-disa', version: '1.0.0-SNAPSHOT')
+    compile(group: 'io.ossim.omar.plugins', name: 'tlv-network-specific', version: '1.0.0-SNAPSHOT')
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies"
+    compile "org.grails:grails-dependencies:3.2.7"
     compile "org.grails:grails-web-boot"
     compile "org.grails.plugins:cache"
     compile "org.grails.plugins:scaffolding"
@@ -102,7 +111,50 @@ assets {
 
 grails {
 	plugins {
-        compile project(':three-disa')
-		compile project(':tlv-network-specific')
-	}
+    //compile project(':three-disa')
+    //compile project(':tlv-network-specific')
+    compile(group: 'io.ossim.omar.plugins', name: 'three-disa', version: '1.0.0-SNAPSHOT')
+    compile(group: 'io.ossim.omar.plugins', name: 'tlv-network-specific', version: '1.0.0-SNAPSHOT')
+  }
+}
+
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    group = 'io.ossim.omar.apps'
+    version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+artifactory {
+    contextUrl = "${System.env.ARTIFACTORY_CONTEXT_URL}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'libs-snapshot-local'
+            username = "${System.env.ARTIFACTORY_USER}"
+            password = "${System.env.ARTIFACTORY_PASSWORD}"
+            maven = true
+
+        }
+        defaults{
+          publications('mavenJava')
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'libs-snapshot'
+            username = "${System.env.ARTIFACTORY_USER}"
+            password = "${System.env.ARTIFACTORY_PASSWORD}"
+            maven = true
+
+        }
+    }
 }
