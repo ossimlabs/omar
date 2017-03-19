@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
-        classpath "org.grails.plugins:hibernate4:5.0.10"
+        classpath "org.grails.plugins:hibernate5:5.0.10"
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
     }
 }
@@ -19,8 +19,8 @@ plugins {
     id 'com.jfrog.artifactory' version '4.4.13'
 }
 
-version "1.0.0"
-group "ingest.metrics.app"
+//version "1.0.0"
+//group "ingest.metrics.app"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
@@ -28,6 +28,14 @@ apply plugin:"idea"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
+
+apply plugin: "com.jfrog.artifactory"
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group = "io.ossim.omar.apps"
+version = "1.0.0-SNAPSHOT"
+//version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
 
 ext {
     grailsVersion = project.grailsVersion
@@ -59,7 +67,7 @@ dependencies {
     compile "org.grails:grails-core"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies:3.2.7"
+    compile "org.grails:grails-dependencies:3.1.14"
     compile "org.grails:grails-web-boot"
     compile "org.grails.plugins:cache"
     compile "org.grails.plugins:scaffolding"
@@ -78,13 +86,6 @@ dependencies {
 assets {
     minifyJs = true
     minifyCss = true
-}
-allprojects {
-    apply plugin: "com.jfrog.artifactory"
-    apply plugin: 'java'
-    apply plugin: 'maven-publish'
-    group = 'io.ossim.omar.apps'
-    version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
 }
 
 publishing {

@@ -19,8 +19,8 @@ plugins {
     id 'com.jfrog.artifactory' version '4.4.13'
 }
 
-version "0.1"
-group "omar.stager"
+//version "0.1"
+//group "omar.stager"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
@@ -28,6 +28,13 @@ apply plugin:"org.grails.grails-plugin"
 apply plugin:"org.grails.grails-plugin-publish"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
+
+apply plugin: "com.jfrog.artifactory"
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group = "io.ossim.omar.plugins"
+version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
 
 ext {
     grailsVersion = project.grailsVersion
@@ -62,7 +69,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies:3.2.7"
+    compile "org.grails:grails-dependencies:3.1.14"
     compile "org.grails:grails-web-boot"
     compile "org.grails.plugins:cache"
     compile "org.grails.plugins:scaffolding"
@@ -93,14 +100,6 @@ grailsPublish {
 
 assets {
     packagePlugin = true
-}
-
-allprojects {
-    apply plugin: "com.jfrog.artifactory"
-    apply plugin: 'java'
-    apply plugin: 'maven-publish'
-    group = 'io.ossim.omar.plugins'
-    version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
 }
 
 publishing {
