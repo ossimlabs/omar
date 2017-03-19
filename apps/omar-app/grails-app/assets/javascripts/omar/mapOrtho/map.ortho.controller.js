@@ -117,10 +117,9 @@
                 "&version=" + wfsRequest.version +
                 "&request=GetFeature" +
                 "&typeName=" + wfsRequest.typeName +
-                "&filter=" + wfsRequest.cql +
+                "&filter=" + encodeURIComponent( wfsRequest.cql ) +
                 "&outputFormat=" + wfsRequest.outputFormat;
-
-            var url = encodeURI(wfsUrl);
+            var url = wfsUrl;
 
             $http({
                 method: 'GET',

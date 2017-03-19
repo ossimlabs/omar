@@ -3,12 +3,13 @@ package three_disa
 
 class ImageRegistration {
 
+    DemGeneration demGeneration
     Date finish
     Date start
     String status
 
 
-    static belongsTo = [ job: Job ]
+    static belongsTo = Job
 
     static constraints = {
         demGeneration nullable: true
@@ -17,6 +18,4 @@ class ImageRegistration {
     }
 
     static hasMany = [ tiePoints: TiePoint ]
-
-    static hasOne = [ demGeneration: DemGeneration ]
 }

@@ -109,6 +109,7 @@ function changeTiePointFrame( param ) {
         }
         var newLayer = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ];
 
+        newLayer.mapLayer.setVisible( true );
         groundToImagePoints( coordinates, newLayer, function( pixels, layer ) {
             $( "#" + currentLayer.map.getTarget() ).hide();
 
@@ -182,15 +183,21 @@ function imagePointsToGround( pixels, layer, callback ) {
             ),
             "pqeEllipseAngularIncrement": 10,
             "pqeEllipsePointType" : "none",
-            "pqeIncludePositionError": false,
+            "pqeIncludePositionError": true,
             "pqeProbabilityLevel" : 0.9,
         }),
         dataType: "json",
-        success: function( data ) {
+        success: function( data ) { 
             var coordinates = data.data.map(
                 function( point ) { return [ point.lon, point.lat ]; }
             );
-            callback( coordinates, layer );
+            var errors = data.data.map(
+                function( point ) {
+                    if ( point.pqe.pqeValid ) { return { CE: point.pqe.CE, LE: point.pqe.LE } }
+                    else { return { CE: null, LE: null } }
+                }
+            );
+            callback( coordinates, layer, errors );
         },
         type: "post",
         url: tlv.availableResources.complete[ layer.library ].mensaUrl + "/imagePointsToGround"
@@ -250,7 +257,8 @@ function setupTiePointSelectionDialog() {
 
                         return tileUrlFunction( layer, tileCoord, pixelRatio, projection )
                     }
-                })
+                }),
+                visible: false
             });
 
             $( "#tiePointMaps" ).append( "<div class = 'map' id = 'tiePointMap" + index + "'></div>" );
@@ -307,7 +315,7 @@ function tileUrlFunction( image, tileCoord, pixelRatio, projection ) {
             "entry=0&",
             "filename=" + image.metadata.filename,
             "format=jpeg&",
-            "histCenterTile=" + styles[ "histogram-center-tile" ],
+            "histCenterTile=" + styles[ "hist_center" ],
             "histOp=" + styles.hist_op,
             "resamplerFilter=" + styles.resampler_filter,
             "sharpenMOde=" + styles.sharpen_mode,

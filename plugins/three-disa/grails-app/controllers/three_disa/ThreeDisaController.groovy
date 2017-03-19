@@ -1,7 +1,7 @@
 package three_disa
 
 
-import groovy.json.JsonOutput
+import grails.converters.JSON
 import groovy.json.JsonSlurper
 
 
@@ -12,10 +12,10 @@ class ThreeDisaController {
 
 	def listJobs() {
 		def jobs = threeDisaService.getJobListing( params, request )
-		def json = new JsonOutput().toJson( jobs )
+		JSON.use("deep")
 
 
-		render json
+		render jobs as JSON
 	}
 
 	def submit3DisaJob() {
@@ -23,6 +23,6 @@ class ThreeDisaController {
 		def response = threeDisaService.submitJob( json, request )
 
 
-		render new JsonOutput().toJson( response )
+		render response as JSON
 	}
 }

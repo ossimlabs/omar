@@ -12,8 +12,8 @@ createImageLayerSource = function( layer ) {
 						bands: layer.bands || "default",
 						brightness: layer.brightness || 0,
 						contrast: layer.contrast || 1,
+						hist_center: true,
 						hist_op: layer.histOp || "auto-minmax",
-						"histogram-center-tile": true,
 						resampler_filter: layer.resamplerFilter || "bilinear",
 						sharpen_mode: layer.sharpenMode || "none"
 					}),

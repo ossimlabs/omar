@@ -53,7 +53,7 @@ class ChipperLayer extends DirectLayer
         srs: 'epsg:4326',
     ]
 
-    if ( style?.containsKey( 'histogram-center-tile' ) && style['histogram-center-tile']?.toString() == 'true') {
+    if ( style?.containsKey( 'hist_center' ) && style['hist_center']?.toString() == 'true') {
       initOpts['hist_center'] = 'true'
     }
 
@@ -83,7 +83,7 @@ class ChipperLayer extends DirectLayer
         srs: 'epsg:4326'
     ]
 
-    if ( style?.containsKey( 'histogram-center-tile' ) && style['histogram-center-tile']?.toString() == 'true') {
+    if ( style?.containsKey( 'hist_center' ) && style['hist_center']?.toString() == 'true') {
       initOpts['hist_center'] = 'true'
     }
 

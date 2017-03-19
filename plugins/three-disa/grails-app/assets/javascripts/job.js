@@ -6,10 +6,10 @@ function buildJobsTable( jobs ) {
     $( row ).css( "white-space", "nowrap" );
     row.insertCell( row.cells.length );
     $.each(
-        [ "Name", "DEM", "Layers", "Registration", "Sensor Model", "Submitted", "Tie Points" ],
+        [ "Name", "Registration", "DEM", "TLV", "Submitted" ],
         function( index, value ) {
             var cell = row.insertCell( row.cells.length );
-            $( cell ).append( value );
+            $( cell ).append( "<b>" + value + "</b>" );
         }
     );
 
@@ -27,23 +27,45 @@ function buildJobsTable( jobs ) {
             cell = row.insertCell( row.cells.length );
             $( cell ).append( decodeURIComponent( job.name ) );
 
+            var imageRegistration = job.imageRegistration
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( job.demGeneration.status || "-" );
+            if ( imageRegistration.status == "FINISHED" ) {
+                var button = document.createElement( "button" );
+                button.className = "btn btn-primary btn-xs";
+                button.innerHTML = "View ISA";
+                button.onclick = function() {
+                    /* need to launch in ISA */
+                }
+                $( cell ).append( button );
+            }
+            else { $( cell ).append( imageRegistration.status ); }
+
+            var demGeneration = imageRegistration.demGeneration;
+            cell = row.insertCell( row.cells.length );
+            var demGenerationStatus = demGeneration.status || "-";
+            var cellText;
+            if ( demGenerationStatus == "FINISHED" ) {
+                var button = document.createElement( "button" );
+                button.className = "btn btn-primary btn-xs";
+                button.innerHTML = "View 3D";
+                button.onclick = function() {
+                    window.open( tlv.contextPath + "?demGeneration=" + demGeneration.id );
+                }
+                $( cell ).append( button );
+            }
+            else { $( cell ).append( demGenerationStatus ); }
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( job.imageRegistration.tiePoints.unique( "filename" ).length );
+            var button = document.createElement( "button" );
+            button.className = "btn btn-primary btn-xs";
+            button.innerHTML = "View 2D";
+            button.onclick = function() {
+                window.open( tlv.contextPath + "?3disa=" + job.id );
+            }
+            $( cell ).append( button );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( job.imageRegistration.status );
-
-            cell = row.insertCell( row.cells.length );
-            $( cell ).append( job.sensorModel );
-
-            cell = row.insertCell( row.cells.length );
-            $( cell ).append( job.submitted );
-
-            cell = row.insertCell( row.cells.length );
-            $( cell ).append( job.imageRegistration.tiePoints.length );
+            $( cell ).append( job.submitted.replace(/T/, " ") );
 
 
             var table2 = document.createElement( "table" );
@@ -53,31 +75,31 @@ function buildJobsTable( jobs ) {
 
             cell2 = row2.insertCell( row2.cells.length );
             $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( "Image Registration" );
+            $( cell2 ).append( "<b><i>Image Registration</i></b>" );
 
             cell2 = row2.insertCell( row2.cells.length );
             $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( "DEM Generation" );
-
-            row2 = table2.insertRow( table2.rows.length );
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).append( "Start" );
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( job.imageRegistration.start || "-" );
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( job.demGeneration.start || "-" );
+            $( cell2 ).append( "<b><i>DEM Generation</i></b>" );
 
             row2 = table2.insertRow( table2.rows.length );
             cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).append( "Finish" );
+            $( cell2 ).append( "<b><i>Start</i></b>" );
             cell2 = row2.insertCell( row2.cells.length );
             $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( job.imageRegistration.finish || "-" );
+            $( cell2 ).append( imageRegistration.start || "-" );
             cell2 = row2.insertCell( row2.cells.length );
             $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( job.demGeneration.finish || "-" );
+            $( cell2 ).append( demGeneration.start || "-" );
+
+            row2 = table2.insertRow( table2.rows.length );
+            cell2 = row2.insertCell( row2.cells.length );
+            $( cell2 ).append( "<b><i>Finish</i></b>" );
+            cell2 = row2.insertCell( row2.cells.length );
+            $( cell2 ).attr( "align", "center" );
+            $( cell2 ).append( imageRegistration.finish || "-" );
+            cell2 = row2.insertCell( row2.cells.length );
+            $( cell2 ).attr( "align", "center" );
+            $( cell2 ).append( demGeneration.finish || "-" );
 
             var colSpan = row.cells.length;
             row = table.insertRow( table.rows.length );
@@ -86,20 +108,34 @@ function buildJobsTable( jobs ) {
             $( cell ).attr( "colspan", colSpan );
             $( cell ).append( table2 );
 
+            $( cell ).append(
+                "<div class = 'row'>" +
+                    "<div align = 'right' class = 'col-md-6'><b><i>Sensor Model:</i></b></div>" +
+                    "<div class = 'col-md-6'>" + job.sensorModel + "</div>" +
+                "</div>" +
+                "<div class = 'row'>" +
+                    "<div align = 'right' class = 'col-md-6'><b><i>Layers:</i></b></div>" +
+                    "<div class = 'col-md-6'>" + imageRegistration.tiePoints.unique( "filename" ).length + "</div>" +
+                "</div>" +
+                "<div class = 'row'>" +
+                    "<div align = 'right' class = 'col-md-6'><b><i>Tie Points:</i></b></div>" +
+                    "<div class = 'col-md-6'>" + imageRegistration.tiePoints.length + "</div>" +
+                "</div>"
+            );
+
             expandCollapseButton.onclick = function() {
                 var span = $( this ).children()[0];
                 if ( $( span ).hasClass( "glyphicon-plus" ) ) {
                     $( table.rows[ 2 * ( index + 1 ) ] ).show();
-                    displayDialog( "jobSearchDialog" );
                     $( span ).removeClass( "glyphicon-plus" );
                     $( span ).addClass( "glyphicon-minus" );
                 }
                 else {
                     $( table.rows[ 2 * ( index + 1 ) ] ).hide();
-                    displayDialog( "jobSearchDialog" );
                     $( span ).removeClass( "glyphicon-minus" );
                     $( span ).addClass( "glyphicon-plus" );
                 }
+                displayDialog( "jobSearchDialog" );
             }
         }
     );
@@ -107,12 +143,12 @@ function buildJobsTable( jobs ) {
 
 function jobSearch() {
     $.ajax({
-        data: "jobName=" + $( "#jobNameSearchInput" ).val(),
+        data: "job=" + $( "#jobNameSearchInput" ).val(),
         dataType: "json",
         success: function( data ) {
             $( "#jobSearchDialog" ).modal( "show" );
-            displayDialog( "jobSearchDialog" );
             buildJobsTable( data );
+            displayDialog( "jobSearchDialog" );
             hideLoadingDialog();
         },
         url: tlv.contextPath + "/threeDisa/listJobs"
@@ -156,6 +192,10 @@ function submitJob() {
         }
     );
 
+    var viewBounds = tlv.map.getView().calculateExtent( tlv.map.getSize() );
+    var extent = ol.proj.transformExtent( viewBounds, "EPSG:3857", "EPSG:4326" );
+    var polygon = new ol.geom.Polygon.fromExtent( extent );
+    tlv[ "3disa" ].job.bbox = new ol.format.WKT().writeGeometry( polygon );
     tlv[ "3disa" ].job.name = encodeURIComponent( $( "#jobNameInput" ).val() );
     tlv[ "3disa" ].job.layers = jobLayers;
     tlv[ "3disa" ].job.sensorModel = $( "#sensorModelSelect" ).val();
