@@ -14,7 +14,7 @@ For a quick example on how to configure and setup the new OMAR web services plea
 - ARTIFACTORY_USER
 - ARTIFACTORY_PASSWORD
 
-###Example:
+### Example:
 ```
   export OSSIM_MAVEN_PROXY=https://artifacts.radiantbluecloud.com/artifactory/ossim-deps
   export OSSIM_BUILD_TAG=SNAPSHOT
