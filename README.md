@@ -8,15 +8,17 @@ For a quick example on how to configure and setup the new OMAR web services plea
 
 ## Environment variables required to push jars to Artifactory
 
-OSSIM_MAVEN_PROXY
-OSSIM_BUILD_TAG
-ARTIFACTORY_CONTEXT_URL
-ARTIFACTORY_USER
-ARTIFACTORY_PASSWORD
+- OSSIM_MAVEN_PROXY
+- OSSIM_BUILD_TAG
+- ARTIFACTORY_CONTEXT_URL
+- ARTIFACTORY_USER
+- ARTIFACTORY_PASSWORD
 
-Example:
+###Example:
+```
   export OSSIM_MAVEN_PROXY=https://artifacts.radiantbluecloud.com/artifactory/ossim-deps
   export OSSIM_BUILD_TAG=SNAPSHOT
   export ARTIFACTORY_CONTEXT_URL=https://artifacts.radiantbluecloud.com/artifactory
   export ARTIFACTORY_USER=<artifactory user>
   export ARTIFACTORY_PASSWORD=<artifactory password>
+```
