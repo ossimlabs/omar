@@ -4,6 +4,19 @@ Online guide can be found at [http://ossimlabs.s3-website-us-east-1.amazonaws.co
 
 ## Binary Distribution and Setup
 
-For a quick example on how to configure and setup the new OMAR web services please visit the repo found here [https://github.com/ossimlabs/ossim-vagrant](https://github.com/ossimlabs/ossim-vagrant). The vagrant setup uses salt to provision each web service and is a good example on how to setup a default configuration on a CentOS distribution.  
+For a quick example on how to configure and setup the new OMAR web services please visit the repo found here [https://github.com/ossimlabs/ossim-vagrant](https://github.com/ossimlabs/ossim-vagrant). The vagrant setup uses salt to provision each web service and is a good example on how to setup a default configuration on a CentOS distribution.
 
+## Environment variables required to push jars to Artifactory
 
+OSSIM_MAVEN_PROXY
+OSSIM_BUILD_TAG
+ARTIFACTORY_CONTEXT_URL
+ARTIFACTORY_USER
+ARTIFACTORY_PASSWORD
+
+Example:
+  export OSSIM_MAVEN_PROXY=https://artifacts.radiantbluecloud.com/artifactory/ossim-deps
+  export OSSIM_BUILD_TAG=SNAPSHOT
+  export ARTIFACTORY_CONTEXT_URL=https://artifacts.radiantbluecloud.com/artifactory
+  export ARTIFACTORY_USER=<artifactory user>
+  export ARTIFACTORY_PASSWORD=<artifactory password>
