@@ -34,8 +34,8 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group = "io.ossim.omar.apps"
-version = "1.0.0-SNAPSHOT"
-//version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+//version = "1.0.0-SNAPSHOT"
+version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
 
 ext {
     grailsVersion = project.grailsVersion
