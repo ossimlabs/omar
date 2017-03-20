@@ -2,8 +2,10 @@ var setupGlobePlugin = setupGlobe;
 setupGlobe = function() {
 	setupGlobePlugin();
 
-	tlv.globe.getCesiumScene().terrainProvider = new Cesium.CesiumTerrainProvider({
-		url : tlv.availableResources.terrainProvider,
-		requestWaterMask: true
-	});
+	if ( tlv.availableResources.terrainProvider ) {
+		tlv.globe.getCesiumScene().terrainProvider = new Cesium.CesiumTerrainProvider({
+			url: tlv.availableResources.terrainProvider,
+			requestWaterMask: true
+		});
+	}
 }
