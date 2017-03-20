@@ -3,6 +3,9 @@ function aTiePointHasBeenAdded( event ) {
 
     var numberOfFeatures = event.target.getFeatures().length;
 
+    var featureId = Date.parse( new Date() );
+    feature.setProperties({ id: featureId });
+
     var style = createTiePointStyle();
     var textStyle = style.getText();
     textStyle.setText( numberOfFeatures.toString() );
@@ -21,6 +24,8 @@ function aTiePointHasBeenAdded( event ) {
                     // add a point in the same spot
                     groundToImagePoints( coordinates, layer, function( pixels, layer ) {
                         var newFeature = feature.clone();
+
+                        newFeature.setProperties({ id: featureId });
 
                         var geometry = new ol.geom.Point( [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ] );
                         newFeature.setGeometry( geometry );
@@ -51,12 +56,13 @@ function addTiePoint() {
 
 function addTiePointVectorLayer( index ) {
     var features = new ol.Collection();
+    var map = tlv[ "3disa" ].layers[ index ].map;
 
     var source = new ol.source.Vector({ features: features });
     source.on( "addfeature", aTiePointHasBeenAdded );
 
     tlv[ "3disa" ].layers[ index ].vectorLayer = new ol.layer.Vector({ source: source });
-    tlv[ "3disa" ].layers[ index ].map.addLayer( tlv[ "3disa" ].layers[ index ].vectorLayer );
+    map.addLayer( tlv[ "3disa" ].layers[ index ].vectorLayer );
 
     tlv[ "3disa" ].layers[ index ].drawInteraction = new ol.interaction.Draw({
         features: features,
@@ -64,7 +70,19 @@ function addTiePointVectorLayer( index ) {
     });
 
     var modifyInteraction = new ol.interaction.Modify({ features: features });
-    tlv[ "3disa" ].layers[ index ].map.addInteraction( modifyInteraction );
+    map.addInteraction( modifyInteraction );
+
+    map.getViewport().addEventListener( "contextmenu",
+        function ( event ) {
+            event.preventDefault();
+            var pixel = [ event.layerX, event.layerY ];
+            var callback = function( feature ) {
+                // check for an id to make sure it's not the select faux feature
+                if ( feature.getProperties().id ) { deleteTiePoint( feature ); }
+            }
+            map.forEachFeatureAtPixel( pixel, callback );
+        }
+    );
 }
 
 function calculateTileResolutions( imageHeight, imageWidth ) {
@@ -111,12 +129,18 @@ function changeTiePointFrame( param ) {
 
         newLayer.mapLayer.setVisible( true );
         groundToImagePoints( coordinates, newLayer, function( pixels, layer ) {
+            currentLayer.mapLayer.setVisible( false );
+            currentLayer.vectorLayer.setVisible( false );
             $( "#" + currentLayer.map.getTarget() ).hide();
 
             var view = layer.map.getView();
             view.setCenter( [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ] );
             view.setZoom( tlv[ "3disa" ].currentZoom );
             $( "#" + layer.map.getTarget() ).show();
+            layer.mapLayer.setVisible( true );
+            layer.vectorLayer.setVisible( true );
+
+            updateTiePointScreenText();
         });
     });
 }
@@ -133,6 +157,48 @@ function createTiePointStyle() {
             textBaseline: "bottom"
         })
     });
+}
+
+function deleteTiePoint( feature ) {
+    var id = feature.getProperties().id;
+    $.each(
+        tlv[ "3disa" ].layers,
+        function( index, layer ) {
+            var source = layer.vectorLayer.getSource();
+            $.each(
+                source.getFeatures(),
+                function( index, feature ) {
+                    if ( feature && feature.getProperties().id == id ) { source.removeFeature( feature ); }
+                }
+            );
+        }
+    );
+
+    $.each(
+        tlv[ "3disa" ].layers,
+        function( index, layer ) {
+            var features = layer.vectorLayer.getSource().getFeatures().sort(
+                function( a, b ) {
+                    var aId = a.getProperties().id;
+                    var bId = b.getProperties().id;
+
+
+                    return  aId > bId ? 1 : ( bId > aId ? -1 : 0 );
+                }
+            );
+            $.each(
+                features,
+                function( index, feature ) {
+                    var style = feature.getStyle();
+                    var textStyle = style.getText();
+                    textStyle.setText( ( index + 1 ).toString() );
+                    console.dir(textStyle.getText());
+                    style.setText( textStyle );
+                    feature.setStyle( style );
+                }
+            );
+        }
+    );
 }
 
 function getNorthAndUpAngles( layer ) {
@@ -187,7 +253,7 @@ function imagePointsToGround( pixels, layer, callback ) {
             "pqeProbabilityLevel" : 0.9,
         }),
         dataType: "json",
-        success: function( data ) { 
+        success: function( data ) {
             var coordinates = data.data.map(
                 function( point ) { return [ point.lon, point.lat ]; }
             );
@@ -219,13 +285,8 @@ function setupTiePointSelectionDialog() {
         return;
     }
 
-    if ( !$( "#sensorModelSelect" ).val() ) {
-        displayErrorDialog( "Ummm... you're going to need to select a sensor model." );
-        return;
-    }
-
     $( "#sourceSelectionDialog" ).modal( "hide" );
-    $("#tiePointSelectionDialog").modal( "show" );
+    $( "#tiePointSelectionDialog" ).modal( "show" );
 
     tlv[ "3disa" ].layers = [];
     tlv[ "3disa" ].currentLayer = 0;
@@ -236,7 +297,8 @@ function setupTiePointSelectionDialog() {
                 acquisitionDate: layer.acquisitionDate,
                 imageId: layer.imageId,
                 library: layer.library,
-                metadata: layer.metadata
+                metadata: layer.metadata,
+                sensorModel: layer.sensorModel
             });
 
             var filename = layer.metadata.filename;
@@ -292,9 +354,10 @@ function setupTiePointSelectionDialog() {
 
             if ( index != 0 ) { $( "#tiePointMap" + index ).hide(); }
             else {
+                tlv[ "3disa" ].layers[ 0 ].mapLayer.setVisible( true );
+
                 var view = tlv.map.getView();
                 var center = ol.proj.transform( view.getCenter(), "EPSG:3857", "EPSG:4326" );
-
                 groundToImagePoints( [ center ], tlv[ "3disa" ].layers[ 0 ], function( pixels, layer ) {
                     var center = [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ];
                     tlv[ "3disa" ].layers[ 0 ].map.getView().setCenter( center );
@@ -302,6 +365,8 @@ function setupTiePointSelectionDialog() {
             }
         }
     );
+
+    updateTiePointScreenText();
 }
 
 function tileUrlFunction( image, tileCoord, pixelRatio, projection ) {
@@ -327,4 +392,35 @@ function tileUrlFunction( image, tileCoord, pixelRatio, projection ) {
 
         return tlv.availableResources.complete[ image.library ].imageSpaceUrl + "/getTile?" + params.join( "&" );
     }
+}
+
+function updateTiePointAcquisitionDate() {
+	var acquisitionDate = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ].acquisitionDate;
+	if ( acquisitionDate ) {
+		var timeToNextImage = getTimeToAdjacentImage( tlv[ "3disa" ].layers, tlv[ "3disa" ].currentLayer, "next");
+		var timeToPreviousImage = getTimeToAdjacentImage( tlv[ "3disa" ].layers, tlv[ "3disa" ].currentLayer, "previous" );
+		$( "#tiePointAcquisitionDateDiv" ).html(
+			(timeToPreviousImage ? timeToPreviousImage + " <- " : "") +
+			acquisitionDate + (acquisitionDate != "N/A" ? "z" : "") +
+			(timeToNextImage ? " -> " + timeToNextImage : "")
+		);
+	}
+	else { $( "#tiePointAcquisitionDateDiv" ).html("N/A"); }
+}
+
+function updateTiePointImageId() {
+	var layer = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ];
+	var libraryLabel = tlv.availableResources.complete[ layer.library ].label;
+	$("#tiePointImageIdDiv").html( libraryLabel + ": " + layer.imageId );
+}
+
+function updateTiePointScreenText() {
+	updateTiePointImageId();
+	updateTiePointAcquisitionDate();
+	updateTiePointLayerCount();
+}
+
+function updateTiePointLayerCount() { 
+	var currentCount = tlv[ "3disa" ].currentLayer + 1;
+	$( "#tiePointImageCountDiv" ).html( currentCount + "/" + tlv[ "3disa" ].layers.length );
 }
