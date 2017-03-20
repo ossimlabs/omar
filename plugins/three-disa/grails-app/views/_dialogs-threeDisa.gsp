@@ -47,28 +47,13 @@
 			<div class = "modal-header"><h4>Source Selection Table</h4></div>
 			<div class = "modal-body">
 				<div class = "row">
-					<div class = "col-md-6">
-						<select class = "form-control" id = "sensorModelSelect">
-							<option value="" disabled selected>Select Sensor Model</option>
-							<optgroup label = "Non-Rigorous">
-								<option value = "model2">Model 1</option>
-								<option value = "model2">Model 2</option>
-							</optgroup>
-							<optgroup label = "Rigorous">
-								<option value = "model3">Model 3</option>
-								<option value = "model4">Model 4</option>
-							</optgroup>
-						</select>
+					<div align = "center" class = "col-md-6">
+						Overall CE: <br>
+						<span id = "overallCeSpan">-</span>
 					</div>
 					<div align = "center" class = "col-md-6">
-						<div class = "col-md-6">
-							Overall CE: <br>
-							<span id = "overallCeSpan">-</span>
-						</div>
-						<div align = "center" class = "col-md-6">
-							Overall LE: <br>
-							<span id = "overallLeSpan">-</span>
-						</div>
+						Overall LE: <br>
+						<span id = "overallLeSpan">-</span>
 					</div>
 				</div>
 				<table class = "table table-condensed table-striped" id = "sourceSelectionTable"></table>
@@ -91,6 +76,11 @@
 		<div class = "modal-content">
 			<div class = "modal-header"><h4>Select Tie Points</h4></div>
 			<div class = "modal-body">
+				<div class = "row">
+					<div class = "col-md-5"><div id = "tiePointImageIdDiv">&nbsp;</div></div>
+					<div class = "col-md-2"><div align = "center" id = "tiePointImageCountDiv">&nbsp;</div></div>
+					<div class = "col-md-5"><div align = "right" id = "tiePointAcquisitionDateDiv"></div></div>
+				</div>
                 <div id = "tiePointMaps"></div>
 			</div>
 			<div class = "modal-footer">

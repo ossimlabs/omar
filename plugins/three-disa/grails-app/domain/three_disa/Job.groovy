@@ -6,7 +6,6 @@ class Job {
 	String bbox
 	ImageRegistration imageRegistration
 	String name
-	String sensorModel
 	Date submitted
 
 

@@ -9,7 +9,7 @@ function buildJobsTable( jobs ) {
         [ "Name", "Registration", "DEM", "TLV", "Submitted" ],
         function( index, value ) {
             var cell = row.insertCell( row.cells.length );
-            $( cell ).append( "<b>" + value + "</b>" );
+            $( cell ).append( "<b><i>" + value + "</i></b>" );
         }
     );
 
@@ -49,7 +49,7 @@ function buildJobsTable( jobs ) {
                 button.className = "btn btn-primary btn-xs";
                 button.innerHTML = "View 3D";
                 button.onclick = function() {
-                    window.open( tlv.contextPath + "?demGeneration=" + demGeneration.id );
+                    window.open( tlv.contextPath + "?demGeneration=" + demGeneration.id + "&dimensions=3&tilt=60" );
                 }
                 $( cell ).append( button );
             }
@@ -67,61 +67,57 @@ function buildJobsTable( jobs ) {
             cell = row.insertCell( row.cells.length );
             $( cell ).append( job.submitted.replace(/T/, " ") );
 
-
-            var table2 = document.createElement( "table" );
-            table2.className = "table";
-            var row2 = table2.insertRow( table2.rows.length );
-            var cell2 = row2.insertCell( row2.cells.length );
-
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( "<b><i>Image Registration</i></b>" );
-
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( "<b><i>DEM Generation</i></b>" );
-
-            row2 = table2.insertRow( table2.rows.length );
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).append( "<b><i>Start</i></b>" );
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( imageRegistration.start || "-" );
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( demGeneration.start || "-" );
-
-            row2 = table2.insertRow( table2.rows.length );
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).append( "<b><i>Finish</i></b>" );
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( imageRegistration.finish || "-" );
-            cell2 = row2.insertCell( row2.cells.length );
-            $( cell2 ).attr( "align", "center" );
-            $( cell2 ).append( demGeneration.finish || "-" );
-
             var colSpan = row.cells.length;
             row = table.insertRow( table.rows.length );
             $( row ).css( "display", "none" );
             cell = row.insertCell( row.cells.length );
             $( cell ).attr( "colspan", colSpan );
-            $( cell ).append( table2 );
-
             $( cell ).append(
+                "<table class = 'table table-condensed'>" +
+                    "<tr>" +
+                        "<td></td>" +
+                        "<td><b><i>Image Registration</i></b></td>" +
+                        "<td><b><i>DEM Generation</i></b></td>" +
+                    "</tr>" +
+                    "<tr>" +
+                        "<td>Start</td>" +
+                        "<td>" + ( imageRegistration.start ? imageRegistration.start.replace( /T/, " " ) : "-" ) + "</td>" +
+                        "<td>" + ( demGeneration.start ? demGeneration.start.replace( /T/, " " ) : "-" ) + "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                        "<td>Finish</td>" +
+                        "<td>" + ( imageRegistration.finish ? imageRegistration.finish.replace( /T/, " " ) : "-" ) + "</td>" +
+                        "<td>" + ( demGeneration.finish ? demGeneration.finish.replace( /T/, " " ) : "-" ) + "</td>" +
+                    "</tr>" +
+                "</table>" +
                 "<div class = 'row'>" +
-                    "<div align = 'right' class = 'col-md-6'><b><i>Sensor Model:</i></b></div>" +
-                    "<div class = 'col-md-6'>" + job.sensorModel + "</div>" +
+                    "<div class = 'col-md-6'><b><i>Layers: </i></b> " + imageRegistration.images.length + "</div>" +
                 "</div>" +
                 "<div class = 'row'>" +
-                    "<div align = 'right' class = 'col-md-6'><b><i>Layers:</i></b></div>" +
-                    "<div class = 'col-md-6'>" + imageRegistration.tiePoints.unique( "filename" ).length + "</div>" +
-                "</div>" +
-                "<div class = 'row'>" +
-                    "<div align = 'right' class = 'col-md-6'><b><i>Tie Points:</i></b></div>" +
-                    "<div class = 'col-md-6'>" + imageRegistration.tiePoints.length + "</div>" +
+                    "<div class = 'col-md-6'><b><i>Tie Points: </i></b>" + imageRegistration.images[0].tiePoints.length + "</div>" +
                 "</div>"
             );
+
+            var table2 = document.createElement( "table" );
+            table2.className = "table";
+            var row2 = table2.insertRow( table2.rows.length );
+            var cell2 = row2.insertCell( row2.cells.length );
+            $( cell2 ).append( "Filename" );
+
+            cell2 = row2.insertCell( row2.cells.length );
+            $( cell2 ).append( "Sensor Model" );
+
+            $.each(
+                imageRegistration.images,
+                function( index, image ) {
+                    row2 = table2.insertRow( table2.rows.length );
+                    cell2 = row2.insertCell( row2.cells.length );
+                    $( cell2 ).append( image.filename );
+                    cell2 = row2.insertCell( row2.cells.length );
+                    $( cell2 ).append( image.sensorModel );
+                }
+            );
+            $( cell ).append( table2 );
 
             expandCollapseButton.onclick = function() {
                 var span = $( this ).children()[0];
@@ -163,7 +159,10 @@ function submitJob() {
     $.each(
         tlv[ "3disa" ].layers,
         function( index, layer ) {
-            var jobLayer = { filename: layer.metadata.filename };
+            var jobLayer = {
+                filename: layer.metadata.filename,
+                sensorModel: layer.sensorModel
+            };
 
             var features = layer.vectorLayer.getSource().getFeatures();
             features.sort( function( a, b ) {
@@ -192,14 +191,14 @@ function submitJob() {
         }
     );
 
-    var viewBounds = tlv.map.getView().calculateExtent( tlv.map.getSize() );
-    var extent = ol.proj.transformExtent( viewBounds, "EPSG:3857", "EPSG:4326" );
-    var polygon = new ol.geom.Polygon.fromExtent( extent );
-    tlv[ "3disa" ].job.bbox = new ol.format.WKT().writeGeometry( polygon );
+    tlv[ "3disa" ].job.bbox = new ol.format.WKT().writeGeometry(
+        new ol.geom.Polygon.fromExtent(
+            ol.proj.transformExtent( tlv.map.getView().calculateExtent( tlv.map.getSize() ), "EPSG:3857", "EPSG:4326" )
+        )
+    );
     tlv[ "3disa" ].job.name = encodeURIComponent( $( "#jobNameInput" ).val() );
     tlv[ "3disa" ].job.layers = jobLayers;
-    tlv[ "3disa" ].job.sensorModel = $( "#sensorModelSelect" ).val();
-
+console.dir(tlv[ "3disa" ].job);
     if ( validationFlag ) {
         $( "#tiePointSelectionDialog" ).modal( "hide" );
         displayLoadingDialog( "Submitting your job details, hang tight." );

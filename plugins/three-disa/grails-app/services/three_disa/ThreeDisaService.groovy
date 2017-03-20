@@ -27,6 +27,10 @@ class ThreeDisaService {
 
         params.layers.each {
             def layer = it
+            def image = new Image(
+                filename: layer.filename,
+                sensorModel: layer.sensorModel
+            )
             layer.tiePoints.each {
                 def point = it
                 def tiePoint = new TiePoint(
@@ -34,16 +38,16 @@ class ThreeDisaService {
                     x: point[0],
                     y: point[1]
                 )
-
-                imageRegistration.addToTiePoints( tiePoint )
+                image.addToTiePoints( tiePoint )
             }
+            println image.properties
+            imageRegistration.addToImages( image )
         }
 
 		def job = new Job(
             bbox: params.bbox,
             imageRegistration: imageRegistration,
             name: params.name,
-            sensorModel: params.sensorModel,
 			submitted: new Date()
 		)
         job.save()
