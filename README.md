@@ -17,8 +17,19 @@ For a quick example on how to configure and setup the new OMAR web services plea
 ### Example:
 ```
   export OSSIM_MAVEN_PROXY=https://artifacts.radiantbluecloud.com/artifactory/ossim-deps
-  export OSSIM_BUILD_TAG=SNAPSHOT
   export ARTIFACTORY_CONTEXT_URL=https://artifacts.radiantbluecloud.com/artifactory
   export ARTIFACTORY_USER=<artifactory user>
   export ARTIFACTORY_PASSWORD=<artifactory password>
 ```
+
+## Build Order for plugins
+
+- omar-core
+- omar-hibernate-spatial
+- omar-ingest-metrics
+- omar-openlayers
+- omar-geoscript
+- omar-oms
+- omar-stager
+
+Build order for other plugins does not matter.
