@@ -35,8 +35,8 @@ apply plugin: "com.jfrog.artifactory"
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 
-group = "io.ossim.omar.apps"
-version = "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+group "io.ossim.omar.apps"
+version "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
 
 
 ext {
