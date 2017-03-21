@@ -1,10 +1,19 @@
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerTagImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
 buildscript {
+    if(System.env.OMAR_COMMON_PROPERTIES)
+    {
+      apply from: System.env.OMAR_COMMON_PROPERTIES
+    }
     ext {
         grailsVersion = project.grailsVersion
     }
     repositories {
         mavenLocal()
-        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+        maven { url "${ossimMavenProxy}" }
         maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
@@ -13,19 +22,20 @@ buildscript {
         classpath "org.grails.plugins:hibernate4:5.0.10"
         classpath "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+        classpath 'com.bmuschko:gradle-docker-plugin:3.0.6'
+        classpath 'com.github.skhatri:gradle-s3-plugin:1.0.4'
+
     }
 }
-
 plugins {
     id 'com.jfrog.artifactory' version '4.4.13'
 }
 
-//version "0.1"
-//group "geoscript.app"
+apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 's3'
 
 apply plugin:"eclipse"
 apply plugin:"idea"
-//apply plugin:"war"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
@@ -35,7 +45,7 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group "io.ossim.omar.apps"
-version "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+version "${buildVersion}-${buildVersionTag}"
 
 ext {
     grailsVersion = project.grailsVersion
@@ -44,7 +54,7 @@ ext {
 
 repositories {
     mavenLocal()
-    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    maven { url "${ossimMavenProxy}" }
     maven { url 'https://repo.boundlessgeo.com/main' }
     maven { url 'http://download.osgeo.org/webdav/geotools' }
     mavenCentral()
@@ -66,7 +76,7 @@ dependencies {
     runtime 'org.grails.plugins:grails-console:2.0.8'
 
     //compile project(':omar-openlayers')
-    compile(group: 'io.ossim.omar.plugins', name: 'omar-openlayers', version: '1.0.0-SNAPSHOT')
+    compile(group: 'io.ossim.omar.plugins', name: 'omar-openlayers', version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
 
     compile ( "org.geoscript:geoscript-groovy:1.8.0" ) {
           exclude module: 'commons-beanutils'
@@ -132,14 +142,13 @@ publishing {
 }
 
 artifactory {
-    contextUrl = "${System.env.ARTIFACTORY_CONTEXT_URL}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
         repository {
-            repoKey = 'libs-snapshot-local'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
+            repoKey = "libs-${buildVersionTag.toLowerCase()}-local"
+            username = "${artifactoryUser}"
+            password = "${artifactoryPassword}"
             maven = true
-
         }
         defaults{
           publications('mavenJava')
@@ -147,11 +156,125 @@ artifactory {
     }
     resolve {
         repository {
-            repoKey = 'libs-snapshot'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
+            repoKey = "libs-${buildVersionTag.toLowerCase()}"
+            username = "${artifactoryUser}"
+            password = "${artifactoryPassword}"
             maven = true
-
         }
     }
+}
+
+def dockerNamespaceUrl = "${dockerRegistryUrl}/${registryProjectName}/"
+
+def baseImage = "${baseImage}:${dockerAppTag}"
+def baseImageTgz = "${baseImage}.tgz"
+
+def image = "${project.name}:${dockerAppTag}"
+def imageTgz = "${project.name}.tgz"
+
+task logIn (dependsOn: 'assemble') {
+
+  doLast {
+
+    exec {
+      commandLine 'oc', 'login', '--insecure-skip-tls-verify', openShiftUrl,
+       '-u', openShiftUserName,
+       '-p', openShiftPassword
+    }
+
+    def loginTokenStream = new ByteArrayOutputStream()
+    exec {
+      commandLine 'oc', 'whoami', '-t'
+      standardOutput loginTokenStream
+    }
+
+    def loginToken = new String(loginTokenStream.toByteArray(), 'UTF-8')?.trim()
+    println loginToken
+    exec {
+     commandLine 'docker', 'login', '-p', loginToken, '-u', 'unused', dockerRegistryUrl
+    }
+  }
+}
+
+task downloadBaseImage(type: com.github.skhatri.s3aws.plugin.S3DownloadTask, dependsOn: logIn) {
+  bucket = 'o2-delivery/dev/docker'
+  key = baseImageTgz
+  saveTo = "build/libs/${baseImageTgz}"
+}
+
+task loadBaseDockerImage(dependsOn: downloadBaseImage) {
+  doLast {
+    exec {
+      commandLine 'docker', 'load', '-i', "build/libs/${baseImageTgz}"
+    }
+  }
+}
+
+task createDockerfile(type: Dockerfile, dependsOn: loadBaseDockerImage) {
+    destFile = project.file('build/libs/Dockerfile')
+    from baseImage
+    maintainer "DigitalGlobe-RadiantBlue"
+    runCommand 'useradd omar'
+    copyFile "${project.name}-${version}.jar", "/home/omar"
+    user 'omar'
+    workingDir '/home/omar'
+    exposePort 8080
+    defaultCommand 'java', '-server', '-Xms256m', '-Xmx1024m', '-Djava.awt.headless=true', '-XX:+CMSClassUnloadingEnabled', '-XX:+UseGCOverheadLimit', '-Djava.security.egd=file:/dev/./urandom', '-jar', "/home/omar/${project.name}-${version}.jar"
+}
+
+task buildDockerImage(type: DockerBuildImage, dependsOn: createDockerfile) {
+    inputDir = createDockerfile.destFile.parentFile
+    tag = "${image}"
+}
+
+task tagDockerImage(type: DockerTagImage, dependsOn: buildDockerImage) {
+  imageId "${image}"
+  tag "${dockerAppTag}"
+  repository  "${dockerNamespaceUrl}${project.name}"
+}
+
+task pushDockerImage(type: DockerPushImage, dependsOn: tagDockerImage) {
+  imageName "${dockerNamespaceUrl}${image}"
+}
+
+task saveDockerImage(dependsOn: pushDockerImage) {
+  doLast {
+    exec {
+      commandLine 'docker', 'save', image, '-o', "build/libs/${project.name}.tgz"
+    }
+  }
+}
+
+// Uses the S3 plugin to push the .tgz file to the ossimlabs
+task dockerImageToS3(type: com.github.skhatri.s3aws.plugin.S3UploadTask, dependsOn: saveDockerImage) {
+  bucket = 'o2-delivery/dev/docker'
+  key = "${imageTgz}"
+  file = "build/libs/${imageTgz}"
+}
+
+task removeArtifacts(dependsOn: dockerImageToS3) {
+  doLast{
+    exec {
+      // Removes the image that is pushed to the remote repository
+      // from the local Docker registry
+      commandLine 'docker', 'rmi', "-f", "${dockerNamespaceUrl}${image}"
+    }
+    exec {
+      // Removes the default image created during the build process from
+      // from the local Docker registry
+      commandLine 'docker', 'rmi', "-f", image
+    }
+    exec {
+      // Removes the 'o2-base' image used during the build process
+      commandLine 'docker', 'rmi', "-f", baseImage
+    }
+    exec {
+      // Removes the zipped image that was pushed to S3
+      commandLine 'rm', "build/libs/${imageTgz}"
+    }
+    exec {
+      // Removes the base image zip file
+      commandLine 'rm', "build/libs/${baseImageTgz}"
+    }
+  }
 }
