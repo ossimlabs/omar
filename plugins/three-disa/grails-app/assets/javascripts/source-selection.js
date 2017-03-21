@@ -6,7 +6,7 @@ function buildSourceSelectionTable() {
     var row = table.insertRow( 0 );
     $( row ).css( "white-space", "nowrap" );
     $.each(
-        [ "Use", "", "Image ID", "Sensor Model", "NIIRS", "Graze", "Elevation", "CE", "LE" ],
+        [ "Use", "", "Image ID", "Sensor Model", "NIIRS", "Azimuth", "Graze", "CE (m<sup>2</sup>)", "LE (m)" ],
         function( index, value ) {
             var cell = row.insertCell( row.cells.length );
             $( cell ).append( value );
@@ -45,10 +45,10 @@ function buildSourceSelectionTable() {
             $( cell ).append( layer.metadata.niirs );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( layer.metadata.grazing_angle );
+            $( cell ).append( layer.metadata.azimuth_angle ? layer.metadata.azimuth_angle.toFixed( 2 ) : "" );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( layer.metadata.elevation_angle );
+            $( cell ).append( layer.metadata.grazing_angle ? layer.metadata.grazing_angle.toFixed( 2 ) : "" );
 
             cell = row.insertCell( row.cells.length );
             $( cell ).append( layer.CE );
