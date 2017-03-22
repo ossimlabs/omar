@@ -1,37 +1,32 @@
 buildscript {
-    if(System.env.OMAR_COMMON_PROPERTIES)
-    {
-      apply from: System.env.OMAR_COMMON_PROPERTIES
-    }
-    ext {
-        grailsVersion = project.grailsVersion
-    }
-    repositories {
-        jcenter()
-        mavenLocal()
-        maven { url "${ossimMavenProxy}" }
-        maven { url "https://repo.grails.org/grails/core" }
-    }
-    dependencies {
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
-        classpath "org.grails.plugins:hibernate4:5.0.10"
-        classpath "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
-    }
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
+  }
+  ext {
+    grailsVersion = project.grailsVersion
+  }
+  repositories {
+    mavenLocal()
+    maven { url "${ossimMavenProxy}" }
+    maven { url "https://repo.grails.org/grails/core" }
+  }
+  dependencies {
+    classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
+    classpath "org.grails.plugins:hibernate4:5.0.10"
+    classpath "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
+  }
 }
 
-// plugins {
-//   id "com.jfrog.artifactory" version "4.4.13"
-// }
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "org.grails.grails-web"
+apply plugin: "org.grails.grails-gsp"
+apply plugin: "asset-pipeline"
 
-apply plugin:"eclipse"
-apply plugin:"idea"
-apply plugin:"org.grails.grails-web"
-apply plugin:"org.grails.grails-gsp"
-apply plugin:"asset-pipeline"
-
-apply plugin: 'java'
-apply plugin: 'maven-publish'
+apply plugin: "java"
+apply plugin: "maven-publish"
 
 group "io.ossim.omar.apps"
 version "${buildVersion}-${buildVersionTag}"
@@ -107,17 +102,17 @@ assets {
   minifyJs = true
   minifyCss = true
   excludes = [
-  '**/application.js',
-  '**/i18n/**',
-  '**/jquery*',
-  '**/omar/**',
-  '**/webjars/**',
-  '**/*-debug.js',
-  '**/*-deps.js',
-  '**/*-openlayers*',
-  '**/*.gz',
-  '**/*.html',
-  '**/*.txt',
+  "**/application.js",
+  "**/i18n/**",
+  "**/jquery*",
+  "**/omar/**",
+  "**/webjars/**",
+  "**/*-debug.js",
+  "**/*-deps.js",
+  "**/*-openlayers*",
+  "**/*.gz",
+  "**/*.html",
+  "**/*.txt",
   ]
 }
 
@@ -125,29 +120,6 @@ publishing {
   publications {
     mavenJava(MavenPublication) {
       from components.java
-    }
-  }
-}
-
-artifactory {
-  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
-  publish {
-    repository {
-      repoKey = "libs-${buildVersionTag.toLowerCase()}-local"
-      username = "${artifactoryUser}"
-      password = "${artifactoryPassword}"
-      maven = true
-    }
-    defaults{
-      publications("mavenJava")
-    }
-  }
-  resolve {
-    repository {
-      repoKey = "libs-${buildVersionTag.toLowerCase()}"
-      username = "${artifactoryUser}"
-      password = "${artifactoryPassword}"
-      maven = true
     }
   }
 }
