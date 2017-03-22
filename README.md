@@ -6,30 +6,34 @@ Online guide can be found at [http://ossimlabs.s3-website-us-east-1.amazonaws.co
 
 For a quick example on how to configure and setup the new OMAR web services please visit the repo found here [https://github.com/ossimlabs/ossim-vagrant](https://github.com/ossimlabs/ossim-vagrant). The vagrant setup uses salt to provision each web service and is a good example on how to setup a default configuration on a CentOS distribution.
 
-## Environment variables required to push jars to Artifactory
-
-- OSSIM_MAVEN_PROXY
-- OSSIM_BUILD_TAG
-- ARTIFACTORY_CONTEXT_URL
+## Require environment variables
+- OMAR_COMMON_PROPERTIES
+- OPENSHIFT_USERNAME
+- OPENSHIFT_PASSWORD
 - ARTIFACTORY_USER
 - ARTIFACTORY_PASSWORD
 
 ### Example:
 ```
-  export OSSIM_MAVEN_PROXY=https://artifacts.radiantbluecloud.com/artifactory/ossim-deps
-  export ARTIFACTORY_CONTEXT_URL=https://artifacts.radiantbluecloud.com/artifactory
-  export ARTIFACTORY_USER=<artifactory user>
-  export ARTIFACTORY_PASSWORD=<artifactory password>
+  export OMAR_COMMON_PROPERTIES=~/omar-common-properties.gradle
+
 ```
 
-## Build Order for plugins
+## Install plugins in the following order
 
-- omar-core
-- omar-hibernate-spatial
-- omar-ingest-metrics
-- omar-openlayers
-- omar-geoscript
-- omar-oms
-- omar-stager
+1. omar-core
+2. omar-hibernate-spatial
+3. omar-ingest-metrics
+4. omar-openlayers
+5. omar-geoscript
+6. omar-oms
+7. omar-stager
 
-Build order for other plugins does not matter.
+All other plugins can be installed in any order.
+
+Install plugins by going into the plugins directory and run the command
+
+```
+ grails install
+
+```
