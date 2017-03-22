@@ -17,13 +17,12 @@ buildscript {
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
         classpath "org.grails.plugins:hibernate4:5.0.10"
         classpath "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
     }
 }
 
-plugins {
-  id "com.jfrog.artifactory" version "4.4.13"
-}
+// plugins {
+//   id "com.jfrog.artifactory" version "4.4.13"
+// }
 
 apply plugin:"eclipse"
 apply plugin:"idea"
