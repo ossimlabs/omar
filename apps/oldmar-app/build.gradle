@@ -1,4 +1,8 @@
 buildscript {
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
+  }
   ext {
     grailsVersion = project.grailsVersion
   }
@@ -15,25 +19,21 @@ buildscript {
 }
 
 plugins {
-    id 'com.jfrog.artifactory' version '4.4.13'
+  id "com.jfrog.artifactory" version "4.4.13"
 }
-
-//version "0.1"
-//group "oldmar.app"
 
 apply plugin: "eclipse"
 apply plugin: "idea"
-//apply plugin: "war"
 apply plugin: "org.grails.grails-web"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "asset-pipeline"
 
 apply plugin: "com.jfrog.artifactory"
-apply plugin: 'java'
-apply plugin: 'maven-publish'
+apply plugin: "java"
+apply plugin: "maven-publish"
 
 group "io.ossim.omar.apps"
-version "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+version "${buildVersion}-${buildVersionTag}"
 
 ext {
   grailsVersion = project.grailsVersion
@@ -48,13 +48,13 @@ repositories {
 dependencyManagement {
   imports {
     mavenBom "org.grails:grails-bom:$grailsVersion"
-    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7'
+    mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7"
   }
   applyMavenExclusions false
 }
 
 dependencies {
-  compile 'org.webjars:openlayers:3.20.1'
+  compile "org.webjars:openlayers:3.20.1"
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
   compile "org.grails.plugins:grails3-cors-interceptor:1.2.1"
@@ -84,40 +84,38 @@ assets {
   minifyJs = true
   minifyCss = true
   excludes = [
-      '**/*-debug.js',
-      '**/*-deps.js'
+      "**/*-debug.js",
+      "**/*-deps.js"
   ]
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
     }
+  }
 }
 
 artifactory {
-    contextUrl = "${System.env.ARTIFACTORY_CONTEXT_URL}"   //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        repository {
-            repoKey = 'libs-snapshot-local'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
-        defaults{
-          publications('mavenJava')
-        }
+  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+  publish {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}-local"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
     }
-    resolve {
-        repository {
-            repoKey = 'libs-snapshot'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
+    defaults{
+      publications("mavenJava")
     }
+  }
+  resolve {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
+    }
+  }
 }

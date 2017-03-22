@@ -3,165 +3,165 @@ import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerTagImage
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
-buildscript {
-    if(System.env.OMAR_COMMON_PROPERTIES)
-    {
-      apply from: System.env.OMAR_COMMON_PROPERTIES
-    }
-    ext {
-        grailsVersion = project.grailsVersion
-    }
-    repositories {
-        mavenLocal()
-        maven { url "${ossimMavenProxy}" }
-        maven { url "https://repo.grails.org/grails/core" }
-    }
-    dependencies {
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
-        classpath "org.grails.plugins:hibernate4:5.0.10"
-        classpath "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
-        classpath 'com.bmuschko:gradle-docker-plugin:3.0.6'
-        classpath 'com.github.skhatri:gradle-s3-plugin:1.0.4'
 
-    }
+buildscript {
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
+  }
+  ext {
+    grailsVersion = project.grailsVersion
+  }
+  repositories {
+    mavenLocal()
+    maven { url "${ossimMavenProxy}" }
+    maven { url "https://repo.grails.org/grails/core" }
+  }
+  dependencies {
+    classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
+    classpath "org.grails.plugins:hibernate4:5.0.10"
+    classpath "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+    classpath "com.bmuschko:gradle-docker-plugin:3.0.6"
+    classpath "com.github.skhatri:gradle-s3-plugin:1.0.4"
+
+  }
 }
 plugins {
-    id 'com.jfrog.artifactory' version '4.4.13'
+  id "com.jfrog.artifactory" version "4.4.13"
 }
 
-apply plugin: 'com.bmuschko.docker-remote-api'
-apply plugin: 's3'
+apply plugin: "com.bmuschko.docker-remote-api"
+apply plugin: "s3"
 
-apply plugin:"eclipse"
-apply plugin:"idea"
-apply plugin:"org.grails.grails-web"
-apply plugin:"org.grails.grails-gsp"
-apply plugin:"asset-pipeline"
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "org.grails.grails-web"
+apply plugin: "org.grails.grails-gsp"
+apply plugin: "asset-pipeline"
 
 apply plugin: "com.jfrog.artifactory"
-apply plugin: 'java'
-apply plugin: 'maven-publish'
+apply plugin: "java"
+apply plugin: "maven-publish"
 
 group "io.ossim.omar.apps"
 version "${buildVersion}-${buildVersionTag}"
 
 ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
+  grailsVersion = project.grailsVersion
+  gradleWrapperVersion = project.gradleWrapperVersion
 }
 
 repositories {
-    mavenLocal()
-    maven { url "${ossimMavenProxy}" }
-    maven { url 'https://repo.boundlessgeo.com/main' }
-    maven { url 'http://download.osgeo.org/webdav/geotools' }
-    mavenCentral()
-    maven { url 'http://maven.geo-solutions.it' }
-    maven { url 'https://artifacts.unidata.ucar.edu/content/repositories/unidata' }
-    maven { url 'https://github.com/ElectronicChartCentre/ecc-mvn-repo/raw/master/releases' }
-    maven { url "https://repo.grails.org/grails/core" }
+  mavenLocal()
+  maven { url "${ossimMavenProxy}" }
+  maven { url "https://repo.boundlessgeo.com/main" }
+  maven { url "http://download.osgeo.org/webdav/geotools" }
+  mavenCentral()
+  maven { url "http://maven.geo-solutions.it" }
+  maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata" }
+  maven { url "https://github.com/ElectronicChartCentre/ecc-mvn-repo/raw/master/releases" }
+  maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "org.grails:grails-bom:$grailsVersion"
-        mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7'
-    }
-    applyMavenExclusions false
+  imports {
+    mavenBom "org.grails:grails-bom:$grailsVersion"
+    mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7"
+  }
+  applyMavenExclusions false
 }
 
 dependencies {
-    runtime 'org.grails.plugins:grails-console:2.0.8'
+  runtime "org.grails.plugins:grails-console:2.0.8"
 
-    //compile project(':omar-openlayers')
-    compile(group: 'io.ossim.omar.plugins', name: 'omar-openlayers', version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile(group: "io.ossim.omar.plugins", name: "omar-openlayers", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
 
-    compile ( "org.geoscript:geoscript-groovy:1.8.0" ) {
-          exclude module: 'commons-beanutils'
-          exclude module: 'ehcache'
-          exclude module: "groovy-all"
-          exclude module: "slf4j-log4j12"
-          exclude module: "xml-apis"
-    }
-    compile "commons-beanutils:commons-beanutils:1.9.2"
+  compile ( "org.geoscript:geoscript-groovy:1.8.0" ) {
+    exclude module: "commons-beanutils"
+    exclude module: "ehcache"
+    exclude module: "groovy-all"
+    exclude module: "slf4j-log4j12"
+    exclude module: "xml-apis"
+  }
+  compile "commons-beanutils:commons-beanutils:1.9.2"
 
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.grails:grails-core"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies:3.1.14"
-    compile "org.grails:grails-web-boot"
-    compile "org.grails.plugins:cache"
-    compile "org.grails.plugins:scaffolding"
-    compile "org.grails.plugins:hibernate4"
-    compile "org.hibernate:hibernate-ehcache"
-    console "org.grails:grails-console"
-    profile "org.grails.profiles:web"
-    runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
-    runtime "com.h2database:h2"
-    testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails.plugins:geb"
-    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
-    testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+  compile "org.springframework.boot:spring-boot-starter-logging"
+  compile "org.springframework.boot:spring-boot-autoconfigure"
+  compile "org.grails:grails-core"
+  compile "org.springframework.boot:spring-boot-starter-actuator"
+  compile "org.springframework.boot:spring-boot-starter-tomcat"
+  compile "org.grails:grails-dependencies:3.1.14"
+  compile "org.grails:grails-web-boot"
+  compile "org.grails.plugins:cache"
+  compile "org.grails.plugins:scaffolding"
+  compile "org.grails.plugins:hibernate4"
+  compile "org.hibernate:hibernate-ehcache"
+  console "org.grails:grails-console"
+  profile "org.grails.profiles:web"
+  runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
+  runtime "com.h2database:h2"
+  testCompile "org.grails:grails-plugin-testing"
+  testCompile "org.grails.plugins:geb"
+  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
+  testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
 
-    compile "org.springframework.cloud:spring-cloud-starter-config"
-    compile "org.springframework.cloud:spring-cloud-starter-eureka"
+  compile "org.springframework.cloud:spring-cloud-starter-config"
+  compile "org.springframework.cloud:spring-cloud-starter-eureka"
 
-    compile 'net.errbuddy.plugins:babel-asset-pipeline:2.1.0'
+  compile "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
 
-    compile 'org.webjars:bootstrap:3.3.5'
+  compile "org.webjars:bootstrap:3.3.5"
 }
 
 assets {
-    minifyJs = true
-    minifyCss = true
-    excludes = [
-    '**/application.js',
-    '**/i18n/**',
-    '**/jquery*',
-    '**/omar/**',
-    '**/webjars/**',
-    '**/*-debug.js',
-    '**/*-deps.js',
-    '**/*-openlayers*',
-    '**/*.gz',
-    '**/*.html',
-    '**/*.txt',
+  minifyJs = true
+  minifyCss = true
+  excludes = [
+  '**/application.js',
+  '**/i18n/**',
+  '**/jquery*',
+  '**/omar/**',
+  '**/webjars/**',
+  '**/*-debug.js',
+  '**/*-deps.js',
+  '**/*-openlayers*',
+  '**/*.gz',
+  '**/*.html',
+  '**/*.txt',
   ]
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
     }
+  }
 }
 
 artifactory {
-    contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        repository {
-            repoKey = "libs-${buildVersionTag.toLowerCase()}-local"
-            username = "${artifactoryUser}"
-            password = "${artifactoryPassword}"
-            maven = true
-        }
-        defaults{
-          publications('mavenJava')
-        }
+  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+  publish {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}-local"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
     }
-    resolve {
-        repository {
-            repoKey = "libs-${buildVersionTag.toLowerCase()}"
-            username = "${artifactoryUser}"
-            password = "${artifactoryPassword}"
-            maven = true
-        }
+    defaults{
+      publications("mavenJava")
     }
+  }
+  resolve {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
+    }
+  }
 }
 
 def dockerNamespaceUrl = "${dockerRegistryUrl}/${registryProjectName}/"
@@ -173,21 +173,17 @@ def image = "${project.name}:${dockerAppTag}"
 def imageTgz = "${project.name}.tgz"
 
 task logIn (dependsOn: 'assemble') {
-
   doLast {
-
     exec {
       commandLine 'oc', 'login', '--insecure-skip-tls-verify', openShiftUrl,
        '-u', openShiftUserName,
        '-p', openShiftPassword
     }
-
     def loginTokenStream = new ByteArrayOutputStream()
     exec {
       commandLine 'oc', 'whoami', '-t'
       standardOutput loginTokenStream
     }
-
     def loginToken = new String(loginTokenStream.toByteArray(), 'UTF-8')?.trim()
     println loginToken
     exec {
@@ -211,20 +207,20 @@ task loadBaseDockerImage(dependsOn: downloadBaseImage) {
 }
 
 task createDockerfile(type: Dockerfile, dependsOn: loadBaseDockerImage) {
-    destFile = project.file('build/libs/Dockerfile')
-    from baseImage
-    maintainer "DigitalGlobe-RadiantBlue"
-    runCommand 'useradd omar'
-    copyFile "${project.name}-${version}.jar", "/home/omar"
-    user 'omar'
-    workingDir '/home/omar'
-    exposePort 8080
-    defaultCommand 'java', '-server', '-Xms256m', '-Xmx1024m', '-Djava.awt.headless=true', '-XX:+CMSClassUnloadingEnabled', '-XX:+UseGCOverheadLimit', '-Djava.security.egd=file:/dev/./urandom', '-jar', "/home/omar/${project.name}-${version}.jar"
+  destFile = project.file('build/libs/Dockerfile')
+  from baseImage
+  maintainer "DigitalGlobe-RadiantBlue"
+  runCommand 'useradd omar'
+  copyFile "${project.name}-${version}.jar", "/home/omar"
+  user 'omar'
+  workingDir '/home/omar'
+  exposePort 8080
+  defaultCommand 'java', '-server', '-Xms256m', '-Xmx1024m', '-Djava.awt.headless=true', '-XX:+CMSClassUnloadingEnabled', '-XX:+UseGCOverheadLimit', '-Djava.security.egd=file:/dev/./urandom', '-jar', "/home/omar/${project.name}-${version}.jar"
 }
 
 task buildDockerImage(type: DockerBuildImage, dependsOn: createDockerfile) {
-    inputDir = createDockerfile.destFile.parentFile
-    tag = "${image}"
+  inputDir = createDockerfile.destFile.parentFile
+  tag = "${image}"
 }
 
 task tagDockerImage(type: DockerTagImage, dependsOn: buildDockerImage) {
