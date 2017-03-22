@@ -17,5 +17,5 @@ class ImageRegistration {
         start nullable: true
     }
 
-    static hasMany = [ tiePoints: TiePoint ]
+    static hasMany = [ images: Image ]
 }
