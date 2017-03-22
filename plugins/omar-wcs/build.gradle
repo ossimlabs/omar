@@ -14,13 +14,11 @@ buildscript {
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
     classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
-    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
   }
 }
 
 plugins {
   id "com.github.ben-manes.versions" version "0.13.0"
-  id "com.jfrog.artifactory" version "4.4.13"
 }
 
 apply plugin: "eclipse"
@@ -30,12 +28,10 @@ apply plugin: "org.grails.grails-plugin-publish"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "asset-pipeline"
 
-apply plugin: "com.jfrog.artifactory"
 apply plugin: "java"
 apply plugin: "maven-publish"
 
 group "io.ossim.omar.plugins"
-version "${buildVersion}-${buildVersionTag}"
 
 ext {
   grailsVersion = project.grailsVersion
@@ -79,20 +75,6 @@ dependencies {
   testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
   testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
 }
-grailsPublish {
-  // TODO: Provide values here
-  user = "user"
-  key = "key"
-  githubSlug = "foo/bar"
-  license {
-      name = "Apache-2.0"
-  }
-  title = "My Plugin"
-  desc = "Full plugin description"
-  developers = [johndoe:"John Doe"]
-  portalUser = ""
-  portalPassword = ""
-}
 
 assets {
   packagePlugin = true
@@ -102,29 +84,6 @@ publishing {
   publications {
     mavenJava(MavenPublication) {
       from components.java
-    }
-  }
-}
-
-artifactory {
-  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
-  publish {
-    repository {
-      repoKey = "plugins-${buildVersionTag.toLowerCase()}-local"
-      username = "${artifactoryUser}"
-      password = "${artifactoryPassword}"
-      maven = true
-    }
-    defaults{
-      publications("mavenJava")
-    }
-  }
-  resolve {
-    repository {
-      repoKey = "plugins-${buildVersionTag.toLowerCase()}"
-      username = "${artifactoryUser}"
-      password = "${artifactoryPassword}"
-      maven = true
     }
   }
 }
