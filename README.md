@@ -28,10 +28,11 @@ For a quick example on how to configure and setup the new OMAR web services plea
 5. omar-geoscript
 6. omar-oms
 7. omar-stager
+8. omar-wms
 
 All other plugins can be installed in any order.
 
-Install plugins by going into the plugins directory and run the command
+Install plugins by going into the plugin's directory and run the command
 
 ```
  grails install
