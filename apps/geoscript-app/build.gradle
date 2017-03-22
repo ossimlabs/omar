@@ -166,7 +166,6 @@ artifactory {
 
 def dockerNamespaceUrl = "${dockerRegistryUrl}/${registryProjectName}/"
 
-def baseImage = "${baseImage}:${dockerAppTag}"
 def baseImageTgz = "${baseImage}.tgz"
 
 def image = "${project.name}:${dockerAppTag}"
