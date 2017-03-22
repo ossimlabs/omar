@@ -81,7 +81,7 @@
 					<div class = "col-md-2"><div align = "center" id = "tiePointImageCountDiv">&nbsp;</div></div>
 					<div class = "col-md-5"><div align = "right" id = "tiePointAcquisitionDateDiv"></div></div>
 				</div>
-                <div id = "tiePointMaps"></div>
+                <div class = "map" id = "tiePointMap"></div>
 			</div>
 			<div class = "modal-footer">
 				<button class = "btn btn-primary" onclick = "changeTiePointFrame( 'rewind' )" type = "button">

@@ -91,15 +91,17 @@ function buildJobsTable( jobs ) {
                     "</tr>" +
                 "</table>" +
                 "<div class = 'row'>" +
-                    "<div class = 'col-md-6'><b><i>Layers: </i></b> " + imageRegistration.images.length + "</div>" +
-                "</div>" +
-                "<div class = 'row'>" +
-                    "<div class = 'col-md-6'><b><i>Tie Points: </i></b>" + imageRegistration.images[0].tiePoints.length + "</div>" +
+                    "<div align = 'center' class = 'col-md-6'>" +
+                        "<b><i>Layers: </i></b> " + imageRegistration.images.length +
+                    "</div>" +
+                    "<div align = 'center' class = 'col-md-6'>" +
+                        "<b><i>Tie Points: </i></b>" + imageRegistration.images[0].tiePoints.length +
+                    "</div>" +
                 "</div>"
             );
 
             var table2 = document.createElement( "table" );
-            table2.className = "table";
+            table2.className = "table table-condensed";
             var row2 = table2.insertRow( table2.rows.length );
             var cell2 = row2.insertCell( row2.cells.length );
             $( cell2 ).append( "Filename" );

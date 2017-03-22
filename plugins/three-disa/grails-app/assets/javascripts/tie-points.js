@@ -14,7 +14,7 @@ function aTiePointHasBeenAdded( event ) {
 
     var pixel = feature.getGeometry().getCoordinates();
     var currentLayer = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ];
-    currentLayer.map.removeInteraction( currentLayer.drawInteraction );
+    tlv[ "3disa" ].map.removeInteraction( currentLayer.drawInteraction );
     imagePointsToGround( [[ pixel[ 0 ], -pixel[ 1 ] ]], currentLayer, function( coordinates, layer ) {
         $.each(
             tlv[ "3disa" ].layers,
@@ -38,30 +38,24 @@ function aTiePointHasBeenAdded( event ) {
                         layer.vectorLayer.getSource().addFeature( newFeature );
                     });
                 }
-
-                if ( index != tlv[ "3disa" ].currentLayer ) { layer.map.removeInteraction( layer.drawInteraction ); }
             }
         );
     });
 }
 
 function addTiePoint() {
-    $.each(
-        tlv[ "3disa" ].layers,
-        function( index, layer ) {
-            layer.map.addInteraction( layer.drawInteraction );
-        }
-    );
+    tlv[ "3disa" ].map.addInteraction( tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ].drawInteraction );
 }
 
 function addTiePointVectorLayer( index ) {
     var features = new ol.Collection();
-    var map = tlv[ "3disa" ].layers[ index ].map;
+    var map = tlv[ "3disa" ].map;
 
-    var source = new ol.source.Vector({ features: features });
-    source.on( "addfeature", aTiePointHasBeenAdded );
-
-    tlv[ "3disa" ].layers[ index ].vectorLayer = new ol.layer.Vector({ source: source });
+    tlv[ "3disa" ].layers[ index ].vectorLayer = new ol.layer.Vector({
+        source: new ol.source.Vector({ features: features }),
+        visible: false
+    });
+    tlv[ "3disa" ].layers[ index ].vectorLayer.getSource().on( "addfeature", aTiePointHasBeenAdded );
     map.addLayer( tlv[ "3disa" ].layers[ index ].vectorLayer );
 
     tlv[ "3disa" ].layers[ index ].drawInteraction = new ol.interaction.Draw({
@@ -115,10 +109,25 @@ function calculateTileResolutions( imageHeight, imageWidth ) {
 
 function changeTiePointFrame( param ) {
     var currentLayer = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ];
-    tlv[ "3disa" ].currentZoom = currentLayer.map.getView().getZoom();
 
-    var center = currentLayer.map.getView().getCenter();
-    imagePointsToGround( [[ center[0], -center[1] ]], currentLayer, function( coordinates, layer ) {
+    currentLayer.mapLayer.setVisible( false );
+    currentLayer.vectorLayer.setVisible( false );
+
+
+    var view = tlv[ "3disa" ].map.getView();
+
+    var rotation = currentLayer.rotation;
+    view.setRotation( 0 );
+    currentLayer.rotation= rotation;
+
+    var center = view.getCenter();
+    var extent = view.calculateExtent( tlv[ "3disa" ].map.getSize() );
+    var coordinates = [
+        [ center[ 0 ], -center[ 1 ] ],
+        [ extent[ 0 ], -extent[ 1 ] ],
+        [ extent[ 2 ], -extent[ 3 ] ]
+    ];
+    imagePointsToGround( coordinates, currentLayer, function( coordinates, layer ) {
         if ( param == "fastForward" ) {
             tlv[ "3disa" ].currentLayer = tlv[ "3disa" ].currentLayer >= tlv[ "3disa" ].layers.length - 1 ? 0 : tlv[ "3disa" ].currentLayer + 1;
         }
@@ -127,21 +136,49 @@ function changeTiePointFrame( param ) {
         }
         var newLayer = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ];
 
-        newLayer.mapLayer.setVisible( true );
         groundToImagePoints( coordinates, newLayer, function( pixels, layer ) {
-            currentLayer.mapLayer.setVisible( false );
-            currentLayer.vectorLayer.setVisible( false );
-            $( "#" + currentLayer.map.getTarget() ).hide();
 
-            var view = layer.map.getView();
-            view.setCenter( [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ] );
-            view.setZoom( tlv[ "3disa" ].currentZoom );
-            $( "#" + layer.map.getTarget() ).show();
+
+            var view = tlv[ "3disa" ].map.getView();
+
+            var center = [ pixels[ 0 ], -pixels[ 1 ] ];
+            view.setCenter( center );
+
+            var extent = [ pixels[ 1 ][ 0 ], -pixels[ 1 ][ 1 ], pixels[ 2 ][ 0 ], -pixels[ 2 ][ 1 ] ];
+            view.fit( extent, tlv[ "3disa" ].map.getSize(), { nearest: true } );
+
+            view.setRotation( layer.rotation );
+
             layer.mapLayer.setVisible( true );
             layer.vectorLayer.setVisible( true );
 
             updateTiePointScreenText();
         });
+    });
+}
+
+function createTiePointMap( images ) {
+    var maxHeight = Math.max.apply( null,  images.map( function( image ) { return image.metadata.height; } ) );
+    var maxWidth = Math.max.apply( null, images.map( function( image ) { return image.metadata.width; } ) );
+    tlv[ "3disa" ].map = new ol.Map({
+        logo: false,
+        target: "tiePointMap",
+        view: new ol.View({
+            center: [ maxWidth / 2, -maxHeight / 2 ],
+            extent: [ 0, -maxHeight, maxWidth, 0 ],
+            projection: new ol.proj.Projection({
+                code: "ImageSpace",
+                extent: [ 0, 0, maxWidth, maxHeight ],
+                units: "pixels"
+            }),
+            resolution: tlv.map.getView().getResolution()
+        })
+    });
+
+    tlv[ "3disa" ].map.getView().on('change:rotation', function( event ) {
+        var rotation = event.target.get( event.key );
+        tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ].rotation = rotation;
+        rotateNorthArrow( rotation );
     });
 }
 
@@ -192,7 +229,6 @@ function deleteTiePoint( feature ) {
                     var style = feature.getStyle();
                     var textStyle = style.getText();
                     textStyle.setText( ( index + 1 ).toString() );
-                    console.dir(textStyle.getText());
                     style.setText( textStyle );
                     feature.setStyle( style );
                 }
@@ -209,8 +245,8 @@ function getNorthAndUpAngles( layer ) {
             layer.northAngle = data.northAngle;
             layer.upAngle = data.upAngle;
 
-            rotateNorthArrow( layer, layer.northAngle );
-            layer.map.getView().setRotation( layer.upAngle );
+            rotateNorthArrow( layer.northAngle );
+            tlv[ "3disa" ].map.getView().setRotation( layer.upAngle );
         },
         url: tlv.availableResources.complete[ layer.library ].imageSpaceUrl + "/getAngles"
     });
@@ -270,7 +306,10 @@ function imagePointsToGround( pixels, layer, callback ) {
     });
 }
 
-function rotateNorthArrow( layer, radians ) {
+function rotateNorthArrow( radians ) {
+    var layer = tlv[ "3disa" ].layers[ tlv[ "3disa" ].currentLayer ];
+    if ( layer.northAngle ) { radians = radians - layer.northAngle; }
+
     var transform = 'rotate(' + radians + 'rad)';
     var arrow = $('.ol-compass');
     arrow.css('msTransform', transform);
@@ -290,6 +329,9 @@ function setupTiePointSelectionDialog() {
 
     tlv[ "3disa" ].layers = [];
     tlv[ "3disa" ].currentLayer = 0;
+
+    createTiePointMap( selectedImages );
+
     $.each(
         selectedImages,
         function( index, layer ) {
@@ -298,6 +340,7 @@ function setupTiePointSelectionDialog() {
                 imageId: layer.imageId,
                 library: layer.library,
                 metadata: layer.metadata,
+                rotation: 0,
                 sensorModel: layer.sensorModel
             });
 
@@ -323,48 +366,29 @@ function setupTiePointSelectionDialog() {
                 visible: false
             });
 
-            $( "#tiePointMaps" ).append( "<div class = 'map' id = 'tiePointMap" + index + "'></div>" );
-            var view = new ol.View({
-                center: [ imageWidth / 2, -imageHeight / 2 ],
-                extent: extent,
-                projection: new ol.proj.Projection({
-                    code: "ImageSpace",
-                    extent: [ 0, 0, imageWidth, imageHeight ],
-                    units: "pixels"
-                }),
-                resolution: tlv.map.getView().getResolution()
-            });
-            view.on('change:rotation', function( event ) {
-                if ( layer.northAngle ) {
-                    var rotation = event.target.get( event.key ) - layer.northAngle;
-                    rotateNorthArrow( layer, rotation );
-                }
-            });
-
-            tlv[ "3disa" ].layers[ index ].map = new ol.Map({
-                layers: [ tlv[ "3disa" ].layers[ index ].mapLayer ],
-                logo: false,
-                target: "tiePointMap" + index,
-                view: view
-            });
-
-            getNorthAndUpAngles( tlv[ "3disa" ].layers[ index ] );
-
+            tlv[ "3disa" ].map.addLayer( tlv[ "3disa" ].layers[ index ].mapLayer );
             addTiePointVectorLayer( index );
 
-            if ( index != 0 ) { $( "#tiePointMap" + index ).hide(); }
-            else {
-                tlv[ "3disa" ].layers[ 0 ].mapLayer.setVisible( true );
-
-                var view = tlv.map.getView();
-                var center = ol.proj.transform( view.getCenter(), "EPSG:3857", "EPSG:4326" );
-                groundToImagePoints( [ center ], tlv[ "3disa" ].layers[ 0 ], function( pixels, layer ) {
-                    var center = [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ];
-                    tlv[ "3disa" ].layers[ 0 ].map.getView().setCenter( center );
-                });
-            }
+            getNorthAndUpAngles( tlv[ "3disa" ].layers[ index ] );
         }
     );
+
+    var view = tlv.map.getView();
+    var center = ol.proj.transform( view.getCenter(), "EPSG:3857", "EPSG:4326" );
+    var extent = ol.proj.transformExtent( view.calculateExtent( tlv.map.getSize() ), "EPSG:3857", "EPSG:4326" );
+    var coordinates = [ center, extent.slice( 0, 2 ), extent.slice( 2, 4 ) ];
+    groundToImagePoints( coordinates, tlv[ "3disa" ].layers[ 0 ], function( pixels, layer ) {
+        var view = tlv[ "3disa" ].map.getView();
+
+        var center = [ pixels[ 0 ][ 0 ], -pixels[ 0 ][ 1 ] ];
+        view.setCenter( center );
+
+        var extent = [ pixels[ 1 ][ 0 ], -pixels[ 1 ][ 1 ], pixels[ 2 ][ 0 ], -pixels[ 2 ][ 1 ] ];
+        view.fit( extent, tlv[ "3disa" ].map.getSize(), { nearest: true } );
+
+        tlv[ "3disa" ].layers[ 0 ].mapLayer.setVisible( true );
+        tlv[ "3disa" ].layers[ 0 ].vectorLayer.setVisible( true );
+    });
 
     updateTiePointScreenText();
 }
@@ -420,7 +444,7 @@ function updateTiePointScreenText() {
 	updateTiePointLayerCount();
 }
 
-function updateTiePointLayerCount() { 
+function updateTiePointLayerCount() {
 	var currentCount = tlv[ "3disa" ].currentLayer + 1;
 	$( "#tiePointImageCountDiv" ).html( currentCount + "/" + tlv[ "3disa" ].layers.length );
 }
