@@ -1,90 +1,87 @@
 buildscript {
-    ext {
-        grailsVersion = project.grailsVersion
-    }
-    repositories {
-        mavenLocal()
-        maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
-        maven { url "https://repo.grails.org/grails/core" }
-    }
-    dependencies {
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
-    }
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
+  }
+  ext {
+    grailsVersion = project.grailsVersion
+  }
+  repositories {
+    mavenLocal()
+    maven { url "${ossimMavenProxy}" }
+    maven { url "https://repo.grails.org/grails/core" }
+  }
+  dependencies {
+    classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+  }
 }
 
 plugins {
-    id 'com.github.ben-manes.versions' version '0.13.0'
-    id 'com.jfrog.artifactory' version '4.4.13'
+  id "com.github.ben-manes.versions" version "0.13.0"
+  id "com.jfrog.artifactory" version "4.4.13"
 }
 
-//version "0.1"
-//group "omar.hibernate.spatial"
-
-apply plugin:"eclipse"
-apply plugin:"idea"
-apply plugin:"org.grails.grails-plugin"
-apply plugin:"org.grails.grails-plugin-publish"
-apply plugin:"org.grails.grails-gsp"
-apply plugin:"asset-pipeline"
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "org.grails.grails-plugin"
+apply plugin: "org.grails.grails-plugin-publish"
+apply plugin: "org.grails.grails-gsp"
+apply plugin: "asset-pipeline"
 
 apply plugin: "com.jfrog.artifactory"
-apply plugin: 'java'
-apply plugin: 'maven-publish'
+apply plugin: "java"
+apply plugin: "maven-publish"
 
 group "io.ossim.omar.plugins"
-version "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+version "${buildVersion}-${buildVersionTag}"
 
 ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
+  grailsVersion = project.grailsVersion
+  gradleWrapperVersion = project.gradleWrapperVersion
 }
 
 repositories {
-	mavenLocal()
-    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
-    maven { url 'http://download.osgeo.org/webdav/geotools' }
-//	maven { url 'http://www.hibernatespatial.org/repository' }
-	//maven { url 'https://repository.jboss.org/' }  //for versions 5.0 or higher
-	mavenCentral()
-	maven { url "https://repo.grails.org/grails/core" }
+  mavenLocal()
+  maven { url "${ossimMavenProxy}" }
+  maven { url "http://download.osgeo.org/webdav/geotools" }
+  mavenCentral()
+  maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "org.grails:grails-bom:$grailsVersion"
-    }
-    applyMavenExclusions false
+  imports {
+    mavenBom "org.grails:grails-bom:$grailsVersion"
+  }
+  applyMavenExclusions false
 }
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-logging"
+  compile "org.springframework.boot:spring-boot-starter-logging"
+  compile "org.springframework.boot:spring-boot-starter-actuator"
+  compile "org.springframework.boot:spring-boot-starter-tomcat"
+  compile "org.grails:grails-dependencies:3.1.14"
+  compile "org.grails:grails-web-boot"
+  compile "org.grails.plugins:cache"
+  compile "org.grails.plugins:scaffolding"
+  console "org.grails:grails-console"
+  profile "org.grails.profiles:web-plugin"
+  provided "org.grails:grails-plugin-services"
+  provided "org.grails:grails-plugin-domain-class"
+  runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
+  testCompile "org.grails:grails-plugin-testing"
+  testCompile "org.grails.plugins:geb"
+  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
+  testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
 
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies:3.1.14"
-    compile "org.grails:grails-web-boot"
-    compile "org.grails.plugins:cache"
-    compile "org.grails.plugins:scaffolding"
-    console "org.grails:grails-console"
-    profile "org.grails.profiles:web-plugin"
-    provided "org.grails:grails-plugin-services"
-    provided "org.grails:grails-plugin-domain-class"
-    runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
-    testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails.plugins:geb"
-    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
-    testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
+  compile "org.postgresql:postgresql:9.3-1103-jdbc41"
+  compile "org.grails.plugins:hibernate5:6.0.9"
 
-    compile 'org.postgresql:postgresql:9.3-1103-jdbc41'
-
-    compile "org.grails.plugins:hibernate5:6.0.9"
-
-    compile ('org.hibernate:hibernate-spatial:5.1.0.Final') {
-      exclude module: 'hibernate-core'
-      exclude module: 'postgresql'
-    }
+  compile ("org.hibernate:hibernate-spatial:5.1.0.Final") {
+    exclude module: "hibernate-core"
+    exclude module: "postgresql"
+  }
 }
 grailsPublish {
     // TODO: Provide values here
@@ -102,38 +99,36 @@ grailsPublish {
 }
 
 assets {
-    packagePlugin = true
+  packagePlugin = true
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
     }
+  }
 }
 
 artifactory {
-    contextUrl = "${System.env.ARTIFACTORY_CONTEXT_URL}"   //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        repository {
-            repoKey = 'plugins-snapshot-local'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
-        defaults{
-          publications('mavenJava')
-        }
+  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+  publish {
+    repository {
+      repoKey = "plugins-${buildVersionTag.toLowerCase()}-local"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
     }
-    resolve {
-        repository {
-            repoKey = 'plugins-snapshot'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
+    defaults{
+      publications('mavenJava')
     }
+  }
+  resolve {
+    repository {
+      repoKey = "plugins-${buildVersionTag.toLowerCase()}"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
+    }
+  }
 }

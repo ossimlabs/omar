@@ -1,43 +1,42 @@
 buildscript {
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
+  }
   ext {
     grailsVersion = project.grailsVersion
   }
   repositories {
     mavenLocal()
-    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    maven { url "${ossimMavenProxy}" }
     maven { url "https://repo.grails.org/grails/core" }
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
     classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
     classpath "org.grails.plugins:hibernate5:5.0.10"
-    classpath 'net.errbuddy.plugins:babel-asset-pipeline:2.1.0'
+    classpath "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
     classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
   }
 }
 
 plugins {
-    id 'com.github.ben-manes.versions' version '0.13.0'
-    id 'com.jfrog.artifactory' version '4.4.13'
+  id "com.github.ben-manes.versions" version "0.13.0"
+  id "com.jfrog.artifactory" version "4.4.13"
 }
-
-//version "1.0.0"
-//group "omar.app"
 
 apply plugin: "eclipse"
 apply plugin: "idea"
-//apply plugin: "war"
 apply plugin: "org.grails.grails-web"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "asset-pipeline"
 
 apply plugin: "com.jfrog.artifactory"
-apply plugin: 'java'
-apply plugin: 'maven-publish'
+apply plugin: "java"
+apply plugin: "maven-publish"
 
 group "io.ossim.omar.apps"
-version "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
-
+version "${buildVersion}-${buildVersionTag}"
 
 ext {
   grailsVersion = project.grailsVersion
@@ -47,50 +46,40 @@ ext {
 assets {
   minifyJs = true
   minifyCss = true
-  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
   includes = ["**/fonts/**"]
   excludes = [
-    '**/application.js',
-    '**/i18n/**',
-    '**/jquery*',
-    '**/omar/**',
-    '**/webjars/**',
-    '**/*-debug.js',
-    '**/*-deps.js',
-    '**/*-openlayers*',
-    '**/*.gz',
-    '**/*.html',
-    '**/*.txt',
+    "**/application.js",
+    "**/i18n/**",
+    "**/jquery*",
+    "**/omar/**",
+    "**/webjars/**",
+    "**/*-debug.js",
+    "**/*-deps.js",
+    "**/*-openlayers*",
+    "**/*.gz",
+    "**/*.html",
+    "**/*.txt",
   ]
 }
 
 repositories {
   mavenLocal()
-  maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+  maven { url "${ossimMavenProxy}" }
   maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
   imports {
     mavenBom "org.grails:grails-bom:$grailsVersion"
-    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7'
+    mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7"
   }
   applyMavenExclusions false
 }
 
 dependencies {
-//compile project( ':omar-openlayers' )
-//compile project( ':omar-core' )
-//compile project( ':omar-hibernate-spatial' )
-compile(group: 'io.ossim.omar.plugins', name: 'omar-openlayers', version: '1.0.0-SNAPSHOT')
-compile(group: 'io.ossim.omar.plugins', name: 'omar-core', version: '1.0.0-SNAPSHOT')
-compile(group: 'io.ossim.omar.plugins', name: 'omar-hibernate-spatial', version: '1.0.0-SNAPSHOT')
-//      compile project( ':omar-raster' )
-//      compile project( ':omar-video' )
-//      compile project( ':omar-wfs' )
-//      compile project( ':omar-wms' )
-//      compile project( ':omar-predio' )
-//      compile project( ':omar-security' )
+  compile(group: "io.ossim.omar.plugins", name: "omar-openlayers", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile(group: "io.ossim.omar.plugins", name: "omar-hibernate-spatial", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile "org.grails.plugins:hibernate5"
   compile "org.hibernate:hibernate-core:5.0.10.Final"
   compile "org.hibernate:hibernate-ehcache:5.0.10.Final"
@@ -113,89 +102,84 @@ compile(group: 'io.ossim.omar.plugins', name: 'omar-hibernate-spatial', version:
   testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
   testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
   compile "org.grails.plugins:grails3-cors-interceptor:1.2.1"
-  compile 'org.grails.plugins:browser-detection:3.3.0'
+  compile "org.grails.plugins:browser-detection:3.3.0"
 
   // UI Webjar core dependencies
-  compile 'org.webjars:jquery:2.1.4'
-  compile 'org.webjars:jquery-ui:1.10.3'
-  compile 'org.webjars:bootstrap:3.3.5'
-  compile 'org.webjars.bower:angularjs:1.4.8'
-  compile 'org.webjars:angular-ui-router:0.2.15'
-  compile 'org.webjars.npm:angular-ui-bootstrap:0.14.3'
-  compile 'org.webjars:angular-deferred-bootstrap:0.1.5'
-  compile 'org.webjars.bower:bootstrap-select:1.7.5'
-  compile 'org.webjars.bower:devbridge-autocomplete:1.2.21'
-  compile 'org.webjars:spin-js:2.1.0'
-  compile 'org.webjars.npm:angular-spinner:0.7.0'
-  compile 'org.webjars.bower:angular-toastr:1.6.0'
-  compile 'org.webjars:momentjs:2.11.0'
-  compile 'org.webjars:angular-strap:2.3.4'
-  compile 'org.webjars.npm:slick-carousel:1.5.9'
-  compile 'org.webjars.bower:angular-slick-carousel:3.0.10'
-  compile 'org.webjars.bower:angular-toggle-switch:1.3.0'
-  compile 'org.webjars.bower:angular-clipboard:1.4.2'
-  compile 'org.webjars:angular-ui-select:0.17.1'
-  compile 'org.webjars.bower:angular-ui-select2:0.0.5'
-  compile 'org.webjars.npm:angular-sanitize:1.4.8'
-  compile 'org.webjars.bower:microplugin:0.0.3'
-  compile 'org.webjars:selectize.js:0.12.3'
-  compile 'org.webjars.bower:seiyria-bootstrap-slider:9.3.0'
+  compile "org.webjars:jquery:2.1.4"
+  compile "org.webjars:jquery-ui:1.10.3"
+  compile "org.webjars:bootstrap:3.3.5"
+  compile "org.webjars.bower:angularjs:1.4.8"
+  compile "org.webjars:angular-ui-router:0.2.15"
+  compile "org.webjars.npm:angular-ui-bootstrap:0.14.3"
+  compile "org.webjars:angular-deferred-bootstrap:0.1.5"
+  compile "org.webjars.bower:bootstrap-select:1.7.5"
+  compile "org.webjars.bower:devbridge-autocomplete:1.2.21"
+  compile "org.webjars:spin-js:2.1.0"
+  compile "org.webjars.npm:angular-spinner:0.7.0"
+  compile "org.webjars.bower:angular-toastr:1.6.0"
+  compile "org.webjars:momentjs:2.11.0"
+  compile "org.webjars:angular-strap:2.3.4"
+  compile "org.webjars.npm:slick-carousel:1.5.9"
+  compile "org.webjars.bower:angular-slick-carousel:3.0.10"
+  compile "org.webjars.bower:angular-toggle-switch:1.3.0"
+  compile "org.webjars.bower:angular-clipboard:1.4.2"
+  compile "org.webjars:angular-ui-select:0.17.1"
+  compile "org.webjars.bower:angular-ui-select2:0.0.5"
+  compile "org.webjars.npm:angular-sanitize:1.4.8"
+  compile "org.webjars.bower:microplugin:0.0.3"
+  compile "org.webjars:selectize.js:0.12.3"
+  compile "org.webjars.bower:seiyria-bootstrap-slider:9.3.0"
 
   // Font stuff
-  compile 'org.webjars:font-awesome:4.4.0'
+  compile "org.webjars:font-awesome:4.4.0"
   // Dark .css themes
-  compile 'org.webjars:bootswatch-darkly:3.3.5+4'
-  compile 'org.webjars:bootswatch-slate:3.3.5+4'
-  compile 'org.webjars:bootswatch-superhero:3.3.5+4'
+  compile "org.webjars:bootswatch-darkly:3.3.5+4"
+  compile "org.webjars:bootswatch-slate:3.3.5+4"
+  compile "org.webjars:bootswatch-superhero:3.3.5+4"
 
   // Light .css themes
-  compile 'org.webjars:bootswatch-spacelab:3.3.5+4'
-  compile 'org.webjars:bootswatch-cosmo:3.3.5+4'
-  compile 'org.webjars:bootswatch-flatly:3.3.5+4'
-  compile 'org.webjars:bootswatch-default:3.3.5+4'
-
-//  compile 'org.grails.plugins:spring-security-appinfo:3.0.0'
-//  compile 'org.grails.plugins:spring-security-ui:3.0.0.M1'
+  compile "org.webjars:bootswatch-spacelab:3.3.5+4"
+  compile "org.webjars:bootswatch-cosmo:3.3.5+4"
+  compile "org.webjars:bootswatch-flatly:3.3.5+4"
+  compile "org.webjars:bootswatch-default:3.3.5+4"
 
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
 
-  compile 'net.errbuddy.plugins:babel-asset-pipeline:2.1.0'
+  compile "net.errbuddy.plugins:babel-asset-pipeline:2.1.0"
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
+    gradleVersion = "2.13"
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
     }
+  }
 }
 
 artifactory {
-    contextUrl = "${System.env.ARTIFACTORY_CONTEXT_URL}"   //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        repository {
-            repoKey = 'libs-snapshot-local'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
-        defaults{
-          publications('mavenJava')
-        }
+  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+  publish {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}-local"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
     }
-    resolve {
-        repository {
-            repoKey = 'libs-snapshot'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
+    defaults{
+      publications("mavenJava")
     }
+  }
+  resolve {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
+    }
+  }
 }

@@ -97,8 +97,7 @@ pageLoad = function() {
     }
     else if ( tlv.demGeneration ) {
         $("#searchDialog").modal("hide");
-        tlv.dimensions = 3;
-        tlv.tilt = 60;
+        
         tlv[ "3disa" ] = tlv.demGeneration;
         getJobDetails();
     }

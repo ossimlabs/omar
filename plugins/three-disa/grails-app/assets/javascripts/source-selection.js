@@ -5,9 +5,8 @@ function buildSourceSelectionTable() {
 
     var row = table.insertRow( 0 );
     $( row ).css( "white-space", "nowrap" );
-    var cell = row.insertCell( row.cells.length );
     $.each(
-        [ "Image ID", "Acquisition Date", "NIIRS", "Grazing Angle", "Elevation Angle", "CE", "LE" ],
+        [ "Use", "", "Image ID", "Sensor Model", "NIIRS", "Azimuth", "Graze", "CE (m<sup>2</sup>)", "LE (m)" ],
         function( index, value ) {
             var cell = row.insertCell( row.cells.length );
             $( cell ).append( value );
@@ -19,13 +18,14 @@ function buildSourceSelectionTable() {
         function( index, layer ) {
             row = table.insertRow( table.rows.length );
             $( row ).addClass( "success" );
-            $( row ).click( function() {
-                if ( $( this ).hasClass( "success" ) ) { $( this ).removeClass( "success" ); }
-                else { $( this ).addClass( "success" ); }
-            } );
-            $( row ).css( "cursor", "pointer" );
-            $( row ).mouseout( function() { $( this ).removeClass( "info" ); } );
-            $( row ).mouseover( function() { $(  this ).addClass( "info" ); } );
+
+            cell = row.insertCell( row.cells.length );
+            $( cell ).append( "<input checked type = 'checkbox'>" );
+            $( $( cell ).children() ).click( function() {
+                var row = $( this ).parent().parent();
+                if ( !$( this ).is( ":checked" ) ) { $( row ).removeClass( "success" ); }
+                else { $( row ).addClass( "success" ); }
+            });
 
             cell = row.insertCell( row.cells.length );
             $( cell ).append( index + 1 );
@@ -34,16 +34,21 @@ function buildSourceSelectionTable() {
             $( cell ).append( layer.imageId );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( layer.acquisitionDate + "z" );
+            $( cell ).append(
+                "<select class = 'form-control' id = 'sensorModelSelect" + index + "'>" +
+                    "<option value = 'absoluteRanking'>Absolute Ranking</option>" +
+                    "<option value = 'rigorous'>Rigorous</option>" +
+                "</select>"
+            );
 
             cell = row.insertCell( row.cells.length );
             $( cell ).append( layer.metadata.niirs );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( layer.metadata.grazing_angle );
+            $( cell ).append( layer.metadata.azimuth_angle ? layer.metadata.azimuth_angle.toFixed( 2 ) : "" );
 
             cell = row.insertCell( row.cells.length );
-            $( cell ).append( layer.metadata.elevation_angle );
+            $( cell ).append( layer.metadata.grazing_angle ? layer.metadata.grazing_angle.toFixed( 2 ) : "" );
 
             cell = row.insertCell( row.cells.length );
             $( cell ).append( layer.CE );
@@ -79,8 +84,6 @@ function getErrorValues() {
                 var callback = function( pixels, layer  ) {
                     var callback2 = function( coordinates, layer, errors ) {
                         layer.CE = errors[0].CE;
-                        console.dir(layer.CE);
-                        console.dir(isNaN( layer.CE ));
                         $( "#" + layer.metadata.index_id + "CE" ).html(
                             isNaN( parseFloat( layer.CE ) ) ? "N/A" : layer.CE.toFixed( 2 )
                         );
@@ -100,8 +103,12 @@ function getSelectedImages() {
     var images = [];
     $.each(
         $( "#sourceSelectionTable tr" ),
-        function( rowIndex, row ) {
-            if ( $(row).hasClass( "success" ) ) { images.push( tlv.layers[ rowIndex - 1 ] ); }
+        function( index, row ) {
+            if ( $( row ).hasClass( "success" ) ) {
+                var sensorModel = $( "#sensorModelSelect" + ( index - 1 ) ).val();
+                tlv.layers[ index - 1 ].sensorModel = sensorModel;
+                images.push( tlv.layers[ index - 1 ] );
+            }
         }
     );
 

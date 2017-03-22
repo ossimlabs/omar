@@ -1,10 +1,14 @@
 buildscript {
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
+  }
   ext {
     grailsVersion = project.grailsVersion
   }
   repositories {
     mavenLocal()
-    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    maven { url "${ossimMavenProxy}" }
     maven { url "https://repo.grails.org/grails/core" }
   }
   dependencies {
@@ -16,25 +20,21 @@ buildscript {
 }
 
 plugins {
-    id 'com.github.ben-manes.versions' version '0.13.0'
-    id 'com.jfrog.artifactory' version '4.4.13'
+  id "com.github.ben-manes.versions" version "0.13.0"
+  id "com.jfrog.artifactory" version "4.4.13"
 }
-
-//version "1.0.0"
-//group "wcs.app"
 
 apply plugin: "eclipse"
 apply plugin: "idea"
-//apply plugin: "war"
 apply plugin: "org.grails.grails-web"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "asset-pipeline"
 apply plugin: "com.jfrog.artifactory"
-apply plugin: 'java'
-apply plugin: 'maven-publish'
+apply plugin: "java"
+apply plugin: "maven-publish"
 
 group "io.ossim.omar.apps"
-version "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+version "${buildVersion}-${buildVersionTag}"
 
 ext {
   grailsVersion = project.grailsVersion
@@ -45,27 +45,26 @@ assets {
   minifyJs = true
   minifyCss = true
   includes = ["fonts/*"]
-  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
-      '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
+  excludes = ["**/*-debug.js", "**/*-deps.js", "**/*.gz", "**/*.txt", "**/*.less", "**/*.html", "**/i18n/**", "**/",
+      ".grunt/**", "**/locale/**", "webjars/jquery/2.1.4/src/intro.js", "webjars/jquery/2.1.4/src/outro.js"]
 }
 
 repositories {
   mavenLocal()
-  maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+  maven { url "${ossimMavenProxy}" }
   maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
   imports {
     mavenBom "org.grails:grails-bom:$grailsVersion"
-    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7'
+    mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7"
   }
   applyMavenExclusions false
 }
 
 dependencies {
-  //compile project( ':omar-wcs' )
-  compile(group: 'io.ossim.omar.plugins', name: 'omar-wcs', version: '1.0.0-SNAPSHOT')
+  compile(group: "io.ossim.omar.plugins", name: "omar-wcs", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile "org.grails.plugins:hibernate5"
   compile "org.hibernate:hibernate-core:5.0.10.Final"
   compile "org.hibernate:hibernate-ehcache:5.0.10.Final"
@@ -94,34 +93,32 @@ dependencies {
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
     }
+  }
 }
 
 artifactory {
-    contextUrl = "${System.env.ARTIFACTORY_CONTEXT_URL}"   //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        repository {
-            repoKey = 'libs-snapshot-local'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
-        defaults{
-          publications('mavenJava')
-        }
+  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+  publish {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}-local"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
     }
-    resolve {
-        repository {
-            repoKey = 'libs-snapshot'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
+    defaults{
+      publications("mavenJava")
     }
+  }
+  resolve {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
+    }
+  }
 }

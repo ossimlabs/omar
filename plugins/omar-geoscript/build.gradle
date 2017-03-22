@@ -1,10 +1,14 @@
 buildscript {
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
+  }
   ext {
     grailsVersion = project.grailsVersion
   }
   repositories {
     mavenLocal()
-    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    maven { url "${ossimMavenProxy}" }
     maven { url "https://repo.grails.org/grails/core" }
   }
   dependencies {
@@ -15,12 +19,9 @@ buildscript {
 }
 
 plugins {
-    id 'com.github.ben-manes.versions' version '0.13.0'
-    id 'com.jfrog.artifactory' version '4.4.13'
+  id "com.github.ben-manes.versions" version "0.13.0"
+  id "com.jfrog.artifactory" version "4.4.13"
 }
-
-//version "0.1"
-//group "omar.geoscript"
 
 apply plugin: "eclipse"
 apply plugin: "idea"
@@ -30,11 +31,11 @@ apply plugin: "org.grails.grails-gsp"
 apply plugin: "asset-pipeline"
 
 apply plugin: "com.jfrog.artifactory"
-apply plugin: 'java'
-apply plugin: 'maven-publish'
+apply plugin: "java"
+apply plugin: "maven-publish"
 
 group "io.ossim.omar.plugins"
-version "${ARTIFACTORY_BUILD_VERSION}-${System.env.OSSIM_BUILD_TAG}"
+version "${buildVersion}-${buildVersionTag}"
 
 ext {
   grailsVersion = project.grailsVersion
@@ -43,7 +44,7 @@ ext {
 
 repositories {
   mavenLocal()
-  maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+  maven { url "${ossimMavenProxy}" }
   maven { url "http://download.osgeo.org/webdav/geotools/" }
   maven { url "https://repo.grails.org/grails/core" }
   maven { url "http://repo.boundlessgeo.com/main" }
@@ -60,12 +61,10 @@ dependencyManagement {
 }
 
 dependencies {
-
-  //compile project( ':omar-core' )
-  compile(group: 'io.ossim.omar.plugins', name: 'omar-core', version: '1.0.0-SNAPSHOT')
+  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
 
   compile( "org.geoscript:geoscript-groovy:1.7.0" ) {
-    exclude module: 'ehcache'
+    exclude module: "ehcache"
     exclude module: "groovy-all"
     exclude module: "slf4j-log4j12"
     exclude module: "xml-apis"
@@ -93,11 +92,11 @@ dependencies {
 }
 grailsPublish {
   // TODO: Provide values here
-  user = 'user'
-  key = 'key'
-  githubSlug = 'foo/bar'
+  user = "user"
+  key = "key"
+  githubSlug = "foo/bar"
   license {
-    name = 'Apache-2.0'
+    name = "Apache-2.0"
   }
   title = "My Plugin"
   desc = "Full plugin description"
@@ -111,34 +110,32 @@ assets {
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
     }
+  }
 }
 
 artifactory {
-    contextUrl = "${System.env.ARTIFACTORY_CONTEXT_URL}"   //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        repository {
-            repoKey = 'plugins-snapshot-local'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
-        defaults{
-          publications('mavenJava')
-        }
+  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+  publish {
+    repository {
+      repoKey = "plugins-${buildVersionTag.toLowerCase()}-local"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
     }
-    resolve {
-        repository {
-            repoKey = 'plugins-snapshot'
-            username = "${System.env.ARTIFACTORY_USER}"
-            password = "${System.env.ARTIFACTORY_PASSWORD}"
-            maven = true
-
-        }
+    defaults{
+      publications("mavenJava")
     }
+  }
+  resolve {
+    repository {
+      repoKey = "plugins-${buildVersionTag.toLowerCase()}"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
+    }
+  }
 }
