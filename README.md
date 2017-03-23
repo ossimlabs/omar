@@ -6,6 +6,11 @@ Online guide can be found at [http://ossimlabs.s3-website-us-east-1.amazonaws.co
 
 For a quick example on how to configure and setup the new OMAR web services please visit the repo found here [https://github.com/ossimlabs/ossim-vagrant](https://github.com/ossimlabs/ossim-vagrant). The vagrant setup uses salt to provision each web service and is a good example on how to setup a default configuration on a CentOS distribution.
 
+Git clone the omar-common repo.
+```
+  git clone https://github.com/ossimlabs/omar-common.git
+```
+
 ## Require environment variables
 - OMAR_COMMON_PROPERTIES
 - OPENSHIFT_USERNAME
@@ -15,7 +20,7 @@ For a quick example on how to configure and setup the new OMAR web services plea
 
 ### Example:
 ```
-  export OMAR_COMMON_PROPERTIES=~/omar-common-properties.gradle
+  export OMAR_COMMON_PROPERTIES=~/omar-common/omar-common-properties.gradle
 
 ```
 
