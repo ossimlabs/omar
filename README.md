@@ -40,6 +40,6 @@ All other plugins can be installed in any order.
 Install plugins by going into the plugin's directory and run the command
 
 ```
- grails install
+ gradlew install
 
 ```
