@@ -15,13 +15,11 @@ buildscript {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
     classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
     classpath "org.grails.plugins:hibernate4:5.0.10"
-    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
   }
 }
 
 plugins {
   id "com.github.ben-manes.versions" version "0.13.0"
-  id "com.jfrog.artifactory" version "4.4.13"
 }
 
 apply plugin:"eclipse"
@@ -30,12 +28,10 @@ apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
 
-apply plugin: "com.jfrog.artifactory"
 apply plugin: "java"
 apply plugin: "maven-publish"
 
 group "io.ossim.omar.apps"
-version "${buildVersion}-${buildVersionTag}"
 
 ext {
   grailsVersion = project.grailsVersion
@@ -94,29 +90,6 @@ publishing {
   publications {
     mavenJava(MavenPublication) {
       from components.java
-    }
-  }
-}
-
-artifactory {
-  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
-  publish {
-    repository {
-      repoKey = "libs-${buildVersionTag.toLowerCase()}-local"
-      username = "${artifactoryUser}"
-      password = "${artifactoryPassword}"
-      maven = true
-    }
-    defaults{
-      publications("mavenJava")
-    }
-  }
-  resolve {
-    repository {
-      repoKey = "libs-${buildVersionTag.toLowerCase()}"
-      username = "${artifactoryUser}"
-      password = "${artifactoryPassword}"
-      maven = true
     }
   }
 }
