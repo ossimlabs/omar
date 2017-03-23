@@ -46,7 +46,7 @@ function getJobDetails() {
             ];
             tlv.layers = [];
 
-            var filenames = job.imageRegistration.tiePoints.unique( "filename" );
+            var filenames = job.imageRegistration.images.map( function( image ) { return image.filename; } ); 
             getImageMetadata( filenames );
         },
         url: tlv.contextPath + "/threeDisa/listJobs"
