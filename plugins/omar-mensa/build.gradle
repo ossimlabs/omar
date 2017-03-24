@@ -1,10 +1,11 @@
 buildscript {
+  ext {
+    grailsVersion = project.grailsVersion
+    baseImage = ""
+  }
   if(System.env.OMAR_COMMON_PROPERTIES)
   {
     apply from: System.env.OMAR_COMMON_PROPERTIES
-  }
-  ext {
-    grailsVersion = project.grailsVersion
   }
   repositories {
     mavenLocal()
@@ -81,6 +82,21 @@ dependencies {
 
 assets {
   packagePlugin = true
+}
+
+grailsPublish {
+  // TODO: Provide values here
+  user = "user"
+  key = "key"
+  githubSlug = "foo/bar"
+  license {
+    name = "Apache-2.0"
+  }
+  title = "My Plugin"
+  desc = "Full plugin description"
+  developers = [johndoe:"John Doe"]
+  portalUser = ""
+  portalPassword = ""
 }
 
 publishing {

@@ -1,4 +1,8 @@
 buildscript {
+  ext {
+    grailsVersion = project.grailsVersion
+    baseImage = "o2-base"
+  }
   if(System.env.OMAR_COMMON_PROPERTIES)
   {
     apply from: System.env.OMAR_COMMON_PROPERTIES
