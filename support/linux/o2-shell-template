@@ -30,9 +30,9 @@ fi
 
 
 if [ -z $PROGRAM_PID ]; then
-java $JAVA_OPTS -jar ${SCRIPT_DIR}/${PROGRAM_NAME}.jar --spring.config.location=${SCRIPT_DIR}/${PROGRAM_NAME}.yml
+java $JAVA_OPTS -jar ${SCRIPT_DIR}/${PROGRAM_NAME}*.jar --spring.config.location=${SCRIPT_DIR}/${PROGRAM_NAME}.yml
 else
-java $JAVA_OPTS -jar ${SCRIPT_DIR}/${PROGRAM_NAME}.jar --spring.config.location=${SCRIPT_DIR}/${PROGRAM_NAME}.yml&
+java $JAVA_OPTS -jar ${SCRIPT_DIR}/${PROGRAM_NAME}*.jar --spring.config.location=${SCRIPT_DIR}/${PROGRAM_NAME}.yml&
 sleep 1
 echo $! >$PROGRAM_PID
 fi
