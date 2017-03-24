@@ -6,3 +6,18 @@ export O2_PLUGINS=( "omar-hibernate-spatial" "omar-core" "omar-download" "omar-o
 if [ -z "$OMAR_INSTALL_PREFIX" ]; then
    export OMAR_INSTALL_PREFIX=$ROOT_DIR/install
 fi
+
+if [ -z $OMAR_COMMON_PROPERTIES ] ; then
+   if [ -z $OSSIM_DEV_HOME ] ; then
+     echo "OMAR_COMMON_PROPERTIES is not defined and must point to the common-properties file"
+     echo "The comon proeprties can be downloaded from https://github.com/ossimlabs/omar-common"
+     exit 1
+   elif [ -e "$OSSIM_DEV_HOME/omar-common" ] ; then
+      export OMAR_COMMON_PROPERTIES="$OSSIM_DEV_HOME/omar-common/omar-common-properties.gradle"
+   else
+     echo "OMAR_COMMON_PROPERTIES is not defined and must point to the common-properties file"
+     echo "The comon proeprties can be downloaded from https://github.com/ossimlabs/omar-common"
+     exit 1
+   fi
+
+fi
