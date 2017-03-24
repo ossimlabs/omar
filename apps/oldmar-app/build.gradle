@@ -1,6 +1,11 @@
 buildscript {
   ext {
     grailsVersion = project.grailsVersion
+    baseImage = "o2-ossim"
+  }
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
   }
   repositories {
     mavenLocal()
@@ -13,15 +18,16 @@ buildscript {
   }
 }
 
-version "0.1"
-group "oldmar.app"
-
 apply plugin: "eclipse"
 apply plugin: "idea"
-//apply plugin: "war"
 apply plugin: "org.grails.grails-web"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "asset-pipeline"
+
+apply plugin: "java"
+apply plugin: "maven-publish"
+
+group "io.ossim.omar.apps"
 
 ext {
   grailsVersion = project.grailsVersion
@@ -36,13 +42,13 @@ repositories {
 dependencyManagement {
   imports {
     mavenBom "org.grails:grails-bom:$grailsVersion"
-    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7'
+    mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7"
   }
   applyMavenExclusions false
 }
 
 dependencies {
-  compile 'org.webjars:openlayers:3.20.1'
+  compile "org.webjars:openlayers:3.20.1"
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
   compile "org.grails.plugins:grails3-cors-interceptor:1.2.1"
@@ -52,7 +58,7 @@ dependencies {
   compile "org.grails:grails-core"
   compile "org.springframework.boot:spring-boot-starter-actuator"
   compile "org.springframework.boot:spring-boot-starter-tomcat"
-  compile "org.grails:grails-dependencies"
+  compile "org.grails:grails-dependencies:3.1.14"
   compile "org.grails:grails-web-boot"
   compile "org.grails.plugins:cache"
   compile "org.grails.plugins:scaffolding"
@@ -72,7 +78,15 @@ assets {
   minifyJs = true
   minifyCss = true
   excludes = [
-      '**/*-debug.js',
-      '**/*-deps.js'
+      "**/*-debug.js",
+      "**/*-deps.js"
   ]
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+    }
+  }
 }
