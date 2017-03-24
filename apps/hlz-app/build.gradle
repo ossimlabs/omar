@@ -37,6 +37,7 @@ apply plugin: "org.grails.grails-gsp"
 apply plugin: "com.jfrog.artifactory"
 apply plugin: "java"
 apply plugin: "maven-publish"
+apply plugin: "maven"
 
 group "io.ossim.omar.apps"
 version "${buildVersion}-${buildVersionTag}"
