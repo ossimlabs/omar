@@ -20,7 +20,7 @@ fi
 for plugin in ${O2_PLUGINS[@]} ; do
    echo "BUILDING: $plugin ..."
    pushd $OMAR_DEV_HOME/plugins/$plugin
-    ./gradlew install
+    ./gradlew clean install
    if [ $? -ne 0 ] ; then
        echo "BUILD ERROR: ${plugin} failed to build..."
        popd
@@ -33,9 +33,9 @@ for app in ${O2_APPS[@]} ; do
    echo "BUILDING: $app ..."
    pushd $OMAR_DEV_HOME/apps/$app
    if [ $app = "disk-cleanup" ]; then
-      ./gradlew jar
+      ./gradlew clean jar
    else
-      ./gradlew assemble
+      ./gradlew clean assemble
    fi
    if [ $? -ne 0 ];then
        echo "BUILD ERROR: $app failed to build..."
