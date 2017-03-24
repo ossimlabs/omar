@@ -1,7 +1,7 @@
 function cleanup3Disa() {
-    $.each( tlv[ "3disa" ].layers, function( index, layer ) { layer.map.setTarget( null ); } );
+    var map = tlv[ "3disa" ].map;
+    if ( map ) { map.setTarget( null ); }
     tlv[ "3disa" ] = {};
-    $( "#tiePointMaps" ).html( "" );
 }
 
 var disableMenuButtons3Disa = disableMenuButtons;
@@ -46,7 +46,7 @@ function getJobDetails() {
             ];
             tlv.layers = [];
 
-            var filenames = job.imageRegistration.tiePoints.unique( "filename" );
+            var filenames = job.imageRegistration.images.map( function( image ) { return image.filename; } ); 
             getImageMetadata( filenames );
         },
         url: tlv.contextPath + "/threeDisa/listJobs"
@@ -97,7 +97,7 @@ pageLoad = function() {
     }
     else if ( tlv.demGeneration ) {
         $("#searchDialog").modal("hide");
-        
+
         tlv[ "3disa" ] = tlv.demGeneration;
         getJobDetails();
     }
