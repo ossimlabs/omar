@@ -54,6 +54,7 @@ dependencyManagement {
 
 dependencies {
   compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile "org.postgresql:postgresql:9.3-1103-jdbc41"
   compile "org.springframework.boot:spring-boot-starter-logging"
   compile "org.springframework.boot:spring-boot-autoconfigure"
   compile "org.grails:grails-core"
