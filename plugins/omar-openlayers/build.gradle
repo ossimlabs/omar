@@ -1,10 +1,15 @@
 buildscript {
   ext {
     grailsVersion = project.grailsVersion
+    baseImage = ""
+  }
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
   }
   repositories {
     mavenLocal()
-    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    maven { url "${ossimMavenProxy}" }
     maven { url "https://repo.grails.org/grails/core" }
   }
   dependencies {
@@ -14,11 +19,8 @@ buildscript {
 }
 
 plugins {
-    id 'com.github.ben-manes.versions' version '0.13.0'
+  id "com.github.ben-manes.versions" version "0.13.0"
 }
-
-version "0.1"
-group "omar.openlayers"
 
 apply plugin: "eclipse"
 apply plugin: "idea"
@@ -27,6 +29,11 @@ apply plugin: "org.grails.grails-plugin-publish"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "asset-pipeline"
 
+apply plugin: "java"
+apply plugin: "maven-publish"
+
+group "io.ossim.omar.plugins"
+
 ext {
   grailsVersion = project.grailsVersion
   gradleWrapperVersion = project.gradleWrapperVersion
@@ -34,7 +41,7 @@ ext {
 
 repositories {
   mavenLocal()
-  maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+  maven { url "${ossimMavenProxy}" }
   maven { url "https://repo.grails.org/grails/core" }
 }
 
@@ -46,37 +53,46 @@ dependencyManagement {
 }
 
 dependencies {
-  compile 'org.webjars:openlayers:3.17.1'
+  compile "org.webjars:openlayers:3.17.1"
 
-  provided 'org.springframework.boot:spring-boot-starter-logging'
+  provided "org.springframework.boot:spring-boot-starter-logging"
   provided "org.springframework.boot:spring-boot-starter-actuator"
   provided "org.springframework.boot:spring-boot-autoconfigure"
   provided "org.springframework.boot:spring-boot-starter-tomcat"
 
   provided "org.grails:grails-web-boot"
-  provided "org.grails:grails-dependencies"
-  provided 'javax.servlet:javax.servlet-api:3.1.0'
+  provided "org.grails:grails-dependencies:3.1.14"
+  provided "javax.servlet:javax.servlet-api:3.1.0"
 
   testCompile "org.grails:grails-plugin-testing"
   testCompile "org.grails.plugins:geb"
   testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
   testRuntime "net.sourceforge.htmlunit:htmlunit:2.23"
 }
+
+assets {
+  packagePlugin = true
+}
+
 grailsPublish {
   // TODO: Provide values here
-  user = 'user'
-  key = 'key'
-  githubSlug = 'foo/bar'
+  user = "user"
+  key = "key"
+  githubSlug = "foo/bar"
   license {
-    name = 'Apache-2.0'
+    name = "Apache-2.0"
   }
   title = "My Plugin"
   desc = "Full plugin description"
-  developers = [johndoe: "John Doe"]
+  developers = [johndoe:"John Doe"]
   portalUser = ""
   portalPassword = ""
 }
 
-assets {
-  packagePlugin = true
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+    }
+  }
 }

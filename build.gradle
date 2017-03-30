@@ -2,7 +2,7 @@ allprojects {
 
   repositories {
     mavenLocal()
-      maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+      //maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
       maven { url "http://download.osgeo.org/webdav/geotools/" }
       mavenCentral()
       maven { url "http://repo.boundlessgeo.com/main" }

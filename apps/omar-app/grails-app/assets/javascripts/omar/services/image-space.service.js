@@ -16,6 +16,7 @@
           filename,
           entry,
           format,
+          histCenterTile,
           histOp,
           imageGeometry,
           imageProperties,
@@ -232,7 +233,7 @@
               return url + '?filename=' + filename + '&entry=' + entry + '&z=' + tileZ +
                 '&x=' + tileX + '&y=' + tileY + '&format=' + format +
                 '&numOfBands=' + numOfBands + '&bands=' + bands + '&histOp=' + histOp +
-                '&brightness=' + brightness + '&contrast=' + contrast +
+                '&histCenterTile=' + histCenterTile + '&brightness=' + brightness + '&contrast=' + contrast +
                 '&resamplerFilter=' + resamplerFilter + '&sharpenMode=' + sharpenMode;
               }
           }
@@ -254,7 +255,7 @@
 
           // Sets header title
           var wfsUrl = AppO2.APP_CONFIG.params.wfs.baseUrl +
-            "filter=filename LIKE '" + params.filename + "'" +
+            "filter=" + encodeURIComponent( "filename LIKE '" + params.filename + "'" ) +
             "&outputFormat=JSON" +
             "&request=GetFeature" +
             "&service=WFS" +
@@ -264,7 +265,7 @@
             $http({
 
               method: 'GET',
-              url: encodeURI(wfsUrl)
+              url: wfsUrl
 
             }).then(function(response) {
               imageGeometry = response.data.features[0].geometry;
@@ -277,13 +278,14 @@
 
               stateService.navStateUpdate({
                 titleLeft: imageIdText + " <br> " + acquisitionDateText,
-                userGuideUrl: "/user-guide/image-space"
+                userGuideUrl: "user-guide/image-space/"
               });
             });
 
             filename = params.filename;
             entry = params.entry;
             histOp = params.histOp || "auto-minmax";
+            histCenterTile = params.histCenterTile || "true";
             imgWidth = params.imgWidth;
             imgHeight = params.imgHeight;
             numOfBands = params.numOfBands;
@@ -344,6 +346,7 @@
               brightness: brightness,
               contrast: contrast,
               histOp: histOp,
+              histCenterTile: histCenterTile,
               resamplerFilter: resamplerFilter,
               sharpenMode: sharpenMode
             });
@@ -438,14 +441,19 @@
                   '&height=' + imgHeight + '&bands=' + bands +
                   '&numOfBands=' + numOfBands + '&imageId=' + imgID +
                   '&brightness=' + brightness + '&contrast=' + contrast +
-                  '&histOp=' + histOp + '&resamplerFilter=' + resamplerFilter +
-                  '&sharpenMode=' + sharpenMode;
+                  '&histOp=' + histOp + '&histCenterTile=' + histCenterTile +
+                  '&resamplerFilter=' + resamplerFilter + '&sharpenMode=' + sharpenMode;
 
               return urlString;
             };
 
             this.setDynamicRange = function(value) {
               histOp = value;
+              source.refresh();
+            };
+
+            this.setDynamicRangeRegion = function(value) {
+              histCenterTile = value;
               source.refresh();
             };
 

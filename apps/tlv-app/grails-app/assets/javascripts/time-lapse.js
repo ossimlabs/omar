@@ -25,7 +25,7 @@ function changeFrame( param ) {
 
 	layer = tlv.layers[ tlv.currentLayer ];
 	layer.mapLayer.setVisible( true );
-	layer.mapLayer.setOpacity( layer.mapLayer.getSource().getParams().OPACITY );
+	layer.mapLayer.setOpacity( layer.opacity );
 
 	tlv.map.renderSync();
 
@@ -70,15 +70,15 @@ function getNextFrameIndex() { return tlv.currentLayer >= tlv.layers.length - 1 
 
 function getPreviousFrameIndex() { return tlv.currentLayer <= 0 ? tlv.layers.length - 1 : tlv.currentLayer - 1; }
 
-function getTimeToAdjacentImage( layerIndex, adjacency ) {
+function getTimeToAdjacentImage( layers, layerIndex, adjacency ) {
 	var layerIndex2 = null;
 	if ( adjacency == "previous" && layerIndex > 0 ) { layerIndex2 = layerIndex - 1; }
-	else if ( adjacency == "next" && layerIndex < tlv.layers.length - 1 ) { layerIndex2 = layerIndex + 1; }
+	else if ( adjacency == "next" && layerIndex < layers.length - 1 ) { layerIndex2 = layerIndex + 1; }
 
 	if ( typeof layerIndex2 == "number" ) {
-		var date1 = tlv.layers[ layerIndex ].acquisitionDate;
+		var date1 = layers[ layerIndex ].acquisitionDate;
         date1 = date1 ? new Date( Date.parse( date1.replace( /\s/, "T" ) ) ) : null;
-		var date2 = tlv.layers[ layerIndex2 ].acquisitionDate;
+		var date2 = layers[ layerIndex2 ].acquisitionDate;
         date2 = date2 ? new Date( Date.parse( date2.replace( /\s/, "T" ) ) ) : null;
 
 		if ( date1 && date2 ) {
@@ -253,7 +253,7 @@ function setupTimeLapse() {
 	tlv.currentLayer = 0;
 
 	var extent = ol.proj.transformExtent(tlv.bbox, "EPSG:4326", "EPSG:3857");
-	tlv.map.getView().fit(extent, tlv.map.getSize());
+	tlv.map.getView().fit( extent, tlv.map.getSize() );
 
 	// register map listeners
 	tlv.map.on("moveend", theMapHasMoved);
@@ -275,17 +275,17 @@ function setupTimeLapse() {
 function stopTimeLapse() { clearTimeout(tlv.timeLapseAdvance); }
 
 function updateAcquisitionDate() {
-	var acquisitionDate = tlv.layers[tlv.currentLayer].acquisitionDate;
+	var acquisitionDate = tlv.layers[ tlv.currentLayer ].acquisitionDate;
 	if (acquisitionDate) {
-		var timeToNextImage = getTimeToAdjacentImage(tlv.currentLayer, "next");
-		var timeToPreviousImage = getTimeToAdjacentImage(tlv.currentLayer, "previous");
-		$("#acquisitionDateDiv").html(
+		var timeToNextImage = getTimeToAdjacentImage( tlv.layers, tlv.currentLayer, "next" );
+		var timeToPreviousImage = getTimeToAdjacentImage( tlv.layers, tlv.currentLayer, "previous" );
+		$( "#acquisitionDateDiv" ).html(
 			(timeToPreviousImage ? timeToPreviousImage + " <- " : "") +
 			acquisitionDate + (acquisitionDate != "N/A" ? "z" : "") +
 			(timeToNextImage ? " -> " + timeToNextImage : "")
 		);
 	}
-	else { $("#acquisitionDateDiv").html("N/A"); }
+	else { $( "#acquisitionDateDiv" ).html( "N/A" ); }
 }
 
 function updateImageId() {

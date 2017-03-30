@@ -1,32 +1,38 @@
 buildscript {
   ext {
     grailsVersion = project.grailsVersion
+    baseImage = "o2-base"
+  }
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
   }
   repositories {
     mavenLocal()
-    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    maven { url "${ossimMavenProxy}" }
     maven { url "https://repo.grails.org/grails/core" }
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
     classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
-    classpath "org.grails.plugins:hibernate5:5.0.10"
   }
 }
 
 plugins {
-    id 'com.github.ben-manes.versions' version '0.13.0'
+    id "com.github.ben-manes.versions" version "0.13.0"
 }
-
-version "1.0.0"
-group "download.app"
 
 apply plugin: "eclipse"
 apply plugin: "idea"
-//apply plugin: "war"
 apply plugin: "org.grails.grails-web"
 apply plugin: "org.grails.grails-gsp"
 apply plugin: "asset-pipeline"
+
+apply plugin: "java"
+apply plugin: "maven-publish"
+apply plugin: "maven"
+
+group "io.ossim.omar.apps"
 
 ext {
   grailsVersion = project.grailsVersion
@@ -36,43 +42,34 @@ ext {
 assets {
   minifyJs = true
   minifyCss = true
-  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
-  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
   includes = ["fonts/*"]
-  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
-      '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
+  excludes = ["**/*-debug.js", "**/*-deps.js", "**/*.gz", "**/*.txt", "**/*.less", "**/*.html", "**/i18n/**", "**/",
+      ".grunt/**", "**/locale/**", "webjars/jquery/2.1.4/src/intro.js", "webjars/jquery/2.1.4/src/outro.js"]
 }
 
 repositories {
   mavenLocal()
-  maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+  maven { url "${ossimMavenProxy}" }
   maven { url "https://repo.grails.org/grails/core" }
 }
 
 dependencyManagement {
   imports {
     mavenBom "org.grails:grails-bom:$grailsVersion"
-    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7'
+    mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Brixton.SR7"
   }
   applyMavenExclusions false
 }
 
 dependencies {
-    compile project( ':omar-download' )
-  compile "org.grails.plugins:hibernate5"
-  compile "org.hibernate:hibernate-core:5.0.10.Final"
-  compile "org.hibernate:hibernate-ehcache:5.0.10.Final"
-
-  compile "org.grails.plugins:hibernate5"
-  compile "org.hibernate:hibernate-core:5.0.10.Final"
-  compile "org.hibernate:hibernate-ehcache:5.0.10.Final"
+  compile(group: "io.ossim.omar.plugins", name: "omar-download", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
 
   compile "org.springframework.boot:spring-boot-starter-logging"
   compile "org.springframework.boot:spring-boot-autoconfigure"
   compile "org.grails:grails-core"
   compile "org.springframework.boot:spring-boot-starter-actuator"
   compile "org.springframework.boot:spring-boot-starter-tomcat"
-  compile "org.grails:grails-dependencies"
+  compile "org.grails:grails-dependencies:3.1.14"
   compile "org.grails:grails-web-boot"
   compile "org.grails.plugins:cache"
   compile "org.grails.plugins:scaffolding"
@@ -88,4 +85,16 @@ dependencies {
 
   compile "org.springframework.cloud:spring-cloud-starter-config"
   compile "org.springframework.cloud:spring-cloud-starter-eureka"
+}
+
+assets {
+  packagePlugin = true
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+    }
+  }
 }

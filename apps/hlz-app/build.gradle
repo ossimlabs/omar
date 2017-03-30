@@ -1,35 +1,46 @@
 buildscript {
   ext {
     grailsVersion = project.grailsVersion
+    baseImage = ""
+  }
+  if(System.env.OMAR_COMMON_PROPERTIES)
+  {
+    apply from: System.env.OMAR_COMMON_PROPERTIES
   }
   repositories {
     mavenLocal()
-    maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+    maven { url "${ossimMavenProxy}" }
     maven { url "https://repo.grails.org/grails/core" }
   }
   dependencies {
     classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-    classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
+    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0"
     classpath "org.grails.plugins:hibernate:4.3.10.5"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
   }
 }
 
 plugins {
   id "io.spring.dependency-management" version "0.5.4.RELEASE"
+  id "com.jfrog.artifactory" version "4.4.13"
 }
 
 evaluationDependsOnChildren()
 
-version "1.0.0"
-group "hlz.app"
-
 apply plugin: "spring-boot"
-//apply plugin: "war"
 apply plugin: "asset-pipeline"
-apply plugin: 'eclipse'
-apply plugin: 'idea'
+apply plugin: "eclipse"
+apply plugin: "idea"
 apply plugin: "org.grails.grails-web"
 apply plugin: "org.grails.grails-gsp"
+
+apply plugin: "com.jfrog.artifactory"
+apply plugin: "java"
+apply plugin: "maven-publish"
+apply plugin: "maven"
+
+group "io.ossim.omar.apps"
+version "${buildVersion}-${buildVersionTag}"
 
 ext {
   grailsVersion = project.grailsVersion
@@ -39,16 +50,14 @@ ext {
 assets {
   minifyJs = true
   minifyCss = true
-  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
-  //http://www.technologyscout.net/2015/07/adding-assets-in-grails-3/
   includes = ["fonts/*"]
-  excludes = ['**/*-debug.js', '**/*-deps.js', '**/*.gz', '**/*.txt', '**/*.less', '**/*.html', '**/i18n/**', '**/',
-              '.grunt/**', '**/locale/**', 'webjars/jquery/2.1.4/src/intro.js', 'webjars/jquery/2.1.4/src/outro.js']
+  excludes = ["**/*-debug.js", "**/*-deps.js", "**/*.gz", "**/*.txt", "**/*.less", "**/*.html", "**/i18n/**", "**/",
+              ".grunt/**", "**/locale/**", "webjars/jquery/2.1.4/src/intro.js", "webjars/jquery/2.1.4/src/outro.js"]
 }
 
 repositories {
   mavenLocal()
-  maven { url "${System.env.OSSIM_MAVEN_PROXY}" }
+  maven { url "${ossimMavenProxy}" }
   maven { url "https://repo.grails.org/grails/core" }
 }
 
@@ -60,18 +69,16 @@ dependencyManagement {
 }
 
 dependencies {
-      compile project(':omar-oms')
-      compile project(':omar-geoscript')
-
-  compile 'org.webjars.bower:bootstrap:3.3.5'
-  compile 'org.webjars:bootswatch-superhero:3.3.5'
-
+  compile(group: "io.ossim.omar.plugins", name: "omar-oms", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile(group: "io.ossim.omar.plugins", name: "omar-geoscript", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile "org.webjars.bower:bootstrap:3.3.5"
+  compile "org.webjars:bootswatch-superhero:3.3.5"
 
   compile "org.springframework.boot:spring-boot-starter-logging"
   compile "org.springframework.boot:spring-boot-starter-actuator"
   compile "org.springframework.boot:spring-boot-autoconfigure"
   compile "org.springframework.boot:spring-boot-starter-tomcat"
-  compile "org.grails:grails-dependencies"
+  compile "org.grails:grails-dependencies:3.2.7"
   compile "org.grails:grails-web-boot"
 
   compile "org.grails.plugins:hibernate"
@@ -86,11 +93,42 @@ dependencies {
   testCompile "org.grails.plugins:geb"
 
   // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
-  testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
+  testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0"
 
   console "org.grails:grails-console"
 }
 
 task wrapper( type: Wrapper ) {
   gradleVersion = gradleWrapperVersion
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+    }
+  }
+}
+
+artifactory {
+  contextUrl = "${artifactoryContextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+  publish {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}-local"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
+    }
+    defaults{
+      publications("mavenJava")
+    }
+  }
+  resolve {
+    repository {
+      repoKey = "libs-${buildVersionTag.toLowerCase()}"
+      username = "${artifactoryUser}"
+      password = "${artifactoryPassword}"
+      maven = true
+    }
+  }
 }

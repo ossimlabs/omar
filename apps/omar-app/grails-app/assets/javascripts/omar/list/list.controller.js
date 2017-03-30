@@ -46,6 +46,7 @@
                 'filename=' + properties.filename + '&' +
                 'height=' + properties.height + '&' +
                 'histOp=' + defaults.histOp + '&' +
+                'histCenterTile=' + defaults.histCenterTile + '&' +
                 'imageId=' + properties.id + '&' +
                 'numOfBands=' + properties.number_of_bands + '&' +
                 'resamplerFilter=' + defaults.resamplerFilter + '&' +
@@ -146,6 +147,7 @@
               brightness: 0,
               contrast: 1,
               histOp: 'auto-minmax',
+              histCenterTile: 'true',
               resamplerFilter: 'bilinear',
               sharpenMode: 'none'
         };
@@ -366,6 +368,7 @@
                 'filename=' + properties.filename + '&' +
                 'height=' + properties.height + '&' +
                 'histOp=' + defaults.histOp + '&' +
+                'histCenterTile=' + defaults.histCenterTile + '&' +
                 'imageId=' + properties.id + '&' +
                 'numOfBands=' + properties.number_of_bands + '&' +
                 'resamplerFilter=' + defaults.resamplerFilter + '&' +

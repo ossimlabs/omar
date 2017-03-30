@@ -143,13 +143,6 @@ function getSearchParams() {
 
 	searchObject.filter = tlv.filter || null;
 
-	var libraries = getSelectedLibraries();
-	if (libraries.length == 0) {
-		$("#searchDialog").modal("show");
-		return { error: "Please select a library, thanks." };
-	}
-	searchObject.libraries = libraries;
-
 	var location = getLocation();
 	if (!location) { return { error: "Sorry, we couldn't interpret that location. :(" }; }
 	else { searchObject.location = location; }
@@ -180,20 +173,6 @@ function getSearchParams() {
 
 
 	return searchObject;
-}
-
-function getSelectedLibraries() {
-	var libraries = [];
-	$.each(
-		tlv.availableResources.libraries,
-		function(i, x) {
-			var checkbox = $("#searchLibrary" + x.capitalize() + "Checkbox");
-			if (checkbox.is(":checked")) { libraries.push(x); }
-		}
-	);
-
-
-	return libraries;
 }
 
 function getSelectedSensors() {
@@ -236,18 +215,6 @@ function initializeEndDateTimePicker() {
 	if (tlv.endMinute) { endDate.setMinutes(tlv.endMinute); }
 	if (tlv.endSecond) { endDate.setSeconds(tlv.endSecond); }
 	endDateTimePicker.data("DateTimePicker").date(endDate);
-}
-
-function initializeLibraryCheckboxes() {
-	if (tlv.libraries) {
-		$.each(
-			tlv.libraries.split(","),
-			function(i, x) {
-				var checkbox = $("#searchLibrary" + x.capitalize() + "Checkbox");
-				checkbox.trigger("click");
-			}
-		);
-	}
 }
 
 function initializeLocationInput() {
@@ -355,7 +322,6 @@ function setupSearchMenuDialog() {
 	initializeMinNiirsInput();
 	initializeMaxCloudCoverInput();
 	initializeMaxResultsSelect();
-	initializeLibraryCheckboxes();
 
 	initializeLocationInput();
 }

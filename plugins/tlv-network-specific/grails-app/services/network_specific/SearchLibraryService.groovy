@@ -15,18 +15,9 @@ class SearchLibraryService {
 
 	def serviceMethod(params) {
 		def results = [
-			layers: [],
+			layers: searchO2Service.searchLibrary( params ),
 			location: params.location.collect({ it as Double })
 		]
-
-		params.libraries.each() {
-			switch (it) {
-				case "o2":
-					results.layers += searchO2Service.searchLibrary(params)	
-					break
-			}
-		}
-
 
 		if (results.layers.size() > params.maxResults) {
 			def howManyToDrop = results.layers.size() - params.maxResults

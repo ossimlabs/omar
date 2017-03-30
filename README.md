@@ -4,6 +4,42 @@ Online guide can be found at [http://ossimlabs.s3-website-us-east-1.amazonaws.co
 
 ## Binary Distribution and Setup
 
-For a quick example on how to configure and setup the new OMAR web services please visit the repo found here [https://github.com/ossimlabs/ossim-vagrant](https://github.com/ossimlabs/ossim-vagrant). The vagrant setup uses salt to provision each web service and is a good example on how to setup a default configuration on a CentOS distribution.  
+For a quick example on how to configure and setup the new OMAR web services please visit the repo found here [https://github.com/ossimlabs/ossim-vagrant](https://github.com/ossimlabs/ossim-vagrant). The vagrant setup uses salt to provision each web service and is a good example on how to setup a default configuration on a CentOS distribution.
 
+Git clone the omar-common repo.
+```
+  git clone https://github.com/ossimlabs/omar-common.git
+```
 
+## Require environment variables
+- OMAR_COMMON_PROPERTIES
+- OPENSHIFT_USERNAME
+- OPENSHIFT_PASSWORD
+- ARTIFACTORY_USER
+- ARTIFACTORY_PASSWORD
+
+### Example:
+```
+  export OMAR_COMMON_PROPERTIES=~/omar-common/omar-common-properties.gradle
+
+```
+
+## Install plugins in the following order
+
+1. omar-core
+2. omar-hibernate-spatial
+3. omar-ingest-metrics
+4. omar-openlayers
+5. omar-geoscript
+6. omar-oms
+7. omar-stager
+8. omar-wms
+
+All other plugins can be installed in any order.
+
+Install plugins by going into the plugin's directory and run the command
+
+```
+ gradlew install
+
+```

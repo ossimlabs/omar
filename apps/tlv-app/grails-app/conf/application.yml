@@ -4,7 +4,7 @@ baseLayers:
         name: OSM Basic
         styles:
         type: wms
-        url: https://mapproxy.dev.o2.radiantbluecloud.com/wms
+        url: http://dev.o2.radiantbluecloud.com/service-proxy/wmsProxy
         visible: false
     osmBright:
         layers: o2-basemap-bright
@@ -12,7 +12,7 @@ baseLayers:
         styles:
         type: wms
         visible: true
-        url: https://mapproxy.dev.o2.radiantbluecloud.com/wms
+        url: http://dev.o2.radiantbluecloud.com/service-proxy/wmsProxy
 
 baseUrl: http://localhost:8080
 

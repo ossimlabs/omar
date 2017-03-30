@@ -52,7 +52,6 @@ class ChipperUtil
         {
           opts.hist_op = stylesObj.histOp
         }
-
       }
       catch(e)
       {

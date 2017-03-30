@@ -72,7 +72,7 @@ function syncImageProperties() {
 		function( i, x ) {
 			var select = $( "#" + x + "GunSelect" );
 			select.html("");
-			for ( var bandNumber = 1; bandNumber <= layer.numberOfBands; bandNumber++) {
+			for ( var bandNumber = 1; bandNumber <= layer.numberOfBands; bandNumber++ ) {
 				select.append( "<option value = " + bandNumber + " >" + bandNumber + "</option>");
 			}
 		}
@@ -88,7 +88,7 @@ function syncImageProperties() {
 		$.each(
 			[ "red", "green", "blue" ],
 			function( i, x ) {
-				$( "#" + x + "GunSelect option[value=" + bands[i] + "]" ).prop( "selected", true );
+				$( "#" + x + "GunSelect option[value=" + bands[ i ] + "]" ).prop( "selected", true );
 			}
 		);
 	}
@@ -96,38 +96,43 @@ function syncImageProperties() {
 	$.each(
 		[ "brightness", "contrast" ],
 		function( i, x ) {
-			$( "#" + x + "SliderInput" ).slider( "setValue", styles[x] * 100 );
-			$( "#" + x + "ValueSpan" ).html( styles[x] );
+			$( "#" + x + "SliderInput" ).slider( "setValue", styles[ x ] * 100 );
+			$( "#" + x + "ValueSpan" ).html( styles[ x ] );
 		}
 	);
-	$( "#opacitySliderInput" ).slider( "setValue", layer.mapLayer.getSource().getParams().OPACITY * 100 );
-	$( "#opacityValueSpan" ).html( layer.mapLayer.getSource().getParams().OPACITY );
+	$( "#opacitySliderInput" ).slider( "setValue", layer.opacity * 100 );
+	$( "#opacityValueSpan" ).html( layer.opacity );
 
 	$( "#dynamicRangeSelect option[value='" + styles.hist_op + "']" ).prop( "selected", true );
+	$( "#dynamicRangeRegionSelect option[value='" + styles["hist_center"] + "']" ).prop( "selected", true );
 	$( "#interpolationSelect option[value='" + styles.resampler_filter + "']" ).prop( "selected", true );
 	$( "#sharpenModeSelect option[value='" + styles.sharpen_mode + "']" ).prop( "selected", true );
 }
 
 function updateImageProperties( refreshMap ) {
-	var bands = $( "#selectBandsMethodSelect" ).val();
- 	if ( bands != "default" ) {
-		var red = $( "#redGunSelect" ).val();
-		var green = $( "#greenGunSelect" ).val();
-		var blue = $( "#blueGunSelect" ).val();
-		bands = [ red, green, blue ].join( "," );
+	var layer = tlv.layers[ tlv.currentLayer ];
+
+	layer.opacity = $( "#opacitySliderInput" ).slider( "getValue" ) / 100;
+
+	if ( refreshMap ) {
+		var bands = $( "#selectBandsMethodSelect" ).val();
+ 		if ( bands != "default" ) {
+			var red = $( "#redGunSelect" ).val();
+			var green = $( "#greenGunSelect" ).val();
+			var blue = $( "#blueGunSelect" ).val();
+			bands = [ red, green, blue ].join( "," );
+		}
+
+		layer.mapLayer.getSource().updateParams({
+			STYLES: JSON.stringify({
+				bands: bands,
+				brightness: $( "#brightnessSliderInput" ).slider( "getValue" ) / 100,
+				contrast: $( "#contrastSliderInput" ).slider( "getValue" ) / 100,
+				hist_op: $( "#dynamicRangeSelect" ).val(),
+				"hist_center": $( "#dynamicRangeRegionSelect" ).val(),
+				resampler_filter: $( "#interpolationSelect" ).val(),
+				sharpen_mode: $( "#sharpenModeSelect" ).val()
+			})
+		});
 	}
-
-	tlv.layers[tlv.currentLayer].mapLayer.getSource().updateParams({
-		OPACITY: $( "#opacitySliderInput" ).slider( "getValue" ) / 100,
-		STYLES: JSON.stringify({
-			bands: bands,
-			brightness: $( "#brightnessSliderInput" ).slider( "getValue" ) / 100,
-			contrast: $( "#contrastSliderInput" ).slider( "getValue" ) / 100,
-			hist_op: $( "#dynamicRangeSelect" ).val(),
-			resampler_filter: $( "#interpolationSelect" ).val(),
-			sharpen_mode: $( "#sharpenModeSelect" ).val()
-		})
-	});
-
-	if (refreshMap ) { tlv.map.renderSync(); }
 }

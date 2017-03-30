@@ -36,6 +36,6 @@
 </div>
 
 <g:javascript>
-	$("#contextMenuDialog").on("hidden.bs.modal", function (event) { hideDialog("contextMenuDialog"); });
-	$("#contextMenuDialog").on("shown.bs.modal", function (event) { displayDialog("contextMenuDialog"); });
+	$( "#contextMenuDialog" ).on( "hidden.bs.modal", function (event) { hideDialog( "contextMenuDialog" ); } );
+	$( "#contextMenuDialog" ).on( "shown.bs.modal", function (event) { displayDialog( "contextMenuDialog" ); } );
 </g:javascript>

@@ -13,8 +13,8 @@
 </div>
 
 <g:javascript>
-        $("#searchBookmarkDialog").on("hidden.bs.modal", function (event) { hideDialog("searchBookmarkDialog"); });
-        $("#searchBookmarkDialog").on("shown.bs.modal", function (event) { displayDialog("searchBookmarkDialog"); });
+        $( "#searchBookmarkDialog" ).on( "hidden.bs.modal", function (event) { hideDialog( "searchBookmarkDialog" ); } );
+        $( "#searchBookmarkDialog" ).on( "shown.bs.modal", function (event) { displayDialog( "searchBookmarkDialog" ); } );
 </g:javascript>
 
 <div class = "modal" id = "searchDialog" role = "dialog" tabindex = "-1">
@@ -54,10 +54,10 @@
 							<label class = "btn btn-primary" id = "searchSensorAllLabel" onchange = librarySensorCheck()>
 								<input id = "searchSensorAllCheckbox" type = "checkbox">ALL
 							</label>
-							<g:each in = "${params.availableResources.sensors}">
-								<label class = "btn btn-primary" id = "searchSensor${it.name.capitalize()}Label" title = "${it.description}">
-									<input id = "searchSensor${it.name.capitalize()}Checkbox" type = "checkbox">
-									${it.name.toUpperCase()}
+							<g:each in = "${ params.availableResources.sensors }">
+								<label class = "btn btn-primary" id = "searchSensor${ it.name.capitalize() }Label" title = "${ it.description }">
+									<input id = "searchSensor${ it.name.capitalize() }Checkbox" type = "checkbox">
+									${ it.name.toUpperCase() }
 								</label>
 							</g:each>
 						</div>
@@ -71,33 +71,22 @@
 
 					<label>Max. Results</label>
 					<select class = "form-control" id = "searchMaxResultsSelect">
-						<g:each in = "${[5, 10, 25, 50, 75, 100, 250, 500]}">
-							<option value = ${it}>${it}</option>
+						<g:each in = "${ [ 5, 10, 25, 50, 75, 100, 250, 500 ] }">
+							<option value = ${ it }>${ it }</option>
 						</g:each>
 					</select>
-
-					<label>Library</label>
-					<div class = "input-group">
-						<div class = "btn-group" data-toggle = "buttons">
-							<g:each in = "${params.availableResources.complete}">
-								<label class = "btn btn-primary" id = "searchLibrary${it.key.capitalize()}Label" onchange = librarySensorCheck()>
-									<input id = "searchLibrary${it.key.capitalize()}Checkbox" type = "checkbox"> ${it.value.label}
-								</label>
-							</g:each>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div class = "modal-footer">
 				<button type = "button" class = "btn btn-primary" data-dismiss = "modal" onclick = beginSearch()>Search</button>
 				<button type = "button" class = "btn btn-primary" data-dismiss = "modal" onclick = bookmarkSearchParams()>Bookmark It!</button>
-                                <button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
-                        </div>
+				<button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
+			</div>
 		</div>
 	</div>
 </div>
 
 <g:javascript>
-	$("#searchDialog").on("hidden.bs.modal", function (event) { hideDialog("searchDialog"); });
-	$("#searchDialog").on("shown.bs.modal", function (event) { displayDialog("searchDialog"); });
+	$( "#searchDialog" ).on( "hidden.bs.modal", function (event) { hideDialog( "searchDialog" ); } );
+	$( "#searchDialog" ).on( "shown.bs.modal", function (event) { displayDialog( "searchDialog" ); } );
 </g:javascript>

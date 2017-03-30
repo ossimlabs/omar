@@ -181,6 +181,11 @@ class ImageSpaceService
         {
           opts.bands = cmd.bands
         }
+
+        if ( cmd.histCenterTile ) {
+          opts.hist_center = cmd.histCenterTile?.toString()
+        }
+
         def hints = [
                 transparent: cmd.format == 'png',
                 width      : cmd.tileSize,
