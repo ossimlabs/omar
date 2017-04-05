@@ -11,10 +11,10 @@ Git clone the omar-common repo.
   git clone https://github.com/ossimlabs/omar-common.git
 ```
 
-## Require environment variable
+## Required environment variable
 - OMAR_COMMON_PROPERTIES
 
-## Optional environment variables (require by Jenkins)
+## Optional environment variables (required by Jenkins)
 - OPENSHIFT_USERNAME
 - OPENSHIFT_PASSWORD
 - ARTIFACTORY_USER
