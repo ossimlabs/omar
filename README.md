@@ -11,8 +11,12 @@ Git clone the omar-common repo.
   git clone https://github.com/ossimlabs/omar-common.git
 ```
 
-## Require environment variables
+## Required environment variable
 - OMAR_COMMON_PROPERTIES
+
+## Optional environment variables
+### required by Jenkins or a local Artifactory or a local Openshift
+
 - OPENSHIFT_USERNAME
 - OPENSHIFT_PASSWORD
 - ARTIFACTORY_USER
@@ -40,6 +44,6 @@ All other plugins can be installed in any order.
 Install plugins by going into the plugin's directory and run the command
 
 ```
- gradlew install
+ ./gradlew clean install
 
 ```
