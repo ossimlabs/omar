@@ -14,7 +14,7 @@ Git clone the omar-common repo.
 ## Require environment variable
 - OMAR_COMMON_PROPERTIES
 
-## Optional environment variable (require by Jenkins)
+## Optional environment variables (require by Jenkins)
 - OPENSHIFT_USERNAME
 - OPENSHIFT_PASSWORD
 - ARTIFACTORY_USER
