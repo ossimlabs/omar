@@ -1,6 +1,6 @@
 # Welcome to OMAR suite of Web Services
 
-Online guide can be found at [http://ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs](http://ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs).   This is a temporary location for this is the documentation generated for the dev branch distribution and is updated on any change.  In the future we will have webhosting for versioned docuementation
+Online guide can be found at [http://ossimlabs.s3-website-us-east-1.amazonaws.com/omar-docs-dev/](http://ossimlabs.s3-website-us-east-1.amazonaws.com/omar-docs-dev/).   This is a temporary location for this is the documentation generated for the dev branch distribution and is updated on any change.  In the future we will have webhosting for versioned docuementation
 
 ## Binary Distribution and Setup
 
