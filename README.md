@@ -1,6 +1,6 @@
 # Welcome to OMAR suite of Web Services
 
-Online guide can be found at [http://ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs](http://ossimlabs.s3-website-us-east-1.amazonaws.com/o2/docs).   This is a temporary location for this is the documentation generated for the dev branch distribution and is updated on any change.  In the future we will have webhosting for versioned docuementation
+Online guide can be found at [http://ossimlabs.s3-website-us-east-1.amazonaws.com/omar-docs-dev/](http://ossimlabs.s3-website-us-east-1.amazonaws.com/omar-docs-dev/).   This is a temporary location for this is the documentation generated for the dev branch distribution and is updated on any change.  In the future we will have webhosting for versioned docuementation
 
 ## Binary Distribution and Setup
 
@@ -11,8 +11,12 @@ Git clone the omar-common repo.
   git clone https://github.com/ossimlabs/omar-common.git
 ```
 
-## Require environment variables
+## Required environment variable
 - OMAR_COMMON_PROPERTIES
+
+## Optional environment variables
+### required by Jenkins or a local Artifactory or a local Openshift
+
 - OPENSHIFT_USERNAME
 - OPENSHIFT_PASSWORD
 - ARTIFACTORY_USER
@@ -40,6 +44,6 @@ All other plugins can be installed in any order.
 Install plugins by going into the plugin's directory and run the command
 
 ```
- gradlew install
+ ./gradlew clean install
 
 ```
