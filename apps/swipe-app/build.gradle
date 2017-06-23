@@ -64,7 +64,7 @@ dependencyManagement {
 
 dependencies {
   compile(group: "io.ossim.omar.plugins", name: "omar-openlayers", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
-  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.1.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-hibernate-spatial", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile "org.grails.plugins:hibernate5"
   compile "org.hibernate:hibernate-core:5.0.10.Final"

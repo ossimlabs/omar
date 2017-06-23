@@ -58,7 +58,7 @@ dependencyManagement {
 }
 
 dependencies {
-  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.1.0-${buildVersionTag}", changing: jarArtifactsChanging)
 
   compile( "org.geoscript:geoscript-groovy:1.7.0" ) {
     exclude module: "ehcache"
