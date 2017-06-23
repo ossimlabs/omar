@@ -66,7 +66,7 @@ dependencyManagement {
 }
 
 dependencies {
-  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.1.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-hibernate-spatial", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-raster", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-video", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
@@ -75,7 +75,7 @@ dependencies {
   compile(group: "io.ossim.omar.plugins", name: "omar-wms", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-wmts", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-mensa", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
-  compile(group: "io.ossim.omar.plugins", name: "omar-stager", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile(group: "io.ossim.omar.plugins", name: "omar-stager", version: "1.1.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-jpip", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-download", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-superoverlay", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)

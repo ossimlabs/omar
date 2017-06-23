@@ -54,7 +54,7 @@ dependencyManagement {
 }
 
 dependencies {
-  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
+  compile(group: "io.ossim.omar.plugins", name: "omar-core", version: "1.1.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-hibernate-spatial", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile(group: "io.ossim.omar.plugins", name: "omar-ingest-metrics", version: "1.0.0-${buildVersionTag}", changing: jarArtifactsChanging)
   compile "org.springframework.boot:spring-boot-starter-logging"
