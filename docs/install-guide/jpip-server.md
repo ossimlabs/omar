@@ -50,7 +50,7 @@ export JPIP_PORT=8080
 export JPIP_ADDRESS=192.168.2.108
 export JPIP_CONNECTION_THREADS=40
 export JPIP_MAX_RATE=40000000
-pushd `dirname $0` > /dev/null
+pushd `dirname ${BASH_SOURCE[0]}` > /dev/null
 export SCRIPT_DIR=`pwd -P`
 popd >/dev/null
 

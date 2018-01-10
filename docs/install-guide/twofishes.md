@@ -36,7 +36,7 @@ if [ "$PORT" == "" ]; then
 	export PORT=8080
 fi
 
-pushd `dirname $0` > /dev/null
+pushd `dirname ${BASH_SOURCE[0]}` > /dev/null
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0/
 export PATH=$JAVA_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$JAVA_HOME/lib:$LD_LIBRARY_PATH
