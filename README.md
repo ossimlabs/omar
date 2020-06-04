@@ -1,3 +1,28 @@
+# ARCHIVE ARCHIVE ARCHIVE
+# ARCHIVE ARCHIVE ARCHIVE
+# ARCHIVE ARCHIVE ARCHIVE
+# ARCHIVE ARCHIVE ARCHIVE
+This repository is in place for archival purposes only. This source is no longer maintained. All supported OMAR applications have been migrated to individual repositories. A good place to start would be:
+
+https://github.com/ossimlabs/ossim
+https://github.com/ossimlabs/omar-oms
+https://github.com/ossimlabs/omar-geoscript
+https://github.com/ossimlabs/omar-wfs
+https://github.com/ossimlabs/omar-wms
+
+# ARCHIVE ARCHIVE ARCHIVE
+# ARCHIVE ARCHIVE ARCHIVE
+# ARCHIVE ARCHIVE ARCHIVE
+# ARCHIVE ARCHIVE ARCHIVE
+
+
+
+
+
+
+
+
+
 # Welcome to OMAR suite of Web Services
 
 Online guide can be found at [https://omar-dev.ossim.io/omar-docs](https://omar-dev.ossim.io/omar-docs).   This is a temporary location for this is the documentation generated for the dev branch distribution and is updated on any change.  In the future we will have webhosting for versioned docuementation
