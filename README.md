@@ -4,11 +4,11 @@
 # ARCHIVE ARCHIVE ARCHIVE
 This repository is in place for archival purposes only. This source is no longer maintained. All supported OMAR applications have been migrated to individual repositories. A good place to start would be:
 
-https://github.com/ossimlabs/ossim
-https://github.com/ossimlabs/omar-oms
-https://github.com/ossimlabs/omar-geoscript
-https://github.com/ossimlabs/omar-wfs
-https://github.com/ossimlabs/omar-wms
+https://github.com/ossimlabs/ossim <br />
+https://github.com/ossimlabs/omar-oms <br />
+https://github.com/ossimlabs/omar-geoscript <br />
+https://github.com/ossimlabs/omar-wfs <br />
+https://github.com/ossimlabs/omar-wms <br />
 
 # ARCHIVE ARCHIVE ARCHIVE
 # ARCHIVE ARCHIVE ARCHIVE
